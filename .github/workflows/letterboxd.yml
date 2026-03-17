@@ -1,0 +1,61 @@
+name: Fetch Letterboxd Films
+
+on:
+  schedule:
+    - cron: '30 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch and parse Letterboxd RSS
+        run: |
+          pip install feedparser --break-system-packages
+
+          python3 << 'EOF'
+          import feedparser
+          import json
+          import re
+
+          feed = feedparser.parse("https://letterboxd.com/valleyalleyg/rss/")
+
+          films = []
+          for entry in feed.entries[:4]:
+              rating = None
+              if hasattr(entry, 'letterboxd_memberrating'):
+                  rating = float(entry.letterboxd_memberrating)
+
+              poster = None
+              if entry.get('summary'):
+                  img_match = re.search(r'<img\s+src="([^"]+)"', entry.summary)
+                  if img_match:
+                      poster = img_match.group(1)
+
+              title = entry.get('letterboxd_filmtitle', entry.title)
+              year = entry.get('letterboxd_filmyear', '')
+
+              films.append({
+                  "title": title,
+                  "year": str(year),
+                  "rating": rating,
+                  "poster": poster,
+                  "url": entry.link
+              })
+
+          with open("letterboxd.json", "w") as f:
+              json.dump(films, f, indent=2)
+
+          print(json.dumps(films, indent=2))
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add letterboxd.json
+          git diff --cached --quiet || (git commit -m "Update Letterboxd films" && git push)
