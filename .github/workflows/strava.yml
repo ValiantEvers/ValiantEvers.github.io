@@ -1,0 +1,61 @@
+name: Fetch Strava Activity
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+  workflow_dispatch:        # Manual trigger
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest Strava activity
+        run: |
+          # Get fresh access token using refresh token
+          TOKEN_RESPONSE=$(curl -s -X POST https://www.strava.com/oauth/token \
+            -d client_id=${{ secrets.STRAVA_CLIENT_ID }} \
+            -d client_secret=${{ secrets.STRAVA_CLIENT_SECRET }} \
+            -d refresh_token=${{ secrets.STRAVA_REFRESH_TOKEN }} \
+            -d grant_type=refresh_token)
+
+          ACCESS_TOKEN=$(echo $TOKEN_RESPONSE | jq -r '.access_token')
+
+          if [ "$ACCESS_TOKEN" = "null" ] || [ -z "$ACCESS_TOKEN" ]; then
+            echo "Failed to get access token"
+            exit 1
+          fi
+
+          # Fetch latest activity
+          ACTIVITY=$(curl -s "https://www.strava.com/api/v3/athlete/activities?per_page=1" \
+            -H "Authorization: Bearer $ACCESS_TOKEN")
+
+          # Extract relevant fields and save as clean JSON
+          echo $ACTIVITY | jq '[.[] | {
+            name: .name,
+            type: .type,
+            sport_type: .sport_type,
+            distance: (.distance / 1000 * 100 | round / 100),
+            moving_time: .moving_time,
+            elapsed_time: .elapsed_time,
+            total_elevation_gain: .total_elevation_gain,
+            start_date: .start_date_local,
+            average_speed: (.average_speed * 3.6 * 100 | round / 100),
+            max_speed: (.max_speed * 3.6 * 100 | round / 100),
+            average_heartrate: .average_heartrate,
+            max_heartrate: .max_heartrate,
+            suffer_score: .suffer_score,
+            id: .id
+          }][0]' > strava.json
+
+          cat strava.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add strava.json
+          git diff --cached --quiet || (git commit -m "Update Strava activity" && git push)
