@@ -1,16 +1,16 @@
 {
-  "name": "Afternoon Run",
+  "name": "Intervaller med bbl🏃",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 5.12,
-  "moving_time": 1560,
-  "elapsed_time": 1620,
-  "total_elevation_gain": 42,
-  "start_date": "2026-03-16T16:30:00Z",
-  "average_speed": 11.82,
-  "max_speed": 14.5,
-  "average_heartrate": 155,
-  "max_heartrate": 178,
-  "suffer_score": 67,
-  "id": 0
+  "distance": 6.84,
+  "moving_time": 2209,
+  "elapsed_time": 2375,
+  "total_elevation_gain": 37.0,
+  "start_date": "2026-03-16T18:05:54Z",
+  "average_speed": 11.16,
+  "max_speed": 19.15,
+  "average_heartrate": 168.5,
+  "max_heartrate": 198.0,
+  "suffer_score": null,
+  "id": 17744586741
 }
