@@ -1,16 +1,16 @@
 {
-  "name": "Social run m RB + Z2 work på Voldsløkka",
+  "name": "Lunch Run",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 13.28,
-  "moving_time": 4735,
-  "elapsed_time": 6188,
-  "total_elevation_gain": 163.0,
-  "start_date": "2026-03-18T17:14:39Z",
-  "average_speed": 10.09,
-  "max_speed": 18,
-  "average_heartrate": 171.0,
-  "max_heartrate": 188.0,
+  "distance": 8.07,
+  "moving_time": 2913,
+  "elapsed_time": 2916,
+  "total_elevation_gain": 113.0,
+  "start_date": "2026-03-21T12:36:09Z",
+  "average_speed": 9.98,
+  "max_speed": 13.75,
+  "average_heartrate": 157.1,
+  "max_heartrate": 169.0,
   "suffer_score": null,
-  "id": 17769760238
+  "id": 17802139137
 }
