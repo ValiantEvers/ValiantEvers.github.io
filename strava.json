@@ -1,16 +1,16 @@
 {
-  "name": "Lunch Run",
+  "name": "Intervaller med bbl🏃",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 8.07,
-  "moving_time": 2913,
-  "elapsed_time": 2916,
-  "total_elevation_gain": 113.0,
-  "start_date": "2026-03-21T12:36:09Z",
-  "average_speed": 9.98,
-  "max_speed": 13.75,
-  "average_heartrate": 157.1,
-  "max_heartrate": 169.0,
+  "distance": 8.27,
+  "moving_time": 2806,
+  "elapsed_time": 3047,
+  "total_elevation_gain": 76.0,
+  "start_date": "2026-03-23T18:03:56Z",
+  "average_speed": 10.61,
+  "max_speed": 17.57,
+  "average_heartrate": 171.9,
+  "max_heartrate": 192.0,
   "suffer_score": null,
-  "id": 17802139137
+  "id": 17830753882
 }
