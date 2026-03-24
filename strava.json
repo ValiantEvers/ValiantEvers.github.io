@@ -1,16 +1,16 @@
 {
-  "name": "Intervaller med bbl🏃",
+  "name": "Zone 2 work",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 8.27,
-  "moving_time": 2806,
-  "elapsed_time": 3047,
-  "total_elevation_gain": 76.0,
-  "start_date": "2026-03-23T18:03:56Z",
-  "average_speed": 10.61,
-  "max_speed": 17.57,
-  "average_heartrate": 171.9,
-  "max_heartrate": 192.0,
+  "distance": 7.7,
+  "moving_time": 2839,
+  "elapsed_time": 2851,
+  "total_elevation_gain": 108.0,
+  "start_date": "2026-03-24T16:32:22Z",
+  "average_speed": 9.76,
+  "max_speed": 16.13,
+  "average_heartrate": 159.6,
+  "max_heartrate": 172.0,
   "suffer_score": null,
-  "id": 17830753882
+  "id": 17842212265
 }
