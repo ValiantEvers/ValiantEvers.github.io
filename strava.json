@@ -1,16 +1,16 @@
 {
-  "name": "Zone 2 work",
+  "name": "God påskeferie!",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 7.7,
-  "moving_time": 2839,
-  "elapsed_time": 2851,
-  "total_elevation_gain": 108.0,
-  "start_date": "2026-03-24T16:32:22Z",
-  "average_speed": 9.76,
-  "max_speed": 16.13,
-  "average_heartrate": 159.6,
-  "max_heartrate": 172.0,
+  "distance": 5.6,
+  "moving_time": 1859,
+  "elapsed_time": 1859,
+  "total_elevation_gain": 112.0,
+  "start_date": "2026-03-30T17:15:31Z",
+  "average_speed": 10.84,
+  "max_speed": 19.44,
+  "average_heartrate": 167.4,
+  "max_heartrate": 194.0,
   "suffer_score": null,
-  "id": 17842212265
+  "id": 17913634587
 }
