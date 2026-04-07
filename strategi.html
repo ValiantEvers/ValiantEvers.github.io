@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobbstrategi | Valiant Evers</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2236;--border:rgba(225,231,255,.06);--border-h:rgba(105,150,255,.2);--text:#e1e7ff;--dim:rgba(225,231,255,.5);--faint:rgba(225,231,255,.25);--accent:#6996ff;--accent2:#aabeff;--accent-g:rgba(105,150,255,.08);--green:#34d399;--green-bg:rgba(52,211,153,.06);--green-b:rgba(52,211,153,.15);--yellow:#f0c040;--yellow-bg:rgba(240,192,64,.06);--yellow-b:rgba(240,192,64,.15);--red:#ff6b6b;--red-bg:rgba(255,107,107,.06);--red-b:rgba(255,107,107,.15);--purple:#a78bfa;--purple-bg:rgba(167,139,250,.06);--r:12px;--rs:8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent2)}
+.wrap{max-width:800px;margin:0 auto;padding:0 20px 80px}
+
+/* ── NAV ── */
+.top-bar{display:flex;justify-content:space-between;align-items:center;padding:36px 0 32px;flex-wrap:wrap;gap:12px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--faint);font-size:.88rem;transition:color .3s}
+.back:hover{color:var(--accent)}
+.back svg{width:14px;height:14px}
+h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.5px}
+.sub{color:var(--dim);font-size:.9rem;font-weight:300;margin-bottom:32px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:3px;background:var(--surface);border-radius:10px;padding:3px;margin-bottom:28px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{background:transparent;border:1px solid transparent;border-radius:8px;padding:8px 16px;font-family:inherit;font-size:.82rem;font-weight:500;color:var(--faint);cursor:pointer;white-space:nowrap;transition:all .2s}
+.tab:hover{color:var(--dim)}
+.tab.on{background:var(--surface2);border-color:rgba(105,150,255,.12);color:var(--text)}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:8px;transition:border-color .2s}
+.card:hover{border-color:var(--border-h)}
+.card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card-t{font-weight:600;font-size:.95rem}
+.card-s{font-size:.85rem;color:var(--accent2);margin-top:1px}
+.card-m{display:flex;flex-wrap:wrap;gap:12px;font-size:.78rem;color:var(--faint);margin-top:6px}
+.card-d{font-size:.82rem;color:var(--dim);margin-top:8px;line-height:1.5}
+
+/* ── BADGES ── */
+.badge{font-size:.72rem;font-weight:500;padding:3px 10px;border-radius:5px;white-space:nowrap;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.b-green{background:var(--green-bg);color:var(--green);border-color:var(--green-b)}
+.b-yellow{background:var(--yellow-bg);color:var(--yellow);border-color:var(--yellow-b)}
+.b-red{background:var(--red-bg);color:var(--red);border-color:var(--red-b)}
+.b-blue{background:var(--accent-g);color:var(--accent);border-color:rgba(105,150,255,.15)}
+.b-purple{background:var(--purple-bg);color:var(--purple);border-color:rgba(167,139,250,.15)}
+.b-gray{background:rgba(107,114,128,.08);color:#9ca3af;border-color:rgba(107,114,128,.15)}
+
+/* ── PROGRESS ── */
+.prog-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:20px}
+.prog-top{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:6px}
+.prog-bar{background:rgba(225,231,255,.05);border-radius:6px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:6px;transition:width .4s ease}
+
+/* ── SECTION HEADERS ── */
+.sh{font-size:.7rem;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.6px;margin:24px 0 10px 2px}
+.sh:first-child{margin-top:0}
+
+/* ── CHECK ROW ── */
+.check{display:flex;align-items:center;gap:11px;padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:4px;cursor:pointer;transition:all .2s;user-select:none}
+.check.done{background:var(--green-bg);border-color:var(--green-b)}
+.check .box{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(225,231,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--bg);font-weight:700;transition:all .2s;flex-shrink:0}
+.check.done .box{background:var(--green);border-color:var(--green)}
+.check .name{flex:1;font-size:.88rem;font-weight:500;transition:all .2s}
+.check.done .name{color:var(--faint);text-decoration:line-through}
+.check .freq{font-size:.72rem;color:var(--faint)}
+.check .open{font-size:.72rem;color:var(--accent);padding:3px 9px;border:1px solid rgba(105,150,255,.15);border-radius:5px;text-decoration:none;transition:all .2s;opacity:.7}
+.check .open:hover{opacity:1;border-color:var(--accent)}
+
+/* ── FORM ── */
+.inp{background:rgba(225,231,255,.04);border:1px solid rgba(225,231,255,.1);border-radius:8px;padding:10px 14px;font-family:inherit;font-size:.88rem;color:var(--text);outline:none;width:100%;transition:border-color .2s}
+.inp:focus{border-color:var(--accent)}
+.inp::placeholder{color:var(--faint)}
+select.inp{color-scheme:dark;appearance:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{border:none;border-radius:8px;padding:8px 20px;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{opacity:.85}
+.btn-s{background:transparent;border:1px solid rgba(225,231,255,.1);color:var(--dim)}
+.btn-ghost{background:transparent;border:1px dashed rgba(105,150,255,.2);color:var(--accent);width:100%;padding:13px;font-size:.88rem;border-radius:10px}
+.btn-ghost:hover{background:var(--accent-g)}
+.del-btn{background:none;border:none;color:var(--faint);cursor:pointer;font-size:.9rem;padding:4px;opacity:.4;transition:opacity .2s}
+.del-btn:hover{opacity:1;color:var(--red)}
+
+/* ── TIMELINE ── */
+.tl-row{display:flex;gap:14px;margin-bottom:4px}
+.tl-week{width:60px;flex-shrink:0;text-align:right;padding-top:14px;font-size:.78rem;font-weight:600;color:var(--accent)}
+.tl-card{flex:1}
+.tl-now{color:var(--green)}
+
+/* ── STATUS PICKER ── */
+.sp{position:relative;display:inline-block}
+.sp-menu{position:absolute;right:0;top:100%;margin-top:4px;background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:4px;z-index:100;min-width:120px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.sp-opt{display:block;width:100%;text-align:left;background:none;border:none;padding:6px 10px;font-family:inherit;font-size:.78rem;color:var(--text);cursor:pointer;border-radius:5px;transition:background .15s}
+.sp-opt:hover{background:rgba(225,231,255,.06)}
+
+/* ── FILTER CHIPS ── */
+.chips{display:flex;gap:5px;margin-bottom:18px;flex-wrap:wrap}
+.chip{background:transparent;border:1px solid var(--border);border-radius:8px;padding:4px 11px;font-family:inherit;font-size:.76rem;color:var(--faint);cursor:pointer;transition:all .2s}
+.chip:hover{color:var(--dim)}
+.chip.on{background:var(--accent-g);border-color:rgba(105,150,255,.15);color:var(--accent)}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:50px 20px;color:var(--faint)}
+.empty .ico{font-size:2rem;margin-bottom:8px}
+
+/* ── QUICK ACTIONS ── */
+.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.act{background:rgba(225,231,255,.03);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-family:inherit;font-size:.78rem;color:var(--dim);cursor:pointer;transition:all .2s}
+.act:hover{border-color:var(--border-h);color:var(--text)}
+
+/* ── STRATEGY ── */
+.strat-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px}
+.strat-block h3{font-size:.95rem;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.strat-block p,.strat-block li{font-size:.85rem;color:var(--dim);line-height:1.6}
+.strat-block ul{padding-left:18px;margin-top:6px}
+.strat-block li{margin-bottom:4px}
+.strat-day{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.strat-day:last-child{border:none}
+.strat-day .day{width:60px;flex-shrink:0;font-weight:600;font-size:.85rem;color:var(--accent)}
+.strat-day .task{font-size:.85rem;color:var(--dim)}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .grid2{grid-template-columns:1fr}
+  .tl-row{flex-direction:column;gap:4px}
+  .tl-week{width:auto;text-align:left;padding:0}
+  .card-h{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="gate" style="position:fixed;inset:0;z-index:10000;background:#0a0e1a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;font-family:'Outfit',sans-serif">
+  <div style="text-align:center;max-width:340px;padding:0 20px">
+    <div style="font-size:1.6rem;margin-bottom:4px">🔒</div>
+    <h2 style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:#e1e7ff;margin-bottom:4px">Privat side</h2>
+    <p style="font-size:.85rem;color:rgba(225,231,255,.4);margin-bottom:20px">Skriv inn passord for å fortsette</p>
+    <input type="password" id="gatePw" placeholder="Passord" autofocus style="width:100%;background:rgba(225,231,255,.04);border:1px solid rgba(225,231,255,.1);border-radius:10px;padding:12px 16px;font-family:inherit;font-size:1rem;color:#e1e7ff;outline:none;text-align:center;letter-spacing:2px">
+    <p id="gateErr" style="font-size:.8rem;color:#ff6b6b;margin-top:10px;opacity:0;transition:opacity .3s">Feil passord</p>
+  </div>
+</div>
+
+<script>
+// Password hash (SHA-256 of "valiant2026")
+// To change password: run in browser console:
+//   crypto.subtle.digest('SHA-256', new TextEncoder().encode('YOUR_NEW_PASSWORD'))
+//     .then(h => console.log(Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('')))
+// Then replace the hash below.
+var _PH='c54feb7386bfacf07093365ff4b3b72a2dc9c6367fc9598a291dd1f8f6b3be68';
+
+(function(){
+  // Check if already authed this session
+  if(sessionStorage.getItem('ve-auth')==='1'){document.getElementById('gate').style.display='none';return}
+  var inp=document.getElementById('gatePw');
+  var err=document.getElementById('gateErr');
+  inp.addEventListener('keydown',async function(e){
+    if(e.key!=='Enter')return;
+    var pw=inp.value;
+    var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+    var hash=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+    if(hash===_PH){
+      sessionStorage.setItem('ve-auth','1');
+      document.getElementById('gate').style.opacity='0';
+      document.getElementById('gate').style.transition='opacity .3s';
+      setTimeout(function(){document.getElementById('gate').style.display='none'},300);
+    }else{
+      err.style.opacity='1';
+      inp.value='';
+      inp.style.borderColor='#ff6b6b';
+      setTimeout(function(){inp.style.borderColor='rgba(225,231,255,.1)';err.style.opacity='0'},2000);
+    }
+  });
+})();
+</script>
+<div class="wrap">
+
+<div class="top-bar">
+  <a href="https://evers.no" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> evers.no</a>
+  <span style="font-size:.75rem;color:var(--faint)" id="lastSaved"></span>
+</div>
+
+<h1>Jobbstrategi</h1>
+<p class="sub">Kommandosentral — Wealth Management, Private Banking & Fund Sales</p>
+
+<div class="tabs" id="tabs">
+  <button class="tab on" data-tab="strategy">Strategi</button>
+  <button class="tab" data-tab="weekly">Ukesjekk</button>
+  <button class="tab" data-tab="apps">Søknader</button>
+  <button class="tab" data-tab="outreach">Outreach</button>
+  <button class="tab" data-tab="timeline">Tidsplan</button>
+</div>
+
+<!-- ═══════════════════════════════════ STRATEGY ═══════════════════════════════════ -->
+<section id="p-strategy">
+  <div class="strat-block">
+    <h3>🎯 Kjernestrategien</h3>
+    <p>Portalsøknader er supplement, ikke strategi. Mesteparten av WM/PB-rollene fylles gjennom nettverk. Masteroppgaven om norske privatinvestorer er din sterkeste inngang — bruk den som samtaleåpner.</p>
+  </div>
+
+  <div class="strat-block">
+    <h3>📅 Ukentlig system</h3>
+    <div class="strat-day"><span class="day">Mandag</span><span class="task">30 min: Sjekk høyprioritetskilder i ukesjekk-fanen. Søk på aktuelle stillinger.</span></div>
+    <div class="strat-day"><span class="day">Tirsdag</span><span class="task">Send 1 LinkedIn-melding til noen i en rolle du sikter mot. Referer til noe konkret — oppgaven, en rapport, eller noe selskapet gjør.</span></div>
+    <div class="strat-day"><span class="day">Onsdag</span><span class="task">Les én rapport/artikkel fra et målselskap. Lagre innsikt du kan bruke i samtaler.</span></div>
+    <div class="strat-day"><span class="day">Torsdag</span><span class="task">Oppdater søknads-tracker. Følg opp pågående samtaler og eventuelle intervjuprosesser.</span></div>
+    <div class="strat-day"><span class="day">Fredag</span><span class="task">Sjekk resterende kilder. Registrer nye interessante stillinger. Vurder om du skal ta initiativ til en kaffeprat.</span></div>
+  </div>
+
+  <div class="strat-block">
+    <h3>💬 Meldingsmal — Masteroppgaven som inngang</h3>
+    <p style="background:rgba(225,231,255,.03);border-radius:8px;padding:14px;font-style:italic;margin-top:8px;border-left:2px solid var(--accent)">
+      «Hei [navn], jeg tar en MSc Finance ved BI og skriver masteroppgave om norske privatinvestorers risikoatferd og overkonfidens — basert på data fra 746 investorer. Funnene er ganske interessante og overraskende relevante for klientrådgivning. Hadde satt stor pris på 15 minutter av din tid til å høre om det matcher det du ser i praksis. Ingen agenda utover genuin nysgjerrighet.»
+    </p>
+    <p style="margin-top:10px;font-size:.8rem;color:var(--faint)">Tilpass til mottaker. Vis at du har lest noe om dem eller selskapet. Aldri be om jobb direkte — la samtalen åpne den døren naturlig.</p>
+  </div>
+
+  <div class="strat-block">
+    <h3>🏢 Prioriterte selskaper</h3>
+    <p>Formuesforvaltning (klientmodell = deg), DNB Private Banking, Nordea WM, Handelsbanken, Danske Bank, Storebrand. Sekundært: Pareto WM, Arctic, ABG, SpareBank 1 Markets.</p>
+  </div>
+
+  <div class="strat-block">
+    <h3>🇫🇷 Paris-sporet</h3>
+    <p>Belgisk statsborgerskap = fri tilgang til EU. Målselskaper: BNP Paribas Wealth Management, Société Générale Private Banking, Nordea (Paris), Danske Bank (internasjonalt). Bruk LinkedIn med «wealth management Paris» og kontakt skandinaviske folk som jobber der — de er mer tilgjengelige enn du tror.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ WEEKLY ═══════════════════════════════════ -->
+<section id="p-weekly" style="display:none">
+  <div class="prog-wrap" id="weekProgress"></div>
+  <div id="weekList"></div>
+  <div class="actions">
+    <button class="act" onclick="resetWeek()">Nullstill uke</button>
+    <button class="act" onclick="openUnchecked()">Åpne alle usjekket ↗</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ APPLICATIONS ═══════════════════════════════════ -->
+<section id="p-apps" style="display:none">
+  <div class="chips" id="appChips"></div>
+  <div id="appFormArea"></div>
+  <div id="appList"></div>
+</section>
+
+<!-- ═══════════════════════════════════ OUTREACH ═══════════════════════════════════ -->
+<section id="p-outreach" style="display:none">
+  <div id="outFormArea"></div>
+  <div id="outList"></div>
+</section>
+
+<!-- ═══════════════════════════════════ TIMELINE ═══════════════════════════════════ -->
+<section id="p-timeline" style="display:none">
+  <div id="timelineContent"></div>
+</section>
+
+</div>
+
+<script>
+// ══════════════════════ DATA ══════════════════════
+var SOURCES = [
+  {id:"linkedin",name:"LinkedIn Jobs",url:"https://www.linkedin.com/jobs/search/?keywords=wealth+management+private+banking&location=Oslo",p:"høy",f:"2-3x/uke"},
+  {id:"karrierestart",name:"Karrierestart",url:"https://karrierestart.no/ledig-stilling?q=finans",p:"høy",f:"1x/uke"},
+  {id:"bi",name:"BI Karriereportal",url:"https://bi.jobteaser.com/",p:"høy",f:"1x/uke"},
+  {id:"dnb",name:"DNB Karriere",url:"https://www.dnb.no/om-oss/karriere",p:"høy",f:"1x/uke"},
+  {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers",p:"høy",f:"1x/uke"},
+  {id:"storebrand",name:"Storebrand Karriere",url:"https://www.storebrand.no/om-storebrand/jobb",p:"høy",f:"1x/uke"},
+  {id:"formue",name:"Formuesforvaltning",url:"https://www.formue.no/om-formue/karriere/",p:"høy",f:"1x/uke"},
+  {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/nb/om-oss/jobb-hos-oss",p:"mid",f:"1x/uke"},
+  {id:"danskebank",name:"Danske Bank",url:"https://danskebank.com/careers",p:"mid",f:"1x/uke"},
+  {id:"pareto",name:"Pareto Securities",url:"https://www.paretosec.com/careers",p:"mid",f:"2x/mnd"},
+  {id:"arctic",name:"Arctic Securities",url:"https://www.arctic.com/secno/careers",p:"mid",f:"2x/mnd"},
+  {id:"abg",name:"ABG Sundal Collier",url:"https://www.abgsc.com/careers",p:"mid",f:"2x/mnd"},
+  {id:"sb1",name:"SpareBank 1 Markets",url:"https://www.sparebank1.no/nb/bank/om-oss/jobb.html",p:"mid",f:"2x/mnd"},
+  {id:"finn",name:"FINN.no Jobb",url:"https://www.finn.no/job/fulltime/search.html?q=wealth+management+finans",p:"mid",f:"1x/uke"},
+  {id:"holberg",name:"Holberg Fondene",url:"https://holbergfondene.no/om-oss",p:"lav",f:"1x/mnd"},
+  {id:"odin",name:"ODIN Forvaltning",url:"https://odinfond.no/om-odin",p:"lav",f:"1x/mnd"},
+  {id:"skagen",name:"SKAGEN Fondene",url:"https://www.skagenfondene.no/om-oss/karriere/",p:"lav",f:"1x/mnd"},
+  {id:"nav",name:"Arbeidsplassen (NAV)",url:"https://arbeidsplassen.nav.no/stillinger?q=wealth+management",p:"lav",f:"1x/uke"}
+];
+
+var STATUSES = [
+  {v:"interested",l:"Interessert",cls:"b-blue"},
+  {v:"applied",l:"Søkt",cls:"b-yellow"},
+  {v:"interview",l:"Intervju",cls:"b-green"},
+  {v:"offer",l:"Tilbud",cls:"b-purple"},
+  {v:"rejected",l:"Avslag",cls:"b-red"},
+  {v:"withdrawn",l:"Trukket",cls:"b-gray"}
+];
+
+var OUT_STATUSES = [
+  {v:"planned",l:"Planlagt",cls:"b-blue"},
+  {v:"sent",l:"Sendt",cls:"b-yellow"},
+  {v:"replied",l:"Svar",cls:"b-green"},
+  {v:"meeting",l:"Møte booket",cls:"b-purple"},
+  {v:"done",l:"Gjennomført",cls:"b-green"},
+  {v:"no_reply",l:"Ingen svar",cls:"b-gray"}
+];
+
+// ══════════════════════ STATE ══════════════════════
+var state = {checks:{},apps:[],outreach:[],appFilter:"all",outFilter:"all",showAppForm:false,showOutForm:false};
+
+function getWeekId(){var d=new Date(),s=new Date(d.getFullYear(),0,1),w=Math.ceil(((d-s)/864e5+s.getDay()+1)/7);return d.getFullYear()+"-W"+String(w).padStart(2,"0")}
+function fmtDate(iso){if(!iso)return"";var d=new Date(iso);return d.toLocaleDateString("no-NB",{day:"numeric",month:"short"})}
+function daysUntil(iso){if(!iso)return 999;return Math.ceil((new Date(iso)-new Date())/864e5)}
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function esc(s){var d=document.createElement("div");d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+// ══════════════════════ PERSISTENCE ══════════════════════
+function save(){
+  try{localStorage.setItem("ve-jobstrat",JSON.stringify({checks:state.checks,apps:state.apps,outreach:state.outreach}))}catch(e){}
+  var el=document.getElementById("lastSaved");
+  if(el)el.textContent="Lagret "+new Date().toLocaleTimeString("no-NB",{hour:"2-digit",minute:"2-digit"});
+}
+function load(){
+  try{var d=JSON.parse(localStorage.getItem("ve-jobstrat"));if(d){state.checks=d.checks||{};state.apps=d.apps||[];state.outreach=d.outreach||[]}}catch(e){}
+}
+
+// ══════════════════════ TABS ══════════════════════
+document.querySelectorAll(".tab").forEach(function(t){
+  t.addEventListener("click",function(){
+    document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
+    this.classList.add("on");
+    var tab=this.dataset.tab;
+    ["strategy","weekly","apps","outreach","timeline"].forEach(function(p){
+      document.getElementById("p-"+p).style.display=p===tab?"block":"none";
+    });
+    if(tab==="weekly")renderWeekly();
+    if(tab==="apps")renderApps();
+    if(tab==="outreach")renderOutreach();
+    if(tab==="timeline")renderTimeline();
+  });
+});
+
+// ══════════════════════ WEEKLY CHECK ══════════════════════
+function renderWeekly(){
+  var wid=getWeekId(),wc=state.checks[wid]||{};
+  var highSrc=SOURCES.filter(function(s){return s.p==="høy"});
+  var highDone=highSrc.filter(function(s){return wc[s.id]}).length;
+  var total=Object.keys(wc).filter(function(k){return wc[k]}).length;
+
+  document.getElementById("weekProgress").innerHTML=
+    '<div class="prog-top"><span style="color:var(--dim)">'+wid+' — '+total+'/'+SOURCES.length+' sjekket</span>'+
+    '<span style="color:'+(highDone===highSrc.length?"var(--green)":"var(--faint)")+'">Høy prioritet: '+highDone+'/'+highSrc.length+'</span></div>'+
+    '<div class="prog-bar"><div class="prog-fill" style="width:'+(total/SOURCES.length*100)+'%;background:'+(total===SOURCES.length?"var(--green)":"var(--accent)")+'"></div></div>';
+
+  var html="";
+  [{p:"høy",label:"Høy prioritet — sjekk ukentlig"},{p:"mid",label:"Medium — sjekk jevnlig"},{p:"lav",label:"Lav — sjekk månedlig"}].forEach(function(g){
+    html+='<div class="sh">'+g.label+'</div>';
+    SOURCES.filter(function(s){return s.p===g.p}).forEach(function(s){
+      var done=wc[s.id];
+      html+='<div class="check'+(done?" done":"")+'" data-sid="'+s.id+'">'+
+        '<div class="box">'+(done?"✓":"")+'</div>'+
+        '<span class="name">'+s.name+'</span>'+
+        '<span class="freq">'+s.f+'</span>'+
+        '<a class="open" href="'+s.url+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">Åpne ↗</a></div>';
+    });
+  });
+  document.getElementById("weekList").innerHTML=html;
+
+  document.querySelectorAll(".check").forEach(function(el){
+    el.addEventListener("click",function(){
+      var sid=this.dataset.sid,wid=getWeekId();
+      if(!state.checks[wid])state.checks[wid]={};
+      state.checks[wid][sid]=!state.checks[wid][sid];
+      save();renderWeekly();
+    });
+  });
+}
+
+function resetWeek(){var wid=getWeekId();state.checks[wid]={};save();renderWeekly()}
+function openUnchecked(){var wc=state.checks[getWeekId()]||{};SOURCES.forEach(function(s){if(!wc[s.id])window.open(s.url,"_blank")})}
+
+// ══════════════════════ APPLICATIONS ══════════════════════
+function renderApps(){
+  // Chips
+  var counts={all:state.apps.length};
+  STATUSES.forEach(function(s){counts[s.v]=state.apps.filter(function(a){return a.status===s.v}).length});
+  var ch='<button class="chip'+(state.appFilter==="all"?" on":"")+'" onclick="state.appFilter=\'all\';renderApps()">Alle ('+counts.all+')</button>';
+  STATUSES.forEach(function(s){
+    if(counts[s.v]>0)ch+='<button class="chip'+(state.appFilter===s.v?" on":"")+'" onclick="state.appFilter=\''+s.v+'\';renderApps()">'+s.l+' ('+counts[s.v]+')</button>';
+  });
+  document.getElementById("appChips").innerHTML=ch;
+
+  // Form
+  if(state.showAppForm){
+    document.getElementById("appFormArea").innerHTML=
+      '<div class="card" style="border-color:rgba(105,150,255,.15);margin-bottom:16px">'+
+      '<div class="grid2" style="margin-bottom:8px">'+
+      '<input class="inp" id="aComp" placeholder="Selskap *">'+
+      '<input class="inp" id="aRole" placeholder="Rolle / stilling *">'+
+      '<input class="inp" id="aUrl" placeholder="Lenke til utlysning">'+
+      '<input class="inp" type="date" id="aDeadline" style="color-scheme:dark" placeholder="Søknadsfrist">'+
+      '</div>'+
+      '<input class="inp" id="aNotes" placeholder="Notater (valgfritt)" style="margin-bottom:10px">'+
+      '<div style="display:flex;gap:8px"><button class="btn btn-p" onclick="addApp()">Lagre</button>'+
+      '<button class="btn btn-s" onclick="state.showAppForm=false;renderApps()">Avbryt</button></div></div>';
+  }else{
+    document.getElementById("appFormArea").innerHTML='<button class="btn-ghost" onclick="state.showAppForm=true;renderApps()" style="margin-bottom:14px">+ Legg til søknad</button>';
+  }
+
+  // List
+  var list=state.appFilter==="all"?state.apps:state.apps.filter(function(a){return a.status===state.appFilter});
+  if(!list.length){document.getElementById("appList").innerHTML='<div class="empty"><div class="ico">📋</div><p>Ingen søknader'+(state.appFilter!=="all"?" med denne statusen":"")+'</p></div>';return}
+
+  var html="";
+  list.forEach(function(a){
+    var st=STATUSES.find(function(s){return s.v===a.status})||STATUSES[0];
+    var dl=daysUntil(a.deadline);
+    var dlHtml=a.deadline?'<span'+(dl<=5&&dl>0?' style="color:var(--red);font-weight:500"':'')+'>Frist: '+fmtDate(a.deadline)+(dl<=5&&dl>0?" ⚡":"")+(dl<=0?" (utløpt)":"")+'</span>':"";
+    html+='<div class="card"><div class="card-h"><div style="flex:1">'+
+      '<div class="card-t">'+(a.url?'<a href="'+esc(a.url)+'" target="_blank" style="color:inherit;border-bottom:1px solid var(--border)">'+esc(a.role)+'</a>':esc(a.role))+'</div>'+
+      '<div class="card-s">'+esc(a.company)+'</div>'+
+      '<div class="card-m">'+dlHtml+'<span>Lagt til '+fmtDate(a.created)+'</span></div>'+
+      (a.notes?'<div style="font-size:.8rem;color:var(--faint);margin-top:6px;font-style:italic">'+esc(a.notes)+'</div>':"")+
+      '</div><div style="display:flex;align-items:center;gap:6px">'+
+      '<div class="sp"><span class="badge '+st.cls+'" onclick="toggleAppStatus(\''+a.id+'\')">'+st.l+'</span>'+
+      '<div class="sp-menu" id="sp-'+a.id+'" style="display:none">'+
+      STATUSES.map(function(s){return'<button class="sp-opt" onclick="setAppStatus(\''+a.id+"','"+s.v+"')\">"+s.l+"</button>"}).join("")+
+      '</div></div>'+
+      '<button class="del-btn" onclick="delApp(\''+a.id+'\')" title="Slett">×</button></div></div></div>';
+  });
+  document.getElementById("appList").innerHTML=html;
+}
+
+function addApp(){
+  var c=document.getElementById("aComp").value.trim(),r=document.getElementById("aRole").value.trim();
+  if(!c||!r)return;
+  state.apps.unshift({id:genId(),company:c,role:r,url:document.getElementById("aUrl").value.trim(),
+    deadline:document.getElementById("aDeadline").value,notes:document.getElementById("aNotes").value.trim(),
+    status:"interested",created:new Date().toISOString(),updated:new Date().toISOString()});
+  state.showAppForm=false;save();renderApps();
+}
+function toggleAppStatus(id){var el=document.getElementById("sp-"+id);el.style.display=el.style.display==="none"?"block":"none"}
+function setAppStatus(id,v){state.apps=state.apps.map(function(a){return a.id===id?Object.assign({},a,{status:v,updated:new Date().toISOString()}):a});save();renderApps()}
+function delApp(id){if(!confirm("Slette denne søknaden?"))return;state.apps=state.apps.filter(function(a){return a.id!==id});save();renderApps()}
+
+// ══════════════════════ OUTREACH ══════════════════════
+function renderOutreach(){
+  if(state.showOutForm){
+    document.getElementById("outFormArea").innerHTML=
+      '<div class="card" style="border-color:rgba(105,150,255,.15);margin-bottom:16px">'+
+      '<div class="grid2" style="margin-bottom:8px">'+
+      '<input class="inp" id="oName" placeholder="Navn *">'+
+      '<input class="inp" id="oTitle" placeholder="Tittel / rolle">'+
+      '<input class="inp" id="oCompany" placeholder="Selskap *">'+
+      '<input class="inp" id="oLinkedin" placeholder="LinkedIn-profil URL">'+
+      '</div>'+
+      '<input class="inp" id="oNotes" placeholder="Kontekst: hvorfor denne personen? Hva vil du snakke om?" style="margin-bottom:10px">'+
+      '<div style="display:flex;gap:8px"><button class="btn btn-p" onclick="addOut()">Lagre</button>'+
+      '<button class="btn btn-s" onclick="state.showOutForm=false;renderOutreach()">Avbryt</button></div></div>';
+  }else{
+    document.getElementById("outFormArea").innerHTML='<button class="btn-ghost" onclick="state.showOutForm=true;renderOutreach()" style="margin-bottom:14px">+ Ny kontakt / outreach</button>';
+  }
+
+  var list=state.outFilter==="all"?state.outreach:state.outreach.filter(function(o){return o.status===state.outFilter});
+
+  // Chips
+  var counts={all:state.outreach.length};
+  OUT_STATUSES.forEach(function(s){counts[s.v]=state.outreach.filter(function(o){return o.status===s.v}).length});
+  var chipArea='<div class="chips" style="margin-bottom:14px">';
+  chipArea+='<button class="chip'+(state.outFilter==="all"?" on":"")+'" onclick="state.outFilter=\'all\';renderOutreach()">Alle ('+counts.all+')</button>';
+  OUT_STATUSES.forEach(function(s){
+    if(counts[s.v]>0)chipArea+='<button class="chip'+(state.outFilter===s.v?" on":"")+'" onclick="state.outFilter=\''+s.v+'\';renderOutreach()">'+s.l+' ('+counts[s.v]+')</button>';
+  });
+  chipArea+='</div>';
+
+  if(!list.length){
+    document.getElementById("outList").innerHTML=chipArea+'<div class="empty"><div class="ico">🤝</div><p>Ingen outreach registrert ennå</p><p style="font-size:.8rem;margin-top:6px">Mål: 1 ny melding per uke til noen i en rolle du sikter mot</p></div>';
+    return;
+  }
+
+  var html=chipArea;
+  list.forEach(function(o){
+    var st=OUT_STATUSES.find(function(s){return s.v===o.status})||OUT_STATUSES[0];
+    html+='<div class="card"><div class="card-h"><div style="flex:1">'+
+      '<div class="card-t">'+esc(o.name)+'</div>'+
+      '<div class="card-s">'+esc(o.title?o.title+" · ":"")+esc(o.company)+'</div>'+
+      '<div class="card-m">'+(o.linkedin?'<a href="'+esc(o.linkedin)+'" target="_blank" onclick="event.stopPropagation()">LinkedIn ↗</a>':"")+
+      '<span>Lagt til '+fmtDate(o.created)+'</span></div>'+
+      (o.notes?'<div style="font-size:.8rem;color:var(--faint);margin-top:6px;font-style:italic">'+esc(o.notes)+'</div>':"")+
+      '</div><div style="display:flex;align-items:center;gap:6px">'+
+      '<div class="sp"><span class="badge '+st.cls+'" onclick="toggleOutStatus(\''+o.id+'\')">'+st.l+'</span>'+
+      '<div class="sp-menu" id="osp-'+o.id+'" style="display:none">'+
+      OUT_STATUSES.map(function(s){return'<button class="sp-opt" onclick="setOutStatus(\''+o.id+"','"+s.v+"')\">"+s.l+"</button>"}).join("")+
+      '</div></div>'+
+      '<button class="del-btn" onclick="delOut(\''+o.id+'\')" title="Slett">×</button></div></div></div>';
+  });
+  document.getElementById("outList").innerHTML=html;
+}
+
+function addOut(){
+  var n=document.getElementById("oName").value.trim(),c=document.getElementById("oCompany").value.trim();
+  if(!n||!c)return;
+  state.outreach.unshift({id:genId(),name:n,title:document.getElementById("oTitle").value.trim(),
+    company:c,linkedin:document.getElementById("oLinkedin").value.trim(),
+    notes:document.getElementById("oNotes").value.trim(),status:"planned",created:new Date().toISOString()});
+  state.showOutForm=false;save();renderOutreach();
+}
+function toggleOutStatus(id){var el=document.getElementById("osp-"+id);el.style.display=el.style.display==="none"?"block":"none"}
+function setOutStatus(id,v){state.outreach=state.outreach.map(function(o){return o.id===id?Object.assign({},o,{status:v}):o});save();renderOutreach()}
+function delOut(id){if(!confirm("Slette denne kontakten?"))return;state.outreach=state.outreach.filter(function(o){return o.id!==id});save();renderOutreach()}
+
+// ══════════════════════ TIMELINE ══════════════════════
+function renderTimeline(){
+  var now=new Date();
+  var weeks=[
+    {w:"Nå",t:"Sett opp systemet",d:"Fullfør ukesjekk én gang. Identifiser 5 personer for outreach. Send første melding.",now:true},
+    {w:"Uke 1–2",t:"Bygg momentum",d:"Send 2–3 LinkedIn-meldinger. Søk på alle aktuelle utlysninger. Bli synlig på BI-arrangementer."},
+    {w:"Uke 3–4",t:"Første samtaler",d:"Følg opp folk som har svart. Book 1–2 kaffeprater. Jobb med masteroppgaven — den er samtalegrunnlaget ditt."},
+    {w:"Mai",t:"Intensiver",d:"Graduate/trainee-søknader begynner å dukke opp for høststart. Vær tidlig ute. Følg opp alle kontakter fra april."},
+    {w:"Juni",t:"Masterinnlevering + sprint",d:"Lever oppgaven. Del funnene på LinkedIn (kort post). Bruk den ekstra tiden til å intensivere jobbsøket."},
+    {w:"Sommer",t:"Oppfølging",d:"Mange beslutninger tas etter sommeren. Hold kontakten varm. Send korte oppdateringer til folk du har snakket med."},
+    {w:"Aug–Sep",t:"Høstrekruttering",d:"De fleste trainee- og graduate-programmer starter nå. Vær klar med oppdatert CV, tilpassede søknader og et nettverk som kjenner deg."}
+  ];
+  var html='<div class="sh">Fra nå til høsten 2026</div>';
+  weeks.forEach(function(w){
+    html+='<div class="tl-row"><div class="tl-week'+(w.now?" tl-now":"")+'">'+w.w+'</div>'+
+      '<div class="tl-card card"><div class="card-t">'+w.t+'</div><div class="card-d">'+w.d+'</div></div></div>';
+  });
+  html+='<div style="margin-top:24px;padding:16px 20px;background:var(--accent-g);border:1px solid rgba(105,150,255,.12);border-radius:12px;font-size:.85rem;color:var(--dim)">'+
+    '<strong style="color:var(--accent)">Husk:</strong> Det viktigste er ikke å søke på flest mulige stillinger — det er å ha 3–5 gode samtaler med folk som jobber der du vil jobbe. Resten følger av det.</div>';
+  document.getElementById("timelineContent").innerHTML=html;
+}
+
+// ══════════════════════ INIT ══════════════════════
+load();
+renderWeekly();
+</script>
+</body>
+</html>
