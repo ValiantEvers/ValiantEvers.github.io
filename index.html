@@ -1102,6 +1102,24 @@ pBuf='';
 },800);
 if(pBuf.length>13)pBuf=pBuf.slice(-13);
 });
+
+var sBuf='';var sTimer;
+document.addEventListener('keydown',function(e){
+if(e.key.length!==1)return;
+sBuf+=e.key.toLowerCase();
+clearTimeout(sTimer);
+sTimer=setTimeout(function(){
+if(sBuf.includes('stillinger')){
+var fl=document.getElementById('pageFlash');
+if(fl){fl.style.background='rgba(0,112,237,.08)';fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0'},400);}
+window.open('https://valiantevers.github.io/jobbriefing','_blank');
+}
+sBuf='';
+},800);
+if(sBuf.length>15)sBuf=sBuf.slice(-15);
+});
+
+
 })();
 </script>
 <script>
