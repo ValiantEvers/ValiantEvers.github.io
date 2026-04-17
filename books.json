@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Efficiently Inefficient",
+    "author": "Lasse Heje Pedersen",
+    "cover": "covers/efficiently-inefficient.jpg",
+    "url": "",
+    "description": "Et dypdykk i hvorfor markeder må være ineffektive for at aktive forvaltere skal kunne skape verdi. Jeg ble introdusert for denne gjennom min foreleser i Asset Management, Sven Klingler, som hadde selveste Pedersen som veileder på CBS. Denne boken formet min forståelse for \"markedets politi\", rollen de aktive forvalterne spiller for å arrestere imperfeksjoner."
+  },
+  {
+    "title": "The Intelligent Investor",
+    "author": "Benjamin Graham",
+    "cover": "covers/intelligent-investor.jpg",
+    "url": "",
+    "description": "Grunnmuren for enhver verdiorientert investor. Prinsippet om \"Margin of Safety\" og evnen til å skille mellom pris og verdi er lærdommer jeg tar med meg i enhver finansiell analyse, enten det er i akademia på BI eller i praktisk forvaltning."
+  },
+  {
+    "title": "The Psychology of Money",
+    "author": "Morgan Housel",
+    "cover": "covers/psychology-of-money.jpg",
+    "url": "",
+    "description": "Finans handler sjelden om tall alene, og ofte om hvordan vi oppfører oss. Denne boken komplementerer min masteroppgave om norske privatinvestorers risikoatferd perfekt. Den minner oss på at i Wealth Management er empati og forståelse for klientens psykologi like viktig som selve porteføljekonstruksjonen."
+  },
+  {
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "cover": "covers/thinking-fast-and-slow.jpg",
+    "url": "",
+    "description": "En nødvendig ressurs for å forstå de kognitive skjevhetene som påvirker våre beslutninger. Som MSc Finance-student med fokus på Behavioral Finance bruker jeg Kahnemans rammeverk for å analysere hvordan overkonfidens påvirker porteføljevalg i mitt forskningsarbeid."
+  },
+  {
+    "title": "The Art of War",
+    "author": "Sun Tzu",
+    "cover": "covers/art-of-war.jpg",
+    "url": "",
+    "description": "Strategiske prinsipper som strekker seg langt utover slagmarken. For meg handler dette om evnen til å lese terrenget og forstå sin motpart, kritiske ferdigheter i enhver klientrettet rolle innen Private Banking."
+  }
+]
