@@ -4,34 +4,69 @@
     "author": "Lasse Heje Pedersen",
     "cover": "covers/efficiently-inefficient.jpg",
     "url": "",
-    "description": "Et dypdykk i hvorfor markeder må være ineffektive for at aktive forvaltere skal kunne skape verdi. Jeg ble introdusert for denne gjennom min foreleser i Asset Management, Sven Klingler, som hadde selveste Pedersen som veileder på CBS. Denne boken formet min forståelse for \"markedets politi\", rollen de aktive forvalterne spiller for å arrestere imperfeksjoner."
+    "description": {
+      "no": "Et dypdykk i hvorfor markeder må være ineffektive for at aktive forvaltere skal kunne skape verdi. Jeg ble introdusert for denne gjennom min foreleser i Asset Management, Sven Klingler, som hadde Pedersen som veileder på CBS. Denne boken formet min forståelse for \"markedets politi\", rollen de aktive forvalterne spiller for å arrestere imperfeksjoner.",
+      "en": "A deep dive into why markets must be inefficient for active managers to create value. I was introduced to this through my Asset Management lecturer, Sven Klingler, who had Pedersen as his supervisor at CBS. The book shaped my understanding of 'the market police', the role active managers play in arresting imperfections.",
+      "fr": "Une plongée en profondeur dans les raisons pour lesquelles les marchés doivent être inefficients pour que les gérants actifs créent de la valeur. J'ai découvert ce livre grâce à mon professeur d'Asset Management, Sven Klingler, qui a eu Pedersen comme directeur de thèse à la CBS. L'ouvrage a façonné ma conception de la « police des marchés », du rôle des gérants actifs pour corriger les imperfections.",
+      "de": "Ein tiefer Einblick, warum Märkte ineffizient sein müssen, damit aktive Manager Wert schaffen können. Ich habe dieses Buch durch meinen Asset-Management-Dozenten Sven Klingler kennengelernt, der Pedersen als Betreuer an der CBS hatte. Es prägte mein Verständnis der „Marktpolizei“, der Rolle aktiver Manager bei der Korrektur von Unvollkommenheiten.",
+      "ja": "市場がなぜ非効率でなければアクティブ運用者が価値を生み出せないのかを深く掘り下げた一冊。CBSでペダーセンの指導を受けていたアセットマネジメントの講師、スヴェン・クリングラー先生を通して出会った。市場の不完全性を正す「市場警察」としてのアクティブ運用者の役割についての私の理解を形づくった本。",
+      "medieval": "En grundig granskning av hvorfor gullmarkedene må være ufullkomne, for at de aktive forvaltere skal makte å skape verdi. Jeg ble kjent med dette verk gjennom min lærde mester i forvaltning av rikdommer, Sven Klingler, som selv hadde Pedersen som rettleder ved høyborgen CBS. Skriftet formet min forståelse av «markedets vektere», den edle oppgave de aktive forvaltere har med å arrestere ufullkommenheter."
+    }
   },
   {
     "title": "The Intelligent Investor",
     "author": "Benjamin Graham",
-    "cover": "covers/intelligent-investor.jpg",
+    "cover": "covers/the-intelligent-investor.jpeg",
     "url": "",
-    "description": "Grunnmuren for enhver verdiorientert investor. Prinsippet om \"Margin of Safety\" og evnen til å skille mellom pris og verdi er lærdommer jeg tar med meg i enhver finansiell analyse, enten det er i akademia på BI eller i praktisk forvaltning."
+    "description": {
+      "no": "Grunnmuren for enhver verdiorientert investor. Prinsippet om \"Margin of Safety\" og evnen til å skille mellom pris og verdi er lærdommer jeg tar med meg i enhver finansiell analyse, enten det er i akademia på BI eller i praktisk forvaltning.",
+      "en": "The foundation for any value-oriented investor. The 'Margin of Safety' principle and the ability to distinguish price from value are lessons I carry into every financial analysis, whether in academic work at BI or in practical asset management.",
+      "fr": "Le fondement de tout investisseur orienté valeur. Le principe de « Margin of Safety » et la capacité à distinguer prix et valeur sont des leçons que j'emporte dans chaque analyse financière, que ce soit dans mes études à BI ou dans la gestion pratique.",
+      "de": "Das Fundament für jeden wertorientierten Investor. Das Prinzip der „Margin of Safety“ und die Fähigkeit, Preis von Wert zu unterscheiden, sind Lektionen, die ich in jede Finanzanalyse mitnehme, ob im Studium an der BI oder in der praktischen Verwaltung.",
+      "ja": "バリュー投資家の基礎。「Margin of Safety（安全余裕度）」の原則と、価格と価値を区別する能力は、BIでの学術研究であれ実務的な運用であれ、あらゆる財務分析に持ち込んでいる教訓である。",
+      "medieval": "Grunnstenen for enhver forstandig gullforvalter. Læren om «Margin of Safety» og evnen til å skille pris fra sann verdi er visdom jeg bærer med meg i all finansiell granskning, enten det er ved handelens høyborg eller i den daglige forvaltning."
+    }
   },
   {
     "title": "The Psychology of Money",
     "author": "Morgan Housel",
-    "cover": "covers/psychology-of-money.jpg",
+    "cover": "covers/the-psychology-of-money.jpg",
     "url": "",
-    "description": "Finans handler sjelden om tall alene, og ofte om hvordan vi oppfører oss. Denne boken komplementerer min masteroppgave om norske privatinvestorers risikoatferd perfekt. Den minner oss på at i Wealth Management er empati og forståelse for klientens psykologi like viktig som selve porteføljekonstruksjonen."
+    "description": {
+      "no": "Finans handler sjelden om tall alene, og ofte om hvordan vi oppfører oss. Denne boken komplementerer min masteroppgave om norske privatinvestorers risikoatferd perfekt. Den minner oss på at i Wealth Management er empati og forståelse for klientens psykologi like viktig som selve porteføljekonstruksjonen.",
+      "en": "Finance is rarely about numbers alone, and often about how we behave. This book complements my master's thesis on Norwegian retail investors' risk behaviour perfectly. It reminds us that in Wealth Management, empathy and understanding the client's psychology matter as much as portfolio construction itself.",
+      "fr": "La finance est rarement une affaire de chiffres seuls, mais souvent de comportement. Ce livre complète parfaitement mon mémoire sur le comportement de risque des investisseurs particuliers norvégiens. Il rappelle qu'en Wealth Management, l'empathie et la compréhension de la psychologie du client comptent autant que la construction du portefeuille elle-même.",
+      "de": "Finanzen drehen sich selten nur um Zahlen, sondern oft um unser Verhalten. Das Buch ergänzt meine Masterarbeit über das Risikoverhalten norwegischer Privatanleger perfekt. Es erinnert daran, dass im Wealth Management Empathie und das Verständnis der Kundenpsychologie ebenso wichtig sind wie der Portfolioaufbau selbst.",
+      "ja": "金融は数字だけの話であることは少なく、むしろ私たちの行動の話であることが多い。本書はノルウェーの個人投資家のリスク行動に関する私の修士論文を見事に補完してくれる。Wealth Managementでは、共感と顧客の心理への理解がポートフォリオ構築そのものと同じくらい重要であることを思い出させてくれる。",
+      "medieval": "Rikdommens kunst handler sjelden kun om tall, men oftere om hvordan vi mennesker ter oss. Dette verk utfyller mitt mesterskrift om norske velstandsborgeres dristighet på fortreffelig vis. Det minner oss om at i forvaltningen av herrenes rikdommer er medfølelse og innsikt i klientens sinn like vektig som selve gullets plassering."
+    }
   },
   {
     "title": "Thinking, Fast and Slow",
     "author": "Daniel Kahneman",
     "cover": "covers/thinking-fast-and-slow.jpg",
     "url": "",
-    "description": "En nødvendig ressurs for å forstå de kognitive skjevhetene som påvirker våre beslutninger. Som MSc Finance-student med fokus på Behavioral Finance bruker jeg Kahnemans rammeverk for å analysere hvordan overkonfidens påvirker porteføljevalg i mitt forskningsarbeid."
+    "description": {
+      "no": "En nødvendig ressurs for å forstå de kognitive skjevhetene som påvirker våre beslutninger. Som MSc Finance-student med fokus på Behavioral Finance bruker jeg Kahnemans rammeverk for å analysere hvordan overkonfidens påvirker porteføljevalg i mitt forskningsarbeid.",
+      "en": "A necessary resource for understanding the cognitive biases that shape our decisions. As an MSc Finance student focused on Behavioral Finance, I use Kahneman's framework to analyse how overconfidence affects portfolio choices in my thesis research.",
+      "fr": "Une ressource incontournable pour comprendre les biais cognitifs qui influencent nos décisions. En tant qu'étudiant en MSc Finance spécialisé en Behavioral Finance, j'utilise le cadre de Kahneman pour analyser comment l'excès de confiance affecte les choix de portefeuille dans mes recherches.",
+      "de": "Eine unverzichtbare Grundlage, um die kognitiven Verzerrungen zu verstehen, die unsere Entscheidungen prägen. Als MSc-Finance-Student mit Fokus auf Behavioral Finance nutze ich Kahnemans Rahmenwerk, um in meiner Forschung zu analysieren, wie Selbstüberschätzung Portfolioentscheidungen beeinflusst.",
+      "ja": "私たちの意思決定に影響する認知バイアスを理解するうえで欠かせない一冊。Behavioral Financeを専門とするMSc Finance学生として、カーネマンの枠組みを用いて、自信過剰がポートフォリオ選択にどう影響するかを修士論文の研究で分析している。",
+      "medieval": "En uunnværlig kilde til forstand omkring de skjevheter i sinnet som styrer våre valg. Som lærling med fokus på behaviorisk gullkunst anvender jeg Kahnemans rammeverk for å granske hvorledes hovmod påvirker de edles valg av rikdomsplassering i mitt forskningsverk."
+    }
   },
   {
     "title": "The Art of War",
     "author": "Sun Tzu",
-    "cover": "covers/art-of-war.jpg",
+    "cover": "covers/the-art-of-war.jpeg",
     "url": "",
-    "description": "Strategiske prinsipper som strekker seg langt utover slagmarken. For meg handler dette om evnen til å lese terrenget og forstå sin motpart, kritiske ferdigheter i enhver klientrettet rolle innen Private Banking."
+    "description": {
+      "no": "Strategiske prinsipper som strekker seg langt utover slagmarken. For meg handler dette om evnen til å lese terrenget og forstå sin motpart, kritiske ferdigheter i enhver klientrettet rolle innen Private Banking.",
+      "en": "Strategic principles that reach far beyond the battlefield. For me this is about the ability to read the terrain and understand your counterpart, critical skills in any client-facing role in Private Banking.",
+      "fr": "Des principes stratégiques qui dépassent largement le champ de bataille. Pour moi, il s'agit de la capacité à lire le terrain et à comprendre son interlocuteur, compétences essentielles dans tout rôle orienté client en Private Banking.",
+      "de": "Strategische Prinzipien, die weit über das Schlachtfeld hinausreichen. Für mich geht es um die Fähigkeit, das Gelände zu lesen und das Gegenüber zu verstehen, unverzichtbare Fertigkeiten in jeder kundennahen Rolle im Private Banking.",
+      "ja": "戦場をはるかに超えて広がる戦略の原則。私にとっては地形を読み、相手を理解する力のことであり、Private Bankingにおけるあらゆる顧客対応の役割で不可欠なスキルである。",
+      "medieval": "Strategiske lærdommer som rekker langt utover den blodige slagmark. For meg dreier dette seg om evnen til å lese terrenget og forstå sin motpart, ferdigheter som er uunnværlige i enhver klientrettet tjeneste innen forvaltning av kronens rikdommer."
+    }
   }
 ]
