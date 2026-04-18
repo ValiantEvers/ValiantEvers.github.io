@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV · Valiant Evers</title>
+<meta name="description" content="CV of Valiant Evers – MSc Finance at BI Norwegian Business School. Seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales.">
+<meta name="author" content="Valiant Evers">
+<meta name="theme-color" content="#004eaa">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="CV · Valiant Evers">
+<meta property="og:description" content="MSc Finance at BI – seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales.">
+<meta property="og:image" content="https://valiantevers.github.io/og-image.png">
+<meta property="og:url" content="https://valiantevers.github.io/cv.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preload" href="profile.jpg" as="image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e1e7ff;--text:#001233;--accent:#0070ed;--accent2:#6996ff;--accent3:#aabeff;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 4px 30px rgba(0,18,51,0.08);--muted:rgba(0,18,51,.55);--subtle:rgba(0,18,51,.35);--border:rgba(0,18,51,.08);--hair:rgba(0,18,51,.06)}
+[data-theme="dark"]{--bg:#0a0e1a;--text:#e1e7ff;--accent:#6996ff;--accent2:#aabeff;--accent3:#1a2744;--accent4:#4080ff;--card-bg:#111827;--card-shadow:0 4px 30px rgba(0,0,0,0.3);--muted:rgba(225,231,255,.55);--subtle:rgba(225,231,255,.35);--border:rgba(225,231,255,.08);--hair:rgba(225,231,255,.05)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased}
+html[lang="ja"] body{font-family:'Noto Sans JP','Outfit',sans-serif}
+
+/* Grain */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+[data-theme="dark"] body::after{opacity:.04}
+
+/* Nav */
+nav{position:sticky;top:0;background:rgba(225,231,255,.82);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--border);z-index:100;padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+[data-theme="dark"] nav{background:rgba(10,14,26,.82)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.55rem}
+.nav-logo:hover{opacity:.8}
+.nav-logo .back{font-size:.75rem;font-weight:500;color:var(--muted)}
+.nav-right{display:flex;align-items:center;gap:.65rem}
+.theme-toggle{background:none;border:1.5px solid var(--border);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .3s;font-family:inherit}
+.theme-toggle:hover{border-color:var(--accent)}
+.lang-switch{position:relative}
+.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;font-family:inherit;transition:all .3s}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:all .22s;min-width:140px;box-shadow:0 12px 40px rgba(0,18,51,.12);z-index:200}
+.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-opt{display:block;width:100%;padding:.55rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
+.lang-opt:hover{background:rgba(0,112,237,.06)}
+.lang-opt.active{color:var(--accent);font-weight:700}
+
+/* Layout */
+main{max-width:840px;margin:0 auto;padding:3rem 2rem 4rem;position:relative;z-index:1}
+
+/* Header */
+.cv-header{display:grid;grid-template-columns:130px 1fr;gap:2rem;align-items:center;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.cv-photo{width:130px;height:130px;border-radius:50%;object-fit:cover;box-shadow:0 6px 30px rgba(0,18,51,.12)}
+.cv-name{font-family:'Syne',sans-serif;font-weight:800;font-size:2.6rem;letter-spacing:-1.5px;line-height:1.05;margin-bottom:.75rem}
+.cv-contact{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.85rem;color:var(--muted);align-items:center}
+.cv-contact a{color:inherit;text-decoration:none;transition:color .2s;border-bottom:1px solid transparent}
+.cv-contact a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.cv-contact .sep{opacity:.3}
+.citizenship-tag{display:inline-flex;align-items:center;gap:.35rem;background:rgba(0,112,237,.08);border:1px solid rgba(0,112,237,.2);color:var(--accent4);padding:.2rem .7rem;border-radius:50px;font-size:.75rem;font-weight:600;margin-top:.7rem}
+[data-theme="dark"] .citizenship-tag{background:rgba(105,150,255,.08);border-color:rgba(105,150,255,.2);color:var(--accent2)}
+
+/* Summary / TL;DR */
+.cv-summary{margin-bottom:3rem;padding:1.4rem 1.7rem;background:var(--card-bg);border-radius:14px;border:1px solid var(--border);box-shadow:var(--card-shadow);position:relative}
+.cv-summary::before{content:'TL;DR';position:absolute;top:-9px;left:1.4rem;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:800;letter-spacing:2px;background:var(--bg);padding:0 .5rem;color:var(--accent)}
+.cv-summary p{font-size:1rem;line-height:1.7;color:var(--text)}
+
+/* Sections */
+.cv-section{margin-bottom:3rem}
+.cv-section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.35rem;letter-spacing:-.3px;margin-bottom:1.4rem;color:var(--text);position:relative;padding-bottom:.7rem;border-bottom:2px solid var(--accent3)}
+
+/* Items */
+.cv-item{display:grid;grid-template-columns:170px 1fr;gap:1.5rem;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--hair)}
+.cv-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cv-item-date{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;padding-top:.25rem}
+.cv-item-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.15rem;line-height:1.35}
+.cv-item-body .org{font-size:.88rem;color:var(--muted);margin-bottom:.7rem}
+.cv-item-body .org a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+.cv-item-body .org a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.cv-item-body > p{font-size:.92rem;color:var(--text);line-height:1.65;margin-bottom:.6rem}
+.cv-item-body ul{list-style:none;padding:0;margin-top:.4rem}
+.cv-item-body ul li{font-size:.9rem;color:var(--text);line-height:1.65;padding-left:1.1rem;position:relative;margin-bottom:.35rem}
+.cv-item-body ul li::before{content:'–';position:absolute;left:0;color:var(--accent);font-weight:700}
+.cv-doc-link{display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--accent);font-weight:600;text-decoration:none;margin-top:.4rem;padding:.3rem .65rem;border:1px solid var(--border);border-radius:50px;transition:all .25s}
+.cv-doc-link:hover{border-color:var(--accent);background:rgba(0,112,237,.04)}
+
+.grade{font-weight:700;color:var(--accent4);font-variant-numeric:tabular-nums}
+[data-theme="dark"] .grade{color:var(--accent2)}
+
+/* Expandable */
+details{margin-top:.8rem}
+details summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--accent);user-select:none;list-style:none;display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border:1.5px solid var(--border);border-radius:50px;transition:all .25s;font-family:inherit}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:'+';font-size:1rem;font-weight:700;line-height:1;transition:transform .3s;width:10px;display:inline-block;text-align:center}
+details[open] summary::before{content:'−'}
+details summary:hover{border-color:var(--accent);background:rgba(0,112,237,.04)}
+details .details-content{margin-top:1rem;padding:1rem 1.3rem;background:rgba(0,112,237,.03);border-radius:10px;border-left:3px solid var(--accent3)}
+[data-theme="dark"] details .details-content{background:rgba(105,150,255,.04)}
+details .details-content ul{margin-top:0}
+details .details-content ul li{font-size:.85rem;padding-left:0;margin-bottom:.3rem}
+details .details-content ul li::before{content:''}
+details .course-list{columns:2;column-gap:2rem;list-style:none;padding:0;margin:0}
+details .course-list li{break-inside:avoid;margin-bottom:.35rem;padding-left:0}
+details .course-list li::before{content:''}
+@media(max-width:600px){details .course-list{columns:1}}
+
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:200px 1fr;gap:.9rem 1.5rem;font-size:.92rem;line-height:1.65}
+.skills-grid dt{font-weight:700;color:var(--accent4);font-family:'Syne',sans-serif;font-size:.88rem}
+[data-theme="dark"] .skills-grid dt{color:var(--accent2)}
+.skills-grid dd{color:var(--text)}
+
+/* Certs */
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
+.cert{display:flex;align-items:center;gap:.8rem;padding:.85rem 1rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:all .25s}
+.cert:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,112,237,.1)}
+.cert-icon{font-size:1.5rem;flex-shrink:0}
+.cert-info{min-width:0;flex:1}
+.cert-info h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:.15rem;line-height:1.25}
+.cert-info p{font-size:.72rem;color:var(--muted)}
+
+/* Working on */
+.working-list{display:grid;gap:1rem}
+.working-item{padding:1.25rem 1.4rem;background:var(--card-bg);border:1px solid var(--border);border-radius:14px;box-shadow:var(--card-shadow)}
+.working-head{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.55rem}
+.working-head h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1.02rem;line-height:1.3}
+.working-head h4 a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent;transition:all .2s}
+.working-head h4 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.status{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.2rem .6rem;border-radius:50px}
+.status-active{background:rgba(0,200,80,.1);color:#00a040;border:1px solid rgba(0,200,80,.25)}
+[data-theme="dark"] .status-active{color:#4ade80;background:rgba(0,200,80,.08)}
+.status-pending{background:rgba(255,180,0,.1);color:#b8860b;border:1px solid rgba(255,180,0,.3)}
+[data-theme="dark"] .status-pending{color:#e6a817}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dot-active{background:#00e054;animation:livePulse 2s ease-in-out infinite}
+.dot-pending{background:#e6a817;animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.3}}
+.working-item > p{font-size:.88rem;color:var(--text);line-height:1.6}
+.working-item .meta{font-size:.75rem;color:var(--subtle);margin-top:.55rem;font-style:italic}
+
+/* Footer */
+.cv-footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--subtle)}
+.cv-footer a{color:var(--accent);text-decoration:none;font-weight:600;transition:opacity .2s}
+.cv-footer a:hover{opacity:.7}
+
+/* Responsive */
+@media(max-width:700px){
+  nav{padding:.8rem 1rem}
+  .nav-logo .back{display:none}
+  main{padding:2rem 1.2rem 3rem}
+  .cv-header{grid-template-columns:1fr;text-align:center;gap:1.2rem;padding-bottom:2rem;margin-bottom:2rem}
+  .cv-photo{margin:0 auto;width:110px;height:110px}
+  .cv-name{font-size:2rem}
+  .cv-contact{justify-content:center}
+  .cv-item{grid-template-columns:1fr;gap:.45rem}
+  .cv-item-date{padding-top:0;font-size:.7rem}
+  .skills-grid{grid-template-columns:1fr;gap:.2rem 0}
+  .skills-grid dt{margin-top:.7rem}
+  .skills-grid dt:first-of-type{margin-top:0}
+}
+
+/* Print */
+@media print{
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.5}
+  body::after{display:none}
+  nav,.theme-toggle,.lang-switch,.cv-footer a{display:none !important}
+  main{max-width:100%;padding:.4in}
+  .cv-header{padding-bottom:1rem;margin-bottom:1.2rem;gap:1.2rem;grid-template-columns:90px 1fr}
+  .cv-photo{width:90px;height:90px;box-shadow:none;border:1px solid #ccc}
+  .cv-name{font-size:2rem;margin-bottom:.4rem}
+  .cv-summary{background:#fff;box-shadow:none;border:1px solid #ccc;padding:.8rem 1rem;margin-bottom:1.5rem}
+  .cv-summary::before{background:#fff;color:#333}
+  .cv-section{margin-bottom:1.5rem;break-inside:avoid-page}
+  .cv-section-title{font-size:1.15rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1.5px solid #333;color:#000}
+  .cv-item{break-inside:avoid;margin-bottom:.9rem;padding-bottom:.9rem}
+  details > summary{display:none !important}
+  details > *:not(summary){display:block !important}
+  details .details-content{background:#fff;border-left:2px solid #999;padding:.6rem .9rem;margin-top:.5rem}
+  .cert{background:#fff;box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  .working-item{background:#fff;box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  a{color:#000 !important;text-decoration:none !important;border-bottom:none !important}
+  .cv-contact a{color:#333 !important}
+  .cv-contact a[href^="mailto:"],.cv-contact a[href^="tel:"]{color:#000 !important}
+  .dot{display:none}
+  .status{border:1px solid #999 !important;color:#333 !important;background:#fff !important}
+  .citizenship-tag{background:#fff;border:1px solid #999;color:#333}
+  .grade{color:#000}
+  .cv-doc-link{border:none;padding:0;color:#333;font-style:italic}
+  .cv-doc-link::before{content:'↗ '}
+}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">V. <span class="back" data-i="backHome">← evers.no</span></a>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
+    <div class="lang-switch">
+      <button class="lang-btn" id="langBtn">NO</button>
+      <div class="lang-menu" id="langMenu">
+        <button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
+        <button class="lang-opt" data-lang="en">🇬🇧 English</button>
+        <button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
+        <button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
+        <button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- Header -->
+<header class="cv-header">
+  <img src="profile.jpg" alt="Valiant Evers" class="cv-photo">
+  <div>
+    <h1 class="cv-name">Valiant Evers</h1>
+    <div class="cv-contact">
+      <a href="mailto:Valiant@evers.no">Valiant@evers.no</a>
+      <span class="sep">·</span>
+      <a href="tel:+4798811528">+47 988 11 528</a>
+      <span class="sep">·</span>
+      <span>Oslo, <span data-i="norway">Norge</span></span>
+      <span class="sep">·</span>
+      <a href="https://www.linkedin.com/in/valiant-evers-linked-in/" target="_blank" rel="noopener">LinkedIn</a>
+      <span class="sep">·</span>
+      <span data-i="born">f. 18. september 2000</span>
+    </div>
+    <span class="citizenship-tag" data-i="citizenship">🇳🇴🇧🇪 Dobbelt norsk-belgisk statsborgerskap</span>
+  </div>
+</header>
+
+<!-- TL;DR -->
+<section class="cv-summary">
+  <p data-i="summary">Masterstudent i finans ved Handelshøyskolen BI, uteksamineres juni 2026. Søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales – roller der rådgivningen er like mye samtale som analyse. Bosatt i Oslo, åpen for muligheter i Europa.</p>
+</section>
+
+<!-- Education -->
+<section class="cv-section">
+  <h2 class="cv-section-title" data-i="eduTitle">Utdanning</h2>
+
+  <div class="cv-item">
+    <div class="cv-item-date">Aug 2024 – <span data-i="present">d.d.</span></div>
+    <div class="cv-item-body">
+      <h3 data-i="mscTitle">MSc in Finance</h3>
+      <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
+      <p data-i="mscDesc">Spesialisering: Asset Management. Forventet uteksaminering juni 2026.</p>
+      <details>
+        <summary data-i="showCourses">Vis alle fag</summary>
+        <div class="details-content">
+          <ul class="course-list">
+            <li>Asset Management <span class="grade">(A)</span></li>
+            <li>Strategic Asset Allocation <span class="grade">(A)</span></li>
+            <li>Financial Risk Management <span class="grade">(B)</span></li>
+            <li>Applied Valuation <span class="grade">(B)</span></li>
+            <li>International Finance <span class="grade">(B)</span></li>
+            <li>Sustainable Finance <span class="grade">(C)</span></li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="cv-item">
+    <div class="cv-item-date" data-i="summer2025">Juli 2025 (sommerkurs)</div>
+    <div class="cv-item-body">
+      <h3>Python Fundamentals for Machine Learning</h3>
+      <p class="org"><a href="https://international.au.dk/" target="_blank" rel="noopener">Aarhus Universitet</a>, <span data-i="denmark">Danmark</span></p>
+      <p data-i="aarhusDesc">Intensivt sommerkurs i Python for dataanalyse og maskinlæring. Toppkarakter <span class="grade">(12/A)</span>.</p>
+      <a href="docs/Transcript%20from%20Aarhus%20Summer%20School.pdf" target="_blank" rel="noopener" class="cv-doc-link">📄 <span data-i="viewTranscript">Se vitnemål</span></a>
+    </div>
+  </div>
+
+  <div class="cv-item">
+    <div class="cv-item-date">Aug 2021 – <span data-i="june2024">Juni 2024</span></div>
+    <div class="cv-item-body">
+      <h3 data-i="bscTitle">BSc in Finance</h3>
+      <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
+      <p data-i="bscDesc">Solid grunnlag i finans, økonometri og finansiell analyse.</p>
+      <details>
+        <summary data-i="showCourses">Vis alle fag</summary>
+        <div class="details-content">
+          <ul class="course-list">
+            <li>Behavioral Finance <span class="grade">(A)</span></li>
+            <li data-i="firmCourse">Bedriften <span class="grade">(A)</span></li>
+            <li data-i="digToolsCourse">Digitale verktøy og finansiell analyse <span class="grade">(A)</span></li>
+            <li>Financial Econometrics <span class="grade">(B)</span></li>
+            <li>Options and Futures <span class="grade">(B)</span></li>
+            <li>Markets and Institutions <span class="grade">(B)</span></li>
+            <li>Financial Modelling in Practice <span class="grade">(B)</span></li>
+            <li data-i="accCourse">Økonomistyring og investeringsanalyse <span class="grade">(B)</span></li>
+            <li data-i="strategyCourse">Strategi <span class="grade">(B)</span></li>
+            <li data-i="mathCourse">Matematikk for økonomer <span class="grade">(B)</span></li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+</section>
+
+<!-- Experience -->
+<section class="cv-section">
+  <h2 class="cv-section-title" data-i="expTitle">Erfaring</h2>
+
+  <div class="cv-item">
+    <div class="cv-item-date">Juni 2025</div>
+    <div class="cv-item-body">
+      <h3 data-i="igfTitle">Eventmedarbeider, IGF 2025</h3>
+      <p class="org">Medvind Eventbyrå · <a href="https://www.intgovforum.org/" target="_blank" rel="noopener">UN Internet Governance Forum</a></p>
+      <ul>
+        <li data-i="igf1">Ansvarlig for utstillingshallen med 70+ utstillere fra internasjonale teknologiselskaper som Google, Meta, TikTok og GlobalConnect.</li>
+        <li data-i="igf2">Utførte logistikk, rigg og akkreditering i tråd med stram produksjonsplan og FNs høye sikkerhetskrav.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-item">
+    <div class="cv-item-date" data-i="menyShiftDate">Jan 2021 – Sep 2025</div>
+    <div class="cv-item-body">
+      <h3 data-i="menyShiftTitle">Stengeansvarlig</h3>
+      <p class="org"><a href="https://meny.no/" target="_blank" rel="noopener">Meny Lambertseter</a>, Oslo</p>
+      <ul>
+        <li data-i="meny1">Ledet skift med opptil 20 ansatte; sørget for strukturert oppgavetildeling og smidig daglig drift.</li>
+        <li data-i="meny2">Bygget tillit og lagfølelse; bidro til et positivt arbeidsmiljø anerkjent av ledelsen.</li>
+        <li data-i="meny3">Fikk jevnlig ros for omstillingsevne og for å omsette tilbakemeldinger til praksis.</li>
+        <li data-i="meny4">Ansvar for verdisikring, kasseoppgjør, opplæring av nyansatte, konflikthåndtering, kostnadskontroll og sikkerhetsrutiner.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-item">
+    <div class="cv-item-date" data-i="menyClerkDate">Nov 2019 – Jan 2021</div>
+    <div class="cv-item-body">
+      <h3 data-i="menyClerkTitle">Butikkmedarbeider</h3>
+      <p class="org"><a href="https://meny.no/" target="_blank" rel="noopener">Meny Lambertseter</a>, Oslo</p>
+      <ul>
+        <li data-i="clerk1">Kundeservice, varepåfylling og støtte i varemottak og lager.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<!-- Skills -->
+<section class="cv-section">
+  <h2 class="cv-section-title" data-i="skillsTitle">Nøkkelkvalifikasjoner</h2>
+  <dl class="skills-grid">
+    <dt data-i="skillRelations">Relasjoner og kommunikasjon</dt>
+    <dd data-i="skillRelationsDesc">Genuin interesse for mennesker og historiene deres. Seks år i kundekontakt har gitt meg trygghet i å bygge tillit og lese rommet.</dd>
+    <dt data-i="skillLeadership">Ledelse og teamarbeid</dt>
+    <dd data-i="skillLeadershipDesc">Dokumentert evne til å lede team og delegere effektivt.</dd>
+    <dt data-i="skillProblem">Problemhåndtering</dt>
+    <dd data-i="skillProblemDesc">Håndterer uforutsette situasjoner og kundesaker profesjonelt.</dd>
+    <dt data-i="skillLang">Språk</dt>
+    <dd data-i="skillLangDesc">Norsk (morsmål), engelsk (flytende), fransk (mellomnivå).</dd>
+    <dt data-i="skillTech">Teknisk</dt>
+    <dd data-i="skillTechDesc">Python (Pandas, Matplotlib), Excel, finansiell modellering, økonometri, Bloomberg Terminal.</dd>
+  </dl>
+</section>
+
+<!-- Certifications -->
+<section class="cv-section">
+  <h2 class="cv-section-title" data-i="certsTitle">Sertifiseringer</h2>
+  <div class="certs">
+    <a href="docs/BMC_certificate_of_completion.pdf" target="_blank" rel="noopener" class="cert">
+      <span class="cert-icon">📈</span>
+      <div class="cert-info"><h4>Bloomberg Market Concepts</h4><p>Bloomberg for Education</p></div>
+    </a>
+    <a href="docs/Bloomberg_BFF_Certificate.pdf" target="_blank" rel="noopener" class="cert">
+      <span class="cert-icon">💰</span>
+      <div class="cert-info"><h4 data-i="bffTitle">Finance Fundamentals</h4><p>Bloomberg for Education</p></div>
+    </a>
+    <a href="docs/ESG_certificate_of_completion.pdf" target="_blank" rel="noopener" class="cert">
+      <span class="cert-icon">🌱</span>
+      <div class="cert-info"><h4>ESG</h4><p>Bloomberg for Education</p></div>
+    </a>
+    <a href="docs/Yale%20University%3ACoursera%20Sertifikat.pdf" target="_blank" rel="noopener" class="cert">
+      <span class="cert-icon">🧠</span>
+      <div class="cert-info"><h4>Intro to Psychology</h4><p>Yale / Coursera</p></div>
+    </a>
+  </div>
+</section>
+
+<!-- What I'm working on -->
+<section class="cv-section">
+  <h2 class="cv-section-title" data-i="workingTitle">Hva jeg jobber med nå</h2>
+  <div class="working-list">
+
+    <div class="working-item">
+      <div class="working-head">
+        <h4><a href="https://evers.no/osebx" target="_blank" rel="noopener">OSEBX Dashboard</a></h4>
+        <span class="status status-active"><span class="dot dot-active"></span><span data-i="active">Aktiv</span></span>
+      </div>
+      <p data-i="osebxDesc">Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.</p>
+    </div>
+
+    <div class="working-item">
+      <div class="working-head">
+        <h4 data-i="thesisTitle">Masteroppgave</h4>
+        <span class="status status-pending"><span class="dot dot-pending"></span><span data-i="awaiting">Avventer godkjenning</span></span>
+      </div>
+      <p data-i="thesisDesc"><em>How does financial literacy influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Basert på 746 norske privatinvestorer med mediationsanalyse i Python.</p>
+      <p class="meta" data-i="thesisMeta">Medforfatter: Henrik Bekkevold · Veileder: Ignacio Garcia de Olalla Lopez</p>
+      <a href="docs/Master%20Thesis.pdf" target="_blank" rel="noopener" class="cv-doc-link" style="margin-top:.6rem">📄 <span data-i="readThesis">Les oppgaven</span></a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="cv-footer">
+  <span><span data-i="lastUpdated">Sist oppdatert</span>: April 2026</span>
+  <a href="/" data-i="backToSite">← evers.no</a>
+</footer>
+
+</main>
+
+<script>
+var T = {
+  no: {
+    backHome: "← evers.no",
+    norway: "Norge",
+    denmark: "Danmark",
+    born: "f. 18. september 2000",
+    citizenship: "🇳🇴🇧🇪 Dobbelt norsk-belgisk statsborgerskap",
+    summary: "Masterstudent i finans ved Handelshøyskolen BI, uteksamineres juni 2026. Søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales – roller der rådgivningen er like mye samtale som analyse. Bosatt i Oslo, åpen for muligheter i Europa.",
+    eduTitle: "Utdanning",
+    present: "d.d.",
+    mscTitle: "MSc in Finance",
+    mscDesc: "Spesialisering: Asset Management. Forventet uteksaminering juni 2026.",
+    showCourses: "Vis alle fag",
+    summer2025: "Juli 2025 (sommerkurs)",
+    aarhusDesc: "Intensivt sommerkurs i Python for dataanalyse og maskinlæring. Toppkarakter <span class=\"grade\">(12/A)</span>.",
+    viewTranscript: "Se vitnemål",
+    june2024: "Juni 2024",
+    bscTitle: "BSc i finans",
+    bscDesc: "Solid grunnlag i finans, økonometri og finansiell analyse.",
+    firmCourse: "Bedriften <span class=\"grade\">(A)</span>",
+    digToolsCourse: "Digitale verktøy og finansiell analyse <span class=\"grade\">(A)</span>",
+    accCourse: "Økonomistyring og investeringsanalyse <span class=\"grade\">(B)</span>",
+    strategyCourse: "Strategi <span class=\"grade\">(B)</span>",
+    mathCourse: "Matematikk for økonomer <span class=\"grade\">(B)</span>",
+    expTitle: "Erfaring",
+    igfTitle: "Eventmedarbeider, IGF 2025",
+    igf1: "Ansvarlig for utstillingshallen med 70+ utstillere fra internasjonale teknologiselskaper som Google, Meta, TikTok og GlobalConnect.",
+    igf2: "Utførte logistikk, rigg og akkreditering i tråd med stram produksjonsplan og FNs høye sikkerhetskrav.",
+    menyShiftDate: "Jan 2021 – Sep 2025",
+    menyShiftTitle: "Stengeansvarlig",
+    meny1: "Ledet skift med opptil 20 ansatte; sørget for strukturert oppgavetildeling og smidig daglig drift.",
+    meny2: "Bygget tillit og lagfølelse; bidro til et positivt arbeidsmiljø anerkjent av ledelsen.",
+    meny3: "Fikk jevnlig ros for omstillingsevne og for å omsette tilbakemeldinger til praksis.",
+    meny4: "Ansvar for verdisikring, kasseoppgjør, opplæring av nyansatte, konflikthåndtering, kostnadskontroll og sikkerhetsrutiner.",
+    menyClerkDate: "Nov 2019 – Jan 2021",
+    menyClerkTitle: "Butikkmedarbeider",
+    clerk1: "Kundeservice, varepåfylling og støtte i varemottak og lager.",
+    skillsTitle: "Nøkkelkvalifikasjoner",
+    skillRelations: "Relasjoner og kommunikasjon",
+    skillRelationsDesc: "Genuin interesse for mennesker og historiene deres. Seks år i kundekontakt har gitt meg trygghet i å bygge tillit og lese rommet.",
+    skillLeadership: "Ledelse og teamarbeid",
+    skillLeadershipDesc: "Dokumentert evne til å lede team og delegere effektivt.",
+    skillProblem: "Problemhåndtering",
+    skillProblemDesc: "Håndterer uforutsette situasjoner og kundesaker profesjonelt.",
+    skillLang: "Språk",
+    skillLangDesc: "Norsk (morsmål), engelsk (flytende), fransk (mellomnivå).",
+    skillTech: "Teknisk",
+    skillTechDesc: "Python (Pandas, Matplotlib), Excel, finansiell modellering, økonometri, Bloomberg Terminal.",
+    certsTitle: "Sertifiseringer",
+    bffTitle: "Finance Fundamentals",
+    workingTitle: "Hva jeg jobber med nå",
+    active: "Aktiv",
+    osebxDesc: "Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.",
+    thesisTitle: "Masteroppgave",
+    awaiting: "Avventer godkjenning",
+    thesisDesc: "<em>How does financial literacy influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Basert på 746 norske privatinvestorer med mediationsanalyse i Python.",
+    thesisMeta: "Medforfatter: Henrik Bekkevold · Veileder: Ignacio Garcia de Olalla Lopez",
+    readThesis: "Les oppgaven",
+    lastUpdated: "Sist oppdatert",
+    backToSite: "← evers.no"
+  },
+  en: {
+    backHome: "← evers.no",
+    norway: "Norway",
+    denmark: "Denmark",
+    born: "Born 18 September 2000",
+    citizenship: "🇳🇴🇧🇪 Dual Norwegian–Belgian citizenship",
+    summary: "MSc Finance student at BI Norwegian Business School, graduating June 2026. Seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales – roles where advisory is as much conversation as analysis. Oslo-based, open to opportunities across Europe.",
+    eduTitle: "Education",
+    present: "present",
+    mscTitle: "MSc in Finance",
+    mscDesc: "Specialization: Asset Management. Expected graduation June 2026.",
+    showCourses: "Show all courses",
+    summer2025: "July 2025 (summer course)",
+    aarhusDesc: "Intensive summer course in Python for data analysis and machine learning. Top grade <span class=\"grade\">(12/A)</span>.",
+    viewTranscript: "View transcript",
+    june2024: "June 2024",
+    bscTitle: "BSc in Finance",
+    bscDesc: "Strong foundation in finance, econometrics and financial analysis.",
+    firmCourse: "The Firm <span class=\"grade\">(A)</span>",
+    digToolsCourse: "Digital Tools and Financial Analysis <span class=\"grade\">(A)</span>",
+    accCourse: "Managerial Accounting & Real Investment Theory <span class=\"grade\">(B)</span>",
+    strategyCourse: "Strategy <span class=\"grade\">(B)</span>",
+    mathCourse: "Mathematics for Economists <span class=\"grade\">(B)</span>",
+    expTitle: "Experience",
+    igfTitle: "Event Coordinator, IGF 2025",
+    igf1: "Managed the exhibition hall hosting 70+ exhibitors from international technology companies including Google, Meta, TikTok, and GlobalConnect.",
+    igf2: "Performed logistics, setup, and accreditation tasks in accordance with a strict production schedule and the UN's high security requirements.",
+    menyShiftDate: "Jan 2021 – Sep 2025",
+    menyShiftTitle: "Shift Manager",
+    meny1: "Led shifts with up to 20 employees, ensuring structured task allocation and smooth daily operations.",
+    meny2: "Built trust and team cohesion, contributing to a positive work environment recognised by management.",
+    meny3: "Consistently praised for adaptability and ability to implement feedback effectively.",
+    meny4: "Responsible for cash handling, reconciliation, training of new employees, conflict resolution, cost control, and security routines.",
+    menyClerkDate: "Nov 2019 – Jan 2021",
+    menyClerkTitle: "Grocery Clerk",
+    clerk1: "Customer service, restocking merchandise, and assisting with warehouse operations.",
+    skillsTitle: "Key Qualifications",
+    skillRelations: "Relationships & Communication",
+    skillRelationsDesc: "Genuine interest in people and their stories. Six years in customer-facing work gave me confidence in building trust and reading the room.",
+    skillLeadership: "Leadership & Teamwork",
+    skillLeadershipDesc: "Proven ability to lead teams and delegate tasks effectively.",
+    skillProblem: "Problem-Solving",
+    skillProblemDesc: "Skilled at managing unexpected situations and customer issues professionally.",
+    skillLang: "Languages",
+    skillLangDesc: "Norwegian (native), English (fluent), French (conversational).",
+    skillTech: "Technical",
+    skillTechDesc: "Python (Pandas, Matplotlib), Excel, financial modelling, econometrics, Bloomberg Terminal.",
+    certsTitle: "Certifications",
+    bffTitle: "Finance Fundamentals",
+    workingTitle: "What I'm working on",
+    active: "Live",
+    osebxDesc: "Autonomous market analysis tool for the Oslo Stock Exchange. Weekly pipeline analysing all ASK-eligible stocks (~129) to generate sector rotation, breadth metrics, and LLM-narrated briefs. Built with Python and GitHub Actions.",
+    thesisTitle: "Master's Thesis",
+    awaiting: "Awaiting approval",
+    thesisDesc: "<em>How does financial literacy influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Based on 746 Norwegian retail investors using mediation analysis in Python.",
+    thesisMeta: "Co-author: Henrik Bekkevold · Supervisor: Ignacio Garcia de Olalla Lopez",
+    readThesis: "Read the thesis",
+    lastUpdated: "Last updated",
+    backToSite: "← evers.no"
+  },
+  fr: {
+    backHome: "← evers.no",
+    norway: "Norvège",
+    denmark: "Danemark",
+    born: "Né le 18 septembre 2000",
+    citizenship: "🇳🇴🇧🇪 Double nationalité norvégienne-belge",
+    summary: "Étudiant en Master Finance à BI Norwegian Business School, diplômé en juin 2026. À la recherche de postes orientés client en Wealth Management, Private Banking ou Fund Sales – des postes où le conseil est autant conversation qu'analyse. Basé à Oslo, ouvert aux opportunités en Europe.",
+    eduTitle: "Formation",
+    present: "aujourd'hui",
+    mscTitle: "Master en Finance",
+    mscDesc: "Spécialisation : Asset Management. Diplôme prévu en juin 2026.",
+    showCourses: "Voir tous les cours",
+    summer2025: "Juillet 2025 (cours d'été)",
+    aarhusDesc: "Cours d'été intensif en Python pour l'analyse de données et le machine learning. Note maximale <span class=\"grade\">(12/A)</span>.",
+    viewTranscript: "Voir le relevé",
+    june2024: "Juin 2024",
+    bscTitle: "Licence en Finance",
+    bscDesc: "Base solide en finance, économétrie et analyse financière.",
+    firmCourse: "The Firm <span class=\"grade\">(A)</span>",
+    digToolsCourse: "Outils numériques et analyse financière <span class=\"grade\">(A)</span>",
+    accCourse: "Comptabilité de gestion et théorie de l'investissement <span class=\"grade\">(B)</span>",
+    strategyCourse: "Stratégie <span class=\"grade\">(B)</span>",
+    mathCourse: "Mathématiques pour économistes <span class=\"grade\">(B)</span>",
+    expTitle: "Expérience",
+    igfTitle: "Coordinateur d'événement, IGF 2025",
+    igf1: "Responsable du hall d'exposition accueillant plus de 70 exposants issus d'entreprises technologiques internationales telles que Google, Meta, TikTok et GlobalConnect.",
+    igf2: "Tâches de logistique, d'installation et d'accréditation conformément à un calendrier de production strict et aux exigences de sécurité de l'ONU.",
+    menyShiftDate: "Jan 2021 – Sep 2025",
+    menyShiftTitle: "Responsable d'équipe",
+    meny1: "Supervision d'équipes jusqu'à 20 employés, avec répartition structurée des tâches et bon déroulement des opérations quotidiennes.",
+    meny2: "Construction de la confiance et de la cohésion d'équipe, contribuant à un environnement de travail positif reconnu par la direction.",
+    meny3: "Reconnu pour mon adaptabilité et ma capacité à mettre en œuvre les retours efficacement.",
+    meny4: "Responsable de la gestion des caisses, de la formation des nouveaux employés, de la résolution de conflits, du contrôle des coûts et des routines de sécurité.",
+    menyClerkDate: "Nov 2019 – Jan 2021",
+    menyClerkTitle: "Employé de magasin",
+    clerk1: "Service client, réassort des marchandises et assistance logistique.",
+    skillsTitle: "Compétences clés",
+    skillRelations: "Relations et communication",
+    skillRelationsDesc: "Intérêt sincère pour les gens et leurs histoires. Six ans en contact client m'ont appris à établir la confiance et à saisir les nuances d'une situation.",
+    skillLeadership: "Leadership et travail d'équipe",
+    skillLeadershipDesc: "Capacité démontrée à diriger des équipes et à déléguer efficacement.",
+    skillProblem: "Résolution de problèmes",
+    skillProblemDesc: "Capable de gérer des situations imprévues et des questions clients avec professionnalisme.",
+    skillLang: "Langues",
+    skillLangDesc: "Norvégien (langue maternelle), anglais (courant), français (conversationnel).",
+    skillTech: "Technique",
+    skillTechDesc: "Python (Pandas, Matplotlib), Excel, modélisation financière, économétrie, Bloomberg Terminal.",
+    certsTitle: "Certifications",
+    bffTitle: "Finance Fundamentals",
+    workingTitle: "Mes projets en cours",
+    active: "Actif",
+    osebxDesc: "Outil autonome d'analyse de marché pour la Bourse d'Oslo. Pipeline hebdomadaire analysant toutes les actions éligibles ASK (~129) pour générer rotation sectorielle, mesures de largeur et briefings narrés par LLM. Construit avec Python et GitHub Actions.",
+    thesisTitle: "Mémoire de master",
+    awaiting: "En attente de validation",
+    thesisDesc: "<em>How does financial literacy influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Basé sur 746 investisseurs particuliers norvégiens avec analyse de médiation en Python.",
+    thesisMeta: "Co-auteur : Henrik Bekkevold · Directeur : Ignacio Garcia de Olalla Lopez",
+    readThesis: "Lire le mémoire",
+    lastUpdated: "Dernière mise à jour",
+    backToSite: "← evers.no"
+  },
+  de: {
+    backHome: "← evers.no",
+    norway: "Norwegen",
+    denmark: "Dänemark",
+    born: "Geb. 18. September 2000",
+    citizenship: "🇳🇴🇧🇪 Doppelte norwegisch-belgische Staatsbürgerschaft",
+    summary: "Masterstudent im Fach Finance an der BI Norwegian Business School, Abschluss Juni 2026. Suche nach kundennahen Rollen in Wealth Management, Private Banking oder Fund Sales – Rollen, in denen Beratung ebenso Gespräch wie Analyse ist. Wohnhaft in Oslo, offen für Chancen in Europa.",
+    eduTitle: "Ausbildung",
+    present: "heute",
+    mscTitle: "MSc in Finance",
+    mscDesc: "Vertiefung: Asset Management. Voraussichtlicher Abschluss Juni 2026.",
+    showCourses: "Alle Kurse anzeigen",
+    summer2025: "Juli 2025 (Sommerkurs)",
+    aarhusDesc: "Intensiver Sommerkurs in Python für Datenanalyse und Machine Learning. Bestnote <span class=\"grade\">(12/A)</span>.",
+    viewTranscript: "Zeugnis anzeigen",
+    june2024: "Juni 2024",
+    bscTitle: "BSc in Finance",
+    bscDesc: "Solides Fundament in Finanzen, Ökonometrie und Finanzanalyse.",
+    firmCourse: "The Firm <span class=\"grade\">(A)</span>",
+    digToolsCourse: "Digitale Werkzeuge und Finanzanalyse <span class=\"grade\">(A)</span>",
+    accCourse: "Betriebswirtschaftliches Rechnungswesen und Investitionstheorie <span class=\"grade\">(B)</span>",
+    strategyCourse: "Strategie <span class=\"grade\">(B)</span>",
+    mathCourse: "Mathematik für Wirtschaftswissenschaftler <span class=\"grade\">(B)</span>",
+    expTitle: "Erfahrung",
+    igfTitle: "Eventmitarbeiter, IGF 2025",
+    igf1: "Verantwortlich für die Ausstellungshalle mit über 70 Ausstellern aus internationalen Technologieunternehmen wie Google, Meta, TikTok und GlobalConnect.",
+    igf2: "Logistik, Aufbau und Akkreditierung nach strengem Produktionsplan und hohen UN-Sicherheitsanforderungen.",
+    menyShiftDate: "Jan 2021 – Sep 2025",
+    menyShiftTitle: "Schichtleiter",
+    meny1: "Leitung von Schichten mit bis zu 20 Mitarbeitern, strukturierte Aufgabenverteilung und reibungsloser Tagesablauf.",
+    meny2: "Aufbau von Vertrauen und Teamzusammenhalt, Beitrag zu einem positiven Arbeitsumfeld, anerkannt von der Geschäftsführung.",
+    meny3: "Regelmäßig gelobt für Anpassungsfähigkeit und die Umsetzung von Feedback in die Praxis.",
+    meny4: "Verantwortlich für Kassenabrechnung, Schulung neuer Mitarbeiter, Konfliktlösung, Kostenkontrolle und Sicherheitsroutinen.",
+    menyClerkDate: "Nov 2019 – Jan 2021",
+    menyClerkTitle: "Verkäufer",
+    clerk1: "Kundenservice, Warenauffüllung und Unterstützung bei Wareneingang und Lager.",
+    skillsTitle: "Schlüsselqualifikationen",
+    skillRelations: "Beziehungen und Kommunikation",
+    skillRelationsDesc: "Echtes Interesse an Menschen und ihren Geschichten. Sechs Jahre im Kundenkontakt haben mir die Sicherheit gegeben, Vertrauen aufzubauen und die Situation zu lesen.",
+    skillLeadership: "Führung und Teamarbeit",
+    skillLeadershipDesc: "Nachgewiesene Fähigkeit, Teams zu führen und effektiv zu delegieren.",
+    skillProblem: "Problemlösung",
+    skillProblemDesc: "Professioneller Umgang mit unerwarteten Situationen und Kundenanliegen.",
+    skillLang: "Sprachen",
+    skillLangDesc: "Norwegisch (Muttersprache), Englisch (fließend), Französisch (Konversationsniveau).",
+    skillTech: "Technisch",
+    skillTechDesc: "Python (Pandas, Matplotlib), Excel, Finanzmodellierung, Ökonometrie, Bloomberg Terminal.",
+    certsTitle: "Zertifikate",
+    bffTitle: "Finance Fundamentals",
+    workingTitle: "Woran ich gerade arbeite",
+    active: "Aktiv",
+    osebxDesc: "Autonomes Marktanalysewerkzeug für die Osloer Börse. Wöchentliche Pipeline, die alle ASK-berechtigten Aktien (~129) analysiert und Sektorrotation, Breitenmaße und LLM-erzählte Briefings generiert. Gebaut mit Python und GitHub Actions.",
+    thesisTitle: "Masterarbeit",
+    awaiting: "Genehmigung ausstehend",
+    thesisDesc: "<em>How does financial literacy influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Basierend auf 746 norwegischen Privatanlegern mit Mediationsanalyse in Python.",
+    thesisMeta: "Mitautor: Henrik Bekkevold · Betreuer: Ignacio Garcia de Olalla Lopez",
+    readThesis: "Arbeit lesen",
+    lastUpdated: "Zuletzt aktualisiert",
+    backToSite: "← evers.no"
+  },
+  ja: {
+    backHome: "← evers.no",
+    norway: "ノルウェー",
+    denmark: "デンマーク",
+    born: "2000年9月18日生まれ",
+    citizenship: "🇳🇴🇧🇪 ノルウェー・ベルギー二重国籍",
+    summary: "BI経営大学院でMSc Finance修了予定(2026年6月)。Wealth Management、Private Banking、Fund Salesでのクライアント対応職を探しています。分析と同じくらい対話が重要となる役割を希望。オスロ在住、ヨーロッパでの機会にもオープン。",
+    eduTitle: "学歴",
+    present: "現在",
+    mscTitle: "MSc in Finance",
+    mscDesc: "専攻:Asset Management。2026年6月修了予定。",
+    showCourses: "全科目を表示",
+    summer2025: "2025年7月(サマーコース)",
+    aarhusDesc: "データ分析と機械学習のためのPython集中サマーコース。最高評価<span class=\"grade\">(12/A)</span>。",
+    viewTranscript: "成績証明を見る",
+    june2024: "2024年6月",
+    bscTitle: "BSc in Finance",
+    bscDesc: "金融、計量経済学、財務分析の強固な基盤。",
+    firmCourse: "The Firm <span class=\"grade\">(A)</span>",
+    digToolsCourse: "デジタルツールと財務分析 <span class=\"grade\">(A)</span>",
+    accCourse: "管理会計と投資理論 <span class=\"grade\">(B)</span>",
+    strategyCourse: "戦略 <span class=\"grade\">(B)</span>",
+    mathCourse: "経済数学 <span class=\"grade\">(B)</span>",
+    expTitle: "職歴",
+    igfTitle: "イベントコーディネーター、IGF 2025",
+    igf1: "Google、Meta、TikTok、GlobalConnectなど、世界各国のテクノロジー企業70社以上が出展する展示ホールを担当。",
+    igf2: "厳格な制作スケジュールと国連の高度なセキュリティ要件に従って、ロジスティクス、設営、認証業務を遂行。",
+    menyShiftDate: "2021年1月 – 2025年9月",
+    menyShiftTitle: "シフトマネージャー",
+    meny1: "最大20名のシフトを統率し、構造化されたタスク配分と円滑な日常業務を確保。",
+    meny2: "チームの信頼と結束を築き、経営陣から評価された前向きな職場環境に貢献。",
+    meny3: "適応力とフィードバックを実践する能力で継続的に評価された。",
+    meny4: "現金処理、レジ締め、新人研修、紛争解決、コスト管理、セキュリティ業務を担当。",
+    menyClerkDate: "2019年11月 – 2021年1月",
+    menyClerkTitle: "店舗スタッフ",
+    clerk1: "接客、商品補充、倉庫業務の補助。",
+    skillsTitle: "主要資格",
+    skillRelations: "関係構築とコミュニケーション",
+    skillRelationsDesc: "人とその物語への真の関心。6年間の顧客対応で、信頼を築き、場の空気を読む自信を身につけました。",
+    skillLeadership: "リーダーシップとチームワーク",
+    skillLeadershipDesc: "チームを率い、効果的に委任する実証された能力。",
+    skillProblem: "問題解決",
+    skillProblemDesc: "予期せぬ状況や顧客問題をプロフェッショナルに対応。",
+    skillLang: "言語",
+    skillLangDesc: "ノルウェー語(母語)、英語(流暢)、フランス語(会話レベル)。",
+    skillTech: "技術",
+    skillTechDesc: "Python (Pandas, Matplotlib)、Excel、財務モデリング、計量経済学、Bloomberg Terminal。",
+    certsTitle: "資格",
+    bffTitle: "Finance Fundamentals",
+    workingTitle: "現在取り組んでいること",
+    active: "稼働中",
+    osebxDesc: "オスロ証券取引所の自律的市場分析ツール。ASK対象全銘柄(約129)を週次分析し、セクターローテーション、ブレドス指標、LLMナレーションブリーフを生成。PythonとGitHub Actionsで構築。",
+    thesisTitle: "修士論文",
+    awaiting: "承認待ち",
+    thesisDesc: "<em>How does financial literacy influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – ノルウェーの個人投資家746名を対象とし、Pythonで媒介分析を実施。",
+    thesisMeta: "共著者: Henrik Bekkevold · 指導教員: Ignacio Garcia de Olalla Lopez",
+    readThesis: "論文を読む",
+    lastUpdated: "最終更新",
+    backToSite: "← evers.no"
+  }
+};
+
+function setLang(l){
+  document.documentElement.lang = l;
+  var d = T[l];
+  document.querySelectorAll('[data-i]').forEach(function(el){
+    var k = el.getAttribute('data-i');
+    if(d[k] !== undefined) el.innerHTML = d[k];
+  });
+  document.getElementById('langBtn').textContent = l.toUpperCase();
+  document.querySelectorAll('.lang-opt').forEach(function(o){
+    o.classList.toggle('active', o.getAttribute('data-lang') === l);
+  });
+  document.getElementById('langMenu').classList.remove('open');
+  try { localStorage.setItem('ve-lang', l); } catch(e) {}
+}
+
+/* Initial language – reuse main-site preference */
+var sv; try { sv = localStorage.getItem('ve-lang'); } catch(e) {}
+if(!sv || !T[sv]) sv = 'no';
+setLang(sv);
+
+/* Language menu */
+document.getElementById('langBtn').addEventListener('click', function(e){
+  e.stopPropagation();
+  document.getElementById('langMenu').classList.toggle('open');
+});
+document.querySelectorAll('.lang-opt').forEach(function(o){
+  o.addEventListener('click', function(){
+    setLang(this.getAttribute('data-lang'));
+  });
+});
+document.addEventListener('click', function(){
+  document.getElementById('langMenu').classList.remove('open');
+});
+
+/* Theme toggle – reuse main-site preference */
+(function(){
+  var btn = document.getElementById('themeToggle');
+  var saved; try { saved = localStorage.getItem('ve-theme'); } catch(e) {}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches;
+  if(saved === 'dark' || (!saved && prefersDark)){
+    document.documentElement.setAttribute('data-theme', 'dark');
+    btn.textContent = '🌙';
+  }
+  btn.addEventListener('click', function(){
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if(isDark){
+      document.documentElement.removeAttribute('data-theme');
+      btn.textContent = '☀️';
+      try { localStorage.setItem('ve-theme', 'light'); } catch(e) {}
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      btn.textContent = '🌙';
+      try { localStorage.setItem('ve-theme', 'dark'); } catch(e) {}
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
