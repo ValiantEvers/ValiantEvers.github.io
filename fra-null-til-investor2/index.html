@@ -1027,9 +1027,12 @@ function App() {
   useEffect(() => { applyTweaks(tweaks); }, []);
 
   const persist = (s, sc) => {
-    try { localStorage.setItem('fnti2_step', sc === 'final' ? 99 : s); } catch {}
-  };
-
+  try {
+    localStorage.setItem('fnti2_step', sc === 'final' ? 99 : s);
+    if (riskProfile) localStorage.setItem('fnti2_riskProfile', riskProfile);
+    if (stockPercent !== null) localStorage.setItem('fnti2_stockPercent', String(stockPercent));
+  } catch {}
+};
   const goStart = () => { setScreen('step'); setStep(1); persist(1, 'step'); document.getElementById('step-pill').style.opacity = 1; };
   const goNext  = () => {
     if (step >= STEPS.length) { setScreen('final'); persist(99, 'final'); }
