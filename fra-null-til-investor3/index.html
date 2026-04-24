@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fra nybegynner til trygg investor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4efe6;
+    --warm: #faf7f1;
+    --navy: #0d1e30;
+    --navy-2: #1a3352;
+    --green: #2e9b68;
+    --green-light: #eaf6f0;
+    --border: #e2ddd4;
+    --muted: #7a8a9a;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Manrope', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--navy); font-family: var(--font-body); min-height: 100vh; }
+
+  @keyframes fadeIn  { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes slideUp { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+
+  /* Progress bar */
+  #progress-bar-track {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: rgba(0,0,0,0.08); z-index: 100;
+  }
+  #progress-bar-fill {
+    height: 100%; background: var(--green);
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* Step pill */
+  #step-pill {
+    position: fixed; top: 12px; right: 16px; z-index: 101;
+    background: var(--warm); border: 1px solid var(--border);
+    border-radius: 99px; padding: 6px 14px;
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    color: var(--muted); letter-spacing: 0.05em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: opacity 0.3s;
+  }
+
+  /* Range slider */
+  input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px; border-radius: 99px;
+    background: var(--border); outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--green); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(46,155,104,0.35);
+    transition: transform 0.15s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  input[type=range]::-moz-range-thumb {
+    width: 24px; height: 24px; border-radius: 50%; border: none;
+    background: var(--green); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(46,155,104,0.35);
+  }
+
+  /* Tweaks panel */
+  #tweaks-panel {
+    display: none; position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    background: var(--warm); border: 1px solid var(--border);
+    border-radius: 20px; padding: 20px 22px; width: 280px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    animation: fadeIn 0.2s ease;
+  }
+  #tweaks-panel.visible { display: block; }
+  .tweak-label { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+  .tweak-row { margin-bottom: 16px; }
+  .tweak-select { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: white; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--navy); cursor: pointer; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="progress-bar-track"><div id="progress-bar-fill" style="width:0%"></div></div>
+<div id="step-pill" style="opacity:0">Steg 1 av 6</div>
+<div id="tweaks-panel"></div>
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { useState, useEffect, useContext, createContext } = React;
+
+// ─── Context ─────────────────────────────────────────────────
+const AppCtx = createContext(null);
+
+// ─── Design tokens ────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#2e9b68",
+  "bgTone": "beige",
+  "fontSize": "comfortable"
+}/*EDITMODE-END*/;
+
+function applyTweaks(t) {
+  const r = document.documentElement;
+  r.style.setProperty('--green', t.accentColor);
+  r.style.setProperty('--green-light', t.accentColor + '20');
+  const bgs = { beige: '#f4efe6', slate: '#eff2f4', cream: '#f8f4ec' };
+  r.style.setProperty('--bg', bgs[t.bgTone] || bgs.beige);
+  const sizes = { compact: '14px', comfortable: '16px', large: '18px' };
+  document.body.style.fontSize = sizes[t.fontSize] || '16px';
+}
+
+// ─── Shared UI primitives ─────────────────────────────────────
+function Card({ children, style }) {
+  return (
+    <div style={{
+      background: 'var(--warm)', border: '1px solid var(--border)',
+      borderRadius: '20px', padding: '28px 28px',
+      boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
+      ...style,
+    }}>{children}</div>
+  );
+}
+
+function ChoiceBtn({ label, sub, chosen, onClick, color = 'var(--green)' }) {
+  return (
+    <button onClick={onClick} style={{
+      display: 'flex', alignItems: 'center', gap: '14px',
+      width: '100%', padding: '18px 20px',
+      background: chosen ? color + '12' : 'white',
+      border: `2px solid ${chosen ? color : 'var(--border)'}`,
+      borderRadius: '14px', cursor: 'pointer', textAlign: 'left',
+      transition: 'all 0.18s',
+    }}
+      onMouseOver={e => { if (!chosen) e.currentTarget.style.borderColor = color + '66'; }}
+      onMouseOut={e => { if (!chosen) e.currentTarget.style.borderColor = 'var(--border)'; }}
+    >
+      <div style={{
+        width: '22px', height: '22px', borderRadius: '50%', flexShrink: 0,
+        border: `2px solid ${chosen ? color : 'var(--border)'}`,
+        background: chosen ? color : 'transparent',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        {chosen && <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'white' }} />}
+      </div>
+      <div>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '700', color: 'var(--navy)', lineHeight: 1.3 }}>{label}</p>
+        {sub && <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--muted)', marginTop: '2px' }}>{sub}</p>}
+      </div>
+    </button>
+  );
+}
+
+function SectionLabel({ children }) {
+  return (
+    <p style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: '700', letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '14px' }}>
+      {children}
+    </p>
+  );
+}
+
+function Callout({ children, color = 'var(--green)' }) {
+  return (
+    <div style={{
+      background: color + '10', border: `1px solid ${color}30`,
+      borderRadius: '14px', padding: '18px 20px',
+    }}>
+      <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', lineHeight: '1.65', color: 'var(--navy)' }}>{children}</p>
+    </div>
+  );
+}
+
+function H2({ children }) {
+  return (
+    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 5vw, 42px)', fontWeight: '700', color: 'var(--navy)', lineHeight: 1.15, marginBottom: '10px' }}>{children}</h2>
+  );
+}
+
+function Lead({ children }) {
+  return (
+    <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--muted)', lineHeight: '1.7', marginBottom: '32px' }}>{children}</p>
+  );
+}
+
+// ─── STEP 1 – Tidshorisont ────────────────────────────────────
+function Step1() {
+  const { timeHorizon, setTimeHorizon } = useContext(AppCtx);
+
+  const choices = [
+    { id: '2-3', label: '2–3 år', sub: 'Kort sikt – bil, bolig, buffer' },
+    { id: '5-10', label: '5–10 år', sub: 'Mellomlang sikt – vekst og stabilitet' },
+    { id: '10+', label: '10+ år', sub: 'Lang sikt – pensjon eller frihet' },
+  ];
+
+  const outputs = {
+    '2-3':  { text: 'Med kort horisont er stabilitet viktigst. Svingninger kan ramme deg på verst mulig tidspunkt – rett når du trenger pengene.', tone: '#e07b3a' },
+    '5-10': { text: 'Du har tid til å ri av svingninger. En balansert portefølje med aksjer og renter passer godt til din situasjon.', tone: 'var(--green)' },
+    '10+':  { text: 'Med lang horisont tåler du mer risiko – og historien viser tydelig at det lønner seg. Tid er din viktigste ressurs.', tone: 'var(--green)' },
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div>
+        <H2>Hva sparer du til?</H2>
+        <Lead>Tidshorisonten din er det viktigste utgangspunktet for alle investeringsbeslutninger.</Lead>
+      </div>
+
+      <Card>
+        <SectionLabel>Velg din tidshorisont</SectionLabel>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {choices.map(c => (
+            <ChoiceBtn key={c.id} label={c.label} sub={c.sub}
+              chosen={timeHorizon === c.id}
+              onClick={() => setTimeHorizon(c.id)} />
+          ))}
+        </div>
+      </Card>
+
+      {timeHorizon && (
+        <div style={{ animation: 'fadeIn 0.35s ease both' }}>
+          <Callout color={outputs[timeHorizon].tone}>
+            {outputs[timeHorizon].text}
+          </Callout>
+        </div>
+      )}
+
+      <Card style={{ background: 'var(--navy)', border: 'none' }}>
+        <p style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: '600', fontStyle: 'italic', color: 'white', lineHeight: 1.4 }}>
+          "Tid i markedet slår timing av markedet."
+        </p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginTop: '10px' }}>Et klassisk, veldokumentert prinsipp</p>
+      </Card>
+    </div>
+  );
+}
+
+// ─── STEP 2 – Risikoprofil ────────────────────────────────────
+function Step2() {
+  const { quiz1, setQuiz1, quiz2, setQuiz2, riskProfile } = useContext(AppCtx);
+
+  const q1opts = [
+    { id: 'A', label: 'Jeg selger – det er for stressende', sub: null },
+    { id: 'B', label: 'Jeg venter og ser an situasjonen', sub: null },
+    { id: 'C', label: 'Jeg kjøper mer – det er billig nå', sub: null },
+  ];
+  const q2opts = [
+    { id: 'A', label: 'Veldig viktig – jeg vil vite hva jeg har', sub: null },
+    { id: 'B', label: 'Noe viktig – litt svingning er OK', sub: null },
+    { id: 'C', label: 'Ikke så viktig – jeg tenker langsiktig', sub: null },
+  ];
+
+  const profileInfo = {
+    rolig:       { label: 'Konservativ', text: 'Du setter pris på forutsigbarhet. En trygg, konservativ tilnærming passer deg best.', color: '#e07b3a' },
+    balansert:   { label: 'Balansert',   text: 'Du er komfortabel med litt svingning. En balansert portefølje er et naturlig valg.', color: '#3a7bd5' },
+    svingninger: { label: 'Vekst',       text: 'Du tenker langsiktig og lar deg ikke skremme av kortsiktige fall. Du kan ta mer risiko.', color: 'var(--green)' },
+  };
+
+  const bothAnswered = quiz1 && quiz2;
+  const info = riskProfile ? profileInfo[riskProfile] : null;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div>
+        <H2>Hvor mye risiko passer deg?</H2>
+        <Lead>To raske spørsmål avslører mer enn du tror om din naturlige tilnærming til penger.</Lead>
+      </div>
+
+      <Card>
+        <SectionLabel>Spørsmål 1 av 2</SectionLabel>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', fontWeight: '700', color: 'var(--navy)', marginBottom: '16px', lineHeight: 1.4 }}>
+          Hva gjør du hvis 100 000 kr faller til 80 000 kr?
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {q1opts.map(o => (
+            <ChoiceBtn key={o.id} label={`${o.id}. ${o.label}`}
+              chosen={quiz1 === o.id} onClick={() => setQuiz1(o.id)} />
+          ))}
+        </div>
+      </Card>
+
+      {quiz1 && (
+        <div style={{ animation: 'fadeIn 0.3s ease both' }}>
+          <Card>
+            <SectionLabel>Spørsmål 2 av 2</SectionLabel>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', fontWeight: '700', color: 'var(--navy)', marginBottom: '16px', lineHeight: 1.4 }}>
+              Hvor viktig er stabilitet for deg?
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {q2opts.map(o => (
+                <ChoiceBtn key={o.id} label={`${o.id}. ${o.label}`}
+                  chosen={quiz2 === o.id} onClick={() => setQuiz2(o.id)} />
+              ))}
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {bothAnswered && info && (
+        <div style={{ animation: 'slideUp 0.4s cubic-bezier(0.16,1,0.3,1) both' }}>
+          <Card style={{ borderColor: info.color + '44', background: info.color + '08' }}>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+              <div style={{
+                flexShrink: 0, width: '48px', height: '48px', borderRadius: '50%',
+                background: info.color + '20', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: info.color }} />
+              </div>
+              <div>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: '800', letterSpacing: '0.09em', textTransform: 'uppercase', color: info.color, marginBottom: '6px' }}>Din risikoprofil</p>
+                <p style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: '700', color: 'var(--navy)', marginBottom: '8px' }}>{info.label}</p>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'var(--muted)', lineHeight: 1.6 }}>{info.text}</p>
+              </div>
+            </div>
+          </Card>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--muted)', marginTop: '12px', textAlign: 'center' }}>
+            Profilen din brukes til å sette startpunktet i Steg 4.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── STEP 3 – Velge fond ──────────────────────────────────────
+function Step3() {
+  const costRows = [
+    { label: 'Indeksfond (0,2% per år)', start: 100000, rate: 0.07, cost: 0.002, years: 30 },
+    { label: 'Aktivt fond (1,5% per år)', start: 100000, rate: 0.07, cost: 0.015, years: 30 },
+  ];
+
+  function futureVal(start, rate, cost, years) {
+    return Math.round(start * Math.pow(1 + rate - cost, years));
+  }
+
+  const vals = costRows.map(r => futureVal(r.start, r.rate, r.cost, r.years));
+  const diff = vals[0] - vals[1];
+
+  function fmt(n) { return n.toLocaleString('nb-NO') + ' kr'; }
+
+  const cards = [
+    {
+      title: 'Indeksfond',
+      body: 'Følger et markedsindeks automatisk. Lavere kostnader, bred spredning, ingen gjetning om fremtiden.',
+      tag: 'Anbefalt for de fleste', tagColor: 'var(--green)',
+    },
+    {
+      title: 'Aktivt forvaltet fond',
+      body: 'Et team prøver å slå markedet. Kan lykkes, men gjør det sjelden over tid – og koster mer.',
+      tag: 'Høyere kostnad', tagColor: '#e07b3a',
+    },
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      <div>
+        <H2>Hvordan velge fond?</H2>
+        <Lead>Tre ting som faktisk betyr noe: forvaltningsstil, kostnader og geografi.</Lead>
+      </div>
+
+      {/* Indeks vs aktiv */}
+      <div>
+        <SectionLabel>Indeksfond vs. aktivt forvaltede fond</SectionLabel>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {cards.map((c, i) => (
+            <Card key={i} style={{ padding: '22px 24px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', flexWrap: 'wrap' }}>
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: '700', color: 'var(--navy)', marginBottom: '6px' }}>{c.title}</p>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', lineHeight: '1.6' }}>{c.body}</p>
+                </div>
+                <span style={{
+                  padding: '5px 12px', borderRadius: '99px', flexShrink: 0,
+                  background: c.tagColor + '15',
+                  fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: '800',
+                  color: c.tagColor, letterSpacing: '0.06em', whiteSpace: 'nowrap',
+                }}>{c.tag}</span>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Kostnad */}
+      <div>
+        <SectionLabel>Hva koster kostnader?</SectionLabel>
+        <Card>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', marginBottom: '20px', lineHeight: '1.6' }}>
+            100 000 kr investert i 30 år med 7% avkastning per år, minus forvaltningsgebyr:
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {costRows.map((r, i) => {
+              const pct = vals[i] / vals[0];
+              return (
+                <div key={i}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: '600', color: 'var(--navy)' }}>{r.label}</p>
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800', color: i === 0 ? 'var(--green)' : '#e07b3a' }}>{fmt(vals[i])}</p>
+                  </div>
+                  <div style={{ height: '8px', borderRadius: '99px', background: 'var(--border)', overflow: 'hidden' }}>
+                    <div style={{ width: `${pct * 100}%`, height: '100%', borderRadius: '99px', background: i === 0 ? 'var(--green)' : '#e07b3a', transition: 'width 0.8s ease' }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ marginTop: '18px', padding: '14px 16px', background: 'var(--green-light)', borderRadius: '12px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', fontWeight: '700', color: 'var(--green)' }}>
+              Forskjellen: {fmt(diff)} — bare i gebyrer.
+            </p>
+          </div>
+        </Card>
+      </div>
+
+      {/* Globalt vs lokalt */}
+      <div>
+        <SectionLabel>Globalt vs. lokalt</SectionLabel>
+        <Callout>
+          Et globalt indeksfond sprer pengene dine på tusenvis av selskaper i mange land. Ingen enkeltøkonomi kan ta deg ned.
+        </Callout>
+      </div>
+
+      <Card style={{ background: 'var(--navy)', border: 'none' }}>
+        <p style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: '600', fontStyle: 'italic', color: 'white', lineHeight: 1.45 }}>
+          "Ikke legg alle eggene i én kurv — og heller ikke i én økonomi."
+        </p>
+      </Card>
+    </div>
+  );
+}
+
+// ─── STEP 4 – Bygg portefølje ─────────────────────────────────
+function Step4() {
+  const { riskProfile, stockPercent, setStockPercent } = useContext(AppCtx);
+
+  const profileStarts = { rolig: 40, balansert: 65, svingninger: 90 };
+  const defaultPct = riskProfile ? profileStarts[riskProfile] : 60;
+
+  // Only set once on mount if not already overridden
+  const [localPct, setLocalPct] = useState(stockPercent ?? defaultPct);
+
+  const handleChange = (val) => {
+    setLocalPct(val);
+    setStockPercent(val);
+  };
+
+  const pct = localPct;
+  const bonds = 100 - pct;
+
+  function getLabel(p) {
+    if (p >= 95) return { text: 'Nesten fullt investert i aksjer – høyest potensial, mest svingning.', color: '#ef4444' };
+    if (p >= 75) return { text: 'Vekstorientert portefølje med litt buffer mot store fall.', color: '#e07b3a' };
+    if (p >= 55) return { text: 'Klassisk balansert portefølje – aksjer og renter i harmoni.', color: '#3a7bd5' };
+    if (p >= 35) return { text: 'Konservativ tilnærming – stabilitet prioriteres over vekst.', color: 'var(--green)' };
+    return { text: 'Svært defensiv – passer best til korte horisonter.', color: 'var(--muted)' };
+  }
+
+  const label = getLabel(pct);
+
+  const profileNames = { rolig: 'Konservativ', balansert: 'Balansert', svingninger: 'Vekst' };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      <div>
+        <H2>Bygg din portefølje</H2>
+        <Lead>Bruk glideren under til å sette din fordeling mellom aksjer og renter.</Lead>
+      </div>
+
+      {riskProfile && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 16px', background: 'var(--green-light)', borderRadius: '12px' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--green)', flexShrink: 0 }} />
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--navy)', fontWeight: '600' }}>
+            Basert på din profil (<strong>{profileNames[riskProfile]}</strong>) er startpunktet satt til {defaultPct}% aksjer. Du kan justere fritt.
+          </p>
+        </div>
+      )}
+
+      <Card>
+        {/* Donut-ish visual */}
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap' }}>
+          <div style={{ position: 'relative', width: '100px', height: '100px', flexShrink: 0 }}>
+            <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="var(--border)" strokeWidth="12" />
+              <circle cx="50" cy="50" r="38" fill="none" stroke="var(--green)" strokeWidth="12"
+                strokeDasharray={`${pct * 2.388} ${(100 - pct) * 2.388}`}
+                style={{ transition: 'stroke-dasharray 0.4s ease' }} />
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#3a7bd5" strokeWidth="12"
+                strokeDasharray={`${bonds * 2.388} ${pct * 2.388}`}
+                strokeDashoffset={`${-pct * 2.388}`}
+                style={{ transition: 'all 0.4s ease' }} />
+            </svg>
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {[
+                { color: 'var(--green)', label: 'Aksjer', val: pct },
+                { color: '#3a7bd5', label: 'Renter / obligasjoner', val: bonds },
+              ].map((row, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: row.color, flexShrink: 0 }} />
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', flex: 1 }}>{row.label}</p>
+                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '18px', fontWeight: '800', color: 'var(--navy)', minWidth: '44px', textAlign: 'right' }}>{row.val}%</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <SectionLabel>Juster fordelingen</SectionLabel>
+        <div style={{ padding: '0 4px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>0% aksjer</p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--muted)', fontWeight: '600' }}>100% aksjer</p>
+          </div>
+          <input type="range" min="0" max="100" step="5"
+            value={pct} onChange={e => handleChange(Number(e.target.value))}
+            style={{ '--range-pct': pct + '%' }} />
+        </div>
+
+        <div style={{ marginTop: '20px', padding: '14px 16px', background: label.color + '10', border: `1px solid ${label.color}25`, borderRadius: '12px', transition: 'all 0.25s' }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--navy)', lineHeight: 1.6 }}>{label.text}</p>
+        </div>
+      </Card>
+
+      <Card style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+        <div style={{ fontSize: '20px', flexShrink: 0 }}>💡</div>
+        <div>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '700', color: 'var(--navy)', marginBottom: '4px' }}>Enkelhet slår kompleksitet</p>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', lineHeight: '1.65' }}>
+            Mange investorer gjør det dårligere enn de hadde gjort med ett enkelt globalt indeksfond. En klar, enkel plan som følges er bedre enn en avansert plan som ikke gjør det.
+          </p>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+// ─── STEP 5 – Underveis ───────────────────────────────────────
+function Step5() {
+  const sections = [
+    {
+      icon: '🔁',
+      title: 'Automatiser sparingen',
+      body: 'Sett opp fast månedlig overføring til investeringskontoen din. Ikke tenk, bare gjør det – gjerne på lønnsdagen. Det du ikke ser, savner du sjelden.',
+    },
+    {
+      icon: '⚖️',
+      title: 'Enkel rebalansering',
+      body: 'En gang i året – sjekk om fordelingen din har dratt skjevt. Selg litt av det som har vokst, kjøp litt av det som har falt. Det er alt.',
+    },
+    {
+      icon: '📉',
+      title: 'Når markedet faller',
+      body: 'Markedet kan falle 20–30% – det er normalt, og historisk har det alltid hentet seg inn. Det viktigste du kan gjøre da? Ingenting. Bare la planen gjøre jobben sin.',
+    },
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div>
+        <H2>Hva gjør du underveis?</H2>
+        <Lead>De beste investorene er ikke de mest aktive – de er de mest tålmodige.</Lead>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        {sections.map((s, i) => (
+          <Card key={i} style={{ display: 'flex', gap: '18px', alignItems: 'flex-start' }}>
+            <div style={{ fontSize: '28px', lineHeight: 1, flexShrink: 0 }}>{s.icon}</div>
+            <div>
+              <p style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: '700', color: 'var(--navy)', marginBottom: '6px' }}>{s.title}</p>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', lineHeight: '1.7' }}>{s.body}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      <Card style={{ background: 'var(--navy)', border: 'none' }}>
+        <p style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: '600', fontStyle: 'italic', color: 'white', lineHeight: 1.45 }}>
+          "Den beste investeringen er den du faktisk holder gjennom en nedtur."
+        </p>
+      </Card>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        {[
+          { n: '20–30%', d: 'Typisk markedsfall' },
+          { n: '100%', d: 'Historisk innhentingsrate' },
+        ].map((stat, i) => (
+          <Card key={i} style={{ textAlign: 'center', padding: '24px 16px' }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '38px', fontWeight: '700', color: 'var(--green)', lineHeight: 1 }}>{stat.n}</p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'var(--muted)', marginTop: '6px', lineHeight: '1.4' }}>{stat.d}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── STEP 6 – Vanlige feil ────────────────────────────────────
+function Step6() {
+  const mistakes = [
+    {
+      n: '01', title: 'Bytte strategi for ofte',
+      body: 'Å hoppe mellom fond og strategier koster mer enn det gir. Velg én god plan – og hold den.',
+    },
+    {
+      n: '02', title: 'Jage det som nylig gikk bra',
+      body: 'Forrige vinner er sjelden neste vinner. Kjøp etter prinsipp, ikke etter prestasjon.',
+    },
+    {
+      n: '03', title: 'Gjøre det for komplisert',
+      body: '10 fond er ikke bedre enn 2. Kompleksitet gir deg noe å fikse på – men ikke bedre resultater.',
+    },
+    {
+      n: '04', title: 'Fokusere på kortsiktige resultater',
+      body: 'Markedet svinger daglig. Din plan er bygd for år og tiår – ikke for denne uken.',
+    },
+    {
+      n: '05', title: 'Ikke diversifisere nok',
+      body: 'Alle eggene i ett selskap, ett land eller én sektor er ikke investering – det er gambling.',
+    },
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div>
+        <H2>Vanlige feil å unngå</H2>
+        <Lead>De fleste investor-tabber handler ikke om mangel på kunnskap – men om mangel på disiplin.</Lead>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {mistakes.map((m, i) => (
+          <Card key={i} style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: '32px', fontWeight: '700', color: 'var(--border)', lineHeight: 1, flexShrink: 0, marginTop: '2px' }}>{m.n}</p>
+            <div>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800', color: 'var(--navy)', marginBottom: '5px' }}>{m.title}</p>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', lineHeight: '1.65' }}>{m.body}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      <Callout color="#3a7bd5">
+        Det er ikke nødvendig å bli ekspert. Det holder å unngå de store feilene og la tid og rentes rente gjøre jobben.
+      </Callout>
+    </div>
+  );
+}
+
+// ─── Steps metadata ───────────────────────────────────────────
+const STEPS = [
+  { id: 1, label: 'Tidshorisont',  subtitle: 'Hva sparer du til?',              color: '#2e9b68' },
+  { id: 2, label: 'Risikoprofil',  subtitle: 'Hvor mye svingning tåler du?',    color: '#3a7bd5' },
+  { id: 3, label: 'Velge fond',    subtitle: 'Hva du bør se etter',             color: '#e07b3a' },
+  { id: 4, label: 'Portefølje',    subtitle: 'Sett din fordeling',              color: '#8b5cf6' },
+  { id: 5, label: 'Underveis',     subtitle: 'Hold kursen og juster lite',      color: '#0ea5e9' },
+  { id: 6, label: 'Vanlige feil',  subtitle: 'Hva du bør unngå',               color: '#ef4444' },
+];
+const STEP_COMPONENTS = [Step1, Step2, Step3, Step4, Step5, Step6];
+
+// ─── Hero ─────────────────────────────────────────────────────
+function Hero({ onStart }) {
+  return (
+    <div style={{
+      minHeight: '100vh', background: 'var(--navy)',
+      display: 'flex', flexDirection: 'column',
+      justifyContent: 'center', alignItems: 'center',
+      padding: '60px 24px', textAlign: 'center', position: 'relative', overflow: 'hidden',
+    }}>
+      {/* Decorative circles */}
+      {[
+        { w: 700, h: 700, top: -260, right: -200, opacity: 0.04 },
+        { w: 440, h: 440, bottom: -160, left: -100, opacity: 0.05 },
+      ].map((c, i) => (
+        <div key={i} style={{
+          position: 'absolute', width: c.w, height: c.h,
+          top: c.top, bottom: c.bottom, left: c.left, right: c.right,
+          borderRadius: '50%', border: '1px solid white', opacity: c.opacity, pointerEvents: 'none',
+        }} />
+      ))}
+
+      <div style={{ maxWidth: '620px', animation: 'slideUp 0.8s cubic-bezier(0.16,1,0.3,1) both', position: 'relative' }}>
+        {/* Part tag */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '36px', flexWrap: 'wrap' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '6px 16px', borderRadius: '99px',
+            border: '1px solid rgba(255,255,255,0.12)',
+          }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: '700', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>
+              Del 1 fullført
+            </span>
+          </div>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '6px 16px', borderRadius: '99px',
+            background: 'rgba(46,155,104,0.18)',
+            border: '1px solid rgba(46,155,104,0.3)',
+          }}>
+            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--green)', animation: 'pulse 2s infinite' }} />
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: '700', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--green)' }}>Del 2 – Du er her</span>
+          </div>
+        </div>
+
+        <h1 style={{
+          fontFamily: 'var(--font-display)', fontSize: 'clamp(48px, 8vw, 88px)',
+          fontWeight: '700', color: 'white', lineHeight: '1.02',
+          letterSpacing: '-0.01em', marginBottom: '24px',
+        }}>
+          Fra nybegynner<br />
+          <em style={{ color: '#7de8b2' }}>til trygg investor</em>
+        </h1>
+
+        <p style={{
+          fontFamily: 'var(--font-body)', fontSize: 'clamp(15px, 2.2vw, 18px)',
+          color: 'rgba(255,255,255,0.5)', lineHeight: '1.7',
+          maxWidth: '460px', margin: '0 auto 20px',
+        }}>
+          Lær hvordan du tar gode investeringsvalg – basert på din situasjon.
+        </p>
+        <p style={{
+          fontFamily: 'var(--font-body)', fontSize: '13px',
+          color: 'rgba(255,255,255,0.25)', marginBottom: '52px', letterSpacing: '0.03em',
+        }}>
+          Bygger videre på det du allerede har lært
+        </p>
+
+        <button onClick={onStart} style={{
+          padding: '18px 56px', background: 'var(--green)', color: 'white',
+          border: 'none', borderRadius: '99px', cursor: 'pointer',
+          fontFamily: 'var(--font-body)', fontSize: '16px', fontWeight: '800',
+          letterSpacing: '0.03em', transition: 'all 0.2s',
+          boxShadow: '0 0 0 0 rgba(46,155,104,0.4)',
+        }}
+          onMouseOver={e => { e.currentTarget.style.transform = 'scale(1.04)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(46,155,104,0.4)'; }}
+          onMouseOut={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 0 0 0 rgba(46,155,104,0.4)'; }}
+        >
+          Start neste steg →
+        </button>
+
+        {/* Step previews */}
+        <div style={{ marginTop: '64px', display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          {STEPS.map(s => (
+            <div key={s.id} style={{
+              padding: '7px 15px', borderRadius: '99px',
+              border: '1px solid rgba(255,255,255,0.09)',
+              fontFamily: 'var(--font-body)', fontSize: '12px', fontWeight: '600',
+              color: 'rgba(255,255,255,0.3)',
+            }}>
+              {s.label}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step view ────────────────────────────────────────────────
+function StepView({ step, onNext, onBack }) {
+  const idx = step - 1;
+  const meta = STEPS[idx];
+  const StepContent = STEP_COMPONENTS[idx];
+  const isLast = step === STEPS.length;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const fill = (step / (STEPS.length + 1)) * 100;
+    document.getElementById('progress-bar-fill').style.width = fill + '%';
+    document.getElementById('step-pill').style.opacity = 1;
+    document.getElementById('step-pill').textContent = `Steg ${step} av ${STEPS.length}`;
+  }, [step]);
+
+  return (
+    <div style={{ minHeight: '100vh', paddingBottom: '100px' }} data-screen-label={`0${step} ${meta.label}`}>
+      {/* Step header */}
+      <div style={{ background: 'var(--navy)', padding: '60px 24px 36px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '640px', margin: '0 auto', animation: 'slideUp 0.5s ease both' }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '10px',
+            padding: '6px 18px', borderRadius: '99px',
+            background: meta.color + '22', marginBottom: '18px',
+          }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', fontWeight: '800', letterSpacing: '0.1em', textTransform: 'uppercase', color: meta.color }}>
+              Steg {step} av {STEPS.length}
+            </span>
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(34px, 7vw, 58px)', fontWeight: '700', color: 'white', lineHeight: 1.1, marginBottom: '10px' }}>
+            {meta.label}
+          </h2>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.02em' }}>{meta.subtitle}</p>
+        </div>
+      </div>
+
+      {/* Progress dots */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '7px', padding: '16px 0', background: 'var(--navy)' }}>
+        {STEPS.map((s, i) => (
+          <div key={i} style={{
+            width: i === idx ? '26px' : '7px', height: '7px', borderRadius: '99px',
+            background: i < step ? meta.color : i === idx ? meta.color : 'rgba(255,255,255,0.15)',
+            transition: 'all 0.4s cubic-bezier(0.4,0,0.2,1)',
+          }} />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ maxWidth: '680px', margin: '0 auto', padding: '40px 20px 0' }}>
+        <div key={step} style={{ animation: 'slideUp 0.45s cubic-bezier(0.16,1,0.3,1) both' }}>
+          <StepContent />
+        </div>
+
+        {/* Navigation */}
+        <div style={{ marginTop: '52px', display: 'flex', gap: '12px', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: '28px' }}>
+          <button onClick={onBack} style={{
+            padding: '14px 28px', borderRadius: '99px',
+            border: '2px solid var(--border)', background: 'transparent',
+            cursor: 'pointer', fontFamily: 'var(--font-body)', fontSize: '14px',
+            fontWeight: '700', color: 'var(--muted)', transition: 'all 0.2s',
+          }}
+            onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.color = 'var(--navy)'; }}
+            onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
+          >← Tilbake</button>
+
+          <div style={{ textAlign: 'right' }}>
+            {!isLast && (
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--muted)', marginBottom: '8px', letterSpacing: '0.04em' }}>
+                Neste: {STEPS[idx + 1]?.label}
+              </p>
+            )}
+            <button onClick={onNext} style={{
+              padding: '16px 40px', background: meta.color, color: 'white',
+              border: 'none', borderRadius: '99px', cursor: 'pointer',
+              fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800',
+              letterSpacing: '0.03em', transition: 'all 0.2s',
+            }}
+              onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'}
+              onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              {isLast ? 'Se din plan →' : 'Neste steg →'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Final ────────────────────────────────────────────────────
+function Final({ onRestart, stockPercent, riskProfile }) {
+  useEffect(() => {
+    document.getElementById('progress-bar-fill').style.width = '100%';
+    document.getElementById('step-pill').style.opacity = 0;
+    window.scrollTo(0, 0);
+  }, []);
+
+  const profileNames = { rolig: 'Konservativ', balansert: 'Balansert', svingninger: 'Vekst' };
+  const bonds = 100 - (stockPercent ?? 60);
+  const pct = stockPercent ?? 60;
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '60px 24px', textAlign: 'center' }}>
+      <div style={{ maxWidth: '580px', animation: 'slideUp 0.7s cubic-bezier(0.16,1,0.3,1) both' }}>
+        <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'var(--green-light)', border: '2px solid var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 28px' }}>
+          <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'var(--green)' }} />
+        </div>
+
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(44px, 8vw, 76px)', fontWeight: '700', color: 'var(--navy)', lineHeight: 1.05, marginBottom: '18px' }}>
+          Du har en plan.
+        </h2>
+
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '17px', color: 'var(--muted)', lineHeight: '1.7', marginBottom: '44px' }}>
+          Kunnskap er steg én. Det som teller nå er at du faktisk starter — og holder kursen.
+        </p>
+
+        {/* Summary card */}
+        <Card style={{ marginBottom: '20px', textAlign: 'left' }}>
+          <SectionLabel>Din profil</SectionLabel>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {riskProfile && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)' }}>Risikoprofil</p>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800', color: 'var(--navy)' }}>{profileNames[riskProfile]}</p>
+              </div>
+            )}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)' }}>Aksjeandel</p>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800', color: 'var(--green)' }}>{pct}%</p>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)' }}>Renter / obligasjoner</p>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800', color: '#3a7bd5' }}>{bonds}%</p>
+            </div>
+            {/* Visual bar */}
+            <div style={{ height: '10px', borderRadius: '99px', overflow: 'hidden', background: '#3a7bd5', marginTop: '4px' }}>
+              <div style={{ width: `${pct}%`, height: '100%', background: 'var(--green)', borderRadius: '99px', transition: 'width 0.6s ease' }} />
+            </div>
+          </div>
+        </Card>
+
+        <Card style={{ marginBottom: '32px', textAlign: 'left' }}>
+          <SectionLabel>Husk fremover</SectionLabel>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {[
+              'Start i dag – ikke vent på det perfekte tidspunktet',
+              'Automatiser – fjern den menneskelige faktoren',
+              'Hold planen når markedet faller',
+              'Kontroller kostnadene dine',
+              'Ikke sjekk porteføljen for ofte',
+            ].map((t, i) => (
+              <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                <div style={{ width: '18px', height: '18px', borderRadius: '50%', background: 'var(--green-light)', border: '1.5px solid var(--green)', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2px' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--green)' }} />
+                </div>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--navy)', lineHeight: '1.55' }}>{t}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
+          <button onClick={onRestart} style={{
+            padding: '15px 32px', borderRadius: '99px',
+            border: '2px solid var(--border)', background: 'transparent',
+            cursor: 'pointer', fontFamily: 'var(--font-body)', fontSize: '14px',
+            fontWeight: '700', color: 'var(--muted)', transition: 'all 0.2s',
+          }}
+            onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.color = 'var(--navy)'; }}
+            onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
+          >↺ Start på nytt</button>
+
+          <a href="https://evers.no/fra-null-til-investor" style={{
+            display: 'inline-block', padding: '15px 32px', borderRadius: '99px',
+            border: '2px solid var(--border)', background: 'transparent',
+            fontFamily: 'var(--font-body)', fontSize: '14px',
+            fontWeight: '700', color: 'var(--muted)', textDecoration: 'none', transition: 'all 0.2s',
+          }}
+            onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.color = 'var(--navy)'; }}
+            onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
+          >← Tilbake til del 1</a>
+        </div>
+
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--muted)', fontStyle: 'italic', lineHeight: '1.7', maxWidth: '440px', margin: '0 auto' }}>
+          Dette er ikke finansiell rådgivning. Gjør alltid din egen research, og vurder å snakke med en uavhengig rådgiver.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Tweaks panel ─────────────────────────────────────────────
+function TweaksPanel({ tweaks, setTweaks }) {
+  const update = (key, val) => {
+    const next = { ...tweaks, [key]: val };
+    setTweaks(next);
+    applyTweaks(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: next }, '*');
+  };
+  return (
+    <div>
+      <p style={{ fontFamily: 'var(--font-body)', fontWeight: '800', fontSize: '14px', color: 'var(--navy)', marginBottom: '16px' }}>Tweaks</p>
+      <div className="tweak-row">
+        <span className="tweak-label">Aksentfarge</span>
+        <input type="color" value={tweaks.accentColor} onChange={e => update('accentColor', e.target.value)}
+          style={{ width: '100%', height: '36px', borderRadius: '10px', border: '1px solid var(--border)', cursor: 'pointer', padding: '2px' }} />
+      </div>
+      <div className="tweak-row">
+        <span className="tweak-label">Bakgrunn</span>
+        <select className="tweak-select" value={tweaks.bgTone} onChange={e => update('bgTone', e.target.value)}>
+          <option value="beige">Varm beige</option>
+          <option value="slate">Kjølig slate</option>
+          <option value="cream">Ren krem</option>
+        </select>
+      </div>
+      <div className="tweak-row">
+        <span className="tweak-label">Tekststørrelse</span>
+        <select className="tweak-select" value={tweaks.fontSize} onChange={e => update('fontSize', e.target.value)}>
+          <option value="compact">Kompakt</option>
+          <option value="comfortable">Komfortabel</option>
+          <option value="large">Stor</option>
+        </select>
+      </div>
+    </div>
+  );
+}
+
+// ─── App ──────────────────────────────────────────────────────
+function App() {
+  const savedStep = (() => { try { return parseInt(localStorage.getItem('fnti2_step') || '0'); } catch { return 0; } })();
+
+  const [screen, setScreen] = useState(savedStep === 99 ? 'final' : savedStep > 0 ? 'step' : 'hero');
+  const [step, setStep] = useState(Math.max(1, Math.min(savedStep || 1, STEPS.length)));
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [tweaksOpen, setTweaksOpen] = useState(false);
+
+  // Shared state for steps
+  const [timeHorizon, setTimeHorizon] = useState(null);
+  const [quiz1, setQuiz1] = useState(null);
+  const [quiz2, setQuiz2] = useState(null);
+  const [stockPercent, setStockPercent] = useState(null);
+
+  // Derive risk profile
+  const riskProfile = (() => {
+    if (!quiz1 || !quiz2) return null;
+    if (quiz1 === 'A' && quiz2 === 'A') return 'rolig';
+    if (quiz1 === 'C' && quiz2 === 'C') return 'svingninger';
+    return 'balansert';
+  })();
+
+  // Auto-set stockPercent when profile is first determined
+  useEffect(() => {
+    if (riskProfile && stockPercent === null) {
+      const starts = { rolig: 40, balansert: 65, svingninger: 90 };
+      setStockPercent(starts[riskProfile]);
+    }
+  }, [riskProfile]);
+
+  useEffect(() => { applyTweaks(tweaks); }, []);
+
+  const persist = (s, sc) => {
+    try { localStorage.setItem('fnti2_step', sc === 'final' ? 99 : s); } catch {}
+  };
+
+  const goStart = () => { setScreen('step'); setStep(1); persist(1, 'step'); document.getElementById('step-pill').style.opacity = 1; };
+  const goNext  = () => {
+    if (step >= STEPS.length) { setScreen('final'); persist(99, 'final'); }
+    else { const ns = step + 1; setStep(ns); persist(ns, 'step'); }
+  };
+  const goBack  = () => {
+    if (step === 1) {
+      setScreen('hero');
+      document.getElementById('step-pill').style.opacity = 0;
+      document.getElementById('progress-bar-fill').style.width = '0%';
+      persist(0, 'hero');
+    } else { const ns = step - 1; setStep(ns); persist(ns, 'step'); }
+  };
+  const restart = () => {
+    setScreen('hero'); setStep(1);
+    setTimeHorizon(null); setQuiz1(null); setQuiz2(null); setStockPercent(null);
+    persist(0, 'hero');
+    document.getElementById('progress-bar-fill').style.width = '0%';
+    document.getElementById('step-pill').style.opacity = 0;
+  };
+
+  // Tweaks wiring
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  useEffect(() => {
+    const container = document.getElementById('tweaks-panel');
+    if (tweaksOpen) {
+      container.classList.add('visible');
+      ReactDOM.render(<TweaksPanel tweaks={tweaks} setTweaks={setTweaks} />, container);
+    } else {
+      container.classList.remove('visible');
+    }
+  }, [tweaksOpen, tweaks]);
+
+  const ctx = { timeHorizon, setTimeHorizon, quiz1, setQuiz1, quiz2, setQuiz2, riskProfile, stockPercent: stockPercent ?? 60, setStockPercent };
+
+  return (
+    <AppCtx.Provider value={ctx}>
+      {screen === 'hero' && <Hero onStart={goStart} />}
+      {screen === 'step' && <StepView step={step} onNext={goNext} onBack={goBack} />}
+      {screen === 'final' && <Final onRestart={restart} stockPercent={stockPercent ?? 60} riskProfile={riskProfile} />}
+    </AppCtx.Provider>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
