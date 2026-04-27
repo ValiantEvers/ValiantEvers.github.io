@@ -689,26 +689,6 @@ el.textContent=(up?'+':'')+pct.toFixed(2)+'%';
 el.className='lb-change '+(up?'lb-up':'lb-down');
 }
 
-/* EUR/NOK via frankfurter */
-function fetchEurNok(onError){
-var today=new Date();
-var yesterday=new Date(today);yesterday.setDate(yesterday.getDate()-1);
-if(yesterday.getDay()===0)yesterday.setDate(yesterday.getDate()-2);
-if(yesterday.getDay()===6)yesterday.setDate(yesterday.getDate()-1);
-var yd=yesterday.toISOString().split('T')[0];
-Promise.all([
-fetch('https://api.frankfurter.app/latest?from=EUR&to=NOK').then(function(r){return r.json()}),
-fetch('https://api.frankfurter.app/'+yd+'?from=EUR&to=NOK').then(function(r){return r.json()})
-]).then(function(res){
-var now=res[0].rates.NOK;
-var prev=res[1].rates.NOK;
-var pct=(now-prev)/prev*100;
-document.getElementById('lbEur').textContent=now.toFixed(2);
-setChange('lbEurChg',pct);
-try{localStorage.setItem(eurCacheKey,JSON.stringify({rate:now,pct:pct,time:Date.now()}))}catch(e){}
-}).catch(function(){if(onError)onError()});
-}
-
 /* Stock indices via Yahoo Finance CORS proxies (try multiple) */
 function fetchIndex(symbol,valId,chgId){
 var proxies=[
@@ -739,7 +719,7 @@ var meta=data.chart.result[0].meta;
 var price=meta.regularMarketPrice;
 var prevClose=meta.chartPreviousClose;
 var pct=(price-prevClose)/prevClose*100;
-document.getElementById(valId).textContent=price.toLocaleString('en-US',{maximumFractionDigits:0});
+document.getElementById(valId).textContent=symbol.indexOf('EURNOK')>-1?price.toFixed(2):price.toLocaleString('en-US',{maximumFractionDigits:0});
 setChange(chgId,pct);
 /* Cache successful result */
 try{localStorage.setItem(cacheKey,JSON.stringify({price:price,pct:pct,time:Date.now()}))}catch(e){}
@@ -748,25 +728,11 @@ try{localStorage.setItem(cacheKey,JSON.stringify({price:price,pct:pct,time:Date.
 tryProxy(0);
 }
 
-/* EUR/NOK with cache fallback */
-var eurCacheKey='ve-fin-eurnok';
-function fetchEurNokWithCache(){
-fetchEurNok(function(){
-try{
-var cached=JSON.parse(localStorage.getItem(eurCacheKey));
-if(cached&&cached.rate){
-document.getElementById('lbEur').textContent=cached.rate.toFixed(2);
-setChange('lbEurChg',cached.pct);
-}
-}catch(e){}
-});
-}
-
-fetchEurNokWithCache();
 fetchIndex('%5EGSPC','lbSp','lbSpChg');
 fetchIndex('OSEBX.OL','lbOse','lbOseChg');
+fetchIndex('EURNOK%3DX','lbEur','lbEurChg');
 
-setInterval(function(){fetchEurNokWithCache();fetchIndex('%5EGSPC','lbSp','lbSpChg');fetchIndex('OSEBX.OL','lbOse','lbOseChg')},300000);
+setInterval(function(){fetchIndex('%5EGSPC','lbSp','lbSpChg');fetchIndex('OSEBX.OL','lbOse','lbOseChg');fetchIndex('EURNOK%3DX','lbEur','lbEurChg')},300000);
 })();
 
 /* ═══ TICKERS ═══ */
