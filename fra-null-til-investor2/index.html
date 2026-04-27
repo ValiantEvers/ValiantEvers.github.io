@@ -928,6 +928,16 @@ function Final({ onRestart, stockPercent, riskProfile }) {
         </Card>
 
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
+          <a href="https://www.evers.no/fra-null-til-investor3/" style={{
+            display: 'inline-block', padding: '15px 32px', borderRadius: '99px',
+            border: 'none', background: 'var(--green)',
+            fontFamily: 'var(--font-body)', fontSize: '14px',
+            fontWeight: '800', color: 'white', textDecoration: 'none', transition: 'all 0.2s',
+          }}
+            onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'}
+            onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          >Del 3 →</a>
+
           <button onClick={onRestart} style={{
             padding: '15px 32px', borderRadius: '99px',
             border: '2px solid var(--border)', background: 'transparent',
@@ -938,7 +948,7 @@ function Final({ onRestart, stockPercent, riskProfile }) {
             onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
           >↺ Start på nytt</button>
 
-          <a href="https://evers.no/fra-null-til-investor" style={{
+          <a href="https://www.evers.no/fra-null-til-investor/" style={{
             display: 'inline-block', padding: '15px 32px', borderRadius: '99px',
             border: '2px solid var(--border)', background: 'transparent',
             fontFamily: 'var(--font-body)', fontSize: '14px',
@@ -947,6 +957,16 @@ function Final({ onRestart, stockPercent, riskProfile }) {
             onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.color = 'var(--navy)'; }}
             onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
           >← Tilbake til del 1</a>
+
+          <a href="https://www.evers.no" style={{
+            display: 'inline-block', padding: '15px 32px', borderRadius: '99px',
+            border: '2px solid var(--border)', background: 'transparent',
+            fontFamily: 'var(--font-body)', fontSize: '14px',
+            fontWeight: '700', color: 'var(--muted)', textDecoration: 'none', transition: 'all 0.2s',
+          }}
+            onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.color = 'var(--navy)'; }}
+            onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
+          >evers.no</a>
         </div>
 
         <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'var(--muted)', fontStyle: 'italic', lineHeight: '1.7', maxWidth: '440px', margin: '0 auto' }}>
@@ -1027,12 +1047,9 @@ function App() {
   useEffect(() => { applyTweaks(tweaks); }, []);
 
   const persist = (s, sc) => {
-  try {
-    localStorage.setItem('fnti2_step', sc === 'final' ? 99 : s);
-    if (riskProfile) localStorage.setItem('fnti2_riskProfile', riskProfile);
-    if (stockPercent !== null) localStorage.setItem('fnti2_stockPercent', String(stockPercent));
-  } catch {}
-};
+    try { localStorage.setItem('fnti2_step', sc === 'final' ? 99 : s); } catch {}
+  };
+
   const goStart = () => { setScreen('step'); setStep(1); persist(1, 'step'); document.getElementById('step-pill').style.opacity = 1; };
   const goNext  = () => {
     if (step >= STEPS.length) { setScreen('final'); persist(99, 'final'); }
