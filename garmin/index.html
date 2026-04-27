@@ -130,7 +130,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .export-btn{background:transparent;border:1px solid var(--border2);color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:2px;cursor:pointer;transition:all .2s;margin-left:auto;}
 .export-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2);}
 .table-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
-.table-wrap{overflow-x:auto;}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.table-wrap::-webkit-scrollbar{height:4px;}
+.table-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 table{width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:12px;}
 th{text-align:left;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;white-space:nowrap;user-select:none;}
 th:hover{color:var(--accent);}
@@ -255,6 +257,414 @@ tr:last-child td{border-bottom:none;}
   .analysis-grid { grid-template-columns: 1fr; gap: 36px; }
 }
 
+/* RACE PREDICTOR */
+.predict-intro {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  letter-spacing: .04em;
+  max-width: 720px;
+  line-height: 1.6;
+}
+.predict-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 0 -48px -40px;
+  border-top: 1px solid var(--border);
+}
+.predict-card {
+  padding: 28px 32px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background .2s;
+}
+.predict-card:last-child { border-right: none; }
+.predict-card:hover { background: var(--surface); }
+.predict-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.predict-card-distance {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: .04em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.predict-times {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+.predict-time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.predict-time-tier {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.predict-time-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: .04em;
+  color: var(--text);
+}
+.predict-time-pace {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* DISTANCE NOW */
+.distance-section { background: var(--surface); }
+.distance-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0;
+  margin: 0 -48px -40px;
+  border-top: 1px solid var(--border);
+}
+.distance-card {
+  padding: 36px 40px;
+  border-right: 1px solid var(--border);
+}
+.distance-main { background: var(--bg); }
+.distance-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: .02em;
+}
+.distance-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-top: 8px;
+}
+.distance-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.distance-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.distance-stat {
+  padding: 36px 32px;
+  border-right: 1px solid var(--border);
+}
+.distance-stat:last-child { border-right: none; }
+.distance-stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.distance-stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--text);
+  letter-spacing: .02em;
+}
+.distance-stat-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* HR ZONES */
+.zones-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 48px;
+  align-items: center;
+}
+.zones-donut-wrap { position: relative; height: 280px; }
+.zones-donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+.zones-donut-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: .02em;
+}
+.zones-donut-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.zones-bars { display: flex; flex-direction: column; gap: 18px; }
+.zone-bar-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.zone-bar-name { color: var(--text); letter-spacing: .04em; }
+.zone-bar-pct { color: var(--muted); }
+.zone-bar-track {
+  height: 8px;
+  background: var(--surface3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.zone-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  width: 0;
+  transition: width 1.4s cubic-bezier(.5,0,.2,1);
+}
+.zone-comparison {
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: var(--surface2);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 2px 2px 0;
+}
+.zone-comp-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 12px;
+}
+.zone-comp-bars { display: flex; flex-direction: column; gap: 14px; }
+.zone-comp-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  gap: 14px;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+.zone-comp-label { color: var(--muted); letter-spacing: .04em; }
+.zone-comp-bar-track {
+  height: 6px;
+  background: var(--surface3);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.zone-comp-bar-fill {
+  height: 100%;
+  width: 0;
+  transition: width 1.4s ease-out;
+}
+.zone-comp-marker {
+  position: absolute;
+  top: -3px; bottom: -3px;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.zone-comp-value { color: var(--text); text-align: right; }
+
+/* INJURY RISK / ACWR */
+.risk-status {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 24px 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--risk-color, var(--accent));
+}
+.risk-current {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--risk-color, var(--accent));
+  letter-spacing: .02em;
+}
+.risk-current-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.risk-status-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--text);
+  letter-spacing: .04em;
+}
+.risk-explanation {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* YEAR IN REVIEW */
+.yir-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 0 -48px -40px;
+  border-top: 1px solid var(--border);
+}
+.yir-card {
+  padding: 40px 36px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background .2s;
+}
+.yir-card:last-child { border-right: none; }
+.yir-card:hover { background: var(--surface); }
+.yir-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px;
+  line-height: 0.85;
+  color: var(--accent);
+  letter-spacing: .02em;
+  margin-bottom: 24px;
+  position: relative;
+}
+.yir-year::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--accent);
+  margin-top: 14px;
+}
+.yir-card.yir-2025 .yir-year { color: var(--accent3); }
+.yir-card.yir-2025 .yir-year::after { background: var(--accent3); }
+.yir-card.yir-2026 .yir-year { color: var(--accent2); }
+.yir-card.yir-2026 .yir-year::after { background: var(--accent2); }
+.yir-stats { display: flex; flex-direction: column; gap: 16px; }
+.yir-stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.yir-stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: .02em;
+  color: var(--text);
+  line-height: 1;
+}
+.yir-stat-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+/* COUNTER ANIMATION */
+.counter { display: inline-block; }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 245, 90, 0.3); }
+  50% { box-shadow: 0 0 0 10px rgba(200, 245, 90, 0); }
+}
+.pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slide-up { animation: slideUpFade 0.7s cubic-bezier(.5,0,.2,1) backwards; }
+
+/* PRINT STYLES */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: white !important; color: #000 !important; font-size: 10pt; }
+  .topbar, .run-controls, #runMap, .map-legend, .heat-tooltip,
+  #kart, #logg, .footer, .theme-toggle, .nav-link {
+    display: none !important;
+  }
+  .section, .header, .stats-row, .pr-row, .analysis-section,
+  .predict-grid, .distance-grid, .yir-grid {
+    page-break-inside: avoid;
+    border-color: #ccc !important;
+  }
+  .header, .section, .footer { padding: 16px !important; }
+  .stat-value, .pr-value, .yir-year, .header-title, .distance-num,
+  .risk-current, .zones-donut-num, .predict-card-distance, .predict-time-value {
+    color: #000 !important;
+  }
+  .stat-unit, .pr-label, .stat-label, .section-title, .yir-stat-label,
+  .header-sub, .stat-delta, .pr-sub, .distance-unit, .distance-sub,
+  .distance-stat-label, .distance-stat-sub, .yir-stat-unit, .predict-card-label,
+  .predict-time-tier, .predict-time-pace, .predict-intro, .zones-donut-label {
+    color: #555 !important;
+  }
+  .header-title span, .stat-delta.up { color: #000 !important; }
+  .stats-row, .pr-row, .grid-2, .grid-3, .yir-grid, .predict-grid, .distance-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    margin: 0 !important;
+  }
+  .analysis-grid { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+  .analysis-body, .analysis-intro { color: #333 !important; }
+  .analysis-body strong { color: #000 !important; }
+  .analysis-body .callout, .analysis-body .rec, .zone-comparison {
+    background: #f5f5f5 !important;
+    color: #000 !important;
+    border-color: #888 !important;
+  }
+  .header-badge { background: #000 !important; color: #fff !important; }
+  canvas { max-height: 200px !important; }
+  #predict { page-break-before: always; }
+  #zones { page-break-before: always; }
+  #yir { page-break-before: always; }
+  #analyse { page-break-before: always; }
+}
+
+/* MOBILE OVERRIDES FOR NEW SECTIONS */
+@media(max-width:960px){
+  .predict-grid { grid-template-columns: 1fr 1fr; margin: 0 -20px -28px; }
+  .predict-card:nth-child(2) { border-right: none; }
+  .predict-card:nth-child(1), .predict-card:nth-child(2) { border-bottom: 1px solid var(--border); }
+  .distance-grid { grid-template-columns: 1fr; margin: 0 -20px -28px; }
+  .distance-main { border-right: none; border-bottom: 1px solid var(--border); }
+  .zones-grid { grid-template-columns: 1fr; gap: 32px; }
+  .yir-grid { grid-template-columns: 1fr; margin: 0 -20px -28px; }
+  .yir-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .yir-card:last-child { border-bottom: none; }
+}
+
 /* RESPONSIVE — TABLET (≤960px) */
 @media(max-width:960px){
   .topbar{padding:14px 20px;}
@@ -307,6 +717,34 @@ tr:last-child td{border-bottom:none;}
   /* Sections */
   .section{padding:28px 16px;}
   .section-title{font-size:9px;margin-bottom:16px;}
+
+  /* Predict cards: stack to 1 column for legibility */
+  .predict-grid{grid-template-columns:1fr;margin:0 -16px -28px;}
+  .predict-card{padding:20px 18px;border-right:none;border-bottom:1px solid var(--border);}
+  .predict-card:last-child{border-bottom:none;}
+  .predict-card-distance{font-size:24px;}
+  .predict-time-value{font-size:18px;}
+
+  /* Zones */
+  .zones-donut-wrap{height:240px;max-width:280px;margin:0 auto;}
+  .zones-donut-num{font-size:36px;}
+  .zone-comparison{padding:16px 18px;}
+  .zone-comp-row{grid-template-columns:64px 1fr 64px;font-size:10px;gap:10px;}
+  .zone-bar-head{font-size:10px;}
+  .zone-bars{gap:14px;}
+
+  /* Risk */
+  .risk-status{grid-template-columns:1fr;gap:14px;padding:18px;border-left-width:3px;}
+  .risk-current{font-size:48px;}
+  .risk-status-text{font-size:12px;}
+  .risk-explanation{font-size:11.5px;}
+
+  /* Year in review: stack and centered */
+  .yir-card{padding:28px 20px;}
+  .yir-year{font-size:64px;}
+  .yir-year::after{width:36px;height:2px;margin-top:10px;}
+  .yir-stat-value{font-size:22px;}
+  .yir-stats{gap:14px;}
 
   /* Form grids: stack to 1 col on smallest */
   .form-grid-2{grid-template-columns:1fr;margin:0;}
@@ -367,6 +805,14 @@ tr:last-child td{border-bottom:none;}
   .pr-row{grid-template-columns:1fr;}
   .pr-card{border-right:none;border-bottom:1px solid var(--border);}
   .pr-card:last-child{border-bottom:none;}
+  .yir-year{font-size:54px;}
+  .distance-num{font-size:56px;}
+  .risk-current{font-size:42px;}
+  .zone-comp-row{grid-template-columns:54px 1fr 56px;font-size:9.5px;gap:8px;}
+  .predict-card-distance{font-size:22px;}
+  .zones-donut-num{font-size:32px;}
+  /* Hide PDF button on tiniest screens to save room for theme toggle */
+  #pdfBtn{display:none;}
 }
 </style>
 </head>
@@ -379,14 +825,20 @@ tr:last-child td{border-bottom:none;}
   <span class="nav-logo">LØPEDATA</span>
   <div class="nav-links">
     <a class="nav-link" onclick="scrollTo('overview')">Oversikt</a>
+    <a class="nav-link" onclick="scrollTo('predict')">Prediksjon</a>
     <a class="nav-link" onclick="scrollTo('trends')">Trender</a>
+    <a class="nav-link" onclick="scrollTo('zones')">Soner</a>
+    <a class="nav-link" onclick="scrollTo('risk')">Risiko</a>
     <a class="nav-link" onclick="scrollTo('form')">Løpeform</a>
     <a class="nav-link" onclick="scrollTo('kalender')">Kalender</a>
-    <a class="nav-link" onclick="scrollTo('kart')">Kart</a>
+    <a class="nav-link" onclick="scrollTo('yir')">Året</a>
     <a class="nav-link" onclick="scrollTo('analyse')">Analyse</a>
     <a class="nav-link" onclick="scrollTo('logg')">Logg</a>
   </div>
-  <button class="theme-toggle" id="themeBtn">☀ LYS MODUS</button>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="theme-toggle" id="pdfBtn" title="Eksporter som PDF">↓ PDF</button>
+    <button class="theme-toggle" id="themeBtn">☀ LYS MODUS</button>
+  </div>
 </nav>
 
 <!-- HEADER -->
@@ -454,6 +906,13 @@ tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
+<!-- RACE PREDICTOR -->
+<div id="predict" class="section fade-in">
+  <div class="section-title">Tidsprediksjon · konkurranseløp</div>
+  <div class="predict-intro">Basert på Riegel-formelen, kalibrert mot beste 1K-split (3:48) og snitt av 5 raskeste løp (4:30/km).</div>
+  <div class="predict-grid" id="predictGrid"></div>
+</div>
+
 <!-- MONTHLY + VO2 -->
 <div id="trends" class="section fade-in">
   <div class="section-title">Månedlig distanse (km)</div>
@@ -482,10 +941,84 @@ tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
+<!-- AEROBIC EFFICIENCY -->
+<div class="section fade-in">
+  <div class="section-title">Aerob effektivitet · m/min per bpm</div>
+  <div class="chart-wrap" style="height:200px;"><canvas id="efChart"></canvas></div>
+  <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.04em;line-height:1.6;">
+    Hvor mye distanse kroppen leverer per pulsslag. Stigende verdi over tid = bedre aerob form.
+  </div>
+</div>
+
+<!-- HR ZONES -->
+<div id="zones" class="section fade-in">
+  <div class="section-title">Treningssone-fordeling</div>
+  <div class="zones-grid">
+    <div>
+      <div class="zones-donut-wrap">
+        <canvas id="zonesDonut"></canvas>
+        <div class="zones-donut-center">
+          <div class="zones-donut-num" id="zonesEasyPct">—</div>
+          <div class="zones-donut-label">Sone 1+2</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="zones-bars" id="zonesBars"></div>
+      <div class="zone-comparison">
+        <div class="zone-comp-title">80/20-regelen · faktisk vs ideelt</div>
+        <div class="zone-comp-bars">
+          <div class="zone-comp-row">
+            <div class="zone-comp-label">Lett (Z1+Z2)</div>
+            <div class="zone-comp-bar-track">
+              <div class="zone-comp-bar-fill" id="cmpEasyFill" style="background:var(--accent);"></div>
+              <div class="zone-comp-marker" style="left:80%;"></div>
+            </div>
+            <div class="zone-comp-value" id="cmpEasyVal">—</div>
+          </div>
+          <div class="zone-comp-row">
+            <div class="zone-comp-label">Hard (Z3-Z5)</div>
+            <div class="zone-comp-bar-track">
+              <div class="zone-comp-bar-fill" id="cmpHardFill" style="background:var(--accent2);"></div>
+              <div class="zone-comp-marker" style="left:20%;"></div>
+            </div>
+            <div class="zone-comp-value" id="cmpHardVal">—</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);line-height:1.6;">
+          Den hvite vertikale streken viser anbefalt fordeling (80/20).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- WEEKLY LOAD -->
 <div class="section fade-in">
   <div class="section-title">Ukentlig treningsbelastning</div>
   <div class="chart-wrap" style="height:200px;"><canvas id="weeklyLoadChart"></canvas></div>
+</div>
+
+<!-- INJURY RISK / ACWR -->
+<div id="risk" class="section fade-in">
+  <div class="section-title">Skadefare-indikator · ACWR</div>
+  <div class="risk-status" id="riskStatus">
+    <div>
+      <div class="risk-current-label">Nåværende ACWR</div>
+      <div class="risk-current" id="riskValue">—</div>
+    </div>
+    <div>
+      <div class="risk-status-text" id="riskText">—</div>
+      <div class="risk-explanation" id="riskExpl">—</div>
+    </div>
+  </div>
+  <div class="chart-wrap" style="height:240px;"><canvas id="acwrChart"></canvas></div>
+  <div style="margin-top:14px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.04em;line-height:1.6;">
+    ACWR (Acute:Chronic Workload Ratio) sammenligner siste ukes belastning mot snittet av siste 4 ukers belastning.
+    <span style="color:var(--accent);">0,8–1,3 = sweet spot</span> ·
+    <span style="color:var(--accent2);">over 1,5 = forhøyet skadefare</span> ·
+    under 0,8 = detraining-sone.
+  </div>
 </div>
 
 <!-- YEAR COMPARISON -->
@@ -592,12 +1125,18 @@ tr:last-child td{border-bottom:none;}
   </div>
 </div>
 
+<!-- YEAR IN REVIEW -->
+<div id="yir" class="section fade-in">
+  <div class="section-title">2024 → 2026 · året i tall</div>
+  <div class="yir-grid" id="yirGrid"></div>
+</div>
+
 <!-- ANALYSIS -->
 <div id="analyse" class="analysis-section fade-in">
   <div class="section-title">Skriftlig analyse</div>
 
   <div class="analysis-intro">
-    Basert på <strong>134 løpeturer og 1 061 km</strong> fra januar 2024 til april 2026. Analysen dekker volum, fysiologisk utvikling, løpeøkonomi og biomekanikk — med direkte vurderinger og anbefalinger der dataen gir grunnlag for det.
+    Basert på <strong>134 løpeturer og 1 061 km</strong> fra januar 2024 til april 2026, kombinert med detaljerte tidsserier fra 153 aktiviteter. Analysen dekker volum, fysiologisk utvikling, sone-fordeling, skadefare, løpeøkonomi og biomekanikk — med direkte vurderinger og konkrete anbefalinger der dataen gir grunnlag for det.
   </div>
 
   <div class="analysis-grid">
@@ -630,15 +1169,15 @@ tr:last-child td{border-bottom:none;}
     </div>
 
     <div class="analysis-block">
-      <div class="analysis-label">Tempo & puls</div>
-      <div class="analysis-heading">Raskere, men løper du for hardt?</div>
+      <div class="analysis-label">Tempo, puls & sonefordeling</div>
+      <div class="analysis-heading">Raskere — men 80/20-regelen er soleklart brutt</div>
       <div class="analysis-body">
         Gjennomsnittlig tempo på løpeturer over 3 km har forbedret seg tydelig:
         <div class="callout">2024: 6:34/km snitt, beste 5:12 | 2025: 6:16/km, beste 4:23 | 2026: 6:05/km, beste 4:10</div>
-        Det er en reell og målbar forbedring. Men pulsdataen forteller en mer nyansert historie. Gjennomsnittlig puls har vært <strong>163–171 bpm</strong> på tvers av alle år — det er høyt. For de fleste innebærer dette at mesteparten av løpeturene foregår i sone 3–4, ikke sone 2.
-        <br><br>
-        For en løper som ønsker å bygge aerob kapasitet effektivt, anbefaler de fleste evidensbaserte treningsmodeller (bl.a. 80/20-prinsippet) at <strong>75–80% av ukentlig volum</strong> løpes i sone 1–2. Dataen din antyder at du kjører vesentlig hardere enn dette på de fleste økter.
-        <div class="rec">Test å løpe 60–90 sekunder saktere enn du "vil" på rolige dager. Det føles demotiverende, men lav-intensitetstrening er selve fundamentet bak VO₂ maks-forbedring på sikt.</div>
+        Det er en reell og målbar forbedring. Men når jeg ser på den faktiske sone-fordelingen din (over 71 timer med pulsdata), bekrefter dataen mistanken fra forrige analyse:
+        <div class="callout warn">Sone 1+2 (lett): 45,6% · Sone 3-5 (hard): 54,4%</div>
+        Den evidensbaserte 80/20-fordelingen anbefaler 80% av tiden i sone 1-2, men du ligger på 45,6%. Sone 3 alene står for nesten en tredjedel (30,7%) av treningstiden din — dette er den klassiske <strong>"middels-sonen-fellen"</strong> hvor man trener for hardt for å være restitusjon, men for lett for å være kvalitetstrening.
+        <div class="rec">Konkret regel: Hvis pulsen din passerer 145 bpm under en rolig økt, gå over til gangtur i 30–60 sekunder. Det føles ekstremt frustrerende første måneden, men forskning viser at løpere som tvinger seg ned i sone 1-2 ser større VO₂ maks-fremgang enn de som "fester" i sone 3.</div>
       </div>
     </div>
 
@@ -683,6 +1222,48 @@ tr:last-child td{border-bottom:none;}
     </div>
 
     <div class="analysis-block">
+      <div class="analysis-label">Skadefare & belastningsstyring</div>
+      <div class="analysis-heading">Akkurat nå er du i et risikoområde — handle nå</div>
+      <div class="analysis-body">
+        ACWR (Acute:Chronic Workload Ratio) sammenligner siste ukes belastning mot snittet av siste 4 uker. Verdier mellom 0,8–1,3 regnes som det "trygge produktivitetsområdet" — sterkt nok til å gi tilpasning, lavt nok til å unngå overbelastningsskader.
+        <div class="callout warn">Nåværende ACWR: 1,46 — over sweet spot, under kritisk grense</div>
+        Over hele perioden har <strong>28% av dagene</strong> vært i klart risikoområde (ACWR > 1,5), mens kun <strong>24%</strong> har ligget i sweet spot. Det betyr at progresjonen din har vært preget av "alt eller ingenting"-mønstre fremfor jevn opptrapping. Ukentlige volum-hopp på 100–300% er målbart i dataen — særlig i januar 2026 (+244%), februar 2026 (+185%) og mars 2026 (+331%).
+        <br><br>
+        Dette er den mest sannsynlige forklaringen på de to lange pauseperiodene: kroppen ble overbelastet, ikke nødvendigvis fra ren intensitet, men fra <strong>tempo</strong> i belastningsøkning.
+        <div class="rec">Bruk ACWR-grafen som operativ beslutningstaker. Når ratioen passerer 1,4: legg inn én lett uke på 60–70% av forrige ukes volum. Det vil ikke koste deg form — det vil sannsynligvis akselerere fremgangen ved å hindre nedbrytning før tilpasning får skje.</div>
+      </div>
+    </div>
+
+    <div class="analysis-block">
+      <div class="analysis-label">Aerob effektivitet</div>
+      <div class="analysis-heading">Tydelig fremgang — kroppen blir mer drivstoffeffektiv</div>
+      <div class="analysis-body">
+        Aerob effektivitet (meter per minutt per pulsslag) er en av de mest pålitelige målene på faktisk løpsform fordi den kombinerer hastighet og hjertebelastning. Trenden er klar:
+        <div class="callout">jan 2024: 0,79 → apr 2026: 1,04 (+32%)</div>
+        En forbedring på 32% over to år er substansiell. Det betyr at du i dag løper 32% lengre per pulsslag enn for to år siden — den samme aerobe motoren leverer mer arbeid. Dette korrelerer fint med VO₂ maks-utviklingen og pustefrekvens-fallet, og bekrefter at hovedretningen er riktig.
+        <br><br>
+        Det interessante er at effektiviteten har flatet ut noe siste året — gjennombruddet kom mellom 2024 og 2025. Det er normalt: jo bedre du blir, jo vanskeligere blir det å presse målbar fremgang ut av samme treningsstil.
+        <div class="rec">For å bryte platået trengs varierte stimuli — ikke bare mer volum. Tempoøkter (10–15 min på 80–85% av makspuls) og kontrollerte intervaller er det som typisk åpner neste effektivitetshopp.</div>
+      </div>
+    </div>
+
+    <div class="analysis-block">
+      <div class="analysis-label">Race-potensial</div>
+      <div class="analysis-heading">Du er nærmere konkrete tider enn du tror</div>
+      <div class="analysis-body">
+        Riegel-formelen, kalibrert mot beste 1K-split (3:48) og snittet av dine 5 raskeste løpeturer (4:30/km), gir to anslag — én optimistisk og én realistisk:
+        <div class="callout">5K realistisk: 22:50 · optimistisk: 20:58</div>
+        <div class="callout">10K realistisk: 47:37 · optimistisk: 43:43</div>
+        <div class="callout">Halvmaraton realistisk: 1:45:05 · optimistisk: 1:36:28</div>
+        <div class="callout">Maraton realistisk: 3:39:06 · optimistisk: 3:21:08</div>
+        Den optimistiske projeksjonen forutsetter at du kan opprettholde nær 1K-tempo over lengre distanse — urealistisk uten spesifikk konkurransetrening. Den realistiske er hva dataen faktisk støtter i dag.
+        <br><br>
+        En halvmaraton under 1:45 er konkret oppnåelig <strong>akkurat nå</strong>, gitt en strukturert 8-ukers oppkjøring med en langtur som bygger gradvis fra 13 km opp til 18 km. Sub-1:30 ville kreve 3-6 måneder med systematisk terskel- og intervalltrening, og er innenfor rekkevidde innen 2027.
+        <div class="rec">Hvis du skal velge ett mål for 2026: meld deg på en halvmaraton i september–oktober. 12 ukers periodisert oppbygging fra et sommervolum på 30–40 km/uke gir ekstremt høy sannsynlighet for sub-1:45.</div>
+      </div>
+    </div>
+
+    <div class="analysis-block">
       <div class="analysis-label">Body Battery</div>
       <div class="analysis-heading">Belastningsstyringen er overraskende god</div>
       <div class="analysis-body">
@@ -695,14 +1276,14 @@ tr:last-child td{border-bottom:none;}
 
     <div class="analysis-block">
       <div class="analysis-label">Helhetsvurdering</div>
-      <div class="analysis-heading">Retningen er riktig — neste steg er struktur</div>
+      <div class="analysis-heading">Form i klar utvikling — to konkrete grep gir mest avkastning</div>
       <div class="analysis-body">
-        Dataen tegner bildet av en løper i klar utvikling: VO₂ maks opp 33%, tempo forbedret, volum økt år for år, og biomekanikken er innenfor normale parametere. Det som mangler er ikke innsats — det er <strong>planmessighet</strong>.
+        Dataen tegner bildet av en løper i sterk utvikling: VO₂ maks +33%, aerob effektivitet +32%, tempo forbedret over hele linja, og biomekanikken er innenfor normale parametere. En halvmaraton under 1:45 er <strong>oppnåelig akkurat nå</strong> med riktig struktur. Men to konkrete signaler i dataen forteller hvor du sannsynligvis taper mest fremgang:
         <br><br>
-        De to store pauseperiodene og den høye gjennomsnittsintensiteten peker mot samme løsning: et strukturert treningsprogram med periodiserte belastnings- og restitusjonsblokker, bevisst fordeling mellom lett og hard trening (80/20), og en formell strategi for å komme tilbake etter pauser.
+        <strong>1. Sone-fordelingen.</strong> 45,6% lett trening mot anbefalte 80% er den største enkeltavviket fra evidensbaserte treningsmodeller. Dette er sannsynligvis grunnen til at fremgangen din har vært preget av rykk-og-napp framfor jevn akkumulering.
         <br><br>
-        Med et VO₂ maks på 52, et ukentlig volum nå på 25–30 km i snitt, og tydelig fremgang i alle nøkkelmålinger, er du et relativt enkelt treningsgrep unna å løpe en solid halvmaraton. Dataen støtter det.
-        <div class="rec">Sett deg et konkret distansemål (10K under 45 min, eller halvmaraton) og strukturer 12–16 uker mot det. Det vil tvinge frem periodisering, rolige dager og langturer — alle de elementene dataen antyder mangler.</div>
+        <strong>2. ACWR-mønsteret.</strong> 28% av dagene i forhøyet skadefare og kun 24% i sweet spot reflekterer at progresjonen din er preget av plutselige volumhopp. De to lange pausene følger dette mønsteret — kroppen kjører til den må stoppe.
+        <div class="rec">Begge problemene har samme løsning: et periodisert treningsprogram med definerte lette og harde dager, og en hard regel om maks 10% volumøkning per uke. Med VO₂ maks 52, et solid grunnvolum, og tydelig fremgang i alle nøkkelmålinger, vil et halvmaraton-mål høsten 2026 tvinge fram nettopp denne strukturen — og levere konkrete prestasjonsresultater i prosessen.</div>
       </div>
     </div>
 
@@ -715,7 +1296,8 @@ tr:last-child td{border-bottom:none;}
 </footer>
 
 <script>
-const RUNS = [{"date":"2024-01-15","name":"Trecastagni L\u00f8ping","dist_km":4.73,"dur_min":33.5,"pace":7.096,"avg_hr":154.0,"max_hr":169.0,"elev_gain":16.0,"calories":402.0,"vo2max":39.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":152.2,"location":"Trecastagni","lat":37.62723513878882,"lon":15.074044754728675,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-01-17","name":"Catania L\u00f8ping","dist_km":3.75,"dur_min":33.1,"pace":8.839,"avg_hr":156.0,"max_hr":176.0,"elev_gain":26.0,"calories":410.0,"vo2max":38.0,"training_load":null,"aerobic_te":5.0,"cadence":149.3,"location":"Catania","lat":37.452960116788745,"lon":15.086582154035568,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-01-21","name":"Trecastagni L\u00f8ping","dist_km":4.43,"dur_min":33.1,"pace":7.466,"avg_hr":154.0,"max_hr":177.0,"elev_gain":12.0,"calories":391.0,"vo2max":38.0,"training_load":null,"aerobic_te":5.0,"cadence":146.9,"location":"Trecastagni","lat":37.62731141410768,"lon":15.074014160782099,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-01-22","name":"Catania L\u00f8ping","dist_km":4.54,"dur_min":47.4,"pace":10.446,"avg_hr":150.0,"max_hr":177.0,"elev_gain":475.0,"calories":512.0,"vo2max":null,"training_load":null,"aerobic_te":5.0,"cadence":139.1,"location":"Catania","lat":37.47735120356083,"lon":15.084830420091748,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-02-08","name":"L\u00f8ping - Innend\u00f8rs Bislett ","dist_km":5.17,"dur_min":34.2,"pace":6.616,"avg_hr":159.0,"max_hr":179.0,"elev_gain":18.0,"calories":470.0,"vo2max":null,"training_load":null,"aerobic_te":5.0,"cadence":154.4,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-02-24","name":"Bislett innend\u00f8rs, 15 runder (\u00e0 546m)","dist_km":7.58,"dur_min":50.7,"pace":6.691,"avg_hr":155.0,"max_hr":173.0,"elev_gain":22.0,"calories":627.0,"vo2max":null,"training_load":null,"aerobic_te":5.0,"cadence":155.8,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-03-19","name":"Oslo L\u00f8ping","dist_km":7.06,"dur_min":41.8,"pace":5.91,"avg_hr":157.0,"max_hr":177.0,"elev_gain":101.0,"calories":566.0,"vo2max":46.0,"training_load":null,"aerobic_te":3.799999952316284,"cadence":151.1,"location":"Oslo","lat":59.92670891806483,"lon":10.715583013370633,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-04-09","name":"Oslo L\u00f8ping","dist_km":5.5,"dur_min":32.7,"pace":5.95,"avg_hr":168.0,"max_hr":187.0,"elev_gain":11.0,"calories":469.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":150.5,"location":"Oslo","lat":59.92568708024919,"lon":10.733581054955721,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-04-25","name":"Oslo L\u00f8ping","dist_km":5.28,"dur_min":40.8,"pace":7.725,"avg_hr":147.0,"max_hr":160.0,"elev_gain":14.0,"calories":522.0,"vo2max":45.0,"training_load":null,"aerobic_te":3.5,"cadence":152.0,"location":"Oslo","lat":59.92556286044419,"lon":10.732588302344084,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-04-30","name":"Lett jogging f\u00f8r eksamen","dist_km":5.74,"dur_min":38.2,"pace":6.666,"avg_hr":172.0,"max_hr":186.0,"elev_gain":63.0,"calories":551.0,"vo2max":45.0,"training_load":null,"aerobic_te":4.699999809265137,"cadence":152.7,"location":"Oslo","lat":59.9268745444715,"lon":10.715749310329556,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-05-04","name":"Holmenkollstafetten (etappe 11 - Frognerparken) Meny 5532","dist_km":1.5,"dur_min":6.1,"pace":4.101,"avg_hr":140.0,"max_hr":155.0,"elev_gain":21.0,"calories":74.0,"vo2max":null,"training_load":null,"aerobic_te":2.0,"cadence":162.7,"location":"Oslo","lat":59.929339746013284,"lon":10.695123793557286,"split_1k":null,"split_mile":null,"pr":true,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-05-11","name":"Oslo L\u00f8ping","dist_km":6.02,"dur_min":39.8,"pace":6.608,"avg_hr":166.0,"max_hr":194.0,"elev_gain":67.0,"calories":547.0,"vo2max":44.0,"training_load":null,"aerobic_te":4.300000190734863,"cadence":152.8,"location":"Oslo","lat":59.92863650433719,"lon":10.707370759919286,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-05-14","name":"Oslo L\u00f8ping","dist_km":5.26,"dur_min":27.8,"pace":5.279,"avg_hr":178.0,"max_hr":190.0,"elev_gain":36.0,"calories":432.0,"vo2max":45.0,"training_load":null,"aerobic_te":4.800000190734863,"cadence":155.5,"location":"Oslo","lat":59.92693221196532,"lon":10.714800478890538,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-05-14","name":"Oslo L\u00f8ping","dist_km":4.06,"dur_min":23.7,"pace":5.822,"avg_hr":176.0,"max_hr":188.0,"elev_gain":52.0,"calories":364.0,"vo2max":44.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":155.5,"location":"Oslo","lat":59.911207761615515,"lon":10.666208574548364,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-05-21","name":"Oslo L\u00f8ping","dist_km":9.55,"dur_min":59.3,"pace":6.211,"avg_hr":169.0,"max_hr":189.0,"elev_gain":88.0,"calories":853.0,"vo2max":44.0,"training_load":null,"aerobic_te":5.0,"cadence":152.9,"location":"Oslo","lat":59.92686892859638,"lon":10.715550826862454,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-05-26","name":"Oslo L\u00f8ping","dist_km":10.18,"dur_min":70.4,"pace":6.91,"avg_hr":170.0,"max_hr":184.0,"elev_gain":120.0,"calories":979.0,"vo2max":44.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":149.7,"location":"Oslo","lat":59.92705232463777,"lon":10.71597721427679,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-06-02","name":"Oslo L\u00f8ping","dist_km":12.01,"dur_min":84.8,"pace":7.064,"avg_hr":159.0,"max_hr":183.0,"elev_gain":119.0,"calories":1032.0,"vo2max":44.0,"training_load":null,"aerobic_te":3.299999952316284,"cadence":148.3,"location":"Oslo","lat":59.926952328532934,"lon":10.715860789641738,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-06-03","name":"Oslo L\u00f8ping","dist_km":12.54,"dur_min":79.4,"pace":6.329,"avg_hr":161.0,"max_hr":184.0,"elev_gain":140.0,"calories":1068.0,"vo2max":44.0,"training_load":null,"aerobic_te":3.9000000953674316,"cadence":152.4,"location":"Oslo","lat":59.92783955298364,"lon":10.717079853639007,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-06-08","name":"BEERMILE\n0,33 x 4 & 400m x 4","dist_km":1.71,"dur_min":9.8,"pace":5.707,"avg_hr":132.46153846153845,"max_hr":150.0,"elev_gain":18.0,"calories":102.0,"vo2max":null,"training_load":null,"aerobic_te":1.7000000476837158,"cadence":161.6,"location":"Oslo","lat":59.96834157966077,"lon":10.730434153228998,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-06-12","name":"Kort tur i regnv\u00e6ret\ud83c\udf27\ufe0f","dist_km":5.01,"dur_min":28.2,"pace":5.623,"avg_hr":176.0,"max_hr":192.0,"elev_gain":47.0,"calories":454.0,"vo2max":45.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":153.6,"location":"Oslo","lat":59.927131701260805,"lon":10.716199167072773,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-06-29","name":"Oslo L\u00f8ping","dist_km":6.67,"dur_min":44.8,"pace":6.724,"avg_hr":149.0,"max_hr":179.0,"elev_gain":43.0,"calories":587.0,"vo2max":45.0,"training_load":null,"aerobic_te":3.5,"cadence":151.3,"location":"Oslo","lat":59.9270904622972,"lon":10.716087687760592,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-07-09","name":"Oslo L\u00f8ping","dist_km":8.36,"dur_min":54.8,"pace":6.549,"avg_hr":178.0,"max_hr":194.0,"elev_gain":93.0,"calories":889.0,"vo2max":45.0,"training_load":null,"aerobic_te":5.0,"cadence":151.4,"location":"Oslo","lat":59.926319662481546,"lon":10.703429086133838,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-07-11","name":"Oslo L\u00f8ping","dist_km":14.01,"dur_min":88.8,"pace":6.337,"avg_hr":167.0,"max_hr":183.0,"elev_gain":89.0,"calories":1268.0,"vo2max":45.0,"training_load":null,"aerobic_te":5.0,"cadence":152.6,"location":"Oslo","lat":59.92696540430188,"lon":10.716287344694138,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-07-14","name":"L\u00f8ping","dist_km":7.67,"dur_min":53.2,"pace":6.94,"avg_hr":149.0,"max_hr":163.0,"elev_gain":15.0,"calories":719.0,"vo2max":null,"training_load":null,"aerobic_te":3.9000000953674316,"cadence":154.4,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-07-16","name":"L\u00f8ping","dist_km":8.41,"dur_min":59.6,"pace":7.086,"avg_hr":157.0,"max_hr":170.0,"elev_gain":12.0,"calories":875.0,"vo2max":null,"training_load":null,"aerobic_te":4.900000095367432,"cadence":153.8,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-08-05","name":"Oslo L\u00f8ping","dist_km":10.02,"dur_min":62.6,"pace":6.245,"avg_hr":175.0,"max_hr":193.0,"elev_gain":79.0,"calories":982.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.699999809265137,"cadence":150.8,"location":"Oslo","lat":59.913025042042136,"lon":10.723492847755551,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-08-08","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":64.0,"pace":6.39,"avg_hr":170.0,"max_hr":187.0,"elev_gain":74.0,"calories":963.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.099999904632568,"cadence":151.9,"location":"Oslo","lat":59.91319083608687,"lon":10.723591083660722,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-08-19","name":"Oslo L\u00f8ping","dist_km":8.06,"dur_min":46.3,"pace":5.741,"avg_hr":173.0,"max_hr":194.0,"elev_gain":73.0,"calories":743.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":151.9,"location":"Oslo","lat":59.912870647385716,"lon":10.723701221868396,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-08-22","name":"Oslo L\u00f8ping","dist_km":13.66,"dur_min":88.6,"pace":6.489,"avg_hr":171.0,"max_hr":190.0,"elev_gain":137.0,"calories":1352.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":151.8,"location":"Oslo","lat":59.91277802735567,"lon":10.723137287423015,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-08-27","name":"Oslo L\u00f8ping","dist_km":20.89,"dur_min":139.0,"pace":6.656,"avg_hr":162.0,"max_hr":185.0,"elev_gain":234.0,"calories":1863.0,"vo2max":47.0,"training_load":null,"aerobic_te":4.0,"cadence":151.6,"location":"Oslo","lat":59.91102470085025,"lon":10.720716090872884,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-01","name":"Oslo L\u00f8ping","dist_km":7.51,"dur_min":41.7,"pace":5.556,"avg_hr":176.0,"max_hr":192.0,"elev_gain":57.0,"calories":706.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.799999952316284,"cadence":153.9,"location":"Oslo","lat":59.91293141618371,"lon":10.723250526934862,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-05","name":"Oslo L\u00f8ping","dist_km":5.07,"dur_min":34.5,"pace":6.814,"avg_hr":152.0,"max_hr":172.0,"elev_gain":37.0,"calories":462.0,"vo2max":46.0,"training_load":null,"aerobic_te":3.0999999046325684,"cadence":150.6,"location":"Oslo","lat":59.94409533217549,"lon":10.758357373997569,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-08","name":"Oslo L\u00f8ping","dist_km":24.01,"dur_min":163.6,"pace":6.813,"avg_hr":161.0,"max_hr":184.0,"elev_gain":205.0,"calories":2166.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.0,"cadence":151.0,"location":"Oslo","lat":59.91288992576301,"lon":10.723345577716827,"split_1k":null,"split_mile":null,"pr":true,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-17","name":"Oslo L\u00f8ping","dist_km":13.34,"dur_min":85.2,"pace":6.386,"avg_hr":175.0,"max_hr":196.0,"elev_gain":151.0,"calories":1367.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":151.0,"location":"Oslo","lat":59.911770606413484,"lon":10.721765588968992,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-21","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":58.6,"pace":5.849,"avg_hr":170.0,"max_hr":191.0,"elev_gain":77.0,"calories":926.0,"vo2max":47.0,"training_load":null,"aerobic_te":5.0,"cadence":151.7,"location":"Oslo","lat":59.913006434217095,"lon":10.723375668749213,"split_1k":291.2,"split_mile":482.3,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-25","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":58.1,"pace":5.803,"avg_hr":177.0,"max_hr":190.0,"elev_gain":89.0,"calories":977.0,"vo2max":47.0,"training_load":null,"aerobic_te":5.0,"cadence":152.7,"location":"Oslo","lat":59.91288397461176,"lon":10.723282964900136,"split_1k":290.3,"split_mile":474.8,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-09-29","name":"Oslo L\u00f8ping","dist_km":8.21,"dur_min":45.2,"pace":5.507,"avg_hr":175.0,"max_hr":190.0,"elev_gain":39.0,"calories":762.0,"vo2max":47.0,"training_load":null,"aerobic_te":4.800000190734863,"cadence":153.2,"location":"Oslo","lat":59.912900906056166,"lon":10.723489411175251,"split_1k":286.0,"split_mile":461.0,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-10-02","name":"Oslo L\u00f8ping","dist_km":8.01,"dur_min":41.6,"pace":5.196,"avg_hr":177.0,"max_hr":188.0,"elev_gain":43.0,"calories":715.0,"vo2max":47.0,"training_load":null,"aerobic_te":4.5,"cadence":154.3,"location":"Oslo","lat":59.91280526854098,"lon":10.722849452868104,"split_1k":282.5,"split_mile":455.1,"pr":true,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-10-05","name":"Oslo L\u00f8ping","dist_km":6.59,"dur_min":49.4,"pace":7.488,"avg_hr":138.0,"max_hr":192.0,"elev_gain":53.0,"calories":534.0,"vo2max":48.0,"training_load":null,"aerobic_te":3.299999952316284,"cadence":127.2,"location":"Oslo","lat":59.912798814475536,"lon":10.723236026242375,"split_1k":256.9,"split_mile":420.2,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-10-09","name":"Oslo L\u00f8ping","dist_km":6.53,"dur_min":41.4,"pace":6.344,"avg_hr":167.0,"max_hr":190.0,"elev_gain":42.0,"calories":657.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.799999952316284,"cadence":153.0,"location":"Oslo","lat":59.90958628244698,"lon":10.71740004234016,"split_1k":322.6,"split_mile":564.7,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-10-10","name":"Oslo L\u00f8ping","dist_km":10.0,"dur_min":66.5,"pace":6.651,"avg_hr":166.0,"max_hr":184.0,"elev_gain":81.0,"calories":1008.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.5999999046325684,"cadence":152.2,"location":"Oslo","lat":59.91291909478605,"lon":10.723589323461056,"split_1k":324.3,"split_mile":528.7,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-10-15","name":"Oslo L\u00f8ping","dist_km":15.17,"dur_min":95.6,"pace":6.305,"avg_hr":163.0,"max_hr":179.0,"elev_gain":167.0,"calories":1410.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.5999999046325684,"cadence":153.4,"location":"Oslo","lat":59.912173692137,"lon":10.722271269187331,"split_1k":316.7,"split_mile":525.4,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-10-20","name":"Oslo L\u00f8ping","dist_km":9.92,"dur_min":57.4,"pace":5.788,"avg_hr":178.0,"max_hr":197.0,"elev_gain":134.0,"calories":990.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":155.8,"location":"Oslo","lat":59.896626183763146,"lon":10.676186140626669,"split_1k":300.5,"split_mile":502.9,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null},{"date":"2024-11-07","name":"Oslo L\u00f8ping","dist_km":8.01,"dur_min":54.2,"pace":6.765,"avg_hr":163.0,"max_hr":181.0,"elev_gain":45.0,"calories":771.0,"vo2max":46.0,"training_load":109.2,"aerobic_te":4.099999904632568,"cadence":152.3,"location":"Oslo","lat":59.91038524545729,"lon":10.720509476959705,"split_1k":359.6,"split_mile":583.8,"pr":false,"avg_power":335,"avg_resp":37.5,"avg_stride":0.96,"avg_vert_osc":8.7,"avg_vert_ratio":9.1,"avg_gct":317,"bb_delta":-21},{"date":"2025-01-19","name":"L\u00f8ping","dist_km":9.57,"dur_min":63.4,"pace":6.622,"avg_hr":176.0,"max_hr":196.0,"elev_gain":5.0,"calories":1077.0,"vo2max":null,"training_load":344.8,"aerobic_te":5.0,"cadence":155.4,"location":"","lat":null,"lon":null,"split_1k":378.5,"split_mile":614.8,"pr":false,"avg_power":332,"avg_resp":38.6,"avg_stride":0.97,"avg_vert_osc":8.7,"avg_vert_ratio":9.0,"avg_gct":307,"bb_delta":-30},{"date":"2025-01-26","name":"L\u00f8ping","dist_km":6.49,"dur_min":42.8,"pace":6.588,"avg_hr":165.0,"max_hr":177.0,"elev_gain":5.0,"calories":672.0,"vo2max":null,"training_load":152.8,"aerobic_te":4.800000190734863,"cadence":155.5,"location":"","lat":null,"lon":null,"split_1k":383.1,"split_mile":617.1,"pr":false,"avg_power":335,"avg_resp":37.2,"avg_stride":0.99,"avg_vert_osc":8.8,"avg_vert_ratio":8.9,"avg_gct":307,"bb_delta":-3},{"date":"2025-02-09","name":"Oslo L\u00f8ping","dist_km":7.72,"dur_min":50.5,"pace":6.538,"avg_hr":172.0,"max_hr":189.0,"elev_gain":40.0,"calories":740.0,"vo2max":46.0,"training_load":137.7,"aerobic_te":4.5,"cadence":152.9,"location":"Oslo","lat":59.9128108844161,"lon":10.723255891352892,"split_1k":null,"split_mile":null,"pr":false,"avg_power":349,"avg_resp":37.7,"avg_stride":1.0,"avg_vert_osc":8.8,"avg_vert_ratio":9.0,"avg_gct":314,"bb_delta":-20},{"date":"2025-03-03","name":"Oslo L\u00f8ping","dist_km":6.57,"dur_min":45.0,"pace":6.845,"avg_hr":161.0,"max_hr":188.0,"elev_gain":23.0,"calories":606.0,"vo2max":46.0,"training_load":83.4,"aerobic_te":3.700000047683716,"cadence":150.8,"location":"Oslo","lat":59.913196451961994,"lon":10.72338379919529,"split_1k":325.0,"split_mile":579.6,"pr":false,"avg_power":343,"avg_resp":35.2,"avg_stride":0.97,"avg_vert_osc":8.8,"avg_vert_ratio":9.1,"avg_gct":321,"bb_delta":-13},{"date":"2025-03-04","name":"Oslo L\u00f8ping","dist_km":6.5,"dur_min":41.0,"pace":6.314,"avg_hr":168.0,"max_hr":194.0,"elev_gain":34.0,"calories":591.0,"vo2max":46.0,"training_load":119.5,"aerobic_te":4.099999904632568,"cadence":151.4,"location":"Oslo","lat":59.913122691214085,"lon":10.723654115572572,"split_1k":281.3,"split_mile":518.0,"pr":false,"avg_power":372,"avg_resp":38.7,"avg_stride":1.04,"avg_vert_osc":9.0,"avg_vert_ratio":8.8,"avg_gct":315,"bb_delta":-10},{"date":"2025-03-11","name":"Oslo L\u00f8ping","dist_km":14.65,"dur_min":97.2,"pace":6.632,"avg_hr":167.0,"max_hr":187.0,"elev_gain":145.0,"calories":1370.0,"vo2max":46.0,"training_load":173.6,"aerobic_te":5.0,"cadence":151.8,"location":"Oslo","lat":59.9131822027266,"lon":10.723443310707808,"split_1k":null,"split_mile":null,"pr":false,"avg_power":352,"avg_resp":38.2,"avg_stride":0.99,"avg_vert_osc":8.8,"avg_vert_ratio":9.0,"avg_gct":317,"bb_delta":-23},{"date":"2025-03-29","name":"Oslo L\u00f8ping","dist_km":11.71,"dur_min":106.6,"pace":9.104,"avg_hr":142.0,"max_hr":188.0,"elev_gain":182.0,"calories":1058.0,"vo2max":46.0,"training_load":102.1,"aerobic_te":4.0,"cadence":122.2,"location":"Oslo","lat":59.9493223708123,"lon":10.773066021502018,"split_1k":366.9,"split_mile":626.7,"pr":false,"avg_power":226,"avg_resp":29.8,"avg_stride":0.94,"avg_vert_osc":6.8,"avg_vert_ratio":7.4,"avg_gct":326,"bb_delta":-23},{"date":"2025-03-31","name":"Oslo L\u00f8ping","dist_km":12.0,"dur_min":75.4,"pace":6.281,"avg_hr":168.0,"max_hr":184.0,"elev_gain":145.0,"calories":1107.0,"vo2max":47.0,"training_load":162.2,"aerobic_te":5.0,"cadence":154.1,"location":"Oslo","lat":59.97074995189905,"lon":10.790227549150586,"split_1k":328.8,"split_mile":539.0,"pr":false,"avg_power":371,"avg_resp":38.4,"avg_stride":1.04,"avg_vert_osc":8.9,"avg_vert_ratio":8.7,"avg_gct":309,"bb_delta":-21},{"date":"2025-04-09","name":"Oslo L\u00f8ping","dist_km":16.81,"dur_min":120.0,"pace":7.136,"avg_hr":166.0,"max_hr":182.0,"elev_gain":248.0,"calories":1586.0,"vo2max":47.0,"training_load":159.1,"aerobic_te":4.5,"cadence":151.3,"location":"Oslo","lat":59.97077073901892,"lon":10.790099138393998,"split_1k":360.8,"split_mile":600.8,"pr":false,"avg_power":332,"avg_resp":37.0,"avg_stride":0.93,"avg_vert_osc":8.4,"avg_vert_ratio":9.2,"avg_gct":323,"bb_delta":-27},{"date":"2025-05-07","name":"Oslo L\u00f8ping","dist_km":7.78,"dur_min":47.1,"pace":6.057,"avg_hr":177.0,"max_hr":195.0,"elev_gain":73.0,"calories":733.0,"vo2max":47.0,"training_load":137.0,"aerobic_te":4.199999809265137,"cadence":155.1,"location":"Oslo","lat":59.9499024823308,"lon":10.765463300049305,"split_1k":311.8,"split_mile":528.8,"pr":false,"avg_power":388,"avg_resp":40.4,"avg_stride":1.06,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":304,"bb_delta":-11},{"date":"2025-05-10","name":"Oslo L\u00f8ping","dist_km":1.87,"dur_min":8.5,"pace":4.544,"avg_hr":168.0,"max_hr":182.0,"elev_gain":22.0,"calories":137.0,"vo2max":49.0,"training_load":67.1,"aerobic_te":2.700000047683716,"cadence":159.7,"location":"Oslo","lat":59.92886164225638,"lon":10.695086410269141,"split_1k":248.3,"split_mile":424.2,"pr":false,"avg_power":516,"avg_resp":null,"avg_stride":1.38,"avg_vert_osc":9.9,"avg_vert_ratio":7.2,"avg_gct":266,"bb_delta":-2},{"date":"2025-05-15","name":"Oslo L\u00f8ping","dist_km":6.75,"dur_min":39.2,"pace":5.801,"avg_hr":177.0,"max_hr":190.0,"elev_gain":84.0,"calories":647.0,"vo2max":49.0,"training_load":132.8,"aerobic_te":4.099999904632568,"cadence":155.0,"location":"Oslo","lat":59.94981514289975,"lon":10.765930926427245,"split_1k":308.0,"split_mile":497.3,"pr":false,"avg_power":405,"avg_resp":43.1,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":301,"bb_delta":-10},{"date":"2025-05-20","name":"Oslo L\u00f8ping","dist_km":7.24,"dur_min":43.5,"pace":6.007,"avg_hr":171.0,"max_hr":183.0,"elev_gain":88.0,"calories":698.0,"vo2max":49.0,"training_load":118.6,"aerobic_te":3.9000000953674316,"cadence":154.5,"location":"Oslo","lat":59.94905582629144,"lon":10.772442407906055,"split_1k":294.5,"split_mile":491.4,"pr":false,"avg_power":390,"avg_resp":40.9,"avg_stride":1.07,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":305,"bb_delta":-10},{"date":"2025-05-27","name":"Oslo L\u00f8ping","dist_km":8.22,"dur_min":52.5,"pace":6.392,"avg_hr":172.0,"max_hr":183.0,"elev_gain":91.0,"calories":804.0,"vo2max":49.0,"training_load":115.6,"aerobic_te":3.9000000953674316,"cadence":154.2,"location":"Oslo","lat":59.94974456727505,"lon":10.766033688560128,"split_1k":315.6,"split_mile":517.0,"pr":false,"avg_power":366,"avg_resp":39.2,"avg_stride":1.01,"avg_vert_osc":8.9,"avg_vert_ratio":8.8,"avg_gct":309,"bb_delta":-13},{"date":"2025-05-30","name":"Oslo L\u00f8ping","dist_km":1.72,"dur_min":8.8,"pace":5.145,"avg_hr":173.0,"max_hr":196.0,"elev_gain":9.0,"calories":152.0,"vo2max":49.0,"training_load":88.8,"aerobic_te":3.0,"cadence":164.9,"location":"Oslo","lat":59.968271339312196,"lon":10.730598187074065,"split_1k":307.0,"split_mile":492.7,"pr":false,"avg_power":582,"avg_resp":null,"avg_stride":1.53,"avg_vert_osc":10.3,"avg_vert_ratio":6.7,"avg_gct":248,"bb_delta":-2},{"date":"2025-06-01","name":"Oslo L\u00f8ping","dist_km":6.89,"dur_min":44.7,"pace":6.488,"avg_hr":166.0,"max_hr":183.0,"elev_gain":81.0,"calories":672.0,"vo2max":49.0,"training_load":99.6,"aerobic_te":3.700000047683716,"cadence":151.2,"location":"Oslo","lat":59.94971296750009,"lon":10.766072664409876,"split_1k":319.8,"split_mile":521.7,"pr":false,"avg_power":367,"avg_resp":38.4,"avg_stride":1.04,"avg_vert_osc":8.8,"avg_vert_ratio":8.5,"avg_gct":305,"bb_delta":-10},{"date":"2025-06-06","name":"Oslo L\u00f8ping","dist_km":0.96,"dur_min":5.1,"pace":5.349,"avg_hr":166.0,"max_hr":178.0,"elev_gain":1.0,"calories":84.0,"vo2max":49.0,"training_load":21.7,"aerobic_te":2.0999999046325684,"cadence":158.9,"location":"Oslo","lat":59.94933133944869,"lon":10.76700515113771,"split_1k":null,"split_mile":null,"pr":false,"avg_power":420,"avg_resp":36.9,"avg_stride":1.2,"avg_vert_osc":9.5,"avg_vert_ratio":8.0,"avg_gct":287,"bb_delta":-2},{"date":"2025-09-01","name":"Oslo L\u00f8ping","dist_km":1.68,"dur_min":81.9,"pace":null,"avg_hr":133.0,"max_hr":184.0,"elev_gain":6.0,"calories":673.0,"vo2max":null,"training_load":80.0,"aerobic_te":2.9000000953674316,"cadence":123.1,"location":"Oslo","lat":59.94194872677326,"lon":10.750100277364254,"split_1k":2250.2,"split_mile":4823.9,"pr":false,"avg_power":212,"avg_resp":null,"avg_stride":0.95,"avg_vert_osc":6.8,"avg_vert_ratio":7.8,"avg_gct":315,"bb_delta":-8},{"date":"2025-09-02","name":"Oslo L\u00f8ping","dist_km":5.62,"dur_min":35.3,"pace":6.278,"avg_hr":171.0,"max_hr":185.0,"elev_gain":43.0,"calories":548.0,"vo2max":49.0,"training_load":93.0,"aerobic_te":3.5,"cadence":153.0,"location":"Oslo","lat":59.94901810772717,"lon":10.771889789029956,"split_1k":331.5,"split_mile":546.0,"pr":false,"avg_power":371,"avg_resp":45.6,"avg_stride":1.04,"avg_vert_osc":9.0,"avg_vert_ratio":8.7,"avg_gct":310,"bb_delta":-7},{"date":"2025-09-04","name":"Oslo L\u00f8ping","dist_km":7.23,"dur_min":44.3,"pace":6.12,"avg_hr":177.0,"max_hr":193.0,"elev_gain":59.0,"calories":703.0,"vo2max":48.0,"training_load":115.8,"aerobic_te":3.9000000953674316,"cadence":153.9,"location":"Oslo","lat":59.949188847094774,"lon":10.767817860469222,"split_1k":322.3,"split_mile":535.0,"pr":false,"avg_power":385,"avg_resp":37.3,"avg_stride":1.06,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":307,"bb_delta":-10},{"date":"2025-09-08","name":"Oslo L\u00f8ping","dist_km":5.63,"dur_min":31.1,"pace":5.52,"avg_hr":179.0,"max_hr":204.0,"elev_gain":46.0,"calories":512.0,"vo2max":49.0,"training_load":209.1,"aerobic_te":4.0,"cadence":156.7,"location":"Oslo","lat":59.94898298755288,"lon":10.767868235707283,"split_1k":234.5,"split_mile":420.2,"pr":false,"avg_power":430,"avg_resp":35.5,"avg_stride":1.17,"avg_vert_osc":9.4,"avg_vert_ratio":8.2,"avg_gct":293,"bb_delta":-11},{"date":"2025-09-10","name":"Social Run med Bergensbanel\u00f8pet (BBL)","dist_km":9.85,"dur_min":57.8,"pace":5.867,"avg_hr":178.0,"max_hr":193.0,"elev_gain":113.0,"calories":954.0,"vo2max":49.0,"training_load":171.4,"aerobic_te":4.699999809265137,"cadence":155.9,"location":"Oslo","lat":59.94901031255722,"lon":10.768065797165036,"split_1k":331.5,"split_mile":540.8,"pr":false,"avg_power":403,"avg_resp":36.3,"avg_stride":1.1,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":299,"bb_delta":-15},{"date":"2025-09-13","name":"Oslo L\u00f8ping","dist_km":5.73,"dur_min":35.3,"pace":6.162,"avg_hr":170.0,"max_hr":194.0,"elev_gain":49.0,"calories":549.0,"vo2max":48.0,"training_load":116.9,"aerobic_te":3.700000047683716,"cadence":152.9,"location":"Oslo","lat":59.949236791580915,"lon":10.767692970111966,"split_1k":293.0,"split_mile":508.0,"pr":false,"avg_power":376,"avg_resp":37.8,"avg_stride":1.05,"avg_vert_osc":8.8,"avg_vert_ratio":8.7,"avg_gct":315,"bb_delta":-13},{"date":"2025-09-16","name":"Bakkeintervaller m/ BBL","dist_km":8.43,"dur_min":74.0,"pace":8.784,"avg_hr":157.0,"max_hr":201.0,"elev_gain":247.0,"calories":893.0,"vo2max":48.0,"training_load":174.9,"aerobic_te":4.0,"cadence":135.8,"location":"Oslo","lat":59.94921902194619,"lon":10.76799564063549,"split_1k":335.3,"split_mile":593.5,"pr":false,"avg_power":308,"avg_resp":33.0,"avg_stride":1.04,"avg_vert_osc":7.8,"avg_vert_ratio":8.2,"avg_gct":304,"bb_delta":-11},{"date":"2025-09-17","name":"Oslo L\u00f8ping","dist_km":9.03,"dur_min":62.0,"pace":6.868,"avg_hr":171.0,"max_hr":192.0,"elev_gain":110.0,"calories":930.0,"vo2max":48.0,"training_load":132.2,"aerobic_te":3.9000000953674316,"cadence":152.0,"location":"Oslo","lat":59.94974037632346,"lon":10.76574987731874,"split_1k":354.8,"split_mile":575.6,"pr":false,"avg_power":348,"avg_resp":35.6,"avg_stride":0.97,"avg_vert_osc":8.7,"avg_vert_ratio":9.1,"avg_gct":318,"bb_delta":-10},{"date":"2025-09-22","name":"Oslo L\u00f8ping","dist_km":5.69,"dur_min":33.0,"pace":5.805,"avg_hr":154.0,"max_hr":177.0,"elev_gain":47.0,"calories":497.0,"vo2max":null,"training_load":108.7,"aerobic_te":3.5,"cadence":153.0,"location":"Oslo","lat":59.94956536218524,"lon":10.775101985782385,"split_1k":263.7,"split_mile":433.3,"pr":false,"avg_power":397,"avg_resp":27.1,"avg_stride":1.12,"avg_vert_osc":9.1,"avg_vert_ratio":8.4,"avg_gct":311,"bb_delta":-8},{"date":"2025-09-24","name":"Social Run m/ BBL","dist_km":9.86,"dur_min":58.6,"pace":5.936,"avg_hr":178.0,"max_hr":191.0,"elev_gain":101.0,"calories":948.0,"vo2max":48.0,"training_load":160.2,"aerobic_te":4.099999904632568,"cadence":155.5,"location":"Oslo","lat":59.948979215696454,"lon":10.7682697288692,"split_1k":334.4,"split_mile":546.5,"pr":false,"avg_power":395,"avg_resp":36.0,"avg_stride":1.08,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-12},{"date":"2025-09-26","name":"Push p\u00e5 terskel, pr\u00f8ve \u00e5 \u00f8ke kapasitet til \u00e5 l\u00f8pe langt p\u00e5 ett h\u00f8yere pace","dist_km":11.01,"dur_min":62.7,"pace":5.693,"avg_hr":179.0,"max_hr":191.0,"elev_gain":100.0,"calories":1023.0,"vo2max":48.0,"training_load":187.3,"aerobic_te":4.300000190734863,"cadence":155.6,"location":"Oslo","lat":59.9490356259048,"lon":10.771798007190228,"split_1k":311.5,"split_mile":525.0,"pr":true,"avg_power":407,"avg_resp":33.4,"avg_stride":1.12,"avg_vert_osc":9.3,"avg_vert_ratio":8.3,"avg_gct":298,"bb_delta":-9},{"date":"2025-09-29","name":"Oslo L\u00f8ping","dist_km":6.16,"dur_min":28.8,"pace":4.679,"avg_hr":178.0,"max_hr":199.0,"elev_gain":29.0,"calories":478.0,"vo2max":48.0,"training_load":311.6,"aerobic_te":3.799999952316284,"cadence":160.7,"location":"Oslo","lat":59.967401046305895,"lon":10.730514619499445,"split_1k":301.2,"split_mile":493.4,"pr":false,"avg_power":496,"avg_resp":34.5,"avg_stride":1.34,"avg_vert_osc":9.7,"avg_vert_ratio":7.5,"avg_gct":271,"bb_delta":-9},{"date":"2025-10-01","name":"Oslo L\u00f8ping","dist_km":10.67,"dur_min":63.0,"pace":5.907,"avg_hr":180.0,"max_hr":198.0,"elev_gain":113.0,"calories":1020.0,"vo2max":48.0,"training_load":188.6,"aerobic_te":4.300000190734863,"cadence":155.5,"location":"Oslo","lat":59.94887704029679,"lon":10.768189346417785,"split_1k":333.3,"split_mile":541.7,"pr":false,"avg_power":398,"avg_resp":34.0,"avg_stride":1.09,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":301,"bb_delta":-11},{"date":"2025-10-06","name":"Bakkeintervaller opp Grefsenkollen","dist_km":9.53,"dur_min":67.1,"pace":7.041,"avg_hr":171.0,"max_hr":199.0,"elev_gain":294.0,"calories":991.0,"vo2max":48.0,"training_load":243.2,"aerobic_te":4.199999809265137,"cadence":148.1,"location":"Oslo","lat":59.948954405263066,"lon":10.76855219900608,"split_1k":356.3,"split_mile":579.8,"pr":false,"avg_power":376,"avg_resp":36.7,"avg_stride":1.05,"avg_vert_osc":8.6,"avg_vert_ratio":8.4,"avg_gct":303,"bb_delta":-13},{"date":"2025-10-08","name":"Social Run m/ BBL opp til Maridalsvannet og ned igjen","dist_km":10.01,"dur_min":60.1,"pace":6.006,"avg_hr":177.0,"max_hr":193.0,"elev_gain":147.0,"calories":959.0,"vo2max":47.0,"training_load":172.4,"aerobic_te":4.099999904632568,"cadence":155.7,"location":"Oslo","lat":59.949032021686435,"lon":10.768113741651177,"split_1k":318.8,"split_mile":522.0,"pr":false,"avg_power":401,"avg_resp":35.6,"avg_stride":1.08,"avg_vert_osc":9.1,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-11},{"date":"2025-10-19","name":"Bygd\u00f8ymila\ud83e\udd29","dist_km":9.87,"dur_min":57.3,"pace":5.81,"avg_hr":186.0,"max_hr":201.0,"elev_gain":147.0,"calories":951.0,"vo2max":47.0,"training_load":229.5,"aerobic_te":4.400000095367432,"cadence":155.7,"location":"Oslo","lat":59.91057828068733,"lon":10.666762366890907,"split_1k":295.5,"split_mile":486.5,"pr":false,"avg_power":409,"avg_resp":36.1,"avg_stride":1.1,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":300,"bb_delta":-15},{"date":"2025-10-20","name":"Intervaller m/ BBL","dist_km":5.5,"dur_min":29.5,"pace":5.366,"avg_hr":178.0,"max_hr":205.0,"elev_gain":27.0,"calories":491.0,"vo2max":47.0,"training_load":231.0,"aerobic_te":3.5,"cadence":151.1,"location":"Oslo","lat":59.948865389451385,"lon":10.767590878531337,"split_1k":277.7,"split_mile":456.4,"pr":false,"avg_power":422,"avg_resp":37.1,"avg_stride":1.24,"avg_vert_osc":9.1,"avg_vert_ratio":7.4,"avg_gct":276,"bb_delta":-9},{"date":"2025-10-22","name":"BI Mesterskapet","dist_km":3.02,"dur_min":13.2,"pace":4.378,"avg_hr":200.0,"max_hr":209.0,"elev_gain":15.0,"calories":252.0,"vo2max":47.0,"training_load":192.2,"aerobic_te":3.5,"cadence":162.7,"location":"Oslo","lat":59.93583639152348,"lon":10.744628570973873,"split_1k":228.5,"split_mile":385.6,"pr":true,"avg_power":528,"avg_resp":39.6,"avg_stride":1.41,"avg_vert_osc":10.0,"avg_vert_ratio":7.2,"avg_gct":265,"bb_delta":-5},{"date":"2025-10-27","name":"Oslo L\u00f8ping","dist_km":11.21,"dur_min":75.9,"pace":6.773,"avg_hr":173.0,"max_hr":200.0,"elev_gain":296.0,"calories":1110.0,"vo2max":47.0,"training_load":225.1,"aerobic_te":4.5,"cadence":149.2,"location":"Oslo","lat":59.94936687871814,"lon":10.768490256741643,"split_1k":340.3,"split_mile":556.5,"pr":false,"avg_power":384,"avg_resp":36.8,"avg_stride":1.06,"avg_vert_osc":8.8,"avg_vert_ratio":8.4,"avg_gct":304,"bb_delta":-15},{"date":"2025-10-31","name":"Oslo L\u00f8ping","dist_km":15.34,"dur_min":107.0,"pace":6.975,"avg_hr":163.0,"max_hr":180.0,"elev_gain":235.0,"calories":1440.0,"vo2max":47.0,"training_load":138.4,"aerobic_te":3.9000000953674316,"cadence":153.4,"location":"Oslo","lat":59.9494740832597,"lon":10.773122096434236,"split_1k":355.3,"split_mile":587.8,"pr":false,"avg_power":345,"avg_resp":36.9,"avg_stride":0.94,"avg_vert_osc":8.5,"avg_vert_ratio":9.2,"avg_gct":315,"bb_delta":-19},{"date":"2025-11-03","name":"Oslo L\u00f8ping","dist_km":8.98,"dur_min":52.0,"pace":5.791,"avg_hr":177.0,"max_hr":198.0,"elev_gain":61.0,"calories":841.0,"vo2max":48.0,"training_load":314.5,"aerobic_te":4.300000190734863,"cadence":155.2,"location":"Oslo","lat":59.949011486023664,"lon":10.76803226955235,"split_1k":274.6,"split_mile":463.4,"pr":false,"avg_power":435,"avg_resp":35.7,"avg_stride":1.21,"avg_vert_osc":9.3,"avg_vert_ratio":7.9,"avg_gct":285,"bb_delta":-14},{"date":"2025-11-04","name":"Oslo L\u00f8ping","dist_km":8.74,"dur_min":55.8,"pace":6.386,"avg_hr":169.0,"max_hr":186.0,"elev_gain":78.0,"calories":827.0,"vo2max":48.0,"training_load":126.7,"aerobic_te":3.5,"cadence":155.8,"location":"Oslo","lat":59.94940401054919,"lon":10.766373239457607,"split_1k":339.5,"split_mile":555.8,"pr":false,"avg_power":381,"avg_resp":35.5,"avg_stride":1.03,"avg_vert_osc":8.9,"avg_vert_ratio":8.7,"avg_gct":303,"bb_delta":-11},{"date":"2025-11-08","name":"Oslo L\u00f8ping","dist_km":15.71,"dur_min":101.9,"pace":6.488,"avg_hr":167.0,"max_hr":182.0,"elev_gain":241.0,"calories":1460.0,"vo2max":48.0,"training_load":163.0,"aerobic_te":4.0,"cadence":154.4,"location":"Oslo","lat":59.94946385733783,"lon":10.772846415638924,"split_1k":335.4,"split_mile":548.0,"pr":false,"avg_power":369,"avg_resp":36.0,"avg_stride":1.0,"avg_vert_osc":8.7,"avg_vert_ratio":8.8,"avg_gct":305,"bb_delta":-26},{"date":"2025-11-10","name":"Oslo L\u00f8ping","dist_km":11.1,"dur_min":64.0,"pace":5.764,"avg_hr":167.0,"max_hr":192.0,"elev_gain":79.0,"calories":973.0,"vo2max":49.0,"training_load":184.2,"aerobic_te":3.9000000953674316,"cadence":153.2,"location":"Oslo","lat":59.949095556512475,"lon":10.767890196293592,"split_1k":268.9,"split_mile":512.9,"pr":false,"avg_power":401,"avg_resp":34.3,"avg_stride":1.14,"avg_vert_osc":8.9,"avg_vert_ratio":7.9,"avg_gct":287,"bb_delta":-12},{"date":"2025-11-12","name":"Oslo L\u00f8ping","dist_km":10.06,"dur_min":60.1,"pace":5.97,"avg_hr":170.0,"max_hr":185.0,"elev_gain":128.0,"calories":950.0,"vo2max":49.0,"training_load":144.6,"aerobic_te":3.700000047683716,"cadence":160.0,"location":"Oslo","lat":59.94914400391281,"lon":10.768232848495245,"split_1k":334.6,"split_mile":542.1,"pr":false,"avg_power":399,"avg_resp":36.1,"avg_stride":1.06,"avg_vert_osc":8.9,"avg_vert_ratio":8.4,"avg_gct":294,"bb_delta":-11},{"date":"2025-11-17","name":"L\u00f8ping","dist_km":6.53,"dur_min":44.4,"pace":6.804,"avg_hr":155.0,"max_hr":188.0,"elev_gain":14.0,"calories":629.0,"vo2max":null,"training_load":114.6,"aerobic_te":3.299999952316284,"cadence":157.6,"location":"","lat":null,"lon":null,"split_1k":335.7,"split_mile":557.3,"pr":false,"avg_power":415,"avg_resp":null,"avg_stride":1.17,"avg_vert_osc":8.6,"avg_vert_ratio":7.7,"avg_gct":271,"bb_delta":-6},{"date":"2025-11-19","name":"Oslo L\u00f8ping","dist_km":8.7,"dur_min":51.8,"pace":5.959,"avg_hr":168.0,"max_hr":192.0,"elev_gain":98.0,"calories":830.0,"vo2max":49.0,"training_load":125.8,"aerobic_te":3.5999999046325684,"cadence":158.0,"location":"Oslo","lat":59.94906211271882,"lon":10.768386237323284,"split_1k":null,"split_mile":null,"pr":false,"avg_power":402,"avg_resp":33.5,"avg_stride":1.06,"avg_vert_osc":8.9,"avg_vert_ratio":8.4,"avg_gct":297,"bb_delta":-10},{"date":"2025-11-21","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":57.1,"pace":5.704,"avg_hr":166.0,"max_hr":187.0,"elev_gain":109.0,"calories":941.0,"vo2max":49.0,"training_load":156.0,"aerobic_te":3.9000000953674316,"cadence":159.6,"location":"Oslo","lat":59.94947140105069,"lon":10.77554002404213,"split_1k":313.9,"split_mile":522.3,"pr":false,"avg_power":421,"avg_resp":39.0,"avg_stride":1.1,"avg_vert_osc":9.1,"avg_vert_ratio":8.3,"avg_gct":292,"bb_delta":-13},{"date":"2025-11-24","name":"L\u00f8ping","dist_km":3.27,"dur_min":24.9,"pace":7.598,"avg_hr":176.0,"max_hr":199.0,"elev_gain":3.0,"calories":431.0,"vo2max":null,"training_load":164.0,"aerobic_te":3.4000000953674316,"cadence":163.4,"location":"","lat":null,"lon":null,"split_1k":444.1,"split_mile":713.0,"pr":false,"avg_power":453,"avg_resp":37.6,"avg_stride":1.22,"avg_vert_osc":9.1,"avg_vert_ratio":7.5,"avg_gct":268,"bb_delta":-5},{"date":"2025-11-26","name":"Oslo L\u00f8ping","dist_km":9.99,"dur_min":56.9,"pace":5.695,"avg_hr":168.0,"max_hr":184.0,"elev_gain":115.0,"calories":937.0,"vo2max":49.0,"training_load":146.2,"aerobic_te":3.9000000953674316,"cadence":160.3,"location":"Oslo","lat":59.949135622009635,"lon":10.768061941489577,"split_1k":295.9,"split_mile":512.9,"pr":false,"avg_power":424,"avg_resp":35.1,"avg_stride":1.09,"avg_vert_osc":9.0,"avg_vert_ratio":8.3,"avg_gct":291,"bb_delta":-12},{"date":"2025-12-01","name":"L\u00f8ping","dist_km":4.65,"dur_min":26.4,"pace":5.683,"avg_hr":189.0,"max_hr":203.0,"elev_gain":4.0,"calories":502.0,"vo2max":null,"training_load":187.6,"aerobic_te":4.099999904632568,"cadence":155.7,"location":"","lat":null,"lon":null,"split_1k":305.3,"split_mile":531.6,"pr":false,"avg_power":394,"avg_resp":37.4,"avg_stride":1.14,"avg_vert_osc":8.7,"avg_vert_ratio":7.7,"avg_gct":279,"bb_delta":-8},{"date":"2025-12-03","name":"Oslo L\u00f8ping","dist_km":5.26,"dur_min":30.2,"pace":5.744,"avg_hr":176.0,"max_hr":187.0,"elev_gain":64.0,"calories":515.0,"vo2max":48.0,"training_load":105.1,"aerobic_te":3.4000000953674316,"cadence":159.0,"location":"Oslo","lat":59.949120534583926,"lon":10.76865621842444,"split_1k":310.5,"split_mile":519.1,"pr":false,"avg_power":423,"avg_resp":35.8,"avg_stride":1.1,"avg_vert_osc":9.1,"avg_vert_ratio":8.3,"avg_gct":293,"bb_delta":-6},{"date":"2025-12-10","name":"Oslo L\u00f8ping","dist_km":10.04,"dur_min":58.9,"pace":5.869,"avg_hr":168.0,"max_hr":187.0,"elev_gain":115.0,"calories":958.0,"vo2max":48.0,"training_load":147.3,"aerobic_te":3.9000000953674316,"cadence":159.5,"location":"Oslo","lat":59.94909237138927,"lon":10.768387075513601,"split_1k":327.8,"split_mile":541.3,"pr":false,"avg_power":418,"avg_resp":35.9,"avg_stride":1.08,"avg_vert_osc":9.0,"avg_vert_ratio":8.3,"avg_gct":293,"bb_delta":-13},{"date":"2025-12-29","name":"Oslo L\u00f8ping","dist_km":9.01,"dur_min":54.4,"pace":6.04,"avg_hr":182.0,"max_hr":197.0,"elev_gain":108.0,"calories":908.0,"vo2max":48.0,"training_load":166.3,"aerobic_te":4.5,"cadence":156.7,"location":"Oslo","lat":59.94789174757898,"lon":10.77798611484468,"split_1k":299.4,"split_mile":500.1,"pr":false,"avg_power":397,"avg_resp":41.0,"avg_stride":1.07,"avg_vert_osc":9.0,"avg_vert_ratio":8.5,"avg_gct":300,"bb_delta":-19},{"date":"2025-12-31","name":"Oslo L\u00f8ping","dist_km":8.26,"dur_min":49.6,"pace":6.0,"avg_hr":178.0,"max_hr":192.0,"elev_gain":75.0,"calories":808.0,"vo2max":48.0,"training_load":148.1,"aerobic_te":4.199999809265137,"cadence":155.8,"location":"Oslo","lat":59.9501080904156,"lon":10.775591488927603,"split_1k":300.4,"split_mile":502.3,"pr":false,"avg_power":400,"avg_resp":41.6,"avg_stride":1.08,"avg_vert_osc":9.0,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-15},{"date":"2026-01-02","name":"Oslo L\u00f8ping","dist_km":9.01,"dur_min":54.3,"pace":6.028,"avg_hr":175.0,"max_hr":188.0,"elev_gain":112.0,"calories":883.0,"vo2max":47.0,"training_load":146.3,"aerobic_te":4.300000190734863,"cadence":158.6,"location":"Oslo","lat":59.95014178566635,"lon":10.775043899193406,"split_1k":null,"split_mile":null,"pr":false,"avg_power":398,"avg_resp":38.8,"avg_stride":1.05,"avg_vert_osc":8.8,"avg_vert_ratio":8.5,"avg_gct":298,"bb_delta":-20},{"date":"2026-01-04","name":"Arona L\u00f8ping","dist_km":8.23,"dur_min":48.6,"pace":5.903,"avg_hr":170.0,"max_hr":196.0,"elev_gain":96.0,"calories":783.0,"vo2max":47.0,"training_load":144.9,"aerobic_te":4.099999904632568,"cadence":155.6,"location":"Arona","lat":28.062255922704935,"lon":-16.725753592327237,"split_1k":311.9,"split_mile":540.9,"pr":false,"avg_power":414,"avg_resp":35.8,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.3,"avg_gct":300,"bb_delta":0},{"date":"2026-01-05","name":"Arona L\u00f8ping","dist_km":6.27,"dur_min":36.8,"pace":5.863,"avg_hr":171.0,"max_hr":198.0,"elev_gain":23.0,"calories":588.0,"vo2max":48.0,"training_load":201.3,"aerobic_te":3.799999952316284,"cadence":156.5,"location":"Arona","lat":28.05916115641594,"lon":-16.720677763223648,"split_1k":249.2,"split_mile":509.1,"pr":false,"avg_power":452,"avg_resp":34.1,"avg_stride":1.23,"avg_vert_osc":9.3,"avg_vert_ratio":7.8,"avg_gct":281,"bb_delta":-15},{"date":"2026-01-07","name":"Arona L\u00f8ping","dist_km":10.18,"dur_min":65.0,"pace":6.383,"avg_hr":169.0,"max_hr":189.0,"elev_gain":160.0,"calories":1018.0,"vo2max":48.0,"training_load":136.9,"aerobic_te":4.199999809265137,"cadence":155.4,"location":"Arona","lat":28.058998212218285,"lon":-16.720105949789286,"split_1k":333.4,"split_mile":568.6,"pr":false,"avg_power":384,"avg_resp":36.0,"avg_stride":1.02,"avg_vert_osc":8.7,"avg_vert_ratio":8.6,"avg_gct":305,"bb_delta":-25},{"date":"2026-02-04","name":"Oslo L\u00f8ping","dist_km":5.31,"dur_min":31.2,"pace":5.871,"avg_hr":174.0,"max_hr":192.0,"elev_gain":68.0,"calories":503.0,"vo2max":null,"training_load":6.1,"aerobic_te":0.699999988079071,"cadence":156.4,"location":"Oslo","lat":59.948961697518826,"lon":10.768265454098582,"split_1k":null,"split_mile":null,"pr":false,"avg_power":405,"avg_resp":35.7,"avg_stride":1.08,"avg_vert_osc":9.1,"avg_vert_ratio":8.4,"avg_gct":299,"bb_delta":-8},{"date":"2026-02-09","name":"L\u00f8ping","dist_km":5.01,"dur_min":29.6,"pace":5.903,"avg_hr":173.0,"max_hr":192.0,"elev_gain":11.0,"calories":487.0,"vo2max":null,"training_load":119.2,"aerobic_te":4.0,"cadence":155.4,"location":"","lat":null,"lon":null,"split_1k":350.1,"split_mile":564.0,"pr":false,"avg_power":371,"avg_resp":37.0,"avg_stride":1.09,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":301,"bb_delta":-8},{"date":"2026-02-11","name":"Oslo L\u00f8ping","dist_km":10.1,"dur_min":57.7,"pace":5.713,"avg_hr":180.0,"max_hr":196.0,"elev_gain":134.0,"calories":941.0,"vo2max":47.0,"training_load":202.4,"aerobic_te":5.0,"cadence":155.2,"location":"Oslo","lat":59.94944617152214,"lon":10.768724111840129,"split_1k":315.9,"split_mile":514.5,"pr":false,"avg_power":414,"avg_resp":null,"avg_stride":1.13,"avg_vert_osc":9.4,"avg_vert_ratio":8.3,"avg_gct":299,"bb_delta":-16},{"date":"2026-02-16","name":"L\u00f8ping","dist_km":4.18,"dur_min":28.9,"pace":6.921,"avg_hr":172.0,"max_hr":198.0,"elev_gain":26.0,"calories":460.0,"vo2max":null,"training_load":173.8,"aerobic_te":3.799999952316284,"cadence":158.9,"location":"","lat":null,"lon":null,"split_1k":349.4,"split_mile":642.6,"pr":false,"avg_power":394,"avg_resp":34.9,"avg_stride":1.15,"avg_vert_osc":9.0,"avg_vert_ratio":8.0,"avg_gct":283,"bb_delta":-8},{"date":"2026-02-18","name":"Oslo L\u00f8ping","dist_km":5.84,"dur_min":37.5,"pace":6.411,"avg_hr":169.0,"max_hr":183.0,"elev_gain":81.0,"calories":557.0,"vo2max":47.0,"training_load":90.4,"aerobic_te":3.5,"cadence":156.9,"location":"Oslo","lat":59.94889648631215,"lon":10.768327983096242,"split_1k":347.8,"split_mile":561.6,"pr":false,"avg_power":375,"avg_resp":35.7,"avg_stride":0.99,"avg_vert_osc":8.7,"avg_vert_ratio":8.8,"avg_gct":304,"bb_delta":-10},{"date":"2026-02-23","name":"L\u00f8ping","dist_km":6.39,"dur_min":42.5,"pace":6.65,"avg_hr":167.0,"max_hr":188.0,"elev_gain":10.0,"calories":654.0,"vo2max":null,"training_load":129.1,"aerobic_te":4.099999904632568,"cadence":155.9,"location":"","lat":null,"lon":null,"split_1k":381.7,"split_mile":627.1,"pr":false,"avg_power":333,"avg_resp":32.5,"avg_stride":0.97,"avg_vert_osc":8.7,"avg_vert_ratio":8.9,"avg_gct":307,"bb_delta":-11},{"date":"2026-03-02","name":"L\u00f8ping","dist_km":3.98,"dur_min":28.8,"pace":7.222,"avg_hr":170.0,"max_hr":200.0,"elev_gain":22.0,"calories":442.0,"vo2max":null,"training_load":167.0,"aerobic_te":3.700000047683716,"cadence":158.5,"location":"","lat":null,"lon":null,"split_1k":384.3,"split_mile":684.5,"pr":false,"avg_power":372,"avg_resp":34.6,"avg_stride":1.08,"avg_vert_osc":9.0,"avg_vert_ratio":8.3,"avg_gct":293,"bb_delta":-8},{"date":"2026-03-03","name":"Oslo L\u00f8ping","dist_km":7.95,"dur_min":48.5,"pace":6.103,"avg_hr":170.0,"max_hr":195.0,"elev_gain":75.0,"calories":739.0,"vo2max":48.0,"training_load":139.7,"aerobic_te":4.0,"cadence":154.1,"location":"Oslo","lat":59.92905559949577,"lon":10.71616681292653,"split_1k":327.9,"split_mile":556.6,"pr":false,"avg_power":383,"avg_resp":35.3,"avg_stride":1.08,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":305,"bb_delta":-13},{"date":"2026-03-04","name":"Oslo L\u00f8ping","dist_km":10.02,"dur_min":60.3,"pace":6.015,"avg_hr":182.0,"max_hr":201.0,"elev_gain":120.0,"calories":960.0,"vo2max":47.0,"training_load":191.4,"aerobic_te":4.5,"cadence":155.0,"location":"Oslo","lat":59.94933326728642,"lon":10.768326558172703,"split_1k":336.4,"split_mile":554.6,"pr":false,"avg_power":385,"avg_resp":37.0,"avg_stride":1.07,"avg_vert_osc":9.2,"avg_vert_ratio":8.6,"avg_gct":303,"bb_delta":-12},{"date":"2026-03-07","name":"Oslo L\u00f8ping","dist_km":5.62,"dur_min":34.2,"pace":6.089,"avg_hr":172.0,"max_hr":189.0,"elev_gain":88.0,"calories":528.0,"vo2max":48.0,"training_load":113.5,"aerobic_te":3.5999999046325684,"cadence":154.0,"location":"Oslo","lat":59.94939831085503,"lon":10.77306954190135,"split_1k":309.5,"split_mile":508.7,"pr":false,"avg_power":381,"avg_resp":36.4,"avg_stride":1.06,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":307,"bb_delta":-10},{"date":"2026-03-09","name":"Oslo L\u00f8ping","dist_km":7.96,"dur_min":44.2,"pace":5.559,"avg_hr":169.0,"max_hr":199.0,"elev_gain":76.0,"calories":689.0,"vo2max":48.0,"training_load":200.7,"aerobic_te":3.5999999046325684,"cadence":152.7,"location":"Oslo","lat":59.948932779952884,"lon":10.768047859892249,"split_1k":261.6,"split_mile":475.3,"pr":false,"avg_power":426,"avg_resp":33.4,"avg_stride":1.18,"avg_vert_osc":9.2,"avg_vert_ratio":7.9,"avg_gct":289,"bb_delta":-13},{"date":"2026-03-10","name":"Oslo L\u00f8ping","dist_km":5.63,"dur_min":32.6,"pace":5.792,"avg_hr":170.0,"max_hr":185.0,"elev_gain":97.0,"calories":507.0,"vo2max":49.0,"training_load":101.8,"aerobic_te":3.299999952316284,"cadence":155.1,"location":"Oslo","lat":59.94930535554886,"lon":10.773077169433236,"split_1k":293.7,"split_mile":496.2,"pr":false,"avg_power":399,"avg_resp":35.3,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-8},{"date":"2026-03-11","name":"Oslo L\u00f8ping","dist_km":10.14,"dur_min":57.4,"pace":5.657,"avg_hr":171.0,"max_hr":193.0,"elev_gain":128.0,"calories":906.0,"vo2max":49.0,"training_load":156.9,"aerobic_te":3.9000000953674316,"cadence":157.0,"location":"Oslo","lat":59.94906261563301,"lon":10.768221449106932,"split_1k":323.0,"split_mile":525.6,"pr":false,"avg_power":414,"avg_resp":35.5,"avg_stride":1.13,"avg_vert_osc":9.3,"avg_vert_ratio":8.3,"avg_gct":295,"bb_delta":-12},{"date":"2026-03-14","name":"Ny pb p\u00e5 3km, gammel var 13:10","dist_km":3.05,"dur_min":12.7,"pace":4.167,"avg_hr":193.0,"max_hr":205.0,"elev_gain":null,"calories":239.0,"vo2max":49.0,"training_load":134.7,"aerobic_te":3.299999952316284,"cadence":162.9,"location":"Oslo","lat":59.88697207532823,"lon":10.775756612420082,"split_1k":245.9,"split_mile":400.2,"pr":false,"avg_power":545,"avg_resp":38.5,"avg_stride":1.47,"avg_vert_osc":10.3,"avg_vert_ratio":7.0,"avg_gct":259,"bb_delta":-5},{"date":"2026-03-16","name":"Oslo L\u00f8ping","dist_km":6.84,"dur_min":36.8,"pace":5.38,"avg_hr":168.0,"max_hr":198.0,"elev_gain":38.0,"calories":584.0,"vo2max":50.0,"training_load":234.6,"aerobic_te":3.5999999046325684,"cadence":151.5,"location":"Oslo","lat":59.948905957862735,"lon":10.766870370134711,"split_1k":277.7,"split_mile":467.2,"pr":false,"avg_power":430,"avg_resp":34.0,"avg_stride":1.25,"avg_vert_osc":9.2,"avg_vert_ratio":7.5,"avg_gct":276,"bb_delta":-8},{"date":"2026-03-18","name":"Oslo L\u00f8ping","dist_km":13.28,"dur_min":78.9,"pace":5.944,"avg_hr":170.0,"max_hr":188.0,"elev_gain":164.0,"calories":1217.0,"vo2max":49.0,"training_load":159.7,"aerobic_te":3.9000000953674316,"cadence":156.0,"location":"Oslo","lat":59.929198594763875,"lon":10.70354643277824,"split_1k":null,"split_mile":null,"pr":false,"avg_power":397,"avg_resp":36.1,"avg_stride":1.09,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":300,"bb_delta":-21},{"date":"2026-03-21","name":"Fl\u00e5 L\u00f8ping","dist_km":8.07,"dur_min":48.6,"pace":6.02,"avg_hr":157.0,"max_hr":169.0,"elev_gain":114.0,"calories":721.0,"vo2max":50.0,"training_load":92.2,"aerobic_te":3.200000047683716,"cadence":158.6,"location":"Fl\u00e5","lat":60.37892667576671,"lon":9.57531594671309,"split_1k":331.2,"split_mile":534.3,"pr":false,"avg_power":391,"avg_resp":36.2,"avg_stride":1.05,"avg_vert_osc":9.0,"avg_vert_ratio":8.5,"avg_gct":296,"bb_delta":-8},{"date":"2026-03-23","name":"Oslo L\u00f8ping","dist_km":8.27,"dur_min":46.8,"pace":5.654,"avg_hr":170.0,"max_hr":192.0,"elev_gain":76.0,"calories":756.0,"vo2max":50.0,"training_load":229.2,"aerobic_te":3.700000047683716,"cadence":155.7,"location":"Oslo","lat":59.94871694594622,"lon":10.765468580648303,"split_1k":282.9,"split_mile":459.6,"pr":false,"avg_power":455,"avg_resp":34.4,"avg_stride":1.23,"avg_vert_osc":9.4,"avg_vert_ratio":7.8,"avg_gct":282,"bb_delta":-11},{"date":"2026-03-24","name":"Oslo L\u00f8ping","dist_km":7.7,"dur_min":47.5,"pace":6.174,"avg_hr":160.0,"max_hr":172.0,"elev_gain":109.0,"calories":722.0,"vo2max":50.0,"training_load":94.4,"aerobic_te":3.200000047683716,"cadence":155.8,"location":"Oslo","lat":59.94942278601229,"lon":10.77317364513874,"split_1k":290.6,"split_mile":488.4,"pr":false,"avg_power":390,"avg_resp":34.1,"avg_stride":1.04,"avg_vert_osc":8.9,"avg_vert_ratio":8.7,"avg_gct":303,"bb_delta":-12},{"date":"2026-03-30","name":"Oslo L\u00f8ping","dist_km":5.6,"dur_min":31.0,"pace":5.535,"avg_hr":167.0,"max_hr":194.0,"elev_gain":113.0,"calories":522.0,"vo2max":51.0,"training_load":119.6,"aerobic_te":3.299999952316284,"cadence":156.7,"location":"Oslo","lat":59.949406357482076,"lon":10.773041797801852,"split_1k":252.7,"split_mile":431.0,"pr":false,"avg_power":440,"avg_resp":35.4,"avg_stride":1.15,"avg_vert_osc":9.3,"avg_vert_ratio":8.2,"avg_gct":294,"bb_delta":-8},{"date":"2026-03-31","name":"Oslo L\u00f8ping","dist_km":3.15,"dur_min":15.8,"pace":5.015,"avg_hr":173.0,"max_hr":195.0,"elev_gain":38.0,"calories":272.0,"vo2max":51.0,"training_load":66.0,"aerobic_te":2.799999952316284,"cadence":157.4,"location":"Oslo","lat":59.949372075498104,"lon":10.773009527474642,"split_1k":272.2,"split_mile":447.3,"pr":false,"avg_power":465,"avg_resp":32.3,"avg_stride":1.26,"avg_vert_osc":9.8,"avg_vert_ratio":7.8,"avg_gct":285,"bb_delta":-15},{"date":"2026-04-06","name":"Oslo L\u00f8ping","dist_km":3.29,"dur_min":25.9,"pace":7.873,"avg_hr":148.0,"max_hr":165.0,"elev_gain":31.0,"calories":300.0,"vo2max":null,"training_load":21.4,"aerobic_te":1.7999999523162842,"cadence":149.1,"location":"Oslo","lat":59.96923668310046,"lon":10.731608206406236,"split_1k":457.3,"split_mile":747.0,"pr":false,"avg_power":296,"avg_resp":29.8,"avg_stride":0.85,"avg_vert_osc":8.2,"avg_vert_ratio":9.6,"avg_gct":333,"bb_delta":-5},{"date":"2026-04-06","name":"Oslo L\u00f8ping","dist_km":4.07,"dur_min":22.2,"pace":5.453,"avg_hr":152.0,"max_hr":189.0,"elev_gain":33.0,"calories":343.0,"vo2max":51.0,"training_load":86.0,"aerobic_te":2.700000047683716,"cadence":149.1,"location":"Oslo","lat":59.94945840910077,"lon":10.773225612938404,"split_1k":318.2,"split_mile":520.5,"pr":false,"avg_power":296,"avg_resp":29.8,"avg_stride":0.85,"avg_vert_osc":8.2,"avg_vert_ratio":9.6,"avg_gct":333,"bb_delta":-5},{"date":"2026-04-07","name":"Prep for BBL staffetten","dist_km":8.51,"dur_min":48.4,"pace":5.687,"avg_hr":166.0,"max_hr":193.0,"elev_gain":107.0,"calories":781.0,"vo2max":52.0,"training_load":159.5,"aerobic_te":3.700000047683716,"cadence":152.5,"location":"Oslo","lat":59.949157582595944,"lon":10.767785422503948,"split_1k":275.4,"split_mile":477.4,"pr":false,"avg_power":436,"avg_resp":null,"avg_stride":1.19,"avg_vert_osc":9.3,"avg_vert_ratio":8.1,"avg_gct":293,"bb_delta":-9},{"date":"2026-04-08","name":"Oslo L\u00f8ping","dist_km":3.26,"dur_min":25.4,"pace":7.805,"avg_hr":125.0,"max_hr":154.0,"elev_gain":35.0,"calories":280.0,"vo2max":null,"training_load":17.6,"aerobic_te":1.5,"cadence":147.1,"location":"Oslo","lat":59.96924967505038,"lon":10.731595046818256,"split_1k":457.1,"split_mile":746.4,"pr":false,"avg_power":304,"avg_resp":null,"avg_stride":0.87,"avg_vert_osc":8.3,"avg_vert_ratio":9.6,"avg_gct":338,"bb_delta":-5},{"date":"2026-04-09","name":"BBL etappe 36","dist_km":4.06,"dur_min":17.3,"pace":4.264,"avg_hr":184.0,"max_hr":201.0,"elev_gain":7.0,"calories":330.0,"vo2max":52.0,"training_load":144.3,"aerobic_te":3.299999952316284,"cadence":161.0,"location":"Fl\u00e5","lat":60.39143809117377,"lon":9.533013990148902,"split_1k":245.3,"split_mile":404.6,"pr":false,"avg_power":520,"avg_resp":null,"avg_stride":1.45,"avg_vert_osc":10.3,"avg_vert_ratio":7.1,"avg_gct":265,"bb_delta":-3},{"date":"2026-04-13","name":"Oslo L\u00f8ping","dist_km":9.41,"dur_min":69.5,"pace":7.387,"avg_hr":130.0,"max_hr":179.0,"elev_gain":73.0,"calories":787.0,"vo2max":52.0,"training_load":48.1,"aerobic_te":2.5999999046325684,"cadence":149.0,"location":"Oslo","lat":59.96931480243802,"lon":10.731575852259994,"split_1k":316.5,"split_mile":525.1,"pr":false,"avg_power":317,"avg_resp":null,"avg_stride":0.91,"avg_vert_osc":8.4,"avg_vert_ratio":9.4,"avg_gct":330,"bb_delta":-14},{"date":"2026-04-14","name":"WU + 4x4 + CD","dist_km":8.2,"dur_min":48.0,"pace":5.852,"avg_hr":165.0,"max_hr":204.0,"elev_gain":101.0,"calories":770.0,"vo2max":52.0,"training_load":167.7,"aerobic_te":3.700000047683716,"cadence":153.0,"location":"Oslo","lat":59.94898734614253,"lon":10.773382857441902,"split_1k":287.9,"split_mile":501.4,"pr":false,"avg_power":427,"avg_resp":null,"avg_stride":1.19,"avg_vert_osc":9.3,"avg_vert_ratio":8.1,"avg_gct":291,"bb_delta":-12},{"date":"2026-04-15","name":"Oslo L\u00f8ping","dist_km":9.01,"dur_min":62.7,"pace":6.963,"avg_hr":156.0,"max_hr":189.0,"elev_gain":157.0,"calories":878.0,"vo2max":52.0,"training_load":103.7,"aerobic_te":3.4000000953674316,"cadence":151.8,"location":"Oslo","lat":59.92695702239871,"lon":10.711645362898707,"split_1k":332.3,"split_mile":552.7,"pr":false,"avg_power":363,"avg_resp":null,"avg_stride":0.98,"avg_vert_osc":8.7,"avg_vert_ratio":9.1,"avg_gct":318,"bb_delta":-9},{"date":"2026-04-17","name":"Oslo L\u00f8ping","dist_km":6.12,"dur_min":34.4,"pace":5.62,"avg_hr":169.0,"max_hr":183.0,"elev_gain":105.0,"calories":585.0,"vo2max":52.0,"training_load":102.2,"aerobic_te":3.299999952316284,"cadence":155.9,"location":"Oslo","lat":59.94942178018391,"lon":10.772962840273976,"split_1k":271.8,"split_mile":442.4,"pr":false,"avg_power":430,"avg_resp":null,"avg_stride":1.14,"avg_vert_osc":9.3,"avg_vert_ratio":8.3,"avg_gct":297,"bb_delta":-7},{"date":"2026-04-20","name":"Oslo L\u00f8ping","dist_km":9.35,"dur_min":49.7,"pace":5.316,"avg_hr":169.0,"max_hr":200.0,"elev_gain":100.0,"calories":848.0,"vo2max":52.0,"training_load":247.5,"aerobic_te":4.0,"cadence":152.3,"location":"Oslo","lat":59.949611127376556,"lon":10.768256653100252,"split_1k":241.6,"split_mile":462.2,"pr":false,"avg_power":446,"avg_resp":null,"avg_stride":1.23,"avg_vert_osc":9.2,"avg_vert_ratio":7.7,"avg_gct":281,"bb_delta":-13},{"date":"2026-04-21","name":"Oslo L\u00f8ping","dist_km":8.0,"dur_min":60.0,"pace":7.504,"avg_hr":141.0,"max_hr":163.0,"elev_gain":62.0,"calories":718.0,"vo2max":52.0,"training_load":26.3,"aerobic_te":2.0999999046325684,"cadence":154.0,"location":"Oslo","lat":59.91045548580587,"lon":10.720550045371056,"split_1k":429.2,"split_mile":701.4,"pr":false,"avg_power":314,"avg_resp":null,"avg_stride":0.86,"avg_vert_osc":8.2,"avg_vert_ratio":9.5,"avg_gct":319,"bb_delta":-8},{"date":"2026-04-22","name":"Oslo L\u00f8ping","dist_km":9.92,"dur_min":57.6,"pace":5.808,"avg_hr":170.0,"max_hr":185.0,"elev_gain":175.0,"calories":968.0,"vo2max":52.0,"training_load":141.0,"aerobic_te":3.9000000953674316,"cadence":156.5,"location":"Oslo","lat":59.94936654344201,"lon":10.768423452973366,"split_1k":309.2,"split_mile":507.2,"pr":false,"avg_power":417,"avg_resp":null,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":298,"bb_delta":-13},{"date":"2026-04-23","name":"Oslo L\u00f8ping","dist_km":3.44,"dur_min":27.2,"pace":7.899,"avg_hr":134.0,"max_hr":162.0,"elev_gain":52.0,"calories":306.0,"vo2max":null,"training_load":22.6,"aerobic_te":1.5,"cadence":151.9,"location":"Oslo","lat":59.91844863630831,"lon":10.68190804682672,"split_1k":442.2,"split_mile":749.8,"pr":false,"avg_power":307,"avg_resp":null,"avg_stride":0.84,"avg_vert_osc":8.1,"avg_vert_ratio":9.7,"avg_gct":327,"bb_delta":-3}];
+const RUNS = [{"date":"2024-01-15","name":"Trecastagni L\u00f8ping","dist_km":4.73,"dur_min":33.5,"pace":7.096,"avg_hr":154.0,"max_hr":169.0,"elev_gain":16.0,"calories":402.0,"vo2max":39.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":152.2,"location":"Trecastagni","lat":37.62723513878882,"lon":15.074044754728675,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-01-17","name":"Catania L\u00f8ping","dist_km":3.75,"dur_min":33.1,"pace":8.839,"avg_hr":156.0,"max_hr":176.0,"elev_gain":26.0,"calories":410.0,"vo2max":38.0,"training_load":null,"aerobic_te":5.0,"cadence":149.3,"location":"Catania","lat":37.452960116788745,"lon":15.086582154035568,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-01-21","name":"Trecastagni L\u00f8ping","dist_km":4.43,"dur_min":33.1,"pace":7.466,"avg_hr":154.0,"max_hr":177.0,"elev_gain":12.0,"calories":391.0,"vo2max":38.0,"training_load":null,"aerobic_te":5.0,"cadence":146.9,"location":"Trecastagni","lat":37.62731141410768,"lon":15.074014160782099,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-01-22","name":"Catania L\u00f8ping","dist_km":4.54,"dur_min":47.4,"pace":10.446,"avg_hr":150.0,"max_hr":177.0,"elev_gain":475.0,"calories":512.0,"vo2max":null,"training_load":null,"aerobic_te":5.0,"cadence":139.1,"location":"Catania","lat":37.47735120356083,"lon":15.084830420091748,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-02-08","name":"L\u00f8ping - Innend\u00f8rs Bislett ","dist_km":5.17,"dur_min":34.2,"pace":6.616,"avg_hr":159.0,"max_hr":179.0,"elev_gain":18.0,"calories":470.0,"vo2max":null,"training_load":null,"aerobic_te":5.0,"cadence":154.4,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-02-24","name":"Bislett innend\u00f8rs, 15 runder (\u00e0 546m)","dist_km":7.58,"dur_min":50.7,"pace":6.691,"avg_hr":155.0,"max_hr":173.0,"elev_gain":22.0,"calories":627.0,"vo2max":null,"training_load":null,"aerobic_te":5.0,"cadence":155.8,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-03-19","name":"Oslo L\u00f8ping","dist_km":7.06,"dur_min":41.8,"pace":5.91,"avg_hr":157.0,"max_hr":177.0,"elev_gain":101.0,"calories":566.0,"vo2max":46.0,"training_load":null,"aerobic_te":3.799999952316284,"cadence":151.1,"location":"Oslo","lat":59.92670891806483,"lon":10.715583013370633,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-04-09","name":"Oslo L\u00f8ping","dist_km":5.5,"dur_min":32.7,"pace":5.95,"avg_hr":168.0,"max_hr":187.0,"elev_gain":11.0,"calories":469.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":150.5,"location":"Oslo","lat":59.92568708024919,"lon":10.733581054955721,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-04-25","name":"Oslo L\u00f8ping","dist_km":5.28,"dur_min":40.8,"pace":7.725,"avg_hr":147.0,"max_hr":160.0,"elev_gain":14.0,"calories":522.0,"vo2max":45.0,"training_load":null,"aerobic_te":3.5,"cadence":152.0,"location":"Oslo","lat":59.92556286044419,"lon":10.732588302344084,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-04-30","name":"Lett jogging f\u00f8r eksamen","dist_km":5.74,"dur_min":38.2,"pace":6.666,"avg_hr":172.0,"max_hr":186.0,"elev_gain":63.0,"calories":551.0,"vo2max":45.0,"training_load":null,"aerobic_te":4.699999809265137,"cadence":152.7,"location":"Oslo","lat":59.9268745444715,"lon":10.715749310329556,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-05-04","name":"Holmenkollstafetten (etappe 11 - Frognerparken) Meny 5532","dist_km":1.5,"dur_min":6.1,"pace":4.101,"avg_hr":140.0,"max_hr":155.0,"elev_gain":21.0,"calories":74.0,"vo2max":null,"training_load":null,"aerobic_te":2.0,"cadence":162.7,"location":"Oslo","lat":59.929339746013284,"lon":10.695123793557286,"split_1k":null,"split_mile":null,"pr":true,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-05-11","name":"Oslo L\u00f8ping","dist_km":6.02,"dur_min":39.8,"pace":6.608,"avg_hr":166.0,"max_hr":194.0,"elev_gain":67.0,"calories":547.0,"vo2max":44.0,"training_load":null,"aerobic_te":4.300000190734863,"cadence":152.8,"location":"Oslo","lat":59.92863650433719,"lon":10.707370759919286,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-05-14","name":"Oslo L\u00f8ping","dist_km":5.26,"dur_min":27.8,"pace":5.279,"avg_hr":178.0,"max_hr":190.0,"elev_gain":36.0,"calories":432.0,"vo2max":45.0,"training_load":null,"aerobic_te":4.800000190734863,"cadence":155.5,"location":"Oslo","lat":59.92693221196532,"lon":10.714800478890538,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-05-14","name":"Oslo L\u00f8ping","dist_km":4.06,"dur_min":23.7,"pace":5.822,"avg_hr":176.0,"max_hr":188.0,"elev_gain":52.0,"calories":364.0,"vo2max":44.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":155.5,"location":"Oslo","lat":59.911207761615515,"lon":10.666208574548364,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-05-21","name":"Oslo L\u00f8ping","dist_km":9.55,"dur_min":59.3,"pace":6.211,"avg_hr":169.0,"max_hr":189.0,"elev_gain":88.0,"calories":853.0,"vo2max":44.0,"training_load":null,"aerobic_te":5.0,"cadence":152.9,"location":"Oslo","lat":59.92686892859638,"lon":10.715550826862454,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-05-26","name":"Oslo L\u00f8ping","dist_km":10.18,"dur_min":70.4,"pace":6.91,"avg_hr":170.0,"max_hr":184.0,"elev_gain":120.0,"calories":979.0,"vo2max":44.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":149.7,"location":"Oslo","lat":59.92705232463777,"lon":10.71597721427679,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-06-02","name":"Oslo L\u00f8ping","dist_km":12.01,"dur_min":84.8,"pace":7.064,"avg_hr":159.0,"max_hr":183.0,"elev_gain":119.0,"calories":1032.0,"vo2max":44.0,"training_load":null,"aerobic_te":3.299999952316284,"cadence":148.3,"location":"Oslo","lat":59.926952328532934,"lon":10.715860789641738,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-06-03","name":"Oslo L\u00f8ping","dist_km":12.54,"dur_min":79.4,"pace":6.329,"avg_hr":161.0,"max_hr":184.0,"elev_gain":140.0,"calories":1068.0,"vo2max":44.0,"training_load":null,"aerobic_te":3.9000000953674316,"cadence":152.4,"location":"Oslo","lat":59.92783955298364,"lon":10.717079853639007,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-06-08","name":"BEERMILE\n0,33 x 4 & 400m x 4","dist_km":1.71,"dur_min":9.8,"pace":5.707,"avg_hr":132.46153846153845,"max_hr":150.0,"elev_gain":18.0,"calories":102.0,"vo2max":null,"training_load":null,"aerobic_te":1.7000000476837158,"cadence":161.6,"location":"Oslo","lat":59.96834157966077,"lon":10.730434153228998,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-06-12","name":"Kort tur i regnv\u00e6ret\ud83c\udf27\ufe0f","dist_km":5.01,"dur_min":28.2,"pace":5.623,"avg_hr":176.0,"max_hr":192.0,"elev_gain":47.0,"calories":454.0,"vo2max":45.0,"training_load":null,"aerobic_te":4.400000095367432,"cadence":153.6,"location":"Oslo","lat":59.927131701260805,"lon":10.716199167072773,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-06-29","name":"Oslo L\u00f8ping","dist_km":6.67,"dur_min":44.8,"pace":6.724,"avg_hr":149.0,"max_hr":179.0,"elev_gain":43.0,"calories":587.0,"vo2max":45.0,"training_load":null,"aerobic_te":3.5,"cadence":151.3,"location":"Oslo","lat":59.9270904622972,"lon":10.716087687760592,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-07-09","name":"Oslo L\u00f8ping","dist_km":8.36,"dur_min":54.8,"pace":6.549,"avg_hr":178.0,"max_hr":194.0,"elev_gain":93.0,"calories":889.0,"vo2max":45.0,"training_load":null,"aerobic_te":5.0,"cadence":151.4,"location":"Oslo","lat":59.926319662481546,"lon":10.703429086133838,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-07-11","name":"Oslo L\u00f8ping","dist_km":14.01,"dur_min":88.8,"pace":6.337,"avg_hr":167.0,"max_hr":183.0,"elev_gain":89.0,"calories":1268.0,"vo2max":45.0,"training_load":null,"aerobic_te":5.0,"cadence":152.6,"location":"Oslo","lat":59.92696540430188,"lon":10.716287344694138,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-07-14","name":"L\u00f8ping","dist_km":7.67,"dur_min":53.2,"pace":6.94,"avg_hr":149.0,"max_hr":163.0,"elev_gain":15.0,"calories":719.0,"vo2max":null,"training_load":null,"aerobic_te":3.9000000953674316,"cadence":154.4,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-07-16","name":"L\u00f8ping","dist_km":8.41,"dur_min":59.6,"pace":7.086,"avg_hr":157.0,"max_hr":170.0,"elev_gain":12.0,"calories":875.0,"vo2max":null,"training_load":null,"aerobic_te":4.900000095367432,"cadence":153.8,"location":"","lat":null,"lon":null,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-08-05","name":"Oslo L\u00f8ping","dist_km":10.02,"dur_min":62.6,"pace":6.245,"avg_hr":175.0,"max_hr":193.0,"elev_gain":79.0,"calories":982.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.699999809265137,"cadence":150.8,"location":"Oslo","lat":59.913025042042136,"lon":10.723492847755551,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-08-08","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":64.0,"pace":6.39,"avg_hr":170.0,"max_hr":187.0,"elev_gain":74.0,"calories":963.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.099999904632568,"cadence":151.9,"location":"Oslo","lat":59.91319083608687,"lon":10.723591083660722,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-08-19","name":"Oslo L\u00f8ping","dist_km":8.06,"dur_min":46.3,"pace":5.741,"avg_hr":173.0,"max_hr":194.0,"elev_gain":73.0,"calories":743.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":151.9,"location":"Oslo","lat":59.912870647385716,"lon":10.723701221868396,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-08-22","name":"Oslo L\u00f8ping","dist_km":13.66,"dur_min":88.6,"pace":6.489,"avg_hr":171.0,"max_hr":190.0,"elev_gain":137.0,"calories":1352.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":151.8,"location":"Oslo","lat":59.91277802735567,"lon":10.723137287423015,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-08-27","name":"Oslo L\u00f8ping","dist_km":20.89,"dur_min":139.0,"pace":6.656,"avg_hr":162.0,"max_hr":185.0,"elev_gain":234.0,"calories":1863.0,"vo2max":47.0,"training_load":null,"aerobic_te":4.0,"cadence":151.6,"location":"Oslo","lat":59.91102470085025,"lon":10.720716090872884,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-01","name":"Oslo L\u00f8ping","dist_km":7.51,"dur_min":41.7,"pace":5.556,"avg_hr":176.0,"max_hr":192.0,"elev_gain":57.0,"calories":706.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.799999952316284,"cadence":153.9,"location":"Oslo","lat":59.91293141618371,"lon":10.723250526934862,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-05","name":"Oslo L\u00f8ping","dist_km":5.07,"dur_min":34.5,"pace":6.814,"avg_hr":152.0,"max_hr":172.0,"elev_gain":37.0,"calories":462.0,"vo2max":46.0,"training_load":null,"aerobic_te":3.0999999046325684,"cadence":150.6,"location":"Oslo","lat":59.94409533217549,"lon":10.758357373997569,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-08","name":"Oslo L\u00f8ping","dist_km":24.01,"dur_min":163.6,"pace":6.813,"avg_hr":161.0,"max_hr":184.0,"elev_gain":205.0,"calories":2166.0,"vo2max":46.0,"training_load":null,"aerobic_te":4.0,"cadence":151.0,"location":"Oslo","lat":59.91288992576301,"lon":10.723345577716827,"split_1k":null,"split_mile":null,"pr":true,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-17","name":"Oslo L\u00f8ping","dist_km":13.34,"dur_min":85.2,"pace":6.386,"avg_hr":175.0,"max_hr":196.0,"elev_gain":151.0,"calories":1367.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":151.0,"location":"Oslo","lat":59.911770606413484,"lon":10.721765588968992,"split_1k":null,"split_mile":null,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-21","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":58.6,"pace":5.849,"avg_hr":170.0,"max_hr":191.0,"elev_gain":77.0,"calories":926.0,"vo2max":47.0,"training_load":null,"aerobic_te":5.0,"cadence":151.7,"location":"Oslo","lat":59.913006434217095,"lon":10.723375668749213,"split_1k":291.2,"split_mile":482.3,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-25","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":58.1,"pace":5.803,"avg_hr":177.0,"max_hr":190.0,"elev_gain":89.0,"calories":977.0,"vo2max":47.0,"training_load":null,"aerobic_te":5.0,"cadence":152.7,"location":"Oslo","lat":59.91288397461176,"lon":10.723282964900136,"split_1k":290.3,"split_mile":474.8,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-09-29","name":"Oslo L\u00f8ping","dist_km":8.21,"dur_min":45.2,"pace":5.507,"avg_hr":175.0,"max_hr":190.0,"elev_gain":39.0,"calories":762.0,"vo2max":47.0,"training_load":null,"aerobic_te":4.800000190734863,"cadence":153.2,"location":"Oslo","lat":59.912900906056166,"lon":10.723489411175251,"split_1k":286.0,"split_mile":461.0,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-10-02","name":"Oslo L\u00f8ping","dist_km":8.01,"dur_min":41.6,"pace":5.196,"avg_hr":177.0,"max_hr":188.0,"elev_gain":43.0,"calories":715.0,"vo2max":47.0,"training_load":null,"aerobic_te":4.5,"cadence":154.3,"location":"Oslo","lat":59.91280526854098,"lon":10.722849452868104,"split_1k":282.5,"split_mile":455.1,"pr":true,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-10-05","name":"Oslo L\u00f8ping","dist_km":6.59,"dur_min":49.4,"pace":7.488,"avg_hr":138.0,"max_hr":192.0,"elev_gain":53.0,"calories":534.0,"vo2max":48.0,"training_load":null,"aerobic_te":3.299999952316284,"cadence":127.2,"location":"Oslo","lat":59.912798814475536,"lon":10.723236026242375,"split_1k":256.9,"split_mile":420.2,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-10-09","name":"Oslo L\u00f8ping","dist_km":6.53,"dur_min":41.4,"pace":6.344,"avg_hr":167.0,"max_hr":190.0,"elev_gain":42.0,"calories":657.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.799999952316284,"cadence":153.0,"location":"Oslo","lat":59.90958628244698,"lon":10.71740004234016,"split_1k":322.6,"split_mile":564.7,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-10-10","name":"Oslo L\u00f8ping","dist_km":10.0,"dur_min":66.5,"pace":6.651,"avg_hr":166.0,"max_hr":184.0,"elev_gain":81.0,"calories":1008.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.5999999046325684,"cadence":152.2,"location":"Oslo","lat":59.91291909478605,"lon":10.723589323461056,"split_1k":324.3,"split_mile":528.7,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-10-15","name":"Oslo L\u00f8ping","dist_km":15.17,"dur_min":95.6,"pace":6.305,"avg_hr":163.0,"max_hr":179.0,"elev_gain":167.0,"calories":1410.0,"vo2max":47.0,"training_load":null,"aerobic_te":3.5999999046325684,"cadence":153.4,"location":"Oslo","lat":59.912173692137,"lon":10.722271269187331,"split_1k":316.7,"split_mile":525.4,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-10-20","name":"Oslo L\u00f8ping","dist_km":9.92,"dur_min":57.4,"pace":5.788,"avg_hr":178.0,"max_hr":197.0,"elev_gain":134.0,"calories":990.0,"vo2max":46.0,"training_load":null,"aerobic_te":5.0,"cadence":155.8,"location":"Oslo","lat":59.896626183763146,"lon":10.676186140626669,"split_1k":300.5,"split_mile":502.9,"pr":false,"avg_power":null,"avg_resp":null,"avg_stride":null,"avg_vert_osc":null,"avg_vert_ratio":null,"avg_gct":null,"bb_delta":null,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2024-11-07","name":"Oslo L\u00f8ping","dist_km":8.01,"dur_min":54.2,"pace":6.765,"avg_hr":163.0,"max_hr":181.0,"elev_gain":45.0,"calories":771.0,"vo2max":46.0,"training_load":109.2,"aerobic_te":4.099999904632568,"cadence":152.3,"location":"Oslo","lat":59.91038524545729,"lon":10.720509476959705,"split_1k":359.6,"split_mile":583.8,"pr":false,"avg_power":335,"avg_resp":37.5,"avg_stride":0.96,"avg_vert_osc":8.7,"avg_vert_ratio":9.1,"avg_gct":317,"bb_delta":-21,"hr_z1":null,"hr_z2":null,"hr_z3":null,"hr_z4":null,"hr_z5":null},{"date":"2025-01-19","name":"L\u00f8ping","dist_km":9.57,"dur_min":63.4,"pace":6.622,"avg_hr":176.0,"max_hr":196.0,"elev_gain":5.0,"calories":1077.0,"vo2max":null,"training_load":344.8,"aerobic_te":5.0,"cadence":155.4,"location":"","lat":null,"lon":null,"split_1k":378.5,"split_mile":614.8,"pr":false,"avg_power":332,"avg_resp":38.6,"avg_stride":0.97,"avg_vert_osc":8.7,"avg_vert_ratio":9.0,"avg_gct":307,"bb_delta":-30,"hr_z1":23.461,"hr_z2":55.455,"hr_z3":453.929,"hr_z4":1521.537,"hr_z5":1739.811},{"date":"2025-01-26","name":"L\u00f8ping","dist_km":6.49,"dur_min":42.8,"pace":6.588,"avg_hr":165.0,"max_hr":177.0,"elev_gain":5.0,"calories":672.0,"vo2max":null,"training_load":152.8,"aerobic_te":4.800000190734863,"cadence":155.5,"location":"","lat":null,"lon":null,"split_1k":383.1,"split_mile":617.1,"pr":false,"avg_power":335,"avg_resp":37.2,"avg_stride":0.99,"avg_vert_osc":8.8,"avg_vert_ratio":8.9,"avg_gct":307,"bb_delta":-3,"hr_z1":7.905,"hr_z2":18.586,"hr_z3":579.995,"hr_z4":1958.645,"hr_z5":0.0},{"date":"2025-02-09","name":"Oslo L\u00f8ping","dist_km":7.72,"dur_min":50.5,"pace":6.538,"avg_hr":172.0,"max_hr":189.0,"elev_gain":40.0,"calories":740.0,"vo2max":46.0,"training_load":137.7,"aerobic_te":4.5,"cadence":152.9,"location":"Oslo","lat":59.9128108844161,"lon":10.723255891352892,"split_1k":null,"split_mile":null,"pr":false,"avg_power":349,"avg_resp":37.7,"avg_stride":1.0,"avg_vert_osc":8.8,"avg_vert_ratio":9.0,"avg_gct":314,"bb_delta":-20,"hr_z1":18.661,"hr_z2":40.0,"hr_z3":328.994,"hr_z4":1888.993,"hr_z5":743.52},{"date":"2025-03-03","name":"Oslo L\u00f8ping","dist_km":6.57,"dur_min":45.0,"pace":6.845,"avg_hr":161.0,"max_hr":188.0,"elev_gain":23.0,"calories":606.0,"vo2max":46.0,"training_load":83.4,"aerobic_te":3.700000047683716,"cadence":150.8,"location":"Oslo","lat":59.913196451961994,"lon":10.72338379919529,"split_1k":325.0,"split_mile":579.6,"pr":false,"avg_power":343,"avg_resp":35.2,"avg_stride":0.97,"avg_vert_osc":8.8,"avg_vert_ratio":9.1,"avg_gct":321,"bb_delta":-13,"hr_z1":11.997,"hr_z2":67.001,"hr_z3":1845.213,"hr_z4":707.001,"hr_z5":67.996},{"date":"2025-03-04","name":"Oslo L\u00f8ping","dist_km":6.5,"dur_min":41.0,"pace":6.314,"avg_hr":168.0,"max_hr":194.0,"elev_gain":34.0,"calories":591.0,"vo2max":46.0,"training_load":119.5,"aerobic_te":4.099999904632568,"cadence":151.4,"location":"Oslo","lat":59.913122691214085,"lon":10.723654115572572,"split_1k":281.3,"split_mile":518.0,"pr":false,"avg_power":372,"avg_resp":38.7,"avg_stride":1.04,"avg_vert_osc":9.0,"avg_vert_ratio":8.8,"avg_gct":315,"bb_delta":-10,"hr_z1":73.999,"hr_z2":1545.985,"hr_z3":264.208,"hr_z4":514.995,"hr_z5":58.996},{"date":"2025-03-11","name":"Oslo L\u00f8ping","dist_km":14.65,"dur_min":97.2,"pace":6.632,"avg_hr":167.0,"max_hr":187.0,"elev_gain":145.0,"calories":1370.0,"vo2max":46.0,"training_load":173.6,"aerobic_te":5.0,"cadence":151.8,"location":"Oslo","lat":59.9131822027266,"lon":10.723443310707808,"split_1k":null,"split_mile":null,"pr":false,"avg_power":352,"avg_resp":38.2,"avg_stride":0.99,"avg_vert_osc":8.8,"avg_vert_ratio":9.0,"avg_gct":317,"bb_delta":-23,"hr_z1":110.998,"hr_z2":3753.849,"hr_z3":1780.007,"hr_z4":174.002,"hr_z5":0.0},{"date":"2025-03-29","name":"Oslo L\u00f8ping","dist_km":11.71,"dur_min":106.6,"pace":9.104,"avg_hr":142.0,"max_hr":188.0,"elev_gain":182.0,"calories":1058.0,"vo2max":46.0,"training_load":102.1,"aerobic_te":4.0,"cadence":122.2,"location":"Oslo","lat":59.9493223708123,"lon":10.773066021502018,"split_1k":366.9,"split_mile":626.7,"pr":false,"avg_power":226,"avg_resp":29.8,"avg_stride":0.94,"avg_vert_osc":6.8,"avg_vert_ratio":7.4,"avg_gct":326,"bb_delta":-23,"hr_z1":4155.525,"hr_z2":899.754,"hr_z3":991.975,"hr_z4":341.998,"hr_z5":0.0},{"date":"2025-03-31","name":"Oslo L\u00f8ping","dist_km":12.0,"dur_min":75.4,"pace":6.281,"avg_hr":168.0,"max_hr":184.0,"elev_gain":145.0,"calories":1107.0,"vo2max":47.0,"training_load":162.2,"aerobic_te":5.0,"cadence":154.1,"location":"Oslo","lat":59.97074995189905,"lon":10.790227549150586,"split_1k":328.8,"split_mile":539.0,"pr":false,"avg_power":371,"avg_resp":38.4,"avg_stride":1.04,"avg_vert_osc":8.9,"avg_vert_ratio":8.7,"avg_gct":309,"bb_delta":-21,"hr_z1":151.0,"hr_z2":2502.457,"hr_z3":1831.144,"hr_z4":29.0,"hr_z5":0.0},{"date":"2025-04-09","name":"Oslo L\u00f8ping","dist_km":16.81,"dur_min":120.0,"pace":7.136,"avg_hr":166.0,"max_hr":182.0,"elev_gain":248.0,"calories":1586.0,"vo2max":47.0,"training_load":159.1,"aerobic_te":4.5,"cadence":151.3,"location":"Oslo","lat":59.97077073901892,"lon":10.790099138393998,"split_1k":360.8,"split_mile":600.8,"pr":false,"avg_power":332,"avg_resp":37.0,"avg_stride":0.93,"avg_vert_osc":8.4,"avg_vert_ratio":9.2,"avg_gct":323,"bb_delta":-27,"hr_z1":312.998,"hr_z2":4476.943,"hr_z3":2382.897,"hr_z4":12.0,"hr_z5":0.0},{"date":"2025-05-07","name":"Oslo L\u00f8ping","dist_km":7.78,"dur_min":47.1,"pace":6.057,"avg_hr":177.0,"max_hr":195.0,"elev_gain":73.0,"calories":733.0,"vo2max":47.0,"training_load":137.0,"aerobic_te":4.199999809265137,"cadence":155.1,"location":"Oslo","lat":59.9499024823308,"lon":10.765463300049305,"split_1k":311.8,"split_mile":528.8,"pr":false,"avg_power":388,"avg_resp":40.4,"avg_stride":1.06,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":304,"bb_delta":-11,"hr_z1":32.999,"hr_z2":455.999,"hr_z3":1277.932,"hr_z4":984.944,"hr_z5":71.181},{"date":"2025-05-10","name":"Oslo L\u00f8ping","dist_km":1.87,"dur_min":8.5,"pace":4.544,"avg_hr":168.0,"max_hr":182.0,"elev_gain":22.0,"calories":137.0,"vo2max":49.0,"training_load":67.1,"aerobic_te":2.700000047683716,"cadence":159.7,"location":"Oslo","lat":59.92886164225638,"lon":10.695086410269141,"split_1k":248.3,"split_mile":424.2,"pr":false,"avg_power":516,"avg_resp":null,"avg_stride":1.38,"avg_vert_osc":9.9,"avg_vert_ratio":7.2,"avg_gct":266,"bb_delta":-2,"hr_z1":45.0,"hr_z2":104.126,"hr_z3":294.996,"hr_z4":53.001,"hr_z5":0.0},{"date":"2025-05-15","name":"Oslo L\u00f8ping","dist_km":6.75,"dur_min":39.2,"pace":5.801,"avg_hr":177.0,"max_hr":190.0,"elev_gain":84.0,"calories":647.0,"vo2max":49.0,"training_load":132.8,"aerobic_te":4.099999904632568,"cadence":155.0,"location":"Oslo","lat":59.94981514289975,"lon":10.765930926427245,"split_1k":308.0,"split_mile":497.3,"pr":false,"avg_power":405,"avg_resp":43.1,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":301,"bb_delta":-10,"hr_z1":41.932,"hr_z2":332.96,"hr_z3":1136.969,"hr_z4":837.614,"hr_z5":0.0},{"date":"2025-05-20","name":"Oslo L\u00f8ping","dist_km":7.24,"dur_min":43.5,"pace":6.007,"avg_hr":171.0,"max_hr":183.0,"elev_gain":88.0,"calories":698.0,"vo2max":49.0,"training_load":118.6,"aerobic_te":3.9000000953674316,"cadence":154.5,"location":"Oslo","lat":59.94905582629144,"lon":10.772442407906055,"split_1k":294.5,"split_mile":491.4,"pr":false,"avg_power":390,"avg_resp":40.9,"avg_stride":1.07,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":305,"bb_delta":-10,"hr_z1":41.206,"hr_z2":1196.984,"hr_z3":1354.924,"hr_z4":15.998,"hr_z5":0.0},{"date":"2025-05-27","name":"Oslo L\u00f8ping","dist_km":8.22,"dur_min":52.5,"pace":6.392,"avg_hr":172.0,"max_hr":183.0,"elev_gain":91.0,"calories":804.0,"vo2max":49.0,"training_load":115.6,"aerobic_te":3.9000000953674316,"cadence":154.2,"location":"Oslo","lat":59.94974456727505,"lon":10.766033688560128,"split_1k":315.6,"split_mile":517.0,"pr":false,"avg_power":366,"avg_resp":39.2,"avg_stride":1.01,"avg_vert_osc":8.9,"avg_vert_ratio":8.8,"avg_gct":309,"bb_delta":-13,"hr_z1":36.0,"hr_z2":991.983,"hr_z3":2013.296,"hr_z4":103.994,"hr_z5":0.0},{"date":"2025-05-30","name":"Oslo L\u00f8ping","dist_km":1.72,"dur_min":8.8,"pace":5.145,"avg_hr":173.0,"max_hr":196.0,"elev_gain":9.0,"calories":152.0,"vo2max":49.0,"training_load":88.8,"aerobic_te":3.0,"cadence":164.9,"location":"Oslo","lat":59.968271339312196,"lon":10.730598187074065,"split_1k":307.0,"split_mile":492.7,"pr":false,"avg_power":582,"avg_resp":null,"avg_stride":1.53,"avg_vert_osc":10.3,"avg_vert_ratio":6.7,"avg_gct":248,"bb_delta":-2,"hr_z1":28.0,"hr_z2":61.997,"hr_z3":219.986,"hr_z4":162.002,"hr_z5":30.187},{"date":"2025-06-01","name":"Oslo L\u00f8ping","dist_km":6.89,"dur_min":44.7,"pace":6.488,"avg_hr":166.0,"max_hr":183.0,"elev_gain":81.0,"calories":672.0,"vo2max":49.0,"training_load":99.6,"aerobic_te":3.700000047683716,"cadence":151.2,"location":"Oslo","lat":59.94971296750009,"lon":10.766072664409876,"split_1k":319.8,"split_mile":521.7,"pr":false,"avg_power":367,"avg_resp":38.4,"avg_stride":1.04,"avg_vert_osc":8.8,"avg_vert_ratio":8.5,"avg_gct":305,"bb_delta":-10,"hr_z1":304.426,"hr_z2":1164.954,"hr_z3":1187.963,"hr_z4":26.309,"hr_z5":0.0},{"date":"2025-06-06","name":"Oslo L\u00f8ping","dist_km":0.96,"dur_min":5.1,"pace":5.349,"avg_hr":166.0,"max_hr":178.0,"elev_gain":1.0,"calories":84.0,"vo2max":49.0,"training_load":21.7,"aerobic_te":2.0999999046325684,"cadence":158.9,"location":"Oslo","lat":59.94933133944869,"lon":10.76700515113771,"split_1k":null,"split_mile":null,"pr":false,"avg_power":420,"avg_resp":36.9,"avg_stride":1.2,"avg_vert_osc":9.5,"avg_vert_ratio":8.0,"avg_gct":287,"bb_delta":-2,"hr_z1":40.249,"hr_z2":117.198,"hr_z3":149.998,"hr_z4":0.0,"hr_z5":0.0},{"date":"2025-09-01","name":"Oslo L\u00f8ping","dist_km":1.68,"dur_min":81.9,"pace":null,"avg_hr":133.0,"max_hr":184.0,"elev_gain":6.0,"calories":673.0,"vo2max":null,"training_load":80.0,"aerobic_te":2.9000000953674316,"cadence":123.1,"location":"Oslo","lat":59.94194872677326,"lon":10.750100277364254,"split_1k":2250.2,"split_mile":4823.9,"pr":false,"avg_power":212,"avg_resp":null,"avg_stride":0.95,"avg_vert_osc":6.8,"avg_vert_ratio":7.8,"avg_gct":315,"bb_delta":-8,"hr_z1":2920.985,"hr_z2":778.999,"hr_z3":49.999,"hr_z4":11.0,"hr_z5":0.0},{"date":"2025-09-02","name":"Oslo L\u00f8ping","dist_km":5.62,"dur_min":35.3,"pace":6.278,"avg_hr":171.0,"max_hr":185.0,"elev_gain":43.0,"calories":548.0,"vo2max":49.0,"training_load":93.0,"aerobic_te":3.5,"cadence":153.0,"location":"Oslo","lat":59.94901810772717,"lon":10.771889789029956,"split_1k":331.5,"split_mile":546.0,"pr":false,"avg_power":371,"avg_resp":45.6,"avg_stride":1.04,"avg_vert_osc":9.0,"avg_vert_ratio":8.7,"avg_gct":310,"bb_delta":-7,"hr_z1":59.47,"hr_z2":697.963,"hr_z3":1276.598,"hr_z4":83.996,"hr_z5":0.0},{"date":"2025-09-04","name":"Oslo L\u00f8ping","dist_km":7.23,"dur_min":44.3,"pace":6.12,"avg_hr":177.0,"max_hr":193.0,"elev_gain":59.0,"calories":703.0,"vo2max":48.0,"training_load":115.8,"aerobic_te":3.9000000953674316,"cadence":153.9,"location":"Oslo","lat":59.949188847094774,"lon":10.767817860469222,"split_1k":322.3,"split_mile":535.0,"pr":false,"avg_power":385,"avg_resp":37.3,"avg_stride":1.06,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":307,"bb_delta":-10,"hr_z1":38.45,"hr_z2":336.985,"hr_z3":1438.005,"hr_z4":827.89,"hr_z5":13.692},{"date":"2025-09-08","name":"Oslo L\u00f8ping","dist_km":5.63,"dur_min":31.1,"pace":5.52,"avg_hr":179.0,"max_hr":204.0,"elev_gain":46.0,"calories":512.0,"vo2max":49.0,"training_load":209.1,"aerobic_te":4.0,"cadence":156.7,"location":"Oslo","lat":59.94898298755288,"lon":10.767868235707283,"split_1k":234.5,"split_mile":420.2,"pr":false,"avg_power":430,"avg_resp":35.5,"avg_stride":1.17,"avg_vert_osc":9.4,"avg_vert_ratio":8.2,"avg_gct":293,"bb_delta":-11,"hr_z1":176.981,"hr_z2":199.2,"hr_z3":498.424,"hr_z4":645.294,"hr_z5":344.573},{"date":"2025-09-10","name":"Social Run med Bergensbanel\u00f8pet (BBL)","dist_km":9.85,"dur_min":57.8,"pace":5.867,"avg_hr":178.0,"max_hr":193.0,"elev_gain":113.0,"calories":954.0,"vo2max":49.0,"training_load":171.4,"aerobic_te":4.699999809265137,"cadence":155.9,"location":"Oslo","lat":59.94901031255722,"lon":10.768065797165036,"split_1k":331.5,"split_mile":540.8,"pr":false,"avg_power":403,"avg_resp":36.3,"avg_stride":1.1,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":299,"bb_delta":-15,"hr_z1":52.999,"hr_z2":473.966,"hr_z3":1513.923,"hr_z4":1362.945,"hr_z5":59.509},{"date":"2025-09-13","name":"Oslo L\u00f8ping","dist_km":5.73,"dur_min":35.3,"pace":6.162,"avg_hr":170.0,"max_hr":194.0,"elev_gain":49.0,"calories":549.0,"vo2max":48.0,"training_load":116.9,"aerobic_te":3.700000047683716,"cadence":152.9,"location":"Oslo","lat":59.949236791580915,"lon":10.767692970111966,"split_1k":293.0,"split_mile":508.0,"pr":false,"avg_power":376,"avg_resp":37.8,"avg_stride":1.05,"avg_vert_osc":8.8,"avg_vert_ratio":8.7,"avg_gct":315,"bb_delta":-13,"hr_z1":87.001,"hr_z2":1117.946,"hr_z3":243.911,"hr_z4":526.368,"hr_z5":132.118},{"date":"2025-09-16","name":"Bakkeintervaller m/ BBL","dist_km":8.43,"dur_min":74.0,"pace":8.784,"avg_hr":157.0,"max_hr":201.0,"elev_gain":247.0,"calories":893.0,"vo2max":48.0,"training_load":174.9,"aerobic_te":4.0,"cadence":135.8,"location":"Oslo","lat":59.94921902194619,"lon":10.76799564063549,"split_1k":335.3,"split_mile":593.5,"pr":false,"avg_power":308,"avg_resp":33.0,"avg_stride":1.04,"avg_vert_osc":7.8,"avg_vert_ratio":8.2,"avg_gct":304,"bb_delta":-11,"hr_z1":1398.127,"hr_z2":1828.6,"hr_z3":574.215,"hr_z4":347.998,"hr_z5":243.98},{"date":"2025-09-17","name":"Oslo L\u00f8ping","dist_km":9.03,"dur_min":62.0,"pace":6.868,"avg_hr":171.0,"max_hr":192.0,"elev_gain":110.0,"calories":930.0,"vo2max":48.0,"training_load":132.2,"aerobic_te":3.9000000953674316,"cadence":152.0,"location":"Oslo","lat":59.94974037632346,"lon":10.76574987731874,"split_1k":354.8,"split_mile":575.6,"pr":false,"avg_power":348,"avg_resp":35.6,"avg_stride":0.97,"avg_vert_osc":8.7,"avg_vert_ratio":9.1,"avg_gct":318,"bb_delta":-10,"hr_z1":63.002,"hr_z2":1698.954,"hr_z3":1284.932,"hr_z4":660.648,"hr_z5":11.981},{"date":"2025-09-22","name":"Oslo L\u00f8ping","dist_km":5.69,"dur_min":33.0,"pace":5.805,"avg_hr":154.0,"max_hr":177.0,"elev_gain":47.0,"calories":497.0,"vo2max":null,"training_load":108.7,"aerobic_te":3.5,"cadence":153.0,"location":"Oslo","lat":59.94956536218524,"lon":10.775101985782385,"split_1k":263.7,"split_mile":433.3,"pr":false,"avg_power":397,"avg_resp":27.1,"avg_stride":1.12,"avg_vert_osc":9.1,"avg_vert_ratio":8.4,"avg_gct":311,"bb_delta":-8,"hr_z1":43.99,"hr_z2":1114.125,"hr_z3":526.972,"hr_z4":0.0,"hr_z5":0.0},{"date":"2025-09-24","name":"Social Run m/ BBL","dist_km":9.86,"dur_min":58.6,"pace":5.936,"avg_hr":178.0,"max_hr":191.0,"elev_gain":101.0,"calories":948.0,"vo2max":48.0,"training_load":160.2,"aerobic_te":4.099999904632568,"cadence":155.5,"location":"Oslo","lat":59.948979215696454,"lon":10.7682697288692,"split_1k":334.4,"split_mile":546.5,"pr":false,"avg_power":395,"avg_resp":36.0,"avg_stride":1.08,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-12,"hr_z1":72.997,"hr_z2":321.008,"hr_z3":1690.854,"hr_z4":1427.173,"hr_z5":0.0},{"date":"2025-09-26","name":"Push p\u00e5 terskel, pr\u00f8ve \u00e5 \u00f8ke kapasitet til \u00e5 l\u00f8pe langt p\u00e5 ett h\u00f8yere pace","dist_km":11.01,"dur_min":62.7,"pace":5.693,"avg_hr":179.0,"max_hr":191.0,"elev_gain":100.0,"calories":1023.0,"vo2max":48.0,"training_load":187.3,"aerobic_te":4.300000190734863,"cadence":155.6,"location":"Oslo","lat":59.9490356259048,"lon":10.771798007190228,"split_1k":311.5,"split_mile":525.0,"pr":true,"avg_power":407,"avg_resp":33.4,"avg_stride":1.12,"avg_vert_osc":9.3,"avg_vert_ratio":8.3,"avg_gct":298,"bb_delta":-9,"hr_z1":36.998,"hr_z2":460.984,"hr_z3":1255.911,"hr_z4":2002.975,"hr_z5":0.0},{"date":"2025-09-29","name":"Oslo L\u00f8ping","dist_km":6.16,"dur_min":28.8,"pace":4.679,"avg_hr":178.0,"max_hr":199.0,"elev_gain":29.0,"calories":478.0,"vo2max":48.0,"training_load":311.6,"aerobic_te":3.799999952316284,"cadence":160.7,"location":"Oslo","lat":59.967401046305895,"lon":10.730514619499445,"split_1k":301.2,"split_mile":493.4,"pr":false,"avg_power":496,"avg_resp":34.5,"avg_stride":1.34,"avg_vert_osc":9.7,"avg_vert_ratio":7.5,"avg_gct":271,"bb_delta":-9,"hr_z1":77.309,"hr_z2":430.269,"hr_z3":412.644,"hr_z4":426.005,"hr_z5":381.656},{"date":"2025-10-01","name":"Oslo L\u00f8ping","dist_km":10.67,"dur_min":63.0,"pace":5.907,"avg_hr":180.0,"max_hr":198.0,"elev_gain":113.0,"calories":1020.0,"vo2max":48.0,"training_load":188.6,"aerobic_te":4.300000190734863,"cadence":155.5,"location":"Oslo","lat":59.94887704029679,"lon":10.768189346417785,"split_1k":333.3,"split_mile":541.7,"pr":false,"avg_power":398,"avg_resp":34.0,"avg_stride":1.09,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":301,"bb_delta":-11,"hr_z1":49.002,"hr_z2":312.967,"hr_z3":1499.916,"hr_z4":1609.973,"hr_z5":303.965},{"date":"2025-10-06","name":"Bakkeintervaller opp Grefsenkollen","dist_km":9.53,"dur_min":67.1,"pace":7.041,"avg_hr":171.0,"max_hr":199.0,"elev_gain":294.0,"calories":991.0,"vo2max":48.0,"training_load":243.2,"aerobic_te":4.199999809265137,"cadence":148.1,"location":"Oslo","lat":59.948954405263066,"lon":10.76855219900608,"split_1k":356.3,"split_mile":579.8,"pr":false,"avg_power":376,"avg_resp":36.7,"avg_stride":1.05,"avg_vert_osc":8.6,"avg_vert_ratio":8.4,"avg_gct":303,"bb_delta":-13,"hr_z1":211.066,"hr_z2":2143.863,"hr_z3":605.974,"hr_z4":699.685,"hr_z5":366.99},{"date":"2025-10-08","name":"Social Run m/ BBL opp til Maridalsvannet og ned igjen","dist_km":10.01,"dur_min":60.1,"pace":6.006,"avg_hr":177.0,"max_hr":193.0,"elev_gain":147.0,"calories":959.0,"vo2max":47.0,"training_load":172.4,"aerobic_te":4.099999904632568,"cadence":155.7,"location":"Oslo","lat":59.949032021686435,"lon":10.768113741651177,"split_1k":318.8,"split_mile":522.0,"pr":false,"avg_power":401,"avg_resp":35.6,"avg_stride":1.08,"avg_vert_osc":9.1,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-11,"hr_z1":32.57,"hr_z2":475.984,"hr_z3":2014.895,"hr_z4":1057.059,"hr_z5":25.999},{"date":"2025-10-19","name":"Bygd\u00f8ymila\ud83e\udd29","dist_km":9.87,"dur_min":57.3,"pace":5.81,"avg_hr":186.0,"max_hr":201.0,"elev_gain":147.0,"calories":951.0,"vo2max":47.0,"training_load":229.5,"aerobic_te":4.400000095367432,"cadence":155.7,"location":"Oslo","lat":59.91057828068733,"lon":10.666762366890907,"split_1k":295.5,"split_mile":486.5,"pr":false,"avg_power":409,"avg_resp":36.1,"avg_stride":1.1,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":300,"bb_delta":-15,"hr_z1":12.96,"hr_z2":143.003,"hr_z3":572.952,"hr_z4":1738.932,"hr_z5":972.452},{"date":"2025-10-20","name":"Intervaller m/ BBL","dist_km":5.5,"dur_min":29.5,"pace":5.366,"avg_hr":178.0,"max_hr":205.0,"elev_gain":27.0,"calories":491.0,"vo2max":47.0,"training_load":231.0,"aerobic_te":3.5,"cadence":151.1,"location":"Oslo","lat":59.948865389451385,"lon":10.767590878531337,"split_1k":277.7,"split_mile":456.4,"pr":false,"avg_power":422,"avg_resp":37.1,"avg_stride":1.24,"avg_vert_osc":9.1,"avg_vert_ratio":7.4,"avg_gct":276,"bb_delta":-9,"hr_z1":91.136,"hr_z2":320.983,"hr_z3":659.618,"hr_z4":271.989,"hr_z5":426.173},{"date":"2025-10-22","name":"BI Mesterskapet","dist_km":3.02,"dur_min":13.2,"pace":4.378,"avg_hr":200.0,"max_hr":209.0,"elev_gain":15.0,"calories":252.0,"vo2max":47.0,"training_load":192.2,"aerobic_te":3.5,"cadence":162.7,"location":"Oslo","lat":59.93583639152348,"lon":10.744628570973873,"split_1k":228.5,"split_mile":385.6,"pr":true,"avg_power":528,"avg_resp":39.6,"avg_stride":1.41,"avg_vert_osc":10.0,"avg_vert_ratio":7.2,"avg_gct":265,"bb_delta":-5,"hr_z1":5.084,"hr_z2":7.999,"hr_z3":4.002,"hr_z4":21.999,"hr_z5":753.514},{"date":"2025-10-27","name":"Oslo L\u00f8ping","dist_km":11.21,"dur_min":75.9,"pace":6.773,"avg_hr":173.0,"max_hr":200.0,"elev_gain":296.0,"calories":1110.0,"vo2max":47.0,"training_load":225.1,"aerobic_te":4.5,"cadence":149.2,"location":"Oslo","lat":59.94936687871814,"lon":10.768490256741643,"split_1k":340.3,"split_mile":556.5,"pr":false,"avg_power":384,"avg_resp":36.8,"avg_stride":1.06,"avg_vert_osc":8.8,"avg_vert_ratio":8.4,"avg_gct":304,"bb_delta":-15,"hr_z1":215.04,"hr_z2":1992.907,"hr_z3":836.363,"hr_z4":770.984,"hr_z5":734.933},{"date":"2025-10-31","name":"Oslo L\u00f8ping","dist_km":15.34,"dur_min":107.0,"pace":6.975,"avg_hr":163.0,"max_hr":180.0,"elev_gain":235.0,"calories":1440.0,"vo2max":47.0,"training_load":138.4,"aerobic_te":3.9000000953674316,"cadence":153.4,"location":"Oslo","lat":59.9494740832597,"lon":10.773122096434236,"split_1k":355.3,"split_mile":587.8,"pr":false,"avg_power":345,"avg_resp":36.9,"avg_stride":0.94,"avg_vert_osc":8.5,"avg_vert_ratio":9.2,"avg_gct":315,"bb_delta":-19,"hr_z1":224.001,"hr_z2":5331.785,"hr_z3":857.043,"hr_z4":0.0,"hr_z5":0.0},{"date":"2025-11-03","name":"Oslo L\u00f8ping","dist_km":8.98,"dur_min":52.0,"pace":5.791,"avg_hr":177.0,"max_hr":198.0,"elev_gain":61.0,"calories":841.0,"vo2max":48.0,"training_load":314.5,"aerobic_te":4.300000190734863,"cadence":155.2,"location":"Oslo","lat":59.949011486023664,"lon":10.76803226955235,"split_1k":274.6,"split_mile":463.4,"pr":false,"avg_power":435,"avg_resp":35.7,"avg_stride":1.21,"avg_vert_osc":9.3,"avg_vert_ratio":7.9,"avg_gct":285,"bb_delta":-14,"hr_z1":120.793,"hr_z2":709.979,"hr_z3":1053.034,"hr_z4":699.22,"hr_z5":530.853},{"date":"2025-11-04","name":"Oslo L\u00f8ping","dist_km":8.74,"dur_min":55.8,"pace":6.386,"avg_hr":169.0,"max_hr":186.0,"elev_gain":78.0,"calories":827.0,"vo2max":48.0,"training_load":126.7,"aerobic_te":3.5,"cadence":155.8,"location":"Oslo","lat":59.94940401054919,"lon":10.766373239457607,"split_1k":339.5,"split_mile":555.8,"pr":false,"avg_power":381,"avg_resp":35.5,"avg_stride":1.03,"avg_vert_osc":8.9,"avg_vert_ratio":8.7,"avg_gct":303,"bb_delta":-11,"hr_z1":113.616,"hr_z2":1366.92,"hr_z3":1671.944,"hr_z4":194.492,"hr_z5":0.0},{"date":"2025-11-08","name":"Oslo L\u00f8ping","dist_km":15.71,"dur_min":101.9,"pace":6.488,"avg_hr":167.0,"max_hr":182.0,"elev_gain":241.0,"calories":1460.0,"vo2max":48.0,"training_load":163.0,"aerobic_te":4.0,"cadence":154.4,"location":"Oslo","lat":59.94946385733783,"lon":10.772846415638924,"split_1k":335.4,"split_mile":548.0,"pr":false,"avg_power":369,"avg_resp":36.0,"avg_stride":1.0,"avg_vert_osc":8.7,"avg_vert_ratio":8.8,"avg_gct":305,"bb_delta":-26,"hr_z1":319.934,"hr_z2":3197.046,"hr_z3":2534.369,"hr_z4":51.001,"hr_z5":0.0},{"date":"2025-11-10","name":"Oslo L\u00f8ping","dist_km":11.1,"dur_min":64.0,"pace":5.764,"avg_hr":167.0,"max_hr":192.0,"elev_gain":79.0,"calories":973.0,"vo2max":49.0,"training_load":184.2,"aerobic_te":3.9000000953674316,"cadence":153.2,"location":"Oslo","lat":59.949095556512475,"lon":10.767890196293592,"split_1k":268.9,"split_mile":512.9,"pr":false,"avg_power":401,"avg_resp":34.3,"avg_stride":1.14,"avg_vert_osc":8.9,"avg_vert_ratio":7.9,"avg_gct":287,"bb_delta":-12,"hr_z1":606.476,"hr_z2":1357.261,"hr_z3":801.963,"hr_z4":1052.869,"hr_z5":14.481},{"date":"2025-11-12","name":"Oslo L\u00f8ping","dist_km":10.06,"dur_min":60.1,"pace":5.97,"avg_hr":170.0,"max_hr":185.0,"elev_gain":128.0,"calories":950.0,"vo2max":49.0,"training_load":144.6,"aerobic_te":3.700000047683716,"cadence":160.0,"location":"Oslo","lat":59.94914400391281,"lon":10.768232848495245,"split_1k":334.6,"split_mile":542.1,"pr":false,"avg_power":399,"avg_resp":36.1,"avg_stride":1.06,"avg_vert_osc":8.9,"avg_vert_ratio":8.4,"avg_gct":294,"bb_delta":-11,"hr_z1":102.841,"hr_z2":1644.918,"hr_z3":1627.95,"hr_z4":221.896,"hr_z5":0.0},{"date":"2025-11-17","name":"L\u00f8ping","dist_km":6.53,"dur_min":44.4,"pace":6.804,"avg_hr":155.0,"max_hr":188.0,"elev_gain":14.0,"calories":629.0,"vo2max":null,"training_load":114.6,"aerobic_te":3.299999952316284,"cadence":157.6,"location":"","lat":null,"lon":null,"split_1k":335.7,"split_mile":557.3,"pr":false,"avg_power":415,"avg_resp":null,"avg_stride":1.17,"avg_vert_osc":8.6,"avg_vert_ratio":7.7,"avg_gct":271,"bb_delta":-6,"hr_z1":1202.152,"hr_z2":566.817,"hr_z3":509.463,"hr_z4":339.892,"hr_z5":0.0},{"date":"2025-11-19","name":"Oslo L\u00f8ping","dist_km":8.7,"dur_min":51.8,"pace":5.959,"avg_hr":168.0,"max_hr":192.0,"elev_gain":98.0,"calories":830.0,"vo2max":49.0,"training_load":125.8,"aerobic_te":3.5999999046325684,"cadence":158.0,"location":"Oslo","lat":59.94906211271882,"lon":10.768386237323284,"split_1k":null,"split_mile":null,"pr":false,"avg_power":402,"avg_resp":33.5,"avg_stride":1.06,"avg_vert_osc":8.9,"avg_vert_ratio":8.4,"avg_gct":297,"bb_delta":-10,"hr_z1":150.127,"hr_z2":1649.92,"hr_z3":922.868,"hr_z4":371.495,"hr_z5":4.0},{"date":"2025-11-21","name":"Oslo L\u00f8ping","dist_km":10.01,"dur_min":57.1,"pace":5.704,"avg_hr":166.0,"max_hr":187.0,"elev_gain":109.0,"calories":941.0,"vo2max":49.0,"training_load":156.0,"aerobic_te":3.9000000953674316,"cadence":159.6,"location":"Oslo","lat":59.94947140105069,"lon":10.77554002404213,"split_1k":313.9,"split_mile":522.3,"pr":false,"avg_power":421,"avg_resp":39.0,"avg_stride":1.1,"avg_vert_osc":9.1,"avg_vert_ratio":8.3,"avg_gct":292,"bb_delta":-13,"hr_z1":21.0,"hr_z2":1786.825,"hr_z3":1166.774,"hr_z4":301.398,"hr_z5":0.0},{"date":"2025-11-24","name":"L\u00f8ping","dist_km":3.27,"dur_min":24.9,"pace":7.598,"avg_hr":176.0,"max_hr":199.0,"elev_gain":3.0,"calories":431.0,"vo2max":null,"training_load":164.0,"aerobic_te":3.4000000953674316,"cadence":163.4,"location":"","lat":null,"lon":null,"split_1k":444.1,"split_mile":713.0,"pr":false,"avg_power":453,"avg_resp":37.6,"avg_stride":1.22,"avg_vert_osc":9.1,"avg_vert_ratio":7.5,"avg_gct":268,"bb_delta":-5,"hr_z1":134.44,"hr_z2":419.09,"hr_z3":228.525,"hr_z4":282.016,"hr_z5":422.142},{"date":"2025-11-26","name":"Oslo L\u00f8ping","dist_km":9.99,"dur_min":56.9,"pace":5.695,"avg_hr":168.0,"max_hr":184.0,"elev_gain":115.0,"calories":937.0,"vo2max":49.0,"training_load":146.2,"aerobic_te":3.9000000953674316,"cadence":160.3,"location":"Oslo","lat":59.949135622009635,"lon":10.768061941489577,"split_1k":295.9,"split_mile":512.9,"pr":false,"avg_power":424,"avg_resp":35.1,"avg_stride":1.09,"avg_vert_osc":9.0,"avg_vert_ratio":8.3,"avg_gct":291,"bb_delta":-12,"hr_z1":114.0,"hr_z2":1866.899,"hr_z3":1093.974,"hr_z4":331.094,"hr_z5":0.0},{"date":"2025-12-01","name":"L\u00f8ping","dist_km":4.65,"dur_min":26.4,"pace":5.683,"avg_hr":189.0,"max_hr":203.0,"elev_gain":4.0,"calories":502.0,"vo2max":null,"training_load":187.6,"aerobic_te":4.099999904632568,"cadence":155.7,"location":"","lat":null,"lon":null,"split_1k":305.3,"split_mile":531.6,"pr":false,"avg_power":394,"avg_resp":37.4,"avg_stride":1.14,"avg_vert_osc":8.7,"avg_vert_ratio":7.7,"avg_gct":279,"bb_delta":-8,"hr_z1":19.998,"hr_z2":150.724,"hr_z3":156.11,"hr_z4":343.988,"hr_z5":911.108},{"date":"2025-12-03","name":"Oslo L\u00f8ping","dist_km":5.26,"dur_min":30.2,"pace":5.744,"avg_hr":176.0,"max_hr":187.0,"elev_gain":64.0,"calories":515.0,"vo2max":48.0,"training_load":105.1,"aerobic_te":3.4000000953674316,"cadence":159.0,"location":"Oslo","lat":59.949120534583926,"lon":10.76865621842444,"split_1k":310.5,"split_mile":519.1,"pr":false,"avg_power":423,"avg_resp":35.8,"avg_stride":1.1,"avg_vert_osc":9.1,"avg_vert_ratio":8.3,"avg_gct":293,"bb_delta":-6,"hr_z1":35.548,"hr_z2":141.003,"hr_z3":1205.901,"hr_z4":431.008,"hr_z5":0.0},{"date":"2025-12-10","name":"Oslo L\u00f8ping","dist_km":10.04,"dur_min":58.9,"pace":5.869,"avg_hr":168.0,"max_hr":187.0,"elev_gain":115.0,"calories":958.0,"vo2max":48.0,"training_load":147.3,"aerobic_te":3.9000000953674316,"cadence":159.5,"location":"Oslo","lat":59.94909237138927,"lon":10.768387075513601,"split_1k":327.8,"split_mile":541.3,"pr":false,"avg_power":418,"avg_resp":35.9,"avg_stride":1.08,"avg_vert_osc":9.0,"avg_vert_ratio":8.3,"avg_gct":293,"bb_delta":-13,"hr_z1":76.999,"hr_z2":1994.921,"hr_z3":1219.932,"hr_z4":236.746,"hr_z5":0.0},{"date":"2025-12-29","name":"Oslo L\u00f8ping","dist_km":9.01,"dur_min":54.4,"pace":6.04,"avg_hr":182.0,"max_hr":197.0,"elev_gain":108.0,"calories":908.0,"vo2max":48.0,"training_load":166.3,"aerobic_te":4.5,"cadence":156.7,"location":"Oslo","lat":59.94789174757898,"lon":10.77798611484468,"split_1k":299.4,"split_mile":500.1,"pr":false,"avg_power":397,"avg_resp":41.0,"avg_stride":1.07,"avg_vert_osc":9.0,"avg_vert_ratio":8.5,"avg_gct":300,"bb_delta":-19,"hr_z1":11.0,"hr_z2":146.001,"hr_z3":679.964,"hr_z4":2114.925,"hr_z5":254.99},{"date":"2025-12-31","name":"Oslo L\u00f8ping","dist_km":8.26,"dur_min":49.6,"pace":6.0,"avg_hr":178.0,"max_hr":192.0,"elev_gain":75.0,"calories":808.0,"vo2max":48.0,"training_load":148.1,"aerobic_te":4.199999809265137,"cadence":155.8,"location":"Oslo","lat":59.9501080904156,"lon":10.775591488927603,"split_1k":300.4,"split_mile":502.3,"pr":false,"avg_power":400,"avg_resp":41.6,"avg_stride":1.08,"avg_vert_osc":9.0,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-15,"hr_z1":27.135,"hr_z2":235.997,"hr_z3":1482.914,"hr_z4":1219.521,"hr_z5":7.998},{"date":"2026-01-02","name":"Oslo L\u00f8ping","dist_km":9.01,"dur_min":54.3,"pace":6.028,"avg_hr":175.0,"max_hr":188.0,"elev_gain":112.0,"calories":883.0,"vo2max":47.0,"training_load":146.3,"aerobic_te":4.300000190734863,"cadence":158.6,"location":"Oslo","lat":59.95014178566635,"lon":10.775043899193406,"split_1k":null,"split_mile":null,"pr":false,"avg_power":398,"avg_resp":38.8,"avg_stride":1.05,"avg_vert_osc":8.8,"avg_vert_ratio":8.5,"avg_gct":298,"bb_delta":-20,"hr_z1":46.0,"hr_z2":423.139,"hr_z3":1965.434,"hr_z4":799.951,"hr_z5":0.0},{"date":"2026-01-04","name":"Arona L\u00f8ping","dist_km":8.23,"dur_min":48.6,"pace":5.903,"avg_hr":170.0,"max_hr":196.0,"elev_gain":96.0,"calories":783.0,"vo2max":47.0,"training_load":144.9,"aerobic_te":4.099999904632568,"cadence":155.6,"location":"Arona","lat":28.062255922704935,"lon":-16.725753592327237,"split_1k":311.9,"split_mile":540.9,"pr":false,"avg_power":414,"avg_resp":35.8,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.3,"avg_gct":300,"bb_delta":0,"hr_z1":145.239,"hr_z2":926.844,"hr_z3":1499.732,"hr_z4":313.01,"hr_z5":21.307},{"date":"2026-01-05","name":"Arona L\u00f8ping","dist_km":6.27,"dur_min":36.8,"pace":5.863,"avg_hr":171.0,"max_hr":198.0,"elev_gain":23.0,"calories":588.0,"vo2max":48.0,"training_load":201.3,"aerobic_te":3.799999952316284,"cadence":156.5,"location":"Arona","lat":28.05916115641594,"lon":-16.720677763223648,"split_1k":249.2,"split_mile":509.1,"pr":false,"avg_power":452,"avg_resp":34.1,"avg_stride":1.23,"avg_vert_osc":9.3,"avg_vert_ratio":7.8,"avg_gct":281,"bb_delta":-15,"hr_z1":407.152,"hr_z2":555.696,"hr_z3":196.017,"hr_z4":574.12,"hr_z5":437.948},{"date":"2026-01-07","name":"Arona L\u00f8ping","dist_km":10.18,"dur_min":65.0,"pace":6.383,"avg_hr":169.0,"max_hr":189.0,"elev_gain":160.0,"calories":1018.0,"vo2max":48.0,"training_load":136.9,"aerobic_te":4.199999809265137,"cadence":155.4,"location":"Arona","lat":28.058998212218285,"lon":-16.720105949789286,"split_1k":333.4,"split_mile":568.6,"pr":false,"avg_power":384,"avg_resp":36.0,"avg_stride":1.02,"avg_vert_osc":8.7,"avg_vert_ratio":8.6,"avg_gct":305,"bb_delta":-25,"hr_z1":385.206,"hr_z2":1064.952,"hr_z3":2078.571,"hr_z4":369.663,"hr_z5":0.0},{"date":"2026-02-04","name":"Oslo L\u00f8ping","dist_km":5.31,"dur_min":31.2,"pace":5.871,"avg_hr":174.0,"max_hr":192.0,"elev_gain":68.0,"calories":503.0,"vo2max":null,"training_load":6.1,"aerobic_te":0.699999988079071,"cadence":156.4,"location":"Oslo","lat":59.948961697518826,"lon":10.768265454098582,"split_1k":null,"split_mile":null,"pr":false,"avg_power":405,"avg_resp":35.7,"avg_stride":1.08,"avg_vert_osc":9.1,"avg_vert_ratio":8.4,"avg_gct":299,"bb_delta":-8,"hr_z1":79.345,"hr_z2":480.999,"hr_z3":801.934,"hr_z4":505.527,"hr_z5":1.999},{"date":"2026-02-09","name":"L\u00f8ping","dist_km":5.01,"dur_min":29.6,"pace":5.903,"avg_hr":173.0,"max_hr":192.0,"elev_gain":11.0,"calories":487.0,"vo2max":null,"training_load":119.2,"aerobic_te":4.0,"cadence":155.4,"location":"","lat":null,"lon":null,"split_1k":350.1,"split_mile":564.0,"pr":false,"avg_power":371,"avg_resp":37.0,"avg_stride":1.09,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":301,"bb_delta":-8,"hr_z1":34.999,"hr_z2":574.966,"hr_z3":727.955,"hr_z4":420.31,"hr_z5":12.999},{"date":"2026-02-11","name":"Oslo L\u00f8ping","dist_km":10.1,"dur_min":57.7,"pace":5.713,"avg_hr":180.0,"max_hr":196.0,"elev_gain":134.0,"calories":941.0,"vo2max":47.0,"training_load":202.4,"aerobic_te":5.0,"cadence":155.2,"location":"Oslo","lat":59.94944617152214,"lon":10.768724111840129,"split_1k":315.9,"split_mile":514.5,"pr":false,"avg_power":414,"avg_resp":null,"avg_stride":1.13,"avg_vert_osc":9.4,"avg_vert_ratio":8.3,"avg_gct":299,"bb_delta":-16,"hr_z1":65.178,"hr_z2":421.051,"hr_z3":876.95,"hr_z4":1819.926,"hr_z5":277.965},{"date":"2026-02-16","name":"L\u00f8ping","dist_km":4.18,"dur_min":28.9,"pace":6.921,"avg_hr":172.0,"max_hr":198.0,"elev_gain":26.0,"calories":460.0,"vo2max":null,"training_load":173.8,"aerobic_te":3.799999952316284,"cadence":158.9,"location":"","lat":null,"lon":null,"split_1k":349.4,"split_mile":642.6,"pr":false,"avg_power":394,"avg_resp":34.9,"avg_stride":1.15,"avg_vert_osc":9.0,"avg_vert_ratio":8.0,"avg_gct":283,"bb_delta":-8,"hr_z1":92.312,"hr_z2":635.903,"hr_z3":236.995,"hr_z4":597.032,"hr_z5":144.813},{"date":"2026-02-18","name":"Oslo L\u00f8ping","dist_km":5.84,"dur_min":37.5,"pace":6.411,"avg_hr":169.0,"max_hr":183.0,"elev_gain":81.0,"calories":557.0,"vo2max":47.0,"training_load":90.4,"aerobic_te":3.5,"cadence":156.9,"location":"Oslo","lat":59.94889648631215,"lon":10.768327983096242,"split_1k":347.8,"split_mile":561.6,"pr":false,"avg_power":375,"avg_resp":35.7,"avg_stride":0.99,"avg_vert_osc":8.7,"avg_vert_ratio":8.8,"avg_gct":304,"bb_delta":-10,"hr_z1":79.999,"hr_z2":1003.955,"hr_z3":1065.584,"hr_z4":91.997,"hr_z5":0.0},{"date":"2026-02-23","name":"L\u00f8ping","dist_km":6.39,"dur_min":42.5,"pace":6.65,"avg_hr":167.0,"max_hr":188.0,"elev_gain":10.0,"calories":654.0,"vo2max":null,"training_load":129.1,"aerobic_te":4.099999904632568,"cadence":155.9,"location":"","lat":null,"lon":null,"split_1k":381.7,"split_mile":627.1,"pr":false,"avg_power":333,"avg_resp":32.5,"avg_stride":0.97,"avg_vert_osc":8.7,"avg_vert_ratio":8.9,"avg_gct":307,"bb_delta":-11,"hr_z1":332.885,"hr_z2":999.958,"hr_z3":638.188,"hr_z4":570.108,"hr_z5":0.0},{"date":"2026-03-02","name":"L\u00f8ping","dist_km":3.98,"dur_min":28.8,"pace":7.222,"avg_hr":170.0,"max_hr":200.0,"elev_gain":22.0,"calories":442.0,"vo2max":null,"training_load":167.0,"aerobic_te":3.700000047683716,"cadence":158.5,"location":"","lat":null,"lon":null,"split_1k":384.3,"split_mile":684.5,"pr":false,"avg_power":372,"avg_resp":34.6,"avg_stride":1.08,"avg_vert_osc":9.0,"avg_vert_ratio":8.3,"avg_gct":293,"bb_delta":-8,"hr_z1":232.734,"hr_z2":673.272,"hr_z3":120.0,"hr_z4":375.005,"hr_z5":315.042},{"date":"2026-03-03","name":"Oslo L\u00f8ping","dist_km":7.95,"dur_min":48.5,"pace":6.103,"avg_hr":170.0,"max_hr":195.0,"elev_gain":75.0,"calories":739.0,"vo2max":48.0,"training_load":139.7,"aerobic_te":4.0,"cadence":154.1,"location":"Oslo","lat":59.92905559949577,"lon":10.71616681292653,"split_1k":327.9,"split_mile":556.6,"pr":false,"avg_power":383,"avg_resp":35.3,"avg_stride":1.08,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":305,"bb_delta":-13,"hr_z1":219.999,"hr_z2":969.308,"hr_z3":1036.968,"hr_z4":573.962,"hr_z5":85.002},{"date":"2026-03-04","name":"Oslo L\u00f8ping","dist_km":10.02,"dur_min":60.3,"pace":6.015,"avg_hr":182.0,"max_hr":201.0,"elev_gain":120.0,"calories":960.0,"vo2max":47.0,"training_load":191.4,"aerobic_te":4.5,"cadence":155.0,"location":"Oslo","lat":59.94933326728642,"lon":10.768326558172703,"split_1k":336.4,"split_mile":554.6,"pr":false,"avg_power":385,"avg_resp":37.0,"avg_stride":1.07,"avg_vert_osc":9.2,"avg_vert_ratio":8.6,"avg_gct":303,"bb_delta":-12,"hr_z1":46.365,"hr_z2":305.004,"hr_z3":1152.922,"hr_z4":1237.919,"hr_z5":875.351},{"date":"2026-03-07","name":"Oslo L\u00f8ping","dist_km":5.62,"dur_min":34.2,"pace":6.089,"avg_hr":172.0,"max_hr":189.0,"elev_gain":88.0,"calories":528.0,"vo2max":48.0,"training_load":113.5,"aerobic_te":3.5999999046325684,"cadence":154.0,"location":"Oslo","lat":59.94939831085503,"lon":10.77306954190135,"split_1k":309.5,"split_mile":508.7,"pr":false,"avg_power":381,"avg_resp":36.4,"avg_stride":1.06,"avg_vert_osc":9.1,"avg_vert_ratio":8.6,"avg_gct":307,"bb_delta":-10,"hr_z1":63.0,"hr_z2":623.986,"hr_z3":861.963,"hr_z4":496.646,"hr_z5":0.0},{"date":"2026-03-09","name":"Oslo L\u00f8ping","dist_km":7.96,"dur_min":44.2,"pace":5.559,"avg_hr":169.0,"max_hr":199.0,"elev_gain":76.0,"calories":689.0,"vo2max":48.0,"training_load":200.7,"aerobic_te":3.5999999046325684,"cadence":152.7,"location":"Oslo","lat":59.948932779952884,"lon":10.768047859892249,"split_1k":261.6,"split_mile":475.3,"pr":false,"avg_power":426,"avg_resp":33.4,"avg_stride":1.18,"avg_vert_osc":9.2,"avg_vert_ratio":7.9,"avg_gct":289,"bb_delta":-13,"hr_z1":359.618,"hr_z2":921.318,"hr_z3":553.938,"hr_z4":528.512,"hr_z5":272.947},{"date":"2026-03-10","name":"Oslo L\u00f8ping","dist_km":5.63,"dur_min":32.6,"pace":5.792,"avg_hr":170.0,"max_hr":185.0,"elev_gain":97.0,"calories":507.0,"vo2max":49.0,"training_load":101.8,"aerobic_te":3.299999952316284,"cadence":155.1,"location":"Oslo","lat":59.94930535554886,"lon":10.773077169433236,"split_1k":293.7,"split_mile":496.2,"pr":false,"avg_power":399,"avg_resp":35.3,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":301,"bb_delta":-8,"hr_z1":50.0,"hr_z2":751.979,"hr_z3":1023.945,"hr_z4":112.978,"hr_z5":0.0},{"date":"2026-03-11","name":"Oslo L\u00f8ping","dist_km":10.14,"dur_min":57.4,"pace":5.657,"avg_hr":171.0,"max_hr":193.0,"elev_gain":128.0,"calories":906.0,"vo2max":49.0,"training_load":156.9,"aerobic_te":3.9000000953674316,"cadence":157.0,"location":"Oslo","lat":59.94906261563301,"lon":10.768221449106932,"split_1k":323.0,"split_mile":525.6,"pr":false,"avg_power":414,"avg_resp":35.5,"avg_stride":1.13,"avg_vert_osc":9.3,"avg_vert_ratio":8.3,"avg_gct":295,"bb_delta":-12,"hr_z1":57.997,"hr_z2":1438.407,"hr_z3":1681.921,"hr_z4":244.689,"hr_z5":18.087},{"date":"2026-03-14","name":"Ny pb p\u00e5 3km, gammel var 13:10","dist_km":3.05,"dur_min":12.7,"pace":4.167,"avg_hr":193.0,"max_hr":205.0,"elev_gain":null,"calories":239.0,"vo2max":49.0,"training_load":134.7,"aerobic_te":3.299999952316284,"cadence":162.9,"location":"Oslo","lat":59.88697207532823,"lon":10.775756612420082,"split_1k":245.9,"split_mile":400.2,"pr":false,"avg_power":545,"avg_resp":38.5,"avg_stride":1.47,"avg_vert_osc":10.3,"avg_vert_ratio":7.0,"avg_gct":259,"bb_delta":-5,"hr_z1":7.657,"hr_z2":13.999,"hr_z3":22.003,"hr_z4":316.979,"hr_z5":401.973},{"date":"2026-03-16","name":"Oslo L\u00f8ping","dist_km":6.84,"dur_min":36.8,"pace":5.38,"avg_hr":168.0,"max_hr":198.0,"elev_gain":38.0,"calories":584.0,"vo2max":50.0,"training_load":234.6,"aerobic_te":3.5999999046325684,"cadence":151.5,"location":"Oslo","lat":59.948905957862735,"lon":10.766870370134711,"split_1k":277.7,"split_mile":467.2,"pr":false,"avg_power":430,"avg_resp":34.0,"avg_stride":1.25,"avg_vert_osc":9.2,"avg_vert_ratio":7.5,"avg_gct":276,"bb_delta":-8,"hr_z1":227.038,"hr_z2":964.841,"hr_z3":278.996,"hr_z4":603.079,"hr_z5":114.107},{"date":"2026-03-18","name":"Oslo L\u00f8ping","dist_km":13.28,"dur_min":78.9,"pace":5.944,"avg_hr":170.0,"max_hr":188.0,"elev_gain":164.0,"calories":1217.0,"vo2max":49.0,"training_load":159.7,"aerobic_te":3.9000000953674316,"cadence":156.0,"location":"Oslo","lat":59.929198594763875,"lon":10.70354643277824,"split_1k":null,"split_mile":null,"pr":false,"avg_power":397,"avg_resp":36.1,"avg_stride":1.09,"avg_vert_osc":9.2,"avg_vert_ratio":8.5,"avg_gct":300,"bb_delta":-21,"hr_z1":208.946,"hr_z2":1738.817,"hr_z3":2395.662,"hr_z4":390.984,"hr_z5":0.0},{"date":"2026-03-21","name":"Fl\u00e5 L\u00f8ping","dist_km":8.07,"dur_min":48.6,"pace":6.02,"avg_hr":157.0,"max_hr":169.0,"elev_gain":114.0,"calories":721.0,"vo2max":50.0,"training_load":92.2,"aerobic_te":3.200000047683716,"cadence":158.6,"location":"Fl\u00e5","lat":60.37892667576671,"lon":9.57531594671309,"split_1k":331.2,"split_mile":534.3,"pr":false,"avg_power":391,"avg_resp":36.2,"avg_stride":1.05,"avg_vert_osc":9.0,"avg_vert_ratio":8.5,"avg_gct":296,"bb_delta":-8,"hr_z1":397.006,"hr_z2":2502.385,"hr_z3":0.0,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-03-23","name":"Oslo L\u00f8ping","dist_km":8.27,"dur_min":46.8,"pace":5.654,"avg_hr":170.0,"max_hr":192.0,"elev_gain":76.0,"calories":756.0,"vo2max":50.0,"training_load":229.2,"aerobic_te":3.700000047683716,"cadence":155.7,"location":"Oslo","lat":59.94871694594622,"lon":10.765468580648303,"split_1k":282.9,"split_mile":459.6,"pr":false,"avg_power":455,"avg_resp":34.4,"avg_stride":1.23,"avg_vert_osc":9.4,"avg_vert_ratio":7.8,"avg_gct":282,"bb_delta":-11,"hr_z1":396.797,"hr_z2":622.01,"hr_z3":1002.397,"hr_z4":767.817,"hr_z5":11.999},{"date":"2026-03-24","name":"Oslo L\u00f8ping","dist_km":7.7,"dur_min":47.5,"pace":6.174,"avg_hr":160.0,"max_hr":172.0,"elev_gain":109.0,"calories":722.0,"vo2max":50.0,"training_load":94.4,"aerobic_te":3.200000047683716,"cadence":155.8,"location":"Oslo","lat":59.94942278601229,"lon":10.77317364513874,"split_1k":290.6,"split_mile":488.4,"pr":false,"avg_power":390,"avg_resp":34.1,"avg_stride":1.04,"avg_vert_osc":8.9,"avg_vert_ratio":8.7,"avg_gct":303,"bb_delta":-12,"hr_z1":202.001,"hr_z2":2600.568,"hr_z3":31.0,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-03-30","name":"Oslo L\u00f8ping","dist_km":5.6,"dur_min":31.0,"pace":5.535,"avg_hr":167.0,"max_hr":194.0,"elev_gain":113.0,"calories":522.0,"vo2max":51.0,"training_load":119.6,"aerobic_te":3.299999952316284,"cadence":156.7,"location":"Oslo","lat":59.949406357482076,"lon":10.773041797801852,"split_1k":252.7,"split_mile":431.0,"pr":false,"avg_power":440,"avg_resp":35.4,"avg_stride":1.15,"avg_vert_osc":9.3,"avg_vert_ratio":8.2,"avg_gct":294,"bb_delta":-8,"hr_z1":13.002,"hr_z2":794.93,"hr_z3":727.034,"hr_z4":205.918,"hr_z5":15.461},{"date":"2026-03-31","name":"Oslo L\u00f8ping","dist_km":3.15,"dur_min":15.8,"pace":5.015,"avg_hr":173.0,"max_hr":195.0,"elev_gain":38.0,"calories":272.0,"vo2max":51.0,"training_load":66.0,"aerobic_te":2.799999952316284,"cadence":157.4,"location":"Oslo","lat":59.949372075498104,"lon":10.773009527474642,"split_1k":272.2,"split_mile":447.3,"pr":false,"avg_power":465,"avg_resp":32.3,"avg_stride":1.26,"avg_vert_osc":9.8,"avg_vert_ratio":7.8,"avg_gct":285,"bb_delta":-15,"hr_z1":38.0,"hr_z2":295.984,"hr_z3":345.977,"hr_z4":220.002,"hr_z5":39.376},{"date":"2026-04-06","name":"Oslo L\u00f8ping","dist_km":3.29,"dur_min":25.9,"pace":7.873,"avg_hr":148.0,"max_hr":165.0,"elev_gain":31.0,"calories":300.0,"vo2max":null,"training_load":21.4,"aerobic_te":1.7999999523162842,"cadence":149.1,"location":"Oslo","lat":59.96923668310046,"lon":10.731608206406236,"split_1k":457.3,"split_mile":747.0,"pr":false,"avg_power":296,"avg_resp":29.8,"avg_stride":0.85,"avg_vert_osc":8.2,"avg_vert_ratio":9.6,"avg_gct":333,"bb_delta":-5,"hr_z1":569.268,"hr_z2":961.115,"hr_z3":0.0,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-04-06","name":"Oslo L\u00f8ping","dist_km":4.07,"dur_min":22.2,"pace":5.453,"avg_hr":152.0,"max_hr":189.0,"elev_gain":33.0,"calories":343.0,"vo2max":51.0,"training_load":86.0,"aerobic_te":2.700000047683716,"cadence":149.1,"location":"Oslo","lat":59.94945840910077,"lon":10.773225612938404,"split_1k":318.2,"split_mile":520.5,"pr":false,"avg_power":296,"avg_resp":29.8,"avg_stride":0.85,"avg_vert_osc":8.2,"avg_vert_ratio":9.6,"avg_gct":333,"bb_delta":-5,"hr_z1":569.268,"hr_z2":961.115,"hr_z3":0.0,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-04-07","name":"Prep for BBL staffetten","dist_km":8.51,"dur_min":48.4,"pace":5.687,"avg_hr":166.0,"max_hr":193.0,"elev_gain":107.0,"calories":781.0,"vo2max":52.0,"training_load":159.5,"aerobic_te":3.700000047683716,"cadence":152.5,"location":"Oslo","lat":59.949157582595944,"lon":10.767785422503948,"split_1k":275.4,"split_mile":477.4,"pr":false,"avg_power":436,"avg_resp":null,"avg_stride":1.19,"avg_vert_osc":9.3,"avg_vert_ratio":8.1,"avg_gct":293,"bb_delta":-9,"hr_z1":530.339,"hr_z2":867.23,"hr_z3":726.979,"hr_z4":618.54,"hr_z5":135.286},{"date":"2026-04-08","name":"Oslo L\u00f8ping","dist_km":3.26,"dur_min":25.4,"pace":7.805,"avg_hr":125.0,"max_hr":154.0,"elev_gain":35.0,"calories":280.0,"vo2max":null,"training_load":17.6,"aerobic_te":1.5,"cadence":147.1,"location":"Oslo","lat":59.96924967505038,"lon":10.731595046818256,"split_1k":457.1,"split_mile":746.4,"pr":false,"avg_power":304,"avg_resp":null,"avg_stride":0.87,"avg_vert_osc":8.3,"avg_vert_ratio":9.6,"avg_gct":338,"bb_delta":-5,"hr_z1":913.175,"hr_z2":71.001,"hr_z3":0.0,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-04-09","name":"BBL etappe 36","dist_km":4.06,"dur_min":17.3,"pace":4.264,"avg_hr":184.0,"max_hr":201.0,"elev_gain":7.0,"calories":330.0,"vo2max":52.0,"training_load":144.3,"aerobic_te":3.299999952316284,"cadence":161.0,"location":"Fl\u00e5","lat":60.39143809117377,"lon":9.533013990148902,"split_1k":245.3,"split_mile":404.6,"pr":false,"avg_power":520,"avg_resp":null,"avg_stride":1.45,"avg_vert_osc":10.3,"avg_vert_ratio":7.1,"avg_gct":265,"bb_delta":-3,"hr_z1":16.895,"hr_z2":20.999,"hr_z3":317.032,"hr_z4":541.895,"hr_z5":141.004},{"date":"2026-04-13","name":"Oslo L\u00f8ping","dist_km":9.41,"dur_min":69.5,"pace":7.387,"avg_hr":130.0,"max_hr":179.0,"elev_gain":73.0,"calories":787.0,"vo2max":52.0,"training_load":48.1,"aerobic_te":2.5999999046325684,"cadence":149.0,"location":"Oslo","lat":59.96931480243802,"lon":10.731575852259994,"split_1k":316.5,"split_mile":525.1,"pr":false,"avg_power":317,"avg_resp":null,"avg_stride":0.91,"avg_vert_osc":8.4,"avg_vert_ratio":9.4,"avg_gct":330,"bb_delta":-14,"hr_z1":3452.551,"hr_z2":533.967,"hr_z3":13.025,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-04-14","name":"WU + 4x4 + CD","dist_km":8.2,"dur_min":48.0,"pace":5.852,"avg_hr":165.0,"max_hr":204.0,"elev_gain":101.0,"calories":770.0,"vo2max":52.0,"training_load":167.7,"aerobic_te":3.700000047683716,"cadence":153.0,"location":"Oslo","lat":59.94898734614253,"lon":10.773382857441902,"split_1k":287.9,"split_mile":501.4,"pr":false,"avg_power":427,"avg_resp":null,"avg_stride":1.19,"avg_vert_osc":9.3,"avg_vert_ratio":8.1,"avg_gct":291,"bb_delta":-12,"hr_z1":851.593,"hr_z2":661.923,"hr_z3":665.282,"hr_z4":491.055,"hr_z5":189.881},{"date":"2026-04-15","name":"Oslo L\u00f8ping","dist_km":9.01,"dur_min":62.7,"pace":6.963,"avg_hr":156.0,"max_hr":189.0,"elev_gain":157.0,"calories":878.0,"vo2max":52.0,"training_load":103.7,"aerobic_te":3.4000000953674316,"cadence":151.8,"location":"Oslo","lat":59.92695702239871,"lon":10.711645362898707,"split_1k":332.3,"split_mile":552.7,"pr":false,"avg_power":363,"avg_resp":null,"avg_stride":0.98,"avg_vert_osc":8.7,"avg_vert_ratio":9.1,"avg_gct":318,"bb_delta":-9,"hr_z1":1741.031,"hr_z2":590.98,"hr_z3":777.957,"hr_z4":608.173,"hr_z5":0.0},{"date":"2026-04-17","name":"Oslo L\u00f8ping","dist_km":6.12,"dur_min":34.4,"pace":5.62,"avg_hr":169.0,"max_hr":183.0,"elev_gain":105.0,"calories":585.0,"vo2max":52.0,"training_load":102.2,"aerobic_te":3.299999952316284,"cadence":155.9,"location":"Oslo","lat":59.94942178018391,"lon":10.772962840273976,"split_1k":271.8,"split_mile":442.4,"pr":false,"avg_power":430,"avg_resp":null,"avg_stride":1.14,"avg_vert_osc":9.3,"avg_vert_ratio":8.3,"avg_gct":297,"bb_delta":-7,"hr_z1":32.999,"hr_z2":943.326,"hr_z3":1050.962,"hr_z4":28.001,"hr_z5":0.0},{"date":"2026-04-20","name":"Oslo L\u00f8ping","dist_km":9.35,"dur_min":49.7,"pace":5.316,"avg_hr":169.0,"max_hr":200.0,"elev_gain":100.0,"calories":848.0,"vo2max":52.0,"training_load":247.5,"aerobic_te":4.0,"cadence":152.3,"location":"Oslo","lat":59.949611127376556,"lon":10.768256653100252,"split_1k":241.6,"split_mile":462.2,"pr":false,"avg_power":446,"avg_resp":null,"avg_stride":1.23,"avg_vert_osc":9.2,"avg_vert_ratio":7.7,"avg_gct":281,"bb_delta":-13,"hr_z1":423.572,"hr_z2":856.276,"hr_z3":646.994,"hr_z4":642.332,"hr_z5":389.922},{"date":"2026-04-21","name":"Oslo L\u00f8ping","dist_km":8.0,"dur_min":60.0,"pace":7.504,"avg_hr":141.0,"max_hr":163.0,"elev_gain":62.0,"calories":718.0,"vo2max":52.0,"training_load":26.3,"aerobic_te":2.0999999046325684,"cadence":154.0,"location":"Oslo","lat":59.91045548580587,"lon":10.720550045371056,"split_1k":429.2,"split_mile":701.4,"pr":false,"avg_power":314,"avg_resp":null,"avg_stride":0.86,"avg_vert_osc":8.2,"avg_vert_ratio":9.5,"avg_gct":319,"bb_delta":-8,"hr_z1":2706.909,"hr_z2":716.578,"hr_z3":0.0,"hr_z4":0.0,"hr_z5":0.0},{"date":"2026-04-22","name":"Oslo L\u00f8ping","dist_km":9.92,"dur_min":57.6,"pace":5.808,"avg_hr":170.0,"max_hr":185.0,"elev_gain":175.0,"calories":968.0,"vo2max":52.0,"training_load":141.0,"aerobic_te":3.9000000953674316,"cadence":156.5,"location":"Oslo","lat":59.94936654344201,"lon":10.768423452973366,"split_1k":309.2,"split_mile":507.2,"pr":false,"avg_power":417,"avg_resp":null,"avg_stride":1.11,"avg_vert_osc":9.2,"avg_vert_ratio":8.4,"avg_gct":298,"bb_delta":-13,"hr_z1":200.359,"hr_z2":1082.725,"hr_z3":1552.74,"hr_z4":568.575,"hr_z5":0.0},{"date":"2026-04-23","name":"Oslo L\u00f8ping","dist_km":3.44,"dur_min":27.2,"pace":7.899,"avg_hr":134.0,"max_hr":162.0,"elev_gain":52.0,"calories":306.0,"vo2max":null,"training_load":22.6,"aerobic_te":1.5,"cadence":151.9,"location":"Oslo","lat":59.91844863630831,"lon":10.68190804682672,"split_1k":442.2,"split_mile":749.8,"pr":false,"avg_power":307,"avg_resp":null,"avg_stride":0.84,"avg_vert_osc":8.1,"avg_vert_ratio":9.7,"avg_gct":327,"bb_delta":-3,"hr_z1":1473.607,"hr_z2":115.448,"hr_z3":0.0,"hr_z4":0.0,"hr_z5":0.0}];
+const ANALYTICS = {"predictions":[{"distance":"5K","km":5,"optimistic":"20:58","optimistic_pace":"4:11","realistic":"22:50","realistic_pace":"4:34"},{"distance":"10K","km":10,"optimistic":"43:43","optimistic_pace":"4:22","realistic":"47:37","realistic_pace":"4:45"},{"distance":"Halvmaraton","km":21.0975,"optimistic":"1:36:28","optimistic_pace":"4:34","realistic":"1:45:05","realistic_pace":"4:58"},{"distance":"Maraton","km":42.195,"optimistic":"3:21:08","optimistic_pace":"4:46","realistic":"3:39:06","realistic_pace":"5:11"}],"distance_now":{"recent_runs":29,"longest_recent":13.28,"longest_date":"2026-03-18","avg_dist":6.9,"avg_pace":6.08,"realistic_max":17,"comfortable":13,"safe_pace":6.69},"efficiency":[{"month":"2024-01","value":0.787,"n":4},{"month":"2024-02","value":0.958,"n":2},{"month":"2024-03","value":1.078,"n":1},{"month":"2024-04","value":0.918,"n":3},{"month":"2024-05","value":0.951,"n":5},{"month":"2024-06","value":0.97,"n":4},{"month":"2024-07","value":0.917,"n":4},{"month":"2024-08","value":0.934,"n":5},{"month":"2024-09","value":0.973,"n":7},{"month":"2024-10","value":0.975,"n":6},{"month":"2024-11","value":0.907,"n":1},{"month":"2025-01","value":0.889,"n":2},{"month":"2025-02","value":0.889,"n":1},{"month":"2025-03","value":0.895,"n":5},{"month":"2025-04","value":0.844,"n":1},{"month":"2025-05","value":0.948,"n":4},{"month":"2025-06","value":0.928,"n":1},{"month":"2025-09","value":0.964,"n":11},{"month":"2025-10","value":0.945,"n":8},{"month":"2025-11","value":0.965,"n":10},{"month":"2025-12","value":0.956,"n":5},{"month":"2026-01","value":0.967,"n":4},{"month":"2026-02","value":0.932,"n":6},{"month":"2026-03","value":1.03,"n":15},{"month":"2026-04","value":1.038,"n":13}],"hr_zones":{"seconds":[32031.624,85895.99599999998,79340.31900000003,47651.212,13531.267],"percentages":[12.4,33.2,30.7,18.4,5.2],"total_hours":71.8,"easy_pct":45.6,"hard_pct":54.4},"acwr":[{"date":"2024-12-04","acwr":0.0,"acute":0},{"date":"2025-01-19","acwr":4.0,"acute":344.8},{"date":"2025-01-20","acwr":4.0,"acute":344.8},{"date":"2025-01-21","acwr":4.0,"acute":344.8},{"date":"2025-01-22","acwr":4.0,"acute":344.8},{"date":"2025-01-23","acwr":4.0,"acute":344.8},{"date":"2025-01-24","acwr":4.0,"acute":344.8},{"date":"2025-01-25","acwr":4.0,"acute":344.8},{"date":"2025-01-26","acwr":1.23,"acute":152.8},{"date":"2025-01-27","acwr":1.23,"acute":152.8},{"date":"2025-01-28","acwr":1.23,"acute":152.8},{"date":"2025-01-29","acwr":1.23,"acute":152.8},{"date":"2025-01-30","acwr":1.23,"acute":152.8},{"date":"2025-01-31","acwr":1.23,"acute":152.8},{"date":"2025-02-01","acwr":1.23,"acute":152.8},{"date":"2025-02-02","acwr":0.0,"acute":0},{"date":"2025-02-03","acwr":0.0,"acute":0},{"date":"2025-02-04","acwr":0.0,"acute":0},{"date":"2025-02-05","acwr":0.0,"acute":0},{"date":"2025-02-06","acwr":0.0,"acute":0},{"date":"2025-02-07","acwr":0.0,"acute":0},{"date":"2025-02-08","acwr":0.0,"acute":0},{"date":"2025-02-09","acwr":0.87,"acute":137.7},{"date":"2025-02-10","acwr":0.87,"acute":137.7},{"date":"2025-02-11","acwr":0.87,"acute":137.7},{"date":"2025-02-12","acwr":0.87,"acute":137.7},{"date":"2025-02-13","acwr":0.87,"acute":137.7},{"date":"2025-02-14","acwr":0.87,"acute":137.7},{"date":"2025-02-15","acwr":0.87,"acute":137.7},{"date":"2025-02-16","acwr":0.0,"acute":0},{"date":"2025-02-17","acwr":0.0,"acute":0},{"date":"2025-02-18","acwr":0.0,"acute":0},{"date":"2025-02-19","acwr":0.0,"acute":0},{"date":"2025-02-20","acwr":0.0,"acute":0},{"date":"2025-02-21","acwr":0.0,"acute":0},{"date":"2025-02-22","acwr":0.0,"acute":0},{"date":"2025-02-23","acwr":0.0,"acute":0},{"date":"2025-02-24","acwr":0.0,"acute":0},{"date":"2025-02-25","acwr":0.0,"acute":0},{"date":"2025-02-26","acwr":0.0,"acute":0},{"date":"2025-02-27","acwr":0.0,"acute":0},{"date":"2025-02-28","acwr":0.0,"acute":0},{"date":"2025-03-01","acwr":0.0,"acute":0},{"date":"2025-03-02","acwr":0.0,"acute":0},{"date":"2025-03-03","acwr":1.51,"acute":83.4},{"date":"2025-03-04","acwr":2.38,"acute":202.9},{"date":"2025-03-05","acwr":2.38,"acute":202.9},{"date":"2025-03-06","acwr":2.38,"acute":202.9},{"date":"2025-03-07","acwr":2.38,"acute":202.9},{"date":"2025-03-08","acwr":2.38,"acute":202.9},{"date":"2025-03-09","acwr":4.0,"acute":202.9},{"date":"2025-03-10","acwr":2.36,"acute":119.5},{"date":"2025-03-11","acwr":1.84,"acute":173.6},{"date":"2025-03-12","acwr":1.84,"acute":173.6},{"date":"2025-03-13","acwr":1.84,"acute":173.6},{"date":"2025-03-14","acwr":1.84,"acute":173.6},{"date":"2025-03-15","acwr":1.84,"acute":173.6},{"date":"2025-03-16","acwr":1.84,"acute":173.6},{"date":"2025-03-17","acwr":1.84,"acute":173.6},{"date":"2025-03-18","acwr":0.0,"acute":0},{"date":"2025-03-19","acwr":0.0,"acute":0},{"date":"2025-03-20","acwr":0.0,"acute":0},{"date":"2025-03-21","acwr":0.0,"acute":0},{"date":"2025-03-22","acwr":0.0,"acute":0},{"date":"2025-03-23","acwr":0.0,"acute":0},{"date":"2025-03-24","acwr":0.0,"acute":0},{"date":"2025-03-25","acwr":0.0,"acute":0},{"date":"2025-03-26","acwr":0.0,"acute":0},{"date":"2025-03-27","acwr":0.0,"acute":0},{"date":"2025-03-28","acwr":0.0,"acute":0},{"date":"2025-03-29","acwr":0.85,"acute":102.1},{"date":"2025-03-30","acwr":0.85,"acute":102.1},{"date":"2025-03-31","acwr":1.9,"acute":264.3},{"date":"2025-04-01","acwr":2.41,"acute":264.3},{"date":"2025-04-02","acwr":2.41,"acute":264.3},{"date":"2025-04-03","acwr":2.41,"acute":264.3},{"date":"2025-04-04","acwr":2.41,"acute":264.3},{"date":"2025-04-05","acwr":1.48,"acute":162.2},{"date":"2025-04-06","acwr":1.48,"acute":162.2},{"date":"2025-04-07","acwr":0.0,"acute":0},{"date":"2025-04-08","acwr":0.0,"acute":0},{"date":"2025-04-09","acwr":1.5,"acute":159.1},{"date":"2025-04-10","acwr":1.5,"acute":159.1},{"date":"2025-04-11","acwr":1.5,"acute":159.1},{"date":"2025-04-12","acwr":1.5,"acute":159.1},{"date":"2025-04-13","acwr":1.5,"acute":159.1},{"date":"2025-04-14","acwr":1.5,"acute":159.1},{"date":"2025-04-15","acwr":1.5,"acute":159.1},{"date":"2025-04-16","acwr":0.0,"acute":0},{"date":"2025-04-17","acwr":0.0,"acute":0},{"date":"2025-04-18","acwr":0.0,"acute":0},{"date":"2025-04-19","acwr":0.0,"acute":0},{"date":"2025-04-20","acwr":0.0,"acute":0},{"date":"2025-04-21","acwr":0.0,"acute":0},{"date":"2025-04-22","acwr":0.0,"acute":0},{"date":"2025-04-23","acwr":0.0,"acute":0},{"date":"2025-04-24","acwr":0.0,"acute":0},{"date":"2025-04-25","acwr":0.0,"acute":0},{"date":"2025-04-26","acwr":0.0,"acute":0},{"date":"2025-04-27","acwr":0.0,"acute":0},{"date":"2025-04-28","acwr":0.0,"acute":0},{"date":"2025-04-29","acwr":0.0,"acute":0},{"date":"2025-04-30","acwr":0.0,"acute":0},{"date":"2025-05-01","acwr":0.0,"acute":0},{"date":"2025-05-02","acwr":0.0,"acute":0},{"date":"2025-05-03","acwr":0.0,"acute":0},{"date":"2025-05-04","acwr":0.0,"acute":0},{"date":"2025-05-05","acwr":0.0,"acute":0},{"date":"2025-05-06","acwr":0.0,"acute":0},{"date":"2025-05-07","acwr":4.0,"acute":137.0},{"date":"2025-05-08","acwr":4.0,"acute":137.0},{"date":"2025-05-09","acwr":4.0,"acute":137.0},{"date":"2025-05-10","acwr":4.0,"acute":204.1},{"date":"2025-05-11","acwr":4.0,"acute":204.1},{"date":"2025-05-12","acwr":4.0,"acute":204.1},{"date":"2025-05-13","acwr":4.0,"acute":204.1},{"date":"2025-05-14","acwr":1.32,"acute":67.1},{"date":"2025-05-15","acwr":2.37,"acute":199.9},{"date":"2025-05-16","acwr":2.37,"acute":199.9},{"date":"2025-05-17","acwr":1.58,"acute":132.8},{"date":"2025-05-18","acwr":1.58,"acute":132.8},{"date":"2025-05-19","acwr":1.58,"acute":132.8},{"date":"2025-05-20","acwr":2.21,"acute":251.4},{"date":"2025-05-21","acwr":2.21,"acute":251.4},{"date":"2025-05-22","acwr":1.04,"acute":118.6},{"date":"2025-05-23","acwr":1.04,"acute":118.6},{"date":"2025-05-24","acwr":1.04,"acute":118.6},{"date":"2025-05-25","acwr":1.04,"acute":118.6},{"date":"2025-05-26","acwr":1.04,"acute":118.6},{"date":"2025-05-27","acwr":0.81,"acute":115.6},{"date":"2025-05-28","acwr":0.81,"acute":115.6},{"date":"2025-05-29","acwr":0.81,"acute":115.6},{"date":"2025-05-30","acwr":1.24,"acute":204.4},{"date":"2025-05-31","acwr":1.24,"acute":204.4},{"date":"2025-06-01","acwr":1.6,"acute":304.0},{"date":"2025-06-02","acwr":1.6,"acute":304.0},{"date":"2025-06-03","acwr":0.99,"acute":188.4},{"date":"2025-06-04","acwr":1.21,"acute":188.4},{"date":"2025-06-05","acwr":1.21,"acute":188.4},{"date":"2025-06-06","acwr":0.75,"acute":121.3},{"date":"2025-06-07","acwr":0.84,"acute":121.3},{"date":"2025-06-08","acwr":0.15,"acute":21.7},{"date":"2025-06-09","acwr":0.15,"acute":21.7},{"date":"2025-06-10","acwr":0.15,"acute":21.7},{"date":"2025-06-11","acwr":0.15,"acute":21.7},{"date":"2025-06-12","acwr":0.2,"acute":21.7},{"date":"2025-06-13","acwr":0.0,"acute":0},{"date":"2025-06-14","acwr":0.0,"acute":0},{"date":"2025-06-15","acwr":0.0,"acute":0},{"date":"2025-06-16","acwr":0.0,"acute":0},{"date":"2025-06-17","acwr":0.0,"acute":0},{"date":"2025-06-18","acwr":0.0,"acute":0},{"date":"2025-06-19","acwr":0.0,"acute":0},{"date":"2025-06-20","acwr":0.0,"acute":0},{"date":"2025-06-21","acwr":0.0,"acute":0},{"date":"2025-06-22","acwr":0.0,"acute":0},{"date":"2025-06-23","acwr":0.0,"acute":0},{"date":"2025-06-24","acwr":0.0,"acute":0},{"date":"2025-06-25","acwr":0.0,"acute":0},{"date":"2025-06-26","acwr":0.0,"acute":0},{"date":"2025-06-27","acwr":0.0,"acute":0},{"date":"2025-06-28","acwr":0.0,"acute":0},{"date":"2025-06-29","acwr":0.0,"acute":0},{"date":"2025-06-30","acwr":0.0,"acute":0},{"date":"2025-07-01","acwr":0.0,"acute":0},{"date":"2025-07-02","acwr":0.0,"acute":0},{"date":"2025-07-03","acwr":0.0,"acute":0},{"date":"2025-09-01","acwr":4.0,"acute":80.0},{"date":"2025-09-02","acwr":4.0,"acute":173.0},{"date":"2025-09-03","acwr":4.0,"acute":173.0},{"date":"2025-09-04","acwr":4.0,"acute":288.8},{"date":"2025-09-05","acwr":4.0,"acute":288.8},{"date":"2025-09-06","acwr":4.0,"acute":288.8},{"date":"2025-09-07","acwr":4.0,"acute":288.8},{"date":"2025-09-08","acwr":3.36,"acute":417.9},{"date":"2025-09-09","acwr":2.61,"acute":324.9},{"date":"2025-09-10","acwr":2.97,"acute":496.3},{"date":"2025-09-11","acwr":2.27,"acute":380.5},{"date":"2025-09-12","acwr":2.27,"acute":380.5},{"date":"2025-09-13","acwr":2.53,"acute":497.4},{"date":"2025-09-14","acwr":2.53,"acute":497.4},{"date":"2025-09-15","acwr":1.47,"acute":288.3},{"date":"2025-09-16","acwr":1.93,"acute":463.2},{"date":"2025-09-17","acwr":1.55,"acute":424.0},{"date":"2025-09-18","acwr":1.55,"acute":424.0},{"date":"2025-09-19","acwr":1.55,"acute":424.0},{"date":"2025-09-20","acwr":1.12,"acute":307.1},{"date":"2025-09-21","acwr":1.12,"acute":307.1},{"date":"2025-09-22","acwr":1.38,"acute":415.8},{"date":"2025-09-23","acwr":0.8,"acute":240.9},{"date":"2025-09-24","acwr":0.79,"acute":268.9},{"date":"2025-09-25","acwr":0.79,"acute":268.9},{"date":"2025-09-26","acwr":1.18,"acute":456.2},{"date":"2025-09-27","acwr":1.18,"acute":456.2},{"date":"2025-09-28","acwr":1.18,"acute":456.2},{"date":"2025-09-29","acwr":1.48,"acute":659.1},{"date":"2025-09-30","acwr":1.56,"acute":659.1},{"date":"2025-10-01","acwr":1.47,"acute":687.5},{"date":"2025-10-02","acwr":1.56,"acute":687.5},{"date":"2025-10-03","acwr":1.14,"acute":500.2},{"date":"2025-10-04","acwr":1.14,"acute":500.2},{"date":"2025-10-05","acwr":1.14,"acute":500.2},{"date":"2025-10-06","acwr":0.96,"acute":431.8},{"date":"2025-10-07","acwr":0.96,"acute":431.8},{"date":"2025-10-08","acwr":0.93,"acute":415.6},{"date":"2025-10-09","acwr":0.93,"acute":415.6},{"date":"2025-10-10","acwr":0.93,"acute":415.6},{"date":"2025-10-11","acwr":0.99,"acute":415.6},{"date":"2025-10-12","acwr":0.99,"acute":415.6},{"date":"2025-10-13","acwr":0.41,"acute":172.4},{"date":"2025-10-14","acwr":0.46,"acute":172.4},{"date":"2025-10-15","acwr":0.0,"acute":0},{"date":"2025-10-16","acwr":0.0,"acute":0},{"date":"2025-10-17","acwr":0.0,"acute":0},{"date":"2025-10-18","acwr":0.0,"acute":0},{"date":"2025-10-19","acwr":0.57,"acute":229.5},{"date":"2025-10-20","acwr":1.07,"acute":460.5},{"date":"2025-10-21","acwr":1.07,"acute":460.5},{"date":"2025-10-22","acwr":1.49,"acute":652.7},{"date":"2025-10-23","acwr":1.49,"acute":652.7},{"date":"2025-10-24","acwr":1.66,"acute":652.7},{"date":"2025-10-25","acwr":1.66,"acute":652.7},{"date":"2025-10-26","acwr":1.08,"acute":423.2},{"date":"2025-10-27","acwr":1.13,"acute":417.3},{"date":"2025-10-28","acwr":1.13,"acute":417.3},{"date":"2025-10-29","acwr":0.7,"acute":225.1},{"date":"2025-10-30","acwr":0.7,"acute":225.1},{"date":"2025-10-31","acwr":1.02,"acute":363.5},{"date":"2025-11-01","acwr":1.02,"acute":363.5},{"date":"2025-11-02","acwr":1.02,"acute":363.5},{"date":"2025-11-03","acwr":1.21,"acute":452.9},{"date":"2025-11-04","acwr":1.42,"acute":579.6},{"date":"2025-11-05","acwr":1.59,"acute":579.6},{"date":"2025-11-06","acwr":1.59,"acute":579.6},{"date":"2025-11-07","acwr":1.21,"acute":441.2},{"date":"2025-11-08","acwr":1.49,"acute":604.2},{"date":"2025-11-09","acwr":1.49,"acute":604.2},{"date":"2025-11-10","acwr":1.05,"acute":473.9},{"date":"2025-11-11","acwr":0.77,"acute":347.2},{"date":"2025-11-12","acwr":1.01,"acute":491.8},{"date":"2025-11-13","acwr":1.01,"acute":491.8},{"date":"2025-11-14","acwr":1.01,"acute":491.8},{"date":"2025-11-15","acwr":0.67,"acute":328.8},{"date":"2025-11-16","acwr":0.76,"acute":328.8},{"date":"2025-11-17","acwr":0.65,"acute":259.2},{"date":"2025-11-18","acwr":0.65,"acute":259.2},{"date":"2025-11-19","acwr":0.63,"acute":240.4},{"date":"2025-11-20","acwr":0.63,"acute":240.4},{"date":"2025-11-21","acwr":0.94,"acute":396.4},{"date":"2025-11-22","acwr":0.94,"acute":396.4},{"date":"2025-11-23","acwr":0.94,"acute":396.4},{"date":"2025-11-24","acwr":1.09,"acute":445.8},{"date":"2025-11-25","acwr":1.09,"acute":445.8},{"date":"2025-11-26","acwr":1.05,"acute":466.2},{"date":"2025-11-27","acwr":1.05,"acute":466.2},{"date":"2025-11-28","acwr":0.76,"acute":310.2},{"date":"2025-11-29","acwr":0.76,"acute":310.2},{"date":"2025-11-30","acwr":0.76,"acute":310.2},{"date":"2025-12-01","acwr":0.88,"acute":333.8},{"date":"2025-12-02","acwr":0.96,"acute":333.8},{"date":"2025-12-03","acwr":0.79,"acute":292.7},{"date":"2025-12-04","acwr":0.79,"acute":292.7},{"date":"2025-12-05","acwr":0.79,"acute":292.7},{"date":"2025-12-06","acwr":0.88,"acute":292.7},{"date":"2025-12-07","acwr":0.88,"acute":292.7},{"date":"2025-12-08","acwr":0.37,"acute":105.1},{"date":"2025-12-09","acwr":0.37,"acute":105.1},{"date":"2025-12-10","acwr":0.51,"acute":147.3},{"date":"2025-12-11","acwr":0.51,"acute":147.3},{"date":"2025-12-12","acwr":0.51,"acute":147.3},{"date":"2025-12-13","acwr":0.51,"acute":147.3},{"date":"2025-12-14","acwr":0.51,"acute":147.3},{"date":"2025-12-15","acwr":0.57,"acute":147.3},{"date":"2025-12-16","acwr":0.57,"acute":147.3},{"date":"2025-12-17","acwr":0.0,"acute":0},{"date":"2025-12-18","acwr":0.0,"acute":0},{"date":"2025-12-19","acwr":0.0,"acute":0},{"date":"2025-12-20","acwr":0.0,"acute":0},{"date":"2025-12-21","acwr":0.0,"acute":0},{"date":"2025-12-22","acwr":0.0,"acute":0},{"date":"2025-12-23","acwr":0.0,"acute":0},{"date":"2025-12-24","acwr":0.0,"acute":0},{"date":"2025-12-25","acwr":0.0,"acute":0},{"date":"2025-12-26","acwr":0.0,"acute":0},{"date":"2025-12-27","acwr":0.0,"acute":0},{"date":"2025-12-28","acwr":0.0,"acute":0},{"date":"2025-12-29","acwr":1.59,"acute":166.3},{"date":"2025-12-30","acwr":1.59,"acute":166.3},{"date":"2025-12-31","acwr":2.72,"acute":314.4},{"date":"2026-01-01","acwr":2.72,"acute":314.4},{"date":"2026-01-02","acwr":3.03,"acute":460.7},{"date":"2026-01-03","acwr":3.03,"acute":460.7},{"date":"2026-01-04","acwr":3.22,"acute":605.6},{"date":"2026-01-05","acwr":2.69,"acute":640.6},{"date":"2026-01-06","acwr":2.69,"acute":640.6},{"date":"2026-01-07","acwr":2.67,"acute":629.4},{"date":"2026-01-08","acwr":2.67,"acute":629.4},{"date":"2026-01-09","acwr":2.05,"acute":483.1},{"date":"2026-01-10","acwr":2.05,"acute":483.1},{"date":"2026-01-11","acwr":1.43,"acute":338.2},{"date":"2026-01-12","acwr":0.58,"acute":136.9},{"date":"2026-01-13","acwr":0.58,"acute":136.9},{"date":"2026-01-14","acwr":0.0,"acute":0},{"date":"2026-01-15","acwr":0.0,"acute":0},{"date":"2026-01-16","acwr":0.0,"acute":0},{"date":"2026-01-17","acwr":0.0,"acute":0},{"date":"2026-01-18","acwr":0.0,"acute":0},{"date":"2026-01-19","acwr":0.0,"acute":0},{"date":"2026-01-20","acwr":0.0,"acute":0},{"date":"2026-01-21","acwr":0.0,"acute":0},{"date":"2026-01-22","acwr":0.0,"acute":0},{"date":"2026-01-23","acwr":0.0,"acute":0},{"date":"2026-01-24","acwr":0.0,"acute":0},{"date":"2026-01-25","acwr":0.0,"acute":0},{"date":"2026-01-26","acwr":0.0,"acute":0},{"date":"2026-01-27","acwr":0.0,"acute":0},{"date":"2026-01-28","acwr":0.0,"acute":0},{"date":"2026-01-29","acwr":0.0,"acute":0},{"date":"2026-01-30","acwr":0.0,"acute":0},{"date":"2026-01-31","acwr":0.0,"acute":0},{"date":"2026-02-01","acwr":0.0,"acute":0},{"date":"2026-02-02","acwr":0.0,"acute":0},{"date":"2026-02-03","acwr":0.0,"acute":0},{"date":"2026-02-04","acwr":4.0,"acute":6.1},{"date":"2026-02-05","acwr":4.0,"acute":6.1},{"date":"2026-02-06","acwr":4.0,"acute":6.1},{"date":"2026-02-07","acwr":4.0,"acute":6.1},{"date":"2026-02-08","acwr":4.0,"acute":6.1},{"date":"2026-02-09","acwr":4.0,"acute":125.3},{"date":"2026-02-10","acwr":4.0,"acute":125.3},{"date":"2026-02-11","acwr":3.93,"acute":321.6},{"date":"2026-02-12","acwr":3.93,"acute":321.6},{"date":"2026-02-13","acwr":3.93,"acute":321.6},{"date":"2026-02-14","acwr":3.93,"acute":321.6},{"date":"2026-02-15","acwr":3.93,"acute":321.6},{"date":"2026-02-16","acwr":3.0,"acute":376.2},{"date":"2026-02-17","acwr":3.0,"acute":376.2},{"date":"2026-02-18","acwr":1.79,"acute":264.2},{"date":"2026-02-19","acwr":1.79,"acute":264.2},{"date":"2026-02-20","acwr":1.79,"acute":264.2},{"date":"2026-02-21","acwr":1.79,"acute":264.2},{"date":"2026-02-22","acwr":1.79,"acute":264.2},{"date":"2026-02-23","acwr":1.22,"acute":219.5},{"date":"2026-02-24","acwr":1.22,"acute":219.5},{"date":"2026-02-25","acwr":0.72,"acute":129.1},{"date":"2026-02-26","acwr":0.72,"acute":129.1},{"date":"2026-02-27","acwr":0.72,"acute":129.1},{"date":"2026-02-28","acwr":0.72,"acute":129.1},{"date":"2026-03-01","acwr":0.72,"acute":129.1},{"date":"2026-03-02","acwr":0.75,"acute":167.0},{"date":"2026-03-03","acwr":1.19,"acute":306.7},{"date":"2026-03-04","acwr":1.64,"acute":498.1},{"date":"2026-03-05","acwr":1.64,"acute":498.1},{"date":"2026-03-06","acwr":1.64,"acute":498.1},{"date":"2026-03-07","acwr":1.84,"acute":611.6},{"date":"2026-03-08","acwr":1.84,"acute":611.6},{"date":"2026-03-09","acwr":1.83,"acute":645.3},{"date":"2026-03-10","acwr":1.61,"acute":607.4},{"date":"2026-03-11","acwr":1.56,"acute":572.9},{"date":"2026-03-12","acwr":1.56,"acute":572.9},{"date":"2026-03-13","acwr":1.56,"acute":572.9},{"date":"2026-03-14","acwr":1.49,"acute":594.1},{"date":"2026-03-15","acwr":1.49,"acute":594.1},{"date":"2026-03-16","acwr":1.51,"acute":628.0},{"date":"2026-03-17","acwr":1.27,"acute":526.2},{"date":"2026-03-18","acwr":1.22,"acute":529.0},{"date":"2026-03-19","acwr":1.22,"acute":529.0},{"date":"2026-03-20","acwr":1.22,"acute":529.0},{"date":"2026-03-21","acwr":1.07,"acute":486.5},{"date":"2026-03-22","acwr":1.07,"acute":486.5},{"date":"2026-03-23","acwr":1.0,"acute":481.1},{"date":"2026-03-24","acwr":1.14,"acute":575.5},{"date":"2026-03-25","acwr":0.83,"acute":415.8},{"date":"2026-03-26","acwr":0.83,"acute":415.8},{"date":"2026-03-27","acwr":0.83,"acute":415.8},{"date":"2026-03-28","acwr":0.64,"acute":323.6},{"date":"2026-03-29","acwr":0.64,"acute":323.6},{"date":"2026-03-30","acwr":0.43,"acute":214.0},{"date":"2026-03-31","acwr":0.39,"acute":185.6},{"date":"2026-04-01","acwr":0.44,"acute":185.6},{"date":"2026-04-02","acwr":0.44,"acute":185.6},{"date":"2026-04-03","acwr":0.44,"acute":185.6},{"date":"2026-04-04","acwr":0.47,"acute":185.6},{"date":"2026-04-05","acwr":0.47,"acute":185.6},{"date":"2026-04-06","acwr":0.46,"acute":173.4},{"date":"2026-04-07","acwr":0.69,"acute":266.9},{"date":"2026-04-08","acwr":0.8,"acute":284.5},{"date":"2026-04-09","acwr":1.1,"acute":428.8},{"date":"2026-04-10","acwr":1.1,"acute":428.8},{"date":"2026-04-11","acwr":1.2,"acute":428.8},{"date":"2026-04-12","acwr":1.2,"acute":428.8},{"date":"2026-04-13","acwr":1.19,"acute":369.5},{"date":"2026-04-14","acwr":1.07,"acute":377.7},{"date":"2026-04-15","acwr":1.37,"acute":463.8},{"date":"2026-04-16","acwr":0.95,"acute":319.5},{"date":"2026-04-17","acwr":1.16,"acute":421.7},{"date":"2026-04-18","acwr":1.24,"acute":421.7},{"date":"2026-04-19","acwr":1.24,"acute":421.7},{"date":"2026-04-20","acwr":1.8,"acute":621.1},{"date":"2026-04-21","acwr":1.46,"acute":479.7},{"date":"2026-04-22","acwr":1.43,"acute":517.0},{"date":"2026-04-23","acwr":1.46,"acute":539.6}],"acwr_summary":{"risky_count":111,"sweet_count":96,"low_count":169,"total":402,"current":1.46},"year_in_review":{"2024":{"total_km":371.8,"total_runs":44,"avg_dist":8.4,"best_pace":"5:11","longest":24.0,"total_elev":3535,"total_calories":34517,"days_running":43,"vo2_start":39.0,"vo2_end":46.0},"2025":{"total_km":424.8,"total_runs":52,"avg_dist":8.2,"best_pace":"4:22","longest":16.8,"total_elev":4792,"total_calories":41166,"days_running":52,"vo2_start":46.0,"vo2_end":48.0},"2026":{"total_km":264.4,"total_runs":38,"avg_dist":7.0,"best_pace":"4:10","longest":13.3,"total_elev":3017,"total_calories":24572,"days_running":37,"vo2_start":47.0,"vo2_end":52.0}}};
 
 /* ── HELPERS ─────────────────────────────────────────────────── */
 const fmtPace = p => {
@@ -1151,6 +1733,296 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
     marker.addTo(map);
   });
 })();
+
+/* ── 19. RACE PREDICTOR ────────────────────────────────────── */
+(function() {
+  const grid = document.getElementById('predictGrid');
+  if (!grid) return;
+  ANALYTICS.predictions.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'predict-card slide-up';
+    card.style.animationDelay = (i * 0.08) + 's';
+    card.innerHTML = `
+      <div class="predict-card-label">${p.distance}</div>
+      <div class="predict-card-distance">${p.km}<span style="font-size:14px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.04em;"> KM</span></div>
+      <div class="predict-times">
+        <div class="predict-time-row">
+          <div>
+            <div class="predict-time-tier">Realistisk</div>
+            <div class="predict-time-pace">${p.realistic_pace}/km</div>
+          </div>
+          <div class="predict-time-value">${p.realistic}</div>
+        </div>
+        <div class="predict-time-row" style="opacity:.7;">
+          <div>
+            <div class="predict-time-tier" style="color:var(--accent2);">Optimistisk</div>
+            <div class="predict-time-pace">${p.optimistic_pace}/km</div>
+          </div>
+          <div class="predict-time-value" style="color:var(--accent2);">${p.optimistic}</div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+})();
+
+/* ── 21. AEROBIC EFFICIENCY ───────────────────────────────── */
+(function() {
+  const data = ANALYTICS.efficiency.map(e => ({ x: e.month, y: e.value, n: e.n }));
+  const rolling = data.map((p, i) => {
+    const sl = data.slice(Math.max(0, i-2), i+1);
+    return { x: p.x, y: +(sl.reduce((s,v) => s+v.y, 0)/sl.length).toFixed(3) };
+  });
+  new Chart(document.getElementById('efChart'), {
+    type: 'line',
+    data: { datasets: [
+      { data: data, borderColor: '#c8f55a', backgroundColor: 'rgba(200,245,90,0.08)',
+        borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#c8f55a',
+        pointBorderColor: '#0a0a0c', pointBorderWidth: 1.5, tension: .35, fill: true, order: 2 },
+      { data: rolling, borderColor: '#ff6b35', borderWidth: 2, borderDash: [4,4],
+        pointRadius: 0, tension: .35, fill: false, order: 1 }
+    ]},
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, tooltip: { ...chartOpts.plugins.tooltip,
+      callbacks: { title: ctx => ctx[0].raw.x, label: ctx => `Effektivitet: ${ctx.raw.y} m/min/bpm` + (ctx.raw.n ? ` · ${ctx.raw.n} løp` : '') }
+    }}, scales: {
+      x: { type: 'category', grid: { color: 'rgba(255,255,255,0.04)' },
+           ticks: { color: '#444455', maxTicksLimit: IS_MOBILE ? 4 : 8 }},
+      y: { ...chartOpts.scales.y, ticks: { color: '#444455', callback: v => v.toFixed(2) }}
+    }}
+  });
+})();
+
+/* ── 22. HR ZONES ──────────────────────────────────────────── */
+(function() {
+  const z = ANALYTICS.hr_zones;
+  if (!z || z.total_hours === 0) return;
+
+  document.getElementById('zonesEasyPct').textContent = z.easy_pct + '%';
+
+  const colors = ['#4db8ff', '#7dd3a0', '#c8f55a', '#ffb347', '#ff6b35'];
+  const labels = ['Sone 1 · Restitusjon', 'Sone 2 · Aerob', 'Sone 3 · Tempo', 'Sone 4 · Terskel', 'Sone 5 · VO₂maks'];
+
+  // Donut
+  new Chart(document.getElementById('zonesDonut'), {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: z.percentages, backgroundColor: colors,
+      borderColor: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#0a0a0c',
+      borderWidth: 2, hoverOffset: 8 }]},
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '70%',
+      plugins: { legend: { display: false }, tooltip: { ...chartOpts.plugins.tooltip,
+        callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed}% (${(z.seconds[ctx.dataIndex]/3600).toFixed(1)}t)` }}
+      },
+      animation: { animateRotate: true, duration: 1400, easing: 'easeOutCubic' }
+    }
+  });
+
+  // Bars
+  const bars = document.getElementById('zonesBars');
+  labels.forEach((label, i) => {
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div class="zone-bar-head">
+        <span class="zone-bar-name"><span style="color:${colors[i]};">●</span> ${label}</span>
+        <span class="zone-bar-pct">${z.percentages[i]}% · ${(z.seconds[i]/3600).toFixed(1)}t</span>
+      </div>
+      <div class="zone-bar-track"><div class="zone-bar-fill" style="background:${colors[i]};" data-pct="${z.percentages[i]}"></div></div>
+    `;
+    bars.appendChild(row);
+  });
+
+  // Compare bars
+  document.getElementById('cmpEasyVal').textContent = z.easy_pct + '% · 80%';
+  document.getElementById('cmpHardVal').textContent = z.hard_pct + '% · 20%';
+
+  // Animate when in view
+  const obs2 = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.zone-bar-fill').forEach(b => {
+          b.style.width = b.dataset.pct + '%';
+        });
+        document.getElementById('cmpEasyFill').style.width = z.easy_pct + '%';
+        document.getElementById('cmpHardFill').style.width = z.hard_pct + '%';
+        obs2.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  obs2.observe(document.getElementById('zones'));
+})();
+
+/* ── 23. ACWR / INJURY RISK ────────────────────────────────── */
+(function() {
+  const a = ANALYTICS.acwr;
+  if (!a || !a.length) return;
+  const cur = ANALYTICS.acwr_summary.current;
+
+  let color, text, expl;
+  if (cur > 1.5) {
+    color = '#ff6b35';
+    text = 'FORHØYET SKADEFARE';
+    expl = `ACWR på ${cur} betyr at de siste 7 dagene har du belastet kroppen vesentlig mer enn snittet av siste 4 uker. Det er den klassiske "for raskt opp"-indikasjonen. Anbefaling: én lett uke på 60–70% av nåværende volum før du øker igjen.`;
+  } else if (cur >= 0.8 && cur <= 1.3) {
+    color = '#c8f55a';
+    text = 'TRYGT OG PRODUKTIVT';
+    expl = `Belastningen ligger i sweet spot-området. Kroppen får både stimulering og restitusjon. Hold dette nivået og fokuser på kvalitet i øktene.`;
+  } else if (cur > 1.3 && cur <= 1.5) {
+    color = '#ffb347';
+    text = 'NÆRMER SEG GRENSEN';
+    expl = `ACWR på ${cur} er over sweet spot, men ikke kritisk. Ta en lett dag eller to før neste hardøkt for å holde deg i det produktive området.`;
+  } else {
+    color = '#4db8ff';
+    text = 'DETRAINING-SONE';
+    expl = `ACWR under 0,8 betyr at belastningen har falt vesentlig. Kondisjonen begynner å miste seg. Tid for å bygge volum gradvis tilbake.`;
+  }
+
+  const status = document.getElementById('riskStatus');
+  status.style.setProperty('--risk-color', color);
+  document.getElementById('riskValue').textContent = cur;
+  document.getElementById('riskValue').style.color = color;
+  document.getElementById('riskText').textContent = text;
+  document.getElementById('riskExpl').textContent = expl;
+
+  // ACWR chart with sweet-spot band
+  const sweetBand = {
+    id: 'sweetBand',
+    beforeDatasetsDraw(chart) {
+      const { ctx, chartArea: { left, right }, scales: { y } } = chart;
+      const top = y.getPixelForValue(1.3);
+      const bot = y.getPixelForValue(0.8);
+      ctx.save();
+      ctx.fillStyle = 'rgba(200,245,90,0.08)';
+      ctx.fillRect(left, top, right-left, bot-top);
+      ctx.strokeStyle = 'rgba(200,245,90,0.25)';
+      ctx.setLineDash([3,3]);
+      ctx.beginPath();
+      ctx.moveTo(left, y.getPixelForValue(1.5));
+      ctx.lineTo(right, y.getPixelForValue(1.5));
+      ctx.strokeStyle = 'rgba(255,107,53,0.4)';
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+
+  new Chart(document.getElementById('acwrChart'), {
+    type: 'line',
+    data: {
+      labels: a.map(p => p.date),
+      datasets: [{
+        data: a.map(p => p.acwr),
+        borderColor: ctx => {
+          const v = ctx.raw;
+          if (v > 1.5) return '#ff6b35';
+          if (v >= 0.8 && v <= 1.3) return '#c8f55a';
+          return '#4db8ff';
+        },
+        backgroundColor: 'rgba(200,245,90,0.05)',
+        borderWidth: 1.5,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        tension: .3,
+        fill: false,
+        segment: {
+          borderColor: ctx => {
+            const v = ctx.p1.parsed.y;
+            if (v > 1.5) return '#ff6b35';
+            if (v >= 0.8 && v <= 1.3) return '#c8f55a';
+            return '#4db8ff';
+          }
+        }
+      }]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, tooltip: { ...chartOpts.plugins.tooltip,
+      callbacks: { title: ctx => fmtDate(a[ctx[0].dataIndex].date), label: ctx => `ACWR: ${ctx.parsed.y}` }
+    }}, scales: {
+      x: { display: false },
+      y: { ...chartOpts.scales.y, min: 0, max: 2.5,
+           ticks: { color: '#444455', stepSize: 0.5, callback: v => v.toFixed(1) }}
+    }},
+    plugins: [sweetBand]
+  });
+})();
+
+/* ── 24. YEAR IN REVIEW ────────────────────────────────────── */
+(function() {
+  const grid = document.getElementById('yirGrid');
+  if (!grid) return;
+  const years = ANALYTICS.year_in_review;
+  ['2024','2025','2026'].forEach((year, idx) => {
+    const y = years[year];
+    if (!y) return;
+    const card = document.createElement('div');
+    card.className = `yir-card yir-${year} slide-up`;
+    card.style.animationDelay = (idx * 0.12) + 's';
+    const vo2Delta = (y.vo2_start && y.vo2_end) ? (y.vo2_end - y.vo2_start) : null;
+    card.innerHTML = `
+      <div class="yir-year">${year}</div>
+      <div class="yir-stats">
+        <div class="yir-stat">
+          <div class="yir-stat-label">Total distanse</div>
+          <div class="yir-stat-value"><span class="counter" data-target="${y.total_km}" data-decimals="0">0</span><span class="yir-stat-unit">km</span></div>
+        </div>
+        <div class="yir-stat">
+          <div class="yir-stat-label">Antall løpeturer</div>
+          <div class="yir-stat-value"><span class="counter" data-target="${y.total_runs}" data-decimals="0">0</span></div>
+        </div>
+        <div class="yir-stat">
+          <div class="yir-stat-label">Lengste tur</div>
+          <div class="yir-stat-value">${y.longest}<span class="yir-stat-unit">km</span></div>
+        </div>
+        <div class="yir-stat">
+          <div class="yir-stat-label">Beste tempo (3+ km)</div>
+          <div class="yir-stat-value">${y.best_pace}<span class="yir-stat-unit">/km</span></div>
+        </div>
+        <div class="yir-stat">
+          <div class="yir-stat-label">Total stigning</div>
+          <div class="yir-stat-value"><span class="counter" data-target="${y.total_elev}" data-decimals="0">0</span><span class="yir-stat-unit">m</span></div>
+        </div>
+        <div class="yir-stat">
+          <div class="yir-stat-label">Forbrente kalorier</div>
+          <div class="yir-stat-value"><span class="counter" data-target="${y.total_calories}" data-decimals="0">0</span><span class="yir-stat-unit">kcal</span></div>
+        </div>
+        ${vo2Delta != null ? `
+        <div class="yir-stat">
+          <div class="yir-stat-label">VO₂ maks utvikling</div>
+          <div class="yir-stat-value">${y.vo2_start} → ${y.vo2_end}<span class="yir-stat-unit">${vo2Delta > 0 ? '↑+'+vo2Delta : (vo2Delta < 0 ? '↓'+vo2Delta : '=')}</span></div>
+        </div>` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+})();
+
+/* ── 25. COUNTER ANIMATION ─────────────────────────────────── */
+function animateCounters(scope) {
+  const counters = (scope || document).querySelectorAll('.counter:not(.animated)');
+  counters.forEach(c => {
+    const target = parseFloat(c.dataset.target);
+    const decimals = parseInt(c.dataset.decimals || '0');
+    const duration = 1400;
+    const start = performance.now();
+    c.classList.add('animated');
+    function step(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = target * eased;
+      c.textContent = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toLocaleString('no-NO');
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+// Trigger counters when sections enter viewport
+const counterObs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) animateCounters(e.target); });
+}, { threshold: 0.2 });
+document.querySelectorAll('#yir').forEach(el => counterObs.observe(el));
+
+/* ── 26. PDF EXPORT ────────────────────────────────────────── */
+document.getElementById('pdfBtn')?.addEventListener('click', () => {
+  window.print();
+});
 
 /* ── 10. TABLE ──────────────────────────────────────────────── */
 let activeFilter='all', sortCol='date', sortDir=-1, searchQ='';
