@@ -344,6 +344,27 @@ function Final({ onRestart }) {
             onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
           >↺ Ta kurset igjen</button>
 
+          <a href="https://www.evers.no/fra-null-til-investor2/" style={{
+            padding: '16px 36px', borderRadius: '99px',
+            background: 'var(--green)', color: 'white',
+            border: 'none', cursor: 'pointer', textDecoration: 'none',
+            fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: '800',
+            letterSpacing: '0.03em', transition: 'all 0.2s', display: 'inline-block',
+          }}
+            onMouseOver={e => e.currentTarget.style.transform = 'scale(1.03)'}
+            onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          >Del 2: Kom i gang →</a>
+
+          <a href="https://www.evers.no" style={{
+            padding: '16px 36px', borderRadius: '99px',
+            border: '2px solid var(--border)', background: 'transparent',
+            cursor: 'pointer', textDecoration: 'none',
+            fontFamily: 'var(--font-body)', fontSize: '15px',
+            fontWeight: '700', color: 'var(--muted)', transition: 'all 0.2s', display: 'inline-block',
+          }}
+            onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--navy)'; e.currentTarget.style.color = 'var(--navy)'; }}
+            onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--muted)'; }}
+          >← Tilbake til evers.no</a>
 
         </div>
 
