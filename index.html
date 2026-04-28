@@ -32,7 +32,7 @@
 <link rel="preload" href="profile.jpg" as="image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- leaflet css loaded lazily when map is opened -->
 <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=UnifrakturMaguntia&family=Outfit:wght@300;400;600;800&family=Syne:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#e1e7ff;--text:#001233;--accent:#0070ed;--accent2:#6996ff;--accent3:#aabeff;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 4px 30px rgba(0,18,51,0.08);--cursor-size:18px}
@@ -123,11 +123,14 @@
 [data-theme="medieval"] .timeline-fill{background:linear-gradient(to bottom,#c4841d,#d4a54a,#8b6914,#3d2915)}
 [data-theme="medieval"] .timeline-dot{border-color:var(--bg)}
 [data-theme="medieval"]::after{opacity:.06}
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;width:100%;position:relative;line-height:1.6;overscroll-behavior-x:none;-webkit-text-size-adjust:100%}
+img,video,svg{max-width:100%}
+
 /* GRAIN TEXTURE OVERLAY */
 body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
 [data-theme="dark"] body::after{opacity:.04}
+
 /* LOADING SCREEN */
 .loader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease}
 .loader.hidden{opacity:0;visibility:hidden}
@@ -410,12 +413,70 @@ body.bar-active #progress-bar{top:28px}
 [data-theme="dark"] .live-bar{background:#0d1520}
 [data-theme="medieval"] .live-bar{background:#1a0f05}
 [data-theme="medieval"] .live-bar-item .lb-label{font-family:'MedievalSharp','Outfit',sans-serif}
-@media(max-width:768px){.live-bar{gap:1rem;font-size:.6rem;padding:.3rem .5rem}.live-bar .lb-hide-mobile{display:none}nav.scrolled{top:24px}.live-bar~nav{top:24px}}
+@media(max-width:768px){.live-bar~nav{top:24px}}
 
 /* THESIS STATUS */
 .thesis-status{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:50px;font-size:.72rem;font-weight:600;letter-spacing:.5px;margin-top:.8rem;background:rgba(255,180,0,.1);border:1.5px solid rgba(255,180,0,.25);color:#b8860b}
 .thesis-status .status-dot{width:7px;height:7px;border-radius:50%;background:#e6a817;animation:livePulse 2s ease-in-out infinite}
-@media(max-width:768px){.hero-top{flex-direction:column;gap:1.5rem;text-align:center}.hero-img{width:120px;height:120px}.hero-img-wrap{width:128px;height:128px}.about-grid{grid-template-columns:1fr}.about-card.wide{grid-column:span 1}.nav-links{display:none}section{padding:0 1.2rem}.contact-links{flex-direction:column;align-items:center}.thesis-card{grid-template-columns:1fr}.thesis-banner{min-height:120px}.certs-grid{grid-template-columns:1fr 1fr}.cv-grid{grid-template-columns:1fr}.cv-card{grid-template-columns:80px 1fr}.facts-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+.hero-top{flex-direction:column;gap:1.5rem;text-align:center}
+.hero-img{width:120px;height:120px}
+.hero-img-wrap{width:128px;height:128px}
+.about-grid{grid-template-columns:1fr}
+.about-card.wide{grid-column:span 1}
+.nav-links{display:none}
+section{padding:0 1.2rem;max-width:100%}
+.contact-links{flex-direction:column;align-items:center}
+.contact-link{max-width:100%;text-align:center;justify-content:center}
+.thesis-card{grid-template-columns:1fr}
+.thesis-banner{min-height:120px;font-size:3rem}
+.certs-grid{grid-template-columns:1fr 1fr}
+.cv-grid{grid-template-columns:1fr}
+.cv-card{grid-template-columns:80px 1fr}
+.facts-grid{grid-template-columns:1fr 1fr}
+.floating-shapes{display:none}
+.bg-morph{display:none}
+.section-header{padding-top:4.5rem;margin-bottom:2rem}
+.hero h1{font-size:clamp(2.4rem,9vw,3.5rem);letter-spacing:-1px}
+.hero-desc{font-size:1rem}
+.section-title{font-size:clamp(1.7rem,5.5vw,2.4rem);letter-spacing:-.5px}
+.timeline{padding-left:2.2rem}
+.timeline-dot{left:-1.85rem}
+.about-card,.timeline-item{padding:1.7rem}
+.quote-section{padding:2.2rem 1.7rem}
+.quote-mark{left:1rem;top:1rem}
+.fact-flip,.fact-card{padding:1.5rem;min-height:auto}
+.fact-flip .fact-inner{min-height:240px}
+.thesis-body{padding:1.5rem}
+.cv-body{padding:1.2rem}
+.strava-card,.lb-card{padding:1.5rem}
+.btn{padding:.75rem 1.4rem;font-size:.9rem}
+.scroll-top{bottom:1.2rem;right:1.2rem;width:42px;height:42px}
+nav{padding:.7rem 1rem}
+nav.scrolled{padding:.6rem 1rem}
+.nav-right{gap:.6rem}
+.theme-toggle{width:36px;height:36px}
+.lang-btn{padding:.4rem .65rem;font-size:.7rem}
+.share-btn{padding:.55rem 1rem;font-size:.75rem}
+.contact-section{padding-bottom:5rem}
+.live-bar{gap:.7rem;font-size:.6rem;padding:.3rem .5rem;flex-wrap:nowrap;overflow:hidden}
+.live-bar .lb-hide-mobile{display:none}
+nav.scrolled{top:24px}
+}
+@media(max-width:400px){
+section{padding:0 1rem}
+.hero h1{font-size:clamp(2rem,8.5vw,2.8rem)}
+.hero-img{width:100px;height:100px}
+.hero-img-wrap{width:108px;height:108px}
+.facts-grid{grid-template-columns:1fr;gap:1rem}
+.certs-grid{gap:.8rem}
+.cert-card{padding:1.2rem}
+.about-card,.timeline-item{padding:1.4rem}
+.timeline{padding-left:2rem}
+.timeline-dot{left:-1.7rem;width:12px;height:12px}
+.live-bar{gap:.5rem;font-size:.55rem}
+.strava-stat-val{font-size:1.05rem}
+}
 
 /* TWEMOJI — consistent emoji cross-platform */
 img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
@@ -659,7 +720,9 @@ document.getElementById('navLogo').classList.add('visible');
 document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.add('visible')})},900)});
 var progressBar=document.getElementById('progress-bar'),nav=document.getElementById('mainNav'),bgMorph=document.getElementById('bgMorph'),hero=document.getElementById('heroSection'),shapes=document.querySelectorAll('.shape'),timelineFill=document.getElementById('timelineFill'),timelineSection=document.querySelector('#erfaring .timeline');
 var sectionColors=[{id:'om',color:'rgba(0,112,237,0.04)'},{id:'erfaring',color:'rgba(105,150,255,0.04)'},{id:'cv',color:'rgba(0,78,170,0.04)'},{id:'sertifiseringer',color:'rgba(170,190,255,0.05)'},{id:'forskning',color:'rgba(0,18,51,0.03)'},{id:'funfacts',color:'rgba(105,150,255,0.05)'},{id:'kontakt',color:'rgba(0,112,237,0.03)'}];
-function onScroll(){var scrollY=window.scrollY;var maxScroll=document.body.scrollHeight-window.innerHeight;progressBar.style.width=(scrollY/maxScroll*100)+'%';if(scrollY>60)nav.classList.add('scrolled');else nav.classList.remove('scrolled');if(hero){var p=Math.min(scrollY/hero.offsetHeight,1);hero.style.transform='translateY('+scrollY*0.35+'px)';hero.style.opacity=1-p*1.4}shapes.forEach(function(shape){var sy=parseFloat(shape.dataset.speed)||0.04;var sx=parseFloat(shape.dataset.xspeed)||0;var sc=parseFloat(shape.dataset.scale)||0;shape.style.transform='translate('+scrollY*sx+'px,'+scrollY*sy+'px) scale('+(1+scrollY*sc)+')'});if(timelineSection){var rect=timelineSection.getBoundingClientRect();var pct=Math.min(100,Math.max(0,window.innerHeight-rect.top)/(rect.height+window.innerHeight)*140);if(timelineFill)timelineFill.style.height=pct+'%'}var activeColor='rgba(255,255,255,0)';sectionColors.forEach(function(s){var el=document.getElementById(s.id);if(!el)return;var r=el.getBoundingClientRect();if(r.top<window.innerHeight*.5&&r.bottom>0)activeColor=s.color});bgMorph.style.background=activeColor;}
+var isMobile=window.matchMedia('(max-width:768px)').matches;
+window.addEventListener('resize',function(){isMobile=window.matchMedia('(max-width:768px)').matches});
+function onScroll(){var scrollY=window.scrollY;var maxScroll=document.body.scrollHeight-window.innerHeight;progressBar.style.width=(scrollY/maxScroll*100)+'%';if(scrollY>60)nav.classList.add('scrolled');else nav.classList.remove('scrolled');if(hero){var p=Math.min(scrollY/hero.offsetHeight,1);hero.style.transform='translateY('+scrollY*0.35+'px)';hero.style.opacity=1-p*1.4}if(!isMobile){shapes.forEach(function(shape){var sy=parseFloat(shape.dataset.speed)||0.04;var sx=parseFloat(shape.dataset.xspeed)||0;var sc=parseFloat(shape.dataset.scale)||0;shape.style.transform='translate('+scrollY*sx+'px,'+scrollY*sy+'px) scale('+(1+scrollY*sc)+')'})}if(timelineSection){var rect=timelineSection.getBoundingClientRect();var pct=Math.min(100,Math.max(0,window.innerHeight-rect.top)/(rect.height+window.innerHeight)*140);if(timelineFill)timelineFill.style.height=pct+'%'}if(!isMobile){var activeColor='rgba(255,255,255,0)';sectionColors.forEach(function(s){var el=document.getElementById(s.id);if(!el)return;var r=el.getBoundingClientRect();if(r.top<window.innerHeight*.5&&r.bottom>0)activeColor=s.color});bgMorph.style.background=activeColor}}
 (function loop(){onScroll();requestAnimationFrame(loop)})();
 })();
 </script>
@@ -809,6 +872,7 @@ function haptic(pattern){try{if(navigator.vibrate)navigator.vibrate(pattern||[40
 
 /* ═══ KONAMI CODE — UPGRADED ═══ */
 (function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 var pos=0;
 document.addEventListener('keydown',function(e){
@@ -854,6 +918,7 @@ pos=e.key===seq[0]?1:0;
 
 /* ═══ PRINS VALIANT SWORD RAIN ═══ */
 (function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var buf='';
 document.addEventListener('keydown',function(e){
 buf+=e.key.toLowerCase();
@@ -882,6 +947,7 @@ setTimeout(function(){s.remove()},6000);
 
 /* ═══ 3D TILT EFFECT ON CARDS ═══ */
 (function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var cards=document.querySelectorAll('.about-card,.timeline-item,.cert-card,.quote-section,.cv-card,.thesis-card');
 cards.forEach(function(card){
 card.addEventListener('mousemove',function(e){
@@ -900,6 +966,7 @@ setTimeout(function(){card.style.transition=''},500);
 
 /* ═══ TANGEN EASTER EGG → FT ═══ */
 (function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var buf='';var timer;
 document.addEventListener('keydown',function(e){
 buf+=e.key.toLowerCase();
@@ -914,6 +981,7 @@ if(buf.length>6)buf='';
 
 /* ═══ PENGER EASTER EGG ═══ */
 (function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var buf='';var timer;
 document.addEventListener('keydown',function(e){
 if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.isContentEditable)return;
@@ -1040,7 +1108,8 @@ timer=setTimeout(function(){clicks=0},500);
 if(clicks===3){clicks=0;toggleMedieval()}
 });
 
-/* Keyboard "prins" / "prins valiant" trigger */
+/* Keyboard "prins" / "prins valiant" trigger — desktop only (mobile uses triple-click) */
+if(!('ontouchstart' in window||navigator.maxTouchPoints>0)){
 var pBuf='';var pTimer;
 document.addEventListener('keydown',function(e){
 if(e.key.length!==1)return;
@@ -1068,6 +1137,7 @@ sBuf='';
 },800);
 if(sBuf.length>15)sBuf=sBuf.slice(-15);
 });
+}
 
 
 })();
@@ -1104,6 +1174,7 @@ setTimeout(function(){em.remove()},6000);
 
 /* ═══ ALL EASTER EGG TRIGGERS — SINGLE LISTENER ═══ */
 (function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var buf='',timer;
 document.addEventListener('keydown',function(e){
 if(e.key.length!==1)return;
@@ -1182,7 +1253,7 @@ if(buf.length>15)buf=buf.slice(-15);
 });
 })();
 </script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- leaflet js loaded lazily on map open -->
 <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
 <script>
 var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
@@ -1212,11 +1283,25 @@ if(!isIOS)twemoji.parse(document.body,{folder:'svg',ext:'.svg'});
 (function(){
 var mapInitialized=false;
 var mapOpen=false;
+var leafletLoading=null;
+function loadLeaflet(){
+if(leafletLoading)return leafletLoading;
+leafletLoading=new Promise(function(resolve){
+var css=document.createElement('link');
+css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+document.head.appendChild(css);
+var s=document.createElement('script');
+s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+s.onload=resolve;
+document.head.appendChild(s);
+});
+return leafletLoading;
+}
 document.getElementById('mapToggle').addEventListener('click',function(){
 var wrap=document.getElementById('travelMapWrap');
 if(!mapOpen){
 wrap.style.maxHeight='500px';wrap.style.opacity='1';wrap.style.marginTop='1.5rem';
-if(!mapInitialized){setTimeout(initMap,400);mapInitialized=true}
+if(!mapInitialized){mapInitialized=true;loadLeaflet().then(function(){setTimeout(initMap,200)})}
 }else{
 wrap.style.maxHeight='0';wrap.style.opacity='0';wrap.style.marginTop='0';
 }
