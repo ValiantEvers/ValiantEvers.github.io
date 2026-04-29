@@ -154,7 +154,8 @@ function SearchPalette({ data, onClose, onNavigate }) {
       setHighlighted(h => Math.max(h - 1, 0));
     }
     if (e.key === 'Enter' && flatItems[highlighted]) {
-      onNavigate(flatItems[highlighted].module);
+      const item = flatItems[highlighted];
+      onNavigate(item.module, item.id);
       onClose();
     }
   }
@@ -209,7 +210,7 @@ function SearchPalette({ data, onClose, onNavigate }) {
                   <div
                     key={item.id}
                     className={'sp-result' + (highlighted === isFlatIdx ? ' highlighted' : '')}
-                    onClick={() => { onNavigate(item.module); onClose(); }}
+                    onClick={() => { onNavigate(item.module, item.id); onClose(); }}
                     role="option"
                     aria-selected={highlighted === isFlatIdx}
                     onMouseEnter={() => setHighlighted(isFlatIdx)}

@@ -37,11 +37,13 @@ function RecallQuestions({ questions }) {
   );
 }
 
-function TopicsModule({ data, navigateToExam }) {
+function TopicsModule({ data, navigateToExam, pendingTopicNav }) {
   const topics = data.topics || [];
   const exams = data.exams || [];
+  const pendingTopicId = pendingTopicNav?.id;
 
   const [selectedId, setSelectedId] = useState(() => {
+    if (pendingTopicId && topics.find(t => t.id === pendingTopicId)) return pendingTopicId;
     const saved = window.lsGet('gra6546_topic', null);
     return saved && topics.find(t => t.id === saved) ? saved : (topics[0] && topics[0].id) || null;
   });
@@ -49,6 +51,17 @@ function TopicsModule({ data, navigateToExam }) {
   useEffect(() => {
     if (selectedId) window.lsSet('gra6546_topic', selectedId);
   }, [selectedId]);
+
+  // Honour cross-module navigation (mind-map "Read more", search palette result).
+  // pendingTopicNav is {id, key}; depending on the object reference re-fires the
+  // effect even when the same id is requested twice in a row.
+  useEffect(() => {
+    const id = pendingTopicNav?.id;
+    if (id && topics.find(t => t.id === id)) {
+      setSelectedId(id);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [pendingTopicNav]);
 
   const selected = topics.find(t => t.id === selectedId);
 

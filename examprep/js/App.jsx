@@ -6,6 +6,7 @@ const MODULES = [
   { id: 'topics',     label: 'Topics',     subtitle: 'Twelve Exam-Ready Summaries' },
   { id: 'glossary',   label: 'Glossary',   subtitle: 'Terms & Model Walkthroughs' },
   { id: 'timeline',   label: 'Timeline',   subtitle: 'Crises in Chronological Order' },
+  { id: 'mindmap',    label: 'Mind-map',   subtitle: 'Concepts as a Connected Graph' },
   { id: 'flashcards', label: 'Flashcards', subtitle: 'Active Recall' },
   { id: 'quiz',       label: 'Quiz',       subtitle: 'Multiple-Choice & True/False' },
   { id: 'exams',      label: 'Past Exams', subtitle: 'Real Papers with Model Answers' },
@@ -13,8 +14,8 @@ const MODULES = [
 ];
 
 const NUMS = {
-  topics: '01', glossary: '02', timeline: '03', flashcards: '04',
-  quiz: '05', exams: '06', mock: '07',
+  topics: '01', glossary: '02', timeline: '03', mindmap: '04',
+  flashcards: '05', quiz: '06', exams: '07', mock: '08',
 };
 
 function Nav({ module, setModule, onSearch }) {
@@ -81,7 +82,16 @@ function App() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [pendingExamId, setPendingExamId] = useState(null);  // for cross-module navigation
+  // Cross-module navigation requests. Stored as {id, key} so re-navigating to the
+  // same id (e.g. searching the same term twice) still bumps the object reference
+  // and re-fires the consuming module's useEffect.
+  const [pendingExamNav,     setPendingExamNav]     = useState({ id: null, key: 0 });
+  const [pendingGlossaryNav, setPendingGlossaryNav] = useState({ id: null, key: 0 });
+  const [pendingTopicNav,    setPendingTopicNav]    = useState({ id: null, key: 0 });
+
+  function bumpNav(setter, id) {
+    setter(prev => ({ id, key: prev.key + 1 }));
+  }
 
   // Persist active module
   useEffect(() => {
@@ -134,13 +144,20 @@ function App() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  function handleNavigate(mod) {
+  // Used by Search palette: navigate to a module, optionally selecting a specific entry.
+  // Glossary, topics, and exams modules support deep-linking via their pending* nav prop;
+  // other modules just switch without selection.
+  function handleNavigate(mod, id) {
     setModule(mod);
+    if (!id) return;
+    if (mod === 'glossary')    bumpNav(setPendingGlossaryNav, id);
+    else if (mod === 'topics') bumpNav(setPendingTopicNav,    id);
+    else if (mod === 'exams')  bumpNav(setPendingExamNav,     id);
   }
 
   function navigateToExam(examQuestionId) {
     setModule('exams');
-    setPendingExamId(examQuestionId);
+    bumpNav(setPendingExamNav, examQuestionId);
     // Scroll into view + auto-expand handled inside ExamsModule via prop
     setTimeout(() => {
       const el = document.querySelector('[data-q-id="' + examQuestionId + '"]');
@@ -148,9 +165,21 @@ function App() {
     }, 200);
   }
 
+  // Generic cross-module navigator used by the Mind-map "Read more" button
+  function navigateFromMindmap(targetModule, entryId) {
+    if (targetModule === 'glossary') {
+      bumpNav(setPendingGlossaryNav, entryId);
+      setModule('glossary');
+    } else if (targetModule === 'topics') {
+      bumpNav(setPendingTopicNav, entryId);
+      setModule('topics');
+    }
+  }
+
   const TopicsModule     = window.TopicsModule;
   const GlossaryModule   = window.GlossaryModule;
   const TimelineModule   = window.TimelineModule;
+  const MindmapModule    = window.MindmapModule;
   const FlashcardsModule = window.FlashcardsModule;
   const QuizModule       = window.QuizModule;
   const ExamsModule      = window.ExamsModule;
@@ -176,12 +205,13 @@ function App() {
         )}
         {!loading && !error && (
           <>
-            {module === 'topics'     && <TopicsModule     data={data} navigateToExam={navigateToExam} />}
-            {module === 'glossary'   && <GlossaryModule   data={data} />}
+            {module === 'topics'     && <TopicsModule     data={data} navigateToExam={navigateToExam} pendingTopicNav={pendingTopicNav} />}
+            {module === 'glossary'   && <GlossaryModule   data={data} pendingGlossaryNav={pendingGlossaryNav} />}
             {module === 'timeline'   && <TimelineModule   data={data} />}
+            {module === 'mindmap'    && <MindmapModule    data={data} onNavigate={navigateFromMindmap} />}
             {module === 'flashcards' && <FlashcardsModule data={data} />}
             {module === 'quiz'       && <QuizModule       data={data} />}
-            {module === 'exams'      && <ExamsModule      data={data} pendingExamId={pendingExamId} />}
+            {module === 'exams'      && <ExamsModule      data={data} pendingExamNav={pendingExamNav} />}
             {module === 'mock'       && <MockExamModule   data={data} />}
           </>
         )}

@@ -1499,5 +1499,117 @@
     "flashcardBack": "FSA 2009. Six causes: macro-imbalances / innovation / sophisticated maths / procyclicality / wholesale-funding runs / subprime trigger. Set Basel III agenda. Spring 2024 Q3 verbatim.",
     "tags": ["case-studies", "bank-crises"],
     "related": ["procyclicality", "var", "knightian", "leverage-ratio"]
+  },
+  {
+    "id": "emir",
+    "term": "EMIR (European Market Infrastructure Regulation)",
+    "definition": "Reg (EU) 648/2012 (refit by EMIR REFIT 2019). The EU framework for OTC derivatives, central counterparties, and trade repositories. Imposes three obligations: (1) mandatory central clearing through a CCP for standardised OTC derivatives (most IRS in major currencies, certain CDS indices); (2) bilateral risk-mitigation rules including margin posting (IM and VM under the BCBS-IOSCO 2015 framework) for non-cleared OTC derivatives; (3) reporting of all derivative trades to authorised trade repositories. FX swaps and forwards are largely exempt from mandatory clearing. The US equivalent is Dodd-Frank Title VII.",
+    "flashcardBack": "EU OTC-derivatives reg (Reg 648/2012). Three pillars: mandatory CCP clearing for standardised OTC, bilateral IM+VM for non-cleared, trade reporting. FX swaps/forwards mostly exempt from clearing.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["ccp", "novation", "initial-margin", "variation-margin", "dodd-frank-title-vii"]
+  },
+  {
+    "id": "dodd-frank-title-vii",
+    "term": "Dodd-Frank Title VII",
+    "definition": "The US post-2008 framework for OTC derivatives (Wall Street Reform and Consumer Protection Act, 2010, Title VII). Mandates central clearing, exchange or SEF execution, margin requirements for uncleared swaps, and trade reporting for the US derivatives market. Administered jointly by the CFTC (swaps) and SEC (security-based swaps). Substantively similar to EMIR — both implement the G20 Pittsburgh 2009 commitments.",
+    "flashcardBack": "US 2010 reform of OTC derivatives — central clearing + SEF execution + margin + reporting. CFTC/SEC. Counterpart to EU EMIR.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["emir", "ccp", "g20-pittsburgh-2009"]
+  },
+  {
+    "id": "ccp",
+    "term": "Central Counterparty Clearing House (CCP)",
+    "definition": "An entity that interposes itself between the buyer and seller of a derivative contract via novation, becoming the legal counterparty to both. Members face the CCP, not each other — bilateral counterparty credit risk is replaced by exposure to the CCP. The CCP collects initial margin and variation margin from members, runs a default management waterfall (defaulter's IM → defaulter's DF → CCP skin-in-the-game → mutualised member DF → cash calls), and is treated as systemically important market infrastructure under EMIR 2.2. LCH SwapClear is the dominant IRS CCP globally; Eurex Clearing, ICE Clear, and CME Clearing are major peers.",
+    "flashcardBack": "Interposes via novation: buyer↔CCP↔seller. Replaces bilateral counterparty risk with concentrated exposure to CCP. Default waterfall: IM → DF → SIG → mutualised DF → cash calls.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["novation", "emir", "initial-margin", "default-waterfall"]
+  },
+  {
+    "id": "novation",
+    "term": "Novation",
+    "definition": "The legal substitution of one obligation for another, with consent of all parties. In OTC derivatives clearing: the original bilateral contract between two dealers is novated into two new contracts, each with the CCP as counterparty. The two original parties no longer have any legal relationship to each other; both face the CCP. Novation is the legal mechanism that lets a CCP centralise counterparty credit risk.",
+    "flashcardBack": "Legal substitution of one obligation for another. In OTC clearing: original bilateral contract → two contracts vs CCP. The mechanism by which CCPs centralise counterparty risk.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["ccp", "emir"]
+  },
+  {
+    "id": "initial-margin",
+    "term": "Initial Margin (IM)",
+    "definition": "Collateral posted at the inception of a derivative trade, sized to cover potential future exposure under stress over the Margin Period of Risk (MPOR — typically 10 business days). Held by the CCP (for cleared trades) or in segregated accounts at a third-party custodian (for non-cleared, under the BCBS-IOSCO bilateral margin framework). Returned at expiry if no default occurs. Sized using historical simulation or a regulator-approved standardised model (e.g. ISDA SIMM for non-cleared bilateral).",
+    "flashcardBack": "Collateral posted at trade inception covering potential future exposure under stress over MPOR (~10 days). Held by CCP or in segregated custody. Returned if no default. Sized via VaR/SIMM.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["variation-margin", "ccp", "mpor", "emir"]
+  },
+  {
+    "id": "variation-margin",
+    "term": "Variation Margin (VM)",
+    "definition": "Collateral exchanged daily between counterparties (or between member and CCP) based on the mark-to-market change of the derivative position. Settles realised price moves, keeping the net exposure flat. Mandatory for ALL in-scope OTC derivatives under EMIR / Dodd-Frank, whether cleared or not. The 'collateral payment when FX markets move' that drove Norwegian NBFI bond fire sales in March 2020 is the VM mechanism in action.",
+    "flashcardBack": "Daily MtM-driven collateral exchange. Mandatory under EMIR/DF for all in-scope OTC, cleared or not. The mechanism behind the March 2020 NBFI bond fire sales.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["initial-margin", "ccp", "emir", "margining-channel"]
+  },
+  {
+    "id": "mpor",
+    "term": "MPOR — Margin Period of Risk",
+    "definition": "The assumed time horizon over which a counterparty's exposure could move adversely between the last successful margin call and final close-out of a defaulted position. Used to size initial margin. Standard regulatory assumption: 10 business days for non-cleared OTC, 5 days for cleared positions at a CCP. Longer for illiquid products.",
+    "flashcardBack": "Assumed close-out horizon used to size IM. Default: 10 business days non-cleared, 5 days at CCP.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["initial-margin", "ccp"]
+  },
+  {
+    "id": "default-waterfall",
+    "term": "CCP Default Management Waterfall",
+    "definition": "The fixed sequence in which a CCP absorbs losses from a clearing-member default: (1) defaulter's Initial Margin held by the CCP; (2) defaulter's Default Fund (DF) contribution; (3) CCP's own Skin-in-the-Game (a small percentage of the DF); (4) surviving members' DF contributions (mutualised); (5) capped cash calls on surviving members; (6) variation-margin haircuts or partial tear-up as last resort. Designed to make CCP insolvency extremely unlikely while limiting member exposure to mutualised loss.",
+    "flashcardBack": "Defaulter IM → defaulter DF → CCP SIG → mutualised member DF → cash calls → VM haircuts/tear-up.",
+    "tags": ["derivatives-fx", "bank-regulation", "recovery-resolution"],
+    "related": ["ccp", "initial-margin"]
+  },
+  {
+    "id": "sofr",
+    "term": "SOFR (Secured Overnight Financing Rate)",
+    "definition": "USD risk-free rate published by the New York Fed, based on actual overnight repo transactions backed by US Treasuries. Replaced USD LIBOR after panel-bank LIBOR was discontinued — final tenors of USD LIBOR ceased on 30 June 2023. SOFR is overnight, transaction-based, and near-risk-free (no bank credit premium). Term reference rates are constructed by compounding SOFR in arrears. Legacy LIBOR contracts fell back via the ISDA fallback: SOFR + a fixed historical median spread adjustment.",
+    "flashcardBack": "USD RFR replacing LIBOR (final cessation 30 June 2023). NY Fed-published, overnight repo-backed, transaction-based, near-risk-free. Compounded in arrears for term reference.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["libor-transition", "isda-fallback", "rfr"]
+  },
+  {
+    "id": "rfr",
+    "term": "Risk-Free Rate (RFR)",
+    "definition": "An overnight interest-rate benchmark based on actual transactions in collateralised or near-risk-free markets, designed to replace LIBOR-style panel-quoted unsecured rates. Major RFRs: SOFR (USD, repo-backed), ESTR (EUR, ECB), SONIA (GBP), SARON (CHF), TONA (JPY). RFRs are overnight rates compounded in arrears for term reference — they are NOT forward-looking term rates by construction.",
+    "flashcardBack": "Overnight transaction-based benchmarks replacing LIBOR. SOFR/USD, ESTR/EUR, SONIA/GBP, SARON/CHF, TONA/JPY. Compounded in arrears, NOT forward-looking.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["sofr", "libor-transition"]
+  },
+  {
+    "id": "libor-transition",
+    "term": "LIBOR Transition",
+    "definition": "The global migration from panel-quoted LIBOR rates to transaction-based RFRs. Triggered by (i) the 2008–12 LIBOR-rigging scandals, (ii) the post-crisis collapse of unsecured interbank funding volumes that left panel banks effectively guessing, and (iii) regulatory action by the FCA. CHF, GBP, EUR, JPY LIBOR ceased end-2021; USD LIBOR final tenors ceased 30 June 2023. Legacy contracts fell back to the ISDA-defined RFR + median historical spread. The transition rebuilt swap curves, discount curves, ALM systems, and pricing models industry-wide.",
+    "flashcardBack": "Migration from panel LIBOR to transaction RFRs. Drivers: rigging scandals, thin interbank market, FCA action. CHF/GBP/EUR/JPY LIBOR ceased end-2021; USD LIBOR final 30 Jun 2023.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["sofr", "rfr", "isda-fallback"]
+  },
+  {
+    "id": "isda-fallback",
+    "term": "ISDA Fallback",
+    "definition": "The contractual mechanism by which legacy LIBOR-referencing swaps and other ISDA-documented derivatives transition to RFR + spread on LIBOR cessation. The fallback uses the relevant RFR (e.g. SOFR for USD) plus a fixed historical median spread adjustment over a 5-year lookback ending in March 2021. Activated automatically on the cessation date for adhering parties. Solved the legacy-contract repapering problem at scale.",
+    "flashcardBack": "Auto-conversion of legacy LIBOR derivatives to RFR + fixed historical median spread (5y lookback to Mar 2021) on LIBOR cessation. Avoids mass repapering.",
+    "tags": ["derivatives-fx", "bank-regulation"],
+    "related": ["sofr", "libor-transition", "rfr"]
+  },
+  {
+    "id": "dora",
+    "term": "DORA (Digital Operational Resilience Act)",
+    "definition": "EU Regulation 2022/2554, applicable from 17 January 2025. Imposes a unified ICT risk management framework on all EU financial entities (banks, investment firms, insurers, asset managers, CCPs, trade repositories, crypto-asset service providers). Five pillars: (1) ICT risk management; (2) ICT incident reporting (major incidents to authorities within tight deadlines); (3) digital operational resilience testing including TLPT (threat-led penetration testing) for significant entities; (4) ICT third-party risk — direct supervisory powers over critical cloud / IT providers via the new oversight regime; (5) information sharing. A response to the rising material role of cloud providers and cyberattacks; complements but does not replace Basel.",
+    "flashcardBack": "EU Reg 2022/2554, live 17 Jan 2025. Five pillars: ICT risk mgmt / incident reporting / resilience testing (incl. TLPT) / third-party (cloud) oversight / info-sharing. Cyber-resilience for EU financial sector.",
+    "tags": ["bank-regulation"],
+    "related": ["amld6", "basel-iii"]
+  },
+  {
+    "id": "amld6",
+    "term": "AMLD6 + AMLA",
+    "definition": "The 6th Anti-Money Laundering Directive (Directive (EU) 2018/1673) plus the new EU regulation establishing the Anti-Money Laundering Authority (AMLA), based in Frankfurt and operational from mid-2025. AMLA directly supervises the riskiest cross-border banks for AML and CFT (Counter-Financing of Terrorism) compliance, harmonises beneficial-ownership registers, and coordinates national FIUs. KYC (Know Your Customer) due-diligence and reporting obligations are unified across the EU.",
+    "flashcardBack": "EU AML overhaul: AMLD6 (2018) + AMLA in Frankfurt (live mid-2025). Direct supervision of riskiest cross-border banks; harmonised KYC/beneficial-ownership; coordinates FIUs.",
+    "tags": ["bank-regulation"],
+    "related": ["dora"]
   }
 ]
