@@ -3,7 +3,7 @@
     "id": "asymmetric-info",
     "title": "Asymmetric Information",
     "subtitle": "Lecture 1 — Why credit markets don't clear like ordinary goods markets",
-    "examWeight": "Core. Featured every year as a 20-pt essay (May 2025 Q3, Feb 2025 Q1+Q4, May 2024 Q2-implicit, Final 2023 Q3, Final 2022 Q2).",
+    "examWeight": "Core. On every recent paper. FINAL: May 2025 Q3 (20 pts adverse-selection vs moral-hazard essay), Final 2023 Q3, Final 2022 Q2 (Akerlof-style numerical). MID-TERM precedent: Feb 2025 Q1+Q4 (covenants, T/F).",
     "sections": [
       {
         "heading": "The two information problems",
@@ -36,7 +36,7 @@
     "id": "qat",
     "title": "Qualitative Asset Transformation",
     "subtitle": "Lectures 2 & 5 — The bank's economic function and the source of its fragility",
-    "examWeight": "Core. May 2025 Q2 (15 pts), Feb 2024 P2d (10 pts). Recurring framing for liquidity-risk and bank-model questions.",
+    "examWeight": "Core. FINAL: May 2025 Q2 (15 pts — define + societal good + risks/management). Recurring framing for liquidity-risk and bank-model questions on every paper.",
     "sections": [
       {
         "heading": "The five dimensions of transformation",
@@ -68,7 +68,7 @@
     "id": "credit-risk",
     "title": "Credit Risk & IFRS 9 Impairment",
     "subtitle": "Lectures 3–4 — Measurement, provisioning, and balance-sheet implications",
-    "examWeight": "Core, with a numerical question almost guaranteed. May 2025 Q4 (20 pts impairment calc), Feb 2024 Q4–5 (30 pts ratios), feature on every paper.",
+    "examWeight": "Core. A numerical question is almost guaranteed on the FINAL. May 2025 Q4 (20 pts: IFRS 9 impairment calc + book-value reconciliation + lifetime-PD reasoning). T/F on credit quality / IFRS 9 features on every paper.",
     "sections": [
       {
         "heading": "The four parameters",
@@ -178,11 +178,11 @@
       },
       {
         "heading": "Covered Interest Parity (CIP)",
-        "body": "The forward rate is determined by a no-arbitrage condition known as Covered Interest Rate Parity:\n\n  **F = S₀ × (1 + r_quote × t) / (1 + r_base × t)**\n\nwhere t is the tenor in years, r_quote is the interest rate of the quoted (numerator) currency, and r_base is the rate of the base (denominator) currency.\n\n**Intuition.** If quote currency has a higher interest rate, the forward rate must be HIGHER (= more units of quote currency per base currency at maturity) — to compensate the party lending out the high-yielding currency for forgoing the higher rate.\n\n**Swap points** = F − S₀ = the compensation embedded in the exchange rate for the interest-rate differential. Positive when the quote currency has a higher rate."
+        "body": "The forward rate is determined by a no-arbitrage condition known as Covered Interest Rate Parity:\n\n  **F = S₀ × (1 + r_quote × t) / (1 + r_base × t)**\n\nwhere t is the tenor in years, r_quote is the interest rate of the quoted (numerator) currency, and r_base is the rate of the base (denominator) currency.\n\n**Intuition.** If the quote currency has a higher interest rate, the forward rate must be HIGHER (more units of quote currency per base at maturity) — equivalently, the higher-yielding currency depreciates forward and the lower-yielding currency appreciates forward. This compensates the party who LENDS the LOW-yielding currency: they hand it over at spot and get back more of the high-yielding currency at maturity, exactly offsetting the interest they forwent. Without this adjustment, riskless arbitrage would be possible (borrow low-yield currency, swap to high-yield, deposit, swap back).\n\n**Swap points** = F − S₀ = the compensation embedded in the exchange rate for the interest-rate differential. Positive when the quote currency has a higher rate."
       },
       {
         "heading": "Worked example — DKK/NOK 6-month FX swap",
-        "body": "(From May 2024 Q4a and Final 2022 Q3a — same numbers)\n\nGiven: S₀ = 1.65 NOK/DKK, r_NOK = 4% p.a., r_DKK = 2% p.a., tenor = 6 months.\n\n**Step 1.** F = 1.65 × (1 + 0.04 × 0.5) / (1 + 0.02 × 0.5) = 1.65 × 1.02/1.01 = **1.67 NOK/DKK**.\n\n**Step 2.** Swap points = F − S₀ = 1.67 − 1.65 = **0.02 = 2 points (200 pips)**.\n\nIntuition: NOK has the higher rate, so the forward rate compensates the SEK/DKK lender by giving back more NOK than they gave up at spot."
+        "body": "(From May 2024 Q4a and Final 2022 Q3a — same numbers)\n\nGiven: S₀ = 1.65 NOK/DKK, r_NOK = 4% p.a., r_DKK = 2% p.a., tenor = 6 months.\n\n**Step 1.** F = 1.65 × (1 + 0.04 × 0.5) / (1 + 0.02 × 0.5) = 1.65 × 1.02/1.01 = **1.67 NOK/DKK**.\n\n**Step 2.** Swap points = F − S₀ = 1.67 − 1.65 = **0.02 = 2 points (200 pips)**.\n\nIntuition: NOK has the higher rate, so DKK appreciates forward (1 DKK is worth more NOK forward than at spot). This compensates the DKK lender — they hand over 1 DKK at spot and receive more NOK back at maturity, exactly offsetting the lower DKK interest they earn during the swap."
       },
       {
         "heading": "Cross-Currency Basis Swap (CCBS)",
@@ -242,10 +242,100 @@
   },
 
   {
+    "id": "deposit-insurance",
+    "title": "Deposit Insurance",
+    "subtitle": "Lecture 5 — Solving the bank-run problem and the moral hazard it creates",
+    "examWeight": "Core. FINAL: Final 2023 Q2 (NB Guarantee Fund + super-preference, ~20 pts). MID-TERM: Feb 2025 Q3 (NB Guarantee Fund 20 pts). T/F questions on deposit-insurance moral hazard appear on every paper.",
+    "sections": [
+      {
+        "heading": "Why deposit insurance exists — the Diamond–Dybvig problem",
+        "body": "Banks engage in maturity transformation: short-term deposits funding long-term loans. Diamond & Dybvig (1983) showed this creates two equilibria:\n\n• **Good equilibrium.** Only depositors with genuine early liquidity needs withdraw. The bank holds enough cash to meet them; the rest stay invested.\n• **Bad equilibrium (bank run).** Each depositor believes others will withdraw, so they rush to withdraw too. The bank is forced to liquidate long-term assets at fire-sale prices. The run becomes self-fulfilling: the bank fails not because it was insolvent, but because everyone expected it to fail.\n\n**Deposit insurance is the equilibrium-selection mechanism.** By guaranteeing deposits up to a limit, the government removes each depositor's incentive to participate in a run. The bad equilibrium ceases to exist. This was the foundational insight that earned Diamond and Dybvig the 2022 Nobel Prize in Economics."
+      },
+      {
+        "heading": "Coverage: Norway vs the EU",
+        "body": "**Norwegian Banks' Guarantee Fund (Bankenes Sikringsfond).** Guarantees deposits up to **NOK 2 million per customer per bank**. Funded by ex-ante contributions from member banks. Coverage is significantly higher than the EU minimum.\n\n**EU/EEA Deposit Guarantee Schemes Directive (DGSD).** Standard coverage of **€100,000 per depositor per bank**. Member-state schemes are pre-funded by levies on member banks.\n\n**Common features:**\n• Per-customer limit (not per-account) — a depositor with multiple accounts at the same bank is covered up to the single limit, not multiplied per account.\n• Per-bank — if you hold deposits at two separate banks, you're covered up to the limit at each.\n• Coverage is automatic — no claim required.\n• Speed — payouts target completion within 7 working days under DGSD."
+      },
+      {
+        "heading": "The moral hazard cost",
+        "body": "**Deposit insurance creates moral hazard** — and this trade-off is examined on virtually every paper.\n\n• Without insurance, depositors would demand higher rates from risky banks (or move funds to safer ones). This depositor discipline pressures banks to limit risk.\n• **With** insurance (within the limit), depositors are insulated from bank-specific risk. They can hunt for the highest deposit rate without monitoring the bank's behaviour.\n• The bank can therefore take more risk without paying a higher funding cost. The implicit subsidy is paid for by the insurance fund (and ultimately by the public if the fund is exhausted).\n\n**Mitigants — what regulators do to compensate:**\n• **Risk-based premiums.** Member-bank contributions to the fund vary with the bank's risk profile (capital ratios, asset quality). Riskier banks pay more. Partially restores price discipline.\n• **Prudential supervision.** Capital requirements (Basel III), liquidity rules (LCR/NSFR), stress testing, and on-site inspections substitute for depositor monitoring.\n• **Resolution framework.** BRRD ensures that if a bank does fail, losses are absorbed by shareholders and bondholders before deposit insurance is called on.\n\nThe regulatory architecture therefore comes as a package: deposit insurance + risk-based premiums + capital and liquidity rules + resolution framework all interact."
+      },
+      {
+        "heading": "Merton (1977) — deposit insurance as a put option",
+        "body": "Merton's analytical framework (on the supplementary reading list) shows why deposit insurance must be priced carefully:\n\n• Treat bank assets as a stochastic process with volatility σ.\n• Deposit insurance pays out when assets fall below deposits — i.e., it's economically a **put option** on the bank's assets, struck at the face value of deposits.\n• Standard option-pricing logic: the put's value rises with **asset volatility σ** and with **leverage D/A**.\n\n**Implication.** A flat-rate insurance premium (where every bank pays the same percentage of deposits) **underprices risky banks**. Risky banks get an effective subsidy at the expense of safer banks and the insurance fund. This is the analytical basis for risk-based premiums — they restore the option-pricing relationship between premium and underlying risk.\n\nMerton's framework is also why the 1980s S&L crisis happened: deregulation allowed S&Ls to take on more risk; flat-rate FDIC premiums didn't increase to reflect this; the insurance fund absorbed enormous losses."
+      },
+      {
+        "heading": "Super-preference and the Final 2023 question",
+        "body": "Under EU and Norwegian law, **covered deposits sit at the very top of the creditor hierarchy** — they are paid out before all other creditors in liquidation or resolution. This \"super-preference\" protects the deposit-insurance fund itself: when the bank fails, the fund pays out depositors but then steps into the depositors' top-priority position to recover from the bank's estate.\n\n**Final 2023 Q2 asked:** what happens if the deposit-insurance fund's super-preference is removed?\n\n**Consequences:**\n• The fund faces higher loss risk on its claim against the failed bank's estate.\n• Its capacity to finance \"alternative measures\" — using fund money to support resolution rather than just paying out depositors — becomes more constrained, since the fund could lose more if it does end up paying out.\n• **However**, the fund's discretionary capacity to contribute to alternative measures actually INCREASES, because the cap on its contribution (limited to what it would lose paying out) goes up.\n• Depositors outside the guarantee — particularly large corporates with deposits above NOK 2m — see a SIGNIFICANT improvement in their relative ranking (they're no longer behind the super-preferred fund).\n• **Funding behaviour shifts.** Large corporates would prefer placing funds as deposits rather than buying senior bonds issued by the bank — deposits now look safer than they did before."
+      },
+      {
+        "heading": "Recurring exam patterns",
+        "body": "**T/F traps that appear repeatedly:**\n• \"Deposit insurance increases moral hazard\" → **TRUE** (May 2024 Q1c, Final 2022 Q1d, Mid-term 2024 P2b in negated form)\n• \"Deposit insurance mitigates moral hazard\" → **FALSE** (Mid-term 2024 P2b)\n\n**Essay question structure (20 pts):**\n• Define the scheme\n• Discuss implications for THREE stakeholder groups: (i) depositors, (ii) banks, (iii) regulators\n• Be ready to discuss the super-preference variant\n\n**Key facts to memorise:**\n• Norway: NOK 2,000,000 per customer per bank\n• EU: €100,000 per depositor per bank\n• Funded ex-ante by member-bank contributions\n• Risk-based premiums are the standard mitigant for moral hazard\n• Super-preference puts covered deposits at the very top of the creditor hierarchy"
+      }
+    ],
+    "keyTerms": ["Deposit insurance", "Norwegian Banks' Guarantee Fund", "DGSD", "NOK 2 million", "€100,000", "Diamond–Dybvig", "Merton (1977)", "moral hazard", "risk-based premiums", "super-preference", "ex-ante funding", "depositor discipline", "Bagehot's Rule"],
+    "readings": [
+      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "Contemporary Financial Intermediation, ch. 6 (Liquidity Risk) and ch. 12 (Deposit Contract & Shadow Banking, pp 300–312)"},
+      {"author": "Diamond & Dybvig", "year": "1983", "title": "Bank Runs, Deposit Insurance, and Liquidity (motivated 2022 Nobel Prize)", "supplementary": true},
+      {"author": "Merton", "year": "1977", "title": "An Analytic Derivation of the Cost of Deposit Insurance and Loan Guarantees (Journal of Banking and Finance)", "supplementary": true},
+      {"author": "Norwegian Banks' Guarantee Fund", "year": "2024", "title": "The deposit guarantee scheme's guarantee liability"}
+    ],
+    "examQuestions": ["may2025-q1c", "feb2025-q3", "feb2025-q4b", "feb2024-p2b", "may2024-q1c", "final2023-q2", "final2022-q1d"]
+  },
+
+  {
+    "id": "bank-crises",
+    "title": "Bank Crises",
+    "subtitle": "Lecture 6 — From the 1980s S&L crisis to 2008 to 2023",
+    "examWeight": "Core. FINAL: Spring 2024 Q3 (10 pts — 2008 causes + reforms). T/F questions on the 2008 crisis and its mechanics appear on every paper. Norway's 2008 experience (liquidity not solvency) is a recurring T/F trap.",
+    "sections": [
+      {
+        "heading": "The 2008 Global Financial Crisis — six causes (Turner Review)",
+        "body": "The Spring 2024 Q3 grading guide cites the Turner Review's six causes essentially verbatim. Memorise them:\n\n**1. Macro-imbalances.** China's huge current-account surplus suppressed global real interest rates, prompting a hunt for yield and compressed risk premiums.\n\n**2. Financial innovation and shadow banking.** Securitisation, growth of intra-financial-sector assets and liabilities, increased leverage and maturity transformation in the shadow-banking sector (SIVs, conduits, investment banks at 30–50× leverage, money-market funds).\n\n**3. Misplaced reliance on sophisticated maths.** Rating agencies had little experience rating new complex structured products. Their ratings proved poor predictors of risk and were subject to rapid downgrades when the crisis broke.\n\n**4. Procyclicality and interconnectedness.** When ratings were lowered, repo haircuts widened, derivatives margin requirements rose, institutions hit liquidity problems, fire sales added to the problems, and bank solvency came under pressure. Mark-to-market accounting and VaR risk-management amplified the cycle.\n\n**5. Lack of confidence and transparency.** Opacity about embedded risks dried up money-market funding. Credit froze, leading to economic contraction.\n\n**6. The trigger — US subprime.** Housing prices had risen sharply, underwriting standards weakened, subprime mortgages were securitised globally; when the true risk was revealed, confidence evaporated."
+      },
+      {
+        "heading": "Crisis timeline 2007–2009",
+        "body": "Memorise the headline events — they show up in T/F questions, MC questions, and essay context:\n\n• **August 2007.** BNP Paribas suspended redemptions on three ABS funds, citing inability to value assets. Froze European ABCP market overnight. ECB injected €95bn the same day. **Widely regarded as the start of the GFC.**\n• **September 2007.** Northern Rock — UK mortgage lender ~75% wholesale-funded — suffered the first UK bank run in over 140 years. Visible queues outside branches AFTER BoE LOLR support became public. Nationalised February 2008.\n• **March 2008.** Bear Stearns — run on repo funding; counterparties refused to roll. Fed provided $29bn emergency facility (Section 13(3)); JPMorgan acquired at $10/share.\n• **September 15, 2008.** Lehman Brothers files for bankruptcy. $613bn — largest in US history. Triggered global money-market panic; the Reserve Primary Fund \"broke the buck\" the next day. **The decision NOT to rescue Lehman is widely seen as the worst policy mistake of the crisis.**\n• **September 16, 2008.** AIG bailout. AIG Financial Products had sold ~$440bn of CDS protection on structured-credit reference assets. Collateral calls mounted as ratings fell. Fed provided $85bn revolving credit for 79.9% equity stake. Bailout prevented a cascade of CDS losses across global banks.\n• **October 2008.** Coordinated government recapitalisations (TARP in the US; equivalent programmes in UK, EU). Fed activated UNLIMITED dollar swap lines with ECB, BoE, BoJ, SNB — the negative dollar basis collapsed within weeks."
+      },
+      {
+        "heading": "Norway's 2008 experience — liquidity, not solvency",
+        "body": "A recurring T/F trap (e.g. Spring 2024 Q1a): \"The 2008 crisis caused a solvency crisis in the Norwegian banking system.\" → **FALSE.**\n\n• Norwegian banks were well-capitalised entering 2008 (lessons from the early-90s Norwegian banking crisis had been internalised).\n• The 2008 crisis hit Norway through **funding/liquidity** channels, not through asset-side solvency losses.\n• Norwegian banks had wholesale funding exposure (especially in foreign currency); when those markets froze, they faced liquidity strain.\n\n**Norges Bank's response:**\n• Expanded the collateral framework for liquidity provision.\n• **\"Golden Card\" swap arrangement (Bytteordning).** Banks swapped illiquid covered bonds and mortgages for government T-bills. Restored interbank trust. The cost to taxpayers was minimal because the banks repaid.\n• Maintained dollar funding via Fed swap-line access through the ECB.\n\nResult: Norway avoided the worst of the crisis, but the experience drove regulatory tightening (CCyB, systemic-risk buffer, structurally higher capital requirements at DNB)."
+      },
+      {
+        "heading": "Post-2008 regulatory reforms",
+        "body": "The Spring 2024 Q3b answer lists what to know:\n\n• **Basel III.** Implemented in the EU through CRD/CRR. Stricter capital requirements. Buffer capital requirements. New liquidity and funding requirements (LCR + NSFR). Strengthened supervisory powers and cross-border cooperation.\n• **BRRD.** Bank Recovery and Resolution Directive introduced bail-in as the primary tool for failing banks — moves losses from taxpayers to shareholders and creditors.\n• **IFRS 9.** New accounting standard for impairment of financial instruments. More forward-looking; earlier recognition of expected credit losses.\n• **Activity restrictions.** In the US (Dodd-Frank, Volcker Rule) and UK (Vickers ring-fencing), investment-banking activities were partially separated from retail banking.\n• **EMIR / Dodd-Frank derivatives reforms.** Mandatory central clearing of standard derivatives, margin requirements, trade reporting.\n\nMemorise the chain: the cause → the reform. Procyclicality of haircuts/margins → countercyclical buffer + leverage ratio. Off-balance-sheet shadow-banking risk → leverage ratio + LCR + NSFR. Too-big-to-fail → BRRD bail-in + MREL/TLAC. Procyclical loan-loss accounting → IFRS 9."
+      },
+      {
+        "heading": "Earlier crises — Nordic 1988–95, S&L 1980s",
+        "body": "**Nordic banking crisis (1988–95).** Norway, Sweden, Finland all suffered banking-sector collapses after deregulation-driven credit booms.\n\n• **Norway (1988–91).** Deregulation (1984–85) → credit boom in property and shipping. Christiania Bank, Fokus Bank, Den norske Bank all needed state recapitalisation. Government took full ownership of the three largest banks; **shareholders were wiped out completely.** Banks were eventually returned to private hands. Swift, decisive resolution.\n• **Sweden (1991–93).** Riksbank defended krona peg with 500%+ overnight rates → real-estate collapse. NPLs reached ~11% of GDP. Government issued **blanket guarantee** on all bank liabilities + created **bad banks** (Securum, Retriva) for distressed assets. Template for later crisis management.\n• **Finland (1991–95).** Worst of the three. Loss of Soviet export market + fixed exchange rate + post-deregulation credit bubble. Bank losses peaked at ~13% of GDP. Government recapitalised + STS Bank merger.\n\n**1980s US S&L crisis.** Deregulation + flat-rate deposit insurance (Merton trap) + high interest rates → S&Ls became insolvent on a mark-to-market basis but kept open via regulatory forbearance. ~1,000 institutions eventually failed. Direct cost to taxpayers: ~$124bn (FDIC, 1988 history)."
+      },
+      {
+        "heading": "Recent crises — SVB, Credit Suisse, Norwegian intervention (2022–23)",
+        "body": "**Silicon Valley Bank (March 2023).** Long-duration HTM Treasury and MBS portfolio + concentrated uninsured tech-startup deposits. Rising rates → ~$15.9bn unrealised losses on HTM book (DISCLOSED only, not in capital ratios). Failed asset sales triggered loss recognition; social-media-driven run forced regulatory takeover. FDIC invoked the Systemic Risk Exception to guarantee uninsured deposits. Fed launched the BTFP emergency facility.\n\n**Credit Suisse (March 2023).** Years of governance failures and risk-management scandals. Forced merger with UBS by Swiss authorities, with CHF 100bn central-bank liquidity + CHF 9bn loss guarantee. **Controversially, ~CHF 16bn of AT1 hybrid capital was written down to zero while equity holders received UBS shares** — under the terms of the Swiss AT1 contracts but contrary to the standard creditor hierarchy. Repriced AT1 markets globally.\n\n**Sberbank Europe (March 2022).** Sanctions-driven deposit flight after Russia's invasion of Ukraine. Single Resolution Board acted within days using the sale-of-business tool — subsidiaries transferred to local banks, parent wound up.\n\n**Næringsbanken (Norway 2022–23).** Pre-emptive intervention by Finanstilsynet — loan freeze, P2R increase, forced recapitalisation. Resolution avoided through early action."
+      },
+      {
+        "heading": "Bernanke (1983) — non-monetary effects",
+        "body": "Bernanke's 1983 paper, motivating his share of the 2022 Nobel Prize, argues that bank failures during the Great Depression had **non-monetary** real-economy effects beyond Friedman & Schwartz's monetary-contraction story.\n\n**Mechanism:** When banks fail, intermediation services are destroyed. Borrowers — especially small businesses with no public-debt-market access — lose their relationship lenders. Information capital built up over years is wiped out. Even with the same money supply, credit allocation collapses.\n\n**Implication for 2008+:** This is why Lehman's failure triggered such severe real-economy damage. Ivashina & Scharfstein (2010) document the bank-lending contraction empirically: banks reliant on Lehman as a counterparty cut new lending sharply, regardless of borrower quality.\n\n**Implication for policy:** It justifies aggressive central-bank intervention to prevent bank failures, even if doing so creates moral hazard. The cost of letting a systemic bank fail isn't just the depositors who lose money — it's the credit network that takes years to rebuild."
+      }
+    ],
+    "keyTerms": ["Turner Review", "BNP Paribas Aug 2007", "Northern Rock", "Bear Stearns", "Lehman Brothers", "AIG bailout", "Reserve Primary Fund", "Fed dollar swap lines", "Basel III", "BRRD bail-in", "IFRS 9", "Volcker Rule", "Vickers ring-fencing", "Norges Bank Golden Card", "S&L crisis", "Nordic banking crisis", "Securum", "SVB", "Credit Suisse / UBS merger", "AT1 write-down", "Sberbank Europe", "Næringsbanken", "Bernanke 1983", "Ivashina–Scharfstein 2010"],
+    "readings": [
+      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "Contemporary Financial Intermediation, ch. 14 (the 2007–2009 financial crisis and other financial crises)"},
+      {"author": "FDIC", "year": "1988", "title": "A History of the Eighties, Volume I (chapters 4 and 6, pp 211–220)"},
+      {"author": "Norges Bank", "year": "Occasional Paper", "title": "The Norwegian Banking Crisis (pp 1–21)"},
+      {"author": "Turner Review", "year": "2009", "title": "Chapter 1 — What Went Wrong?"},
+      {"author": "IMF", "year": "Occasional Paper 161", "title": "The Nordic Banking Crises", "supplementary": true},
+      {"author": "Marcus", "year": "1984", "title": "Deregulation and Bank Financial Policy (Journal of Banking and Finance)", "supplementary": true},
+      {"author": "Bernanke", "year": "1983", "title": "Non-monetary Effects of the Financial Crisis in the Propagation of the Great Depression (American Economic Review; motivated 2022 Nobel Prize)", "supplementary": true},
+      {"author": "Ivashina & Scharfstein", "year": "2010", "title": "Bank Lending During the Financial Crisis of 2008 (Journal of Financial Economics)", "supplementary": true}
+    ],
+    "examQuestions": ["may2024-q1a", "may2024-q1d", "may2024-q3a", "may2024-q3b", "final2023-q1c", "final2023-q1d", "final2022-q1b"]
+  },
+
+  {
     "id": "bank-resolution",
     "title": "Bank Recovery & Resolution",
     "subtitle": "Lecture 11 — BRRD, bail-in, creditor hierarchy, and MREL",
-    "examWeight": "Core. Featured in EVERY exam — most often as the largest essay question (15–30 pts). Includes capital-ratio + bail-in waterfall calc on May 2025 Q6.",
+    "examWeight": "Core. Featured on every recent FINAL paper as a 15-pt essay+calculation block (May 2025 Q6, May 2024 Q6, Final 2023 Q5, Final 2022 Q4). May 2025 Q6 included a capital-ratio + bail-in waterfall calculation.",
     "sections": [
       {
         "heading": "BRRD — three phases of bank life",
