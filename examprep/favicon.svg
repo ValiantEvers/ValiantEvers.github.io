@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- GRA6546 Exam Prep favicon — editorial serif G in cream on accent-red -->
+  <rect width="32" height="32" rx="4" fill="#C41E2A"/>
+  <!-- Open ring (the C-shape of the G), stroked in cream -->
+  <path d="M 23.25 12.62 A 8 8 0 1 0 23.25 19.38"
+        stroke="#F5EDD8"
+        stroke-width="3.5"
+        fill="none"
+        stroke-linecap="butt"/>
+  <!-- Crossbar: extends inward from the right opening -->
+  <rect x="15" y="15.5" width="9" height="2.75" fill="#F5EDD8"/>
+</svg>
