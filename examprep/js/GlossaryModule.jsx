@@ -126,6 +126,41 @@ function GlossaryModule({ data }) {
   );
 }
 
+function RecallQuestions({ questions }) {
+  const [revealed, setRevealed] = useState(new Set());
+  if (!questions || questions.length === 0) return null;
+
+  function toggle(i) {
+    setRevealed(prev => {
+      const next = new Set(prev);
+      next.has(i) ? next.delete(i) : next.add(i);
+      return next;
+    });
+  }
+
+  return (
+    <div className="recall-section">
+      <hr className="detail-rule" />
+      <div className="label recall-label">Aktiv gjenkalling</div>
+      {questions.map((q, i) => (
+        <div key={i} className="recall-item">
+          <p className="recall-question-text">{q.question}</p>
+          <button
+            className={'recall-reveal-btn' + (revealed.has(i) ? ' revealed' : '')}
+            onClick={() => toggle(i)}
+            aria-expanded={revealed.has(i)}
+          >
+            {revealed.has(i) ? 'Skjul svar' : 'Vis svar'}
+          </button>
+          {revealed.has(i) && (
+            <div className="recall-answer">{q.answer}</div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function EntryDetail({ entry, allEntries, onNavigate }) {
   const isModel = entry._type === 'model';
 
@@ -174,6 +209,8 @@ function EntryDetail({ entry, allEntries, onNavigate }) {
           {entry.flashcardBack}
         </div>
       )}
+
+      <RecallQuestions questions={entry.recall_questions} />
 
       {relatedEntries.length > 0 && (
         <>

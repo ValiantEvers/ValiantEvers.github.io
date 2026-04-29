@@ -1,0 +1,2090 @@
+{
+  "qat": [
+    {
+      "question": "Hvilke fem dimensjoner transformerer banker finansielle krav langs, og hvilken risiko skaper hver dimensjon?",
+      "answer": "Banker transformerer krav langs (1) løpetid — lange aktiva finansiert med korte innskudd, som skaper likviditets- og renterisiko; (2) størrelsesdeling — store lån finansiert av mange småinnskudd; (3) likviditet — illikvide aktiva mot likvide passivaer; (4) kredittrisiko — risikable aktiva omdannet til sikre (innskuddsgaranterte) passivaer; og (5) valuta — utenlandske aktiva finansiert i innenlandsk valuta. Hver transformasjon skaper den tilsvarende risikoen: likviditetsmismatch, renterisiko, valutarisiko og kredittrisiko. QAT forklarer dermed både hvorfor banker eksisterer og hvorfor de trenger regulering."
+    },
+    {
+      "question": "Hva er forskjellen mellom meglervirksomhet (brokerage) og kvalitativ aktivatransformasjon — og hva avgjør om en bank bærer balanserisiko?",
+      "answer": "En megler bringer parter med komplementære behov sammen og mottar et gebyr — megleren tar ikke aktivaene på balansen og bærer ingen risikoeksponering. QAT innebærer at banken holder aktiva som SKILLER seg fra passivaene langs en eller flere dimensjoner, og mismatchen skaper iboende risiko som banken kompenseres for gjennom rentemarginen. Nøkkelimplikasjonen er at dersom banken fullt ut overfører all QAT-relatert risiko til en motpart via swapper eller forwards, reduseres aktiviteten til meglervirksomhet — banken tjener et gebyr, ikke en margin."
+    },
+    {
+      "question": "Hvilke samfunnsmessige goder produserer finansielle mellommenn gjennom QAT, og hvem bærer kostnadene?",
+      "answer": "QAT muliggjør (1) kanalisering av kortsiktig sparing til langsiktige investeringer som fremmer økonomisk vekst; (2) likviditetstilbud — sparere forblir likvide mens låntakere får lang løpetid; (3) risikodeling og diversifisering gjennom profesjonelt overvåkede og spredte porteføljer; og (4) informasjonsproduksjon via delegert overvåking som sparer dupliserte screenigkostnader. Kostnadene er mismatchen mellom aktiva og passivasiden, som skaper likviditetssårbarheter som krever sentralbankens LOLR-rolle, kapital­krav og innskuddsgaranti for å gjøre systemet stabilt."
+    }
+  ],
+  "repo": [
+    {
+      "question": "Hva er en repo-avtale, og hva tilsvarer den økonomisk?",
+      "answer": "En repo er et kortsiktig lånearrangement der en part selger verdipapirer og forplikter seg til å kjøpe dem tilbake til en høyere pris på et avtalt tidspunkt. Prisforskjellen er rentekostnaden. Økonomisk tilsvarer dette et sikret lån."
+    },
+    {
+      "question": "Hvilken rolle spilte repo-markedet i finanskrisen 2007–09?",
+      "answer": "Repo var det primære finansieringsverktøyet for skyggebanksektoren. Da haircuts på strukturerte produkter steg kraftig i 2007–08, frøs repo-markedet — noe Gorton og Metrick beskriver som et klassisk bankrun på skyggebanksystemet."
+    },
+    {
+      "question": "Hva representerer prisforskjellen mellom salgspris og tilbakekjøpspris i en repo?",
+      "answer": "Prisforskjellen utgjør renten på det sikrede lånet."
+    }
+  ],
+  "haircut": [
+    {
+      "question": "Hva er en haircut i sikret utlån, og hva skjer ved en haircut på 10 % på en obligasjon verdt 100?",
+      "answer": "En haircut er et prosentvis rabatt på sikkerhetens markedsverdi. Med 10 % haircut på en obligasjon verdt 100 mottar låntaker bare 90 — de resterende 10 fungerer som buffer mot prisfall."
+    },
+    {
+      "question": "Hvordan fungerte stigende haircuts i 2007–08 som et skyggebankrun?",
+      "answer": "Da haircuts på strukturerte produkter steg kraftig og raskt, ble marginfinansierte aktører tvunget til å selge eiendeler for å dekke marginkrav — tilsvarende massive uttak fra en vanlig bank. Gorton og Metrick kaller dette 'run on repo'."
+    }
+  ],
+  "cds": [
+    {
+      "question": "Hva er en CDS, og hva betaler kjøperen og selgeren henholdsvis?",
+      "answer": "En Credit Default Swap er et derivatkontrakt der kjøper betaler en løpende premie (CDS-spreaden i basispunkter) og mottar en kontingent betaling fra selger dersom referanseenheten opplever en kredittbegivenhet (mislighold, restrukturering)."
+    },
+    {
+      "question": "Hvorfor bidro AIGs CDS-eksponering nær til å velte selskapet i september 2008?",
+      "answer": "AIG hadde solgt beskyttelse (protection seller) på rundt 440 milliarder dollar CDS referert til strukturerte kredittprodukt (MBS/CDO). Da underliggende misligholdsrater steg, måtte AIG stille enorme sikkerhetssummer — tap de ikke hadde kapital til å absorbere."
+    },
+    {
+      "question": "Hva skiller en CDS funksjonelt fra en obligasjonsforsikring?",
+      "answer": "En CDS er et bilateralt derivat der kjøper ikke trenger å eie den underliggende obligasjonen, og kontrakten kan omsettes fritt. Forsikring krever forsikringsinteresse og er regulert som forsikringsprodukt."
+    }
+  ],
+  "siv": [
+    {
+      "question": "Hva er et Structured Investment Vehicle (SIV), og hvordan tjente det penger?",
+      "answer": "Et SIV er en off-balance-sheet enhet sponset av en bank som finansierte seg med kortsiktige ABCP og mellomlange sertifikater, og investerte i langsiktige ABS og CDO. Gevinsten kom fra renteforskjellen mellom kort finansiering og lang investering (løpetidspremien)."
+    },
+    {
+      "question": "Hva utløste sammenbruddet av SIV-markedet i august 2007?",
+      "answer": "BNP Paribas suspenderte innløsninger i tre fond den 9. august 2007 under henvisning til at det var umulig å verdsette MBS-eksponeringene. Dette frøs ABCP-markedet, og SIV-er kunne ikke lenger rulle over sin kortsiktige finansiering."
+    },
+    {
+      "question": "Hvilken problemstilling oppsto for sponsorbankene da ABCP-markedet frøs?",
+      "answer": "Sponsorbankene måtte enten la SIV-ene kollapse — noe som ville skade omdømmet og utløse rettslige krav — eller ta eiendeler tilbake på egne balanser, noe som økte kapitalkravene kraftig."
+    }
+  ],
+  "fx-swap-basis": [
+    {
+      "question": "Hva er en valutabasis (cross-currency basis), og hva sier Covered Interest Parity om den?",
+      "answer": "Valutabasis er avviket fra Covered Interest Parity (CIP): ifølge CIP skal terminpremien tilsvare rentedifferansen, slik at arbitrasje er umulig. En negativ dollar-basis betyr at det er dyrere enn CIP tilsier å låne dollar via FX-swap."
+    },
+    {
+      "question": "Hva inntraff med dollar-basisen i 2008 og 2020, og hva var den viktigste politikkresponsen?",
+      "answer": "Dollar-basisen blåste kraftig ut i begge perioder, noe som reflekterte akutt dollarfinansieringsstress. Den viktigste responsen var Feds sentralbankveksler (swap lines) med utenlandske sentralbanker, som ga dem direkte tilgang til dollar."
+    }
+  ],
+  "lolr": [
+    {
+      "question": "Hva er en sentralbanks rolle som 'lender of last resort', og hva sier Bagehots tre prinsipper?",
+      "answer": "Sentralbanken tilbyr nødlikviditet til solvente men illikvide banker for å hindre at en likviditetskrise utvikler seg til en solvensskrise. Bagehots prinsipper: lån fritt, til straffesats, mot god sikkerhet."
+    },
+    {
+      "question": "Hvilken praktisk utfordring møter sentralbanken i rollen som LOLR?",
+      "answer": "Det er ekstremt vanskelig å skille illikviditet fra insolvens i sanntid under panikk — sentralbanken kan ikke observere den sanne verdien av eiendeler mens krisen pågår."
+    },
+    {
+      "question": "Hvorfor er Bagehots 'straffesats'-prinsipp viktig?",
+      "answer": "Straffesatsen sikrer at banker bare benytter seg av LOLR-fasiliteten i genuin nød, ikke som billig rutinemessig funding — det begrenser moral hazard."
+    }
+  ],
+  "bail-in": [
+    {
+      "question": "I hvilken rekkefølge absorberer parter tap ved en bail-in?",
+      "answer": "Egenkapital → AT1 → Tier 2 → senior usikret gjeld → innskudd. Eiere og hybridkapitaleiere bærer tap først."
+    },
+    {
+      "question": "Hva er formålet med MREL, og hvilke krav stilles til kvalifiserende gjeld?",
+      "answer": "MREL sikrer at en bank har tilstrekkelig bail-in-bar gjeld til å absorbere tap og rekapitalisere uten skattebetalernes midler. Gjelden må være usikret, ha løpetid på minst ett år og ikke være innskuddsforsikret."
+    },
+    {
+      "question": "Hva erstattet bail-in som normen, og hva kaller vi den tidligere praksisen?",
+      "answer": "Bail-in erstattet 'bail-out'-normen fra før krisen, der det var skattebetalerne som dekket tap i en sviktende bank."
+    }
+  ],
+  "mrel": [
+    {
+      "question": "Hva er MREL, og hvem fastsetter kravet?",
+      "answer": "MREL (Minimum Requirement for own funds and Eligible Liabilities) er et BRRD-krav om minimum tap-absorberende og rekapitaliseringskapasitet. Det er bankspesifikt og fastsettes av resolusjonsmyndighetene, uttrykt som andel av total risikoeksponering eller totale forpliktelser."
+    },
+    {
+      "question": "Hvilke tre egenskaper må en forpliktelse ha for å telle som MREL-kvalifiserende?",
+      "answer": "Forpliktelsen må være usikret, ha opprinnelig løpetid på minst ett år, og ikke være innskuddsforsikret."
+    },
+    {
+      "question": "Hva er det amerikanske ekvivalentet til MREL?",
+      "answer": "TLAC — Total Loss-Absorbing Capacity."
+    }
+  ],
+  "inside-outside-money": [
+    {
+      "question": "Hva skiller inside money fra outside money, og gi ett eksempel på hver.",
+      "answer": "Outside money er krav mot en enhet utenfor privat sektor (f.eks. sentralbankreserver og sedler). Inside money er krav mot en privat aktør (f.eks. bankinnskudd). Inside money nuller ut på tvers av privat sektor; outside money gjør det ikke."
+    },
+    {
+      "question": "Hvem skaper inside money, og hvordan?",
+      "answer": "Kommersielle banker skaper inside money når de yter lån — begge sider av bankbalansen utvides simultant. Det er ikke sentralbanken som 'trykker' inside money."
+    }
+  ],
+  "deposit-insurance": [
+    {
+      "question": "Forklar Diamond–Dybvig-modellens to likevekter — og hvorfor er innskuddsgaranti et likevekts­seleksjons­mekanisme, ikke kun et sikkerhetsnet?",
+      "answer": "Banker driver løpetidstransformasjon: kortsiktige innskudd finansierer langsiktige lån. Diamond & Dybvig (1983) viste at dette gir to likevekter: (1) God likevekt — kun innskytere med genuine likviditetsbehov tar ut, banken overlever. (2) Dårlig likevekt (bankrun) — hver innskyter tror andre vil ta ut, og det er rasjonelt å rush til skranken; banken tvinges til brannsal av langsiktige aktiva og mislykkes — ikke pga. insolvens, men fordi alle forventet det. Innskuddsgarantien fjerner insentivene for å delta i runet: garanterte innskudd trenger ikke beskyttes ved hastig uttak, og dermed eksisterer ikke lenger den dårlige likevekten."
+    },
+    {
+      "question": "Hva er Mertons (1977) put-opsjon-rammeverk for prising av innskuddsgaranti, og hvilken politikk­implikasjon følger av det?",
+      "answer": "Merton viste at innskuddsgaranti er økonomisk ekvivalent med en salgsopsjon på bankens aktiva, med utøvelsespris lik innskuddenes pålydende: garantien «slår inn» når aktiva faller under gjeld. Som for enhver salgsopsjon øker verdien med aktivavolatilitet (σ) og gjeldsgrad (D/A). Konsekvensen er at en flat garantipremie (like prosent av innskudd for alle banker) subsidiert de risikable bankene — de får for billig forsikring. Dette er det analytiske grunnlaget for risikobaserte premier: mer risikable banker bør betale mer for å gjenskape riktig prising av den underliggende risikoen, slik S&L-krisen på 1980-tallet illustrerte ved flat FDIC-prising kombinert med deregulering."
+    },
+    {
+      "question": "Hva skjer med innskuddsgarantifondet og ulike kreditorer dersom super-preferansen for dekkede innskudd fjernes?",
+      "answer": "Med super-preferanse betales dekkede innskudd foran alle andre kreditorer i likvidasjon; fondet trer deretter inn i innskyternes topp­prioriterte posisjon for å gjenvinne fra konkursboet. Uten super-preferanse eksponeres fondet for høyere tap på sitt krav — kapasiteten til å finansiere «alternative tiltak» (bruk av fondsmidler til resolution i stedet for utbetaling) blir mer begrenset. Paradoksalt nok øker fondets diskresjonære bidragstak (som er begrenset til forventet utbetalingstap), fordi tapstaket stiger. Store bedriftsinnskytere over garantigrensen (NOK 2 mill.) får en vesentlig bedret relativ rangeringsposisjon — og vil foretrekke innskudd fremfor senior obligasjoner i banken."
+    }
+  ],
+  "mbs": [
+    {
+      "question": "Hva er et MBS, og hva skiller agency MBS fra private-label MBS?",
+      "answer": "Et Mortgage-Backed Security er en obligasjon sikret av en pool boliglån. Agency MBS (Fannie Mae, Freddie Mac, Ginnie Mae) bærer implisitt eller eksplisitt statsgaranti. Private-label MBS (subprime og alt-A) hadde ingen statsgaranti; AAA-ratingene var basert på modeller med feilaktige boligprisforutsetninger."
+    },
+    {
+      "question": "Hvorfor var private-label subprime MBS kjernen i finanskrisen?",
+      "answer": "Rating-modellene som ga AAA til disse papirene antok at boligprisene aldri ville falle nasjonalt samtidig. Da prisene kollapset i 2006–07, led de 'trygge' tranchene massive tap, noe som spredte seg gjennom hele det finansielle systemet."
+    }
+  ],
+  "cdo": [
+    {
+      "question": "Hvordan er en CDO strukturert, og hva er forskjellen mellom senior- og egenkapitaltransjen?",
+      "answer": "En CDO pooles kredittrisikable eiendeler og utsteder trancher med ulik senioritet. Seniortransjen (typisk AAA) bærer tap sist; egenkapitaltransjen (first loss) bærer tap først og får høyest avkastning som kompensasjon."
+    },
+    {
+      "question": "Hva er en CDO-squared, og hvilken risiko skjulte den?",
+      "answer": "En CDO-squared pooles BBB-transjene fra MBS-CDO-er i en ny CDO, noe som skapte store volumer syntetisk AAA fra i bunn og grunn subprime-sikkerhet. Kompleksiteten skjulte korrelasjonsrisiko som modellene systematisk undervurderte."
+    }
+  ],
+  "asymmetric-information": [
+    {
+      "question": "Hva er asymmetrisk informasjon i kredittmarkeder, og hvilke to friksjoner oppstår av det?",
+      "answer": "Asymmetrisk informasjon betyr at låntaker vet mer om sin tilbakebetalingsevne og -vilje enn långiver. Dette gir opphav til to friksjoner: ugunstig utvalg (adverse selection) — skjult informasjon før kontrakt — og moralsk hasard (moral hazard) — skjult handling etter kontrakt."
+    },
+    {
+      "question": "Hvorfor eksisterer banker delvis på grunn av asymmetrisk informasjon?",
+      "answer": "Banker spesialiserer seg på å dempe kostnadene ved begge friksjoner gjennom screening (før lån) og overvåking (etter lån), noe som er mer effektivt enn at mange små sparere gjør dette individuelt."
+    }
+  ],
+  "adverse-selection": [
+    {
+      "question": "Hva er adverse selection i kredittmarkeder, og hvordan leder det til likviditetsrasjonering?",
+      "answer": "Adverse selection er et ex-ante informasjonsproblem: banken kan ikke skille høy- fra lavrisiko-låntakere. Ved poolet prising forlater lavrisiko-låntakere markedet; poolen forverres. Ifølge Stiglitz–Weiss er bankens forventede avkastning ikke-monoton i renten — over r* faller avkastningen, og banken rasjonerer kvantum fremfor å heve prisen."
+    },
+    {
+      "question": "Hva er 'lemons-problemet', og hvordan knytter det seg til adverse selection i kreditt?",
+      "answer": "Akerlofs lemons-problem: kjøpere priser til gjennomsnittet; selgere av høy kvalitet trekker seg ut; kun 'lemons' gjenstår og markedet kan bryte sammen. I kreditt: bankens poolpris driver lavrisiko-låntakere ut, slik at porteføljen domineres av høyrisiko-låntakere."
+    }
+  ],
+  "moral-hazard": [
+    {
+      "question": "Hva er moral hazard i banksammenheng, og gi to eksempler.",
+      "answer": "Moral hazard er et ex-post skjult handlingsproblem: en part tar mer risiko fordi de ikke bærer full ulempe. Eksempler: (1) en låntaker omdirigerer låneprovenyet til et risikoabelt prosjekt etter utbetaling; (2) en innskuddsforsikret bank tar overdreven risiko fordi tap delvis sosialiseres."
+    },
+    {
+      "question": "Hva er de viktigste virkemidlene for å dempe moral hazard i utlån?",
+      "answer": "Overvåking, låneavtaler (covenants), pantesikkerhet (skin in the game) og kapitalkrav (egenandel) — alle reduserer beskyttelse mot konsekvenser og gjenoppretter insentivtilpasning."
+    }
+  ],
+  "akerlof-lemons": [
+    {
+      "question": "Hva er Akerlofs sentrale mekanisme i lemons-modellen (1970)?",
+      "answer": "Kjøpere kan ikke observere kvalitet, og priser derfor til gjennomsnittlig kvalitet. Selgere av høy kvalitet finner prisen for lav og trekker seg ut; gjenstående pool forverres; i ytterste konsekvens kollapser markedet og bare 'lemons' omsettes."
+    },
+    {
+      "question": "Hva er de tre løsningene Akerlof-litteraturen identifiserer for lemon-problemet?",
+      "answer": "Garantier (warranties) som ikke-dissipative signaler, omdømmemekanismer, og sertifisering fra uavhengig tredjepart — alle gjør det mulig å skille høy- fra lavkvalitet."
+    }
+  ],
+  "stiglitz-weiss": [
+    {
+      "question": "Hvorfor er bankens forventede avkastning ikke-monoton i lånerenten ifølge Stiglitz–Weiss?",
+      "answer": "Over en kritisk rente r* skjer to ting simultant: (1) trygge låntakere forlater markedet (adverse selection — poolen forverres), og (2) gjenværende låntakere tar mer risikable prosjekter (moral hazard). Begge effektene reduserer bankens forventede avkastning."
+    },
+    {
+      "question": "Hva innebærer Stiglitz–Weiss-likevekten for kredittmarkedet?",
+      "answer": "Banker rasjonerer mengden kreditt ved r* fremfor å heve renten videre. Likevektsrasjonering av kreditt oppstår fra informasjonsfriksjoner — markedet rydder ikke slik Walras forutsetter."
+    }
+  ],
+  "credit-rationing": [
+    {
+      "question": "Hva er kredittrasjonering, og hva skiller det fra ordinær markedslikevekt?",
+      "answer": "Kredittrasjonering er et likevektsutfall der noen låntakere nektes kreditt til den profittmaksimerende renten — selv om de er villige til å betale mer. Det skiller seg fra markedsklarering fordi høyere rente ville forverret utlånsporteføljen og redusert bankens avkastning (Stiglitz–Weiss)."
+    },
+    {
+      "question": "Hva betyr kredittrasjonering for muligheten til å løse en kredittkrise ved å heve renter?",
+      "answer": "Stiglitz–Weiss viser at høyere renter ikke løser en kredittkrise — de forverrer porteføljekvaliteten og kan vedlikeholde rasjonering selv over lang tid. Tilbudet er fallende i renten over r*."
+    }
+  ],
+  "delegated-monitoring": [
+    {
+      "question": "Hva er 'delegated monitoring' (Diamond 1984), og hvilke to egenskaper ved banker muliggjør det?",
+      "answer": "Banker overvåker låntakere på vegne av mange små sparere — sparerne 'delegerer' overvåkingen. Stordriftsfordeler i overvåking og diversifisering på tvers av lån gjør bankens løfte til innskytere troverdig uten at disse selv trenger å overvåke."
+    },
+    {
+      "question": "Hva er det grunnleggende argumentet for at bankformidling dominerer direkte utlån?",
+      "answer": "Uten bank måtte hver sparer overvåke hver låntaker — dupliserte kostnader. Banken konsoliderer overvåkingen og diversifiserer, noe som reduserer totale informasjonskostnader i systemet."
+    }
+  ],
+  "screening-monitoring": [
+    {
+      "question": "Hva er forskjellen mellom screening og overvåking (monitoring) i bankutlån?",
+      "answer": "Screening er ex-ante: banken identifiserer låntakerkvalitet FØR lån gis (kredittscoring, due diligence) — demper adverse selection. Overvåking er ex-post: banken observerer låntakers atferd ETTER utbetaling (covenant-sporing, rapportering) — demper moral hazard."
+    },
+    {
+      "question": "Hvilken informasjonsfrikt dempet henholdsvis screening og overvåking?",
+      "answer": "Screening demper adverse selection (skjult informasjon, pre-kontrakt). Overvåking demper moral hazard (skjult handling, post-kontrakt)."
+    }
+  ],
+  "covenants": [
+    {
+      "question": "Nevn de seks standardklassene av lånecovenants.",
+      "answer": "Affirmative (plikt til å handle), Negative (forbud mot visse handlinger), Finansielle (opprettholde nøkkeltall), Operasjonelle (begrense forretningsaktiviteter), Rapportering (levere data til avtalt tid), og Misligholdsutløser (Event of Default)."
+    },
+    {
+      "question": "Hvilken informasjonsfrikt er covenants primært utformet for å dempe, og hvordan?",
+      "answer": "Covenants demper moral hazard ved å begrense låntakers handlingsrom etter at lån er utbetalt — de kan ikke ta overdreven risiko, betale ulovlige utbytter eller selge eiendeler uten bankens samtykke."
+    },
+    {
+      "question": "Hva er et 'Event of Default'-covenant, og hva utløser det?",
+      "answer": "Et Event of Default-covenant definerer hendelser som gir banken rett til å kreve umiddelbar innfrielse: mislighold av betaling, kryss-mislighold (cross-default), insolvens eller vesentlig brudd på andre covenants."
+    }
+  ],
+  "waiver": [
+    {
+      "question": "Hva er en waiver (fravikelse) av et covenant-brudd, og hva er de typiske grunnene til å innvilge det?",
+      "answer": "En waiver er bankens valg om ikke å håndheve sine rettigheter etter et covenant-brudd. Typiske grunner: bruddet er mindre eller midlertidig, låntaker er grunnleggende levedyktig, håndhevelse ville krystallisere større tap enn tålmodighet, eller waiver er et forspill til reforhandling."
+    },
+    {
+      "question": "Hva er viktig å merke seg om en waiver juridisk og praktisk?",
+      "answer": "En waiver fjerner ikke selve bruddet fra historikken og kan gjøres betinget av korrigerende tiltak. Den suspenderer rettsmidler, men endrer ikke avtalevilkårene med mindre det skjer en formell endring."
+    }
+  ],
+  "collateral-signal": [
+    {
+      "question": "Hvordan demper pantsikkerhet BÅDE adverse selection og moral hazard?",
+      "answer": "Mot adverse selection: høyrisiko-låntakere er mindre villige til å stille sikkerhet fordi de forventer å tape den — panting er derfor et kvalitetssignal. Mot moral hazard: låntakeren har mer å tape ('skin in the game') og gjenoppretter insentivene til å unngå risikofylte prosjekter."
+    },
+    {
+      "question": "Hva gjør pantsikkerhet til det kanoniske virkemiddelet mot informasjonsfriksjoner?",
+      "answer": "Det er det eneste enkeltverktøyet som adresserer begge informasjonsfriksjoner — adverse selection (pre-kontrakt) og moral hazard (post-kontrakt) — simultant."
+    }
+  ],
+  "signalling-separating": [
+    {
+      "question": "Hva er en separerende likevekt, og hva kreves for at et signal skal fungere?",
+      "answer": "En separerende likevekt er en likevekt der ulike typer avslører sin sanne kvalitet gjennom en observerbar handling. Signalet fungerer bare hvis IC-betingelsen (incentive compatibility) er oppfylt: lavkvalitetstyper må finne det for kostbart å etterligne høykvalitetstypen."
+    },
+    {
+      "question": "Gi et eksempel på et signal som oppfyller IC-betingelsen.",
+      "answer": "Akerlofs garanti: høykvalitetsselgere tilbyr garanti billig fordi de forventer ingen utbetalinger; lavkvalitetsselgere har ikke råd til den samme garantien fordi de vet at produktet er dårlig. IC holder — etterligning er for dyrt."
+    }
+  ],
+  "dissipative-signal": [
+    {
+      "question": "Hva er forskjellen mellom et dissipativt og et ikke-dissipativt signal?",
+      "answer": "Et ikke-dissipativt signal bevarer totaloverskuddet — f.eks. en kostnadsfri garanti som bare høykvalitetsselgere troverdig kan tilby. Et dissipativt signal ødelegger overskudd — f.eks. kostbar utdanning i Spences modell, som ikke har produktiv verdi men avslører type."
+    },
+    {
+      "question": "Kan et dissipativt signal likevel være samfunnsøkonomisk verdifullt?",
+      "answer": "Ja, hvis alternativet er fullstendig markedssvikt (kun lemons omsettes). Signalering kan da bevare handel på tross av tap, men det er et nest-best utfall."
+    }
+  ],
+  "diamond-dybvig": [
+    {
+      "question": "Hva er de to likevektene i Diamond–Dybvig-modellen (1983)?",
+      "answer": "Den gode likevekten: bare de med genuine likviditetsbehov tar ut tidlig — banken er stabil. Den dårlige likevekten: alle tar ut fordi alle forventer at alle andre tar ut — et selvoppfyllende bankrun oppstår, uavhengig av bankens solvens."
+    },
+    {
+      "question": "Nevn de tre løsningene Diamond–Dybvig foreslår for å eliminere den dårlige likevekten.",
+      "answer": "Innskuddsforsikring, 'lender of last resort' (sentralbanklikviditet), og midlertidig suspensjon av konvertibilitet."
+    },
+    {
+      "question": "Hva er den fundamentale kilden til bankers sårbarhet i Diamond–Dybvig?",
+      "answer": "Innskudd er likvide og kan kreves tilbake umiddelbart, mens bankens eiendeler er illikvide langsiktige investeringer — løpetidsmismatch skaper det multiple likevektproblemet."
+    }
+  ],
+  "suspension-convertibility": [
+    {
+      "question": "Hva er suspensjon av konvertibilitet, og hvordan løser det bankrun-problemet i Diamond–Dybvig?",
+      "answer": "Banken nekter midlertidig å innfri uttak over en terskel. Dette fjerner det strategiske insentivene til å ta ut tidlig — siden store uttak uansett ikke lar seg gjennomføre, forsvinner frykten for å stå igjen uten penger."
+    },
+    {
+      "question": "Hva er den viktigste ulempen med suspensjon av konvertibilitet?",
+      "answer": "Den skader innskytere med genuine likviditetsbehov som ikke kan gjennomføre legitime uttak i suspensjonsperioden, og svekker bankens omdømme på lang sikt."
+    }
+  ],
+  "bank-charter-value": [
+    {
+      "question": "Hva er bankens charterverdi (charter value), og hvorfor demper den risikoatferd?",
+      "answer": "Charterverdi er nåverdien av fremtidige økonomiske renter fra bankfranchisen (relasjonskapital, betalingssystemtilgang, regulert inngangsvern). Insolvens medfører tap av charteren — bankene har dermed endogen interesse av å begrense risikotaking."
+    },
+    {
+      "question": "Hva forklarer Marcus (1984) om sammenhengen mellom charterverdi og S&L-krisen?",
+      "answer": "Deregulering av de amerikanske spareinstitusjoner (thrifts) på tidlig 1980-tall komprimerte charterverdi. Med lav charterverdi — og lite å tape — tok thriftene overdreven risiko, noe som var en nøkkelårsak til S&L-krisen."
+    }
+  ],
+  "brokerage-vs-qat": [
+    {
+      "question": "Hva er den grunnleggende forskjellen mellom meglermodellen og QAT-modellen for finansiell formidling?",
+      "answer": "I meglermodellen kobles sparer og låntaker uten at mellomleddet tar eiendeler på egen balanse — mellomleddet bærer ingen kreditt-, likviditets- eller renterisiko. I QAT-modellen holder banken mismatched eiendeler og gjeld på egen balanse og bærer de resulterende risikoene mot å tjene spreaden."
+    },
+    {
+      "question": "Hvorfor bærer banker tyngre regulatorisk byrde enn rendyrkede meglere?",
+      "answer": "Fordi bankenes regulatoriske byrde følger av QAT — at de holder mismatched balanser — ikke av meglerfunksjonen. Mismatch skaper systemisk sårbarhet (bankrun, smitte) som krever regulatorisk innramming."
+    }
+  ],
+  "nii-nim": [
+    {
+      "question": "Hva er NII og NIM, og hva er typisk NIM-nivå for banker i utviklede markeder?",
+      "answer": "NII (netto renteinntekt) = renteinntekter på eiendeler minus rentekostnader på gjeld. NIM = NII / gjennomsnittlige rentebærende eiendeler, typisk 0,5–2 % i utviklede markeder."
+    },
+    {
+      "question": "Hva skjer med NIM når rentekurven flates ut?",
+      "answer": "NIM komprimeres fordi banken tjener løpetidspremien (langsiktige renter minus kortsiktige) — en flatere kurve reduserer denne premien direkte."
+    }
+  ],
+  "roa-roe-dupont": [
+    {
+      "question": "Hva er DuPont-oppdelingen av ROE, og hva er dens implikasjon for banker?",
+      "answer": "ROE = ROA × egenkapitalmultiplikator (totaleiendeler / egenkapital). Banker har lav ROA (typisk <1–2 %) men oppnår tosifret ROE fordi egenkapitalmultiplikatoren typisk er 10–20×."
+    },
+    {
+      "question": "Hva antyder en egenkapitalmultiplikator på 30–50× om risikoprofilen?",
+      "answer": "Det indikerer ekstremt høy gjeldsgrad — en liten prosentvis nedgang i eiendelsverdiene er nok til å utslette hele egenkapitalen. Investeringsbanker drev med slike multiplikatorer før 2008."
+    }
+  ],
+  "cost-to-income": [
+    {
+      "question": "Hva måler kostnad-til-inntekts-raten (C/I), og hva er normen for effektive banker?",
+      "answer": "C/I = driftskostnader / driftsinntekter (NII + gebyrer + handel). Under ca. 50 % regnes som effektivt; nordiske banker opererer typisk på 40–50 %."
+    },
+    {
+      "question": "Hvilke faktorer driver C/I opp, og hva driver den ned?",
+      "answer": "Kostnadsintensive filialnett og lav skalering driver C/I opp. Teknologisk skalering og digitale distribusjonskanaler driver den ned."
+    }
+  ],
+  "deposit-to-loan": [
+    {
+      "question": "Hva måler Loan-to-Deposit-raten (LDR), og hva betyr en LDR over 100 %?",
+      "answer": "LDR = utlån / innskudd. Over 100 % betyr at banken finansierer mer utlån enn den har innskudd — resten er engrosfinansiering. Dette er et likviditetssårbarhetssignal (jf. SVB, Northern Rock)."
+    },
+    {
+      "question": "Hvorfor er engrosfinansiering mer ustabil enn innskuddsfinansiering?",
+      "answer": "Engrosinvestorer er mer sofistikerte og refinansierer ikke automatisk — ved usikkerhet om bankens soliditet kan de nekte å rulle over lån, noe som utløser likviditetskrise (Northern Rock 2007)."
+    }
+  ],
+  "npl": [
+    {
+      "question": "Hva er et misligholdt lån (NPL), og hva er NPL-raten?",
+      "answer": "NPL er lån som er mer enn 90 dager på etterskudd eller som er usannsynlig å bli tilbakebetalt fullt ut — tilsvarer omtrent IFRS 9 Trinn 3. NPL-rate = NPL / totale utlån."
+    },
+    {
+      "question": "Hva er de regnskapsmessige konsekvensene av at et lån klassifiseres som NPL?",
+      "answer": "NPL utløser levetids-ECL-avsetning (Trinn 3 under IFRS 9) og renteinntekter beregnes på netto (ikke brutto) balanseført beløp. Kapitalkonsumpsjon øker via spesifikke nedskrivninger."
+    }
+  ],
+  "ifrs9": [
+    {
+      "question": "Hva er de to viktigste innovasjonene IFRS 9 introduserte da det erstattet IAS 39 i 2018?",
+      "answer": "1) Klassifisering av finansielle instrumenter styrt av forretningsmodell og SPPI-test (til amortisert kost, FVOCI eller FVTPL). 2) Fremoverskuende Expected Credit Loss (ECL)-nedskrivning som erstattet IAS 39s 'incurred loss'-modell."
+    },
+    {
+      "question": "Hva betyr 'forretningsmodell-test' under IFRS 9?",
+      "answer": "Bankens hensikt med å holde instrumentet avgjør klassifisering: 'hold for å motta kontantstrømmer' → amortisert kost; 'hold og selg' → FVOCI; alt annet → FVTPL."
+    }
+  ],
+  "ecl": [
+    {
+      "question": "Hva er formelen for Expected Credit Loss (ECL), og hva inkluderes i henholdsvis 12-måneds og levetids-ECL?",
+      "answer": "ECL = EAD × PD × LGD. 12-måneds ECL (Trinn 1) bruker PD over neste år. Levetids-ECL (Trinn 2 og 3) dekker hele forventet gjenværende løpetid av eksponeringen."
+    },
+    {
+      "question": "Hvorfor erstattet ECL IAS 39s incurred-loss-modell?",
+      "answer": "Incurred-loss-modellen krevde objektiv evidens for tap som allerede hadde inntruffet, noe som forsinket tapserkjennelse inn i nedgangskonjunkturen og forsterket prosyklikalitet. ECL er fremoverskuende og sannsynlighetsvektet over scenarioer."
+    }
+  ],
+  "ifrs9-stages": [
+    {
+      "question": "Beskriv de tre IFRS 9-trinnene og hva som skiller dem med hensyn til avsetning og renteinntekt.",
+      "answer": "Trinn 1 (friske lån): 12-måneds ECL, rente beregnes på brutto beløp. Trinn 2 (SICR siden etablering, ikke kredittskadet): levetids-ECL, rente fortsatt på brutto. Trinn 3 (kredittskadet ≈ NPL): levetids-ECL, rente beregnes på netto (fratrukket avsetning)."
+    },
+    {
+      "question": "Er overgangene mellom IFRS 9-trinnene enveiskjørte?",
+      "answer": "Nei, bevegelse er toveis — et lån kan kureres fra Trinn 2 til Trinn 1 dersom kredittrisikoen forbedres tilbake til nivå ved etablering. Kuring fra Trinn 3 er tillatt men underlagt konservative regler."
+    }
+  ],
+  "sicr": [
+    {
+      "question": "Hva er SICR (Significant Increase in Credit Risk), og hva er den primære driveren for SICR-vurderingen?",
+      "answer": "SICR er IFRS 9-utløseren som flytter en eksponering fra Trinn 1 til Trinn 2. Den primære driveren er endringer i PD siden etableringstidspunktet, supplert av kvalitative indikatorer som overvåkingsliste, forbearance og betalingsatferd."
+    },
+    {
+      "question": "Utløser forverret panteverdi alene SICR?",
+      "answer": "Nei — forverret panteverdi alene utløser IKKE SICR under IFRS 9. SICR er knyttet til endret misligholdsannsynlighet (PD), ikke til sikkerhetens verdi. Dette er en klassisk T/F-felle (testet i Feb 2025 Q4(e))."
+    }
+  ],
+  "ias39": [
+    {
+      "question": "Hva var 'incurred-loss'-modellen under IAS 39, og hva var dens kritiserte svakhet?",
+      "answer": "IAS 39 krevde at avsetninger bare ble gjort når det forelå objektiv evidens for at tap allerede hadde inntruffet. Svakheten var at tapserkjennelse kom for sent — banken så sunn ut på vei ned og erkjente tap først midt i lavkonjunkturen, noe som forsterket prosyklikalitet."
+    },
+    {
+      "question": "Hva erstattet IAS 39, og i hvilken år?",
+      "answer": "IFRS 9 erstattet IAS 39 fra 2018 med en fremoverskuende ECL-modell."
+    }
+  ],
+  "afs": [
+    {
+      "question": "Hva er AFS (FVOCI)-klassifisering under IFRS 9, og hvor havner urealiserte gevinster og tap?",
+      "answer": "AFS (Fair Value through Other Comprehensive Income) gjelder gjeldsinstrumenter holdt under 'hold-to-collect-and-sell'-modellen. Virkelig verdi på balansen, men urealiserte gevinster og tap bokføres i OCI (egenkapital), ikke over resultatet."
+    },
+    {
+      "question": "Hva skjer med urealiserte gevinster og tap på AFS-obligasjoner når de realiseres?",
+      "answer": "De 'resirkuleres' (recycling) til resultatet ved salg — akkumulert OCI reverseres og gevinsten/tapet inngår i nettoinntekten."
+    }
+  ],
+  "htm": [
+    {
+      "question": "Hva er HTM-klassifisering (amortisert kost), og hvilken risiko skjuler den?",
+      "answer": "HTM-instrumenter holdes under 'hold-to-collect'-forretningsmodell med SPPI-kontantstrømmer og bokføres til amortisert kost. Virkelig-verdi-endringer synliggjøres ikke i balansen eller resultatet — bare i noteopplysninger. Risikoen er at store urealiserte tap forblir skjult til instrumentene selges."
+    },
+    {
+      "question": "Hva illustrerte SVB-kollapsen i mars 2023 om HTM-regnskapsføring?",
+      "answer": "SVBs 115 milliarder dollar store HTM-portefølje av langsiktige statsobligasjoner hadde store urealiserte tap som ikke fremgikk av balansen. Da banken ble tvunget til å selge for å dekke innskuddsuttak, ble tapene reelle og utløste en tillitskrise og bankrun."
+    }
+  ],
+  "fvtpl": [
+    {
+      "question": "Hvilke instrumenter klassifiseres som FVTPL, og hva er konsekvensen for regnskapet?",
+      "answer": "FVTPL er basisklassifiseringen for instrumenter som ikke oppfyller SPPI-testen, holdes for handel, eller er derivater og egenkapitalinvesteringer. Alle verdiendringer — realisert og urealisert — går direkte gjennom resultatet, noe som gir maksimal inntjeningsvolatilitet."
+    },
+    {
+      "question": "Hva er SPPI-testen, og hva skjer hvis et instrument ikke oppfyller den?",
+      "answer": "SPPI (Solely Payments of Principal and Interest): kontantstrømmene må utelukkende representere tilbakebetaling av hovedstol og renter. Instrumenter som ikke oppfyller testen (f.eks. med innebygd leverage) klassifiseres obligatorisk som FVTPL."
+    }
+  ],
+  "oci": [
+    {
+      "question": "Hva er OCI (Other Comprehensive Income), og gi to eksempler på poster som bokføres der?",
+      "answer": "OCI er en egenkapitalkonto som fanger urealiserte gevinster og tap utenom resultatet. Eksempler: urealiserte verdiendringer på AFS/FVOCI-obligasjoner, og effektiv del av kontantstrømsikringer."
+    },
+    {
+      "question": "Kan en bank ha negativ materiell egenkapitalvurdering uten å rapportere tap i nettoinntekt?",
+      "answer": "Ja — store negative OCI-saldoer (f.eks. fra urealiserte AFS-tap) reduserer bokført egenkapital uten å berøre nettoinntekten, siden disse postene ikke går gjennom resultatet."
+    }
+  ],
+  "amortised-cost": [
+    {
+      "question": "Hva er amortisert kost, og hva er balanseformelen?",
+      "answer": "Amortisert kost = opprinnelig anskaffelseskost ± akkumulert amortisering av overkurs/underkurs (effektiv-rentemetode) ± løpende avdrag − nedskrivninger. Virkelig-verdi-endringer ignoreres."
+    },
+    {
+      "question": "Hvilke kategorier av bankens eiendeler bokføres normalt til amortisert kost?",
+      "answer": "Utlånsporteføljen (boliglån, bedriftslån) og HTM-obligasjoner er bankens viktigste amortisert-kost-eiendeler."
+    }
+  ],
+  "loan-loss-reserves": [
+    {
+      "question": "Hva er låntapsfond (LLR), og hvilken regnskapsmessig funksjon har det?",
+      "answer": "LLR er den akkumulerte beholdningen av nedskrivninger som trekkes fra brutto utlån på aktivasiden — en motpost (contra-asset). Netto utlån = brutto utlån − LLR."
+    },
+    {
+      "question": "Hva er avstemmingsidentiteten for LLR fra periode til periode?",
+      "answer": "LLR (slutt) = LLR (start) + nye nedskrivningskostnader − nedskrivninger (write-offs) + gjenvinninger (recoveries)."
+    }
+  ],
+  "impairment-charge": [
+    {
+      "question": "Hva er en nedskrivningskostnad (impairment charge), og hvilke to regnskapsmessige effekter har den?",
+      "answer": "En nedskrivningskostnad er en resultatpostbelastning som øker LLR (motpost på aktiva) og reduserer nettoinntekten — og dermed egenkapitalen. Under IFRS 9 er den fremoverskuende (ECL); under IAS 39 krevde den objektiv evidens."
+    },
+    {
+      "question": "Hvorfor er nedskrivningskostnaden den viktigste skjønnsmessige P&L-posten i en bank?",
+      "answer": "Bankledelsen har stor frihet i å fastsette ECL-scenarioer, PD-estimater og forutsetninger — noe som gjør at nedskrivningskostnaden i stor grad reflekterer ledelsens vurderinger og prioriteringer."
+    }
+  ],
+  "write-off": [
+    {
+      "question": "Hva skjer regnskapsmessig når et lån avskrives (write-off), og hva er P&L-effekten?",
+      "answer": "Brutto lån og tilsvarende LLR reduseres med samme beløp — nettoeffekten på P&L er null, fordi tapet allerede ble kostnadsført da avsetningen ble gjort."
+    },
+    {
+      "question": "Hva er forskjellen mellom mislighold og avskriving (write-off)?",
+      "answer": "Mislighold er en hendelse (manglende betaling > 90 dager). Avskriving er en regnskapsmessig beslutning om at banken ikke lenger har rimelig forventning om gjenvinning — et lån kan stå i mislighold i årevis før det avskrives."
+    }
+  ],
+  "gross-vs-net-loans": [
+    {
+      "question": "Hva er forskjellen mellom brutto og netto utlån, og hva representerer differansen?",
+      "answer": "Brutto utlån = nominell hovedstol skyldt av låntakere. Netto utlån = brutto utlån − akkumulerte nedskrivninger (LLR). Differansen er den kumulative ECL-avsetningen."
+    },
+    {
+      "question": "Hvilken av de to størrelsene rapporteres normalt i bankbalansen?",
+      "answer": "Netto utlån presenteres i balansen; brutto utlån fremkommer av noteoplysninger."
+    }
+  ],
+  "equity-reconciliation": [
+    {
+      "question": "Hva er egenkapitalavstemmingsidentiteten, og hva er dens kobling til regulatorisk kapital?",
+      "answer": "ΔEgenkapital = nettoresultat − utbytte ± emisjoner/tilbakekjøp. Identiteten kobler resultatregnskapet til balansekapitalen — utbytte tærer direkte på CET1."
+    },
+    {
+      "question": "Hva skjer med egenkapitalen dersom en bank betaler utbytte større enn årsresultatet?",
+      "answer": "Egenkapitalen reduseres, noe som tærer på regulatorisk kapital (CET1) og kan utløse MDA-begrensninger (Maximum Distributable Amount) hvis kapitalratioene nærmer seg minstekrav."
+    }
+  ],
+  "impairment-reconciliation": [
+    {
+      "question": "Sett opp avstemmingen av låntapsfond (LLR) fra periode til periode.",
+      "answer": "LLR (slutt) = LLR (start) + nye nedskrivningskostnader − avskrivninger (write-offs) + gjenvinninger (recoveries). Nedskrivningskostnader øker LLR; avskrivninger konsumerer den."
+    },
+    {
+      "question": "Hva er P&L-effekten av en avskriving (write-off) isolert sett?",
+      "answer": "Ingen — en write-off reduserer brutto lån og LLR med like beløp. P&L-effekten oppsto da den tilhørende nedskrivningskostnaden ble bokført tidligere."
+    }
+  ],
+  "off-balance-sheet": [
+    {
+      "question": "Hva er off-balance-sheet-eksponeringer, og gi fire eksempler.",
+      "answer": "Contingent claims som ikke fremkommer i balansesummene: ubenyttede kredittfasiliteter (kassakreditt/kassekreditt), stand-by letters of credit (SBLC), remburser (commercial L/C), og banker's acceptances. Alle konverteres til RWA via kredittkonverteringsfaktorer (CCF)."
+    },
+    {
+      "question": "Hva er en MAC-klausul (Material Adverse Change), og hvilken off-balance-sheet funksjon har den?",
+      "answer": "En MAC-klausul gir banken rett til å trekke tilbake en utrukket kredittforpliktelse dersom låntakers situasjon forverres vesentlig. Den beskytter banken mot å måtte finansiere en forverret motpart."
+    }
+  ],
+  "maturity-transformation": [
+    {
+      "question": "Hva er løpetidstransformasjon, og hvilken dobbelrolle spiller den i banksystemet?",
+      "answer": "Løpetidstransformasjon er bankens finansiering av langsiktige eiendeler (boliglån, bedriftslån) med kortsiktige forpliktelser (innskudd, pengemarkedsfunding). Den skaper likviditet for samfunnsøkonomien, men eksponerer banken for roll-over-risiko og renterisiko."
+    },
+    {
+      "question": "Hva er term premium, og hvordan henger det sammen med løpetidstransformasjon?",
+      "answer": "Term premium er merrenteavkastningen på langsiktige rentepapirer utover kortsiktige. Banker tjener dette premiumet ved å holde langsiktige eiendeler finansiert med kortsiktig gjeld — gevinsten ved løpetidstransformasjon."
+    }
+  ],
+  "fractional-reserve": [
+    {
+      "question": "Hva er fraksjonell reservebank, og hva er den tekstbok-tradisjonelle og den moderne synet på pengemultiplikatoren?",
+      "answer": "Fraksjonell reservebank: banker holder bare en andel av innskudd som sentralbankreserver og låner ut resten. Tekstboken: reserver × multiplikator (1/r) = pengemengde. Moderne syn (BoE 2014): banker skaper innskudd ved utlån; reserver tilpasses ex post via markedet."
+    },
+    {
+      "question": "Hvem begrenser i praksis bankenes utlån i det moderne banksystemet?",
+      "answer": "Kapital (CET1-krav) og risikoappetitt — ikke reservekravet — er de bindende begrensningene på utlån i moderne banksystemer."
+    }
+  ],
+  "money-multiplier": [
+    {
+      "question": "Hva er pengemultiplikatoren (tekstbok-formelen), og hva er den viktigste kritikken mot den?",
+      "answer": "Tekstboken: pengemengde = sentralbankreserver × (1/r). Kritikken er at årsaksretningen er snudd: moderne banker skaper innskudd ved å låne ut, og reserver etterspørres ex post. Multiplikatoren beskriver ikke kausaliteten i moderne pengeskaping."
+    },
+    {
+      "question": "Hva er sannsynlig eksamenfelle knyttet til pengemultiplikatoren?",
+      "answer": "En T/F som påstår at økte sentralbankreserver mekanisk øker pengemengden og bankutlån — dette er feil i moderne banksystemer. Reserver er ikke den bindende faktoren for bankenes utlånsbeslutninger."
+    }
+  ],
+  "money-creation-modern": [
+    {
+      "question": "Hva er BoE 2014-synet på pengeskaping, og hva er den bindende begrensningen på utlån?",
+      "answer": "BoE 2014: når en bank yter et lån, skaper den simultant et innskudd på låntakers konto — begge sider av bankbalansen utvides. Reserver er ikke begrensningen; kapital og risikoappetitt er de bindende faktorene. Reserver tilpasses ex post."
+    },
+    {
+      "question": "Hva er implikasjonen av BoE 2014-synet for tolkning av QE?",
+      "answer": "QE øker reservene, men bred pengemengde øker bare dersom bankene låner ut reservene. Uten økt bankutlån gir QE primært lavere terminsrenter og støtte til aktivapriser — ikke automatisk pengemengdevekst."
+    }
+  ],
+  "qe": [
+    {
+      "question": "Hva er kvantitative lettelser (QE), og hva er de viktigste kanalene for effekten?",
+      "answer": "QE er sentralbankens kjøp av langsiktige statsobligasjoner (og noen ganger foretaksobligasjoner/MBS) finansiert ved å skape nye reserver. Kanalene er: reduserte terminpremier, økte aktivapriser, og økt likviditet i finanssystemet."
+    },
+    {
+      "question": "Under hvilken betingelse fører QE til vekst i bred pengemengde?",
+      "answer": "Kun dersom bankene faktisk låner ut de nye reservene, skapes nye innskudd (inside money). Uten økt bankutlån øker QE primært outside money (reserver) uten tilsvarende vekst i bred pengemengde."
+    }
+  ],
+  "goldsmith": [
+    {
+      "question": "Hva illustrerer gullsmedmodellen om fremveksten av fraksjonell reservebank?",
+      "answer": "Gullsmeder lagret gull mot kvitteringer som ble brukt som betalingsmidler. Da de oppdaget at ikke alle tok ut gullet samtidig, begynte de å låne ut gull og utstede kvitteringer utover reservert gull — de skapte inside money og oppfant fraksjonell reservebank og løpetidstransformasjon."
+    },
+    {
+      "question": "Hvilken ny risiko oppsto da gullsmeder startet fraksjonell reservebank?",
+      "answer": "Bankrun-risiko: dersom alle innskytere krevde gullet tilbake samtidig, hadde gullsmeden ikke nok reserver til å innfri alle krav."
+    }
+  ],
+  "capital-vs-money-markets": [
+    {
+      "question": "Hva er det avgjørende skillet mellom kapitalmarkedet og pengemarkedet?",
+      "answer": "Løpetid — ikke likviditet. Pengemarkedet handler kortsiktig gjeld med opprinnelig løpetid på maksimalt 12 måneder. Kapitalmarkedet handler lengre løpetider og egenkapital. Likviditet er en separat dimensjon."
+    },
+    {
+      "question": "Hva er den klassiske T/F-fellen om pengemarkedet og likviditet?",
+      "answer": "At pengemarkedet alltid er mer likvid enn kapitalmarkedet — dette er feil. Eksempel: ABCP (pengemarked) frøs i august 2007, mens langsiktige amerikanske statsobligasjoner (kapitalmarked) forble likvide. Løpetid ≠ likviditet."
+    }
+  ],
+  "cp-interbank-repo": [
+    {
+      "question": "Hva er de tre viktigste kortsiktige finansieringsmarkedene, og hva er forskjellen mellom dem?",
+      "answer": "Sertifikatmarkedet (commercial paper): usikrede promissory notes (1–270 dager). Interbankmarkedet: usikret bank-til-bank-utlån (NIBOR/SOFR). Repo: sikret mot pant med haircut. Repo er det eneste av de tre som overlevde 2007–08 fordi sikkerhet reduserte kredittrisikoen."
+    },
+    {
+      "question": "Hva var migrasjonen av kortsiktig finansiering under finanskrisen 2007–09?",
+      "answer": "Fra usikret (sertifikater, interbank) → til sikret (repo) → til sentralbankbalansen, ettersom tilliten mellom banker kollapset og bare sentralbankens likviditet var uomtvistelig trygg."
+    }
+  ],
+  "reserve-requirements": [
+    {
+      "question": "Hva er reservekrav, og hvilke to formål diskuteres i kurset?",
+      "answer": "Reservekrav er obligatoriske minimumsbeholdninger i sentralbanken som andel av visse innskudd. De tjener: (1) likviditetsbuffer — hindrer banker fra å overlate likviditetsstyringen til LOLR; (2) seigniorage-deling — uremunerterte reserver fungerer som en implisitt skatt der seignorasjen deles mellom stat og banksystem."
+    },
+    {
+      "question": "Hva har i stor grad erstattet tradisjonelle reservekrav som likviditetsregulering?",
+      "answer": "LCR (Liquidity Coverage Ratio) og NSFR (Net Stable Funding Ratio) under Basel III har i stor grad erstattet reservekrav som den primære likviditetsreguleringen."
+    }
+  ],
+  "term-sheet": [
+    {
+      "question": "Hva er et term sheet, og hva er dets juridiske status?",
+      "answer": "Et term sheet er et pre-kontraktuelt dokument som oppsummerer de viktigste kommersielle vilkårene for et foreslått lån (beløp, løpetid, pris, sikkerhet, covenants). Det er normalt ikke-bindende, bortsett fra klausuler om konfidensialitet og eksklusivitet."
+    },
+    {
+      "question": "Hvilken funksjon fyller term sheet i låneprosessen?",
+      "answer": "Term sheet tilpasser bank og låntaker kommersielt FØR formell dokumentasjon utarbeides — det reduserer forhandlingskostnader og identifiserer dealbreakers tidlig."
+    }
+  ],
+  "kyc-aml": [
+    {
+      "question": "Hva er KYC og AML, og i hvilken fase av låneprosessen er de obligatoriske?",
+      "answer": "KYC (Know Your Customer) verifiserer kundidentitet, reell rettighetshaver og risikoprofil. AML (Anti-Money Laundering) overvåker transaksjoner for mistenkelige mønstre med obligatorisk rapportering til finansetterretningstjenesten (FIU). Begge inngår i 'conditions precedent' (CP) og må oppfylles før utbetaling."
+    },
+    {
+      "question": "Hva var konsekvensen for DNB av AML-brudd i 2021?",
+      "answer": "DNB ble ilagt bot på 400 millioner norske kroner for brudd på AML-regelverket."
+    }
+  ],
+  "conditions-precedent": [
+    {
+      "question": "Hva er conditions precedent (CP), og hva er bankens praktiske formål med dem?",
+      "answer": "CP er betingelser låntaker må oppfylle FØR utbetaling kan skje: KYC/AML-verifisering, signeringer, etablering og perfeksjon av sikkerhet, juridiske uttalelser, ingen Material Adverse Change. Formål: bankens siste forsvarslinje før midlene forlater banken."
+    },
+    {
+      "question": "Hva skjer med bankens forpliktelse dersom én condition precedent ikke oppfylles?",
+      "answer": "Forpliktelsen forblir betinget — banken er ikke pliktig til å utbetale lånet så lenge CPs ikke er oppfylt. Utbetalingen utsettes eller trekkes."
+    }
+  ],
+  "drawdown-balloon": [
+    {
+      "question": "Hva er et 'drawdown', og hva er et 'balloon payment'?",
+      "answer": "Drawdown er handlingen å trekke på en godkjent kredittfasilitet — midler overføres fra forpliktelse til utestående lån. Et balloon payment er en stor enkeltbetaling ved forfall som dekker hoveddelen av gjenstående hovedstol i et bullet-lån."
+    },
+    {
+      "question": "Hva kjennetegner et bullet-lån med balloon payment, sammenlignet med et annuitetslån?",
+      "answer": "Et bullet-lån amortiserer lite eller ingenting i løpetiden og betaler tilbake det meste av hovedstolen som ett beløp ved forfall (balloon). Et annuitetslån betaler jevn rente pluss avdrag gjennom hele løpetiden."
+    }
+  ],
+  "loan-facilities": [
+    {
+      "question": "Nevn fire typer lånefasiliteter og hva som skiller dem.",
+      "answer": "Terminlån: trukket én gang, amortiseres etter plan, kan ikke gjenopptas. Revolving credit facility (RCF): låntaker kan trekke, betale og trekke igjen opp til en grense i tilgjengelighetsperioden. Kassekreditt: overtrekksfasilitet knyttet til konto, kortsiktig arbeidskapital. Arbeidskapitallån: kortsiktig, ofte sikret mot fordringer/varelager."
+    },
+    {
+      "question": "Hva er en commitment fee, og hvilken type fasilitet utløser den typisk?",
+      "answer": "En commitment fee er en løpende avgift banken tar på ubenyttet del av en revolveringsfasilitet eller terminlån — kompensasjon for å holde kapital og likviditet reservert uten at låntaker trekker på den."
+    }
+  ],
+  "pd": [
+    {
+      "question": "Hva er PD (Probability of Default), og hva er de tre vanligste metodene for å estimere den?",
+      "answer": "PD er sannsynligheten for at en låntaker misligholder innen én år. Estimeringskildene er: interne IRB-scoringsmodeller, eksterne kredittvurderinger (Standardisert tilnærming), og markedsimpliserte PD fra CDS-spreader."
+    },
+    {
+      "question": "Hva er PDs rolle i IFRS 9-staging?",
+      "answer": "Endringer i PD siden etableringstidspunktet er den primære driveren for SICR (Significant Increase in Credit Risk) og overgangen fra Trinn 1 til Trinn 2."
+    }
+  ],
+  "lgd": [
+    {
+      "question": "Hva er LGD (Loss Given Default), og hva er typiske nivåer for ulike kredittkategorier?",
+      "answer": "LGD = 1 − Recovery Rate. Sikrede boliglån: 10–30 %. Senior usikret foretakslån: 40–60 %. Ansvarlig gjeld og egenkapital: 80–100 %. Høyere senioritet og bedre sikkerhet gir lavere LGD."
+    },
+    {
+      "question": "Hva er 'downturn LGD', og hvorfor krever regulatoren det?",
+      "answer": "Downturn LGD er en konservativ LGD-estimat kalibrert til nedgangsperioder, der sikkerhetsverdier og gjenvinningsrater er lavere enn i normalperioder. Basel-regelverket krever dette under IRB for å sikre at kapitalkrav er robuste mot sykelikalitet."
+    }
+  ],
+  "ead": [
+    {
+      "question": "Hva er EAD (Exposure at Default), og hva inkluderer det utover trukket beløp?",
+      "answer": "EAD er det beløpet banken eksponeres for på misligholdstidspunktet. For trukket lån er det utestående hovedstol pluss påløpte renter. For ubenyttede forpliktelser inkluderes forventet ytterligere trekkbelastning modellert via en Credit Conversion Factor (CCF)."
+    },
+    {
+      "question": "Hvorfor er EAD fremoverskuende i motsetning til en enkel balanseoppstilling?",
+      "answer": "Låntakere som er i ferd med å misligholde trekker typisk maksimalt på tilgjengelige kredittrammer — EAD-modellen tar hensyn til denne atferden ved å inkludere forventet fremtidig trekkbelastning på ubenyttede linjer."
+    }
+  ],
+  "maturity-m": [
+    {
+      "question": "Hva er M (Maturity Adjustment) i Basel IRB-formelen, og hvorfor medfører lenger løpetid høyere kapital?",
+      "answer": "M er den effektive gjenværende løpetiden (begrenset til 5 år) for eksponeringen. Lengre løpetid gir høyere kapital fordi det er større migreringsrisiko over tid — en eksponering kan degraderes over lang løpetid selv om den er frisk i dag."
+    },
+    {
+      "question": "Hva er default-verdien for M under IRB Foundation vs. IRB Advanced?",
+      "answer": "IRB Foundation: regulatoren setter M, typisk 2,5 år for foretakslån. IRB Advanced: banken estimerer M fra kontraktuelle kontantstrømmer."
+    }
+  ],
+  "basel-credit-approaches": [
+    {
+      "question": "Hva er forskjellen mellom Standardisert tilnærming, IRB Foundation og IRB Advanced for kredittrisiko?",
+      "answer": "Standardisert: regulatoren fastsetter alle risikovekter (basert på rating eller aktivaklasse). IRB Foundation: banken estimerer PD; regulatoren gir LGD, EAD og M. IRB Advanced: banken estimerer alle fire parametre (PD, LGD, EAD, M). Alle IRB-tilnærminger krever tilsynsgodkjenning og løpende validering."
+    },
+    {
+      "question": "Hva er 'output floor' under Basel III, og hvilken tilnærming er den referansen til?",
+      "answer": "Output floor setter et minimums-RWA-nivå for IRB-banker, fastsatt som en prosentandel (typisk 72,5 % i sluttfase) av det Standardisert tilnærming ville gitt — for å begrense kapitalgevinsten ved å bruke interne modeller."
+    }
+  ],
+  "irb-formula": [
+    {
+      "question": "Hva beregner kapitalformelen K i Basel IRB, og hva er dens konfidensintervall?",
+      "answer": "K = LGD × [N((G(PD) + √R · G(0.999)) / √(1−R)) − PD] × løpetidsjustering. Den beregner uventet tap (UL) ved 99,9 % konfidens over ett år. R er eiendelskorrelasjon gitt av regulatoren basert på aktivaklasse."
+    },
+    {
+      "question": "Hva dekker henholdsvis kapital og avsetninger (provisions) i IRB-rammeverket?",
+      "answer": "Kapital dekker Uventet Tap (Unexpected Loss — UL). Avsetninger (IFRS 9 ECL) dekker Forventet Tap (Expected Loss — EL). Å blande disse to er en vanlig eksamensfeil."
+    }
+  ],
+  "unexpected-loss": [
+    {
+      "question": "Hva er Uventet Tap (UL), og hva er det kalibrert til under Basel?",
+      "answer": "UL er tapet som overstiger forventet tap, målt ved 99,9 % konfidensintervall over ett år. Basel IRB-kapital er dimensjonert til å absorbere UL — det er den tapshalen kapitalen skal dekke."
+    },
+    {
+      "question": "Hva er den regulatoriske arbeidsdelingen mellom ECL-avsetninger og kapital?",
+      "answer": "ECL-avsetninger (IFRS 9) dekker forventet tap (EL) i basisscenarioet. Kapital (CET1 m.m.) absorberer uventede tap (UL) i stressscenarioet. Å blande de to er en typisk eksamenfeil."
+    }
+  ],
+  "procyclicality": [
+    {
+      "question": "Hva er prosyklikalitet i finanssektoren, og hva er de to viktigste tiltakene mot den?",
+      "answer": "Prosyklikalitet er tendensen til at finanssektors atferd og regulering forsterker konjunktursykelen: i oppgang ser alt sunt ut og kredittgiving ekspanderer; i nedgang strammer kapital og provisjoner seg inn akkurat når realøkonomien trenger kreditt. Tiltak: CCyB (countercyclical capital buffer) og IFRS 9 ECL (fremoverskuende nedskrivninger)."
+    },
+    {
+      "question": "Hvordan bidro IAS 39 til prosyklikalitet under finanskrisen?",
+      "answer": "IAS 39s incurred-loss-modell krevde objektiv evidens for tap allerede inntruffet. Dermed så bankene sunne ut i oppturen, og erkjente massive tap midt i krisen — akkurat da tapserkjennelse bidro til å stramme kreditttilbudet ytterligere."
+    }
+  ],
+  "knightian": [
+    {
+      "question": "Hva er Frank Knights distinksjon mellom risiko og usikkerhet?",
+      "answer": "Risiko er målbar — sannsynligheter kan tilordnes kjente utfall. Usikkerhet er umålbar — den underliggende fordelingen er ukjent eller ukjennelig."
+    },
+    {
+      "question": "Hvorfor trekker Turner Review frem Knightian usikkerhet som en strukturell svikt i pre-krise risikostyring?",
+      "answer": "Banker behandlet ukjennelige korrelasjoner i strukturerte kredittprodukt som kjente og målbare parametere — de kvantifiserte det unkjennelige, noe som undervurderte reell risiko systematisk."
+    },
+    {
+      "question": "Hva er den praktiske konsekvensen av å forveksle Knightian usikkerhet med risiko i bankmodeller?",
+      "answer": "Modeller som VaR antar kjente fordelinger og undervurderer dermed halerisiko fundamentalt. Banker bygget opp eksponering mot hendelser som lå utenfor det modellerte parameterrommet."
+    }
+  ],
+  "cet1": [
+    {
+      "question": "Hva inngår i Common Equity Tier 1 (CET1), og hva trekkes fra?",
+      "answer": "CET1 består av innbetalt aksjekapital pluss tilbakeholdt overskudd. Fratrukket blir goodwill, immaterielle eiendeler, utsatte skattefordeler, visse investeringer i finansinstitusjoner og foreslåtte utbytter."
+    },
+    {
+      "question": "Hva er Basel III-minimumskravet til CET1-ratio, og hva er fullt krav med bevaringsbuffer?",
+      "answer": "Basel III-minimumet er 4,5 % av RWA. Med den permanente bevaringsbufferen på 2,5 % blir kravet 7 %. Med hele den norske bufferstakken (inkl. SyRB og O-SII) kan kravet for DNB nå rundt 17 %."
+    },
+    {
+      "question": "På hvilket grunnlag absorberer CET1 tap — going-concern eller gone-concern?",
+      "answer": "CET1 absorberer tap på going-concern basis, det vil si mens banken fortsatt er i drift og opererer som en fungerende virksomhet."
+    }
+  ],
+  "at1": [
+    {
+      "question": "Hvilke egenskaper kjennetegner Additional Tier 1-kapital (AT1)?",
+      "answer": "AT1 er evigvarende hybridkapital med fullt diskresjonære, ikke-kumulative kuponger. Instrumentene nedskrives eller konverteres til egenkapital dersom CET1 faller under en trigger, typisk 5,125 % eller 7 %."
+    },
+    {
+      "question": "Hva viste Credit Suisse-saken i mars 2023 om AT1 i en krisesituasjon?",
+      "answer": "Credit Suisses CHF 16 mrd AT1 ble nedskrevet til null mens aksjonærene mottok UBS-aksjer. Dette skapte kontroversen rundt No-Creditor-Worse-Off-prinsippet (NCWO), siden AT1-eiere led større tap enn egenkapitaleiere."
+    },
+    {
+      "question": "Hva skiller AT1 fra Tier 2 hva gjelder tapsbæring og tidspunkt for nedskriving?",
+      "answer": "AT1 er going-concern-kapital og absorberer tap mens banken er i drift. Tier 2 er gone-concern-kapital og nedskrives eller konverteres kun ved PONV eller i resolution."
+    }
+  ],
+  "tier-2": [
+    {
+      "question": "Hva kjennetegner Tier 2-kapital, og hvilken løpetidsbetingelse gjelder for at instrumentet er kvalifiserende?",
+      "answer": "Tier 2 er subordinert, tidsbegrenset gjeld som rangerer under senior usikret gjeld. Instrumentet er kvalifiserende dersom gjenstående løpetid er minst 5 år, og beløpet amortiseres regulatorisk i løpet av de siste 5 årene."
+    },
+    {
+      "question": "På hvilket tidspunkt absorberer Tier 2 tap, og hvorfor er det billigere enn AT1?",
+      "answer": "Tier 2 absorberer tap på gone-concern basis — kun ved 'point of non-viability' eller i resolution. Fordi tapsbæringen inntreffer senere og er mer betinget, er Tier 2-finansiering billigere enn AT1."
+    }
+  ],
+  "rwa-rea": [
+    {
+      "question": "Hva er Risk-Weighted Assets (RWA), og hva er forskjellen mellom begrepene RWA og REA?",
+      "answer": "RWA er summen av EAD multiplisert med risikovekt for hver eksponering. EU-regelverket bruker betegnelsen REA (Risk Exposure Amount), mens resten av verden bruker RWA — begrepene er identiske i innhold."
+    },
+    {
+      "question": "Hvilken rolle spiller RWA i kapitaldekningstall, og hvilke tre beregningsmetoder finnes?",
+      "answer": "RWA er nevneren i alle kapitalrater, f.eks. CET1-ratio = CET1 / RWA. Beregning kan gjøres etter Standardmetoden, IRB-Grunnleggende (IRB-F) eller IRB-Avansert (IRB-A)."
+    }
+  ],
+  "basel-pillars": [
+    {
+      "question": "Hva dekker henholdsvis Pilar 1, Pilar 2R og Pilar 2G under Basel III-rammeverket?",
+      "answer": "Pilar 1 fastsetter harmoniserte kvantitative minstekrav (8 % total kapital, LCR, NSFR, leverage ratio). Pilar 2R er bankspesifikke, bindende tilleggskrav etter SREP. Pilar 2G er ikke-bindende supervisory forventning over P2R, ment å benyttes i stressperioder."
+    },
+    {
+      "question": "Hva er formålet med Pilar 2R, og hvilke risikoer fanger den typisk opp som Pilar 1 ikke dekker?",
+      "answer": "Pilar 2R er et bindende banktilpasset tillegg fastsatt av tilsynsmyndigheten etter SREP-gjennomgang. Den fanger risikoer som ikke dekkes godt i Pilar 1, for eksempel konsentrasjonsrisiko og renterisiko i bankporteføljen (IRRBB)."
+    }
+  ],
+  "pillar-3": [
+    {
+      "question": "Hva er formålet med Pilar 3, og hvem forutsettes å utøve markedsdisiplin?",
+      "answer": "Pilar 3 krever standardisert offentliggjøring av risiko-, kapital- og styringsopplysninger slik at markedsaktører kan prise risiko og disiplinere overdreven risikotaking. Markedsdisiplin fungerer best for profesjonelle kreditorer og aksjeanalytikere — ikke for vanlige innskytere."
+    },
+    {
+      "question": "Hva er den praktiske svakheten ved Pilar 3 som markedsdisiplineringsmekanisme?",
+      "answer": "Vanlige innskytere leser ikke rapportene og kan ikke effektivt prise bankrisiko. Disiplinen er dermed begrenset til sofistikerte markedsaktører, og fungerer dårlig for å beskytte den bredere innskytergruppen."
+    }
+  ],
+  "conservation-buffer": [
+    {
+      "question": "Hva skjer dersom en bank bryter bevaringsbufferen, og hvilke distribusjoner påvirkes?",
+      "answer": "Å bryte bevaringsbufferen er ikke i seg selv et regulatorisk brudd, men utløser MDA-regimet. MDA setter automatisk tak på utbytte, AT1-kuponger og diskresjonære bonuser, skalert etter dybden på bruddet."
+    },
+    {
+      "question": "Hva er formålet med at bevaringsbufferen er tappbar i stressperioder?",
+      "answer": "Bufferen er designet slik at banker kan trekke den ned i en krise og fortsette å låne ut uten å bryte minimumskravene. Tanken er at MDA-begrensningene bevarer kapital uten å kreve umiddelbar rekapitalisering."
+    }
+  ],
+  "ccyb": [
+    {
+      "question": "Hva er formålet med den motsykliske kapitalbufferen (CCyB), og hva er mekanismen?",
+      "answer": "CCyB er en CET1-buffer mellom 0 og 2,5 % som bygges opp i høykonjunktur når kredittveksten er høy, og frigjøres i nedgangstider for å støtte utlånskapasiteten. Den er en direkte respons på prosyklikaliteten som Turner Review identifiserte som krisefaktor."
+    },
+    {
+      "question": "Hvem fastsetter CCyB, og hva var nivået i Norge i nyere tid?",
+      "answer": "Nasjonale myndigheter fastsetter CCyB kvartalsvis basert på kredittens andel av BNP og andre indikatorer. Norge har hatt CCyB på 2,5 % i de senere år."
+    }
+  ],
+  "syrb": [
+    {
+      "question": "Hva er den systemiske risikobufferen (SyRB), og hva skiller den fra CCyB?",
+      "answer": "SyRB er en CET1-buffer som adresserer strukturelle, ikke-sykliske systemrisikoer knyttet til land, region eller sektor. CCyB er syklisk og varierer med konjunkturene, mens SyRB er permanent og reflekterer strukturelle sårbarheteer."
+    },
+    {
+      "question": "Hva er det norske SyRB-nivået, og hvilke eksponeringer gjelder det for?",
+      "answer": "Norge har en SyRB på 4,5 % gjeldende for norske eksponeringer. Den fanger konsentrert eksponering mot næringseiendom, husholdningsgjeld og olje/shipping-sykluser."
+    }
+  ],
+  "o-sii-buffer": [
+    {
+      "question": "Hva er O-SII-bufferen, og hvilke kriterier brukes til å kalibrere den?",
+      "answer": "O-SII-bufferen er et CET1-tillegg for banker som er systemviktige på nasjonalt nivå. Kalibreringen baseres på størrelse, sammenkoblingsgrad, kompleksitet og substituerbarhet."
+    },
+    {
+      "question": "Hva er O-SII-bufferkravet for DNB i Norge?",
+      "answer": "DNB bærer en O-SII-buffer på 2 % i Norge, fastsatt av nasjonale myndigheter."
+    }
+  ],
+  "g-sib": [
+    {
+      "question": "Hvem utpeker G-SIBer, og hvordan er tilleggskravet strukturert?",
+      "answer": "Financial Stability Board (FSB) utpeker G-SIBer årlig. CET1-tillegget er fordelt på fem bucketer fra 1,0 til 3,5 % basert på størrelse, sammenkoblingsgrad, kompleksitet, grensekryssende aktivitet og substituerbarhet."
+    },
+    {
+      "question": "Hvordan samvirker G-SIB-bufferen og O-SII-bufferen?",
+      "answer": "Det høyeste av G-SIB- og O-SII-bufferkravet gjelder — de dobbelttelles ikke. Kun én av de to institusjonsbaserte bufferne legges til den kombinerte bufferstakken."
+    }
+  ],
+  "cbr": [
+    {
+      "question": "Hva inngår i det kombinerte bufferkravet (CBR), og hva er konsekvensen av å bryte det?",
+      "answer": "CBR = Bevaringsbuffer + CCyB + SyRB + maks(G-SIB, O-SII). Alle komponentene må dekkes med CET1. Brudd på CBR utløser MDA og begrenser distribusjoner, men er ikke et direkte regulatorisk brudd."
+    },
+    {
+      "question": "Hvilken kapitaltype må brukes til å dekke hele CBR?",
+      "answer": "Alle elementer i CBR må utelukkende dekkes med CET1-kapital — ingen andre kapitalklasser er godkjent for bufferkravene."
+    }
+  ],
+  "leverage-ratio": [
+    {
+      "question": "Hva er Basel III-leverageratioen, og hvorfor er den ikke-risikovektet?",
+      "answer": "Leverageratioen er Tier 1-kapital dividert med total eksponering (på og utenfor balansen, med derivateksponeringer brutto). Den er ikke-risikovektet og fungerer som et absolutt bakteppe for å hindre overdreven giring uavhengig av risikovektene på aktivaene."
+    },
+    {
+      "question": "Hva er minimumet for leverageratioen, og hvilket problem var den designet for å løse?",
+      "answer": "Basel III-minimum er 3 % for alle banker; G-SIBer har høyere krav (3,5–4,25 %). Ratioen ble innført for å forhindre at investeringsbanker bygget 30–50 ganger giring på aktivabøker med lave risikovekter, slik Turner Review påpekte."
+    }
+  ],
+  "mda": [
+    {
+      "question": "Hva er Maximum Distributable Amount (MDA), og hva utløser det?",
+      "answer": "MDA er en automatisk begrensning på utbytte, AT1-kuponger og diskresjonære bonuser som trer i kraft når en bank bryter sitt kombinerte bufferkrav (CBR). Begrensningens størrelse skaleres med dybden på bruddet."
+    },
+    {
+      "question": "Hva er den overordnede hensikten med MDA-regimet?",
+      "answer": "MDA gjør kapitalbufferne reelt brukbare i stressperioder ved å bevare kapital automatisk, uten at bankledelsen trenger å møte en øyeblikkelig kapitalknipe — det operasjonaliserer bevaringsbufferkonseptet."
+    }
+  ],
+  "tlac": [
+    {
+      "question": "Hva er TLAC, og for hvilke institusjoner gjelder det?",
+      "answer": "TLAC (Total Loss-Absorbing Capacity) er FSBs minstekrav til bail-in-bar kapasitet for G-SIBer: minst 18 % av RWA eller 6,75 % av leverage-eksponeringen. Det består av regulatorisk kapital pluss kvalifiserende bail-in-bar gjeld."
+    },
+    {
+      "question": "Hva er forskjellen mellom TLAC og MREL?",
+      "answer": "TLAC er et globalt, uniformt krav fra FSB gjeldende for alle G-SIBer. MREL er et EU-krav som kalibreres bank for bank av resolusjonsmyndigheten og gjelder et bredere sett av banker i EU."
+    }
+  ],
+  "crr-crd": [
+    {
+      "question": "Hva er forskjellen mellom CRR og CRD i EU-implementeringen av Basel III?",
+      "answer": "CRR (forordning) er direkte gjeldende i alle EU-land og dekker Pilar 1-kapital, leverage, og store eksponeringer. CRD (direktiv) krever nasjonal gjennomføring og dekker tilsynsmyndighet, styring og kapitalbuffere."
+    },
+    {
+      "question": "Hva innfører CRR3/CRD VI (i kraft fra 2025)?",
+      "answer": "CRR3/CRD VI implementerer Basel IIIs sluttreformer, inkludert output floor, reviderte standarder for kredittrisiko og operasjonell risiko, og ytterligere justeringer av IRB-rammeverket."
+    }
+  ],
+  "lcr": [
+    {
+      "question": "Hva er formelen for LCR, og hva er minstekravet?",
+      "answer": "LCR = HQLA / netto kontantutstrømning over 30 dager under stress ≥ 100 %. Banken skal overleve 30 dager med alvorlig stress uten ekstern støtte."
+    },
+    {
+      "question": "Hvilke stressforutsetninger inngår i 30-dagersscenarioet for LCR?",
+      "answer": "Stressscenarioet inkluderer uttak av innskudd fra privatpersoner, delvis tap av pengemarkedsfinansiering, trekkinger på kommitterte kredittrammer og kontraktsmessige derivatutstrømninger."
+    }
+  ],
+  "nsfr": [
+    {
+      "question": "Hva er formelen for NSFR, og hva er kravets formål?",
+      "answer": "NSFR = Tilgjengelig stabil finansiering (ASF) / Nødvendig stabil finansiering (RSF) over 1 år ≥ 100 %. Kravet tvinger banker til å finansiere langsiktige aktiva med stabil, langsiktig finansiering."
+    },
+    {
+      "question": "Hvilken historisk sårbarhet adresserer NSFR, og hvilke kriser illustrerer dette?",
+      "answer": "NSFR adresserer løpetidsmismatch mellom langsiktige aktiva og kortsiktig finansiering. Northern Rock (som finansierte langsiktige boliglån med kortsiktige pengemarkedslån) og SIV-er er de klassiske eksemplene."
+    }
+  ],
+  "hqla": [
+    {
+      "question": "Hvilke tre nivåer av HQLA finnes, og hva er haircut og konsentrasjonsgrenser for hvert nivå?",
+      "answer": "Nivå 1 (kontanter, sentralbankreserver, høykvalitetsstatsobligasjoner): 0 % haircut, ingen grense. Nivå 2A (lavere ratede statsobs., høykvalitets foretaksobligasjoner): 15 % haircut, maks 40 % av HQLA. Nivå 2B (lavere ratede foretaksobligasjoner, aksjer, RMBS): 25–50 % haircut, maks 15 % av HQLA."
+    },
+    {
+      "question": "Hva er HQLA i LCR-sammenhengen?",
+      "answer": "HQLA er telleren i LCR-formelen — de likvide eiendelene en bank kan konvertere raskt til kontanter i et stressscenario uten vesentlig verditap."
+    }
+  ],
+  "asf-rsf": [
+    {
+      "question": "Hva er ASF-faktoren for regulatorisk kapital og langsiktig finansiering, og hva er den for kortsiktig engrosfinansiering?",
+      "answer": "Regulatorisk kapital og finansiering med løpetid over 1 år har ASF-faktor 100 %. Stabile privatinnskudd: 95 %. Mindre stabile privatinnskudd: 90 %. Kortsiktig engrosfinansiering: 0–50 %."
+    },
+    {
+      "question": "Hva er RSF-faktoren for kontanter, ytende boliglån og illikvide langsiktige aktiva?",
+      "answer": "Kontanter: 0 %. Ytende boliglån: 65 %. Ytende næringslån: 85 %. Langsiktige illikvide aktiva: 100 %. Lavere RSF-faktor betyr at aktivaet anses som lettere å finansiere stabilt."
+    }
+  ],
+  "bagehot": [
+    {
+      "question": "Hva er Walter Bagehots tre prinsipper for sentralbankens rolle som lender of last resort?",
+      "answer": "Bagehot (1873): sentralbanken skal (1) låne fritt for å knuse panikken, (2) til straffesats for å motvirke misbruk og sikre rask tilbakebetaling, og (3) mot god sikkerhet for å begrense kredittrisikoen."
+    },
+    {
+      "question": "Hvordan har moderne sentralbanker avveket fra Bagehots originale doktrine?",
+      "answer": "Moderne sentralbanker har utvidet sikkerhetsunivers til å inkludere lavere ratede aktiva og har i praksis ikke alltid håndhevet straffesatser. Kjerneprinsippene (fri lending, sikkerhet) gjenstår, men praktiseringen er mykere."
+    }
+  ],
+  "bytteordning": [
+    {
+      "question": "Hva var den norske bytteordningen i 2008–09, og hva var dens mekanisme?",
+      "answer": "Norges Bank tillot banker å bytte illikvide obligasjoner med fortrinnsrett (OMF) mot likvide statskasseveksler midlertidig. Ordningen nådde NOK 230 mrd på topp (ca. 20 % av BNP)."
+    },
+    {
+      "question": "Hvorfor regnes bytteordningen som balansestenøytral, og hva var dens strategiske fordel?",
+      "answer": "Ordningen var en bytte, ikke et lån — Norges Banks balanse vokste ikke. Dette ga likviditetsstøtte uten seddeltrykk og ble sett som en mal for sikkerhetsbyttebasert LOLR-design."
+    }
+  ],
+  "fed-swap-lines": [
+    {
+      "question": "Hva er mekanismen i Fed dollar swap lines, og hvem er motpartene?",
+      "answer": "Fed bytter dollar mot fremmed valuta med utvalgte sentralbanker (ECB, BoE, BoJ, SNB m.fl.). Den utenlandske sentralbanken låner ut dollar videre til sine banker. Reverseringen skjer til original spotkurs, så ingen av sentralbankene bærer valutarisiko."
+    },
+    {
+      "question": "Når ble Fed swap lines aktivert, og hvilket markedsproblem løste de?",
+      "answer": "Linjene ble aktivert i oktober 2008 og igjen i mars 2020. De motvirker dollarfinansieringsstress hos ikke-amerikanske banker — manifistert som negativ cross-currency basis — ved å tilby direkte dollartilgang via sentralbankkanalen."
+    }
+  ],
+  "run-on-repo": [
+    {
+      "question": "Hva er 'run on repo', og hvem introduserte begrepet?",
+      "answer": "Run on repo (Gorton & Metrick 2010) beskriver den selvforsterkende økningen i repo-haircuts under 2007–08 som fungerte som et bankrun i skyggefinanssystemet. Motpartene krevde stadig større sikkerhetsputer; banker som ikke klarte dette, ble tvangselgere."
+    },
+    {
+      "question": "Hvorfor er repo-run analogt med klassiske bankrun?",
+      "answer": "Repolån er de profesjonelle motpartenes ekvivalent til innskudd på krav. Stigning i haircuts tvinger bankene til å stille mer sikkerhet eller innfri lån, akkurat som innskytere som tar ut penger. Spiralen er selvforsterkende via fallende priser."
+    }
+  ],
+  "liquidity-spiral": [
+    {
+      "question": "Hva er Brunnermeier & Pedersens likviditetsspiral, og hvilke to typer likviditet kobles sammen?",
+      "answer": "Likviditetsspiralen (2009) er en selvforsterkende loop: fallende kollateralpriser øker marginkrav (finansieringslikviditetsstress) → gearede investorer tvinges til salg → prisene faller videre (markedslikviditetsstress) → marginkrav stiger igjen. Finansieringslikviditet og markedslikviditet forsterker hverandre nedover."
+    },
+    {
+      "question": "Hva er den kritiske linken mellom funding liquidity og market liquidity i spiralen?",
+      "answer": "Når finansieringslikviditeten forsvinner (kreditorene strammet inn), tvinges investorer til å selge aktiva raskt. Tvangssalg presser markedspriser ned, noe som øker haircuts ytterligere og forverrer finansieringslikviditeten i en ny runde."
+    }
+  ],
+  "fire-sale": [
+    {
+      "question": "Hva er et fire sale, og hvilke to mekanismer sprer tapene til andre aktører?",
+      "answer": "Et fire sale er et tvungent salg av aktiva til priser vesentlig under fundamental verdi, typisk drevet av binding likviditetsbegrensning. Tapene spres via mark-to-market-regnskapsføring (andre holdere må nedskrive) og via haircut-smitte (høyere sikkerhetskrav på liknende aktiva)."
+    },
+    {
+      "question": "Hvilke to virkemidler kan dempe konsekvensene av fire sales?",
+      "answer": "Sentralbankkjøp av aktiva (støtter markedsprisene) og midlertidig regnskapsmessig forbearance (utsetter M2M-nedsrivninger) kan bryte den selvforsterkende mekanismen."
+    }
+  ],
+  "withdrawal-diversification": [
+    {
+      "question": "Hva er det statistiske grunnlaget for at betalingskrav-innskudd fungerer som stabil bankfinansiering?",
+      "answer": "Med mange, ukorrelerte småinnskytere gjør store talls lov at aggregerte uttaksrater er statistisk forutsigbare. Banker trenger derfor bare holde en brøkdel av innskuddene i likvid form."
+    },
+    {
+      "question": "Under hvilke to forhold bryter diversifiseringseffekten for innskuddsuttak sammen?",
+      "answer": "Diversifiseringen svikter ved (1) konsentrasjon — SVB hadde ca. 90 % av innskudd over FDIC-grensen fra et tett sammenkoblet tech-VC-miljø — og (2) korrelert panikk, som i Diamond-Dybvig-modellens dårlige likevekt."
+    }
+  ],
+  "alm": [
+    {
+      "question": "Hva er Asset-Liability Management (ALM), og hvilke sensitiviteter koordineres?",
+      "answer": "ALM er koordinert styring av bankens eiendels- og gjeldssensitiviteter mot rente, valuta, kreditt og likviditet. Sentrale outputer er gaprapporter (repricing), varighetsanalyse, EVE- og NII-sensitiviteter, og sikringsprogrammer."
+    },
+    {
+      "question": "Hva er EVE og NII i ALM-kontekst, og hva måler de hver for seg?",
+      "answer": "EVE (Economic Value of Equity) måler nåverdipåvirkningen på bankens egenkapital av en renteendring (langsiktig, balanseperspektiv). NII (Net Interest Income) måler den kortsiktige inntektspåvirkningen over neste 12 måneder av en renteendring."
+    }
+  ],
+  "spv": [
+    {
+      "question": "Hva er et SPV, og hva menes med at det er 'bankruptcy-remote'?",
+      "answer": "Et SPV (Special Purpose Vehicle) er en rettslig enhet som holder poolede aktiva og utsteder transjerte verdipapirer. 'Bankruptcy-remote' betyr at SPVets eiendeler er separert fra originatorens konkursbo — kreditorer kan ikke ta beslag i SPVets aktiva om originatoren går konkurs."
+    },
+    {
+      "question": "Hva oppnår en originatorbank ved å gjennomføre et 'true sale' til et SPV?",
+      "answer": "Et true sale gir regnskapsmessig fraregning (derecognition) av de solgte eiendelene og kapitalfrigivelse, ettersom lånene forlater bankens balanse og dermed ikke lenger utløser kapitalkrav."
+    }
+  ],
+  "tranches": [
+    {
+      "question": "Beskriv prioritetsrekkefølgen mellom senior, mezzanin og egenkapitaltransje i et SPV.",
+      "answer": "Senior-transjen (typisk AAA) betales først og absorberer tap sist. Mezzanin-transjen (typisk BBB) er mellomsjiktet. Egenkapitaltransjen (first-loss, 'toxic waste') betales sist og absorberer tap først."
+    },
+    {
+      "question": "Hva er den primære kredittstyrkningsteknikken i transjert strukturering?",
+      "answer": "Subordinering er det primære kredittstyrkningstiltaket: tykkelsen av tapsbærende lag under en senior transje bestemmer dens ratingmoment — mer subordinering gir senior-transjen mer ratingrom."
+    }
+  ],
+  "subordination": [
+    {
+      "question": "Hva er subordinering i verdipapiriseringssammenheng, og hva bestemmer en senior-transjens rating?",
+      "answer": "Subordinering innebærer at junior-transjer absorberer tap foran senior-transjer. Senior-transjens rating avhenger av tykkelsen på de subordinerte lagene under den — mer subordinering gir høyere ratingmoment."
+    },
+    {
+      "question": "Hva var feilen i pre-krisemodellene for subordinering, og hva ble konsekvensen?",
+      "answer": "Korrelasjonsmodellene undervurderte massivt at subprime-mislighold ville skje simultant. Da korrelasjonen materaliserte seg, led selv 'trygge' senior-transjer store tap på tross av tilstrekkelig subordinering i normalscenarier."
+    }
+  ],
+  "overcollateralisation": [
+    {
+      "question": "Hva er overcollateralisation (OC) som kredittstyrkningstiltak, og hva er mekanismen?",
+      "answer": "OC betyr at verdien av poolen av sikkerhetsstillende aktiva overstiger pålydende av utstedte transjer. Overskuddet absorberer tap før den mest junior transjen rammes."
+    },
+    {
+      "question": "Hva skjedde med OC-puter i pre-krise subprime-strukturer, og hva illustrerer dette?",
+      "answer": "Typiske OC-nivåer på 5–15 % i subprime-strukturer forduftet innen måneder etter at misligholdratene eksploderte i 2007–08, noe som viste at putenivåene var kalibrert mot historiske og ikke stressede tap."
+    }
+  ],
+  "credit-enhancement": [
+    {
+      "question": "Hva er forskjellen mellom intern og ekstern kredittforbedring i en verdipapiriseringsstruktur?",
+      "answer": "Intern kredittforbedring: subordinering, overcollateralisation, eksessmargin og reservekonti — mekanismer innenfor strukturen selv. Ekstern kredittforbedring: monolineforsikring, morselskapsgarantier og kausjoner — risikoen flyttes til en tredjepart."
+    },
+    {
+      "question": "Hva er den grunnleggende svakheten ved ekstern kredittforbedring?",
+      "answer": "Kredittkvaliteten på den eksterne forbedringen kan ikke overgå garantistens egen kredittkvalitet. Monolineselskapene (MBIA, Ambac) kollapset under GFC og tok med seg kredittstyrkningstiltakene."
+    }
+  ],
+  "synthetic-securitisation": [
+    {
+      "question": "Hva skiller syntetisk verdipapirisiering fra tradisjonell verdipapirisiering, og hva er den typiske T/F-fellen på eksamen?",
+      "answer": "I syntetisk verdipapirisiering forblir lånene på bankens balanse — kun kredittrisikoen overføres via CDS. Banken oppnår kapitalfrigivelse, men IKKE finansiering. T/F-fellen: syntetisk verdipapirisiering gir ikke funding-lettelse."
+    },
+    {
+      "question": "Hva er SRT-handler, og hva er formålet med dem i dag?",
+      "answer": "SRT (Significant Risk Transfer) er moderne syntetiske verdipapirisieringstransaksjoner der banker overfører kredittrisiko på referanseporteføljer via CDS, primært for å frigjøre regulatorisk kapital uten å selge lånene."
+    }
+  ],
+  "traditional-securitisation": [
+    {
+      "question": "Hva er de to viktigste fordelene en originatorbank oppnår ved tradisjonell (true-sale) verdipapirisiering?",
+      "answer": "Banken oppnår (1) finansiering — kontanter fra salg av lånene til SPVet — og (2) kapitalfrigivelse — lånene fraregnes fra balansen og utløser ikke lenger kapitalkrav."
+    },
+    {
+      "question": "Hva er post-krise 'skin-in-the-game'-kravet i tradisjonell verdipapirisiering?",
+      "answer": "Etter krisen krever Artikkel 6 CRR at originatoren beholder minst 5 % av egenkapitaltransjen eller netto økonomieksponering. Dette skal gi originatoren insentiv til forsvarlig kredittvurdering og overvåking."
+    }
+  ],
+  "originate-to-distribute": [
+    {
+      "question": "Hvorfor svekker originate-to-distribute-modellen insentivene til kredittvurdering?",
+      "answer": "Når originatoren selger lånet og fraskriver seg kredittrisikoen, er det lite å tape på dårlig screening av låntakere og mangelfull overvåking etterpå. Insentivstrukturen brytes — originatoren tjener på volum, ikke på lånekvalitet."
+    },
+    {
+      "question": "Hva var det direkte regulatory-svaret på OTD-modellens svakheter etter finanskrisen?",
+      "answer": "Skin-in-the-game-reglene (5 % retensjonstillegg) ble innført for å tvinge originatoren til å beholde en andel av kredittrisikoen, slik at insentivene til forsvarlig utlånspraksis gjenopprettes."
+    }
+  ],
+  "cdo-squared": [
+    {
+      "question": "Hva er en CDO² (CDO-squared), og hva er dens strukturelle fare?",
+      "answer": "En CDO² er en CDO der sikkerhetsmassen består av mezzanin-transjer fra andre CDOer — typisk BBB-ratede MBS-transjer. Den retransjerer denne lavkvalitetspoolen og produserer nye AAA-ratede transjer. Faren er skjult korrelasjon: et lite sjokk i subprime-mislighold forplanter seg ikke-lineært gjennom dobbelt lag av transjering."
+    },
+    {
+      "question": "Hvordan bidro CDO² til å undervurdere systemrisikoen i pre-kriseperioden?",
+      "answer": "Ved å retransjere allerede lavkvalitets-BBB-transjer ble store nominelle AAA-volumer skapt fra et tynt lag subprime-lån. Ratingbyråer modellerte korrelasjoner som for lave, og instrumentene ble presentert som trygge, mens de i realiteten var svært sensitive for korrelerte mislighold."
+    }
+  ],
+  "abcp": [
+    {
+      "question": "Hva er ABCP, og hvilken rolle spilte det i oppbyggingen av skyggefinansrisiko før 2007?",
+      "answer": "ABCP (Asset-Backed Commercial Paper) er kortsiktig gjeld (1–270 dager) utstedt av SIVer og conduits, sikret av en pool av ABS-aktiva. Det finansierte løpetidsmismatched skyggefinanssystem ved å rullere kortsiktig finansiering over langsiktige aktiva."
+    },
+    {
+      "question": "Hva skjedde med ABCP-markedet 9. august 2007, og hvorfor regnes dette som starten på finanskrisen?",
+      "answer": "BNP Paribas suspenderte innløsning på tre subprime-eksponerte fond, noe som frøs ABCP-markedet. SIVer mistet evnen til å rulle finansiering og måtte absorbere aktiva tilbake til sponsorbankens balanse — starten på den bredere finanskrisen."
+    }
+  ],
+  "conduit": [
+    {
+      "question": "Hva skiller et ABCP-conduit fra et SIV?",
+      "answer": "Et ABCP-conduit er, i likhet med et SIV, et off-balance sheet-kjøretøy finansiert med ABCP. Den avgjørende forskjellen er at et conduit normalt har full likviditetsbackstop fra sponsorbanken, mens SIVer typisk ikke har det."
+    },
+    {
+      "question": "Hva skjedde med ABCP-conduits under 2007-uroen, og hvilken mekanisme overførte stresset til regulert sektor?",
+      "answer": "Da ABCP-markedet frøs i august 2007, ble likviditetsbackstopene utløst automatisk. Aktivaene og finansieringsbehovet ble da absorbert tilbake til sponsorbankenes balanser — en forhåndsarrangert overføring av skyggebankstress til regulert sektor."
+    }
+  ],
+  "ninja": [
+    {
+      "question": "Hva er NINJA-lån, og hva er forkortelsen?",
+      "answer": "NINJA står for 'No Income, No Job, No Assets' — subprime-boliglån gitt til låntakere uten dokumentert inntekt, jobb eller eiendeler. Ekstreme eksempler på sammenbruddet i kredittvurderingspraksis i USA 2003–07."
+    },
+    {
+      "question": "Hva muliggjorde utstedelse av NINJA-lån i stort omfang?",
+      "answer": "Kombinasjonen av OTD-modellen (originatoren beholdt ikke risikoen), meglere betalt per volum og AAA-ratert verdipapirisiering som absorberte enhver kvalitet, fjernet praktisk talt alle insentiver til forsvarlig kredittvurdering."
+    }
+  ],
+  "subprime": [
+    {
+      "question": "Hva kjennetegner subprime-boliglån, og hva var volumets størrelsesorden på topp?",
+      "answer": "Subprime-boliglån er gitt til låntakere med svak kreditthistorikk, lav dokumentasjon eller høy belåningsgrad. Utstedelsen nådde rundt 600 mrd USD i 2006."
+    },
+    {
+      "question": "Hvorfor ble tap på subprime det utløsende elementet for GFC, selv om de ikke var størst i absolutte tall?",
+      "answer": "Subprime-tapene spredte seg gjennom kompleksitet og opasitet: re-verdipapirisiering via privat MBS, CDO og CDO² skjulte hvem som satt med hvilke eksponeringer, noe som utløste bred panikk og systemisk mistillit i finansmarkedene."
+    }
+  ],
+  "rating-agency": [
+    {
+      "question": "Hva er issuer-pays-modellen, og hvilken interessekonflikt skapte den i strukturert kreditt?",
+      "answer": "I issuer-pays-modellen velger og betaler utstederen ratingbyrået. Byråene konkurrerte om gjentakende oppdrag ved å gi rausere ratinger — særlig i lukrativ strukturert kreditt — fremfor å opprettholde uavhengig analyse."
+    },
+    {
+      "question": "Hva var den regulatoriske responsen på ratingbyråenes svikt, og overlevde issuer-pays-modellen?",
+      "answer": "Dodd-Frank og EUs CRA-forordning innførte strengere styring, metodedokumentasjon og endret ansvarsregime. Issuer-pays-modellen er likevel fremdeles den dominerende forretningsmodellen."
+    }
+  ],
+  "mmf-rpf": [
+    {
+      "question": "Hva skjedde med Reserve Primary Fund 16. september 2008, og hva utløste det?",
+      "answer": "Reserve Primary Funds NAV falt til 0,97 USD etter at Lehmans fall devaluerte fondets CP-beholdninger — fondet 'broke the buck'. Dette utløste et industrisomfattende run på pengemarkedsfond."
+    },
+    {
+      "question": "Hvordan ble run-et på pengemarkedsfondene stoppet i 2008?",
+      "answer": "Det amerikanske finansdepartementet stilte en enestående blanket-garanti for alle MMF-innskudd midlertidig. Uten denne garantien ville bransjens likvidering ha forsterket finanskrisen ytterligere."
+    }
+  ],
+  "cip": [
+    {
+      "question": "Hva sier dekket renteparitet (CIP), og hva er formelen?",
+      "answer": "CIP sier at det ikke finnes risikofri arbitrasjemulighet mellom valutamarkedet og rentemarkedet: F = S × (1 + r_q × t/360) / (1 + r_b × t/360). Terminraten er fullt bestemt av spotrate og rentedifferansen."
+    },
+    {
+      "question": "Hva er cross-currency basis, og hva forklarer dens vedvarende tilstedeværelse etter 2008?",
+      "answer": "Cross-currency basis er avviket fra CIP i terminmarkedene. Vedvarende avvik etter 2008 reflekterer balansekostnader ved CIP-arbitrasje og strukturell dollarfinansieringsknapphet for ikke-amerikanske banker."
+    }
+  ],
+  "spot-forward": [
+    {
+      "question": "Hva er forskjellen på spotkurs og terminkurs i valutamarkedet?",
+      "answer": "Spotkursen (S) er valutakursen for levering T+2. Terminkursen (F) er prisen avtalt i dag for levering på et fremtidig tidspunkt. F er ikke en prognose på fremtidig spotkurs, men reflekterer rentedifferansen via CIP."
+    },
+    {
+      "question": "Hva betyr det at en valuta handles til forward premium?",
+      "answer": "Forward premium betyr F > S — basisvalutaens terminpris er høyere enn spotkursen. Dette indikerer at noteringvalutaen har lavere renter enn basisvalutaen, i tråd med CIP-sammenhengene."
+    }
+  ],
+  "swap-points": [
+    {
+      "question": "Hva er swap points (terminpoeng), og hva reflekterer de?",
+      "answer": "Swap points er F − S, uttrykt i pips. De representerer rentedifferansen mellom to valutaer implisert av CIP. Positive terminpoeng betyr at fremmedvalutaen handles til terminpremie og typisk har lavere renter."
+    },
+    {
+      "question": "Hva er standard kvoteringskonvensjon for terminkontrakter i interbankmarkedet?",
+      "answer": "Interbankmarkedet kvoterer terminkontrakter ved å oppgi swap points (terminpoeng) addert til spotkursen — ikke ved å kvotere terminraten direkte."
+    }
+  ],
+  "ccbs": [
+    {
+      "question": "Hva er en cross-currency basis swap (CCBS), og hva er dens struktur?",
+      "answer": "CCBS er en langsiktig derivatkontrakt der to parter bytter flytende rentebetalinger i ulike valutaer, med notionelt beløp utvekslet til samme spotkurs ved start og forfall (ingen valutarisiko på notionel). En basisspread legges til en av bena som kompensasjon for CIP-avvik."
+    },
+    {
+      "question": "Hva brukes CCBS til i bankers ALM?",
+      "answer": "CCBS brukes til å sikre strukturelle valutafinansieringsmismatcher, for eksempel når en norsk bank utsteder EUR-obligasjoner og trenger å konvertere EUR-renter til NOK-flytende finansiering uten å bære valutarisiko."
+    }
+  ],
+  "basis-spread": [
+    {
+      "question": "Hva er cross-currency basis spread, og hva betyr en negativ dollar basis?",
+      "answer": "Basis spread er det leddet som legges til en CCBS for å håndheve ingen arbitrasje ved CIP-brudd. En negativ dollar basis betyr at de som finansierer seg i dollar via FX-swap, betaler en premie — det koster mer å få dollar enn CIP tilsier."
+    },
+    {
+      "question": "Hva kurerte dollar basis-blusseringen i 2008 og mars 2020?",
+      "answer": "Fed dollar swap lines kurerte blusseringen ved å tilby dollartilgang direkte via sentralbankkanalen, noe som eliminerte den strukturelle mangelen og normaliserte cross-currency basis."
+    }
+  ],
+  "irs": [
+    {
+      "question": "Hva er en rentebytteavtale (IRS), og hva bytter partene?",
+      "answer": "En IRS er en samme-valuta-bytte der en part betaler fast rente og mottar flytende rente (eller omvendt) på et notionelt beløp. Notionelt beløp utveksles aldri — kun netterte rentebetalinger."
+    },
+    {
+      "question": "Hva er den viktige risikodistinksjonen for en fast-rente-betaler i en IRS?",
+      "answer": "En fast-rente-betaler låser inn finansieringskostnad, men bærer risikoen for at flytende renter faller under den avtalte fastrenten. IRS transformerer renterisikoen, men eliminerer den ikke — risikoprofilen endrer form."
+    }
+  ],
+  "benchmarks": [
+    {
+      "question": "Hvorfor ble LIBOR avviklet, og hvilke referanserenter erstattet den?",
+      "answer": "LIBOR ble avviklet 2021–23 på grunn av manipulasjonsskandaler og krympende faktisk interbankvolum. Etterfølgere er SOFR (USD, sikret, repo-basert), SONIA (GBP), TONA (JPY), SARON (CHF) og €STR (EUR)."
+    },
+    {
+      "question": "Hvilken norsk referanserente er benchmark for NOK, og hva er dens metode?",
+      "answer": "NIBOR (Norwegian Interbank Offered Rate) er NOK-benchmark. Den er undersøkelsesbasert, lik LIBOR i metode, og er fortsatt i bruk i motsetning til de fleste internasjonale IBOR-referansene."
+    }
+  ],
+  "ccp": [
+    {
+      "question": "Hva er en sentral motpart (CCP), og hvilken funksjon fyller den i derivatmarkedene?",
+      "answer": "En CCP er et clearinghus som setter seg mellom de to sidene av en derivathandel og blir kjøper til enhver selger og selger til enhver kjøper. Dette sentraliserer og mutualiserer motpartsrisiko og håndhever marginkrav."
+    },
+    {
+      "question": "Hva er standard tapshierarki dersom en CCP-deltager misligholder?",
+      "answer": "Misligholdende parts marginer brukes først, deretter garantifondet, deretter CCPens egen kapital, og til slutt mutualiserte bidrag fra gjenværende deltagere."
+    }
+  ],
+  "margin": [
+    {
+      "question": "Hva er forskjellen mellom initial margin og variation margin i derivatclearing?",
+      "answer": "Initial margin er en forhåndsstilt sikkerhet mot potensiell fremtidig eksponering (typisk 99 % 10-dagers VaR). Variation margin er daglig oppgjør av mark-to-market gevinster og tap — one-for-one med gårsdagens bevegelse."
+    },
+    {
+      "question": "Hva er UMR, og hva utvidet det marginkravene til å dekke?",
+      "answer": "Uncleared Margin Rules (UMR) er regler innført 2017–22 som utvidet initial margin-krav til OTC-derivatkontrakter som ikke cleares gjennom en CCP, og ikke bare til sentralt clearede handler."
+    }
+  ],
+  "rebalancing-channel": [
+    {
+      "question": "Hva er rebalanseringskanalen for FX-sikring, og hvordan skaper den en selvforsterkende svekkelse av NOK?",
+      "answer": "En utenlandsk investor holder en norsk obligasjon sikret med en EUR/NOK-forward. Når NOK svekkes, er den norske obligasjonens verdi (i EUR) nå større enn sikringen — investoren er under-hedged. For å rebalansere selges mer NOK forward, som svekker NOK ytterligere."
+    },
+    {
+      "question": "Hvilken historisk episode illustrerer rebalanseringskanalen tydelig?",
+      "answer": "Rebalanseringskanalen ble identifisert som en primærdrivert faktor under NOK-kollapsen i mars 2020, dokumentert av Norges Bank."
+    }
+  ],
+  "margining-channel": [
+    {
+      "question": "Hva er margineringskanalen, og hvordan henger den sammen med rebalanseringskanalen?",
+      "answer": "Margineringskanalen er komplementær til rebalanseringskanalen: NOK-svekkelse gir MTM-tap på FX-sikringsposisjoner. For å dekke variation margin-krav i fremmed valuta selger sikringspartnere norske obligasjoner for kontanter, noe som presser NOK-renter opp og NOK ned videre."
+    },
+    {
+      "question": "Hvem identifiserte margineringskanalen som krisedrivert, og i hvilken episode?",
+      "answer": "Norges Bank og Alstadheims foredrag identifiserte margineringskanalen som en primærdrivert faktor bak markedsuroen i NOK og norske obligasjoner i mars 2020."
+    }
+  ],
+  "dollar-shortage": [
+    {
+      "question": "Hva er dollar funding stress, og hva er dens strukturelle årsaker etter 2008?",
+      "answer": "Dollar funding stress er ikke-amerikanske bankers vanskeligheter med å låne dollar i usikrede markeder, manifestert som negativ cross-currency basis. Strukturelle årsaker: amerikanske pengemarkedsfondreformer (2014), Volcker-regelverket og balansekostnader ved FX-swap-arbitrasje."
+    },
+    {
+      "question": "Hva curer akutte dollarfinansieringsblussinger effektivt?",
+      "answer": "Fed dollar swap lines curer akutte episoder ved å tilby sentralbankleddet dollartilgang til utenlandske sentralbanker, som videreformidler til sine banker — slik at dollarknapphet adresseres uten bruk av pengemarkedet."
+    }
+  ],
+  "forward-contract": [
+    {
+      "question": "Hva er et terminkontrakt (forward contract), og hva skiller det fra et futureskontrakt?",
+      "answer": "Et terminkontrakt er en bilateral OTC-avtale om å levere et aktiva på en fremtidig dato til en pris avtalt i dag. Det er OTC, skreddersydd og typisk usikret (marginkrav varierer). Et futureskontrakt er standardisert, børsnotert og sentralt clearet."
+    },
+    {
+      "question": "Hva er kontantstrømprofilen for et standard terminkontrakt?",
+      "answer": "Et terminkontrakt har ingen initial kontantstrøm. MTM akkumuleres over løpetiden, og oppgjør skjer ved forfall. Motpartsrisikoen er symmetrisk — begge parter kan havne i pengene."
+    }
+  ],
+  "brrd": [
+    {
+      "question": "Hva er de fire resolusjonsverktøyene under BRRD?",
+      "answer": "De fire verktøyene er: (1) salg av virksomheten til en privat kjøper, (2) brobankinstitusjon, (3) separasjon av aktiva til et forvaltningsselskap, og (4) bail-in — nedskriving og konvertering av gjeld."
+    },
+    {
+      "question": "Hva er FOLF-triggeren, og hva er public-interest-vurderingens funksjon under BRRD?",
+      "answer": "FOLF (Failing or Likely to Fail) er terskelen for resolution. Public-interest-vurderingen avgjør om resolution er nødvendig fremfor ordinær insolvens — kun dersom resolution tjener almennhetens interesse benyttes BRRD-verktøyene."
+    }
+  ],
+  "recovery-plan": [
+    {
+      "question": "Hva er en recoveryplan, og hvem utarbeider den?",
+      "answer": "En recoveryplan er bankens egendraftede plan for selvhjelpstiltak som gjenoppretter levedyktigheten før resolution-terskelen nås. Den utarbeides av banken og godkjennes av tilsynsmyndigheten, og oppdateres årlig."
+    },
+    {
+      "question": "Hva er den typiske menyens selvhjelpstiltak i en recoveryplan?",
+      "answer": "Typiske tiltak: kapitalinnhenting, suspendering av utbytte, kansellering av AT1-kuponger, salg av eiendeler, deleveraging og gjeldsstyringsøvelser (liability management exercises)."
+    }
+  ],
+  "resolution-plan": [
+    {
+      "question": "Hva er en resolusjonplan, og hvem utarbeider den?",
+      "answer": "En resolusjonplan er utarbeidet av resolusjonsmyndigheten (SRB for signifikante banker, Finanstilsynet for norske institusjoner). Den fastsetter foretrukket resolusjonsstrategi, kritiske funksjoner, MREL-kalibrering og operasjonelle avhengigheter."
+    },
+    {
+      "question": "Hva er den sentrale forskjellen mellom en recoveryplan og en resolusjonplan?",
+      "answer": "Recoveryplanen er bankdraftet og inneholder selvhjelpstiltak for å unngå resolution. Resolusjonplanen er myndighetsdraftet og beskriver hvordan banken håndteres dersom FOLF og public-interest-testen er oppfylt."
+    }
+  ],
+  "folf": [
+    {
+      "question": "Hva er de fire vilkårene for FOLF-triggeren under BRRD, og hvor mange må oppfylles?",
+      "answer": "Ett av fire vilkår er tilstrekkelig: (1) tillatelsen til å drive er trukket eller vil bli trukket, (2) forpliktelsene overstiger eller vil overstige eiendelene, (3) banken kan ikke eller vil ikke kunne betale gjeld ved forfall, eller (4) banken krever eller vil kreve ekstraordinær offentlig finansiell støtte."
+    },
+    {
+      "question": "Hva skiller FOLF-kriteriet fra ordinær insolvens etter nasjonal rett?",
+      "answer": "FOLF kan utløses ved fremtidig (sannsynlig) svikt, ikke kun aktuell svikt — 'likely to fail' er et fremoverskuende kriterium. Ordinær insolvens er typisk et faktum-basert, bakoverblikkende rettslig begrep."
+    }
+  ],
+  "public-interest-assessment": [
+    {
+      "question": "Hva er formålet med Public Interest Assessment, og hva skjer hvis testen ikke bestås?",
+      "answer": "Testen avgjør om en FOLF-bank skal gjennom resolution (BRRD-verktøy) eller ordinær avvikling. Dersom avvikling ville bevare kritiske funksjoner, finansiell stabilitet, innskyterbeskytte og offentlige midler, bestås ikke testen, og banken avvikles under nasjonal insolvenslovgivning med DGS-utbetaling til dekkede innskytere."
+    },
+    {
+      "question": "Hvilke fire kriterier må liquidation feile for at resolution skal anses å være i offentlighetens interesse?",
+      "answer": "Avvikling må ikke klare å bevare (1) kritiske funksjoner, (2) finansiell stabilitet, (3) innskyterbeskytte, eller (4) offentlige midler. Kun hvis minst ett av disse kriteriene svikter ved avvikling, kan resolution rettferdiggjøres."
+    }
+  ],
+  "resolution-tools": [
+    {
+      "question": "Nevn de fire resolution-verktøyene under BRRD, og angi hvilken begrensning ett av dem har.",
+      "answer": "De fire er: (1) Sale of Business, (2) Bridge Institution, (3) Asset Separation og (4) Bail-in. Asset Separation kan ikke benyttes alene — det må kombineres med ett av de tre øvrige verktøyene."
+    },
+    {
+      "question": "Kan BRRD-resolution-verktøyene kombineres, og hva forventer sensor at kandidaten navngir?",
+      "answer": "Ja, verktøyene kan kombineres. Sensor forventer at alle fire navn er oppgitt: Sale of Business, Bridge Institution, Asset Separation og Bail-in."
+    }
+  ],
+  "sale-of-business": [
+    {
+      "question": "Hva innebærer Sale of Business-verktøyet, og hvorfor er det foretrukket når en aktuell kjøper finnes?",
+      "answer": "Verktøyet innebærer overføring av hele eller deler av den sviktende bankens virksomhet — aksjer, eiendeler, rettigheter og forpliktelser — til en villig privat kjøper, uten aksjonærenes samtykke. Det bevarer franchisen og unngår eksponering av det offentlige balansen."
+    },
+    {
+      "question": "Hvilket konkret case illustrerer rask bruk av Sale of Business-verktøyet, og hva var tidsperspektivet?",
+      "answer": "SRB benyttet Sale of Business på Sberbank Europe i mars 2022, der kroatiske og slovenske operasjoner ble overført til lokale kjøpere i løpet av dager etter FOLF-bestemmelsen."
+    }
+  ],
+  "bridge-institution": [
+    {
+      "question": "Hva er en Bridge Institution, og hva er maksimal levetid for en slik enhet?",
+      "answer": "En Bridge Institution er en midlertidig offentlig eid enhet som overtar den sviktende bankens operasjoner inntil en permanent løsning er etablert. Maksimal innledende levetid er to år, med mulighet for forlengelse ett år av gangen."
+    },
+    {
+      "question": "Under hvilken omstendighet er Bridge Institution det foretrukne resolution-verktøyet?",
+      "answer": "Bridge Institution benyttes når det ikke finnes en umiddelbar privat kjøper, slik at kritiske funksjoner kan videreføres mens resolution-myndigheten arbeider med en permanent løsning."
+    }
+  ],
+  "asset-separation": [
+    {
+      "question": "Hva er formålet med Asset Separation-verktøyet, og hvilken kritisk begrensning gjelder for bruken?",
+      "answer": "Asset Separation overfører giftige eller illikvide eiendeler til et offentlig kontrollert Asset Management Vehicle (AMV), slik at 'good bank' kan fortsette med en ren balanse. Verktøyet kan ikke benyttes alene — det må kombineres med Sale of Business, Bridge Institution eller Bail-in."
+    },
+    {
+      "question": "Hvilket historisk eksempel regnes som forgjengeren til Asset Separation-verktøyet?",
+      "answer": "Sveriges Securum og Retriva under den nordiske bankkrisen i 1992 regnes som de ikoniske forløperne og gir mal for modern bad-bank-separasjon."
+    }
+  ],
+  "laa": [
+    {
+      "question": "Hva er Loss Absorption Amount (LAA), og hva er det kalibrert mot?",
+      "answer": "LAA er den første komponenten i MREL og representerer kapitalbehovet for å absorbere tap på veien ned mot resolution, kalibrert tilnærmet som bankens gjeldende kapitalkrav (Pilar 1 + P2R + Combined Buffer Requirement)."
+    },
+    {
+      "question": "Skjer LAA-absorpsjon før eller etter rekapitalisering, og hva skiller det fra RA?",
+      "answer": "LAA absorberer tap før rekapitalisering begynner. RA (Recapitalisation Amount) er den påfølgende komponenten som dekker gjenoppbygging av kapital etter resolution."
+    }
+  ],
+  "ra": [
+    {
+      "question": "Hva er Recapitalisation Amount (RA), og på hvilken balanse beregnes det?",
+      "answer": "RA er den andre MREL-komponenten og dekker kapitalbehovet for å gjenopprette banken — eller en etterfølger — til fullt operativt kapitalkrav etter resolution. Det beregnes på post-resolution-balansen, som kan være mindre etter overføring av eiendeler."
+    },
+    {
+      "question": "Hvorfor kan RA kalibreres til et lavere beløp enn LAA i noen tilfeller?",
+      "answer": "Fordi post-resolution-balansen kan være krympet etter overføringer av eiendeler eller forpliktelser til Bridge Institution eller AMV, slik at det kapitalbehovet som gjenoppbygges er lavere enn det som ble absorbert."
+    }
+  ],
+  "going-vs-gone-concern": [
+    {
+      "question": "Hva skiller going-concern-tapsabsorpsjon fra gone-concern-tapsabsorpsjon, og hvilke kapitalklasser tilhører hver kategori?",
+      "answer": "Going-concern: banken absorberer tap mens den fortsatt opererer — CET1 alltid, AT1 ved trigger (5,125 %/7 % CET1). Gone-concern: kapital absorberer tap kun ved PONV eller i resolution — Tier 2, senior non-preferred og senior usikret gjeld."
+    },
+    {
+      "question": "Hvorfor er going- vs. gone-concern-distinksjonen ryggraden i bail-in-designet?",
+      "answer": "Fordi den definerer nøyaktig når hvert kapitallag skal bære tap, noe som bestemmer utformingen av AT1-instrumenter (triggerbasert konvertering/nedskriving) og rekkefølgen i bail-in-kaskaden."
+    }
+  ],
+  "snp": [
+    {
+      "question": "Hva er Senior Non-Preferred (SNP)-obligasjoner, og hvor plasserer de seg i kreditorhierarkiet?",
+      "answer": "SNP er en obligasjonsklasse som er eksplisitt utformet for å være bail-in-bar under BRRD. De rangerer under ordinær senior usikret gjeld, men over subordinert gjeld. Til tross for betegnelsen 'senior' er de designet til å absorbere tap før ikke-foretrukne innskudd og ordinær senior gjeld."
+    },
+    {
+      "question": "Hvilket land innførte SNP-klassen, og hvorfor er SNP-betegnelsen viktig for investorer?",
+      "answer": "Frankrike introduserte klassen i 2016. Betegnelsen signaliserer eksplisitt til investorer at instrumentet, til tross for senior-statusen, er ment å absorbere tap i resolution — i motsetning til ordinære senior-obligasjoner."
+    }
+  ],
+  "creditor-hierarchy": [
+    {
+      "question": "Beskriv kreditorhierarkiet i resolution fra mest beskyttet til første tap.",
+      "answer": "Dekkede innskudd (super-preferanse) → ikke-sikrede detail- og SME-innskudd (preferanse) → ordinær senior usikret gjeld → senior non-preferred → Tier 2 → AT1 → CET1 (egenkapital). Bail-in nedskriver fra bunnen og oppover."
+    },
+    {
+      "question": "Hvilken tentakkel er eksamenstypisk knyttet til kreditorhierarkiet, og hva er nøkkelpoenget?",
+      "answer": "Eksamen spør typisk om rangeringen eksplisitt (Spring 2024 Q5). Nøkkelpoenget er at bail-in opererer nedenfra og opp — eiere og hybridkapitaleiere bærer tap først, dekkede innskytere sist."
+    }
+  ],
+  "super-preference": [
+    {
+      "question": "Hva innebærer super-preferanse for dekkede innskudd, og når ble det innført i norsk rett?",
+      "answer": "Dekkede innskudd (NOK 2 mill. i Norge, €100 000 i EU) rangerer øverst i hierarkiet i resolution og avvikling. Innskuddsgarantifondet — som har betalt ut dekkede innskytere — gjenvinner midler fra boet foran alle andre kreditorer. Innført i norsk lov fra 2019 ved implementering av BRRD2."
+    },
+    {
+      "question": "Hvilke konsekvenser ville det ha å fjerne super-preferansen for dekkede innskudd?",
+      "answer": "Høyere finansieringskostnad for senior usikret gjeld (svekket kreditorvern), svekket bail-in-kjede (lavere MREL-buffer), og større DGS-eksponering siden fondet ville ligge lenger bak i køen ved avvikling."
+    }
+  ],
+  "srb": [
+    {
+      "question": "Hva er Single Resolution Board (SRB), og hvilke banker faller under dets myndighet?",
+      "answer": "SRB er den sentraliserte EU-resolution-myndigheten for signifikante banker i Bankunionen (eurosonen pluss opt-in-land). Det dekker omlag 120 banker, utarbeider resolution-planer, kalibrerer MREL og iverksetter resolution-beslutninger."
+    },
+    {
+      "question": "Nevn to resolution-cases der SRB har brukt sine fullmakter, og angi verktøyet som ble anvendt i hvert tilfelle.",
+      "answer": "Banco Popular (juni 2017): Sale of Business til Santander for €1. Sberbank Europe (mars 2022): Sale of Business til lokale kjøpere i løpet av dager etter FOLF-bestemmelse."
+    }
+  ],
+  "srm-srf": [
+    {
+      "question": "Hva er forskjellen mellom SRM og SRF, og hva er SRFs målstørrelse?",
+      "answer": "SRM (Single Resolution Mechanism) er det institusjonelle rammeverket bestående av SRB og nasjonale resolution-myndigheter. SRF (Single Resolution Fund) er den felles finansieringspoolen, finansiert av ex-ante bidrag fra banker i Bankunionen, med en målstørrelse på 1 % av dekkede innskudd (~€80 mrd), nådd i desember 2023."
+    },
+    {
+      "question": "Hvordan finansieres SRF, og hva kan midlene brukes til?",
+      "answer": "SRF finansieres av ex-ante bidrag (banklevies) fra Bankuinons-banker. Midlene kan brukes til å støtte resolution-verktøykassen, for eksempel som backstop for Bridge Institution."
+    }
+  ],
+  "tbtf": [
+    {
+      "question": "Hva innebærer Too Big to Fail (TBTF), og hvilken kvantifisert subsidie var knyttet til det?",
+      "answer": "TBTF er den pre-krisis markedsoppfatningen om at systemiske banker ville bli reddet av det offentlige, noe som ga dem en implisitt statlig garanti. IMF estimerte dette til en finansieringssubsidie på 60–80 basispunkter for de største amerikanske bankene før 2008."
+    },
+    {
+      "question": "Hvilke regulatoriske instrumenter er direkte utformet for å bryte TBTF-forventningen, og hvilken mekanisme er sentral?",
+      "answer": "Bail-in, MREL og TLAC er direkte svar på TBTF. Bail-in er den sentrale mekanismen: ved å la kreditorer bære tap i stedet for skattebetalere, elimineres den implisitte garantien."
+    }
+  ],
+  "bail-out": [
+    {
+      "question": "Hva er et bail-out, og hva er dets viktigste forskjell fra bail-in?",
+      "answer": "Et bail-out er rekapitalisering av en sviktende bank ved hjelp av eksterne (skattebetalers) midler — egenkapitalinjeksjoner, kjøp av eiendeler eller blankogarantier. Bail-in bruker i stedet bankens egne kreditorer (ikke skattebetalere) til å bære tapene."
+    },
+    {
+      "question": "Nevn tre historiske eksempler på bail-out, og hvilken politisk konsekvens fikk de?",
+      "answer": "TARP (USA 2008), nasjonalisering av RBS/Lloyds (Storbritannia), og Statens finansfond (Norge). Den politiske reaksjonen drev frem bail-in- og resolution-reformene etter krisen."
+    }
+  ],
+  "spe-mpe": [
+    {
+      "question": "Hva er forskjellen mellom SPE og MPE som resolution-strategier for grensekryssende bankgrupper?",
+      "answer": "SPE (Single Point of Entry): resolution iverksettes på morselskapet, tap skyves opp fra datterselskaper via intern MREL, én resolution-myndighet leder. MPE (Multiple Point of Entry): resolution iverksettes på datterselskapsnivå i hjemlandet, med forhåndsposisjonert lokal kapital og flere myndigheter."
+    },
+    {
+      "question": "Hvilken type bankgruppe passer best til SPE versus MPE?",
+      "answer": "SPE passer sentraliserte grupper (f.eks. HSBC, Santander), mens MPE passer føderale grupper med autonome datterselskaper (f.eks. Nordea historisk)."
+    }
+  ],
+  "ponv": [
+    {
+      "question": "Hva er Point of Non-Viability (PONV), og hvilken funksjon har det i resolution-rammeverket?",
+      "answer": "PONV er det punktet der resolution-myndigheten fastslår at banken ikke lenger ville vært levedyktig uten tiltak — typisk like før formell FOLF-bestemmelse. Det er den juridiske kroken som utløser AT1- og Tier 2-nedskriving eller konvertering utenfor formell resolution."
+    },
+    {
+      "question": "Er PONV det samme som FOLF, og hvem avgjør at PONV er nådd?",
+      "answer": "PONV skjer typisk rett før formell FOLF og resolution. Det er resolution-myndigheten som fastslår PONV, og avgjørelsen utløser AT1- og T2-tapsabsorpsjon."
+    }
+  ],
+  "ncwo": [
+    {
+      "question": "Hva innebærer NCWO-prinsippet, og hvilken rettighet gir det kreditorer?",
+      "answer": "NCWO (No Creditor Worse Off than in Liquidation) er et BRRD-sikkerhetsprinsipp: ingen kreditor eller aksjonær skal lide større tap i resolution enn ved ordinær insolvensavvikling. Dersom prinsippet brytes, har de rett til kompensasjon fra resolution-fondet."
+    },
+    {
+      "question": "Hvilket konkret case satte NCWO-prinsippet på prøve, og hva var kjernen i kontroversen?",
+      "answer": "Credit Suisse-saken (mars 2023): FINMA nullstilte CHF 16 mrd. i AT1 mens UBS-aksjonærer mottok aksjer. Obligasjonseierne argumenterte for at de fikk dårligere vilkår enn de ville fått i avvikling, siden aksjonærer (som rangerer under AT1 i waterfall) beholdt verdi."
+    }
+  ],
+  "sre": [
+    {
+      "question": "Hva er Systemic Risk Exception (SRE), og når ble den brukt i 2023?",
+      "answer": "SRE er et FDIC-verktøy som gir myndighet til å overskride 'least-cost resolution'-standarden ved alvorlig systemrisiko. Den ble brukt 12. mars 2023 for å garantere alle uforsikrede innskudd i SVB og Signature Bank — over FDIC-grensen på $250 000 — for å stoppe et eventuelt bredere bankrun."
+    },
+    {
+      "question": "Hvorfor er bruken av SRE etter SVB-kollapsen kontroversiell?",
+      "answer": "Fordi den de facto skapte ubegrenset innskuddsforsikring for lignende banker i en krisesituasjon, noe som forsterker moralsk hasard: innskytere mister incentivet til å overvåke bankrisiko dersom staten garanterer alt."
+    }
+  ],
+  "btfp": [
+    {
+      "question": "Hva var Bank Term Funding Program (BTFP), og hva var dets sentrale innovasjon?",
+      "answer": "BTFP var en Federal Reserve-nødfasilitet lansert 12. mars 2023 som lånte til banker i opptil ett år mot høykvalitetssikkerheter verdsatt til pari — ikke markedsverdi. Dette adresserte direkte HTM-tapproblemet som utløste SVB-kollapsen."
+    },
+    {
+      "question": "Hvorfor bryter BTFP med Bagehots klassiske LOLR-prinsipp, og hva var begrunnelsen?",
+      "answer": "Bagehot krevde 'god sikkerhet' — markedsverdivurdert — som vilkår for LOLR-lån. BTFP aksepterte pari-verdi (over markedsverdi) for å bryte run-dynamikken som oppsto av HTM-tap; regelen ble bevisst brutt av stabilitetshensyn."
+    }
+  ],
+  "finanstilsynet": [
+    {
+      "question": "Hvilke roller har Finanstilsynet i det norske finansielle systemet?",
+      "answer": "Finanstilsynet er norsk finanstilsyn og resolution-myndighet. Det fører tilsyn med banker, forsikringsselskaper, verdipapirforetak og pensjonsfond, gjennomfører SREP, fastsetter P2R, godkjenner gjenopprettingsplaner, utarbeider resolution-planer og iverksetter resolution."
+    },
+    {
+      "question": "Hva illustrerer Næringsbanken-saken om Finanstilsynets tilsynspraksis?",
+      "answer": "Saken viser effektiv forebyggende tilsynshandling: Finanstilsynet påla utlåningsstopp, økte P2R og fremtvang rekapitalisering av en liten norsk bank — alt før FOLF-terskelen var nådd — og unngikk full resolution."
+    }
+  ],
+  "ring-fencing": [
+    {
+      "question": "Hva er ring-fencing slik det er implementert i Storbritannia, og hva er formålet?",
+      "answer": "Ring-fencing er den britiske strukturreformen etter Vickers-rapporten (2011) som krever at bankgrupper med privatkundestatinnskudd over £25 mrd. juridisk skiller retailbankvirksomhet fra investeringsbank og engrosaktiviteter. Formålet er å beskytte innskudd mot handelstap og forenkle resolution."
+    },
+    {
+      "question": "Hvem anbefalte ring-fencing, og når trådte kravet i kraft?",
+      "answer": "Independent Commission on Banking (Vickers-rapporten, 2011) anbefalte det. Ring-fencing trådte i kraft i januar 2019."
+    }
+  ],
+  "volcker": [
+    {
+      "question": "Hva forbyr Volcker-regelen, og hvilken lov hjemler den?",
+      "answer": "Volcker-regelen (§619 i Dodd-Frank Act, 2010) forbyr amerikanske innskuddsbanker å drive egenhandel (prop trading) og fra å sponse eller investere i hedgefond og private-equity-fond, med visse unntak for market-making, sikring og statspapirshandel."
+    },
+    {
+      "question": "Hva var det politiske formålet med Volcker-regelen, og hva skjedde med den etter 2018?",
+      "answer": "Formålet var å skille handelsrisiko fra innskuddsfinansiert bankvirksomhet. Regelen ble progressivt utvannet etter 2018 gjennom lempelige unntaksregler."
+    }
+  ],
+  "naeringsbanken": [
+    {
+      "question": "Hva skjedde i Næringsbanken-saken, og hva er det regulatoriske lærepoenget?",
+      "answer": "Finanstilsynet grep inn preventivt i 2022–23 ved å pålegge utlånsstopp, heve P2R og tvinge frem rekapitalisering, alt før FOLF-terskelen ble nådd. Saken illustrerer at tidlig tilsynsintervensjon kan forebygge full resolution."
+    },
+    {
+      "question": "Hva er det viktigste skillet mellom Næringsbanken-intervensjon og en formell BRRD-resolution?",
+      "answer": "Næringsbanken-inngrepet var et forebyggende tilsynstiltak under Finanstilsynets ordinære fullmakter — ikke en formell BRRD-resolution. Banken hadde ikke nådd FOLF-terskelen, og inngrepet unngikk bruk av resolution-verktøyene."
+    }
+  ],
+  "sberbank-europe": [
+    {
+      "question": "Hva utløste Sberbank Europe-saken, og hvilket resolution-verktøy ble brukt?",
+      "answer": "Russlands invasjon av Ukraina i februar 2022 utløste en sanksjonsdrevet innskuddsrun på den europeiske datterbanken til russiske Sberbank. SRB fastslo FOLF 27. februar 2022 og anvendte Sale of Business-verktøyet — kroatiske og slovenske operasjoner ble overført til lokale kjøpere i løpet av dager."
+    },
+    {
+      "question": "Hvorfor regnes Sberbank Europe som et eksempel på vellykket rask resolution?",
+      "answer": "Hele prosessen fra FOLF-bestemmelse til gjennomført virksomhetsoverføring tok bare noen få dager, noe som viser at BRRD-rammeverket kan brukes effektivt og raskt ved eksternt utløste bankkriser."
+    }
+  ],
+  "credit-suisse-ubs": [
+    {
+      "question": "Hva var de viktigste elementene i det sveitsiske myndighetenes håndtering av Credit Suisse-krisen i mars 2023?",
+      "answer": "UBS overtok Credit Suisse 19. mars 2023 med CHF 100 mrd. i likviditetsbistand fra SNB, CHF 9 mrd. i statlig tapsgaranti og suspensjon av ordinær corporate governance for å omgå aksjonærvote. FINMA nullstilte CHF 16 mrd. i AT1 mens UBS-aksjonærer mottok aksjer."
+    },
+    {
+      "question": "Hva er kjernen i NCWO-kontroversen knyttet til Credit Suisse AT1-nedskrivingen?",
+      "answer": "AT1-eierne ble nullstilt mens UBS-aksjonærer (som rangerer under AT1 i bail-in-waterfall) mottok verdifulle UBS-aksjer. Dette inverte den normale rekkefølgen og skapte grunnlag for juridiske utfordringer basert på NCWO-prinsippet. Saken fulgte sveitsisk lov, ikke BRRD."
+    }
+  ],
+  "bankenes-sikringsfond": [
+    {
+      "question": "Hva er Bankenes Sikringsfond, og hva skiller norsk innskuddsgaranti fra EU-standarden?",
+      "answer": "Bankenes Sikringsfond er norsk innskuddsgaranti- og resolution-finansieringsordning med to potter: et innskuddsgarantifond og et resolution-fond. Dekning er NOK 2 mill. per innskyter per bank — vesentlig mer generøst enn EUs €100 000-tak."
+    },
+    {
+      "question": "Hvordan finansieres Bankenes Sikringsfond, og hva er det nye premiepremissforholdet fra 2026?",
+      "answer": "Fondet finansieres av risikobaserte ex-ante bidrag fra medlemsbanker. I dag betaler den risikofulle banken 12× den sikreste; fra 2026 foreslås dette økt til 20×."
+    }
+  ],
+  "dgsd": [
+    {
+      "question": "Hva er DGSD, og hva er de viktigste parametrene for dekning og utbetaling?",
+      "answer": "DGSD (Deposit Guarantee Schemes Directive, 2014/49/EU) harmoniserer nasjonale innskuddsforsikringsordninger i EU. Dekning er €100 000 per innskyter per institusjon. Utbetalingsfrist: 7 virkedager fra FOLF-bestemmelse. Målstørrelse for fondet: 0,8 % av dekkede innskudd."
+    },
+    {
+      "question": "Hva er det viktigste sammenligningspoenget mellom norsk og EU-innskuddsgaranti som gjerne testes på eksamen?",
+      "answer": "Norges NOK 2 mill.-grense er langt mer generøs enn EUs €100 000. I tillegg har Norge to separate fond (innskudd + resolution), mens EU-rammeverket opererer med ett samlet fond per direktiv."
+    }
+  ],
+  "risk-based-premiums": [
+    {
+      "question": "Hva er risikobaserte innskuddsforsikringspremier, og hvilken moralsk hasard-problem løser de?",
+      "answer": "Risikobaserte premier kalibrerer bankers bidrag til innskuddsgarantifondet etter bankens risikoprofil (kapital, aktivakvalitet, finansieringsstabilitet). Dette motvirker det Merton (1977) identifiserte problemet: flate premier lar risikofylte banker fri-ri på sikre banker og skattebetalere."
+    },
+    {
+      "question": "Hva er forholdet mellom premien til den risikofulle og den sikreste norske banken i dag, og hva foreslås fra 2026?",
+      "answer": "I dag betaler den risikofulle banken 12× den sikreste. Et forslag som er lagt frem vil øke dette til 20× fra 2026 for å styrke risikodifferensieringen ytterligere."
+    }
+  ],
+  "covered-bonds-omf": [
+    {
+      "question": "Hva kjennetegner obligasjoner med fortrinnsrett (OMF), og hva innebærer dual recourse?",
+      "answer": "OMF (Obligasjoner med Fortrinnsrett) er sikrede obligasjoner utstedt mot en dynamisk dekningspool av boliglån eller offentlige lån. Obligasjonseiere har dual recourse: krav mot utsteder og, ved utsteders mislighold, prioritert krav mot dekningspoolen foran usikrede kreditorer."
+    },
+    {
+      "question": "Hvilken rolle spilte OMF i den norske Bytteordningen under finanskrisen 2008–09, og hva er risikovekten under Standardmetoden?",
+      "answer": "OMF var sentralt i Bytteordningen der Norges Bank byttet statskasseveksler mot OMF for å lette bankenes finansiering. Risikovekten under Standardmetoden er 10 %, noe som reflekterer den lave kredittrisikoen ved AAA-rated dekket obligasjon."
+    }
+  ],
+  "merton-1977": [
+    {
+      "question": "Hva er Mertons (1977) innsikt om innskuddsforsikring, og hva innebærer det for premiesetting?",
+      "answer": "Merton viste at innskuddsforsikring kan prises som en put-opsjon skrevet av forsikrer (staten) på bankens eiendeler, med innløsningskurs lik sikrede innskuddsforpliktelser. Premien bør øke med aktivavolatilitet (σ) og giring (D/A). En flat premie underpriser dermed risikofylte og høyt girede banker."
+    },
+    {
+      "question": "Hva er den viktigste implikasjonen av Merton (1977) for regulatorisk design?",
+      "answer": "Flat-rate innskuddsforsikring overfører verdi fra sikre banker (og skattebetalere) til risikofylte banker, og skaper moralsk hasard. Løsningen er risikobaserte premier — det teoretiske grunnlaget Merton la for denne reformen."
+    }
+  ],
+  "esg": [
+    {
+      "question": "Hva skiller fysisk risiko fra overgangsrisiko i ESG-sammenheng — og gi to eksempler på hver.",
+      "answer": "Fysisk risiko knytter seg til direkte klimapåvirkninger på aktiva og kontantstrømmer: (1) akutt — ekstremvær som flom eller storm som skader pantsatte eiendommer eller avbryter driften; (2) kronisk — stigende havnivåer og langvarig tørke som gradvis forringer eiendomsverdier og øker misligholdsrisiko over tid. Overgangsrisiko oppstår i overgangen til lavkarbon­økonomi: (1) regulatorisk/politisk — CO₂-priser eller utslippskrav som øker kostnadene for fossil­intensive låntakere; (2) marked — teknologiskifter som gjør eksisterende anlegg til «stranded assets» og treffer kredittspread og aksjeverdier. Begge kategorier er transversale: de manifesterer seg som kredittrisiko, markedsrisiko, operasjonell risiko og omdømmerisiko."
+    },
+    {
+      "question": "Hva er en «dobbel vesentlighets­vurdering» under CSRD, og hva er dens implikasjoner for banker?",
+      "answer": "Dobbel vesentlighet krever at virksomheter vurderer risiko og muligheter fra to retninger: (1) outside-in — hvordan klima- og ESG-faktorer påvirker selskapets finansielle stilling og risikoeksponering (financial materiality); og (2) inside-out — hvilken innvirkning selskapets aktiviteter har på samfunn og miljø (impact materiality). For banker betyr dette at de må kartlegge både risikoen klimaendringer utgjør for bankens portefølje og bankens egne finanse­utslipp via utlånsvirksomheten. Rapporten må inkludere en troverdig omstillingsplan der vesentlige risikoer er identifisert. Manglende overholdelse kan utløse tilsynsmessige kapital­tillegg under CRD VI/CRR3."
+    },
+    {
+      "question": "Hvilke regulatoriske verktøy benytter EBA og EU for å integrere ESG i bankreguleringen, og hvilke insentiver skapes?",
+      "answer": "EBA publiserte Retningslinjer for ESG-risiko­håndtering som forventer at banker integrerer ESG i risikoappetitt, intern kontroll, risiko­vurdering og rapportering. Green Infrastructure Supporting Factor gir 25 % kapitalrabatt på kvalifiserende grønne eksponeringer, noe som insentiverer grønn utlåning. CRD VI/CRR3 åpner for kapital­tillegg overfor banker som mangler tilstrekkelig klimarisiko­håndtering, og TCFD/CDP-rapportering og CSRD-krav om dobbel vesentlighet skaper transparens­insentiver. Bankene motiveres dermed langs tre akser: regulatorisk compliance, kostnaden ved manglende risiko­håndtering (kapital­tillegg), og markedsmuligheten i grønn finansiering (lavere risikovekter)."
+    }
+  ],
+  "physical-risk": [
+    {
+      "question": "Hva er forskjellen mellom akutt og kronisk fysisk klimarisiko, og hvordan påvirker begge bankenes kredittportefølje?",
+      "answer": "Akutt fysisk risiko: ekstreme værhendelser (flom, storm, skogbrann) som ødelegger sikkerhet og forstyrrer låntakere. Kronisk fysisk risiko: langsiktige endringer (havnivå, temperatur, nedbør) som undergraver økonomi i bestemte regioner og eiendeler. Begge fører til økt PD, LGD og EAD."
+    },
+    {
+      "question": "Gi ett eksempel på akutt og ett eksempel på kronisk fysisk risiko som er relevante for norske banker.",
+      "answer": "Akutt: norsk flom 2023 som skader pantsatte eiendommer. Kronisk: havnivåstigning som reduserer verdien av kysteiendommer brukt som sikkerhet, og temperaturendringer som truer lønnsomheten til skisteder."
+    }
+  ],
+  "transition-risk": [
+    {
+      "question": "Hva er overgangsrisiko (transition risk), og hvilke tre undertyper skilles det mellom?",
+      "answer": "Overgangsrisiko oppstår fra overgangen til lavkarbonøkonomi og deles i: (1) Regulatorisk — karbonprising, forbud mot fossilt brensel, bygningseffektivitetskrav; (2) Marked — etterspørsel og teknologiskift (f.eks. elbil erstatter forbrenningsmotor); (3) Omdømme — kritikk av finansiering av kontroversielle sektorer."
+    },
+    {
+      "question": "Hvordan materialiserer overgangsrisiko seg konkret på bankenes balanse?",
+      "answer": "Overgangsrisiko manifesterer seg som stranded assets i bankenes låneportefølje — låntakeres eiendeler (fossile reserver, energiineffektive bygg) mister verdi før fysisk levetid, noe som øker PD og LGD for bankens eksponering."
+    }
+  ],
+  "stranded-assets": [
+    {
+      "question": "Hva er stranded assets, og hva er den sentrale kredittrisikoanalen for banker?",
+      "answer": "Stranded assets er eiendeler — typisk fossile reserver, fossile kraftverk, bensinbilproduksjon eller energiineffektive bygg — som blir uøkonomiske før fysisk levetid utløper på grunn av lavkarbonovergang. For banker materialiserer kredittrisikoen seg gjennom låntakers finansielle nød og impairment — ofte lenge før eiendelene formelt avskrives."
+    },
+    {
+      "question": "Hvilken tidsdimensjon er viktig å presisere ved stranded assets-risiko for banker?",
+      "answer": "Kredittrisikopåvirkningen for banker kan komme lenge før eiendelene formelt skrives ned, siden låntakers likviditetsproblemer og stigende misligholdssannsynlighet (PD) oppstår når markedet og regulering begynner å prise overgangsrisiko."
+    }
+  ],
+  "tcfd-csrd": [
+    {
+      "question": "Hva er forskjellen mellom TCFD og CSRD, og hva betyr 'dobbel vesentlighet' under CSRD?",
+      "answer": "TCFD (2017) er et frivillig rammeverk for klimarelatert finansrapportering med fire pilarer (governance, strategi, risikostyring, mål og nøkkeltall). CSRD (EU 2024) er obligatorisk ESG-rapportering under ESRS. Dobbel vesentlighet betyr at virksomheter rapporterer både hvordan bærekraft påvirker dem (finansiell vesentlighet) og hvordan de påvirker samfunn og miljø (påvirkningsvesentlighet)."
+    },
+    {
+      "question": "Hvilken viktig praktisk konsekvens har overgangen fra TCFD til CSRD for norske banker?",
+      "answer": "CSRD gjør ESG-rapportering obligatorisk og standardisert (ESRS), i motsetning til TCFDs frivillige rammeverk. Norske banker som er CRR-regulerte, må i tillegg etterleve EBAs ESG-retningslinjer (2025), som operasjonaliserer ESG i SREP."
+    }
+  ],
+  "eba-esg-guidelines": [
+    {
+      "question": "Hva krever EBAs retningslinjer for ESG-risikostyring (2025), og hvem gjelder de for?",
+      "answer": "Retningslinjene krever at banker integrerer ESG-risiko i styringsstrukturer, forretningsmodellstrategi, risikoappetitt, ICAAP, ILAAP, kredittrisikostyring og offentlig rapportering. De gjelder alle CRR-regulerte banker, med proporsjonal tilpasning for mindre institusjoner."
+    },
+    {
+      "question": "Hvordan plasserer EBA ESG-retningslinjene ESG-risiko innenfor Pilar 2-rammeverket?",
+      "answer": "Retningslinjene operasjonaliserer ESG-risiko innenfor SREP — tilsynsmyndighetene forventes å vurdere bankenes ESG-risikostyring som en integrert del av Pilar 2-revisjonen, på linje med kapital- og likviditetsvurderinger."
+    }
+  ],
+  "bernanke-1983": [
+    {
+      "question": "Hva var Bernankes (1983) sentrale argument om bankkollapser under Den store depresjonen?",
+      "answer": "Bernanke argumenterte for at bankkollapser hadde realøkonomiske effekter utover pengemengdekontraksjonen fremhevet av Friedman og Schwartz. Kollapsene ødela bankspesifikk intermedieringskapital — relasjoner, kredittvurderinger og overvåkingsinfrastruktur — som ikke raskt kunne gjenoppbygges, noe som dypnet og forlenget depresjonen."
+    },
+    {
+      "question": "Hvilken politisk implikasjon følger av Bernanke (1983), og hva ga artikkelen ham til slutt?",
+      "answer": "Analysens implikasjon er at aggressiv kriseinntervensjon for å bevare banksystemet er berettiget, siden tap av intermedieringskapital har realøkonomiske kostnader langt utover pengemengdeeffektene. Arbeidet bidro til Bernankes Nobelpris i økonomi i 2022."
+    }
+  ],
+  "northern-rock": [
+    {
+      "question": "Hva var årsaken til Northern Rock-kollapsen i september 2007, og hva utløste bankrunnet?",
+      "answer": "Northern Rock var sterkt avhengig av engros- og verdipapiriseringsfinansiering (innskudd dekket bare ~25 % av eiendelene). August 2007-frysingen av ABCP-markedet kuttet bankens rullerende finansiering; nyheten om at banken hadde søkt LOLR-hjelp hos Bank of England utløste køer utenfor filialer 14. september — det første britiske bankrunnet siden 1866."
+    },
+    {
+      "question": "Hva illustrerer Northern Rock om begrensningene ved LOLR-kommunikasjon?",
+      "answer": "Nyheten om LOLR-støtte, selv om den var ment som stabiliserende, signaliserte til markedet at banken var i alvorlige problemer. Det belyser at LOLR-suksess avhenger av timing og offentlig kommunikasjon — en for sen eller offentlig kjent LOLR-forespørsel kan selv utløse et run."
+    }
+  ],
+  "bear-stearns": [
+    {
+      "question": "Hva utløste Bear Stearns-kollapsen i mars 2008, og hvem reddet den?",
+      "answer": "Bear Stearns var finansiert med ~25 % overnight-repo. Økte haircutter fra motparter i starten av mars 2008 skapte en klassisk repo-run; Bear kunne ikke rulle finansieringen innen 13. mars. JPMorgan kjøpte Bear til $10 per aksje (etter opprinnelig $2), støttet av et $30 mrd. ikke-regresslån fra Federal Reserve mot Bears boliglånsportefølje."
+    },
+    {
+      "question": "Hva forebød Bear Stearns-saken, og hva er det sentrale systemiske lærepoenget?",
+      "answer": "Bear Stearns forebød Lehman Brothers-kollapsen seks måneder senere og illustrerer at repo-markedsfinansiering er iboende sårbar: økte haircutter kan skape en selvforsterkende run-dynamikk selv i fravær av grunnleggende insolvens."
+    }
+  ],
+  "lehman-brothers": [
+    {
+      "question": "Hva inntraff da Lehman Brothers gikk konkurs 15. september 2008, og hva ble de umiddelbare konsekvensene?",
+      "answer": "Lehman erklærte Chapter 11 med $613 mrd. i gjeld — den største konkursen i amerikansk historie. Konsekvensene: globale dollarfinansieringsmarkeder frøs, Reserve Primary MMF brøt bukken dagen etter, Fed-valutaswaplinjer ble aktivert, og AIG kollapset innen timer."
+    },
+    {
+      "question": "Hva er den regulatoriske betydningen av beslutningen om ikke å redde Lehman Brothers?",
+      "answer": "Beslutningen anses som den største enkeltpolitiske feilen under finanskrisen og ble en direkte katalysator for bail-in-, MREL- og resolution-reformene i Basel III og BRRD — nettopp for å unngå at myndigheter igjen stilles overfor valget mellom bail-out og systemisk kollaps."
+    }
+  ],
+  "aig": [
+    {
+      "question": "Hva var årsaken til at AIG kollapset i september 2008, og hvordan ble selskapet reddet?",
+      "answer": "AIGs finansielle produktdivisjon hadde skrevet CDS-kontrakter på ~$440 mrd. i strukturerte kredittproduker. Post-Lehman ble AIG møtt med sikkerhetskrav (margin calls) det ikke kunne innfri. Fed ga et $85 mrd. redningslån 16. september (utvidet til over $180 mrd.) mot 79,9 % egenkapitalandel."
+    },
+    {
+      "question": "Hva illustrerer AIG-saken om systemisk CDS-risiko?",
+      "answer": "AIG fungerte som en ikke-regulert motpart som samlet enorm kredittrisikoeksponering via CDS uten tilsvarende kapital. Da AIG ikke klarte å innfri sikkerhetskravene, ble AIGs motparter — store banker globalt — i praksis reddet på skattebetalernes bekostning da staten grep inn."
+    }
+  ],
+  "bnp-paribas-2007": [
+    {
+      "question": "Hva skjedde 9. august 2007, og hvorfor regnes denne datoen som starten på finanskrisen?",
+      "answer": "BNP Paribas suspenderte innløsning av tre interne fond med stor eksponering mot amerikanske subprime-lån, med henvisning til 'fullstendig fordampning av likviditet' i visse segmenter. Kunngjøringen frøs det europeiske ABCP-markedet over natten, slik at SIV-er og conduits ikke lenger kunne rulle finansieringen."
+    },
+    {
+      "question": "Hvilken umiddelbar smitteeffekt hadde BNP Paribas-kunngjøringen for finansmarkedene?",
+      "answer": "Det europeiske ABCP-markedet frøs over natten. Strukturerte investeringsvehikler (SIV-er) og conduits som var avhengige av kortsiktig ABCP-finansiering, mistet tilgang til kapitalmarkeder og ble tvunget til å avvikle eller få støtte fra morbanker."
+    }
+  ],
+  "tarp": [
+    {
+      "question": "Hva var TARP, og hva var det opprinnelige formålet versus det faktiske bruket?",
+      "answer": "Troubled Asset Relief Program (TARP), godkjent oktober 2008, var opprinnelig ment for å kjøpe giftige eiendeler fra amerikanske banker. Det ble imidlertid pivotert til direkte egenkapitalinjeksjoner via Capital Purchase Program (CPP), der $245 mrd. ble investert i de største bankene."
+    },
+    {
+      "question": "Hva var den langsiktige politiske konsekvensen av TARP?",
+      "answer": "TARP symboliserte bail-out-æraen og utløste politisk motreaksjon som drev frem post-krise bail-in og resolution-reformer. Paradoksalt nok ble programmet avsluttet med overskudd for skattebetalerne innen 2014."
+    }
+  ],
+  "svb": [
+    {
+      "question": "Hva var de tre kjerneårsakene til Silicon Valley Banks kollaps i mars 2023?",
+      "answer": "1) Konsentrerte usikrede innskudd (~94 % over FDIC-grensen på $250 000, i et lite nettverksbasert teknologimiljø). 2) HTM-klassifisert statsobligasjonsportefølje med ~$15 mrd. i urealiserte tap ved stigende langrenter. 3) En Twitter/Slack-drevet run som tok ut $42 mrd. på 24 timer."
+    },
+    {
+      "question": "Hva er det regnskapsmessige lærepoenget fra SVB knyttet til HTM-klassifisering?",
+      "answer": "HTM-klassifisering skjuler urealiserte tap i markedsverdi så lenge banken holder papirene til forfall. Men ved tvungen salg — utløst av likviditetsbehov — materialiseres tapene. SVB illustrerer at HTM-porteføljestørrelse og renterisiko bør fremgå av stressanalyser, ikke skjules av klassifiseringsvalg."
+    }
+  ],
+  "norwegian-banking-crisis": [
+    {
+      "question": "Hva var de underliggende årsakene til den norske bankkrisen (1988–93), og hva ble det politiske utfallet?",
+      "answer": "Finansiell deregulering tidlig på 1980-tallet utløste en eiendoms- og shippingboom 1985–87 etterfulgt av et krakk. Kumulative tap oversteg NOK 76 mrd. Staten tok fullt eierskap av de tre største bankene (DnB, Christiania, Fokus) — aksjonærene ble nullstilt uten kompensasjon."
+    },
+    {
+      "question": "Hva var det regulatoriske arven etter den norske bankkrisen?",
+      "answer": "Krisen er et standard nordisk eksempel på effektiv nasjonal resolution: ren nasjonalisering, bad-bank-separasjon og eventuell reprivatisering med overskudd. Lærdomene la grunnlaget for den moderne norske regulatoriske arkitekturen, inkludert Bankenes Sikringsfond og Finanstilsynets fullmakter."
+    }
+  ],
+  "nordic-banking-crisis": [
+    {
+      "question": "Hvilke land inngikk i den nordiske bankkrisen, og hva var de felles rotårsakene?",
+      "answer": "Norge (1988–93), Finland (1991–95) og Sverige (1990–93). Felles årsaker: finansiell deregulering, aktivaprisboble, krakk og påfølgende bankinsolvens i hele regionen."
+    },
+    {
+      "question": "Hvorfor er Sveriges håndtering av bankkrisen en internasjonal mal for asset-separation-verktøyet?",
+      "answer": "Sverige etablerte Securum og Retriva som bad-bank-vehikler, ga blankogaranti for bankforpliktelser og gjennomførte rekapitalisering med full aksjonærnullstilling. Denne modellen ble IMFs og BRRDs template for Asset Separation Tool."
+    }
+  ],
+  "sl-crisis": [
+    {
+      "question": "Hva forårsaket den amerikanske S&L-krisen på 1980-tallet, og hva var den samlede skattebetalerkostnaden?",
+      "answer": "Høye renter komprimerte spreaden på langsiktige fastrentelån finansiert med kortsiktige innskudd (renterisikosvikt). Deregulering utvidet S&L-aktiviteter til næringseiendom. Flate FDIC-premier (Merton 1977-fellen) skapte moralsk hasard, og svakt tilsyn tillot zombie-institusjoner å gamble seg friske. Samlet skattebetalerkostnad: ~$124 mrd."
+    },
+    {
+      "question": "Hva er forbindelsen mellom S&L-krisen og Marcus (1984) charter-value-teorien?",
+      "answer": "Marcus (1984) utvidet Merton (1977) ved å vise at franchise-verdien (charter-value) virker disiplinerende — banker med høy franchise-verdi tar mindre risiko for å beskytte verdien. S&L-krisen illustrerer hva som skjer når charter-verdi eroderes av konkurranse og deregulering: institusjonene gambler for 'resurrection' på statens bekostning."
+    }
+  ],
+  "nok-march-2020": [
+    {
+      "question": "Hva utløste den kraftige NOK-svekkelsen i mars 2020, og hvilke to kanaler identifiserte Norges Bank?",
+      "answer": "COVID-19-panikken utløste enestående NOK-depresiert (EUR/NOK +~20 % på dager). Norges Bank og Alstadheim identifiserte to kanaler: (1) rebalanseringskanal — utenlandske eiere av NOK-eiendeler reduserte eksponeringen; (2) marjineringskanal — MTM-tap på valutasikringer tvang salg av norske obligasjoner."
+    },
+    {
+      "question": "Hva var Norges Banks tiltak under mars 2020 NOK-turbulensen?",
+      "answer": "Norges Bank intervenerte i valutamarkedet med støttekjøp av NOK og trakk på Fed-valutaswaplinjen for å skaffe dollarlikviditet — noe som lettet presset i det norske finansmarkedet."
+    }
+  ],
+  "turner-review": [
+    {
+      "question": "Nevn de seks årsaksforklaringene Turner-rapporten (2009) identifiserte for finanskrisen.",
+      "answer": "1) Makroubalanser (globalt sparingsoverskudd → lave langrenter). 2) Finansiell innovasjon overgikk risikostyring. 3) Feilaktig tillit til sofistikerte matematiske modeller og ratingmodeller. 4) Prosyklisk kapital og regnskapsføring. 5) Mangel på tillit og run i engrosfinansiering. 6) Subprime-boliglån som utløsende faktor."
+    },
+    {
+      "question": "Hva ble den regulatoriske agendaen Turner-rapporten satte, og hvem utga den?",
+      "answer": "UK FSA utga rapporten i mars 2009. Den satte agendaen for Basel III (strengere kapitalkrav, leverage ratio, likviditetsstandarder), samt resolution-reform — og seks-årsaksrammeverket siteres direkte i eksamens sensorveiledninger."
+    }
+  ],
+  "asymmetric-info": [
+    {
+      "question": "Hva er forskjellen mellom adverst utvalg og moralsk hasard — og når oppstår de?",
+      "answer": "Adverst utvalg er et pre-kontraktsproblem: banken kan ikke skille gode fra dårlige låntakere ved prisingen, og høy rente selekterer mot risikable typer. Moralsk hasard er et post-kontraktsproblem: låntakeren kan ta mer risiko etter at midlene er utbetalt fordi oppsiden tilfaller låntakeren mens nedsiden faller på banken. Begge skyldes informasjonsasymmetri mellom kontraktsparter, og begge kan vedvare i likevekt fordi den informerte parten ikke troverdig kan binde seg til forsiktig atferd."
+    },
+    {
+      "question": "Forklar Stiglitz–Weiss-mekanismen: hvorfor rasjonerer banker kreditt i stedet for å heve renten til markedsklarering?",
+      "answer": "En høyere rente virker adverst på to måter: den selekterer mot risikable låntakere (adverst utvalg) og motiverer risikoatferd hos eksisterende låntakere (moralsk hasard). Begge effektene reduserer bankens forventede fortjeneste, som er ikke-monoton i renten og maksimeres ved en optimal rente r* under markedsklareringsrenten. Banken setter r* og rasjonerer kreditt — noen søkere avslås heller enn å betale en høyere rente — fordi kredittmarkeder ikke klareres gjennom pris slik ordinære vare­markeder gjør."
+    },
+    {
+      "question": "Hvilke to formål tjener sikkerhetsstillelse (collateral) — og hvilket informasjonsproblem løser hvert formål?",
+      "answer": "Sikkerhetsstillelse løser begge informasjonsproblemene: (1) Som signal om kredittkvalitet (adverst utvalg) — risikable låntakere er mindre villige til å stille personlige eiendeler som sikkerhet fordi forventet kostnad for dem er høyere. (2) Som insentivmekanisme etter utbetaling (moralsk hasard) — låntakeren får «skin in the game» og motiveres dermed til forsiktig atferd. Collateral er det eneste mottiltaket som adresserer begge informasjonsproblemene samtidig."
+    }
+  ],
+  "bank-balance-sheets": [
+    {
+      "question": "Forklar hvordan moderne banker faktisk skaper penger — og hvorfor pengem­ultiplikator­fortelling er misvisende.",
+      "answer": "Når en bank innvilger et lån, krediterer den låntakerens konto og oppretter et nytt innskudd på passivasiden — begge sider av balansen ekspanderer simultant. Lån skaper innskudd, ikke omvendt. I moderne fiat-systemer er reserver verken en bindende begrensning på utlån (Bank of England 2014) eller det mekanistiske utgangspunktet som multipliseres; de bindende begrensningene er kapital (Basel-regler) og etterspørsel fra kredittverdige låntakere. Reservekravet er dermed et instrument for å styre seigniorage­deling mellom det offentlige og bankene, ikke et tak på kredittskapingen."
+    },
+    {
+      "question": "Hva skiller HTM-, AFS- og FVtPL-klassifisering av obligasjoner under IFRS 9 — og hvilken leksjon illustrerer SVBs kollaps?",
+      "answer": "FVtPL-obligasjoner merkes til markedsverdi og gevinster/tap føres over resultatregnskapet. AFS-obligasjoner merkes til markedsverdi, men urealiserte gevinster/tap går til Annen totalresultat (OCI) og påvirker egenkapitalen. HTM-obligasjoner balanseføres til amortisert kost — virkelig verdi oppgis kun i noter og påvirker verken balanse, egenkapital eller kapitaldekning. SVB holdt en stor lang­løpende HTM-portefølje; da renten steg, sank obligasjonenes markedsverdi med ~15,9 mrd. dollar, men kapitaldekningen så normal ut. Tvungne salg utløste realisering av tapene, og en sosiale-medier-drevet innskuddsrush fremtvang offentlig overtakelse — HTM-klassifiseringen hadde skjult en reell insolvens."
+    },
+    {
+      "question": "Hvordan henger ROA, ROE og egenkapitalmultiplikatoren sammen — og hva er den regulatoriske implikasjonen av bankenes høye gjeldsandel?",
+      "answer": "Sammenhengen er: ROE = ROA × (Aktiva / Egenkapital). Med 5–10 % egenkapitalandel (10–20 ganger giring) forvandles en beskjeden ROA på ~1 % til et anstendig ROE på ~10–15 %. Leverage­effekten forsterker imidlertid tap like mye som gevinster — et lite verdifall på aktivasiden kan utslette egenkapitalen. Det er nettopp dette som motiverer kapital­kravene i Basel III: kapitalbuffere absorberer uventede tap og reduserer risikoen for at tynne egenkapitalputer utslettes i stress, med systemisk smitte som følge."
+    }
+  ],
+  "credit-risk": [
+    {
+      "question": "Hva er de fire kredittrisiko­parameterne under Basel IRB-rammeverket, og hvilken del av tapet dekker henholdsvis avsetninger og kapital?",
+      "answer": "De fire parameterne er: PD (sannsynligheten for mislighold over ett år), LGD (tapet ved mislighold, dvs. 1 minus gjenvinningsgraden), EAD (eksponeringen ved mislighold inkl. opptjente renter og utrukne rammer) og M (løpetid). Forventet tap = PD × LGD × EAD dekkes av regnskapsmessige avsetninger. Uventet tap — halehendelser på 99,9 % konfidensnivå — dekkes av regulatorisk kapital. Basel-logikken er at avsetninger absorberer gjennomsnittlig tap, mens kapital er en pute mot sjeldne, men store tap."
+    },
+    {
+      "question": "Forklar IFRS 9 sin tretrinnsinndeling av lån — hvilken ECL-horisont gjelder for hvert trinn, og hva utløser en overgang fra trinn 1 til trinn 2?",
+      "answer": "Trinn 1 (velfungerende lån): ingen vesentlig forverring av kredittrisiko siden opprinnelse — avsett 12-månedlig ECL = EAD × PD₁₂ₘ × LGD. Trinn 2 (vesentlig økning i kredittrisiko, SICR): levetids-PD har økt materielt — avsett levetids-ECL = EAD × PD_levetid × LGD. Trinn 3 (kredittskadet): mislighold har inntrådt — PD settes til 100 %, avsett levetids-ECL = EAD × LGD. Et kritisk eksamenspoeng: SICR utløses av endringer i PD, ikke av forringelse av sikkerhetsverdien alene — kollateral­forringelse trigger trinn 2 kun dersom den signaliserer høyere PD."
+    },
+    {
+      "question": "Hva skiller den standardiserte metoden fra IRB-metodene for kredittrisiko, og hvilken metode gir typisk lavest risikovektet beregningsgrunnlag?",
+      "answer": "Den standardiserte metoden bruker regulatorgitte risikovekter basert på eksterne kredittvurderinger: null prosent for stater, 20 % for høyratede banker, 35 % for boliglån og 100 % for uratede bedriftslån. IRB-grunnmetoden lar bankene estimere egne PD-er mens regulatoren leverer LGD og EAD; IRB-avansert lar bankene estimere alle fire parameterne (PD, LGD, EAD, M). IRB-metodene gir generelt lavere risikovektet beregningsgrunnlag (kapitallettelse) fordi de fanger opp den faktiske kredittkvaliteten i porteføljen, men krever regulatorgodkjenning og mer detaljert rapportering."
+    }
+  ],
+  "liquidity-risk": [
+    {
+      "question": "Hva er forskjellen mellom illikviditet og insolvens — og hvorfor er skillet avgjørende for valg av krisepolitikk?",
+      "answer": "Insolvens betyr at bankens gjeld overstiger eiendelen til virkelig verdi — nettoverdien er negativ og banken er fundamentalt ødelagt. Illikviditet betyr at eiendeler overstiger gjeld til virkelig verdi, men at eiendelene ikke kan realiseres raskt nok til å møte løpende krav — banken er solvens men operasjonelt «fastlåst». Skillet er avgjørende fordi kuren er ulik: insolvens krever ny egenkapital (bail-in eller statlig redning), mens illikviditet krever likviditetstilførsel via sentralbankens LOLR-funksjon. I praksis er de to tilstandene svært like fra utsiden, og feildiagnostisering er en klassisk politikkfeil."
+    },
+    {
+      "question": "Forklar Bagehots regel og det moralsk hasard-problemet den skaper — hvilken mekanisme brukes for å moderere dette?",
+      "answer": "Bagehots regel (1873) sier at sentralbanken skal låne fritt, til straffepris, mot god sikkerhet. Straffeprisen sikrer at kun genuint illikvide banker låner (solvente banker finner billigere finansiering); god sikkerhet beskytter sentralbanken mot å absorbere insolvens forkledd som illikviditet. Moralsk hasard­problemet er at billig LOLR-adgang gjør at banker holder mindre frivillige likviditetsreserver — de eksternaliserer likviditetsstyringen til sentralbanken og kaprer seigniorage som burde tilhørt offentligheten. Reservekrav er det klassiske korrigerende tiltaket: de tvinger bankene til å beholde en viss likviditetspute uavhengig av LOLR-prising."
+    },
+    {
+      "question": "Forklar de to kanalene som forårsaket den kraftige NOK-svekkelsen i mars 2020.",
+      "answer": "Da utenlandske aksjeporteføljer falt ~30 % i verdi under COVID-sjokket, ble to mekanismer utløst: (1) Rebalanseringskanalen — norske NBFI-er var over-sikret (hedgen var nå større enn underliggende eksponering) og måtte kjøpe utenlandsk valuta (selge NOK) for å oppfylle hedgekontraktene, noe som presset NOK nedover. (2) Marginkanalen — NOK-svekkelse ga negative mark-to-market på FX-hedger, som utløste marginkrav; for å møte disse solgte forvaltere norske obligasjoner, som presset obligasjonsprisene ned og risikopremiene opp. Norges Bank intervenerte progressivt fra 13. mars med likviditet, rentekutt og til slutt mulig valutaintervensjons­signalisering."
+    }
+  ],
+  "bank-crises": [
+    {
+      "question": "Gjør rede for Turneranmeldelsens seks årsaker til finanskrisen 2007–09.",
+      "answer": "Turner-rapporten (2009) identifiserer: (1) Makro-ubalanser — Kinas overskudd presset globale realrenter ned og utløste jakt på avkastning. (2) Finansiell innovasjon og skyggebank — securitisering, økt gearing og løpetidstransformasjon i SIV-er og pengemarkedsfond utenfor reguleringsperimeteret. (3) Overdreven tillit til sofistikert matematikk — ratingbyråer manglet erfaring med nye komplekse produkter og underestimerte korrelasjon. (4) Prosyklisitet og sammenvevning — nedgraderinger økte repo-marginkrav, tvang brannsal, presset priser videre ned, og truet solvens i en selv­forsterkende spiral. (5) Manglende åpenhet — skjulte risikoer tørket opp pengemarkedsfinansiering og frøs kredittmarkeder. (6) Utløser — amerikanske subprime-boliglån med svake kredittstandarder spredte seg globalt via securitisering."
+    },
+    {
+      "question": "Forklar Bernankes (1983) ikke-monetære kanal for krisepropagasjon — og hva er dens implikasjoner for politikkresponsen?",
+      "answer": "Bernanke argumenterte at bankkonkurser under Depresjonen hadde realøkonomiske effekter utover Friedman og Schwartzs pengekontraksjonshistorie: da bankene kollapset, ble informasjonskapital og relasjoner til låntakere destruert, særlig for småbedrifter uten tilgang til kapitalmarkedene. Kredittallokering kollapset selv med uendret pengemengde. Dette ble empirisk bekreftet av Ivashina og Scharfstein (2010) etter Lehmans konkurs: motpartseksponerte banker kuttet ny utlåning uavhengig av låntakerkvalitet. Politikkimplikasjonen er at aggressiv sentralbankintervensjon for å hindre bankkonkurser er berettiget selv om det skaper moralsk hasard, fordi kostnadene av systemisk feil inkluderer et kredittnett som tar år å gjenoppbygge."
+    },
+    {
+      "question": "Hva var særtrekket ved den norske bankkrisen 2008 sammenliknet med krisen i USA og UK — og hva var Norges Banks viktigste respons?",
+      "answer": "I motsetning til USA og Storbritannia, der banker led store aktivasideproblemer (subprime-tap, insolvens), traff 2008-krisen Norge primært gjennom finansieringskanalen: norske banker var velfundamenterte, men hadde eksponering mot utenlandsk engros­finansiering som frøs til. Krisen var et likviditetsproblem, ikke et solvensproblem — en vanlig eksamensfelfall er å forveksle de to. Norges Banks viktigste tiltak var «gulkortet» (bytteordningen): bankene fikk bytte illikvide obligasjoner med fortrinnsrett (OMF) og boliglån mot likvide statskasseveksler. Dette gjenopprettet interbanktillit til minimale kostnader for skattebetalerne, fordi bankene tilbakebetalte full verdi."
+    }
+  ],
+  "basel-regulation": [
+    {
+      "question": "Hva er de tre typene kapitalkrav under Basel III, og hva er den regulatoriske begrunnelsen for å ha alle tre?",
+      "answer": "Basel III opererer med: (1) Risikobasert kapitaldekning — egenkapital/RWA — som kalibrerer kapital mot aktivaenes risiko og er den primære kravet. (2) Uvektet gearingsgrad — Tier 1 / totale eksponeringer — som er et backstop-krav uavhengig av modellrisiko og RWA-«gaming»; Basel III-minimumskravet er 3 %. (3) Bail-in-kapital (MREL) — (egenkapital + kvalifiserte forpliktelser) / RWA — som sikrer at nok tapsbærende gjeld finnes for å rekapitalisere banken i resolution uten skattebetalermidler. De tre kravene supplerer hverandre: det risikobaserte kravet er presist men manipulerbart; gearingsgraden er robust men grov; MREL adresserer «too big to fail»-problemet."
+    },
+    {
+      "question": "Beskriv kapital­hierarkiet (CET1, AT1, T2) og minste­kravene — og hva skjer med AT1-instrumenter i krise?",
+      "answer": "Kapital rangeres etter tapsabsorberings­kvalitet: CET1 (vanlig egenkapital minus fradrag som goodwill) er av høyest kvalitet og kan nedskrives og nullstilles uten formell konkurs. AT1 (Additional Tier 1) er evigvarende hybridkapital som konverteres til egenkapital eller nedskrives på going-concern-basis (mens banken fortsatt er i drift); kuponger er skjønnsmessige. T2 (ansvarlig lånekapital) nedskrives først i resolution eller likvidasjon. Pillar 1-minimumskravene er: CET1 ≥ 4,5 %, AT1 ≥ 1,5 %, T2 ≥ 2,0 %, total ≥ 8 % av RWA. Stabelkravet for norske systemviktige banker (som DNB) kan bringe det totale CET1-kravet opp mot ~18 % med alle buffere medregnet."
+    },
+    {
+      "question": "Hvordan beregnes en banks kapitaldekning — og hva er trinnen i en typisk eksamensoppgave?",
+      "answer": "Standardprosedyren er: (1) Beregn kreditt-RWA ved å multiplisere hvert aktivum med dets risikovekt og summere. (2) Legg til markedsrisiko-REA og operasjonell risiko-REA (vanligvis gitt). (3) Beregn egne midler: CET1 = egenkapital minus fradrag; Tier 1 = CET1 + AT1; Total kapital = Tier 1 + T2. (4) Del: CET1-rate = CET1/total REA; Tier 1-rate = T1/total REA; totalkapitalrate = Totalkapital/total REA. Eksempel fra mai 2025 Q6a (Lilledal Sparebank): kreditt-RWA = 605, total REA = 695 (+ 15 markedsrisiko + 75 operasjonell), CET1-rate = 100/695 = 14,4 %."
+    }
+  ],
+  "fx-swaps": [
+    {
+      "question": "Forklar dekket renteparitet (CIP) og utled hvorfor terminraten for en høyrentevaluta ligger over spotraten.",
+      "answer": "CIP er et arbitrasjefritt vilkår: F = S₀ × (1 + r_notering × t) / (1 + r_basis × t). Dersom noteringsvalutaen (teller) har høyere rente, må terminraten være høyere — dvs. noteringsvalutaen er svakere terminmessig enn ved spot. Intuisjonen er at den som låner ut lavrentevalutaen, mottar lavere rente i løpet av løpetiden, og terminraten kompenserer ved at de ved forfall mottar mer av høyrentevalutaen. Uten denne justeringen ville risikoløs arbitrasje (borrow lav, swap til høy, innskudd, swap tilbake) være mulig. Swappunkter = F − S₀ er denne rentedifferansekompenasjonens størrelsesorden."
+    },
+    {
+      "question": "Hva er forskjellen mellom en FX-swap og en kryssvaluta-basisswap (CCBS) — og hva betyr basis­spreadet?",
+      "answer": "En FX-swap er et kortsiktig instrument med to ben: bytte av valutaer i dag til spotraten (nær-ben) og reversering til en forhåndsavtalt terminrate ved forfall (fjern-ben). En CCBS er langsiktig (1–30 år): prinsipal utveksles til spotraten ved start, løpende flytende renter i begge valutaer byttes, og prinsipal re-utveksles til den opprinnelige spotraten ved forfall (ikke terminraten). Basis­spreadet er den avvikelse fra CIP som oppstår i praksis på grunn av motstparts­kredittrisiko, ubalansert etterspørsel og kapitalbegrensninger; spreaden ble kraftig utvidet i 2008 (dollar var knapp) og 2020. En negativ EUR/USD-basis betyr at det er dyrere å bytte EUR til USD enn CIP tilsier."
+    },
+    {
+      "question": "En norsk boligkreditt­institusjon utsteder en 5-årig EUR-obligasjon til fast kupong. Forklar hvilke to risikoer som må sikres og hvilke instrumenter som benyttes i en fullstendig sikringsstrategi.",
+      "answer": "To risikoer oppstår: (1) Valutarisiko — EUR-gjeld finansierer NOK-aktiva. (2) Renterisiko — fast kupong mot flytende NOK-inntekter. Sikringsstrategien er: Steg 1 — EUR IRS: mottas fast kupong (nøytraliserer obligasjonskupongen), betales flytende EURIBOR. Steg 2 — EUR/NOK CCBS: mottas EURIBOR (nøytraliserer IRS), betales NIBOR minus basisspread; prinsipal utveksles til spot og tilbakebetales til SAMME spot ved forfall, slik at ingen terminvalutarisiko oppstår. Nettoposisjonen er ren flytende NOK-margin (NIBOR + spread − basis), med all valuta- og renterisiko sikret. Gjenværende risikoer er basis­spreadbevegelser, motstparts­kredittrisiko på swapper og refinansieringsrisiko."
+    }
+  ],
+  "securitisation": [
+    {
+      "question": "Hva er forskjellen mellom tradisjonell (true-sale) securitisering og syntetisk securitisering — og hva oppnår hvert alternativ?",
+      "answer": "I tradisjonell securitisering selges lånene juridisk til en SPV og forlater bankens balanse: banken oppnår både finansiering (kontanter) og kapitalfrigjøring (lavere RWA). I syntetisk securitisering forblir lånene på bankens balanse; kredittrisikoen overføres til investorer via CDS eller finansielle garantier på en referanseportefølje. Syntetisk securitisering gir kun kapitalfrigjøring — ingen finansiering. Et klassisk eksamensfall er påstanden «syntetisk securitisering gir finansiering» — dette er FEIL. CDS er et sentralt instrument i syntetisk securitisering fordi det overfører kredittrisikoen uten å flytte aktivaene."
+    },
+    {
+      "question": "Forklar transjerings­mekanismen i en ABS: hva er vannfalls­prinsippet, og hvilke former for kreditt­forbedring brukes for å beskytte senior­transjene?",
+      "answer": "En SPV holder en låneportefølje og fordeler kontantstrømmene i vannsfall-rekkefølge: senior­transjen (typisk AAA-ratet) betales først og har lavest avkastning; mezzanin­transjer betales deretter; equity/first-loss-transjen betales sist og absorberer de første tapene. Kreditts­forbedring beskytter senior­transjene gjennom: (1) subordinasjon — junior­transjer absorberer tap først; (2) overkollaterialisering — porteføljeverdi overstiger transjenes pålydende; (3) overskudds­spread fanget i reservekonti; og (4) ekstern garanti (monolinje­forsikring, brukt mye pre-GFC). Transjering lar én illikvid, heterogen låneportefølje gi opphav til instrumenter med svært ulike risiko­profiler."
+    },
+    {
+      "question": "Hvilke fem mekanismer bidro til at securitiserings­markedet brøt sammen under finanskrisen 2007–09?",
+      "answer": "Fem sammenfallende mekanismer var: (1) «Originate-to-distribute» svekket screeningen — uten skin in the game hadde opphavsbanker redusert insentiv til å verifisere låne­kredittverdighet, noe som ga utbredelse av NINJA-lån. (2) CDO-ers og CDO²-ers ugjennomtrengelighet — investorer kunne ikke forstå den underliggende kreditteksponeringsringen og tillit kollapset ved første subprime-tap. (3) Ratingbyråsvikt — utsteders-betaler-modellen skapte interessekonflikter; historiske korrelasjoner fra et godartet boligmarked ble brukt og slo feil i stress. (4) Prosykliske marginkrav — ratings­nedgradering økte repo-hårklipp, tvang brannsal og presset priser i en selvforsterkende spiral. (5) Skyggebankens løpetids­mismatch — SIV-er og ABCP-rørledninger finansierte langsiktige MBS/CDO-er med kortsiktig ABCP; da BNP Paribas frøs innløsning 9. august 2007, kollapset markedet over natten."
+    }
+  ],
+  "bank-resolution": [
+    {
+      "question": "Hva er BRRDs tre faser i en banks livssyklus, og hvilke vilkår må være oppfylt for at resolution-fasen utløses?",
+      "answer": "BRRD organiserer bankens krisehåndtering i: (1) Normal fase — finansiell optimalisering, alle indikatorer i grønt, ingen spesiell handling. (2) Recovery-fase — bankledet: banken aktiverer sin gjenopprettingsplan (forhåndsgodkjent av tilsynet) med tiltak som utbyttefrys, kapitalinnhenting og aktiva­avhending; målet er å gjenopprette normaldrift på egen hånd. (3) Resolution-fase — myndighetsledet: inntrer når banken er «sviktende eller sannsynligvis sviktende» (FOLF) OG det er i offentlighetens interesse å restrukturere heller enn å likvidere. FOLF-kriteriene er: banken oppfyller ikke lenger tillatelseskrav, gjeld overstiger eiendeler, den kan ikke betale forpliktelser etter hvert som de forfaller, eller den trenger ekstraordinær offentlig finansiell støtte."
+    },
+    {
+      "question": "Beskriv kreditor­hierarkiet i en bail-in og forklar hvorfor rekkefølgen er sentral for «too big to fail»-problemet.",
+      "answer": "I bail-in absorberes tap nedenfra og opp: (1) Egenkapital nullstilles først. (2) AT1 hybridkapital nedskrives eller konverteres til egenkapital. (3) Tier 2 ansvarlig lånekapital nedskrives eller konverteres. (4) Senior ikke-prefererte obligasjoner konverteres. (5) Senior usikrede obligasjoner konverteres dersom nødvendig. (6) Innskudd — ugaranterte innskudd bærer tap før garanterte. Bail-in stopper så snart rekapitaliseringsmålet er nådd. Rekkefølgen er avgjørende for «too big to fail»: pre-2008 priste markedene inn en implisitt statsgaranti for senior­kreditorer, noe som subsidierte store bankers finansiering. Med troverdig bail-in taper senior­kreditorer, og subsidiet forsvinner — banker betaler sin reelle risikopris."
+    },
+    {
+      "question": "Hva er MREL, hva består det av, og hvorfor er det nødvendig for at bail-in skal fungere operasjonelt?",
+      "answer": "MREL (minstekrav til ansvarlig kapital og kvalifiserte forpliktelser) = (egenkapital + kvalifiserte forpliktelser) / RWA. Kravet har to komponenter: Tapsbæringsbeløpet (LAA) — til å absorbere tap på vei ned (typisk lik løpende kapitalkrav) — og Rekapitaliseringsbeløpet (RA) — til å gjenoppbygge kapital til driftsstandard etter resolution. MREL er nødvendig fordi bail-in uten nok bail-in-bar gjeld ikke er operasjonelt mulig: dersom bankens eneste «bail-in-able» kapital er egenkapitalen, og den er utslitt, finnes det ikke noe å konvertere. Uten tilstrekkelig MREL er man tilbake til fristelsen om bail-out — og den implisitte subsidien for systemviktige banker vender tilbake."
+    }
+  ],
+  "brunnermeier-pedersen": [
+    {
+      "question": "Forklar likviditetsspiralens mekanisme: hva skjer i hvert steg etter et negativt prissjokk?",
+      "answer": "Prisfall → høyere marginer/haircuts → marginkrav tvinger tradere til tvangssalg → tvangssalg presser priser ytterligere ned og øker bid-ask-spread (svekket markedslikviditet) → lavere priser utløser nye marginkrav. Spiralen forsterker seg selv."
+    },
+    {
+      "question": "Hva er forskjellen mellom markedslikviditet og finansieringslikviditet i Brunnermeier–Pedersen?",
+      "answer": "Markedslikviditet er kostnaden eller enkelheten ved å handle en eiendel (bid-ask-spread, markedsdybde). Finansieringslikviditet er enkelheten ved å skaffe kortsiktig sikret finansiering. Modellen viser at de to er gjensidig forsterkende: svekket markedslikviditet strammet inn finansieringslikviditet, og omvendt."
+    },
+    {
+      "question": "Hva er den regulatoriske implikasjonen av prosykliske marginkrav i Brunnermeier–Pedersen?",
+      "answer": "Prosykliske marginkrav (som stiger med volatilitet under kriser) forsterker spiralen. Makroprudensielle virkemidler bør sette kontrasykliske eller stressede marginkrav som ikke automatisk eskalerer i nedgangstider."
+    }
+  ],
+  "merton-deposit-insurance": [
+    {
+      "question": "Hvordan modellerer Merton (1977) innskuddsforsikring som en put-opsjon, og hvem er opsjonsselger?",
+      "answer": "Innskuddsforsikringen gir utbetalingen max(D − A, 0) når banken er insolvent (A < D) — nøyaktig profilen til en europeisk put på bankens eiendeler A med strike D. Staten er opsjonsselger; bankens eiere er kjøper og betaler premien."
+    },
+    {
+      "question": "Hvilke to faktorer skal den risikojusterte innskuddsforsikringspremien øke med, ifølge Merton?",
+      "answer": "Premien skal stige med (1) gjeldsgraden (D/A) og (2) volatiliteten til bankens eiendeler (σ). En flat volumbasert premie undersubsidierer risikable banker og oversubsidierer trygge, noe som svekker markedsdisiplin og øker moral hazard."
+    },
+    {
+      "question": "Hva er konsekvensen av flat (ikke risikojustert) innskuddsforsikringspremie?",
+      "answer": "Trygge banker kryssubsidierer risikable banker: begge betaler samme premie selv om den implisitte put-opsjonen er langt mer verdifull for en bank med høy gjeldsgrad og volatil aktivabase. Dette gir insentiv til overdreven risikotaking (moral hazard)."
+    }
+  ],
+  "abreu-brunnermeier": [
+    {
+      "question": "Forklar synkroniseringsproblemet i Abreu–Brunnermeier: hvorfor overlever bobler selv når alle vet de eksisterer?",
+      "answer": "Arbitragører oppdager boblen sekvensielt og på ulike tidspunkter. Å angripe boblen er kun lønnsomt dersom nok andre gjør det simultant. Ingen individuell trader kan observere om andre er klare — dominantstrategien er å ri boblen litt lenger. Boblen overlever fordi koordinering feiler, ikke fordi informasjon mangler."
+    },
+    {
+      "question": "Hva bestemmer varigheten til boblen i Abreu–Brunnermeier?",
+      "answer": "Varigheten avhenger av spredningen i oppdagelsestidspunkter (parameteren κ) og boble-vekstraten. Jo raskere boblen vokser og jo mer spredt oppdagelsene er, desto lenger kan boblen overleve uten å sprekke."
+    },
+    {
+      "question": "Hva er den regulatoriske implikasjonen av Abreu–Brunnermeier for boblebekjempelse?",
+      "answer": "Koordinert tidlig handling fra regulatorer eller sentralbanken løser synkroniseringsproblemet som individuelle markedsaktører ikke kan løse alene. Å vente er rasjonelt for den enkelte, men kollektivt ødeleggende — regulatorisk intervensjon kan koordinere forventningene og avvikle boblen."
+    }
+  ],
+  "var": [
+    {
+      "question": "Hva måler Value-at-Risk (VaR), og hvordan tolkes et 99% en-dags VaR på 50 millioner dollar?",
+      "answer": "VaR er tapsterskelen som ikke overskrides med en gitt sannsynlighet over en bestemt horisont. Et 99% en-dags VaR på 50 mill. dollar betyr at det kun er 1% sjanse for å tape mer enn 50 mill. dollar på én dag."
+    },
+    {
+      "question": "Hva er de tre viktigste kritikkene mot VaR som risikomål, og hva har erstattet det for handelsporteføljen?",
+      "answer": "VaR (1) ignorerer halerisiko utenfor terskelen — et tap på 1-av-1000-dag kan være langt større enn VaR, (2) antar normalfordeling som undervurderer fete haler, og (3) er prosyklisk siden volatilitet stiger i nedturer og øker kapitalkrav. Erstattet av Expected Shortfall (ES) under FRTB."
+    },
+    {
+      "question": "Hva er forskjellen mellom VaR og Expected Shortfall (ES)?",
+      "answer": "VaR angir bare terskelen — den sier ingenting om hvor store tap blir ved overskridelse. ES (også kalt Conditional VaR) måler gjennomsnittlig tap i de verste x% tilfellene og fanger dermed halerisiko som VaR systematisk ignorerer."
+    }
+  ]
+}

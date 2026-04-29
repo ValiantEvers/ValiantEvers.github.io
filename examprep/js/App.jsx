@@ -91,13 +91,29 @@ function App() {
   // Load all JSON data
   useEffect(() => {
     const files = ['glossary', 'models', 'timeline', 'flashcards', 'exams', 'topics', 'quiz'];
-    Promise.all(
-      files.map(f =>
+    const recallP = fetch('data/recall_questions.json')
+      .then(r => r.ok ? r.json() : {})
+      .catch(() => ({}));
+    Promise.all([
+      ...files.map(f =>
         fetch('data/' + f + '.json')
           .then(r => { if (!r.ok) throw new Error(f + ' not found'); return r.json(); })
-      )
-    ).then(([glossary, models, timeline, flashcards, exams, topics, quiz]) => {
-      setData({ glossary, models, timeline, flashcards, exams, topics, quiz });
+      ),
+      recallP,
+    ]).then(([glossary, models, timeline, flashcards, exams, topics, quiz, recall]) => {
+      const withRecall = arr => arr.map(e => ({
+        ...e,
+        recall_questions: recall[e.id] || e.recall_questions || [],
+      }));
+      setData({
+        glossary: withRecall(glossary),
+        models: withRecall(models),
+        timeline,
+        flashcards,
+        exams,
+        topics: withRecall(topics),
+        quiz,
+      });
       setLoading(false);
     }).catch(err => {
       setError(err.message);
