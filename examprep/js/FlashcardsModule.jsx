@@ -82,7 +82,7 @@ function buildSRDeck(baseDeck, srData) {
 
 // ── Component ───────────────────────────────────────────────
 
-function FlashcardsModule({ data }) {
+function FlashcardsModule({ data, pendingFlashcardNav }) {
   const { glossary = [], flashcards = [] } = data;
   const [activeTags, setActiveTags]   = useState([]);
   const [srData,     setSrData]       = useState(() => window.lsGet(SR_KEY, {}));
@@ -92,6 +92,7 @@ function FlashcardsModule({ data }) {
   const [swipeStartX, setSwipeStartX] = useState(null);
   const [swipeStartY, setSwipeStartY] = useState(null);
   const cardRef = useRef(null);
+  const consumedNavKeyRef = useRef(0);
 
   const today = todayStr();
 
@@ -124,6 +125,26 @@ function FlashcardsModule({ data }) {
 
   const safeIdx = deck.length > 0 ? idx % deck.length : 0;
   const card    = deck[safeIdx] || null;
+
+  // Deep-link from search palette: clear tag filter on a new pending nav,
+  // then snap the deck to the matching card once it's in the deck. Each
+  // {id,key} pair is consumed only once so subsequent user navigation
+  // (advance / rate) is not undone by this effect.
+  useEffect(() => {
+    if (!pendingFlashcardNav?.id) return;
+    setActiveTags([]);
+    setFlipped(false);
+  }, [pendingFlashcardNav]);
+
+  useEffect(() => {
+    const nav = pendingFlashcardNav;
+    if (!nav?.id || nav.key === consumedNavKeyRef.current) return;
+    const target = deck.findIndex(c => c.id === nav.id);
+    if (target >= 0) {
+      setIdx(target);
+      consumedNavKeyRef.current = nav.key;
+    }
+  }, [pendingFlashcardNav, deck]);
 
   const intervals = useMemo(
     () => card ? previewIntervals(srData, card.id) : { hard: 1, good: 1, easy: 2 },

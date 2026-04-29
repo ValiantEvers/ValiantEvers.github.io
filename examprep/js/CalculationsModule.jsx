@@ -14,7 +14,7 @@ const CATEGORIES = [
 
 const DIFFICULTY_ORDER = { easy: 1, medium: 2, hard: 3 };
 
-function CalculationsModule({ data }) {
+function CalculationsModule({ data, pendingCalcNav }) {
   const all = data.calculations || [];
 
   const [activeCategory, setActiveCategory] = useState(() => window.lsGet('gra6546_calc_category', null));
@@ -23,6 +23,22 @@ function CalculationsModule({ data }) {
 
   useEffect(() => { window.lsSet('gra6546_calc_category',  activeCategory); }, [activeCategory]);
   useEffect(() => { window.lsSet('gra6546_calc_difficulty', difficulty);    }, [difficulty]);
+
+  // Honour deep-link from search palette: clear filters so the targeted card
+  // is in view, reveal its solution, and scroll to it.
+  useEffect(() => {
+    const id = pendingCalcNav?.id;
+    if (!id) return;
+    const target = all.find(e => e.id === id);
+    if (!target) return;
+    setActiveCategory(null);
+    setDifficulty(null);
+    setRevealedIds(prev => ({ ...prev, [id]: true }));
+    setTimeout(() => {
+      const el = document.querySelector('[data-calc-id="' + id + '"]');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
+  }, [pendingCalcNav]);
 
   const filtered = useMemo(() => {
     let pool = all;
