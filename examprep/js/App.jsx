@@ -3,19 +3,20 @@
 const { useState, useEffect } = React;
 
 const MODULES = [
-  { id: 'topics',     label: 'Topics',     subtitle: 'Twelve Exam-Ready Summaries' },
-  { id: 'glossary',   label: 'Glossary',   subtitle: 'Terms & Model Walkthroughs' },
-  { id: 'timeline',   label: 'Timeline',   subtitle: 'Crises in Chronological Order' },
-  { id: 'mindmap',    label: 'Mind-map',   subtitle: 'Concepts as a Connected Graph' },
-  { id: 'flashcards', label: 'Flashcards', subtitle: 'Active Recall' },
-  { id: 'quiz',       label: 'Quiz',       subtitle: 'Multiple-Choice & True/False' },
-  { id: 'exams',      label: 'Past Exams', subtitle: 'Real Papers with Model Answers' },
-  { id: 'mock',       label: 'Mock Exam',  subtitle: 'Timed 3-Hour Simulation' },
+  { id: 'topics',       label: 'Topics',       subtitle: 'Twelve Exam-Ready Summaries' },
+  { id: 'glossary',     label: 'Glossary',     subtitle: 'Terms & Model Walkthroughs' },
+  { id: 'timeline',     label: 'Timeline',     subtitle: 'Crises in Chronological Order' },
+  { id: 'mindmap',      label: 'Mind-map',     subtitle: 'Concepts as a Connected Graph' },
+  { id: 'flashcards',   label: 'Flashcards',   subtitle: 'Active Recall' },
+  { id: 'quiz',         label: 'Quiz',         subtitle: 'Multiple-Choice & True/False' },
+  { id: 'calculations', label: 'Calculations', subtitle: 'Numerical Drills by Calculation Type' },
+  { id: 'exams',        label: 'Past Exams',   subtitle: 'Real Papers with Model Answers' },
+  { id: 'mock',         label: 'Mock Exam',    subtitle: 'Timed 3-Hour Simulation' },
 ];
 
 const NUMS = {
   topics: '01', glossary: '02', timeline: '03', mindmap: '04',
-  flashcards: '05', quiz: '06', exams: '07', mock: '08',
+  flashcards: '05', quiz: '06', calculations: '07', exams: '08', mock: '09',
 };
 
 function Nav({ module, setModule, onSearch }) {
@@ -78,7 +79,7 @@ function App() {
   });
   const [searchOpen, setSearchOpen] = useState(false);
   const [data, setData] = useState({
-    glossary: [], models: [], timeline: [], flashcards: [], exams: [], topics: [], quiz: [],
+    glossary: [], models: [], timeline: [], flashcards: [], exams: [], topics: [], quiz: [], calculations: [],
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -100,7 +101,7 @@ function App() {
 
   // Load all JSON data
   useEffect(() => {
-    const files = ['glossary', 'models', 'timeline', 'flashcards', 'exams', 'topics', 'quiz'];
+    const files = ['glossary', 'models', 'timeline', 'flashcards', 'exams', 'topics', 'quiz', 'calculations'];
     const recallP = fetch('data/recall_questions.json')
       .then(r => r.ok ? r.json() : {})
       .catch(() => ({}));
@@ -110,7 +111,7 @@ function App() {
           .then(r => { if (!r.ok) throw new Error(f + ' not found'); return r.json(); })
       ),
       recallP,
-    ]).then(([glossary, models, timeline, flashcards, exams, topics, quiz, recall]) => {
+    ]).then(([glossary, models, timeline, flashcards, exams, topics, quiz, calculations, recall]) => {
       const withRecall = arr => arr.map(e => ({
         ...e,
         recall_questions: recall[e.id] || e.recall_questions || [],
@@ -123,6 +124,7 @@ function App() {
         exams,
         topics: withRecall(topics),
         quiz,
+        calculations,
       });
       setLoading(false);
     }).catch(err => {
@@ -176,15 +178,16 @@ function App() {
     }
   }
 
-  const TopicsModule     = window.TopicsModule;
-  const GlossaryModule   = window.GlossaryModule;
-  const TimelineModule   = window.TimelineModule;
-  const MindmapModule    = window.MindmapModule;
-  const FlashcardsModule = window.FlashcardsModule;
-  const QuizModule       = window.QuizModule;
-  const ExamsModule      = window.ExamsModule;
-  const MockExamModule   = window.MockExamModule;
-  const SearchPalette    = window.SearchPalette;
+  const TopicsModule       = window.TopicsModule;
+  const GlossaryModule     = window.GlossaryModule;
+  const TimelineModule     = window.TimelineModule;
+  const MindmapModule      = window.MindmapModule;
+  const FlashcardsModule   = window.FlashcardsModule;
+  const QuizModule         = window.QuizModule;
+  const CalculationsModule = window.CalculationsModule;
+  const ExamsModule        = window.ExamsModule;
+  const MockExamModule     = window.MockExamModule;
+  const SearchPalette      = window.SearchPalette;
 
   return (
     <>
@@ -205,14 +208,15 @@ function App() {
         )}
         {!loading && !error && (
           <>
-            {module === 'topics'     && <TopicsModule     data={data} navigateToExam={navigateToExam} pendingTopicNav={pendingTopicNav} />}
-            {module === 'glossary'   && <GlossaryModule   data={data} pendingGlossaryNav={pendingGlossaryNav} />}
-            {module === 'timeline'   && <TimelineModule   data={data} />}
-            {module === 'mindmap'    && <MindmapModule    data={data} onNavigate={navigateFromMindmap} />}
-            {module === 'flashcards' && <FlashcardsModule data={data} />}
-            {module === 'quiz'       && <QuizModule       data={data} />}
-            {module === 'exams'      && <ExamsModule      data={data} pendingExamNav={pendingExamNav} />}
-            {module === 'mock'       && <MockExamModule   data={data} />}
+            {module === 'topics'       && <TopicsModule       data={data} navigateToExam={navigateToExam} pendingTopicNav={pendingTopicNav} />}
+            {module === 'glossary'     && <GlossaryModule     data={data} pendingGlossaryNav={pendingGlossaryNav} />}
+            {module === 'timeline'     && <TimelineModule     data={data} />}
+            {module === 'mindmap'      && <MindmapModule      data={data} onNavigate={navigateFromMindmap} />}
+            {module === 'flashcards'   && <FlashcardsModule   data={data} />}
+            {module === 'quiz'         && <QuizModule         data={data} />}
+            {module === 'calculations' && <CalculationsModule data={data} />}
+            {module === 'exams'        && <ExamsModule        data={data} pendingExamNav={pendingExamNav} />}
+            {module === 'mock'         && <MockExamModule     data={data} />}
           </>
         )}
       </main>
