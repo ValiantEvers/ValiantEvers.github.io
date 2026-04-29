@@ -3,7 +3,9 @@
 window.TAG_TAXONOMY = {
   'asymmetric-info':    'Asymmetric Info',
   'bank-models':        'Bank Models / QAT',
+  'bank-balance-sheets':'Bank Balance Sheets',
   'credit-risk':        'Credit Risk / IFRS 9',
+  'liquidity-risk':     'Liquidity Risk',
   'deposit-insurance':  'Deposit Insurance',
   'bank-crises':        'Bank Crises',
   'bank-regulation':    'Basel / Regulation',
