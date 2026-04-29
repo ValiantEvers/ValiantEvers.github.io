@@ -141,7 +141,7 @@ function RecallQuestions({ questions }) {
   return (
     <div className="recall-section">
       <hr className="detail-rule" />
-      <div className="label recall-label">Aktiv gjenkalling</div>
+      <div className="label recall-label">Active Recall</div>
       {questions.map((q, i) => (
         <div key={i} className="recall-item">
           <p className="recall-question-text">{q.question}</p>
@@ -150,7 +150,7 @@ function RecallQuestions({ questions }) {
             onClick={() => toggle(i)}
             aria-expanded={revealed.has(i)}
           >
-            {revealed.has(i) ? 'Skjul svar' : 'Vis svar'}
+            {revealed.has(i) ? 'Hide Answer' : 'Show Answer'}
           </button>
           {revealed.has(i) && (
             <div className="recall-answer">{q.answer}</div>
