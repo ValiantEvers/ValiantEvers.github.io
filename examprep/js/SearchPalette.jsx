@@ -6,7 +6,7 @@ function SearchPalette({ data, onClose, onNavigate }) {
   const [query, setQuery] = useState('');
   const [highlighted, setHighlighted] = useState(0);
   const inputRef = useRef(null);
-  const { glossary = [], models = [], timeline = [], exams = [] } = data;
+  const { glossary = [], models = [], timeline = [], exams = [], topics = [], quiz = [], flashcards = [] } = data;
 
   useEffect(() => {
     inputRef.current && inputRef.current.focus();
@@ -18,11 +18,35 @@ function SearchPalette({ data, onClose, onNavigate }) {
 
     const sections = [];
 
+    const topicHits = topics.filter(t =>
+      (t.title || '').toLowerCase().includes(q) ||
+      (t.subtitle || '').toLowerCase().includes(q) ||
+      (t.examWeight || '').toLowerCase().includes(q) ||
+      (t.sections || []).some(s =>
+        (s.heading || '').toLowerCase().includes(q) ||
+        (s.body || '').toLowerCase().includes(q)
+      ) ||
+      (t.keyTerms || []).some(k => (k || '').toLowerCase().includes(q))
+    ).slice(0, 5);
+
+    if (topicHits.length) {
+      sections.push({
+        label: 'Topics',
+        module: 'topics',
+        items: topicHits.map(t => ({
+          id: t.id,
+          term: t.title,
+          snippet: t.subtitle || '',
+          module: 'topics',
+        })),
+      });
+    }
+
     const termHits = [...glossary, ...models].filter(e =>
       e.term.toLowerCase().includes(q) ||
       (e.definition || '').toLowerCase().includes(q) ||
       (e.summary || '').toLowerCase().includes(q)
-    ).slice(0, 6);
+    ).slice(0, 5);
 
     if (termHits.length) {
       sections.push({
@@ -33,6 +57,42 @@ function SearchPalette({ data, onClose, onNavigate }) {
           term: e.term,
           snippet: e.definition || e.summary || '',
           module: 'glossary',
+        })),
+      });
+    }
+
+    const fcHits = flashcards.filter(c =>
+      (c.front || '').toLowerCase().includes(q) ||
+      (c.back || '').toLowerCase().includes(q)
+    ).slice(0, 4);
+
+    if (fcHits.length) {
+      sections.push({
+        label: 'Flashcards',
+        module: 'flashcards',
+        items: fcHits.map(c => ({
+          id: c.id,
+          term: c.front,
+          snippet: c.back || '',
+          module: 'flashcards',
+        })),
+      });
+    }
+
+    const quizHits = quiz.filter(qz =>
+      (qz.prompt || '').toLowerCase().includes(q) ||
+      (qz.explanation || '').toLowerCase().includes(q)
+    ).slice(0, 4);
+
+    if (quizHits.length) {
+      sections.push({
+        label: 'Quiz Questions',
+        module: 'quiz',
+        items: quizHits.map(qz => ({
+          id: qz.id,
+          term: (qz.type === 'tf' ? 'T/F · ' : 'MC · ') + window.tagLabel(qz.topic),
+          snippet: qz.prompt,
+          module: 'quiz',
         })),
       });
     }
@@ -118,7 +178,7 @@ function SearchPalette({ data, onClose, onNavigate }) {
           <input
             ref={inputRef}
             className="sp-input"
-            placeholder="Search glossary, timeline, exams…"
+            placeholder="Search topics, flashcards, exams, quiz, timeline…"
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
