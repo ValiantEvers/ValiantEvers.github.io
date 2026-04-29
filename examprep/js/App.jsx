@@ -3,7 +3,7 @@
 const { useState, useEffect } = React;
 
 const MODULES = [
-  { id: 'topics',     label: 'Topics',     subtitle: 'Ten Exam-Ready Summaries' },
+  { id: 'topics',     label: 'Topics',     subtitle: 'Twelve Exam-Ready Summaries' },
   { id: 'glossary',   label: 'Glossary',   subtitle: 'Terms & Model Walkthroughs' },
   { id: 'timeline',   label: 'Timeline',   subtitle: 'Crises in Chronological Order' },
   { id: 'flashcards', label: 'Flashcards', subtitle: 'Active Recall' },
