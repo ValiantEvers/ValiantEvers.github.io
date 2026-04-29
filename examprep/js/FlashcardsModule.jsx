@@ -161,7 +161,7 @@ function FlashcardsModule({ data }) {
   }
 
   function resetProgress() {
-    if (!confirm('Tilbakestille all fremgang? Dette kan ikke angres.')) return;
+    if (!confirm('Reset all progress? This cannot be undone.')) return;
     saveSR({});
     setIdx(0);
     setFlipped(false);
@@ -210,13 +210,13 @@ function FlashcardsModule({ data }) {
   if (baseDeck.length === 0) {
     return (
       <div className="flashcards-wrap">
-        <div className="empty-state">Ingen kort matcher dette filteret.</div>
+        <div className="empty-state">No cards match this filter.</div>
       </div>
     );
   }
 
   function dayLabel(n) {
-    return n === 1 ? '+1 dag' : '+' + n + ' dager';
+    return n === 1 ? '+1 day' : '+' + n + ' days';
   }
 
   return (
@@ -227,11 +227,11 @@ function FlashcardsModule({ data }) {
         <button
           className={'fc-mode-btn' + (mode === 'sr'     ? ' active' : '')}
           onClick={() => switchMode('sr')}
-        >Repetisjonsmodus</button>
+        >Spaced Repetition</button>
         <button
           className={'fc-mode-btn' + (mode === 'browse' ? ' active' : '')}
           onClick={() => switchMode('browse')}
-        >Bla gjennom</button>
+        >Browse All</button>
       </div>
 
       {/* ── SR dashboard ── */}
@@ -239,18 +239,18 @@ function FlashcardsModule({ data }) {
         <div className="fc-sr-dashboard">
           <div className="fc-sr-stat overdue">
             <span className="fc-sr-num">{srStats.overdue}</span>
-            <span className="fc-sr-label">Forfalt i dag</span>
+            <span className="fc-sr-label">Due Today</span>
           </div>
           <div className="fc-sr-stat new">
             <span className="fc-sr-num">{srStats.newCount}</span>
-            <span className="fc-sr-label">Nye</span>
+            <span className="fc-sr-label">New</span>
           </div>
           <div className="fc-sr-stat mastered">
             <span className="fc-sr-num">{srStats.mastered}</span>
-            <span className="fc-sr-label">Mestret</span>
+            <span className="fc-sr-label">Mastered</span>
           </div>
           <button className="fc-reset-btn" onClick={resetProgress}>
-            Tilbakestill fremgang
+            Reset Progress
           </button>
         </div>
       )}
@@ -276,7 +276,7 @@ function FlashcardsModule({ data }) {
         </div>
         {card && srData[card.id] && (
           <span style={{ fontSize: 11, color: 'var(--ink-light)' }}>
-            Intervall: {srData[card.id].interval} dag{srData[card.id].interval !== 1 ? 'er' : ''}
+            Interval: {srData[card.id].interval} day{srData[card.id].interval !== 1 ? 's' : ''}
           </span>
         )}
       </div>
@@ -291,8 +291,8 @@ function FlashcardsModule({ data }) {
           role="button"
           tabIndex={0}
           aria-label={flipped
-            ? 'Kortets bakside: ' + card.back
-            : 'Kortets forside: ' + card.front + '. Trykk mellomrom for å snu.'}
+            ? 'Card back: ' + card.back
+            : 'Card front: ' + card.front + '. Press space to flip.'}
           onKeyDown={e => e.key === 'Enter' && setFlipped(f => !f)}
         >
           <div className={'fc-card' + (flipped ? ' flipped' : '')} ref={cardRef}>
@@ -311,7 +311,7 @@ function FlashcardsModule({ data }) {
               <div className="fc-flip-hint">Space to flip</div>
             </div>
             <div className="fc-face fc-face-back">
-              <div className="fc-face-label">Definisjon</div>
+              <div className="fc-face-label">Definition</div>
               <div className="fc-back-text">{card.back}</div>
               <div className="fc-flip-hint">Space to flip</div>
             </div>
@@ -323,15 +323,15 @@ function FlashcardsModule({ data }) {
       {card && flipped && (
         <div className="fc-rating-row">
           <button className="fc-rating-btn hard" onClick={() => rate('hard')}>
-            <span className="fc-rating-label">Vanskelig</span>
+            <span className="fc-rating-label">Hard</span>
             <span className="fc-rating-sub">{dayLabel(intervals.hard)}</span>
           </button>
           <button className="fc-rating-btn good" onClick={() => rate('good')}>
-            <span className="fc-rating-label">Greit</span>
+            <span className="fc-rating-label">Good</span>
             <span className="fc-rating-sub">{dayLabel(intervals.good)}</span>
           </button>
           <button className="fc-rating-btn easy" onClick={() => rate('easy')}>
-            <span className="fc-rating-label">Lett</span>
+            <span className="fc-rating-label">Easy</span>
             <span className="fc-rating-sub">{dayLabel(intervals.easy)}</span>
           </button>
         </div>
@@ -339,25 +339,25 @@ function FlashcardsModule({ data }) {
 
       {/* ── Navigation ── */}
       <div className="fc-actions">
-        <button className="fc-btn fc-btn-nav" onClick={() => navigate(-1)} aria-label="Forrige kort">← Forrige</button>
+        <button className="fc-btn fc-btn-nav" onClick={() => navigate(-1)} aria-label="Previous card">← Prev</button>
         {card && !flipped && (
-          <button className="fc-btn fc-btn-flip" onClick={() => setFlipped(true)} aria-label="Snu kortet">Snu kort</button>
+          <button className="fc-btn fc-btn-flip" onClick={() => setFlipped(true)} aria-label="Flip card">Flip Card</button>
         )}
-        <button className="fc-btn fc-btn-nav" onClick={() => navigate(1)} aria-label="Neste kort">Neste →</button>
+        <button className="fc-btn fc-btn-nav" onClick={() => navigate(1)} aria-label="Next card">Next →</button>
       </div>
 
       {/* ── Keyboard hints ── */}
       <div className="fc-shortcuts">
-        <span><kbd>Space</kbd> snu</span>
-        <span><kbd>→</kbd> neste</span>
-        <span><kbd>←</kbd> forrige</span>
-        <span><kbd>1</kbd> vanskelig</span>
-        <span><kbd>2</kbd> greit</span>
-        <span><kbd>3</kbd> lett</span>
+        <span><kbd>Space</kbd> flip</span>
+        <span><kbd>→</kbd> next</span>
+        <span><kbd>←</kbd> prev</span>
+        <span><kbd>1</kbd> hard</span>
+        <span><kbd>2</kbd> good</span>
+        <span><kbd>3</kbd> easy</span>
       </div>
 
       <div style={{ marginTop:16, textAlign:'center', fontSize:11, color:'var(--ink-light)' }}>
-        Trykk for å snu · Sveip ← / → for navigasjon
+        Tap to flip · Swipe ← / → to navigate
       </div>
     </div>
   );
