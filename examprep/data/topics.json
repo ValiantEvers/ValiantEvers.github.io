@@ -10,6 +10,10 @@
         "body": "**Adverse selection (pre-contract / ex-ante).** The lender cannot tell good borrowers from bad ones. With pooled pricing, low-risk borrowers — who would be over-charged — exit the market, leaving the lender with a worse-than-average pool. Akerlof's lemons problem: high quality is driven out by low quality.\n\n**Moral hazard (post-contract / ex-post).** After funds are disbursed, the borrower may take on more risk than promised. The borrower captures the upside; the lender bears the downside. Without monitoring, this is the lender's problem, not the borrower's.\n\nBoth problems are about information asymmetries between contracting parties — and both can persist in equilibrium because the informed party cannot credibly commit to behave well, and the uninformed party cannot perfectly verify."
       },
       {
+        "heading": "Akerlof's Lemons model — the formal setup",
+        "body": "The textbook example used in Lecture 1 (Greenbaum & Thakor ch. 1, p. 10–15). Three quality classes of cars exist:\n\n• **q1** — best quality, market value **$10**, breakdown probability **0.1**\n• **q2** — middle quality, market value **$5**, breakdown probability **0.5**\n• **q3** — lemons, market value **$0**, breakdown probability **1.0** (always break)\n\nSellers know their car's quality; buyers know only the distribution.\n\n**Without warranties — the unravelling.** Buyers offer a pooled price reflecting average expected quality. Owners of q1 cars refuse to sell at that pooled price (they know their car is worth more), so they exit. Buyers update — pooled price falls. Now q2 owners exit. Only q3 (lemons) remain trading. **Asymmetric information drives high quality out of the market.**\n\n**With warranties — separating equilibrium.** A q1 seller can credibly signal quality by offering a warranty whose expected cost is low (because q1 rarely breaks). The warranty terms must satisfy an **Incentive Compatibility (IC) condition** so that q2 sellers cannot profitably mimic q1 by offering the same warranty: a q2 seller's expected payoff under the q1 warranty (which factors in the higher likelihood of having to pay out) must be ≤ their truthful payoff. By convention, indifference is treated as truth-telling, and the IC condition is solved as an equality.\n\n**Non-dissipative vs dissipative signals.**\n• A **non-dissipative** signal transfers cost from one party to another — a warranty payout flows from seller to buyer. Total surplus is preserved.\n• A **dissipative** signal destroys surplus — e.g. burning resources or paying repair costs that nobody captures.\n\nWarranties are typically non-dissipative — and that is why they work as an efficient separating mechanism.\n\n**Application to credit markets.** Replace cars with borrowers and quality with creditworthiness. A bank that offers a single uniform interest rate is the equivalent of a buyer offering a pooled price. Safe borrowers exit (over-charged); risky borrowers stay (under-charged); the loan portfolio adversely selects toward the worst risks. Mitigants — collateral, covenants, signalling, screening — are the credit-market analogues of the used-car warranty."
+      },
+      {
         "heading": "Stiglitz–Weiss credit rationing",
         "body": "Raising the loan rate has two adverse effects:\n\n• It worsens the borrower pool — only riskier types accept (adverse selection).\n• It incentivises riskier project choice — borrowers who already have a high cost of borrowing pick high-variance projects (moral hazard).\n\nBoth effects can offset the direct revenue gain from a higher rate. The bank's expected profit becomes a non-monotonic function of the loan rate, peaking at some r* below the market-clearing rate. The bank optimally sets r* and **rations credit** at that rate — denying loans to some applicants rather than charging them more. Credit markets do not clear through price like grain markets do."
       },
@@ -22,20 +26,64 @@
         "body": "Almost every year asks: **(a) define asymmetric information, explain adverse selection vs moral hazard, (b) give examples of mitigants for each.** The May 2025 final (Q3, 20 pts) used exactly this template. Memorise: pre/post distinction, two-mitigant categories (screening + monitoring), collateral as the both-purposes signal."
       }
     ],
-    "keyTerms": ["adverse selection", "moral hazard", "credit rationing", "Akerlof lemons", "Stiglitz-Weiss", "covenants", "screening", "monitoring", "delegated monitoring", "relationship banking", "collateral as signal"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "Contemporary Financial Intermediation, ch. 1 (pp 10–15) and ch. 8 (pp 177–182)"},
-      {"author": "Bernanke", "year": "1992", "title": "Credit in the Macroeconomy, FRBNY Quarterly Review (first half only)"},
-      {"author": "Akerlof", "year": "1970", "title": "The Market for Lemons", "supplementary": true},
-      {"author": "Stiglitz & Weiss", "year": "1981", "title": "Credit Rationing in Markets with Imperfect Information", "supplementary": true}
+    "keyTerms": [
+      "adverse selection",
+      "moral hazard",
+      "credit rationing",
+      "Akerlof lemons",
+      "Stiglitz-Weiss",
+      "covenants",
+      "screening",
+      "monitoring",
+      "delegated monitoring",
+      "relationship banking",
+      "collateral as signal",
+      "Akerlof Lemons numerical (10/5/0)",
+      "Incentive Compatibility (IC)",
+      "non-dissipative signal",
+      "dissipative signal",
+      "separating equilibrium",
+      "warranty signalling"
     ],
-    "examQuestions": ["may2025-q3a", "may2025-q3b", "feb2025-q4a", "feb2025-q4b", "feb2024-p2a", "final2023-q3", "final2022-q1c", "final2022-q2"]
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "Contemporary Financial Intermediation, ch. 1 (pp 10–15) and ch. 8 (pp 177–182)"
+      },
+      {
+        "author": "Bernanke",
+        "year": "1992",
+        "title": "Credit in the Macroeconomy, FRBNY Quarterly Review (first half only)"
+      },
+      {
+        "author": "Akerlof",
+        "year": "1970",
+        "title": "The Market for Lemons",
+        "supplementary": true
+      },
+      {
+        "author": "Stiglitz & Weiss",
+        "year": "1981",
+        "title": "Credit Rationing in Markets with Imperfect Information",
+        "supplementary": true
+      }
+    ],
+    "examQuestions": [
+      "may2025-q3a",
+      "may2025-q3b",
+      "feb2025-q4a",
+      "feb2025-q4b",
+      "feb2024-p2a",
+      "final2023-q3",
+      "final2022-q1c",
+      "final2022-q2"
+    ]
   },
-
   {
     "id": "qat",
     "title": "Qualitative Asset Transformation",
-    "subtitle": "Lectures 2 & 5 — The bank's economic function and the source of its fragility",
+    "subtitle": "Lecture 2 — Bank functions, FI taxonomy, and the source of bank fragility",
     "examWeight": "Core. FINAL: May 2025 Q2 (15 pts — define + societal good + risks/management). Recurring framing for liquidity-risk and bank-model questions on every paper.",
     "sections": [
       {
@@ -53,17 +101,153 @@
       {
         "heading": "Key insight: every transformation has a cost",
         "body": "There is no free lunch. The duration mismatch that lets banks earn margin (riding the yield curve) is also what exposes them to runs. The credit-risk reduction depositors enjoy is paid for by the bank's capital. The currency mismatch that funds NOK lending with EUR bonds requires hedging via CCBS — itself exposing the bank to basis-spread movements and counterparty risk.\n\nQAT explains both why banks exist AND why they need regulation."
+      },
+      {
+        "heading": "Brokerage vs Qualitative Asset Transformation",
+        "body": "Banks (and other FIs) perform two fundamental functions. The distinction matters because it determines whether the FI carries balance-sheet risk.\n\n**Brokerage.** Bringing transactions in financial claims with complementary needs together — matchmaking. The broker is paid a fee. Critically, the broker bears NO balance-sheet risk: they don't take ownership of the asset, just facilitate the trade. Brokerage resolves PRECONTRACT information asymmetry — adverse selection and duplicated screening. A broker's competitive advantage is **information reusability**: information collected once can be applied across many transactions (cross-sectional and intertemporal).\n\n**Qualitative Asset Transformation (QAT).** Modifying the attributes of financial claims by holding assets that DIFFER from liabilities along one or more dimensions (duration, divisibility, liquidity, credit risk, currency). The mismatch between the asset and liability sides creates inherent risk. The bank earns the spread between asset yield and funding cost as compensation.\n\n**Why the distinction matters.** Brokerage can in principle be performed riskless. QAT cannot — the bank chooses to bear the mismatch risk because the spread compensates for it. The bank can manage this risk three ways: (1) diversify, (2) shift to others via swaps/forwards/options, or (3) passively accept. **If the bank fully shifts all QAT-related risk to a counterparty, the activity reverts to brokerage** — the bank earns a fee, not a spread."
+      },
+      {
+        "heading": "Types of financial intermediaries",
+        "body": "Lecture 2 surveys the FI universe. The major types and their distinguishing features:\n\n| Institution | Ownership | Liabilities | Distinguishing feature |\n|---|---|---|---|\n| Commercial banks | All shareholder-owned | Customer deposits + wholesale | Payment system role; access to central-bank discount window; only FIs that perform monetary policy transmission |\n| Thrifts (S&Ls, MSBs) | Mostly mutual | Consumer savings | Specialised in residential mortgages; ownership has historically been mutual (depositors own) |\n| Credit unions | Mutual (members) | Consumer deposits | Members must share a 'common bond' (employer, location); regulated by NCUA |\n| Investment banks | Stock | Wholesale market funding | Underwriting, M&A, sales/trading; NO monetary services; Chinese walls separate banking from trading |\n| Finance companies | Stock | Commercial paper | Lend riskier credits, mostly secured; no deposit insurance, no LOLR access |\n| Insurance companies | Mixed | Contingent liabilities | Liabilities triggered by events (death, accident); life-insurance liabilities are very long-duration |\n| Pension funds | n/a | Future annuity claims | DC: contributions accumulate; DB: prescribed annuity. Constrained by ERISA |\n| Mutual funds | Customer-owned | Open-end (NAV) or closed-end | Open-end shares trade at NAV; closed-end can deviate widely |\n| Hedge funds | Limited partnership | Private investment pool | Unlimited fees, riskier strategies, sophisticated-investor only |\n| Credit rating agencies | Stock | Subscription / issuer-paid | Brokerage function — process information into ratings; oligopoly: Moody's, S&P, Fitch ~95% |\n| Government | Public | Tax-funded | Largest FI in the world (Old Age, Disability, Medicare, housing agencies) |\n\n**Why this matters for exam:** Mid-term papers test knowledge of FI types directly (Feb 2024 P2c on capital vs money markets is one example). T/F questions often hinge on knowing which institution does what — e.g. \"investment banks provide monetary services\" → FALSE; that is exclusive to commercial banks.\n\n**Goldsmith → fractional-reserve evolution.** Modern banking emerged from goldsmith warehousing: receipts began trading like money, then goldsmiths printed extra receipts to lend. Once liabilities exceeded cash assets, the system became inherently unstable to runs — which is why central-bank LOLR and reserve requirements eventually emerged."
       }
     ],
-    "keyTerms": ["QAT", "duration transformation", "divisibility transformation", "liquidity transformation", "credit risk transformation", "numeraire transformation", "maturity mismatch", "asset-liability management", "lender of last resort"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "Contemporary Financial Intermediation, ch. 2–4"},
-      {"author": "Bank of England", "year": "2014 Q1", "title": "Money Creation in the Modern Economy"},
-      {"author": "Norges Bank", "year": "2024", "title": "Norway's Financial System (pp 17–51)"}
+    "keyTerms": [
+      "QAT",
+      "duration transformation",
+      "divisibility transformation",
+      "liquidity transformation",
+      "credit risk transformation",
+      "numeraire transformation",
+      "maturity mismatch",
+      "asset-liability management",
+      "lender of last resort",
+      "brokerage",
+      "information reusability",
+      "commercial banks",
+      "thrifts",
+      "credit unions",
+      "investment banks",
+      "finance companies",
+      "insurance companies",
+      "pension funds",
+      "mutual funds",
+      "hedge funds",
+      "credit rating agencies",
+      "goldsmith model"
     ],
-    "examQuestions": ["may2025-q2a", "may2025-q2b", "may2025-q2c", "may2024-q2a", "may2024-q2c", "feb2024-p2d", "final2023-q4"]
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "Contemporary Financial Intermediation, ch. 2–4"
+      },
+      {
+        "author": "Bank of England",
+        "year": "2014 Q1",
+        "title": "Money Creation in the Modern Economy"
+      },
+      {
+        "author": "Norges Bank",
+        "year": "2024",
+        "title": "Norway's Financial System (pp 17–51)"
+      }
+    ],
+    "examQuestions": [
+      "may2025-q2a",
+      "may2025-q2b",
+      "may2025-q2c",
+      "may2024-q2a",
+      "may2024-q2c",
+      "feb2024-p2d",
+      "final2023-q4"
+    ]
   },
-
+  {
+    "id": "bank-balance-sheets",
+    "title": "Bank Balance Sheets & Accounting",
+    "subtitle": "Lectures 2 + 3-4 — How banks are structured, how they earn, and how they account for it",
+    "examWeight": "Core for the MID-TERM (Feb 2024 P1Q1-Q5 was 60 pts of bank-ratio calculation). For the FINAL: provides the underlying framework that IFRS 9 impairment, capital-ratio, and risk-management questions all sit on top of. The HTM/AFS bond-classification distinction was central to the SVB lesson and is testable as a T/F or short-answer.",
+    "sections": [
+      {
+        "heading": "The bank business model — assets vs liabilities",
+        "body": "A bank's balance sheet is an exercise in mismatch. Each line on the asset side is paired with a liability side that differs along at least one of the QAT dimensions:\n\n**Assets (use of funds — typically higher credit risk, longer term, less liquid):**\n• Loans to customers (mortgages, business loans, consumer loans)\n• Securities and bonds (government, corporate)\n• Cash and central-bank deposits\n• Interbank claims\n\n**Liabilities (sources of funds — typically lower credit risk, shorter term, more liquid):**\n• Customer deposits (retail, corporate)\n• Wholesale / market funding (interbank, commercial paper, bonds)\n• Subordinated debt\n• Equity capital\n\nThe gap between asset duration and liability duration is the bank's **maturity transformation**, the source of net interest income — and the source of liquidity, interest-rate, and credit risk simultaneously. Norwegian retail banks' typical structure is roughly 65% deposits + 25% wholesale + 8-10% equity, funding a loan book that's ~80% retail mortgages."
+      },
+      {
+        "heading": "How banks earn money",
+        "body": "**Net Interest Income (NII)** is the headline income source: the difference between interest earned on assets and interest paid on liabilities. As a margin: **NIM = NII / Average Total Assets**, typically 0.5–2% for a Norwegian bank.\n\n**\"Riding the yield curve.\"** When the yield curve is upward-sloping (long rates > short rates), the bank funds short and lends long, earning the term premium. The strategy is profitable in normal conditions but exposes the bank to:\n• **Interest-rate risk** — a sharp rate rise lowers the value of long bond holdings AND raises funding costs\n• **Liquidity risk** — short-term funding can dry up while long-term assets are stuck\n• **Yield-curve inversion** — if short rates rise above long rates, the carry turns negative\n\nThe SVB collapse (March 2023) is the textbook example of this strategy ending badly.\n\n**Other revenue:**\n• Fees and commissions (account fees, payment fees, asset-management fees)\n• Trading profits on financial instruments\n• Net gains from FX and interest-rate derivatives positions\n• Spread on payment services (deposits as a low-cost funding source)\n\n**The leverage effect.** Banks operate with ~5–10% equity (i.e. 10–20× leverage). A thin ROA of ~1% becomes a respectable ROE of ~15% via leverage:\n\n  **ROE = ROA × (Assets / Equity)**\n\nThe DuPont decomposition is why bank regulation cares so much about leverage: it amplifies losses just as much as it amplifies returns."
+      },
+      {
+        "heading": "Bond portfolio classification under IFRS 9 — and the SVB lesson",
+        "body": "How a bank classifies its bond portfolio matters enormously — same bonds, different classifications, very different reported capital under stress.\n\n**1. Fair Value through P&L (FVtPL).** Mark-to-market every period, gains and losses flow through the income statement. Honest but volatile.\n\n**2. Available for Sale (AFS).** Mark-to-market, but unrealised gains and losses go to **Other Comprehensive Income (OCI)** — they sit in equity rather than P&L. Capital ratios reflect the mark.\n\n**3. Held to Maturity (HTM).** Carried at AMORTISED COST. The fair value is DISCLOSED in notes but does not affect the balance sheet, reported equity, or capital ratios. Permitted only if the bank intends to hold the asset to maturity and has the ability to do so.\n\n**The SVB lesson (March 2023).** SVB held a large long-duration HTM portfolio of US Treasuries and agency MBS. As rates rose 2022–23, the portfolio's fair value fell ~$15.9bn — but because it was HTM, capital ratios looked fine. Concentrated uninsured tech-startup deposits then started withdrawing, forcing SVB to sell HTM assets — at which point losses became realised. Capital evaporated within days. Classification choice has REAL consequences for crisis dynamics: HTM let SVB hide an economic-insolvency that the run then forced into the open."
+      },
+      {
+        "heading": "Money creation in the modern economy",
+        "body": "**The textbook story** (incorrect but persistent): banks lend out depositors' money. A reserve-multiplier mechanically scales up deposits.\n\n**The actual mechanism** (Bank of England 2014 Quarterly Bulletin, on the reading list): when a bank makes a loan, it CREATES a matching deposit on its own balance sheet. Both sides of the bank's balance sheet expand simultaneously — the asset is the new loan, the liability is the new deposit credited to the borrower's account. **Loans create deposits, not the other way around.**\n\n**Implications:**\n• Reserves are not a binding constraint on lending in modern fiat systems. The binding constraints are **capital** (Basel rules) and **demand** (creditworthy borrowers willing to borrow).\n• **Quantitative easing** works by the central bank buying long-dated assets (often from non-banks); the seller's bank gets new reserves; the seller's deposit balance rises; broad money expands. QE directly increases bank deposits.\n• Monetary policy operates through interest rates, not reserve quantities — the central bank sets the policy rate, banks adjust their lending rates, lending volumes adjust to the new rate.\n\nThis matters for the exam because it reframes what banks ARE: not depositories that lend out savings, but creators of inside money that operates alongside (and is largely interchangeable with) central-bank money."
+      },
+      {
+        "heading": "Key bank ratios — what to compute on the exam",
+        "body": "The Mid-term 2024 paper put 60 of 100 points on bank-ratio calculations. Memorise each of these formulas — they show up in T/F questions and direct calculations.\n\n| Ratio | Formula | Typical value |\n|---|---|---|\n| Deposit-to-loan | Deposits / Loans | 60–100% (Norway) |\n| Loan-to-deposit | Loans / Deposits | 100–170% |\n| Net Interest Margin | NII / Avg Total Assets | 0.5–2% |\n| Cost/Income | Operating expenses / Operating income | 35–50% efficient; >65% poor |\n| Return on Assets | Net Income / Avg Total Assets | 0.5–1.5% |\n| Return on Equity | Net Income / Avg Equity | 8–15% |\n| Equity multiplier | Assets / Equity | 10–20× |\n| Non-performing loans | Stage 3 loans / Gross loans | <1% (Nordic) |\n| Gross loans | Net loans + Accumulated impairment | (always ≥ Net) |\n\n**Two patterns that have appeared verbatim:**\n• **Equity reconciliation** (Feb 2024 P1Q3): Profit retained = Equity_t − Equity_{t-1}. Profit paid out = Profit − retained. Drove the question \"why did equity go up by only 20 when profit was 45?\"\n• **Impairment reconciliation** (Feb 2024 P1Q5): Acc.Impairment_t = Acc.Impairment_{t-1} + new charges − write-offs. Solve for unknown. Then convert write-offs to gross loans written off using the average impairment-coverage rate."
+      }
+    ],
+    "keyTerms": [
+      "bank balance sheet",
+      "assets vs liabilities",
+      "net interest income",
+      "NII",
+      "NIM",
+      "yield curve riding",
+      "ROA",
+      "ROE",
+      "equity multiplier",
+      "leverage effect",
+      "FVtPL",
+      "AFS",
+      "HTM",
+      "IFRS 9 classification",
+      "OCI",
+      "amortised cost",
+      "SVB HTM lesson",
+      "money creation",
+      "loans create deposits",
+      "BoE 2014",
+      "quantitative easing",
+      "deposit-to-loan ratio",
+      "loan-to-deposit ratio",
+      "cost-income ratio",
+      "non-performing loans",
+      "gross vs net loans",
+      "equity reconciliation",
+      "impairment reconciliation"
+    ],
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "Contemporary Financial Intermediation, ch. 2 (nature & variety of FIs), ch. 3 (what/how/why), ch. 4 (bank risks)"
+      },
+      {
+        "author": "Bank of England",
+        "year": "2014 Q1",
+        "title": "Money Creation in the Modern Economy (Quarterly Bulletin)"
+      },
+      {
+        "author": "Norges Bank",
+        "year": "2024",
+        "title": "Norway's Financial System — Section 1 Financial Markets (pp 17–51)"
+      }
+    ],
+    "examQuestions": [
+      "feb2024-p1q1",
+      "feb2024-p1q2",
+      "feb2024-p1q3",
+      "feb2024-p1q4",
+      "feb2024-p1q5",
+      "feb2024-p2c",
+      "feb2024-p2d",
+      "may2024-q2a",
+      "may2024-q2c"
+    ]
+  },
   {
     "id": "credit-risk",
     "title": "Credit Risk & IFRS 9 Impairment",
@@ -87,160 +271,124 @@
         "body": "1. **Stage 1/2/3 impairment calculation** (May 2025 Q4): given a table of EAD, PD, LGD per loan, calculate book value year 1 and year 2, the P&L impact, and explain why lifetime PD declines over time.\n\n2. **RWA and capital ratio calculation** (May 2025 Q6a): given a balance sheet with risk weights, compute credit RWA, total REA (adding market and operational risk), and the CET1/T1/total capital ratios.\n\n3. **Bank ratios** (Feb 2024 Q1–5): deposit-to-loan ratio, interest margin on assets, gross loans (= net + accumulated impairment), reconciling impairment movements (write-offs vs new provisions).\n\n4. **T/F traps to watch**: \"In IFRS 9 credit quality depends on collateral value\" → FALSE (depends on PD); \"Reduced impairment increases earnings\" → TRUE; \"Lower collateral triggers Stage 2 only if it indicates higher PD\" → TRUE."
       }
     ],
-    "keyTerms": ["PD", "LGD", "EAD", "Expected Loss", "Unexpected Loss", "12-month ECL", "lifetime ECL", "Stage 1", "Stage 2", "Stage 3", "SICR", "IFRS 9", "Standardised approach", "IRB Foundation", "IRB Advanced", "RWA"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "ch. 7 (spot lending and credit risk) and ch. 10 (off-balance sheet)"}
+    "keyTerms": [
+      "PD",
+      "LGD",
+      "EAD",
+      "Expected Loss",
+      "Unexpected Loss",
+      "12-month ECL",
+      "lifetime ECL",
+      "Stage 1",
+      "Stage 2",
+      "Stage 3",
+      "SICR",
+      "IFRS 9",
+      "Standardised approach",
+      "IRB Foundation",
+      "IRB Advanced",
+      "RWA"
     ],
-    "examQuestions": ["may2025-q4a", "may2025-q4b", "may2025-q4c", "may2024-q1b", "feb2025-q4c", "feb2025-q4e", "feb2024-p1q4", "feb2024-p1q5", "final2022-q1a"]
-  },
-
-  {
-    "id": "basel-regulation",
-    "title": "Basel Regulation & Capital Requirements",
-    "subtitle": "Lecture 7 — Three types of capital requirements and the buffer stack",
-    "examWeight": "Core. Capital ratio calculations on May 2025 Q6 (3 pts), recurring T/F questions on every paper.",
-    "sections": [
+    "readings": [
       {
-        "heading": "The three types of capital requirements",
-        "body": "Basel III imposes three distinct types of requirement, each addressing a different concern:\n\n**1. Risk-sensitive (capital adequacy ratio):**\n  Capital adequacy = Own Funds / RWA\n\nThis is the headline ratio. Own funds are weighted by the risk of each asset.\n\n**2. Non-risk-sensitive (leverage ratio):**\n  Leverage ratio = Tier 1 / Total Exposures\n\nA simple backstop. Doesn't depend on risk weights, so it is robust to RWA gaming or model failure. The Basel III minimum is 3%.\n\n**3. Bail-in capital (MREL):**\n  MREL = (Own Funds + Eligible Liabilities) / RWA\n\nEnsures enough \"bail-in-able\" liabilities exist before a crisis to absorb losses and recapitalise without taxpayer cost. The Loss Absorption Amount + Recapitalisation Amount."
-      },
-      {
-        "heading": "Own funds hierarchy (quality matters)",
-        "body": "Capital is not all equal. Quality is graded:\n\n• **CET1 (Common Equity Tier 1)** — common equity less deductions (goodwill, proposed dividends, intangibles). Highest quality.\n• **AT1 (Additional Tier 1)** — perpetual hybrid capital. Convertible to equity or written down on a going-concern basis (i.e. while the bank is still operating). Coupon payments at the bank's discretion.\n• **T2 (Tier 2)** — subordinated debt. Only written down in resolution or liquidation (gone-concern).\n\nMinimums:\n• CET1 minimum: 4.5% of RWA\n• AT1 minimum: 1.5% (or fill with CET1)\n• T2 minimum: 2.0% (or fill with CET1 or AT1)\n• **Pillar 1 minimum total: 8%**"
-      },
-      {
-        "heading": "The Basel III buffer stack — DNB example end-2025",
-        "body": "On top of Pillar 1 minimums, banks must maintain capital buffers:\n\n| Component | % of RWA |\n|---|---|\n| CET1 minimum | 4.5% |\n| AT1 minimum | 1.5% |\n| T2 minimum | 2.0% |\n| **Pillar 1 minimum** | **8.0%** |\n| Pillar 2 Requirement (P2R, bank-specific) | 1.7% |\n| Conservation buffer (CET1) | 2.5% |\n| Countercyclical buffer (CET1) | 2.5% |\n| Systemic risk buffer (CET1) | 4.5% |\n| O-SII buffer (CET1) | 2.0% |\n| Pillar 2 Guidance (P2G) | 1.0% |\n| **Total CET1 requirement** | **~18%** |\n| **Total capital requirement** | **~22%** |\n\nThis stack is BIG — far above the headline 4.5% CET1 minimum. The buffers exist to be drawn down in stress without forcing immediate corrective action."
-      },
-      {
-        "heading": "Liquidity requirements (Basel III post-2010)",
-        "body": "**LCR (Liquidity Coverage Ratio):** \n  HQLA / Net cash outflow over 30-day stress ≥ 100%\n\nEnsures the bank can survive a 30-day run scenario with high-quality liquid assets alone.\n\n**NSFR (Net Stable Funding Ratio):**\n  Available Stable Funding / Required Stable Funding (1-year) ≥ 100%\n\nEnsures the funding structure is sustainable over a longer horizon — not just a 30-day window."
-      },
-      {
-        "heading": "Calculating capital ratios — the standard exam pattern",
-        "body": "**Step 1: Calculate Credit RWA.** Sum each asset × its risk weight.\n\n**Step 2: Add market-risk REA + operational-risk REA.** These are usually given.\n\n**Step 3: Compute own funds.**\n• CET1 = Equity − deductions (often given as nil)\n• T1 = CET1 + AT1 (hybrid capital)\n• Total = T1 + T2 (subordinated debt)\n\n**Step 4: Divide.**\n• CET1 ratio = CET1 / Total REA\n• T1 ratio = T1 / Total REA\n• Total capital ratio = Total Capital / Total REA\n\nWorked example (May 2025 Q6a, Lilledal Savingsbank):\n• Credit RWA: 10×0 + 40×0 + 500×0.35 + 400×1.0 + 30×1.0 = 605\n• Total REA: 605 + 15 (market) + 75 (op) = 695\n• CET1 ratio = 100/695 = 14.4% ✓"
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "ch. 7 (spot lending and credit risk) and ch. 10 (off-balance sheet)"
       }
     ],
-    "keyTerms": ["CET1", "AT1", "Tier 2", "Pillar 1", "Pillar 2 Requirement", "Pillar 2 Guidance", "Conservation buffer", "Countercyclical buffer", "Systemic risk buffer", "O-SII buffer", "G-SIB surcharge", "LCR", "NSFR", "leverage ratio", "MREL", "RWA", "REA", "Basel I", "Basel II", "Basel III"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "ch. 15 (Objectives of Bank Regulation)"},
-      {"author": "Norges Bank", "year": "2024", "title": "Norway's Financial System, Appendix 2: Capital and Liquidity regulation"},
-      {"author": "Financial Times", "year": "2012-06-29", "title": "The Gathering Storm"},
-      {"author": "EBA", "year": "2024-07-15", "title": "Stacking orders and capital buffers", "supplementary": true}
-    ],
-    "examQuestions": ["may2025-q6a", "may2025-q6c", "may2024-q2b", "may2024-q3b", "final2023-q1b", "final2022-q1e"]
+    "examQuestions": [
+      "may2025-q4a",
+      "may2025-q4b",
+      "may2025-q4c",
+      "may2024-q1b",
+      "feb2025-q4c",
+      "feb2025-q4e",
+      "feb2024-p1q4",
+      "feb2024-p1q5",
+      "final2022-q1a"
+    ]
   },
-
   {
-    "id": "securitisation",
-    "title": "Securitisation & Structured Finance",
-    "subtitle": "Lecture 10 — From originate-to-distribute to the GFC and back",
-    "examWeight": "Core. T/F questions on synthetic vs. traditional appear every year.",
+    "id": "liquidity-risk",
+    "title": "Liquidity Risk",
+    "subtitle": "Lecture 5 (G&T ch. 6) — When solvent banks can still die",
+    "examWeight": "Core. Mid-term 2024 P2d explicitly tested this (10 pts T/F). Liquidity-risk concepts also underpin May 2025 Q2c (QAT risks), Q1a (derivatives create liquidity risk), and the entire March-2020 NOK turbulence question on Spring 2024 Q4b.",
     "sections": [
       {
-        "heading": "Two models of bank lending",
-        "body": "**Traditional model:** Deposit → Loan → Hold to maturity. The bank originates, holds, and bears the credit risk on the loan to maturity. Has skin in the game throughout.\n\n**Securitised model:** Originate → Pool → Tranche → Sell. The bank originates loans, pools them into a Special Purpose Vehicle (SPV), the SPV issues tranches of bonds backed by the pool, and the bonds are sold to investors. The bank no longer holds the credit risk.\n\nThis shift has profound consequences. The bank's incentive to screen carefully is weakened (it doesn't bear the loss). The bank's funding need is removed. The risk migrates to capital-market investors."
+        "heading": "What liquidity risk is — and what it isn't",
+        "body": "**Liquidity risk** is the risk that an asset owner cannot realise the asset's value at the moment a sale is desired. The bank is unable to satisfy claims without impairment to its financial or reputational capital.\n\n**The most extreme manifestation** is being unable to sell at any positive price — a market failure that, in credit markets, is called credit rationing.\n\n**Distinguish liquidity from insolvency:**\n• **Insolvency** — Liabilities EXCEED Assets at fair value. Net worth is negative. The bank is fundamentally broken.\n• **Illiquidity** — Assets exceed liabilities at fair value, but the assets cannot be turned into cash quickly enough to meet current claims. The bank is fundamentally sound but operationally stuck.\n\nThe distinction matters because the cure differs:\n• Insolvency requires recapitalisation — new equity, bail-in, or government rescue.\n• Illiquidity requires liquidity provision — central-bank LOLR is the textbook tool.\n\n**Why information frictions are at the heart of liquidity problems.** When financiers cannot tell a liquidity-stressed bank from an insolvent one, they refuse to fund either. This is exactly the dynamic of every bank run: each individual depositor's optimal action depends on what others do, and uncertainty about the bank's true state becomes self-fulfilling."
       },
       {
-        "heading": "Tranching and credit enhancement",
-        "body": "An SPV holds a loan pool. Cash flows from the pool are paid out in **waterfall** sequence to different tranches:\n\n• **Senior tranche** (rated AAA) — paid first, lowest yield.\n• **Mezzanine tranches** (BBB / BB) — paid next.\n• **Equity / first-loss tranche** — paid last, absorbs first losses, highest yield.\n\n**Credit enhancement** mechanisms protect senior tranches:\n• **Subordination** — junior tranches absorb losses first.\n• **Overcollateralisation** — pool value > tranche notionals.\n• **External guarantees / monoline insurance** (pre-GFC).\n• **Reserve accounts** capturing excess spread."
+        "heading": "Liquidity vs solvency in practice — the LOLR's conundrum",
+        "body": "From the OUTSIDE, illiquidity and insolvency look identical: funding dries up, the bank can't meet outflows. But the policy response differs sharply, so the central bank has to make a fast call.\n\n**The financier's perspective vs. the asset's perspective:**\n• A liquidity crisis occurs when the bank's FINANCIERS are themselves stretched (their own liquidity stock is low) and can't roll funding — even if the bank's assets are fine.\n• An insolvency crisis occurs when the bank's ASSETS have deteriorated, so financiers correctly refuse to fund them.\n\n**In stress, both happen at once.** During 2007–09, repo haircuts on structured products spiked from ~0% to ~50% (Gorton & Metrick's \"run on repo\"). MMFs faced massive redemptions. Both reflected genuine asset-quality deterioration AND liquidity-channel breakdown.\n\n**Bagehot's Rule (1873)** is the classical answer: lend FREELY, at a PENALTY rate, against GOOD COLLATERAL. The penalty rate ensures only genuinely-illiquid banks borrow (solvent banks find cheaper sources first). Good collateral protects the central bank from absorbing the consequences of insolvency that's been disguised as illiquidity. Three centuries later, central-bank emergency lending still operates on Bagehot's principles."
       },
       {
-        "heading": "Synthetic vs traditional — the critical distinction",
-        "body": "**Traditional (true-sale) securitisation:** Loans are LEGALLY SOLD to the SPV. They leave the bank's balance sheet entirely. Two effects:\n• **Funding** — the bank gets cash and no longer needs to fund the loans.\n• **Capital relief** — RWA falls because the credit risk has left.\n\n**Synthetic securitisation:** The loans STAY on the bank's balance sheet. Credit risk is transferred to investors via CDS or financial guarantees on a reference pool. One effect:\n• **Capital relief** — RWA falls because credit risk is transferred.\n• **No funding** — the bank still funds the loans.\n\n**The exam-trap:** \"Synthetic securitisation provides funding\" → FALSE. \"Synthetic securitisation reduces capital requirements\" → TRUE. \"CDS plays a role in synthetic securitisation\" → TRUE (it's the credit-risk-transfer instrument)."
+        "heading": "Three factors determining bank liquidity quality",
+        "body": "Greenbaum & Thakor identify three independent dimensions:\n\n**1. Liquidity of the loan portfolio.** Can assets be sold or pledged quickly? Standardised retail mortgages can be securitised; specialised commercial-real-estate loans cannot. The shadow-banking model relied on assuming everything was liquid — until 2008 proved otherwise.\n\n**2. Cash and high-quality liquid assets (HQLA) on hand.** Reserves at the central bank, government securities, top-rated corporate bonds. Not all liquid assets are equally liquid in a stress — MBS were considered liquid until August 2007. Basel III's LCR formalises this: HQLA must satisfy the 30-day stress.\n\n**3. Withdrawal risk in the deposit base.** Diversification of depositors is the most underrated lever. Many small depositors with no concentration → predictable withdrawal flows (Law of Large Numbers). One large institutional deposit at 90% of total funding → very high withdrawal risk. This is exactly why SVB failed: heavily concentrated uninsured tech-startup deposits ran in unison.\n\n**Diversifying withdrawal risk.** As the depositor base grows in number and independence, the withdrawal rate becomes predictable. The fixed-percent cash buffer needed to satisfy any chosen confidence level shrinks. This is why retail-deposit-funded banks are structurally more stable than wholesale-funded ones — the math of large numbers favours retail."
       },
       {
-        "heading": "Why securitisation broke in the GFC",
-        "body": "**1. Originate-to-distribute weakened screening.** With no skin in the game, originators (especially mortgage brokers) had reduced incentive to verify borrower quality. NINJA loans (No Income, No Job, No Assets) proliferated.\n\n**2. Opacity of CDOs.** Pooled portfolios of MBS, then CDOs of CDO tranches (CDO²), made it impossible for investors to understand the underlying credit. Trust collapsed when subprime defaulted.\n\n**3. Rating-agency failures.** Issuer-pays model created conflicts of interest. Models relied on historical correlations from a benign housing-price period; correlations spiked in stress, and AAA tranches defaulted.\n\n**4. Procyclical haircuts and margins.** When ratings were downgraded, repo haircuts widened, margin requirements rose, derivatives counterparties demanded collateral. Forced fire sales spiralled.\n\n**5. Shadow banking maturity mismatch.** SIVs and ABCP conduits funded long-dated MBS/CDOs with short-term ABCP. When the ABCP market froze on 9 August 2007 (BNP Paribas suspended redemptions on three funds), conduits couldn't roll funding. Sponsors had to absorb them back onto their balance sheets — bringing the off-balance-sheet risk back home."
+        "heading": "The Lender of Last Resort and its moral hazard",
+        "body": "The central bank as LOLR is the keystone that makes fractional-reserve banking viable. Without it, every fractional-reserve bank would be vulnerable to a run that converts illiquidity into insolvency.\n\n**But the LOLR creates its own moral hazard:**\n• If LOLR borrowing is cheap and easy, banks hold less voluntary cash. Why hold expensive low-yielding reserves when emergency funding is available?\n• Two consequences: (1) deposit **seigniorage** shifts from the public to private banks (banks capture the profit from money creation that would otherwise go to the central bank); (2) the LOLR is exposed to the credit risk of the bank's collateral.\n\n**Reserve requirements as a corrective.** Mandatory reserves prevent banks from offloading their entire liquidity-management problem to the central bank. They restore the appropriate sharing of seigniorage between the public and the banking sector. They also act as a structural backstop independent of LOLR-pricing decisions.\n\n**Pricing the LOLR.** Bagehot's penalty rate is the key. If LOLR borrowing is priced too low, banks treat it as a substitute for their own cash reserves. If priced too high, distressed-but-solvent banks avoid it and fail unnecessarily."
+      },
+      {
+        "heading": "Crisis examples — when liquidity failed",
+        "body": "Three case studies the exam treats as common ground:\n\n**Northern Rock (September 2007).** UK mortgage lender, ~75% wholesale-funded. As the ABCP market froze, Northern Rock couldn't roll its funding. The Bank of England's LOLR support became public — and triggered a visible retail run, the first UK bank run since Overend & Gurney (1866). Eventually nationalised. Lesson: even with deposit insurance, depositor confidence can break.\n\n**Repo runs (2007–08).** Gorton & Metrick documented that haircuts on structured-product collateral rose from ~0% to ~50%. Each haircut increase forced borrowers to deleverage; deleveraging meant fire-selling collateral; fire sales pushed prices lower; lower prices justified higher haircuts. A self-reinforcing liquidity spiral that operated outside the deposit-insurance perimeter.\n\n**March 2020 NOK turbulence (Lecture 9 guest lecture).** Norwegian NBFIs (asset managers) had hedged foreign-equity holdings with FX swaps. When equity values fell ~30%, two channels triggered NOK selling: (1) **rebalancing** — over-hedged investors had to buy foreign currency (sell NOK) to honour hedge contracts; (2) **margining** — adverse mark-to-market on FX hedges generated margin calls met by selling Norwegian bonds. Risk premia spiked. Norges Bank intervened progressively (13 March: liquidity + 50bp rate cut → 19 March: FX intervention press release → 7 May: rate to zero).\n\nAll three episodes illustrate the same lesson: in modern banking, liquidity risk crosses institutional boundaries. The shadow banks, the FX-swap market, and the regulated-bank perimeter all share the same plumbing — and the same vulnerabilities."
       }
     ],
-    "keyTerms": ["securitisation", "originate-to-distribute", "SPV", "tranche", "senior", "mezzanine", "equity tranche", "subordination", "overcollateralisation", "CDO", "CDO-squared", "synthetic securitisation", "true-sale securitisation", "credit risk transfer", "MBS", "ABCP", "SIV", "conduit", "rating agency"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "ch. 11 (Securitisation)"},
-      {"author": "Coval, Jurek & Stafford", "year": "2009", "title": "The Economics of Structured Finance (HBS WP 09-060) pp 1–8, 16–17"},
-      {"author": "Davi", "year": "2008", "title": "Synthetic CDOs, Ratings, and Super Senior Tranches (Derivatives Dribble blog series)"},
-      {"author": "Elmer", "year": "1999", "title": "Conduits: Their structure and risk (FDIC Banking Review pp 32–35)"},
-      {"author": "Lucas, Goodman & Fabozzi", "year": "2006", "title": "CDOs and Credit Risk Transfer", "supplementary": true},
-      {"author": "Gibson", "year": "2004", "title": "Understanding the Risk of Synthetic CDOs", "supplementary": true}
+    "keyTerms": [
+      "liquidity risk",
+      "illiquidity vs insolvency",
+      "Bagehot's Rule",
+      "lender of last resort",
+      "LLR moral hazard",
+      "seigniorage",
+      "reserve requirements",
+      "withdrawal risk diversification",
+      "HQLA",
+      "LCR",
+      "NSFR",
+      "treasury function",
+      "Northern Rock run",
+      "run on repo",
+      "Gorton-Metrick",
+      "March 2020 NOK",
+      "rebalancing channel",
+      "margining channel"
     ],
-    "examQuestions": ["may2025-q1b", "may2024-q1e", "final2023-q1e"]
-  },
-
-  {
-    "id": "fx-swaps",
-    "title": "FX Swaps, CCBS & Covered Interest Parity",
-    "subtitle": "Lecture 8 + Olav Syrstad's note — Pricing and hedging foreign-currency exposure",
-    "examWeight": "Important. FX-swap pricing calculations on Spring 2024 Q4a and Final 2022 Q3a; March-2020 NOK-weakening question on Spring 2024 Q4b. Highly likely on May 2026.",
-    "sections": [
+    "readings": [
       {
-        "heading": "FX Swap mechanics",
-        "body": "An **FX swap** is a simultaneous agreement to exchange two currencies at today's spot rate, and to reverse the exchange at a pre-agreed forward rate at a specified future date. Two legs:\n\n• **Near leg:** exchange of currencies at spot S₀ today.\n• **Far leg:** re-exchange at forward rate F at maturity.\n\nBecause F is locked at inception, neither party bears FX risk over the swap's life. The instrument is economically equivalent to a **collateralised loan**: one currency is pledged as collateral to borrow the other."
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "Contemporary Financial Intermediation, ch. 6 (Liquidity Risk) including Appendix"
       },
       {
-        "heading": "Covered Interest Parity (CIP)",
-        "body": "The forward rate is determined by a no-arbitrage condition known as Covered Interest Rate Parity:\n\n  **F = S₀ × (1 + r_quote × t) / (1 + r_base × t)**\n\nwhere t is the tenor in years, r_quote is the interest rate of the quoted (numerator) currency, and r_base is the rate of the base (denominator) currency.\n\n**Intuition.** If the quote currency has a higher interest rate, the forward rate must be HIGHER (more units of quote currency per base at maturity) — equivalently, the higher-yielding currency depreciates forward and the lower-yielding currency appreciates forward. This compensates the party who LENDS the LOW-yielding currency: they hand it over at spot and get back more of the high-yielding currency at maturity, exactly offsetting the interest they forwent. Without this adjustment, riskless arbitrage would be possible (borrow low-yield currency, swap to high-yield, deposit, swap back).\n\n**Swap points** = F − S₀ = the compensation embedded in the exchange rate for the interest-rate differential. Positive when the quote currency has a higher rate."
+        "author": "Rose & Marquis",
+        "year": "2008",
+        "title": "Money and Capital Markets, ch. 10–11 (Money markets)"
       },
       {
-        "heading": "Worked example — DKK/NOK 6-month FX swap",
-        "body": "(From May 2024 Q4a and Final 2022 Q3a — same numbers)\n\nGiven: S₀ = 1.65 NOK/DKK, r_NOK = 4% p.a., r_DKK = 2% p.a., tenor = 6 months.\n\n**Step 1.** F = 1.65 × (1 + 0.04 × 0.5) / (1 + 0.02 × 0.5) = 1.65 × 1.02/1.01 = **1.67 NOK/DKK**.\n\n**Step 2.** Swap points = F − S₀ = 1.67 − 1.65 = **0.02 = 2 points (200 pips)**.\n\nIntuition: NOK has the higher rate, so DKK appreciates forward (1 DKK is worth more NOK forward than at spot). This compensates the DKK lender — they hand over 1 DKK at spot and receive more NOK back at maturity, exactly offsetting the lower DKK interest they earn during the swap."
+        "author": "Alstadheim, Nordal, Syrstad et al.",
+        "year": "guest lecture 2026",
+        "title": "Bond market fire sales and turbulence in the Norwegian FX market in March 2020"
       },
       {
-        "heading": "Cross-Currency Basis Swap (CCBS)",
-        "body": "A **CCBS** is a long-dated instrument (typically 1 to 30 years) used to convert long-term funding from one currency to another:\n\n• **Initial exchange** of principal at the **spot rate**.\n• Throughout the swap, **floating-rate payments** in each currency are exchanged.\n• **Final re-exchange** of principal at the **same spot rate** as inception (NOT a forward rate).\n\nCritical distinction from FX swaps: in a CCBS, the principal re-exchange happens at the original spot rate, not at a forward rate. The interest-rate differential is handled through the **floating coupon legs**, not embedded in a forward rate.\n\n**Basis spread.** In theory the basis = 0 (CIP). In practice, a spread is added to one leg (typically the non-USD leg). The spread reflects counterparty credit risk, supply/demand imbalances, and capital constraints. It widened sharply in 2008 (USD scarce) and 2020."
-      },
-      {
-        "heading": "Full hedge example — EUR bond → NOK floating",
-        "body": "**Scenario.** A Norwegian mortgage company issues a 5-year EUR-denominated covered bond at 3.50% fixed coupon, EUR 100m. The proceeds fund NOK adjustable-rate mortgages earning NIBOR 3M + 80 bps.\n\n**Two risks to hedge:** (i) FX (EUR liabilities, NOK assets); (ii) interest-rate (fixed coupon, floating asset income).\n\n**Step 1: Issue EUR bond.** Pay EUR 3.50% fixed coupon to investors.\n\n**Step 2: EUR IRS** — receive fixed 3.50%, pay EURIBOR 3M. Cancels the bond coupon, leaves a EURIBOR 3M obligation.\n\n**Step 3: EUR/NOK CCBS** — receive EURIBOR 3M (cancels IRS pay-leg), pay NIBOR 3M − basis. Initial principal exchange at spot 11.50 NOK/EUR. Re-exchange at the SAME 11.50 at maturity.\n\n**Net position:** NIBOR 3M + 80 bps − basis. **Clean floating NOK margin**, all FX and interest-rate risk hedged.\n\n**Residual risks:** basis-spread movements, counterparty credit risk on swaps, rollover/refinancing risk."
-      },
-      {
-        "heading": "March 2020 — over-hedging and NOK weakening",
-        "body": "(Spring 2024 Q4b, Final 2022 Q3b — recurring exam question)\n\nDuring the COVID shock, foreign equity portfolios held by Norwegian NBFIs lost ~30% of value. Investors had hedged the foreign-currency exposure with FX swaps sized to the original portfolio value.\n\n**The over-hedge mechanic:**\n• Foreign asset value falls in foreign currency terms.\n• Hedge is now LARGER than the underlying exposure (over-hedged).\n• To honour the hedge contracts (which require delivering the original notional of foreign currency), investors must BUY additional foreign currency.\n• That means SELLING NOK in the spot market.\n\n**The margining mechanic (parallel channel):**\n• NOK depreciates → mark-to-market on FX hedges turns against short-NOK positions → margin calls.\n• To meet margin calls, NBFIs sell Norwegian bonds → bond prices fall → risk premiums spike.\n\nBoth mechanisms drove the unprecedented NOK depreciation observed 16–20 March 2020. Norges Bank intervened: 13 March extra liquidity + 50bp rate cut; 18 March collateral changes; 19 March possible-FX-intervention press release; 20 March 75bp rate cut to 0.25%; 7 May rate cut to zero."
+        "author": "Diamond & Dybvig",
+        "year": "1983",
+        "title": "Bank Runs, Deposit Insurance, and Liquidity (Nobel Prize 2022 motivation)",
+        "supplementary": true
       }
     ],
-    "keyTerms": ["FX swap", "Cross-Currency Basis Swap", "CCBS", "Covered Interest Parity", "CIP", "spot rate", "forward rate", "swap points", "pips", "basis spread", "interest-rate swap", "IRS", "EURIBOR", "NIBOR", "over-hedging", "margin call", "rebalancing channel"],
-    "readings": [
-      {"author": "Olav Syrstad", "year": "course note", "title": "FX Swaps & Cross-Currency Swaps (Lecture 8 supplementary note)"},
-      {"author": "Coffey et al.", "year": "2009", "title": "The global financial crisis and offshore dollar markets, FRBNY Current Issues 15(6)"},
-      {"author": "Alstadheim, Nordal, Syrstad et al.", "year": "guest lecture 2026", "title": "Bond market fire sales and turbulence in the Norwegian FX market in March 2020"},
-      {"author": "Ando", "year": "2012", "title": "Recent developments in US dollar funding costs through FX swaps (Bank of Japan Review)", "supplementary": true},
-      {"author": "Lefeuvre", "year": "2009", "title": "What does basis swaps tell us about the need for dollars? (NATIXIS)", "supplementary": true},
-      {"author": "Hui, Genberg & Chung", "year": "2009", "title": "Funding liquidity risk and deviations from interest-rate parity during the financial crisis of 2007-2009", "supplementary": true}
-    ],
-    "examQuestions": ["may2024-q4a", "may2024-q4b", "final2022-q3a", "final2022-q3b"]
+    "examQuestions": [
+      "feb2024-p2d",
+      "may2025-q1a",
+      "may2025-q2c",
+      "may2024-q2a",
+      "may2024-q2d",
+      "may2024-q4b",
+      "final2023-q4",
+      "final2022-q3b"
+    ]
   },
-
-  {
-    "id": "esg",
-    "title": "ESG Risks & Climate",
-    "subtitle": "DNB guest lecture — Environmental, Social, Governance integration in banking",
-    "examWeight": "Important. New on the syllabus, appeared first on May 2025 Q5 (15 pts). High probability for May 2026.",
-    "sections": [
-      {
-        "heading": "What ESG covers",
-        "body": "ESG risk is a **transversal driver** of credit, market, operational, and reputational risk — not a separate risk category. The EBA expects banks to integrate ESG into risk appetite, governance, internal controls, risk assessment, and reporting.\n\n**Environmental:** climate change, resource depletion, pollution, biodiversity.\n**Social:** labour practices, community impact, consumer protection, diversity.\n**Governance:** board composition, executive compensation, corruption, shareholder rights, risk culture."
-      },
-      {
-        "heading": "Environmental risk — two buckets",
-        "body": "**1. Physical risks**\n\n• **Acute** — extreme weather: hurricanes, floods, wildfires. Direct losses if borrowers/collateral are impacted (insurance claims, defaulted property loans, business-interruption losses).\n• **Chronic** — long-term shifts: rising sea levels, changing precipitation, drought. Affects asset valuation over time. FIs may find some regions become less viable for lending (declining property values, rising NPLs).\n\n**2. Transition risks**\n\n• **Political and legal (regulatory)** — carbon pricing, emissions caps, mandatory disclosure (TCFD, CSRD). Borrowers in fossil-fuel-intensive industries face higher compliance costs and may default.\n• **Market** — shifts toward low-carbon technologies leave incumbents with stranded assets. Investor divestment hits share prices and credit spreads.\n• **Reputational** — lending to harmful sectors damages brand, attracts activist or regulatory pressure."
-      },
-      {
-        "heading": "Social and governance risks",
-        "body": "**Social:**\n• **Labour practices** — fair wages, working conditions, labour rights, diversity & inclusion.\n• **Community impact** — displacement, public health, infrastructure burden. Example: a mining company infringing on local water supply provoking outrage and operational disruption.\n• **Consumer protection** — product safety, data privacy, ethical marketing. Failures invite lawsuits and regulatory scrutiny.\n\n**Governance:**\n• **Board composition / independence** — diversity and skill matter; lack of either increases groupthink risk.\n• **Corruption / bribery** — legal liability, reputational damage, financial loss.\n• **Shareholder rights** — fair treatment, executive compensation, transparency.\n• **Risk culture** — central to the failure of Credit Suisse 2023; weak controls and tone-at-the-top led to scandal accumulation and ultimately collapse."
-      },
-      {
-        "heading": "Bank-level integration (DNB practitioner view)",
-        "body": "DNB's framework — directly from Martin Andersen's guest lecture:\n\n• **Multi-layer protective barriers** mirror the BRRD recovery/resolution architecture: normal operating phase → recovery phase → resolution phase, with capital, liquidity, and other indicators monitored at each.\n• **Risk-appetite integration** — climate transmission channels are explicitly built into risk-appetite statements.\n• **Climate scenario analysis** — DNB participates in UNEP FI / TCFD analyses to understand portfolio sensitivity under different climate scenarios.\n• **Sustainability targets** — net-zero emissions by 2050; reduce financed-emissions intensity by 2030 (oil and gas −25%, shipping −33%, commercial property −25–35%); commit NOK 1500bn to sustainable transition by 2030.\n• **Reporting** — Integrated Reporting framework, GRI compliance, SASB materiality assessment, TCFD/CDP-aligned climate reporting.\n\n**Regulatory pressures:**\n• EBA Guidelines on ESG Risk Management.\n• Green Infrastructure Supporting Factor (25% capital relief on qualifying green exposures).\n• Banks without sufficient climate-risk management may face capital add-ons or fines under CRD VI/CRR3.\n• CSRD requires credible transition plans where material risks are identified (double-materiality assessment)."
-      }
-    ],
-    "keyTerms": ["ESG", "physical risk", "acute physical risk", "chronic physical risk", "transition risk", "regulatory risk", "stranded assets", "TCFD", "CSRD", "CRD VI", "EBA ESG Guidelines", "double-materiality", "Green Infrastructure Supporting Factor"],
-    "readings": [
-      {"author": "Martin Andersen (DNB)", "year": "2026 guest lecture", "title": "ESG / Climate Risk Integration"},
-      {"author": "EBA", "year": "2024", "title": "Guidelines on ESG Risk Management"},
-      {"author": "TCFD", "year": "2017", "title": "Recommendations of the Task Force on Climate-Related Financial Disclosures"}
-    ],
-    "examQuestions": ["may2025-q5a", "may2025-q5b"]
-  },
-
   {
     "id": "deposit-insurance",
     "title": "Deposit Insurance",
@@ -272,16 +420,55 @@
         "body": "**T/F traps that appear repeatedly:**\n• \"Deposit insurance increases moral hazard\" → **TRUE** (May 2024 Q1c, Final 2022 Q1d, Mid-term 2024 P2b in negated form)\n• \"Deposit insurance mitigates moral hazard\" → **FALSE** (Mid-term 2024 P2b)\n\n**Essay question structure (20 pts):**\n• Define the scheme\n• Discuss implications for THREE stakeholder groups: (i) depositors, (ii) banks, (iii) regulators\n• Be ready to discuss the super-preference variant\n\n**Key facts to memorise:**\n• Norway: NOK 2,000,000 per customer per bank\n• EU: €100,000 per depositor per bank\n• Funded ex-ante by member-bank contributions\n• Risk-based premiums are the standard mitigant for moral hazard\n• Super-preference puts covered deposits at the very top of the creditor hierarchy"
       }
     ],
-    "keyTerms": ["Deposit insurance", "Norwegian Banks' Guarantee Fund", "DGSD", "NOK 2 million", "€100,000", "Diamond–Dybvig", "Merton (1977)", "moral hazard", "risk-based premiums", "super-preference", "ex-ante funding", "depositor discipline", "Bagehot's Rule"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "Contemporary Financial Intermediation, ch. 6 (Liquidity Risk) and ch. 12 (Deposit Contract & Shadow Banking, pp 300–312)"},
-      {"author": "Diamond & Dybvig", "year": "1983", "title": "Bank Runs, Deposit Insurance, and Liquidity (motivated 2022 Nobel Prize)", "supplementary": true},
-      {"author": "Merton", "year": "1977", "title": "An Analytic Derivation of the Cost of Deposit Insurance and Loan Guarantees (Journal of Banking and Finance)", "supplementary": true},
-      {"author": "Norwegian Banks' Guarantee Fund", "year": "2024", "title": "The deposit guarantee scheme's guarantee liability"}
+    "keyTerms": [
+      "Deposit insurance",
+      "Norwegian Banks' Guarantee Fund",
+      "DGSD",
+      "NOK 2 million",
+      "€100,000",
+      "Diamond–Dybvig",
+      "Merton (1977)",
+      "moral hazard",
+      "risk-based premiums",
+      "super-preference",
+      "ex-ante funding",
+      "depositor discipline",
+      "Bagehot's Rule"
     ],
-    "examQuestions": ["may2025-q1c", "feb2025-q3", "feb2025-q4b", "feb2024-p2b", "may2024-q1c", "final2023-q2", "final2022-q1d"]
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "Contemporary Financial Intermediation, ch. 6 (Liquidity Risk) and ch. 12 (Deposit Contract & Shadow Banking, pp 300–312)"
+      },
+      {
+        "author": "Diamond & Dybvig",
+        "year": "1983",
+        "title": "Bank Runs, Deposit Insurance, and Liquidity (motivated 2022 Nobel Prize)",
+        "supplementary": true
+      },
+      {
+        "author": "Merton",
+        "year": "1977",
+        "title": "An Analytic Derivation of the Cost of Deposit Insurance and Loan Guarantees (Journal of Banking and Finance)",
+        "supplementary": true
+      },
+      {
+        "author": "Norwegian Banks' Guarantee Fund",
+        "year": "2024",
+        "title": "The deposit guarantee scheme's guarantee liability"
+      }
+    ],
+    "examQuestions": [
+      "may2025-q1c",
+      "feb2025-q3",
+      "feb2025-q4b",
+      "feb2024-p2b",
+      "may2024-q1c",
+      "final2023-q2",
+      "final2022-q1d"
+    ]
   },
-
   {
     "id": "bank-crises",
     "title": "Bank Crises",
@@ -317,20 +504,356 @@
         "body": "Bernanke's 1983 paper, motivating his share of the 2022 Nobel Prize, argues that bank failures during the Great Depression had **non-monetary** real-economy effects beyond Friedman & Schwartz's monetary-contraction story.\n\n**Mechanism:** When banks fail, intermediation services are destroyed. Borrowers — especially small businesses with no public-debt-market access — lose their relationship lenders. Information capital built up over years is wiped out. Even with the same money supply, credit allocation collapses.\n\n**Implication for 2008+:** This is why Lehman's failure triggered such severe real-economy damage. Ivashina & Scharfstein (2010) document the bank-lending contraction empirically: banks reliant on Lehman as a counterparty cut new lending sharply, regardless of borrower quality.\n\n**Implication for policy:** It justifies aggressive central-bank intervention to prevent bank failures, even if doing so creates moral hazard. The cost of letting a systemic bank fail isn't just the depositors who lose money — it's the credit network that takes years to rebuild."
       }
     ],
-    "keyTerms": ["Turner Review", "BNP Paribas Aug 2007", "Northern Rock", "Bear Stearns", "Lehman Brothers", "AIG bailout", "Reserve Primary Fund", "Fed dollar swap lines", "Basel III", "BRRD bail-in", "IFRS 9", "Volcker Rule", "Vickers ring-fencing", "Norges Bank Golden Card", "S&L crisis", "Nordic banking crisis", "Securum", "SVB", "Credit Suisse / UBS merger", "AT1 write-down", "Sberbank Europe", "Næringsbanken", "Bernanke 1983", "Ivashina–Scharfstein 2010"],
-    "readings": [
-      {"author": "Greenbaum & Thakor", "year": "2016/2019", "title": "Contemporary Financial Intermediation, ch. 14 (the 2007–2009 financial crisis and other financial crises)"},
-      {"author": "FDIC", "year": "1988", "title": "A History of the Eighties, Volume I (chapters 4 and 6, pp 211–220)"},
-      {"author": "Norges Bank", "year": "Occasional Paper", "title": "The Norwegian Banking Crisis (pp 1–21)"},
-      {"author": "Turner Review", "year": "2009", "title": "Chapter 1 — What Went Wrong?"},
-      {"author": "IMF", "year": "Occasional Paper 161", "title": "The Nordic Banking Crises", "supplementary": true},
-      {"author": "Marcus", "year": "1984", "title": "Deregulation and Bank Financial Policy (Journal of Banking and Finance)", "supplementary": true},
-      {"author": "Bernanke", "year": "1983", "title": "Non-monetary Effects of the Financial Crisis in the Propagation of the Great Depression (American Economic Review; motivated 2022 Nobel Prize)", "supplementary": true},
-      {"author": "Ivashina & Scharfstein", "year": "2010", "title": "Bank Lending During the Financial Crisis of 2008 (Journal of Financial Economics)", "supplementary": true}
+    "keyTerms": [
+      "Turner Review",
+      "BNP Paribas Aug 2007",
+      "Northern Rock",
+      "Bear Stearns",
+      "Lehman Brothers",
+      "AIG bailout",
+      "Reserve Primary Fund",
+      "Fed dollar swap lines",
+      "Basel III",
+      "BRRD bail-in",
+      "IFRS 9",
+      "Volcker Rule",
+      "Vickers ring-fencing",
+      "Norges Bank Golden Card",
+      "S&L crisis",
+      "Nordic banking crisis",
+      "Securum",
+      "SVB",
+      "Credit Suisse / UBS merger",
+      "AT1 write-down",
+      "Sberbank Europe",
+      "Næringsbanken",
+      "Bernanke 1983",
+      "Ivashina–Scharfstein 2010"
     ],
-    "examQuestions": ["may2024-q1a", "may2024-q1d", "may2024-q3a", "may2024-q3b", "final2023-q1c", "final2023-q1d", "final2022-q1b"]
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "Contemporary Financial Intermediation, ch. 14 (the 2007–2009 financial crisis and other financial crises)"
+      },
+      {
+        "author": "FDIC",
+        "year": "1988",
+        "title": "A History of the Eighties, Volume I (chapters 4 and 6, pp 211–220)"
+      },
+      {
+        "author": "Norges Bank",
+        "year": "Occasional Paper",
+        "title": "The Norwegian Banking Crisis (pp 1–21)"
+      },
+      {
+        "author": "Turner Review",
+        "year": "2009",
+        "title": "Chapter 1 — What Went Wrong?"
+      },
+      {
+        "author": "IMF",
+        "year": "Occasional Paper 161",
+        "title": "The Nordic Banking Crises",
+        "supplementary": true
+      },
+      {
+        "author": "Marcus",
+        "year": "1984",
+        "title": "Deregulation and Bank Financial Policy (Journal of Banking and Finance)",
+        "supplementary": true
+      },
+      {
+        "author": "Bernanke",
+        "year": "1983",
+        "title": "Non-monetary Effects of the Financial Crisis in the Propagation of the Great Depression (American Economic Review; motivated 2022 Nobel Prize)",
+        "supplementary": true
+      },
+      {
+        "author": "Ivashina & Scharfstein",
+        "year": "2010",
+        "title": "Bank Lending During the Financial Crisis of 2008 (Journal of Financial Economics)",
+        "supplementary": true
+      }
+    ],
+    "examQuestions": [
+      "may2024-q1a",
+      "may2024-q1d",
+      "may2024-q3a",
+      "may2024-q3b",
+      "final2023-q1c",
+      "final2023-q1d",
+      "final2022-q1b"
+    ]
   },
-
+  {
+    "id": "basel-regulation",
+    "title": "Basel Regulation & Capital Requirements",
+    "subtitle": "Lecture 7 — Three types of capital requirements and the buffer stack",
+    "examWeight": "Core. Capital ratio calculations on May 2025 Q6 (3 pts), recurring T/F questions on every paper.",
+    "sections": [
+      {
+        "heading": "Evolution: Basel I → Basel II → Basel III",
+        "body": "**Basel I (1988).** Simple flat 8% capital ratio with crude risk weights:\n• Sovereigns: 0% (typically)\n• Banks: 20% (high-rated)\n• Mortgages: 50%\n• Corporate loans: 100% (unrated)\n\nCredited with stabilising international banking through the 1990s. Criticised for being risk-insensitive — a 100% weight on every corporate loan ignores the difference between AAA and CCC.\n\n**Basel II (2004).** Three pillars: (1) minimum capital with IRB models, (2) supervisory review, (3) market discipline. Added operational risk to the capital denominator. Allowed banks to use INTERNAL RATINGS-BASED (IRB) models — Foundation (bank estimates PD) or Advanced (bank estimates all parameters). Criticised for procyclicality — risk weights fall in booms (the period of greatest exuberance) and rise in busts (when banks most need lower requirements).\n\n**Basel III (2010–17, ongoing as CRR3 / CRD VI from 2025).** Post-2008 overhaul:\n• Stricter capital QUALITY — focus on CET1 (raised from 2% under Basel II to 4.5% under Basel III)\n• **Buffer stack** on top of Pillar 1 minimums (conservation, countercyclical, systemic risk, O-SII, G-SIB)\n• Non-risk-sensitive **leverage ratio** (3% of Tier 1 / total exposures) as a backstop against RWA gaming\n• Liquidity rules: **LCR** (30-day stress) and **NSFR** (1-year sustainable funding)\n• **MREL / TLAC** for bail-in capacity\n• Implemented in the EU through the Capital Requirements Directive (CRD) and Capital Requirements Regulation (CRR); CRR3 / CRD VI are the latest updates rolling out from 2025\n\nMemorise the chain: each Basel III innovation maps to a specific 2008-crisis failure. Off-balance-sheet shadow banking → leverage ratio + LCR + NSFR. Procyclical haircuts/margins → countercyclical buffer. Too-big-to-fail → MREL + bail-in framework. Procyclical loan-loss accounting → IFRS 9."
+      },
+      {
+        "heading": "The three types of capital requirements",
+        "body": "Basel III imposes three distinct types of requirement, each addressing a different concern:\n\n**1. Risk-sensitive (capital adequacy ratio):**\n  Capital adequacy = Own Funds / RWA\n\nThis is the headline ratio. Own funds are weighted by the risk of each asset.\n\n**2. Non-risk-sensitive (leverage ratio):**\n  Leverage ratio = Tier 1 / Total Exposures\n\nA simple backstop. Doesn't depend on risk weights, so it is robust to RWA gaming or model failure. The Basel III minimum is 3%.\n\n**3. Bail-in capital (MREL):**\n  MREL = (Own Funds + Eligible Liabilities) / RWA\n\nEnsures enough \"bail-in-able\" liabilities exist before a crisis to absorb losses and recapitalise without taxpayer cost. The Loss Absorption Amount + Recapitalisation Amount."
+      },
+      {
+        "heading": "Own funds hierarchy (quality matters)",
+        "body": "Capital is not all equal. Quality is graded:\n\n• **CET1 (Common Equity Tier 1)** — common equity less deductions (goodwill, proposed dividends, intangibles). Highest quality.\n• **AT1 (Additional Tier 1)** — perpetual hybrid capital. Convertible to equity or written down on a going-concern basis (i.e. while the bank is still operating). Coupon payments at the bank's discretion.\n• **T2 (Tier 2)** — subordinated debt. Only written down in resolution or liquidation (gone-concern).\n\nMinimums:\n• CET1 minimum: 4.5% of RWA\n• AT1 minimum: 1.5% (or fill with CET1)\n• T2 minimum: 2.0% (or fill with CET1 or AT1)\n• **Pillar 1 minimum total: 8%**"
+      },
+      {
+        "heading": "The Basel III buffer stack — DNB example end-2025",
+        "body": "On top of Pillar 1 minimums, banks must maintain capital buffers:\n\n| Component | % of RWA |\n|---|---|\n| CET1 minimum | 4.5% |\n| AT1 minimum | 1.5% |\n| T2 minimum | 2.0% |\n| **Pillar 1 minimum** | **8.0%** |\n| Pillar 2 Requirement (P2R, bank-specific) | 1.7% |\n| Conservation buffer (CET1) | 2.5% |\n| Countercyclical buffer (CET1) | 2.5% |\n| Systemic risk buffer (CET1) | 4.5% |\n| O-SII buffer (CET1) | 2.0% |\n| Pillar 2 Guidance (P2G) | 1.0% |\n| **Total CET1 requirement** | **~18%** |\n| **Total capital requirement** | **~22%** |\n\nThis stack is BIG — far above the headline 4.5% CET1 minimum. The buffers exist to be drawn down in stress without forcing immediate corrective action."
+      },
+      {
+        "heading": "Liquidity requirements (Basel III post-2010)",
+        "body": "**LCR (Liquidity Coverage Ratio):** \n  HQLA / Net cash outflow over 30-day stress ≥ 100%\n\nEnsures the bank can survive a 30-day run scenario with high-quality liquid assets alone.\n\n**NSFR (Net Stable Funding Ratio):**\n  Available Stable Funding / Required Stable Funding (1-year) ≥ 100%\n\nEnsures the funding structure is sustainable over a longer horizon — not just a 30-day window."
+      },
+      {
+        "heading": "Calculating capital ratios — the standard exam pattern",
+        "body": "**Step 1: Calculate Credit RWA.** Sum each asset × its risk weight.\n\n**Step 2: Add market-risk REA + operational-risk REA.** These are usually given.\n\n**Step 3: Compute own funds.**\n• CET1 = Equity − deductions (often given as nil)\n• T1 = CET1 + AT1 (hybrid capital)\n• Total = T1 + T2 (subordinated debt)\n\n**Step 4: Divide.**\n• CET1 ratio = CET1 / Total REA\n• T1 ratio = T1 / Total REA\n• Total capital ratio = Total Capital / Total REA\n\nWorked example (May 2025 Q6a, Lilledal Savingsbank):\n• Credit RWA: 10×0 + 40×0 + 500×0.35 + 400×1.0 + 30×1.0 = 605\n• Total REA: 605 + 15 (market) + 75 (op) = 695\n• CET1 ratio = 100/695 = 14.4% ✓"
+      }
+    ],
+    "keyTerms": [
+      "Basel I (1988)",
+      "Basel II (2004)",
+      "Basel III (2010-17)",
+      "CRR3",
+      "CRD VI",
+      "IRB",
+      "three pillars",
+      "CET1",
+      "AT1",
+      "Tier 2",
+      "Pillar 1",
+      "Pillar 2 Requirement",
+      "Pillar 2 Guidance",
+      "Conservation buffer",
+      "Countercyclical buffer",
+      "Systemic risk buffer",
+      "O-SII buffer",
+      "G-SIB surcharge",
+      "LCR",
+      "NSFR",
+      "leverage ratio",
+      "MREL",
+      "RWA",
+      "REA",
+      "Basel I",
+      "Basel II",
+      "Basel III"
+    ],
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "ch. 15 (Objectives of Bank Regulation)"
+      },
+      {
+        "author": "Norges Bank",
+        "year": "2024",
+        "title": "Norway's Financial System, Appendix 2: Capital and Liquidity regulation"
+      },
+      {
+        "author": "Financial Times",
+        "year": "2012-06-29",
+        "title": "The Gathering Storm"
+      },
+      {
+        "author": "EBA",
+        "year": "2024-07-15",
+        "title": "Stacking orders and capital buffers",
+        "supplementary": true
+      }
+    ],
+    "examQuestions": [
+      "may2025-q6a",
+      "may2025-q6c",
+      "may2024-q2b",
+      "may2024-q3b",
+      "final2023-q1b",
+      "final2022-q1e"
+    ]
+  },
+  {
+    "id": "fx-swaps",
+    "title": "FX Swaps, CCBS & Covered Interest Parity",
+    "subtitle": "Lecture 8 + Olav Syrstad's note — Pricing and hedging foreign-currency exposure",
+    "examWeight": "Important. FX-swap pricing calculations on Spring 2024 Q4a and Final 2022 Q3a; March-2020 NOK-weakening question on Spring 2024 Q4b. Highly likely on May 2026.",
+    "sections": [
+      {
+        "heading": "FX Swap mechanics",
+        "body": "An **FX swap** is a simultaneous agreement to exchange two currencies at today's spot rate, and to reverse the exchange at a pre-agreed forward rate at a specified future date. Two legs:\n\n• **Near leg:** exchange of currencies at spot S₀ today.\n• **Far leg:** re-exchange at forward rate F at maturity.\n\nBecause F is locked at inception, neither party bears FX risk over the swap's life. The instrument is economically equivalent to a **collateralised loan**: one currency is pledged as collateral to borrow the other."
+      },
+      {
+        "heading": "Covered Interest Parity (CIP)",
+        "body": "The forward rate is determined by a no-arbitrage condition known as Covered Interest Rate Parity:\n\n  **F = S₀ × (1 + r_quote × t) / (1 + r_base × t)**\n\nwhere t is the tenor in years, r_quote is the interest rate of the quoted (numerator) currency, and r_base is the rate of the base (denominator) currency.\n\n**Intuition.** If the quote currency has a higher interest rate, the forward rate must be HIGHER (more units of quote currency per base at maturity) — equivalently, the higher-yielding currency depreciates forward and the lower-yielding currency appreciates forward. This compensates the party who LENDS the LOW-yielding currency: they hand it over at spot and get back more of the high-yielding currency at maturity, exactly offsetting the interest they forwent. Without this adjustment, riskless arbitrage would be possible (borrow low-yield currency, swap to high-yield, deposit, swap back).\n\n**Swap points** = F − S₀ = the compensation embedded in the exchange rate for the interest-rate differential. Positive when the quote currency has a higher rate."
+      },
+      {
+        "heading": "Worked example — DKK/NOK 6-month FX swap",
+        "body": "(From May 2024 Q4a and Final 2022 Q3a — same numbers)\n\nGiven: S₀ = 1.65 NOK/DKK, r_NOK = 4% p.a., r_DKK = 2% p.a., tenor = 6 months.\n\n**Step 1.** F = 1.65 × (1 + 0.04 × 0.5) / (1 + 0.02 × 0.5) = 1.65 × 1.02/1.01 = **1.67 NOK/DKK**.\n\n**Step 2.** Swap points = F − S₀ = 1.67 − 1.65 = **0.02 = 2 points (200 pips)**.\n\nIntuition: NOK has the higher rate, so DKK appreciates forward (1 DKK is worth more NOK forward than at spot). This compensates the DKK lender — they hand over 1 DKK at spot and receive more NOK back at maturity, exactly offsetting the lower DKK interest they earn during the swap."
+      },
+      {
+        "heading": "Cross-Currency Basis Swap (CCBS)",
+        "body": "A **CCBS** is a long-dated instrument (typically 1 to 30 years) used to convert long-term funding from one currency to another:\n\n• **Initial exchange** of principal at the **spot rate**.\n• Throughout the swap, **floating-rate payments** in each currency are exchanged.\n• **Final re-exchange** of principal at the **same spot rate** as inception (NOT a forward rate).\n\nCritical distinction from FX swaps: in a CCBS, the principal re-exchange happens at the original spot rate, not at a forward rate. The interest-rate differential is handled through the **floating coupon legs**, not embedded in a forward rate.\n\n**Basis spread.** In theory the basis = 0 (CIP). In practice, a spread is added to one leg (typically the non-USD leg). The spread reflects counterparty credit risk, supply/demand imbalances, and capital constraints. It widened sharply in 2008 (USD scarce) and 2020."
+      },
+      {
+        "heading": "Full hedge example — EUR bond → NOK floating",
+        "body": "**Scenario.** A Norwegian mortgage company issues a 5-year EUR-denominated covered bond at 3.50% fixed coupon, EUR 100m. The proceeds fund NOK adjustable-rate mortgages earning NIBOR 3M + 80 bps.\n\n**Two risks to hedge:** (i) FX (EUR liabilities, NOK assets); (ii) interest-rate (fixed coupon, floating asset income).\n\n**Step 1: Issue EUR bond.** Pay EUR 3.50% fixed coupon to investors.\n\n**Step 2: EUR IRS** — receive fixed 3.50%, pay EURIBOR 3M. Cancels the bond coupon, leaves a EURIBOR 3M obligation.\n\n**Step 3: EUR/NOK CCBS** — receive EURIBOR 3M (cancels IRS pay-leg), pay NIBOR 3M − basis. Initial principal exchange at spot 11.50 NOK/EUR. Re-exchange at the SAME 11.50 at maturity.\n\n**Net position:** NIBOR 3M + 80 bps − basis. **Clean floating NOK margin**, all FX and interest-rate risk hedged.\n\n**Residual risks:** basis-spread movements, counterparty credit risk on swaps, rollover/refinancing risk."
+      },
+      {
+        "heading": "March 2020 — over-hedging and NOK weakening",
+        "body": "(Spring 2024 Q4b, Final 2022 Q3b — recurring exam question)\n\nDuring the COVID shock, foreign equity portfolios held by Norwegian NBFIs lost ~30% of value. Investors had hedged the foreign-currency exposure with FX swaps sized to the original portfolio value.\n\n**The over-hedge mechanic:**\n• Foreign asset value falls in foreign currency terms.\n• Hedge is now LARGER than the underlying exposure (over-hedged).\n• To honour the hedge contracts (which require delivering the original notional of foreign currency), investors must BUY additional foreign currency.\n• That means SELLING NOK in the spot market.\n\n**The margining mechanic (parallel channel):**\n• NOK depreciates → mark-to-market on FX hedges turns against short-NOK positions → margin calls.\n• To meet margin calls, NBFIs sell Norwegian bonds → bond prices fall → risk premiums spike.\n\nBoth mechanisms drove the unprecedented NOK depreciation observed 16–20 March 2020. Norges Bank intervened: 13 March extra liquidity + 50bp rate cut; 18 March collateral changes; 19 March possible-FX-intervention press release; 20 March 75bp rate cut to 0.25%; 7 May rate cut to zero."
+      }
+    ],
+    "keyTerms": [
+      "FX swap",
+      "Cross-Currency Basis Swap",
+      "CCBS",
+      "Covered Interest Parity",
+      "CIP",
+      "spot rate",
+      "forward rate",
+      "swap points",
+      "pips",
+      "basis spread",
+      "interest-rate swap",
+      "IRS",
+      "EURIBOR",
+      "NIBOR",
+      "over-hedging",
+      "margin call",
+      "rebalancing channel"
+    ],
+    "readings": [
+      {
+        "author": "Olav Syrstad",
+        "year": "course note",
+        "title": "FX Swaps & Cross-Currency Swaps (Lecture 8 supplementary note)"
+      },
+      {
+        "author": "Coffey et al.",
+        "year": "2009",
+        "title": "The global financial crisis and offshore dollar markets, FRBNY Current Issues 15(6)"
+      },
+      {
+        "author": "Alstadheim, Nordal, Syrstad et al.",
+        "year": "guest lecture 2026",
+        "title": "Bond market fire sales and turbulence in the Norwegian FX market in March 2020"
+      },
+      {
+        "author": "Ando",
+        "year": "2012",
+        "title": "Recent developments in US dollar funding costs through FX swaps (Bank of Japan Review)",
+        "supplementary": true
+      },
+      {
+        "author": "Lefeuvre",
+        "year": "2009",
+        "title": "What does basis swaps tell us about the need for dollars? (NATIXIS)",
+        "supplementary": true
+      },
+      {
+        "author": "Hui, Genberg & Chung",
+        "year": "2009",
+        "title": "Funding liquidity risk and deviations from interest-rate parity during the financial crisis of 2007-2009",
+        "supplementary": true
+      }
+    ],
+    "examQuestions": [
+      "may2024-q4a",
+      "may2024-q4b",
+      "final2022-q3a",
+      "final2022-q3b"
+    ]
+  },
+  {
+    "id": "securitisation",
+    "title": "Securitisation & Structured Finance",
+    "subtitle": "Lecture 10 — From originate-to-distribute to the GFC and back",
+    "examWeight": "Core. T/F questions on synthetic vs. traditional appear every year.",
+    "sections": [
+      {
+        "heading": "Two models of bank lending",
+        "body": "**Traditional model:** Deposit → Loan → Hold to maturity. The bank originates, holds, and bears the credit risk on the loan to maturity. Has skin in the game throughout.\n\n**Securitised model:** Originate → Pool → Tranche → Sell. The bank originates loans, pools them into a Special Purpose Vehicle (SPV), the SPV issues tranches of bonds backed by the pool, and the bonds are sold to investors. The bank no longer holds the credit risk.\n\nThis shift has profound consequences. The bank's incentive to screen carefully is weakened (it doesn't bear the loss). The bank's funding need is removed. The risk migrates to capital-market investors."
+      },
+      {
+        "heading": "Tranching and credit enhancement",
+        "body": "An SPV holds a loan pool. Cash flows from the pool are paid out in **waterfall** sequence to different tranches:\n\n• **Senior tranche** (rated AAA) — paid first, lowest yield.\n• **Mezzanine tranches** (BBB / BB) — paid next.\n• **Equity / first-loss tranche** — paid last, absorbs first losses, highest yield.\n\n**Credit enhancement** mechanisms protect senior tranches:\n• **Subordination** — junior tranches absorb losses first.\n• **Overcollateralisation** — pool value > tranche notionals.\n• **External guarantees / monoline insurance** (pre-GFC).\n• **Reserve accounts** capturing excess spread."
+      },
+      {
+        "heading": "Synthetic vs traditional — the critical distinction",
+        "body": "**Traditional (true-sale) securitisation:** Loans are LEGALLY SOLD to the SPV. They leave the bank's balance sheet entirely. Two effects:\n• **Funding** — the bank gets cash and no longer needs to fund the loans.\n• **Capital relief** — RWA falls because the credit risk has left.\n\n**Synthetic securitisation:** The loans STAY on the bank's balance sheet. Credit risk is transferred to investors via CDS or financial guarantees on a reference pool. One effect:\n• **Capital relief** — RWA falls because credit risk is transferred.\n• **No funding** — the bank still funds the loans.\n\n**The exam-trap:** \"Synthetic securitisation provides funding\" → FALSE. \"Synthetic securitisation reduces capital requirements\" → TRUE. \"CDS plays a role in synthetic securitisation\" → TRUE (it's the credit-risk-transfer instrument)."
+      },
+      {
+        "heading": "Why securitisation broke in the GFC",
+        "body": "**1. Originate-to-distribute weakened screening.** With no skin in the game, originators (especially mortgage brokers) had reduced incentive to verify borrower quality. NINJA loans (No Income, No Job, No Assets) proliferated.\n\n**2. Opacity of CDOs.** Pooled portfolios of MBS, then CDOs of CDO tranches (CDO²), made it impossible for investors to understand the underlying credit. Trust collapsed when subprime defaulted.\n\n**3. Rating-agency failures.** Issuer-pays model created conflicts of interest. Models relied on historical correlations from a benign housing-price period; correlations spiked in stress, and AAA tranches defaulted.\n\n**4. Procyclical haircuts and margins.** When ratings were downgraded, repo haircuts widened, margin requirements rose, derivatives counterparties demanded collateral. Forced fire sales spiralled.\n\n**5. Shadow banking maturity mismatch.** SIVs and ABCP conduits funded long-dated MBS/CDOs with short-term ABCP. When the ABCP market froze on 9 August 2007 (BNP Paribas suspended redemptions on three funds), conduits couldn't roll funding. Sponsors had to absorb them back onto their balance sheets — bringing the off-balance-sheet risk back home."
+      }
+    ],
+    "keyTerms": [
+      "securitisation",
+      "originate-to-distribute",
+      "SPV",
+      "tranche",
+      "senior",
+      "mezzanine",
+      "equity tranche",
+      "subordination",
+      "overcollateralisation",
+      "CDO",
+      "CDO-squared",
+      "synthetic securitisation",
+      "true-sale securitisation",
+      "credit risk transfer",
+      "MBS",
+      "ABCP",
+      "SIV",
+      "conduit",
+      "rating agency"
+    ],
+    "readings": [
+      {
+        "author": "Greenbaum & Thakor",
+        "year": "2016/2019",
+        "title": "ch. 11 (Securitisation)"
+      },
+      {
+        "author": "Coval, Jurek & Stafford",
+        "year": "2009",
+        "title": "The Economics of Structured Finance (HBS WP 09-060) pp 1–8, 16–17"
+      },
+      {
+        "author": "Davi",
+        "year": "2008",
+        "title": "Synthetic CDOs, Ratings, and Super Senior Tranches (Derivatives Dribble blog series)"
+      },
+      {
+        "author": "Elmer",
+        "year": "1999",
+        "title": "Conduits: Their structure and risk (FDIC Banking Review pp 32–35)"
+      },
+      {
+        "author": "Lucas, Goodman & Fabozzi",
+        "year": "2006",
+        "title": "CDOs and Credit Risk Transfer",
+        "supplementary": true
+      },
+      {
+        "author": "Gibson",
+        "year": "2004",
+        "title": "Understanding the Risk of Synthetic CDOs",
+        "supplementary": true
+      }
+    ],
+    "examQuestions": [
+      "may2025-q1b",
+      "may2024-q1e",
+      "final2023-q1e"
+    ]
+  },
   {
     "id": "bank-resolution",
     "title": "Bank Recovery & Resolution",
@@ -362,12 +885,126 @@
         "body": "**SVB (March 2023)** — not a strict BRRD case (US regulation), but illustrates the same dynamics. HTM bond losses + concentrated uninsured deposits triggered a social-media-driven run. FDIC invoked the Systemic Risk Exception to guarantee uninsured deposits.\n\n**Credit Suisse (March 2023)** — Swiss authorities forced merger with UBS, providing CHF 100bn liquidity and a CHF 9bn loss guarantee. Controversially, AT1 was written down BEFORE equity (a legal but commercially shocking outcome) — equity holders received UBS shares. Caused a sharp repricing of the AT1 market globally.\n\n**Sberbank Europe (2022)** — sanctions-driven deposit flight; SRB decision within days. Subsidiaries transferred (sale of business tool); parent wound up.\n\n**Næringsbanken, Norway (2022–23)** — pre-emptive intervention: loan freeze, P2R increase, forced recapitalisation. Resolution avoided through early action."
       }
     ],
-    "keyTerms": ["BRRD", "Recovery Plan", "Resolution Plan", "FOLF", "failing or likely to fail", "bail-in", "bail-out", "creditor hierarchy", "AT1 conversion", "T2 conversion", "senior non-preferred", "senior unsecured", "covered deposits", "Sale of Business", "Bridge Institution", "Asset Separation", "MREL", "TLAC", "LAA", "RA", "Loss Absorption Amount", "Recapitalisation Amount", "too big to fail", "implicit subsidy", "SVB", "Credit Suisse"],
-    "readings": [
-      {"author": "Bank of England", "year": "2015 Q3", "title": "Bank Failure and Bail-In"},
-      {"author": "Bank of England", "year": "2021-07", "title": "Executing Bail-In: An Operational Guide", "supplementary": true},
-      {"author": "Roar Hoff", "year": "Lecture 11 2026", "title": "Bank Recovery and Resolution (BI lecture deck)"}
+    "keyTerms": [
+      "BRRD",
+      "Recovery Plan",
+      "Resolution Plan",
+      "FOLF",
+      "failing or likely to fail",
+      "bail-in",
+      "bail-out",
+      "creditor hierarchy",
+      "AT1 conversion",
+      "T2 conversion",
+      "senior non-preferred",
+      "senior unsecured",
+      "covered deposits",
+      "Sale of Business",
+      "Bridge Institution",
+      "Asset Separation",
+      "MREL",
+      "TLAC",
+      "LAA",
+      "RA",
+      "Loss Absorption Amount",
+      "Recapitalisation Amount",
+      "too big to fail",
+      "implicit subsidy",
+      "SVB",
+      "Credit Suisse"
     ],
-    "examQuestions": ["may2025-q1c", "may2025-q6a", "may2025-q6b", "may2025-q6c", "may2025-q6d", "may2024-q6a", "may2024-q6b", "may2024-q6c", "may2024-q5a", "may2024-q5b", "may2024-q3b", "final2023-q5", "final2022-q4"]
+    "readings": [
+      {
+        "author": "Bank of England",
+        "year": "2015 Q3",
+        "title": "Bank Failure and Bail-In"
+      },
+      {
+        "author": "Bank of England",
+        "year": "2021-07",
+        "title": "Executing Bail-In: An Operational Guide",
+        "supplementary": true
+      },
+      {
+        "author": "Roar Hoff",
+        "year": "Lecture 11 2026",
+        "title": "Bank Recovery and Resolution (BI lecture deck)"
+      }
+    ],
+    "examQuestions": [
+      "may2025-q1c",
+      "may2025-q6a",
+      "may2025-q6b",
+      "may2025-q6c",
+      "may2025-q6d",
+      "may2024-q6a",
+      "may2024-q6b",
+      "may2024-q6c",
+      "may2024-q5a",
+      "may2024-q5b",
+      "may2024-q3b",
+      "final2023-q5",
+      "final2022-q4"
+    ]
+  },
+  {
+    "id": "esg",
+    "title": "ESG Risks & Climate",
+    "subtitle": "DNB guest lecture — Environmental, Social, Governance integration in banking",
+    "examWeight": "Important. New on the syllabus, appeared first on May 2025 Q5 (15 pts). High probability for May 2026.",
+    "sections": [
+      {
+        "heading": "What ESG covers",
+        "body": "ESG risk is a **transversal driver** of credit, market, operational, and reputational risk — not a separate risk category. The EBA expects banks to integrate ESG into risk appetite, governance, internal controls, risk assessment, and reporting.\n\n**Environmental:** climate change, resource depletion, pollution, biodiversity.\n**Social:** labour practices, community impact, consumer protection, diversity.\n**Governance:** board composition, executive compensation, corruption, shareholder rights, risk culture."
+      },
+      {
+        "heading": "Environmental risk — two buckets",
+        "body": "**1. Physical risks**\n\n• **Acute** — extreme weather: hurricanes, floods, wildfires. Direct losses if borrowers/collateral are impacted (insurance claims, defaulted property loans, business-interruption losses).\n• **Chronic** — long-term shifts: rising sea levels, changing precipitation, drought. Affects asset valuation over time. FIs may find some regions become less viable for lending (declining property values, rising NPLs).\n\n**2. Transition risks**\n\n• **Political and legal (regulatory)** — carbon pricing, emissions caps, mandatory disclosure (TCFD, CSRD). Borrowers in fossil-fuel-intensive industries face higher compliance costs and may default.\n• **Market** — shifts toward low-carbon technologies leave incumbents with stranded assets. Investor divestment hits share prices and credit spreads.\n• **Reputational** — lending to harmful sectors damages brand, attracts activist or regulatory pressure."
+      },
+      {
+        "heading": "Social and governance risks",
+        "body": "**Social:**\n• **Labour practices** — fair wages, working conditions, labour rights, diversity & inclusion.\n• **Community impact** — displacement, public health, infrastructure burden. Example: a mining company infringing on local water supply provoking outrage and operational disruption.\n• **Consumer protection** — product safety, data privacy, ethical marketing. Failures invite lawsuits and regulatory scrutiny.\n\n**Governance:**\n• **Board composition / independence** — diversity and skill matter; lack of either increases groupthink risk.\n• **Corruption / bribery** — legal liability, reputational damage, financial loss.\n• **Shareholder rights** — fair treatment, executive compensation, transparency.\n• **Risk culture** — central to the failure of Credit Suisse 2023; weak controls and tone-at-the-top led to scandal accumulation and ultimately collapse."
+      },
+      {
+        "heading": "Bank-level integration (DNB practitioner view)",
+        "body": "DNB's framework — directly from Martin Andersen's guest lecture:\n\n• **Multi-layer protective barriers** mirror the BRRD recovery/resolution architecture: normal operating phase → recovery phase → resolution phase, with capital, liquidity, and other indicators monitored at each.\n• **Risk-appetite integration** — climate transmission channels are explicitly built into risk-appetite statements.\n• **Climate scenario analysis** — DNB participates in UNEP FI / TCFD analyses to understand portfolio sensitivity under different climate scenarios.\n• **Sustainability targets** — net-zero emissions by 2050; reduce financed-emissions intensity by 2030 (oil and gas −25%, shipping −33%, commercial property −25–35%); commit NOK 1500bn to sustainable transition by 2030.\n• **Reporting** — Integrated Reporting framework, GRI compliance, SASB materiality assessment, TCFD/CDP-aligned climate reporting.\n\n**Regulatory pressures:**\n• EBA Guidelines on ESG Risk Management.\n• Green Infrastructure Supporting Factor (25% capital relief on qualifying green exposures).\n• Banks without sufficient climate-risk management may face capital add-ons or fines under CRD VI/CRR3.\n• CSRD requires credible transition plans where material risks are identified (double-materiality assessment)."
+      }
+    ],
+    "keyTerms": [
+      "ESG",
+      "physical risk",
+      "acute physical risk",
+      "chronic physical risk",
+      "transition risk",
+      "regulatory risk",
+      "stranded assets",
+      "TCFD",
+      "CSRD",
+      "CRD VI",
+      "EBA ESG Guidelines",
+      "double-materiality",
+      "Green Infrastructure Supporting Factor"
+    ],
+    "readings": [
+      {
+        "author": "Martin Andersen (DNB)",
+        "year": "2026 guest lecture",
+        "title": "ESG / Climate Risk Integration"
+      },
+      {
+        "author": "EBA",
+        "year": "2024",
+        "title": "Guidelines on ESG Risk Management"
+      },
+      {
+        "author": "TCFD",
+        "year": "2017",
+        "title": "Recommendations of the Task Force on Climate-Related Financial Disclosures"
+      }
+    ],
+    "examQuestions": [
+      "may2025-q5a",
+      "may2025-q5b"
+    ]
   }
 ]
