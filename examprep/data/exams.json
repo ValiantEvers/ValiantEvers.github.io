@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ex-placeholder-q1a",
+    "paperId": "spring-2025-final",
+    "paperYear": 2025,
+    "paperType": "final",
+    "paperLabel": "Spring 2025 Final (May 2025)",
+    "paperDate": "2025-05-14",
+    "questionNumber": "1a",
+    "points": 5,
+    "topicTags": [],
+    "prompt": "",
+    "modelAnswer": "",
+    "relatedGlossary": [],
+    "placeholder": true,
+    "todo": true
+  }
+]
