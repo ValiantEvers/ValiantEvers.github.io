@@ -2,6 +2,41 @@
 (function() {
 const { useState, useEffect, useMemo } = React;
 
+function RecallQuestions({ questions }) {
+  const [revealed, setRevealed] = useState(new Set());
+  if (!questions || questions.length === 0) return null;
+
+  function toggle(i) {
+    setRevealed(prev => {
+      const next = new Set(prev);
+      next.has(i) ? next.delete(i) : next.add(i);
+      return next;
+    });
+  }
+
+  return (
+    <div className="recall-section" style={{ maxWidth: 760 }}>
+      <hr className="detail-rule" style={{ marginTop: 0 }} />
+      <div className="label recall-label">Aktiv gjenkalling</div>
+      {questions.map((q, i) => (
+        <div key={i} className="recall-item">
+          <p className="recall-question-text">{q.question}</p>
+          <button
+            className={'recall-reveal-btn' + (revealed.has(i) ? ' revealed' : '')}
+            onClick={() => toggle(i)}
+            aria-expanded={revealed.has(i)}
+          >
+            {revealed.has(i) ? 'Skjul svar' : 'Vis svar'}
+          </button>
+          {revealed.has(i) && (
+            <div className="recall-answer">{q.answer}</div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function TopicsModule({ data, navigateToExam }) {
   const topics = data.topics || [];
   const exams = data.exams || [];
@@ -65,6 +100,8 @@ function TopicsModule({ data, navigateToExam }) {
                 </section>
               ))}
             </div>
+
+            <RecallQuestions questions={selected.recall_questions} />
 
             {selected.keyTerms && selected.keyTerms.length > 0 && (
               <div className="topic-keyterms">
