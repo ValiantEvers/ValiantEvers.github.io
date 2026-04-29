@@ -3,11 +3,19 @@
 const { useState, useEffect } = React;
 
 const MODULES = [
-  { id: 'glossary',   label: 'Glossary',  subtitle: 'Terms & Model Walkthroughs' },
-  { id: 'timeline',   label: 'Timeline',  subtitle: 'Crises in Chronological Order' },
-  { id: 'flashcards', label: 'Flashcards',subtitle: 'Active Recall' },
-  { id: 'exams',      label: 'Exams',     subtitle: 'Past Papers & Model Answers' },
+  { id: 'topics',     label: 'Topics',     subtitle: 'Eight Exam-Ready Summaries' },
+  { id: 'glossary',   label: 'Glossary',   subtitle: 'Terms & Model Walkthroughs' },
+  { id: 'timeline',   label: 'Timeline',   subtitle: 'Crises in Chronological Order' },
+  { id: 'flashcards', label: 'Flashcards', subtitle: 'Active Recall' },
+  { id: 'quiz',       label: 'Quiz',       subtitle: 'Multiple-Choice & True/False' },
+  { id: 'exams',      label: 'Past Exams', subtitle: 'Real Papers with Model Answers' },
+  { id: 'mock',       label: 'Mock Exam',  subtitle: 'Timed 3-Hour Simulation' },
 ];
+
+const NUMS = {
+  topics: '01', glossary: '02', timeline: '03', flashcards: '04',
+  quiz: '05', exams: '06', mock: '07',
+};
 
 function Nav({ module, setModule, onSearch }) {
   return (
@@ -16,7 +24,7 @@ function Nav({ module, setModule, onSearch }) {
         <div className="nav-masthead">
           <span className="nav-course">GRA6546</span>
           <span className="label" style={{ color: 'var(--ink-light)', fontSize: 9 }}>
-            Exam Prep
+            Exam Prep · 13 May 2026
           </span>
         </div>
         <div className="nav-rule" aria-hidden="true"></div>
@@ -46,33 +54,34 @@ function Nav({ module, setModule, onSearch }) {
 function ModuleHeader({ module }) {
   const m = MODULES.find(x => x.id === module);
   if (!m) return null;
-  const nums = { glossary: '01', timeline: '02', flashcards: '03', exams: '04' };
   return (
     <div style={{ position: 'relative', overflow: 'hidden', borderBottom: '1px solid var(--rule)' }}>
       <div className="module-header">
         <div className="module-header-left">
           <div className="label" style={{ marginBottom: 6 }}>
-            Section {nums[module]} — Financial Institutions &amp; Crises
+            Section {NUMS[module]} — Financial Institutions &amp; Crises
           </div>
           <h1 className="module-title">{m.label}</h1>
           <p className="module-subtitle">{m.subtitle}</p>
         </div>
       </div>
-      <span className="module-issue-num" aria-hidden="true">{nums[module]}</span>
+      <span className="module-issue-num" aria-hidden="true">{NUMS[module]}</span>
     </div>
   );
 }
 
 function App() {
   const [module, setModule] = useState(() => {
-    return window.lsGet('gra6546_module', 'glossary');
+    const saved = window.lsGet('gra6546_module', 'topics');
+    return MODULES.find(m => m.id === saved) ? saved : 'topics';
   });
   const [searchOpen, setSearchOpen] = useState(false);
   const [data, setData] = useState({
-    glossary: [], models: [], timeline: [], flashcards: [], exams: [],
+    glossary: [], models: [], timeline: [], flashcards: [], exams: [], topics: [], quiz: [],
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pendingExamId, setPendingExamId] = useState(null);  // for cross-module navigation
 
   // Persist active module
   useEffect(() => {
@@ -81,14 +90,14 @@ function App() {
 
   // Load all JSON data
   useEffect(() => {
-    const files = ['glossary', 'models', 'timeline', 'flashcards', 'exams'];
+    const files = ['glossary', 'models', 'timeline', 'flashcards', 'exams', 'topics', 'quiz'];
     Promise.all(
       files.map(f =>
         fetch('data/' + f + '.json')
           .then(r => { if (!r.ok) throw new Error(f + ' not found'); return r.json(); })
       )
-    ).then(([glossary, models, timeline, flashcards, exams]) => {
-      setData({ glossary, models, timeline, flashcards, exams });
+    ).then(([glossary, models, timeline, flashcards, exams, topics, quiz]) => {
+      setData({ glossary, models, timeline, flashcards, exams, topics, quiz });
       setLoading(false);
     }).catch(err => {
       setError(err.message);
@@ -113,10 +122,23 @@ function App() {
     setModule(mod);
   }
 
+  function navigateToExam(examQuestionId) {
+    setModule('exams');
+    setPendingExamId(examQuestionId);
+    // Scroll into view + auto-expand handled inside ExamsModule via prop
+    setTimeout(() => {
+      const el = document.querySelector('[data-q-id="' + examQuestionId + '"]');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+  }
+
+  const TopicsModule     = window.TopicsModule;
   const GlossaryModule   = window.GlossaryModule;
   const TimelineModule   = window.TimelineModule;
   const FlashcardsModule = window.FlashcardsModule;
+  const QuizModule       = window.QuizModule;
   const ExamsModule      = window.ExamsModule;
+  const MockExamModule   = window.MockExamModule;
   const SearchPalette    = window.SearchPalette;
 
   return (
@@ -133,14 +155,18 @@ function App() {
             <span style={{ fontSize:13, color:'var(--ink-light)' }}>
               Make sure the app is served over HTTP (not opened as a local file).
             </span>
+            <code style={{ fontSize: 11, marginTop: 12, color: 'var(--ink-light)' }}>{error}</code>
           </div>
         )}
         {!loading && !error && (
           <>
+            {module === 'topics'     && <TopicsModule     data={data} navigateToExam={navigateToExam} />}
             {module === 'glossary'   && <GlossaryModule   data={data} />}
             {module === 'timeline'   && <TimelineModule   data={data} />}
             {module === 'flashcards' && <FlashcardsModule data={data} />}
-            {module === 'exams'      && <ExamsModule      data={data} />}
+            {module === 'quiz'       && <QuizModule       data={data} />}
+            {module === 'exams'      && <ExamsModule      data={data} pendingExamId={pendingExamId} />}
+            {module === 'mock'       && <MockExamModule   data={data} />}
           </>
         )}
       </main>

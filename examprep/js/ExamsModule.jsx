@@ -3,11 +3,12 @@
 const { useState, useMemo } = React;
 
 const PAPERS = [
-  { id: 'spring-2024-midterm', label: 'Spring 2024 Midterm',       year: 2024, type: 'midterm' },
-  { id: 'spring-2024-final',   label: 'Spring 2024 Final (V3)',     year: 2024, type: 'final'   },
-  { id: 'spring-2025-midterm', label: 'Spring 2025 Midterm (Feb)',  year: 2025, type: 'midterm' },
-  { id: 'spring-2025-final',   label: 'Spring 2025 Final (May)',    year: 2025, type: 'final'   },
-  { id: 'compiled-2022-2023',  label: '2022 / 2023 Compiled Finals',year: 2023, type: 'final'   },
+  { id: 'spring-2025-final',   label: 'May 2025 — Final (GRA 65463)',     year: 2025, type: 'final',   date: '2025-05-14' },
+  { id: 'spring-2025-midterm', label: 'Feb 2025 — Mid-term (GRA 65462)',  year: 2025, type: 'midterm', date: '2025-02-14' },
+  { id: 'spring-2024-final',   label: 'May 2024 — Final (GRA 65463 V3)',  year: 2024, type: 'final',   date: '2024-05-15' },
+  { id: 'spring-2024-midterm', label: 'Feb 2024 — Mid-term (GRA 65462)',  year: 2024, type: 'midterm', date: '2024-02-14' },
+  { id: 'final-2023',          label: '2023 — Final',                     year: 2023, type: 'final',   date: '2023-05-15' },
+  { id: 'final-2022',          label: '2022 — Final',                     year: 2022, type: 'final',   date: '2022-05-15' },
 ];
 
 const GRADING = [
@@ -15,7 +16,7 @@ const GRADING = [
   { grade: 'D', min: 45 }, { grade: 'E', min: 35 }, { grade: 'F', min: 0 },
 ];
 
-function ExamsModule({ data }) {
+function ExamsModule({ data, pendingExamId }) {
   const { exams = [], glossary = [], models = [] } = data;
   const [activeTag, setActiveTag] = useState(null);
   const [groupBy, setGroupBy] = useState('paper'); // 'paper' | 'topic'
@@ -26,6 +27,17 @@ function ExamsModule({ data }) {
   function toggleQ(id) {
     setExpandedIds(prev => ({ ...prev, [id]: !prev[id] }));
   }
+
+  // Auto-expand and scroll to a deep-linked question (from Topics module cross-link)
+  React.useEffect(() => {
+    if (pendingExamId) {
+      setExpandedIds(prev => ({ ...prev, [pendingExamId]: true }));
+      setTimeout(() => {
+        const el = document.querySelector('[data-q-id="' + pendingExamId + '"]');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 250);
+    }
+  }, [pendingExamId]);
 
   const filtered = useMemo(() => {
     if (!activeTag) return exams;
@@ -181,7 +193,7 @@ function QuestionRow({ q, expanded, onToggle, allEntries }) {
   [q, allEntries]);
 
   return (
-    <div className="exam-question">
+    <div className="exam-question" data-q-id={q.id}>
       <div
         className="exam-q-header"
         onClick={onToggle}
@@ -210,7 +222,10 @@ function QuestionRow({ q, expanded, onToggle, allEntries }) {
       <div className={'exam-q-body ' + (expanded ? 'open' : 'closed')} aria-hidden={!expanded}>
         <div className="exam-q-answer">
           {q.modelAnswer ? (
-            q.modelAnswer.split('\n\n').map((para, i) => <p key={i}>{para}</p>)
+            <div
+              className="topic-section-body"
+              dangerouslySetInnerHTML={{ __html: window.renderMarkdown ? window.renderMarkdown(q.modelAnswer) : window.renderWalkthrough(q.modelAnswer) }}
+            />
           ) : (
             <p style={{ fontStyle:'italic', color:'var(--ink-light)' }}>Model answer not yet added.</p>
           )}
