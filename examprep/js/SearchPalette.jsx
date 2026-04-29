@@ -6,7 +6,7 @@ function SearchPalette({ data, onClose, onNavigate }) {
   const [query, setQuery] = useState('');
   const [highlighted, setHighlighted] = useState(0);
   const inputRef = useRef(null);
-  const { glossary = [], models = [], timeline = [], exams = [], topics = [], quiz = [], flashcards = [] } = data;
+  const { glossary = [], models = [], timeline = [], exams = [], topics = [], quiz = [], flashcards = [], calculations = [] } = data;
 
   useEffect(() => {
     inputRef.current && inputRef.current.focus();
@@ -115,6 +115,31 @@ function SearchPalette({ data, onClose, onNavigate }) {
       });
     }
 
+    const calcHits = calculations.filter(c =>
+      (c.title || '').toLowerCase().includes(q) ||
+      (c.problem || '').toLowerCase().includes(q) ||
+      (c.category || '').toLowerCase().includes(q) ||
+      (c.intuition || '').toLowerCase().includes(q) ||
+      (c.parts || []).some(p =>
+        (p.prompt || '').toLowerCase().includes(q) ||
+        (p.answer || '').toLowerCase().includes(q) ||
+        (p.working || []).some(w => (w || '').toLowerCase().includes(q))
+      )
+    ).slice(0, 4);
+
+    if (calcHits.length) {
+      sections.push({
+        label: 'Practice Calculations',
+        module: 'calculations',
+        items: calcHits.map(c => ({
+          id: c.id,
+          term: c.title,
+          snippet: c.source || '',
+          module: 'calculations',
+        })),
+      });
+    }
+
     const examHits = exams.filter(e =>
       !e.placeholder &&
       ((e.prompt || '').toLowerCase().includes(q) ||
@@ -135,7 +160,7 @@ function SearchPalette({ data, onClose, onNavigate }) {
     }
 
     return sections;
-  }, [query, glossary, models, timeline, exams]);
+  }, [query, glossary, models, timeline, exams, calculations]);
 
   const flatItems = useMemo(() =>
     results.flatMap(s => s.items),
@@ -179,7 +204,7 @@ function SearchPalette({ data, onClose, onNavigate }) {
           <input
             ref={inputRef}
             className="sp-input"
-            placeholder="Search topics, flashcards, exams, quiz, timeline…"
+            placeholder="Search topics, flashcards, exams, quiz, calculations, timeline…"
             value={query}
             onChange={e => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
