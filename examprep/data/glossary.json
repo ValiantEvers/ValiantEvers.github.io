@@ -1,0 +1,106 @@
+[
+  {
+    "id": "qat",
+    "term": "Qualitative Asset Transformation (QAT)",
+    "definition": "The process by which banks transform the attributes of customer claims — duration, divisibility, liquidity, credit risk, and currency — by holding assets that differ from their liabilities along these dimensions. Long-term mortgages funded by short-term deposits is the canonical example. QAT is the source of both banks' economic value and their inherent fragility.",
+    "flashcardBack": "Banks transform claim attributes (duration, divisibility, liquidity, credit risk, currency) by holding assets that differ from liabilities along these dimensions.",
+    "tags": ["bank-models"],
+    "related": ["diamond-dybvig", "maturity-transformation"]
+  },
+  {
+    "id": "repo",
+    "term": "Repurchase Agreement (Repo)",
+    "definition": "A short-term borrowing arrangement in which one party sells securities to another with a contractual agreement to repurchase them at a higher price on a specified future date. Economically equivalent to a collateralised loan. The difference between the sale price and the repurchase price represents the interest. Repos are the primary funding instrument of shadow banking and were central to the 2007–09 crisis when haircuts spiked and repo markets froze.",
+    "flashcardBack": "Collateralised short-term loan structured as a sale-and-repurchase of securities. Price difference = interest. Key shadow-banking funding tool.",
+    "tags": ["bank-models", "securitisation", "bank-crises"],
+    "related": ["haircut", "shadow-banking", "maturity-transformation"]
+  },
+  {
+    "id": "haircut",
+    "term": "Haircut (repo/collateral)",
+    "definition": "The percentage discount applied to the market value of collateral in a secured lending transaction. A 10% haircut on a €100 bond means the borrower receives only €90. Haircuts protect lenders against collateral price declines. In the GFC, haircuts on structured products rose sharply and rapidly — in Gorton & Metrick's account, this was a 'run on repo' as effectively as any bank run.",
+    "flashcardBack": "Discount on collateral value in secured lending. Rising haircuts in 2007–08 functioned as a shadow-banking bank run.",
+    "tags": ["bank-models", "securitisation", "bank-crises"],
+    "related": ["repo", "brunnermeier-pedersen", "liquidity-spiral"]
+  },
+  {
+    "id": "cds",
+    "term": "Credit Default Swap (CDS)",
+    "definition": "A bilateral derivative contract in which the protection buyer pays a periodic premium (the CDS spread, in basis points) in exchange for a contingent payment from the protection seller if a reference entity suffers a credit event (default, restructuring, failure to pay). Functions economically like insurance on a bond. AIG's near-collapse in September 2008 was directly attributable to its exposure as a protection seller on roughly $440bn of CDS referencing structured-credit products.",
+    "flashcardBack": "Derivative paying protection buyer upon credit event. Buyer pays periodic spread; AIG's CDS book on MBS nearly brought down the firm in 2008.",
+    "tags": ["derivatives-fx", "securitisation", "bank-crises", "case-studies"],
+    "related": ["mbs", "aig-bailout", "systemic-risk"]
+  },
+  {
+    "id": "siv",
+    "term": "Structured Investment Vehicle (SIV)",
+    "definition": "An off-balance-sheet entity sponsored by a bank that funded itself by issuing short-term asset-backed commercial paper (ABCP) and medium-term notes, then invested the proceeds in longer-term, higher-yielding ABS and CDOs. The maturity mismatch was monetised as the yield spread. When ABCP markets froze in August 2007 — triggered by BNP Paribas suspending redemptions — SIVs could no longer roll their funding and sponsors faced the choice of letting them fail or absorbing them back onto the balance sheet.",
+    "flashcardBack": "Off-balance-sheet vehicle funding long ABS/CDO positions with short ABCP. Maturity mismatch collapsed when ABCP markets froze in Aug 2007.",
+    "tags": ["securitisation", "bank-crises"],
+    "related": ["conduit", "abcp", "bnp-paribas-aug07"]
+  },
+  {
+    "id": "fx-swap-basis",
+    "term": "FX Swap / Cross-Currency Basis",
+    "definition": "An FX swap is a simultaneous spot sale and forward purchase (or vice versa) of currency. Covered Interest Parity (CIP) states that the forward premium should equal the interest-rate differential, so that borrowing in one currency and swapping into another should yield no profit. The cross-currency basis is the deviation from CIP: a negative basis (dollar basis) means it is more expensive than CIP implies to borrow dollars via FX swaps. This basis blew out sharply in 2008 and again in 2020, reflecting dollar funding stress — and central bank dollar swap lines with the Fed were the primary policy response.",
+    "flashcardBack": "Cross-currency basis = deviation from Covered Interest Parity in FX swap markets. Negative dollar basis signals dollar funding stress; cured by Fed swap lines.",
+    "tags": ["derivatives-fx", "bank-crises"],
+    "related": ["cip", "fed-swap-lines", "dollar-shortage"]
+  },
+  {
+    "id": "lolr",
+    "term": "Lender of Last Resort (LOLR)",
+    "definition": "A central bank's function of providing emergency liquidity to solvent but illiquid financial institutions. Articulated by Bagehot (1873): lend freely, at penalty rates, against good collateral. The classic LOLR prevents a liquidity crisis from becoming a solvency crisis. The distinction between illiquidity and insolvency is, in practice, extremely difficult to make in real time — the central bank cannot observe the true value of assets during a panic.",
+    "flashcardBack": "Central bank provides emergency liquidity to solvent-but-illiquid banks. Bagehot: lend freely, at penalty rate, against good collateral.",
+    "tags": ["deposit-insurance", "bank-models", "foundational-models"],
+    "related": ["diamond-dybvig", "deposit-insurance", "bagehot"]
+  },
+  {
+    "id": "bail-in",
+    "term": "Bail-in",
+    "definition": "A resolution tool under BRRD that writes down or converts to equity the claims of a failing bank's creditors to restore capital adequacy, without recourse to taxpayer funds. The order of loss absorption follows the capital structure (equity → AT1 → T2 → senior unsecured → deposits). Bail-in replaced the pre-crisis 'bail-out' norm and is operationalised through the MREL requirement, which mandates that banks hold a minimum quantum of bail-in-able liabilities.",
+    "flashcardBack": "Writes down creditor claims to recapitalise a failing bank without taxpayer funds. MREL ensures sufficient bail-in-able liabilities exist.",
+    "tags": ["recovery-resolution"],
+    "related": ["brrd", "mrel", "gone-concern"]
+  },
+  {
+    "id": "mrel",
+    "term": "Minimum Requirement for own funds and Eligible Liabilities (MREL)",
+    "definition": "A BRRD-derived requirement that sets a minimum level of loss-absorbing and recapitalisation capacity for each bank subject to resolution planning. MREL liabilities must be capable of bearing losses — i.e., they must be unsecured, have an original maturity of at least one year, and not be eligible for deposit insurance. MREL is bank-specific, calibrated by resolution authorities, and expressed as a percentage of total risk exposure or total liabilities. The US equivalent is TLAC (Total Loss-Absorbing Capacity).",
+    "flashcardBack": "Bank-specific minimum of bail-in-able liabilities under BRRD. Must be unsecured, ≥1 year maturity, not deposit-insured. US equivalent: TLAC.",
+    "tags": ["recovery-resolution", "bank-regulation"],
+    "related": ["bail-in", "brrd", "tlac"]
+  },
+  {
+    "id": "inside-outside-money",
+    "term": "Inside Money / Outside Money",
+    "definition": "Outside money is a claim on an entity outside the private sector — central bank reserves and banknotes are the canonical example. Inside money is a claim on a private entity: bank deposits are inside money because one person's deposit is another's liability. Inside money nets to zero across the private sector; outside money does not. The distinction matters for understanding money creation: commercial banks create inside money when they make loans, not when central banks print.",
+    "flashcardBack": "Outside money: claims on central bank (reserves, notes). Inside money: private-sector claims (deposits). Inside money nets to zero; created by bank lending.",
+    "tags": ["bank-models"],
+    "related": ["money-creation", "fractional-reserve"]
+  },
+  {
+    "id": "deposit-insurance",
+    "term": "Deposit Insurance",
+    "definition": "A guarantee scheme, typically government-backed, that protects depositors up to a specified ceiling against loss in the event of bank failure. In the Diamond–Dybvig framework, deposit insurance eliminates the bad equilibrium (bank run) because depositors have no incentive to withdraw early if their deposits are safe regardless of what others do. The cost is moral hazard: insured depositors have weakened incentives to monitor bank risk, and insured banks have incentives to take excessive risk (since losses are partially socialised).",
+    "flashcardBack": "Government guarantee on deposits up to a limit. Eliminates run equilibrium (Diamond–Dybvig) but introduces moral hazard on bank risk-taking.",
+    "tags": ["deposit-insurance", "foundational-models"],
+    "related": ["diamond-dybvig", "moral-hazard", "merton"]
+  },
+  {
+    "id": "mbs",
+    "term": "Mortgage-Backed Security (MBS)",
+    "definition": "A fixed-income instrument backed by a pool of mortgage loans. Cash flows from principal and interest payments on the underlying mortgages are passed through (pass-through MBS) or tranched (CMO) to investors. Agency MBS (Fannie Mae, Freddie Mac, Ginnie Mae) carry implicit or explicit government guarantees. Non-agency (private-label) MBS pools subprime and alt-A mortgages; their AAA ratings, based on house-price assumptions that proved catastrophically wrong, were central to the GFC.",
+    "flashcardBack": "Bond backed by mortgage pool. Agency MBS: government-guaranteed. Private-label subprime MBS: AAA-rated based on flawed house-price models; GFC epicentre.",
+    "tags": ["securitisation", "bank-crises"],
+    "related": ["cdo", "abs", "tranche"]
+  },
+  {
+    "id": "cdo",
+    "term": "Collateralised Debt Obligation (CDO)",
+    "definition": "A structured finance product that pools credit-risky assets (bonds, loans, ABS tranches) and issues tranches of varying seniority. Senior tranches absorb losses last and were typically rated AAA; equity tranches absorb losses first. CDO-squared products pooled BBB tranches of MBS into a new CDO, creating large volumes of synthetic AAA from deeply subprime collateral. Their complexity concealed correlation risk that models systematically underestimated.",
+    "flashcardBack": "Pools credit assets and issues tranches. Senior = last loss (AAA); equity = first loss. CDO-squared amplified subprime exposure with fabricated AAA ratings.",
+    "tags": ["securitisation", "bank-crises"],
+    "related": ["mbs", "abs", "tranche", "cds"]
+  }
+]

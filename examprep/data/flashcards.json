@@ -1,0 +1,92 @@
+[
+  {
+    "id": "fc-adverse-selection",
+    "front": "Adverse selection",
+    "back": "A pre-contract information problem: lenders cannot distinguish high-risk from low-risk borrowers, so raising rates worsens the borrower pool.",
+    "tags": ["asymmetric-info"]
+  },
+  {
+    "id": "fc-moral-hazard",
+    "front": "Moral hazard",
+    "back": "A post-contract information problem: once insured or funded, an agent takes more risk because they do not bear the full downside.",
+    "tags": ["asymmetric-info", "deposit-insurance"]
+  },
+  {
+    "id": "fc-bagehot",
+    "front": "Bagehot's Rule (1873)",
+    "back": "In a panic, a central bank should lend freely, at a penalty rate, against good collateral. Distinguishes liquidity support from solvency bailout.",
+    "tags": ["deposit-insurance", "bank-models"]
+  },
+  {
+    "id": "fc-basel-iii-ratios",
+    "front": "Basel III minimum capital ratios",
+    "back": "CET1: 4.5% of RWA. Tier 1: 6%. Total capital: 8%. Capital conservation buffer: +2.5% CET1. G-SIB surcharge: up to +3.5%.",
+    "tags": ["bank-regulation"]
+  },
+  {
+    "id": "fc-tranche-order",
+    "front": "CDO loss absorption order",
+    "back": "Equity tranche (first loss) → Mezzanine → Senior → Super-senior (last loss). Higher seniority = lower yield = higher rating.",
+    "tags": ["securitisation"]
+  },
+  {
+    "id": "fc-dd-equilibria",
+    "front": "Diamond–Dybvig: two equilibria",
+    "back": "Good: only early consumers withdraw; bank solvent. Bad: all depositors run (self-fulfilling panic); bank insolvent from forced liquidation.",
+    "tags": ["foundational-models", "deposit-insurance"]
+  },
+  {
+    "id": "fc-sw-result",
+    "front": "Stiglitz–Weiss main result",
+    "back": "Banks' expected loan return is non-monotonic in r. At r*, it peaks. Beyond r*, raising rates worsens pool quality → banks ration credit at r* rather than raise rates.",
+    "tags": ["foundational-models", "asymmetric-info"]
+  },
+  {
+    "id": "fc-cip",
+    "front": "Covered Interest Parity (CIP)",
+    "back": "F/S = (1+r_d)/(1+r_f). Forward premium = interest differential. Arbitrage enforces CIP. Deviations = cross-currency basis; signal funding stress.",
+    "tags": ["derivatives-fx"]
+  },
+  {
+    "id": "fc-brrd-tools",
+    "front": "BRRD resolution tools (four)",
+    "back": "1. Sale of business. 2. Bridge institution. 3. Asset separation (bad bank). 4. Bail-in. Applied by resolution authority when PONV is met.",
+    "tags": ["recovery-resolution"]
+  },
+  {
+    "id": "fc-ponv",
+    "front": "Point of Non-Viability (PONV)",
+    "back": "Trigger for resolution under BRRD: bank is failing or likely to fail AND no private solution available AND resolution is in public interest.",
+    "tags": ["recovery-resolution"]
+  },
+  {
+    "id": "fc-merton-put",
+    "front": "Merton deposit insurance formula",
+    "back": "Insurance value = put option on bank assets with strike = face value of deposits. Premium rises with leverage (D/A) and asset volatility (σ).",
+    "tags": ["foundational-models", "deposit-insurance"]
+  },
+  {
+    "id": "fc-nordic-response",
+    "front": "Nordic crisis government response (Norway/Sweden)",
+    "back": "Norway: full state ownership of three largest banks; shareholders wiped out. Sweden: blanket guarantee on all bank liabilities + bad banks (Securum). Both resolved without depositor losses.",
+    "tags": ["bank-crises", "case-studies"]
+  },
+  {
+    "id": "fc-abcp",
+    "front": "Asset-Backed Commercial Paper (ABCP)",
+    "back": "Short-term paper (≤270 days) issued by conduits/SIVs to fund longer ABS. When markets froze Aug 2007, SIVs could not roll; sponsors forced to absorb back onto balance sheet.",
+    "tags": ["securitisation", "bank-crises"]
+  },
+  {
+    "id": "fc-liq-spiral",
+    "front": "Brunnermeier–Pedersen liquidity spiral",
+    "back": "Price fall → higher margins → forced selling → further price fall → wider spreads. Funding and market liquidity spiral together; amplified by VaR constraints.",
+    "tags": ["foundational-models", "bank-crises"]
+  },
+  {
+    "id": "fc-tiered-money",
+    "front": "Hierarchy of money (four tiers)",
+    "back": "1. Central bank reserves. 2. Banknotes. 3. Commercial bank deposits. 4. Shadow bank money-market claims. Each tier is a liability of the issuer and asset of the holder.",
+    "tags": ["bank-models"]
+  }
+]
