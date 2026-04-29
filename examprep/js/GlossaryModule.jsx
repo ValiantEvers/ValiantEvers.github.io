@@ -2,12 +2,24 @@
 (function() {
 const { useState, useMemo, useEffect, useRef } = React;
 
-function GlossaryModule({ data }) {
+function GlossaryModule({ data, pendingGlossaryNav }) {
   const { glossary = [], models = [] } = data;
   const [query, setQuery] = useState('');
   const [activeTags, setActiveTags] = useState([]);
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(pendingGlossaryNav?.id || null);
   const detailRef = useRef(null);
+
+  // Honour cross-module navigation (mind-map "Read more", search palette result click).
+  // pendingGlossaryNav is {id, key}; depending on the object reference re-fires the
+  // effect even when the same id is requested twice in a row.
+  useEffect(() => {
+    if (pendingGlossaryNav?.id) {
+      setSelectedId(pendingGlossaryNav.id);
+      setActiveTags([]);
+      setQuery('');
+      if (detailRef.current) detailRef.current.scrollTop = 0;
+    }
+  }, [pendingGlossaryNav]);
 
   const allEntries = useMemo(() => {
     const g = glossary.map(e => ({ ...e, _type: 'term' }));

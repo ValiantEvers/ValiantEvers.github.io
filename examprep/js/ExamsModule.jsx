@@ -16,7 +16,7 @@ const GRADING = [
   { grade: 'D', min: 45 }, { grade: 'E', min: 35 }, { grade: 'F', min: 0 },
 ];
 
-function ExamsModule({ data, pendingExamId }) {
+function ExamsModule({ data, pendingExamNav }) {
   const { exams = [], glossary = [], models = [] } = data;
   const [activeTag, setActiveTag] = useState(null);
   const [groupBy, setGroupBy] = useState('paper'); // 'paper' | 'topic'
@@ -28,16 +28,18 @@ function ExamsModule({ data, pendingExamId }) {
     setExpandedIds(prev => ({ ...prev, [id]: !prev[id] }));
   }
 
-  // Auto-expand and scroll to a deep-linked question (from Topics module cross-link)
+  // Auto-expand and scroll to a deep-linked question (from Topics cross-link or Search).
+  // pendingExamNav is {id, key} so re-navigating to the same question re-fires the effect.
   React.useEffect(() => {
-    if (pendingExamId) {
-      setExpandedIds(prev => ({ ...prev, [pendingExamId]: true }));
+    const id = pendingExamNav?.id;
+    if (id) {
+      setExpandedIds(prev => ({ ...prev, [id]: true }));
       setTimeout(() => {
-        const el = document.querySelector('[data-q-id="' + pendingExamId + '"]');
+        const el = document.querySelector('[data-q-id="' + id + '"]');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 250);
     }
-  }, [pendingExamId]);
+  }, [pendingExamNav]);
 
   const filtered = useMemo(() => {
     if (!activeTag) return exams;
