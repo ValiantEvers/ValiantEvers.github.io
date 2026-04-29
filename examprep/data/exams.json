@@ -886,8 +886,7 @@
     ],
     "prompt": "True / False / Uncertain: A widening of corporate credit spreads necessarily reflects deteriorating borrower fundamentals.",
     "modelAnswer": "**UNCERTAIN.** Wider credit spreads can reflect deteriorating fundamentals (higher PD), but they can also reflect (i) higher risk premiums demanded by investors in stress, (ii) reduced market liquidity, or (iii) rising risk-free rate volatility. In 2008–09 and March 2020, spreads widened sharply largely due to risk-premium and liquidity factors, with fundamentals deteriorating only later. So spread widening is a noisy signal — fundamentals are one driver among several.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q1b",
@@ -903,8 +902,7 @@
     ],
     "prompt": "True / False / Uncertain: Bank deleveraging tends to cause credit crunches.",
     "modelAnswer": "**TRUE.** When banks need to reduce leverage (raise capital ratios), they can either (i) issue new equity, which is dilutive and unattractive, or (ii) shrink the balance sheet — typically by reducing lending. Cutting lending reduces credit availability for the economy, which is the definition of a credit crunch. The 2008 crisis and its aftermath are textbook examples (Ivashina & Scharfstein 2010 documents this for the US).",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q1c",
@@ -920,8 +918,7 @@
     ],
     "prompt": "True / False / Uncertain: Transparency of financial-institution balance sheets played little role in the 2008 crisis.",
     "modelAnswer": "**FALSE.** The **opacity** of financial-institution balance sheets has been named explicitly as one of the causes of the 2008 crisis (Turner Review). Investors couldn't tell which institutions had material exposure to subprime CDOs and CDO-squareds, so funding froze across the entire sector — money-market funds and other wholesale lenders pulled back from everyone, not just the most exposed. Lack of transparency made the crisis systemic rather than localised.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q1d",
@@ -938,8 +935,7 @@
     ],
     "prompt": "True / False / Uncertain: Recent banking-sector turbulence (2022–23) has a common driver.",
     "modelAnswer": "**TRUE.** A common driver of the 2023 banking-sector stress is the rapid increase in interest rates following the post-COVID inflation surge. Long-duration fixed-rate assets (Treasuries, MBS, fixed-rate loans) lost market value as rates rose; banks holding those assets at amortised cost (HTM) accumulated unrealised losses. When deposit pressure forced asset sales (SVB) or governance shocks triggered runs (Credit Suisse), the unrealised losses became realised, capital ratios collapsed, and intervention followed.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q1e",
@@ -955,8 +951,7 @@
     ],
     "prompt": "True / False / Uncertain: Synthetic securitisation eliminates funding requirements for the originating bank.",
     "modelAnswer": "**FALSE.** Synthetic securitisation reduces credit risk and capital requirements (RWA falls) but the loans REMAIN on the bank's balance sheet and still need to be funded. It is a credit-risk-management tool, not a funding tool. Compare to traditional (true-sale) securitisation, where loans actually leave the balance sheet — that DOES provide funding relief.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q2",
@@ -973,8 +968,7 @@
     ],
     "prompt": "Discuss the Norwegian Banks' Guarantee Fund — its purpose, the implications for stakeholders, and the consequences of removing the deposit-insurance fund's super-preference in resolution.",
     "modelAnswer": "**The Norwegian Banks' Guarantee Fund** is a deposit-insurance scheme guaranteeing deposits up to **NOK 2 million per customer per bank** in the event of bank failure.\n\n**Implications for stakeholders:**\n• **Depositors** (within the limit) — do not need to monitor the bank's creditworthiness; can hunt for the highest deposit rates without bearing risk.\n• **Banks** — can attract stable funding/deposits independently of their risk profile, but this incentivises higher risk-taking (moral hazard).\n• **Regulators** — must mitigate the moral hazard via fairly priced (risk-based) insurance premiums, prudential regulation, and supervision controlling the banks' risk profile.\n• **Banks' growth** — when banks grow, they must increase regulatory capital to maintain ratios. Investors dislike new equity issuance, so growth is constrained by retained earnings — the dividend-vs-retention trade-off.\n\n**If super-preference is removed (deposit insurance loses top priority in the hierarchy):**\n• The fund will face higher risk of losing capital.\n• Its capacity to finance alternative measures (rather than paying out depositors) will increase, because what it stands to lose if it must pay out is now more limited.\n• Depositors outside the guarantee — particularly large corporates — will see a significant improvement in their relative ranking → lower credit risk on their deposits.\n• Funding may shift: large corporates would prefer placing funds as deposits rather than buying senior bonds issued by the bank.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q3",
@@ -991,8 +985,7 @@
     ],
     "prompt": "Asymmetric information in lending: define it; explain adverse selection and moral hazard; describe mitigants for each.",
     "modelAnswer": "**Asymmetric information** — one party in a transaction has more information than the other. Sellers (or borrowers) typically know more about quality (or repayment ability) than buyers (or lenders).\n\n**In a lending context:** The bank knows less about the customer's economic capacity and willingness to service the loan than the customer does. With standardised terms, the bank attracts disproportionately risky customers (adverse selection). After disbursal, the customer may take on more risk than expected (moral hazard).\n\n**Mitigants for adverse selection (ex-ante / screening):**\n• Gather relevant information: income, total debt, loan-service history.\n• Set terms according to individual credit-quality scores rather than a uniform rate.\n• Require financial-statement disclosure for corporates.\n\n**Mitigants for moral hazard (ex-post / monitoring):**\n• Establish covenants in the loan contract (financial, operational, affirmative, negative).\n• Monitor compliance through regular reporting.\n• Examples: minimum collateral-to-loan ratio, minimum equity ratio, restrictions on dividend payments and FCF use.\n\n**Both:** Collateral acts as a signal (deters risky borrowers from applying) and a stake (gives the borrower skin in the game).",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q4",
@@ -1008,8 +1001,7 @@
     ],
     "prompt": "Define maturity transformation, explain its purpose, the risks it creates, and how those risks can be mitigated.",
     "modelAnswer": "**Definition.** Maturity transformation is the act of financial institutions using short-term funding to fund long-term assets.\n\n**Purpose.** Allows savers to hold liquid savings while borrowers receive long-dated loans, independently of savers' cash needs. Underpins economic growth and the efficient allocation of capital.\n\n**Risks created:**\n• **Liquidity / funding risk** — short-term funding might dry up, creating significant outflow of cash that forces the sale of long-term assets at unfavourable prices.\n• **Interest-rate risk** — the yield curve normally slopes up, so banks earn margin riding it; but a rate spike or yield-curve inversion turns the carry negative.\n• **Solvency risk under fire-sale** — if forced sales realise mark-to-market losses (e.g. SVB 2023), liquidity stress becomes solvency stress.\n\n**Mitigants:**\n• **Liquidity risk** — hold sufficient liquidity reserves (HQLA, LCR ≥ 100%); central-bank LOLR access for solvent banks (Bagehot's rule); diversified funding sources (NSFR ≥ 100%).\n• **Interest-rate risk** — offer floating-rate longer loans; use interest-rate swaps to convert fixed exposure to floating; ALM gap analysis; duration matching.\n• **Crisis playbook** — the central bank's role as LOLR is what makes the system viable; without it, every fractional-reserve bank would be exposed to a destabilising run.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2023-q5",
@@ -1025,8 +1017,7 @@
     ],
     "prompt": "Explain bail-in vs bail-out, the relevance of the creditor hierarchy, and discuss \"too big to fail.\"",
     "modelAnswer": "**Bail-in:** the bank is recapitalised by converting existing balance-sheet liabilities into new equity. Equity → AT1 → T2 → senior non-preferred → senior unsecured → deposits, working bottom-up through the creditor hierarchy.\n\n**Bail-out:** the bank is recapitalised by injecting new external capital, typically from the government (taxpayer-funded).\n\n**Creditor hierarchy:** determines the order of loss absorption. The most subordinated instruments (equity, AT1) absorb losses first; senior depositors and covered deposits absorb only as a last resort. The hierarchy ensures bail-in respects pre-existing contractual seniority.\n\n**\"Too big to fail\" problem:** Failures of large systemic institutions create instability and crisis, so governments will not allow them to fail — they bail them out. Banks and investors anticipate this implicit government guarantee and price funding cheaper for big banks. This **implicit subsidy** distorts competition and incentivises further size and risk-taking.\n\n**Why bail-in is a remedy:** Bail-in eliminates the need for taxpayer money (creditors absorb losses) AND removes the implicit guarantee — bondholders price in the bail-in risk and the subsidy disappears. Combined with credible MREL/TLAC, bail-in is the central post-2008 architectural innovation.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q1a",
@@ -1042,8 +1033,7 @@
     ],
     "prompt": "True / False / Uncertain: Reduced impairments increase a bank's earnings.",
     "modelAnswer": "**TRUE.** When impairments are reduced, the value of the loan book increases (or at least is no longer being written down), which raises income and earnings ceteris paribus. A reduction can come from either an upward revision in expected credit quality or a write-back of previously over-provisioned amounts — both flow through P&L.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q1b",
@@ -1059,8 +1049,7 @@
     ],
     "prompt": "True / False / Uncertain: Higher repo haircuts reduce the gearing achievable using the underlying securities.",
     "modelAnswer": "**TRUE.** Increased haircuts on repo collateral mean that less can be borrowed against the same security. For a security worth €100, a haircut of 5% allows the borrower to receive €95; a haircut of 20% allows only €80. The leverage (gearing) achievable on the same collateral therefore falls as haircuts rise. This is exactly the procyclical mechanism that drove the 2007–08 \"run on repo\" (Gorton & Metrick).",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q1c",
@@ -1076,8 +1065,7 @@
     ],
     "prompt": "True / False / Uncertain: Moral hazard is a situation where the lender takes an action to the detriment of the borrower.",
     "modelAnswer": "**FALSE.** It is the BORROWER who undertakes an action that hurts the utility/earnings of the lender — for example, by choosing a high-risk project after the loan is funded. Moral hazard runs from borrower → lender, not lender → borrower.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q1d",
@@ -1093,8 +1081,7 @@
     ],
     "prompt": "True / False / Uncertain: Deposit insurance mitigates moral hazard.",
     "modelAnswer": "**FALSE.** Deposit insurance **creates** moral hazard. The bank can take more risk without seeing higher funding costs because depositors don't care about the bank's investments — their deposits are safe (within the limit). Risk-based premiums, capital requirements, and supervision are needed to compensate.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q1e",
@@ -1110,8 +1097,7 @@
     ],
     "prompt": "True / False / Uncertain: Higher regulatory capital requirements always reduce a bank's risk-taking.",
     "modelAnswer": "**UNCERTAIN.** Higher capital requirements give shareholders more skin in the game, which incentivises safer behaviour to avoid losing the larger equity stake. On the other hand, an over-capitalised bank may seek higher returns through riskier investments to deliver the required return on the larger equity base — a search-for-yield response. Empirically the net effect depends on capital level, market conditions, and management incentives.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q2",
@@ -1145,8 +1131,7 @@
     ],
     "prompt": "FX swap pricing using CIP. Spot rate = 1.65 (NOK per DKK), r_NOK = 4% p.a., r_DKK = 2% p.a., 6-month tenor. Calculate the forward rate and swap points.",
     "modelAnswer": "**CIP:** F = S₀ × (1 + r_NOK × t) / (1 + r_DKK × t), where t = 0.5.\n\nF = 1.65 × (1 + 0.04 × 0.5) / (1 + 0.02 × 0.5)\nF = 1.65 × 1.02 / 1.01\nF = **1.67 NOK per DKK**\n\n**Swap points = F − S₀ = 1.67 − 1.65 = 0.02 = 2 points (200 pips).**\n\nIntuition: NOK has higher rates, so the forward NOK weakens to compensate the party lending out the higher-yielding currency.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q3b",
@@ -1163,8 +1148,7 @@
     ],
     "prompt": "When a foreign-currency-denominated investment loses value, how does the holder's hedge affect the home-currency exchange rate?",
     "modelAnswer": "When the foreign investment falls in value (in foreign currency terms), the investor is **over-hedged** — the value of the foreign assets is now LESS than the volume promised in the hedging contracts. To fulfil the hedge, the investor must **buy additional amounts of foreign currency** in the spot market. To buy foreign currency, the Norwegian investor must **sell NOK**. This adds selling pressure on NOK and contributes to the currency's weakening.\n\nThis was the rebalancing channel observed in March 2020: NBFI portfolio managers, with foreign equity holdings dropping ~30%, sold NOK to buy back the foreign currency they had over-hedged. Combined with the margining channel (FX losses on hedges → margin calls → bond fire sales), the dynamic generated a self-reinforcing depreciation of NOK and risk-premium spike. Norges Bank intervened on 19 March 2020 with a press release on possible FX intervention.",
-    "relatedGlossary": [],
-    "reconstructed": true
+    "relatedGlossary": []
   },
   {
     "id": "final2022-q4",
