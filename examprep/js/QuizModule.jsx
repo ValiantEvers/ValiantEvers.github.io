@@ -11,7 +11,7 @@ function shuffle(arr) {
   return a;
 }
 
-function QuizModule({ data }) {
+function QuizModule({ data, pendingQuizNav }) {
   const all = data.quiz || [];
 
   const [mode, setMode] = useState(() => window.lsGet('gra6546_quiz_mode', 'all'));   // 'all' | 'tf' | 'mc'
@@ -22,6 +22,20 @@ function QuizModule({ data }) {
 
   useEffect(() => { window.lsSet('gra6546_quiz_mode', mode); }, [mode]);
   useEffect(() => { window.lsSet('gra6546_quiz_topic', topic); }, [topic]);
+
+  // Deep-link from search palette: clear filters so the targeted question is
+  // visible, mark it revealed, then scroll it into view.
+  useEffect(() => {
+    const id = pendingQuizNav?.id;
+    if (!id) return;
+    setMode('all');
+    setTopic(null);
+    setRevealed(prev => ({ ...prev, [id]: true }));
+    setTimeout(() => {
+      const el = document.querySelector('[data-quiz-id="' + id + '"]');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
+  }, [pendingQuizNav]);
 
   const filtered = useMemo(() => {
     let pool = all;
@@ -121,7 +135,7 @@ function QuizCard({ q, index, revealed, pick, onPick }) {
     : (pick === q.answerIndex);
 
   return (
-    <div className={'quiz-card ' + (revealed ? (isCorrect ? 'correct' : 'incorrect') : '')}>
+    <div data-quiz-id={q.id} className={'quiz-card ' + (revealed ? (isCorrect ? 'correct' : 'incorrect') : '')}>
       <div className="quiz-card-head">
         <span className="quiz-num">{index}</span>
         <span className="quiz-prompt">{q.prompt}</span>

@@ -1,6 +1,6 @@
 // TimelineModule.jsx
 (function() {
-const { useState, useMemo } = React;
+const { useState, useMemo, useEffect } = React;
 
 const CRISIS_ERAS = [
   { id: 'sl',     label: 'S&L Crisis',            yearRange: [1980, 1989], accentYear: '1980s' },
@@ -20,9 +20,20 @@ function getEraForEvent(event) {
   return null;
 }
 
-function TimelineModule({ data }) {
+function TimelineModule({ data, pendingTimelineNav }) {
   const { timeline = [], glossary = [], models = [] } = data;
   const [activeTag, setActiveTag] = useState(null);
+
+  // Deep-link from search palette: clear tag filter and scroll the event into view.
+  useEffect(() => {
+    const id = pendingTimelineNav?.id;
+    if (!id) return;
+    setActiveTag(null);
+    setTimeout(() => {
+      const el = document.querySelector('[data-event-id="' + id + '"]');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
+  }, [pendingTimelineNav]);
 
   const allEntries = useMemo(() =>
     [...glossary, ...models],
@@ -85,6 +96,7 @@ function TimelineModule({ data }) {
               return (
                 <article
                   key={event.id}
+                  data-event-id={event.id}
                   className={'timeline-event' + (isHighlight ? ' highlight' : '')}
                 >
                   <div className="event-date">

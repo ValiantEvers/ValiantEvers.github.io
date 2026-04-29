@@ -356,7 +356,7 @@ function PopupCard({ node, position, data, clusters, onClose, onNavigate }) {
 
 // ── Main module ───────────────────────────────────────────────
 
-function MindmapModule({ data, onNavigate }) {
+function MindmapModule({ data, onNavigate, pendingMindmapNav }) {
   const containerRef = useRef(null);
   const cyRef = useRef(null);
   const [mindmap, setMindmap] = useState(null);
@@ -460,6 +460,24 @@ function MindmapModule({ data, onNavigate }) {
 
     return () => { cy.destroy(); cyRef.current = null; };
   }, [mindmap, cyReady]);
+
+  // Deep-link from search palette: focus a specific node by id and pan/zoom
+  // the viewport onto it. Re-runs when pendingMindmapNav.key bumps, even for
+  // the same id, and waits for cy/mindmap to be ready.
+  useEffect(() => {
+    const id = pendingMindmapNav?.id;
+    if (!id) return;
+    const cy = cyRef.current;
+    if (!cy) return;
+    const node = cy.$id(id);
+    if (!node || !node.length) return;
+    setSelectedNodeId(id);
+    setSearch('');
+    cy.animate(
+      { center: { eles: node }, zoom: Math.max(cy.zoom(), 1.1) },
+      { duration: 500, easing: 'ease-out-cubic' }
+    );
+  }, [pendingMindmapNav, cyReady, mindmap]);
 
   // Apply focus mode + popup position when selection changes
   useEffect(() => {

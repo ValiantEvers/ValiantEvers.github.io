@@ -1492,6 +1492,33 @@ p { text-wrap: pretty; }
   font-style: italic;
 }
 
+.sp-results-meta {
+  padding: 8px 18px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  font-family: var(--font-body);
+  border-bottom: 1px dashed var(--rule);
+}
+
+/* Highlighted match within search-palette result text */
+.sp-result mark,
+.sp-result-term mark,
+.sp-result-snippet mark {
+  background: var(--accent-pale);
+  color: var(--accent);
+  padding: 0 2px;
+  border-radius: 1px;
+  font-weight: 600;
+}
+.sp-result.highlighted mark,
+.sp-result:hover mark {
+  background: var(--accent);
+  color: var(--paper);
+}
+
 /* ── Filter bar ─────────────────────────────────────────── */
 .filter-bar {
   display: flex;

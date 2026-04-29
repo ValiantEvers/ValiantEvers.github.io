@@ -86,9 +86,14 @@ function App() {
   // Cross-module navigation requests. Stored as {id, key} so re-navigating to the
   // same id (e.g. searching the same term twice) still bumps the object reference
   // and re-fires the consuming module's useEffect.
-  const [pendingExamNav,     setPendingExamNav]     = useState({ id: null, key: 0 });
-  const [pendingGlossaryNav, setPendingGlossaryNav] = useState({ id: null, key: 0 });
-  const [pendingTopicNav,    setPendingTopicNav]    = useState({ id: null, key: 0 });
+  const [pendingExamNav,       setPendingExamNav]       = useState({ id: null, key: 0 });
+  const [pendingGlossaryNav,   setPendingGlossaryNav]   = useState({ id: null, key: 0 });
+  const [pendingTopicNav,      setPendingTopicNav]      = useState({ id: null, key: 0 });
+  const [pendingFlashcardNav,  setPendingFlashcardNav]  = useState({ id: null, key: 0 });
+  const [pendingQuizNav,       setPendingQuizNav]       = useState({ id: null, key: 0 });
+  const [pendingTimelineNav,   setPendingTimelineNav]   = useState({ id: null, key: 0 });
+  const [pendingCalcNav,       setPendingCalcNav]       = useState({ id: null, key: 0 });
+  const [pendingMindmapNav,    setPendingMindmapNav]    = useState({ id: null, key: 0 });
 
   function bumpNav(setter, id) {
     setter(prev => ({ id, key: prev.key + 1 }));
@@ -147,14 +152,18 @@ function App() {
   }, []);
 
   // Used by Search palette: navigate to a module, optionally selecting a specific entry.
-  // Glossary, topics, and exams modules support deep-linking via their pending* nav prop;
-  // other modules just switch without selection.
+  // Each consuming module reads its `pending*Nav` prop to focus the requested item.
   function handleNavigate(mod, id) {
     setModule(mod);
     if (!id) return;
-    if (mod === 'glossary')    bumpNav(setPendingGlossaryNav, id);
-    else if (mod === 'topics') bumpNav(setPendingTopicNav,    id);
-    else if (mod === 'exams')  bumpNav(setPendingExamNav,     id);
+    if      (mod === 'glossary')     bumpNav(setPendingGlossaryNav,  id);
+    else if (mod === 'topics')       bumpNav(setPendingTopicNav,     id);
+    else if (mod === 'exams')        bumpNav(setPendingExamNav,      id);
+    else if (mod === 'flashcards')   bumpNav(setPendingFlashcardNav, id);
+    else if (mod === 'quiz')         bumpNav(setPendingQuizNav,      id);
+    else if (mod === 'timeline')     bumpNav(setPendingTimelineNav,  id);
+    else if (mod === 'calculations') bumpNav(setPendingCalcNav,      id);
+    else if (mod === 'mindmap')      bumpNav(setPendingMindmapNav,   id);
   }
 
   function navigateToExam(examQuestionId) {
@@ -210,11 +219,11 @@ function App() {
           <>
             {module === 'topics'       && <TopicsModule       data={data} navigateToExam={navigateToExam} pendingTopicNav={pendingTopicNav} />}
             {module === 'glossary'     && <GlossaryModule     data={data} pendingGlossaryNav={pendingGlossaryNav} />}
-            {module === 'timeline'     && <TimelineModule     data={data} />}
-            {module === 'mindmap'      && <MindmapModule      data={data} onNavigate={navigateFromMindmap} />}
-            {module === 'flashcards'   && <FlashcardsModule   data={data} />}
-            {module === 'quiz'         && <QuizModule         data={data} />}
-            {module === 'calculations' && <CalculationsModule data={data} />}
+            {module === 'timeline'     && <TimelineModule     data={data} pendingTimelineNav={pendingTimelineNav} />}
+            {module === 'mindmap'      && <MindmapModule      data={data} onNavigate={navigateFromMindmap} pendingMindmapNav={pendingMindmapNav} />}
+            {module === 'flashcards'   && <FlashcardsModule   data={data} pendingFlashcardNav={pendingFlashcardNav} />}
+            {module === 'quiz'         && <QuizModule         data={data} pendingQuizNav={pendingQuizNav} />}
+            {module === 'calculations' && <CalculationsModule data={data} pendingCalcNav={pendingCalcNav} />}
             {module === 'exams'        && <ExamsModule        data={data} pendingExamNav={pendingExamNav} />}
             {module === 'mock'         && <MockExamModule     data={data} />}
           </>
