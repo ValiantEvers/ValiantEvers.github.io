@@ -30,10 +30,19 @@ const PAPER_TEMPLATES = [
   },
 ];
 
-const GRADING = [
+// May 2025 (and most recent) scale — also the precedent for May 2026
+const GRADING_RECENT = [
   { grade: 'A', min: 75 }, { grade: 'B', min: 65 }, { grade: 'C', min: 55 },
   { grade: 'D', min: 45 }, { grade: 'E', min: 35 }, { grade: 'F', min: 0 },
 ];
+
+// Spring 2024 final used a stricter scale
+const GRADING_SPRING2024 = [
+  { grade: 'A', min: 85 }, { grade: 'B', min: 72 }, { grade: 'C', min: 60 },
+  { grade: 'D', min: 48 }, { grade: 'E', min: 35 }, { grade: 'F', min: 0 },
+];
+
+const GRADING = GRADING_RECENT;  // shown on the setup page as the default reference
 
 function formatHMS(secs) {
   if (secs < 0) secs = 0;
@@ -153,9 +162,11 @@ function MockExamModule({ data }) {
           </div>
 
           <div className="mock-grading-ref">
-            <span className="label">Grade thresholds</span>
+            <span className="label">
+              Grade thresholds — {paperId === 'spring-2024-final' ? 'Spring 2024 scale (stricter)' : 'May 2025 scale (also expected for May 2026)'}
+            </span>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 6 }}>
-              {GRADING.map(g => (
+              {(paperId === 'spring-2024-final' ? GRADING_SPRING2024 : GRADING_RECENT).map(g => (
                 <div key={g.grade} className="mock-grade-pill">
                   <span style={{ fontFamily: 'var(--font-display)', fontWeight: 900, color: 'var(--ink)' }}>{g.grade}</span>
                   <span style={{ marginLeft: 6 }}>≥ {g.min} pts</span>

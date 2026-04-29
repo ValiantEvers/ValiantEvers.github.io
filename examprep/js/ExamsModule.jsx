@@ -54,14 +54,25 @@ function ExamsModule({ data, pendingExamId }) {
     return PAPERS.map(paper => {
       const qs = filtered.filter(q => q.paperId === paper.id);
       const hasContent = qs.some(q => !q.placeholder && q.prompt);
+      const allReconstructed = hasContent && qs.every(q => q.reconstructed);
+      // Spring 2024 used a stricter scale; everything else uses May 2025 scale
+      const grading = paper.id === 'spring-2024-final'
+        ? 'Grading: A≥85 B≥72 C≥60 D≥48 E≥35'
+        : 'Grading: A≥75 B≥65 C≥55 D≥45 E≥35';
       return (
         <div key={paper.id} className="exam-paper-group">
           <div className="exam-paper-header">
             <span className="exam-paper-label">{paper.label}</span>
             <span className="exam-paper-meta">
-              {paper.type === 'midterm' ? 'Midterm' : 'Final exam'} · 100 points · Grading: A≥75 B≥65 C≥55 D≥45 E≥35
+              {paper.type === 'midterm' ? 'Midterm' : 'Final exam'} · 100 points · {grading}
             </span>
           </div>
+
+          {allReconstructed && (
+            <div className="exam-reconstructed-banner">
+              <strong>Reconstructed paper.</strong> The original question paper for this year was not available — only the grading-guide answer key. The prompts below are inferred from the answer text and may not match the actual exam wording. The model answers, however, are taken verbatim from the answer key. Use the May 2025 paper as the most reliable predictor.
+            </div>
+          )}
 
           {!hasContent ? (
             <PlaceholderMsg paperId={paper.id} />
@@ -193,7 +204,7 @@ function QuestionRow({ q, expanded, onToggle, allEntries }) {
   [q, allEntries]);
 
   return (
-    <div className="exam-question" data-q-id={q.id}>
+    <div className={'exam-question' + (q.reconstructed ? ' reconstructed' : '')} data-q-id={q.id}>
       <div
         className="exam-q-header"
         onClick={onToggle}
@@ -205,6 +216,9 @@ function QuestionRow({ q, expanded, onToggle, allEntries }) {
         <span className="exam-q-num">{q.questionNumber}</span>
         <span className="exam-q-prompt">{q.prompt}</span>
         <span className="exam-q-points">{q.points} pts</span>
+        {q.reconstructed && (
+          <span className="exam-q-reconstructed-badge" title="Prompt reconstructed from answer key — may not match the original wording">recon</span>
+        )}
         {q.topicTags && q.topicTags.length > 0 && (
           <div style={{ display:'flex', gap:4, flexShrink:0 }}>
             {q.topicTags.slice(0,2).map(t => (
