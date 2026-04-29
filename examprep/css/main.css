@@ -685,6 +685,129 @@ p { text-wrap: pretty; }
 }
 
 /* ── Flashcards ─────────────────────────────────────────── */
+
+.fc-mode-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--ink);
+  margin-bottom: 24px;
+}
+
+.fc-mode-btn {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  border: none;
+  background: transparent;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.fc-mode-btn + .fc-mode-btn { border-left: 1.5px solid var(--ink); }
+.fc-mode-btn.active { background: var(--ink); color: var(--paper); }
+
+.fc-sr-dashboard {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 14px 20px;
+  background: var(--paper-dark);
+  border: 1px solid var(--rule);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.fc-sr-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 56px;
+}
+
+.fc-sr-num {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+}
+.fc-sr-stat.overdue .fc-sr-num { color: var(--accent); }
+.fc-sr-stat.new     .fc-sr-num { color: var(--ink); }
+.fc-sr-stat.mastered .fc-sr-num { color: #2E7D32; }
+
+.fc-sr-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  white-space: nowrap;
+}
+
+.fc-reset-btn {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  background: none;
+  border: 1px solid var(--rule);
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color 0.12s, border-color 0.12s;
+}
+.fc-reset-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+.fc-rating-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  animation: ratingReveal 0.18s ease;
+}
+
+@keyframes ratingReveal {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fc-rating-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 6px;
+  border: 1.5px solid var(--rule);
+  background: var(--white);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: border-color 0.12s, background 0.12s;
+}
+.fc-rating-btn.hard:hover { border-color: var(--accent); background: var(--accent-pale); }
+.fc-rating-btn.good:hover { border-color: var(--ink);    background: var(--paper-dark); }
+.fc-rating-btn.easy:hover { border-color: #2E7D32;       background: #E8F5E9; }
+
+.fc-rating-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.fc-rating-btn.hard .fc-rating-label { color: var(--accent); }
+.fc-rating-btn.easy .fc-rating-label { color: #2E7D32; }
+
+.fc-rating-sub {
+  font-size: 10px;
+  color: var(--ink-light);
+}
+
+.fc-btn-flip {
+  flex: 1;
+}
+
 .flashcards-wrap {
   max-width: 780px;
   margin: 0 auto;
