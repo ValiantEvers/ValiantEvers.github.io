@@ -1,16 +1,16 @@
 {
-  "name": "Bar2Bar m BBL🍻",
+  "name": "Intervaller med bbl🏇",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 3.57,
-  "moving_time": 1230,
-  "elapsed_time": 7603,
-  "total_elevation_gain": 37.0,
-  "start_date": "2026-05-02T15:44:44Z",
-  "average_speed": 10.46,
-  "max_speed": 20.45,
-  "average_heartrate": 152.7,
-  "max_heartrate": 184.0,
+  "distance": 8.52,
+  "moving_time": 2898,
+  "elapsed_time": 3731,
+  "total_elevation_gain": 95.0,
+  "start_date": "2026-05-04T18:05:58Z",
+  "average_speed": 10.58,
+  "max_speed": 19.51,
+  "average_heartrate": 171.6,
+  "max_heartrate": 198.0,
   "suffer_score": null,
-  "id": 18348574155
+  "id": 18374612175
 }
