@@ -16,12 +16,14 @@ function QuizModule({ data, pendingQuizNav }) {
 
   const [mode, setMode] = useState(() => window.lsGet('gra6546_quiz_mode', 'all'));   // 'all' | 'tf' | 'mc'
   const [topic, setTopic] = useState(() => window.lsGet('gra6546_quiz_topic', null));
+  const [setFilter, setSetFilter] = useState(() => window.lsGet('gra6546_quiz_set', 'all')); // 'all' | '1' | '2'
   const [shuffleSeed, setShuffleSeed] = useState(0);
   const [revealed, setRevealed] = useState({});  // qId -> true
   const [picks, setPicks] = useState({});        // qId -> 'true'|'false'|'uncertain' or option index
 
   useEffect(() => { window.lsSet('gra6546_quiz_mode', mode); }, [mode]);
   useEffect(() => { window.lsSet('gra6546_quiz_topic', topic); }, [topic]);
+  useEffect(() => { window.lsSet('gra6546_quiz_set', setFilter); }, [setFilter]);
 
   // Deep-link from search palette: clear filters so the targeted question is
   // visible, mark it revealed, then scroll it into view.
@@ -30,6 +32,7 @@ function QuizModule({ data, pendingQuizNav }) {
     if (!id) return;
     setMode('all');
     setTopic(null);
+    setSetFilter('all');
     setRevealed(prev => ({ ...prev, [id]: true }));
     setTimeout(() => {
       const el = document.querySelector('[data-quiz-id="' + id + '"]');
@@ -40,11 +43,12 @@ function QuizModule({ data, pendingQuizNav }) {
   const filtered = useMemo(() => {
     let pool = all;
     if (mode !== 'all') pool = pool.filter(q => q.type === mode);
+    if (setFilter !== 'all') pool = pool.filter(q => String(q.set || 1) === setFilter);
     if (topic) pool = pool.filter(q => q.topic === topic);
     // re-shuffle on shuffleSeed bump
     return shuffle(pool);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [all, mode, topic, shuffleSeed]);
+  }, [all, mode, setFilter, topic, shuffleSeed]);
 
   const topicTags = useMemo(() => {
     const set = new Set(all.map(q => q.topic).filter(Boolean));
@@ -83,6 +87,15 @@ function QuizModule({ data, pendingQuizNav }) {
             <button key={v}
               onClick={() => { setMode(v); reset(); }}
               className={'quiz-mode-btn' + (mode === v ? ' active' : '')}
+            >{l}</button>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', gap: 0, border: '1px solid var(--rule)' }}>
+          {[['all', 'All sets'], ['1', 'Set 1'], ['2', 'Set 2']].map(([v, l]) => (
+            <button key={v}
+              onClick={() => { setSetFilter(v); reset(); }}
+              className={'quiz-mode-btn' + (setFilter === v ? ' active' : '')}
             >{l}</button>
           ))}
         </div>

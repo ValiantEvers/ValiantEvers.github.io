@@ -2,6 +2,7 @@
   {
     "id": "tf-2008-norway",
     "type": "tf",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "The 2008 financial crisis caused a solvency crisis in the Norwegian banking system.",
     "answer": "false",
@@ -10,6 +11,7 @@
   {
     "id": "tf-ifrs9-collateral",
     "type": "tf",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "In IFRS 9, the credit quality of a loan depends on the value of the collateral.",
     "answer": "false",
@@ -18,6 +20,7 @@
   {
     "id": "tf-deposit-insurance-mh",
     "type": "tf",
+    "set": 1,
     "topic": "deposit-insurance",
     "prompt": "Deposit insurance increases moral hazard in banking.",
     "answer": "true",
@@ -26,6 +29,7 @@
   {
     "id": "tf-haircut-volatility",
     "type": "tf",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "Higher repo haircuts reflect increased volatility in risk premiums.",
     "answer": "true",
@@ -34,6 +38,7 @@
   {
     "id": "tf-synthetic-funding",
     "type": "tf",
+    "set": 1,
     "topic": "securitisation",
     "prompt": "Synthetic securitisation provides funding for the originating bank.",
     "answer": "false",
@@ -42,6 +47,7 @@
   {
     "id": "tf-cds-synthetic",
     "type": "tf",
+    "set": 1,
     "topic": "securitisation",
     "prompt": "Credit default swaps (CDS) play a role in synthetic securitisation.",
     "answer": "true",
@@ -50,6 +56,7 @@
   {
     "id": "tf-bailout-taxpayer",
     "type": "tf",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "Bail-out is a measure taken by authorities to AVOID using taxpayers' money.",
     "answer": "false",
@@ -58,6 +65,7 @@
   {
     "id": "tf-derivatives-liquidity",
     "type": "tf",
+    "set": 1,
     "topic": "derivatives-fx",
     "prompt": "Hedging long-term cash flows with derivatives reduces liquidity risk.",
     "answer": "false",
@@ -66,6 +74,7 @@
   {
     "id": "tf-mh-direction",
     "type": "tf",
+    "set": 1,
     "topic": "asymmetric-info",
     "prompt": "Moral hazard is a situation where the lender takes an action to the detriment of the borrower.",
     "answer": "false",
@@ -74,6 +83,7 @@
   {
     "id": "tf-deposit-insurance-mitigates",
     "type": "tf",
+    "set": 1,
     "topic": "deposit-insurance",
     "prompt": "Deposit insurance mitigates moral hazard problems in banking.",
     "answer": "false",
@@ -82,6 +92,7 @@
   {
     "id": "tf-impairment-earnings",
     "type": "tf",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "Lower impairment on loans increases banks' earnings.",
     "answer": "true",
@@ -90,6 +101,7 @@
   {
     "id": "tf-balloon",
     "type": "tf",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "The balloon of a loan is the amount the borrower is entitled to draw down.",
     "answer": "false",
@@ -98,6 +110,7 @@
   {
     "id": "tf-collateral-stage2",
     "type": "tf",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "A lower collateral value will trigger a loan to be moved from stage 1 to stage 2 only if it indicates that the probability of default has increased.",
     "answer": "true",
@@ -106,6 +119,7 @@
   {
     "id": "tf-capital-money-markets",
     "type": "tf",
+    "set": 1,
     "topic": "bank-models",
     "prompt": "The distinction between capital and money markets is due to the liquidity of the traded instruments.",
     "answer": "false",
@@ -114,6 +128,7 @@
   {
     "id": "tf-maturity-trans-liquidity",
     "type": "tf",
+    "set": 1,
     "topic": "bank-models",
     "prompt": "Maturity transformation creates liquidity or funding risk for the bank.",
     "answer": "true",
@@ -122,6 +137,7 @@
   {
     "id": "tf-impairment-reduce-earnings",
     "type": "tf",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "Reduced impairments mechanically increase a bank's earnings.",
     "answer": "true",
@@ -130,6 +146,7 @@
   {
     "id": "tf-haircut-leverage",
     "type": "tf",
+    "set": 1,
     "topic": "bank-models",
     "prompt": "Higher repo haircuts reduce the gearing achievable using the underlying securities.",
     "answer": "true",
@@ -138,6 +155,7 @@
   {
     "id": "tf-cap-req-risk",
     "type": "tf",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "Higher regulatory capital requirements always reduce a bank's risk-taking.",
     "answer": "uncertain",
@@ -146,6 +164,7 @@
   {
     "id": "tf-deleveraging-credit-crunch",
     "type": "tf",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "Bank deleveraging tends to cause credit crunches.",
     "answer": "true",
@@ -154,6 +173,7 @@
   {
     "id": "tf-opacity-2008",
     "type": "tf",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "Transparency of financial-institution balance sheets played little role in the 2008 crisis.",
     "answer": "false",
@@ -162,6 +182,7 @@
   {
     "id": "tf-2023-common-driver",
     "type": "tf",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "The 2022–23 banking-sector turbulence had a common driver across SVB, Credit Suisse, and others.",
     "answer": "true",
@@ -170,6 +191,7 @@
   {
     "id": "tf-spread-fundamentals",
     "type": "tf",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "A widening of corporate credit spreads necessarily reflects deteriorating borrower fundamentals.",
     "answer": "uncertain",
@@ -178,15 +200,16 @@
   {
     "id": "tf-adverse-similar-terms",
     "type": "tf",
+    "set": 1,
     "topic": "asymmetric-info",
     "prompt": "Adverse selection might happen when all customers are offered similar terms.",
     "answer": "true",
     "explanation": "Pooled pricing causes low-risk borrowers (who pay more than their risk warrants) to exit, leaving the lender with a disproportionately risky pool. This is the Akerlof/Stiglitz-Weiss result in a credit-market form."
   },
-
   {
     "id": "mc-qat-dimensions",
     "type": "mc",
+    "set": 1,
     "topic": "bank-models",
     "prompt": "Which of the following is NOT one of the five dimensions of Qualitative Asset Transformation?",
     "options": [
@@ -202,24 +225,39 @@
   {
     "id": "mc-cet1-min",
     "type": "mc",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "What is the Basel III minimum CET1 requirement (Pillar 1)?",
-    "options": ["2.0%", "4.5%", "6.0%", "8.0%", "10.5%"],
+    "options": [
+      "2.0%",
+      "4.5%",
+      "6.0%",
+      "8.0%",
+      "10.5%"
+    ],
     "answerIndex": 1,
     "explanation": "Basel III sets the Pillar 1 CET1 minimum at 4.5% of RWA. Tier 1 minimum is 6%, total capital 8%. On top of these, banks face conservation, countercyclical, systemic-risk, and O-SII/G-SIB buffers (all CET1)."
   },
   {
     "id": "mc-leverage-ratio",
     "type": "mc",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "What is the Basel III leverage ratio minimum?",
-    "options": ["1%", "2%", "3%", "5%", "8%"],
+    "options": [
+      "1%",
+      "2%",
+      "3%",
+      "5%",
+      "8%"
+    ],
     "answerIndex": 2,
     "explanation": "The Basel III leverage ratio = Tier 1 / Total Exposures ≥ 3%. It's a non-risk-sensitive backstop against RWA gaming and model failure — separate from the risk-weighted capital ratios."
   },
   {
     "id": "mc-ifrs9-stage-trigger",
     "type": "mc",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "What triggers a loan's migration from IFRS 9 Stage 1 to Stage 2?",
     "options": [
@@ -235,6 +273,7 @@
   {
     "id": "mc-el-formula",
     "type": "mc",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "Expected Loss is computed as:",
     "options": [
@@ -250,6 +289,7 @@
   {
     "id": "mc-cip-formula",
     "type": "mc",
+    "set": 1,
     "topic": "derivatives-fx",
     "prompt": "Covered Interest Parity (CIP) states:",
     "options": [
@@ -265,6 +305,7 @@
   {
     "id": "mc-bail-in-waterfall",
     "type": "mc",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "In the BRRD bail-in waterfall, which absorbs losses FIRST?",
     "options": [
@@ -280,6 +321,7 @@
   {
     "id": "mc-folf-trigger",
     "type": "mc",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "Which of the following is NOT a BRRD trigger for \"failing or likely to fail\" (FOLF)?",
     "options": [
@@ -295,6 +337,7 @@
   {
     "id": "mc-resolution-tools",
     "type": "mc",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "Which is NOT one of the four BRRD resolution tools?",
     "options": [
@@ -310,6 +353,7 @@
   {
     "id": "mc-credit-hierarchy-norway",
     "type": "mc",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "Which has the BEST priority (paid first) in the Norwegian creditor hierarchy?",
     "options": [
@@ -325,6 +369,7 @@
   {
     "id": "mc-too-big-to-fail",
     "type": "mc",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "Why is bail-in considered a remedy to the \"too big to fail\" problem?",
     "options": [
@@ -340,6 +385,7 @@
   {
     "id": "mc-2008-trigger",
     "type": "mc",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "Which event is widely regarded as the START of the global financial crisis?",
     "options": [
@@ -355,6 +401,7 @@
   {
     "id": "mc-aig",
     "type": "mc",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "Why did AIG nearly collapse in September 2008?",
     "options": [
@@ -370,6 +417,7 @@
   {
     "id": "mc-svb-cause",
     "type": "mc",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "What was the primary cause of SVB's collapse in March 2023?",
     "options": [
@@ -385,6 +433,7 @@
   {
     "id": "mc-credit-suisse",
     "type": "mc",
+    "set": 1,
     "topic": "bank-crises",
     "prompt": "What was controversial about the Credit Suisse / UBS resolution in March 2023?",
     "options": [
@@ -400,6 +449,7 @@
   {
     "id": "mc-stiglitz-weiss",
     "type": "mc",
+    "set": 1,
     "topic": "asymmetric-info",
     "prompt": "Why does the Stiglitz–Weiss model predict credit rationing rather than higher rates?",
     "options": [
@@ -415,6 +465,7 @@
   {
     "id": "mc-akerlof",
     "type": "mc",
+    "set": 1,
     "topic": "asymmetric-info",
     "prompt": "In Akerlof's lemons model, what is the equilibrium outcome under asymmetric information?",
     "options": [
@@ -430,6 +481,7 @@
   {
     "id": "mc-diamond-dybvig",
     "type": "mc",
+    "set": 1,
     "topic": "foundational-models",
     "prompt": "In Diamond–Dybvig (1983), what makes the bank run a self-fulfilling panic?",
     "options": [
@@ -445,6 +497,7 @@
   {
     "id": "mc-merton-1977",
     "type": "mc",
+    "set": 1,
     "topic": "deposit-insurance",
     "prompt": "What does Merton (1977) tell us about deposit insurance?",
     "options": [
@@ -460,6 +513,7 @@
   {
     "id": "mc-fx-swap-mechanic",
     "type": "mc",
+    "set": 1,
     "topic": "derivatives-fx",
     "prompt": "What is the economic equivalent of an FX swap?",
     "options": [
@@ -475,6 +529,7 @@
   {
     "id": "mc-ccbs-vs-fx",
     "type": "mc",
+    "set": 1,
     "topic": "derivatives-fx",
     "prompt": "What is the key difference between an FX swap and a Cross-Currency Basis Swap (CCBS)?",
     "options": [
@@ -490,6 +545,7 @@
   {
     "id": "mc-march-2020",
     "type": "mc",
+    "set": 1,
     "topic": "derivatives-fx",
     "prompt": "Which mechanism contributed MOST to NOK weakening in March 2020?",
     "options": [
@@ -505,15 +561,23 @@
   {
     "id": "mc-securitisation-tranches",
     "type": "mc",
+    "set": 1,
     "topic": "securitisation",
     "prompt": "In a typical securitisation waterfall, which tranche is paid first (and therefore takes the lowest yield)?",
-    "options": ["Equity tranche", "Mezzanine tranche", "Senior tranche", "First-loss tranche", "Subordinated tranche"],
+    "options": [
+      "Equity tranche",
+      "Mezzanine tranche",
+      "Senior tranche",
+      "First-loss tranche",
+      "Subordinated tranche"
+    ],
     "answerIndex": 2,
     "explanation": "The senior tranche is paid first (the AAA-rated tranche in most structures) and takes the lowest yield. The equity / first-loss tranche absorbs initial defaults and earns the highest yield as compensation. Mezzanine sits in between."
   },
   {
     "id": "mc-cdo-squared",
     "type": "mc",
+    "set": 1,
     "topic": "securitisation",
     "prompt": "What is a CDO-squared?",
     "options": [
@@ -529,6 +593,7 @@
   {
     "id": "mc-esg-physical",
     "type": "mc",
+    "set": 1,
     "topic": "esg",
     "prompt": "Which is an example of CHRONIC physical climate risk (as opposed to acute)?",
     "options": [
@@ -544,6 +609,7 @@
   {
     "id": "mc-esg-transition",
     "type": "mc",
+    "set": 1,
     "topic": "esg",
     "prompt": "What is a TRANSITION risk for a financial institution?",
     "options": [
@@ -559,24 +625,39 @@
   {
     "id": "mc-eu-coverage",
     "type": "mc",
+    "set": 1,
     "topic": "deposit-insurance",
     "prompt": "What is the standard EU/EEA deposit-insurance coverage limit?",
-    "options": ["€10,000", "€50,000", "€100,000", "€250,000", "€1,000,000"],
+    "options": [
+      "€10,000",
+      "€50,000",
+      "€100,000",
+      "€250,000",
+      "€1,000,000"
+    ],
     "answerIndex": 2,
     "explanation": "EU/EEA standard is €100,000 per depositor per bank under the Deposit Guarantee Schemes Directive. Norway has a higher coverage of NOK 2,000,000 per depositor per bank — significantly above the EU floor."
   },
   {
     "id": "mc-norway-coverage",
     "type": "mc",
+    "set": 1,
     "topic": "deposit-insurance",
     "prompt": "What is the Norwegian deposit-insurance coverage per customer per bank?",
-    "options": ["NOK 100,000", "NOK 500,000", "NOK 2,000,000", "NOK 5,000,000", "Unlimited"],
+    "options": [
+      "NOK 100,000",
+      "NOK 500,000",
+      "NOK 2,000,000",
+      "NOK 5,000,000",
+      "Unlimited"
+    ],
     "answerIndex": 2,
     "explanation": "Norway's coverage is NOK 2,000,000 per depositor per bank — significantly higher than the EU's €100,000 floor. Funded by ex-ante contributions to the Norwegian Banks' Guarantee Fund."
   },
   {
     "id": "mc-lcr-purpose",
     "type": "mc",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "What does the Liquidity Coverage Ratio (LCR) measure?",
     "options": [
@@ -592,6 +673,7 @@
   {
     "id": "mc-nsfr-purpose",
     "type": "mc",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "What does the Net Stable Funding Ratio (NSFR) measure?",
     "options": [
@@ -607,42 +689,71 @@
   {
     "id": "mc-may-2025-bail-in",
     "type": "mc",
+    "set": 1,
     "topic": "recovery-resolution",
     "prompt": "Lilledal Savingsbank (May 2025 Q6c-d): equity reduced to 20, REA 700, target CET1 12%. After bail-in conversion of all AT1 (10) and all T2 (20), how much of the non-preferred senior bonds must be converted to equity to reach the target?",
-    "options": ["0", "20", "34", "60", "100"],
+    "options": [
+      "0",
+      "20",
+      "34",
+      "60",
+      "100"
+    ],
     "answerIndex": 2,
     "explanation": "Needed CET1 = 12% × 700 = 84. Sources: 20 (old equity) + 10 (AT1) + 20 (T2) = 50, leaving a shortfall of 34. So 34 of the 100 non-preferred senior bonds are converted. Senior unsecured and deposits are NOT touched. Total CET1 = 84 ✓."
   },
   {
     "id": "mc-fx-swap-calc",
     "type": "mc",
+    "set": 1,
     "topic": "derivatives-fx",
     "prompt": "FX swap pricing. Spot = 1.65 NOK/DKK, r_NOK = 4% p.a., r_DKK = 2% p.a., 6-month tenor. What is the forward rate?",
-    "options": ["1.63 NOK/DKK", "1.65 NOK/DKK", "1.67 NOK/DKK", "1.70 NOK/DKK", "1.99 NOK/DKK"],
+    "options": [
+      "1.63 NOK/DKK",
+      "1.65 NOK/DKK",
+      "1.67 NOK/DKK",
+      "1.70 NOK/DKK",
+      "1.99 NOK/DKK"
+    ],
     "answerIndex": 2,
     "explanation": "F = S₀ × (1 + r_quote × t) / (1 + r_base × t) = 1.65 × (1 + 0.04 × 0.5) / (1 + 0.02 × 0.5) = 1.65 × 1.02/1.01 ≈ 1.67. Swap points = 0.02 = 2 points (200 pips)."
   },
   {
     "id": "mc-cet1-calc",
     "type": "mc",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "Lilledal Savingsbank (May 2025 Q6a). Credit RWA 605, market REA 15, operational REA 75, equity (CET1) = 100. What is the CET1 ratio?",
-    "options": ["10.0%", "13.6%", "14.4%", "16.5%", "18.7%"],
+    "options": [
+      "10.0%",
+      "13.6%",
+      "14.4%",
+      "16.5%",
+      "18.7%"
+    ],
     "answerIndex": 2,
     "explanation": "Total REA = 605 + 15 + 75 = 695. CET1 ratio = 100 / 695 = 14.4%. T1 ratio = 110/695 = 15.8% (after adding hybrid capital 10). Total capital ratio = 130/695 = 18.7% (after adding T2 subordinated 20)."
   },
   {
     "id": "mc-impairment-stage3",
     "type": "mc",
+    "set": 1,
     "topic": "credit-risk",
     "prompt": "A loan with EAD = 100 and LGD = 10% migrates to IFRS 9 Stage 3 (default). What is the impairment in Stage 3?",
-    "options": ["1.0", "10.0", "12.0", "20.0", "100.0"],
+    "options": [
+      "1.0",
+      "10.0",
+      "12.0",
+      "20.0",
+      "100.0"
+    ],
     "answerIndex": 1,
     "explanation": "Stage 3 = default = PD assumed 100%. Impairment = EAD × PD × LGD = 100 × 100% × 10% = 10. Book value = 100 − 10 = 90. (Source: May 2025 Q4a, Loan 1 Year 2.)"
   },
   {
     "id": "mc-2008-reform",
     "type": "mc",
+    "set": 1,
     "topic": "bank-regulation",
     "prompt": "Which is NOT a post-2008 regulatory reform?",
     "options": [
