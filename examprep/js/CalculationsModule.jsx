@@ -6,10 +6,13 @@ const CATEGORIES = [
   { id: 'impairment-ifrs9',   label: 'Impairment / IFRS 9',           short: 'Impairment' },
   { id: 'rwa',                label: 'Risk-Weighted Assets (REA)',    short: 'RWA' },
   { id: 'capital-ratios',     label: 'Capital Ratios — CET1 / T1 / Total', short: 'Capital Ratios' },
+  { id: 'liquidity-reg',      label: 'Liquidity & Leverage Ratios',   short: 'LCR / NSFR / Lev / MREL' },
   { id: 'bailin',             label: 'Bail-in Waterfall',             short: 'Bail-in' },
-  { id: 'fx-swap',            label: 'FX Swap & Covered Interest Parity', short: 'FX Swap' },
+  { id: 'fx-swap',            label: 'FX Swap, CIP & Cross-Currency Basis', short: 'FX Swap & Basis' },
   { id: 'credit-risk-models', label: 'Credit-Risk Modelling',         short: 'Credit-Risk Models' },
+  { id: 'tranche-math',       label: 'CDO Tranche Math',              short: 'Tranche Math' },
   { id: 'diamond-dybvig',     label: 'Diamond-Dybvig Deposit Contract', short: 'Diamond-Dybvig' },
+  { id: 'theory-models',      label: 'Theory Models — Merton DI, Money, Spirals', short: 'Theory Models' },
 ];
 
 const DIFFICULTY_ORDER = { easy: 1, medium: 2, hard: 3 };
@@ -19,10 +22,12 @@ function CalculationsModule({ data, pendingCalcNav }) {
 
   const [activeCategory, setActiveCategory] = useState(() => window.lsGet('gra6546_calc_category', null));
   const [difficulty,     setDifficulty]     = useState(() => window.lsGet('gra6546_calc_difficulty', null));
+  const [setFilter,      setSetFilter]      = useState(() => window.lsGet('gra6546_calc_set', 'all')); // 'all' | '1' | '2'
   const [revealedIds,    setRevealedIds]    = useState({}); // exerciseId -> bool
 
   useEffect(() => { window.lsSet('gra6546_calc_category',  activeCategory); }, [activeCategory]);
   useEffect(() => { window.lsSet('gra6546_calc_difficulty', difficulty);    }, [difficulty]);
+  useEffect(() => { window.lsSet('gra6546_calc_set',        setFilter);     }, [setFilter]);
 
   // Honour deep-link from search palette: clear filters so the targeted card
   // is in view, reveal its solution, and scroll to it.
@@ -33,6 +38,7 @@ function CalculationsModule({ data, pendingCalcNav }) {
     if (!target) return;
     setActiveCategory(null);
     setDifficulty(null);
+    setSetFilter('all');
     setRevealedIds(prev => ({ ...prev, [id]: true }));
     setTimeout(() => {
       const el = document.querySelector('[data-calc-id="' + id + '"]');
@@ -44,13 +50,14 @@ function CalculationsModule({ data, pendingCalcNav }) {
     let pool = all;
     if (activeCategory) pool = pool.filter(e => e.category === activeCategory);
     if (difficulty)     pool = pool.filter(e => e.difficulty === difficulty);
+    if (setFilter !== 'all') pool = pool.filter(e => String(e.set || 1) === setFilter);
     return pool.slice().sort((a, b) => {
       const da = DIFFICULTY_ORDER[a.difficulty] || 99;
       const db = DIFFICULTY_ORDER[b.difficulty] || 99;
       if (da !== db) return da - db;
       return (a.id || '').localeCompare(b.id || '');
     });
-  }, [all, activeCategory, difficulty]);
+  }, [all, activeCategory, difficulty, setFilter]);
 
   const counts = useMemo(() => {
     const c = {};
@@ -104,7 +111,7 @@ function CalculationsModule({ data, pendingCalcNav }) {
         })}
       </div>
 
-      {/* Difficulty filter + meta */}
+      {/* Difficulty filter + set toggle + meta */}
       <div className="calc-controls">
         <div style={{ display:'flex', gap:0, border:'1px solid var(--rule)' }}>
           {[['', 'All levels'], ['easy', 'Easy'], ['medium', 'Medium'], ['hard', 'Hard']].map(([v, l]) => (
@@ -112,6 +119,16 @@ function CalculationsModule({ data, pendingCalcNav }) {
               key={v || 'all'}
               onClick={() => setDifficulty(v || null)}
               className={'calc-diff-btn' + ((difficulty || '') === v ? ' active' : '')}
+            >{l}</button>
+          ))}
+        </div>
+
+        <div style={{ display:'flex', gap:0, border:'1px solid var(--rule)' }}>
+          {[['all', 'All sets'], ['1', 'Set 1'], ['2', 'Set 2']].map(([v, l]) => (
+            <button
+              key={v}
+              onClick={() => setSetFilter(v)}
+              className={'calc-diff-btn' + (setFilter === v ? ' active' : '')}
             >{l}</button>
           ))}
         </div>
