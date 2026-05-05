@@ -2,11 +2,21 @@
 (function() {
 const { useState, useMemo, useEffect, useRef } = React;
 
-const SR_KEY   = 'gra6546_fc_sr';
-const MODE_KEY = 'gra6546_fc_mode';
+const SR_KEY     = 'gra6546_fc_sr';
+const MODE_KEY   = 'gra6546_fc_mode';
+const BACKUP_KEY = 'gra6546_flashcards_pre_exam_backup';
 
-const INTERVALS     = [1, 3, 7, 14, 30, 90];
-const MASTERED_DAYS = 21;
+// ── EXAM MODE intervals (May 13 final) ─────────────────────
+// Pre-exam-mode default was [1, 3, 7, 14, 30, 90] days — built for
+// long-term retention. These are recalibrated for an 8-day window so
+// every card cycles 4-6 times before the exam.
+const MIN_AGAIN    = 5;          // 5 minutes (relearn within session)
+const MIN_HARD     = 60;         // 1 hour
+const MIN_GOOD_NEW = 1 * 24 * 60;    // 1 day
+const MIN_GOOD_CAP = 3 * 24 * 60;    // capped at 3 days
+const MIN_EASY_NEW = 2 * 24 * 60;    // 2 days
+const MIN_EASY_CAP = 4 * 24 * 60;    // capped at 4 days
+const MIN_MASTERED = 4 * 24 * 60;    // mastered = at Easy cap (4 days)
 
 // ── SR helpers ──────────────────────────────────────────────
 
@@ -14,43 +24,59 @@ function todayStr() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function addDays(n) {
-  const d = new Date();
-  d.setDate(d.getDate() + n);
-  return d.toISOString().slice(0, 10);
+function dueAtFromMinutes(min) {
+  return new Date(Date.now() + min * 60 * 1000).toISOString();
 }
 
-function nextInterval(repetitions, multiplier) {
-  const idx = Math.min(Math.max(repetitions, 0), INTERVALS.length - 1);
-  return Math.max(1, Math.ceil(INTERVALS[idx] * multiplier));
+function nextIntervalMin(prevMin, prevRating, rating) {
+  if (rating === 'again') return MIN_AGAIN;
+  if (rating === 'hard')  return MIN_HARD;
+  if (rating === 'good') {
+    if (prevRating === 'good' && prevMin >= MIN_GOOD_NEW) {
+      return Math.min(prevMin * 2, MIN_GOOD_CAP);
+    }
+    return MIN_GOOD_NEW;
+  }
+  if (rating === 'easy') {
+    if (prevRating === 'easy' && prevMin >= MIN_EASY_NEW) {
+      return Math.min(prevMin * 2, MIN_EASY_CAP);
+    }
+    return MIN_EASY_NEW;
+  }
+  return MIN_GOOD_NEW;
 }
 
 function applySR(srData, cardId, rating) {
-  const cur = srData[cardId] || { repetitions: 0 };
-  let reps, interval;
-  if (rating === 'hard') {
-    reps     = 0;
-    interval = 1;
-  } else if (rating === 'good') {
-    reps     = cur.repetitions + 1;
-    interval = nextInterval(reps, 1.0);
-  } else {                          // easy
-    reps     = cur.repetitions + 2;
-    interval = nextInterval(reps, 1.5);
-  }
+  const cur = srData[cardId] || {};
+  const prevMin    = cur.intervalMin || 0;
+  const prevRating = cur.lastRating  || null;
+  const intervalMin = nextIntervalMin(prevMin, prevRating, rating);
   return {
     ...srData,
-    [cardId]: { interval, repetitions: reps, dueDate: addDays(interval), lastRating: rating },
+    [cardId]: { intervalMin, dueAt: dueAtFromMinutes(intervalMin), lastRating: rating },
   };
 }
 
 function previewIntervals(srData, cardId) {
-  const reps = (srData[cardId] || { repetitions: 0 }).repetitions;
+  const cur = srData[cardId] || {};
+  const prevMin    = cur.intervalMin || 0;
+  const prevRating = cur.lastRating  || null;
   return {
-    hard: 1,
-    good: nextInterval(reps + 1, 1.0),
-    easy: nextInterval(reps + 2, 1.5),
+    again: MIN_AGAIN,
+    hard:  MIN_HARD,
+    good:  nextIntervalMin(prevMin, prevRating, 'good'),
+    easy:  nextIntervalMin(prevMin, prevRating, 'easy'),
   };
+}
+
+function formatInterval(min) {
+  if (min < 60) return min + ' min';
+  if (min < 24 * 60) {
+    const h = Math.round(min / 60);
+    return h + (h === 1 ? ' hour' : ' hours');
+  }
+  const days = Math.round(min / (24 * 60));
+  return days + (days === 1 ? ' day' : ' days');
 }
 
 // ── Deck builders ───────────────────────────────────────────
@@ -67,17 +93,16 @@ function buildBaseDeck(glossary, flashcards, activeTags) {
 }
 
 function buildSRDeck(baseDeck, srData) {
-  const today = todayStr();
-  const overdue = [], dueToday = [], newCards = [], future = [];
+  const now = Date.now();
+  const overdue = [], newCards = [], future = [];
   baseDeck.forEach(card => {
     const sr = srData[card.id];
-    if (!sr || !sr.dueDate)          newCards.push(card);
-    else if (sr.dueDate < today)     overdue.push(card);
-    else if (sr.dueDate === today)   dueToday.push(card);
-    else                             future.push(card);
+    if (!sr || !sr.dueAt) newCards.push(card);
+    else if (new Date(sr.dueAt).getTime() <= now) overdue.push(card);
+    else future.push(card);
   });
-  overdue.sort((a, b) => (srData[a.id].dueDate < srData[b.id].dueDate ? -1 : 1));
-  return [...overdue, ...dueToday, ...newCards, ...future];
+  overdue.sort((a, b) => (srData[a.id].dueAt < srData[b.id].dueAt ? -1 : 1));
+  return [...overdue, ...newCards, ...future];
 }
 
 // ── Component ───────────────────────────────────────────────
@@ -85,7 +110,17 @@ function buildSRDeck(baseDeck, srData) {
 function FlashcardsModule({ data, pendingFlashcardNav }) {
   const { glossary = [], flashcards = [] } = data;
   const [activeTags, setActiveTags]   = useState([]);
-  const [srData,     setSrData]       = useState(() => window.lsGet(SR_KEY, {}));
+  const [srData,     setSrData]       = useState(() => {
+    // One-time exam-mode migration: if the backup hasn't been written yet,
+    // copy current SR state to the backup key, then start fresh.
+    if (window.lsGet(BACKUP_KEY, null) === null) {
+      const prior = window.lsGet(SR_KEY, {});
+      window.lsSet(BACKUP_KEY, prior);
+      window.lsSet(SR_KEY, {});
+      return {};
+    }
+    return window.lsGet(SR_KEY, {});
+  });
   const [mode,       setMode]         = useState(() => window.lsGet(MODE_KEY, 'sr'));
   const [idx,        setIdx]          = useState(0);
   const [flipped,    setFlipped]      = useState(false);
@@ -93,8 +128,6 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
   const [swipeStartY, setSwipeStartY] = useState(null);
   const cardRef = useRef(null);
   const consumedNavKeyRef = useRef(0);
-
-  const today = todayStr();
 
   const baseDeck = useMemo(
     () => buildBaseDeck(glossary, flashcards, activeTags),
@@ -114,14 +147,15 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
 
   const srStats = useMemo(() => {
     let overdue = 0, newCount = 0, mastered = 0;
+    const now = Date.now();
     fullDeck.forEach(card => {
       const sr = srData[card.id];
-      if (!sr || !sr.dueDate)      newCount++;
-      else if (sr.dueDate <= today) overdue++;
-      if (sr && sr.interval >= MASTERED_DAYS) mastered++;
+      if (!sr || !sr.dueAt) newCount++;
+      else if (new Date(sr.dueAt).getTime() <= now) overdue++;
+      if (sr && sr.intervalMin >= MIN_MASTERED) mastered++;
     });
     return { overdue, newCount, mastered };
-  }, [fullDeck, srData, today]);
+  }, [fullDeck, srData]);
 
   const safeIdx = deck.length > 0 ? idx % deck.length : 0;
   const card    = deck[safeIdx] || null;
@@ -147,7 +181,7 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
   }, [pendingFlashcardNav, deck]);
 
   const intervals = useMemo(
-    () => card ? previewIntervals(srData, card.id) : { hard: 1, good: 1, easy: 2 },
+    () => card ? previewIntervals(srData, card.id) : { again: MIN_AGAIN, hard: MIN_HARD, good: MIN_GOOD_NEW, easy: MIN_EASY_NEW },
     [card, srData],
   );
 
@@ -196,9 +230,10 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
       if (e.key === 'ArrowRight')  navigate(1);
       if (e.key === 'ArrowLeft')   navigate(-1);
       if (flipped) {
-        if (e.key === '1') rate('hard');
-        if (e.key === '2') rate('good');
-        if (e.key === '3') rate('easy');
+        if (e.key === '1') rate('again');
+        if (e.key === '2') rate('hard');
+        if (e.key === '3') rate('good');
+        if (e.key === '4') rate('easy');
       }
     }
     window.addEventListener('keydown', onKey);
@@ -236,12 +271,24 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
     );
   }
 
-  function dayLabel(n) {
-    return n === 1 ? '+1 day' : '+' + n + ' days';
-  }
-
   return (
     <div className="flashcards-wrap">
+
+      {/* ── Exam-mode indicator (remove after 2026-05-13) ── */}
+      <div style={{
+        display: 'inline-block',
+        padding: '4px 10px',
+        marginBottom: 14,
+        border: '1px solid var(--accent)',
+        background: 'var(--accent-pale, #FCE9E9)',
+        color: 'var(--accent)',
+        fontSize: 10,
+        fontWeight: 700,
+        letterSpacing: '0.10em',
+        textTransform: 'uppercase',
+      }}>
+        Exam mode · final on 13 May 2026 · intervals shortened to 5 min / 1 h / 1–3 d / 2–4 d
+      </div>
 
       {/* ── Mode toggle ── */}
       <div className="fc-mode-toggle">
@@ -297,7 +344,7 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
         </div>
         {card && srData[card.id] && (
           <span style={{ fontSize: 11, color: 'var(--ink-light)' }}>
-            Interval: {srData[card.id].interval} day{srData[card.id].interval !== 1 ? 's' : ''}
+            Interval: {formatInterval(srData[card.id].intervalMin || 0)}
           </span>
         )}
       </div>
@@ -343,17 +390,25 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
       {/* ── Rating buttons (appear after flip) ── */}
       {card && flipped && (
         <div className="fc-rating-row">
+          <button
+            className="fc-rating-btn hard"
+            onClick={() => rate('again')}
+            style={{ borderColor: 'var(--accent)', background: 'var(--accent-pale, #FCE9E9)' }}
+          >
+            <span className="fc-rating-label" style={{ color: 'var(--accent)' }}>Again</span>
+            <span className="fc-rating-sub">{formatInterval(intervals.again)}</span>
+          </button>
           <button className="fc-rating-btn hard" onClick={() => rate('hard')}>
             <span className="fc-rating-label">Hard</span>
-            <span className="fc-rating-sub">{dayLabel(intervals.hard)}</span>
+            <span className="fc-rating-sub">{formatInterval(intervals.hard)}</span>
           </button>
           <button className="fc-rating-btn good" onClick={() => rate('good')}>
             <span className="fc-rating-label">Good</span>
-            <span className="fc-rating-sub">{dayLabel(intervals.good)}</span>
+            <span className="fc-rating-sub">{formatInterval(intervals.good)}</span>
           </button>
           <button className="fc-rating-btn easy" onClick={() => rate('easy')}>
             <span className="fc-rating-label">Easy</span>
-            <span className="fc-rating-sub">{dayLabel(intervals.easy)}</span>
+            <span className="fc-rating-sub">{formatInterval(intervals.easy)}</span>
           </button>
         </div>
       )}
@@ -372,9 +427,10 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
         <span><kbd>Space</kbd> flip</span>
         <span><kbd>→</kbd> next</span>
         <span><kbd>←</kbd> prev</span>
-        <span><kbd>1</kbd> hard</span>
-        <span><kbd>2</kbd> good</span>
-        <span><kbd>3</kbd> easy</span>
+        <span><kbd>1</kbd> again</span>
+        <span><kbd>2</kbd> hard</span>
+        <span><kbd>3</kbd> good</span>
+        <span><kbd>4</kbd> easy</span>
       </div>
 
       <div style={{ marginTop:16, textAlign:'center', fontSize:11, color:'var(--ink-light)' }}>
