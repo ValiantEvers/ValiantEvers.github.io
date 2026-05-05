@@ -4,6 +4,7 @@ const { useState, useMemo, useEffect, useRef } = React;
 
 const SR_KEY     = 'gra6546_fc_sr';
 const MODE_KEY   = 'gra6546_fc_mode';
+const TIER_KEY   = 'gra6546_fc_tier';
 const BACKUP_KEY = 'gra6546_flashcards_pre_exam_backup';
 
 // ── EXAM MODE intervals (May 13 final) ─────────────────────
@@ -81,11 +82,23 @@ function formatInterval(min) {
 
 // ── Deck builders ───────────────────────────────────────────
 
-function buildBaseDeck(glossary, flashcards, activeTags) {
+function buildBaseDeck(glossary, flashcards, activeTags, tierFilter) {
   const auto = glossary
     .filter(e => e.flashcardBack)
-    .map(e => ({ id: 'auto-' + e.id, front: e.term, back: e.flashcardBack, tags: e.tags || [] }));
+    .map(e => ({
+      id: 'auto-' + e.id,
+      front: e.term,
+      back: e.flashcardBack,
+      tags: e.tags || [],
+      tier: e.tier || null,
+      triage_reason: e.triage_reason || null,
+    }));
   let deck = [...auto, ...(flashcards || [])];
+  // Tier filter — drops are excluded from every view.
+  // tierFilter: 'core' | 'nice' | 'all'  (where 'all' = core + nice; 'drop' is never shown)
+  deck = deck.filter(c => c.tier !== 'drop');
+  if (tierFilter === 'core') deck = deck.filter(c => c.tier === 'core');
+  if (tierFilter === 'nice') deck = deck.filter(c => c.tier === 'nice');
   if (activeTags.length > 0) {
     deck = deck.filter(c => activeTags.some(t => (c.tags || []).includes(t)));
   }
@@ -122,6 +135,9 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
     return window.lsGet(SR_KEY, {});
   });
   const [mode,       setMode]         = useState(() => window.lsGet(MODE_KEY, 'sr'));
+  const [tierFilter, setTierFilter]   = useState(() => window.lsGet(TIER_KEY, 'core')); // 'core' | 'nice' | 'all'
+
+  useEffect(() => { window.lsSet(TIER_KEY, tierFilter); }, [tierFilter]);
   const [idx,        setIdx]          = useState(0);
   const [flipped,    setFlipped]      = useState(false);
   const [swipeStartX, setSwipeStartX] = useState(null);
@@ -130,8 +146,8 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
   const consumedNavKeyRef = useRef(0);
 
   const baseDeck = useMemo(
-    () => buildBaseDeck(glossary, flashcards, activeTags),
-    [glossary, flashcards, activeTags],
+    () => buildBaseDeck(glossary, flashcards, activeTags, tierFilter),
+    [glossary, flashcards, activeTags, tierFilter],
   );
 
   const deck = useMemo(
@@ -139,9 +155,9 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
     [mode, baseDeck, srData],
   );
 
-  // Stats run over the full (unfiltered) deck
+  // Stats run over the full (untag-filtered, untier-filtered, drop-excluded) deck
   const fullDeck = useMemo(
-    () => buildBaseDeck(glossary, flashcards, []),
+    () => buildBaseDeck(glossary, flashcards, [], 'all'),
     [glossary, flashcards],
   );
 
@@ -300,6 +316,17 @@ function FlashcardsModule({ data, pendingFlashcardNav }) {
           className={'fc-mode-btn' + (mode === 'browse' ? ' active' : '')}
           onClick={() => switchMode('browse')}
         >Browse All</button>
+      </div>
+
+      {/* ── Tier filter (post-triage; drops always excluded) ── */}
+      <div className="fc-mode-toggle" style={{ marginTop: 10 }}>
+        {[['core', 'Core only'], ['nice', 'Nice only'], ['all', 'Core + Nice']].map(([v, l]) => (
+          <button
+            key={v}
+            className={'fc-mode-btn' + (tierFilter === v ? ' active' : '')}
+            onClick={() => { setTierFilter(v); setIdx(0); setFlipped(false); }}
+          >{l}</button>
+        ))}
       </div>
 
       {/* ── SR dashboard ── */}
