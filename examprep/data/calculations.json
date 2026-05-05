@@ -2,11 +2,14 @@
   {
     "id": "calc-imp-001",
     "category": "impairment-ifrs9",
+    "set": 1,
     "title": "Industrial Bank — accumulated-impairment reconciliation",
     "difficulty": "medium",
     "estimatedMinutes": 10,
     "source": "Exercise Impairment.pdf (course readings, Lecture 3) + worked solution",
-    "topicTags": ["credit-risk"],
+    "topicTags": [
+      "credit-risk"
+    ],
     "problem": "On the **balance sheet** of the Industrial Bank, you read the following:\n\n| Loans to customers | 2021 | 2020 | 2019 |\n|---|---:|---:|---:|\n|  | 16,250,000 | (not shown) | 16,000,000 |\n\nFrom the **notes** to the annual accounts:\n\n• Accumulated impairments at the end of 2019 were **450,000**.\n• In 2020 the accumulated impairments increased by **100,000** and the bank extended new loans of **525,000**.\n\nAnswer the four sub-questions below.",
     "keyFormulas": [
       "Gross loans = Net loans (BS) + Accumulated impairment",
@@ -60,16 +63,17 @@
     ],
     "intuition": "Q4's published answer (750,000 / 200,000) silently assumes 525,000 of fully-impairment-covered loans were also written off in 2020 — otherwise it contradicts Q2. On an exam, write out the gross-loan roll-forward explicitly so the marker can follow your assumption. The mechanics are the same either way: accumulated impairment moves only via new charges and write-offs; gross loans move only via originations, repayments and write-offs."
   },
-
   {
     "id": "calc-imp-002",
     "category": "impairment-ifrs9",
+    "set": 1,
     "title": "IFRS 9 three-loan portfolio: ECL across stage transitions",
     "difficulty": "medium",
     "estimatedMinutes": 12,
     "source": "May 2025 Final, Q4a + Q4b",
-    "sourceId": "may2025-q4a",
-    "topicTags": ["credit-risk"],
+    "topicTags": [
+      "credit-risk"
+    ],
     "problem": "A bank holds three loans. PD₁₂ₘ = 12-month probability of default; PD = lifetime probability of default; LGD = loss given default; EAD = exposure at default.\n\n| Loan | Year 1 | Year 2 |\n|---|---|---|\n| **1** | Stage 1; EAD 100; PD₁₂ₘ 1%; PDₗᵢfₑ 8%; LGD 10% | Stage 3; EAD 100; LGD 10% |\n| **2** | Stage 2; EAD 50; PDₗᵢfₑ 20%; LGD 50% | Paid back in full (EAD 0) |\n| **3** | Stage 1; EAD 75; PD₁₂ₘ 2%; PDₗᵢfₑ 10%; LGD 20% | Stage 1; EAD 75; PD₁₂ₘ 2%; PDₗᵢfₑ 8%; LGD 20% |\n\nCompute (i) the total **book value** of these loans on the balance sheet at the end of years 1 and 2 with calculations, and (ii) the **total impact on impairment cost in P&L for year 2**.",
     "keyFormulas": [
       "Stage 1 → 12-month ECL = EAD × PD₁₂ₘ × LGD",
@@ -111,18 +115,20 @@
         ]
       }
     ],
-    "intuition": "Stage 1 uses 12-month ECL; Stage 2 jumps to **lifetime** ECL (the big step in absolute amount); Stage 3 treats default as certain so PD = 100%. When a loan is repaid, its prior provision is fully reversed through P&L."
+    "intuition": "Stage 1 uses 12-month ECL; Stage 2 jumps to **lifetime** ECL (the big step in absolute amount); Stage 3 treats default as certain so PD = 100%. When a loan is repaid, its prior provision is fully reversed through P&L.",
+    "sourceId": "may2025-q4a"
   },
-
   {
     "id": "calc-imp-003",
     "category": "impairment-ifrs9",
+    "set": 1,
     "title": "Gross loans from net + accumulated impairment",
     "difficulty": "easy",
     "estimatedMinutes": 2,
     "source": "Feb 2024 Mid-term, Q4",
-    "sourceId": "feb2024-p1q4",
-    "topicTags": ["credit-risk"],
+    "topicTags": [
+      "credit-risk"
+    ],
     "problem": "At year-end 2023 a bank reports **net loans** of 10,000 on the balance sheet and discloses **accumulated impairment** on those loans of 80 in the notes. What were the **gross loans** at the end of 2023?",
     "keyFormulas": [
       "Gross loans = Net loans (BS) + Accumulated impairment"
@@ -137,18 +143,20 @@
         ]
       }
     ],
-    "intuition": "The balance sheet shows loans **after** subtracting cumulative provisions for expected credit losses. Adding back gives the bank's gross exposure to its borrowers."
+    "intuition": "The balance sheet shows loans **after** subtracting cumulative provisions for expected credit losses. Adding back gives the bank's gross exposure to its borrowers.",
+    "sourceId": "feb2024-p1q4"
   },
-
   {
     "id": "calc-imp-004",
     "category": "impairment-ifrs9",
+    "set": 1,
     "title": "Impairment reconciliation: solving for written-off loans",
     "difficulty": "hard",
     "estimatedMinutes": 8,
     "source": "Feb 2024 Mid-term, Q5",
-    "sourceId": "feb2024-p1q5",
-    "topicTags": ["credit-risk"],
+    "topicTags": [
+      "credit-risk"
+    ],
     "problem": "A bank reports:\n\n| Item | Value |\n|---|---:|\n| Accumulated impairment, year-end 2022 | 100 |\n| Accumulated impairment, year-end 2023 | 80 |\n| New impairment recognised in P&L 2023 (relating to loans still on the BS at year-end 2023) | 10 |\n| Average accumulated-impairment provision on loans derecognised / written off in 2023 | 20% |\n\nWhat was the **total of the loans on a gross basis written off in 2023**?",
     "keyFormulas": [
       "Acc. impairment (end) = Acc. impairment (begin) + new charge − impairment removed via write-off",
@@ -175,17 +183,20 @@
         ]
       }
     ],
-    "intuition": "Three movements affect accumulated impairment: (i) new P&L charges (additions), (ii) reversals (subtractions), (iii) write-offs (subtractions, at the coverage ratio). Knowing the opening and closing balance and any two of those movements lets you solve for the third."
+    "intuition": "Three movements affect accumulated impairment: (i) new P&L charges (additions), (ii) reversals (subtractions), (iii) write-offs (subtractions, at the coverage ratio). Knowing the opening and closing balance and any two of those movements lets you solve for the third.",
+    "sourceId": "feb2024-p1q5"
   },
-
   {
     "id": "calc-imp-005",
     "category": "impairment-ifrs9",
+    "set": 1,
     "title": "ECL change on a Stage 1 → Stage 2 downgrade",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill in the IFRS 9 framework",
-    "topicTags": ["credit-risk"],
+    "topicTags": [
+      "credit-risk"
+    ],
     "problem": "A bank originates a **5,000,000** loan to a retail SME. At inception (Stage 1): PD₁₂ₘ = **0.5%**, LGD = **25%**. After six months a covenant breach signals a significant increase in credit risk and the loan is moved to Stage 2: PDₗᵢfₑ = **4%**, LGD unchanged at 25%. EAD is unchanged.\n\nCompute (i) the impairment booked at inception, (ii) the impairment after the downgrade, and (iii) the increase recognised in P&L when the downgrade is booked.",
     "keyFormulas": [
       "Stage 1 ECL = EAD × PD₁₂ₘ × LGD",
@@ -219,15 +230,17 @@
     ],
     "intuition": "The Stage 1 → Stage 2 jump is mechanical: PD switches from a 12-month measurement window to a lifetime measurement window. Even with no change in LGD or EAD, the multiplier expansion (here 8×) drives most of the increase in provisions."
   },
-
   {
     "id": "calc-imp-006",
     "category": "impairment-ifrs9",
+    "set": 1,
     "title": "Stage 1 → Stage 3 default with collateral revaluation",
     "difficulty": "medium",
     "estimatedMinutes": 4,
     "source": "Custom drill in the IFRS 9 framework",
-    "topicTags": ["credit-risk"],
+    "topicTags": [
+      "credit-risk"
+    ],
     "problem": "A loan with EAD = **1,000,000** is in Stage 1 with PD₁₂ₘ = **1.5%** and LGD = **30%**. The borrower defaults and the loan is moved to Stage 3. At default, collateral is revalued downward and LGD rises to **45%**.\n\nWhat is the impairment **before** default, the impairment **after** default, and the P&L charge at the default event?",
     "keyFormulas": [
       "Stage 1 ECL = EAD × PD₁₂ₘ × LGD",
@@ -262,15 +275,17 @@
     ],
     "intuition": "When a loan moves to Stage 3, PD effectively becomes 100% — default is no longer probabilistic, it has happened. The remaining uncertainty is loss-given-default, which is why collateral revaluation drives the post-default provision so heavily."
   },
-
   {
     "id": "calc-rwa-001",
     "category": "rwa",
+    "set": 1,
     "title": "Credit-risk REA — mortgage-heavy retail bank",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill on Basel standardised approach",
-    "topicTags": ["bank-regulation"],
+    "topicTags": [
+      "bank-regulation"
+    ],
     "problem": "A retail bank has the following asset mix on its banking-book balance sheet. Compute the **credit-risk REA** under the Basel standardised approach.\n\n| Asset | Value | Risk weight |\n|---|---:|---:|\n| Cash and central-bank reserves | 50 | 0% |\n| Sovereign bonds (AAA) | 200 | 0% |\n| Retail mortgages (LTV ≤ 80%) | 600 | 35% |\n| Consumer loans | 100 | 75% |\n| Corporate loans (unrated) | 50 | 100% |\n| **Total assets** | **1,000** | |",
     "keyFormulas": [
       "Credit-risk REA = Σ (Asset × Risk Weight)"
@@ -292,15 +307,17 @@
     ],
     "intuition": "A bank with 1,000 of assets carries only 335 of credit-risk REA because most of the book is government exposure (RW=0%) or retail mortgages at the favourable RW=35%. This is why Norwegian and other mortgage-focused savings banks tend to look very well-capitalised on a risk-weighted basis."
   },
-
   {
     "id": "calc-rwa-002",
     "category": "rwa",
+    "set": 1,
     "title": "Credit-risk REA — corporate-focused bank",
     "difficulty": "medium",
     "estimatedMinutes": 5,
     "source": "Custom drill on Basel standardised approach",
-    "topicTags": ["bank-regulation"],
+    "topicTags": [
+      "bank-regulation"
+    ],
     "problem": "A wholesale bank has the following asset mix. Compute the **credit-risk REA**.\n\n| Asset | Value | Risk weight |\n|---|---:|---:|\n| Cash and central-bank reserves | 30 | 0% |\n| Sovereign bonds (AAA) | 100 | 0% |\n| SME loans | 200 | 75% |\n| Investment-grade corporate loans | 300 | 50% |\n| Speculative-grade corporate loans | 200 | 150% |\n| Equity holdings | 50 | 250% |\n| Property, plant & equipment | 20 | 100% |\n| **Total** | **900** | |",
     "keyFormulas": [
       "Credit-risk REA = Σ (Asset × Risk Weight)"
@@ -324,15 +341,17 @@
     ],
     "intuition": "Compared with the mortgage-heavy bank (REA 335 on 1,000 assets), this corporate bank carries 745 of REA on only 900 of assets. The 150% risk weight on speculative-grade corporates and the 250% weight on equity holdings disproportionately drive REA up — the same balance-sheet size needs ~2× the capital to back."
   },
-
   {
     "id": "calc-rwa-003",
     "category": "rwa",
+    "set": 1,
     "title": "Total REA — credit + market + operational",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill on Basel REA composition",
-    "topicTags": ["bank-regulation"],
+    "topicTags": [
+      "bank-regulation"
+    ],
     "problem": "A bank's banking-book consists of: 5,000 retail mortgages (RW 35%), 3,000 investment-grade corporate loans (RW 50%), 2,000 speculative-grade corporate loans (RW 150%). Market-risk REA is **100**. Operational-risk REA is **350**. Compute the **total REA**.",
     "keyFormulas": [
       "Total REA = credit-risk REA + market-risk REA + operational-risk REA"
@@ -360,16 +379,18 @@
     ],
     "intuition": "Pillar 1 capital requirements (4.5% / 6% / 8%) apply to the **total** REA, not just credit-risk REA. For most commercial banks credit risk dominates (~85–90%), but trading-heavy banks can have material market-risk REA, and even retail banks face operational-risk REA from process, IT and conduct risk."
   },
-
   {
     "id": "calc-cap-001",
     "category": "capital-ratios",
+    "set": 1,
     "title": "Lilledal Savingsbank — CET1 / T1 / Total capital ratios",
     "difficulty": "medium",
     "estimatedMinutes": 8,
     "source": "May 2025 Final, Q6a",
-    "sourceId": "may2025-q6a",
-    "topicTags": ["bank-regulation", "recovery-resolution"],
+    "topicTags": [
+      "bank-regulation",
+      "recovery-resolution"
+    ],
     "problem": "Lilledal Savingsbank balance sheet. Additional REA: **market risk 15**, **operational risk 75**. No own-funds deductions.\n\n**Assets**\n\n| Item | Value | RW |\n|---|---:|---:|\n| Claims on central bank | 10 | 0% |\n| Treasuries | 40 | 0% |\n| Retail mortgages | 500 | 35% |\n| Loans to corporates | 400 | 100% |\n| Other assets | 30 | 100% |\n| **Total** | **980** | |\n\n**Liabilities**\n\n| Item | Value |\n|---|---:|\n| Debt to financial institutions | 30 |\n| Retail deposits | 400 |\n| Corporate deposits | 120 |\n| Senior bonds | 200 |\n| Non-preferred senior bonds | 100 |\n| Subordinated debt (T2) | 20 |\n| Hybrid capital (AT1) | 10 |\n| Equity | 100 |\n| **Total** | **980** |\n\nCalculate the **CET1 ratio**, **T1 ratio**, and **total capital ratio**.",
     "keyFormulas": [
       "Credit-risk REA = Σ (Asset × Risk Weight)",
@@ -422,17 +443,20 @@
         ]
       }
     ],
-    "intuition": "All three ratios sit comfortably above the Pillar-1 minimums (4.5% / 6% / 8%). Lilledal is well-capitalised. The favourable 35% risk weight on retail mortgages is why a 980-asset bank carries only 605 of credit-risk REA — most of the book is RW=0% sovereign exposure or RW=35% mortgages, with only 430 in RW=100% claims."
+    "intuition": "All three ratios sit comfortably above the Pillar-1 minimums (4.5% / 6% / 8%). Lilledal is well-capitalised. The favourable 35% risk weight on retail mortgages is why a 980-asset bank carries only 605 of credit-risk REA — most of the book is RW=0% sovereign exposure or RW=35% mortgages, with only 430 in RW=100% claims.",
+    "sourceId": "may2025-q6a"
   },
-
   {
     "id": "calc-cap-002",
     "category": "capital-ratios",
+    "set": 1,
     "title": "Capital ratios for a different capital stack",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill on Basel capital tiers",
-    "topicTags": ["bank-regulation"],
+    "topicTags": [
+      "bank-regulation"
+    ],
     "problem": "A bank reports **total REA = 1,000**. Capital structure: equity **90**, AT1 hybrid **15**, T2 subordinated debt **25**.\n\nCompute the **CET1 ratio**, **T1 ratio**, and **total capital ratio**, and compare with the Pillar-1 minimums (4.5% / 6% / 8%).",
     "keyFormulas": [
       "CET1 ratio  = CET1 ÷ Total REA",
@@ -454,15 +478,17 @@
     ],
     "intuition": "Pillar-1 minimums are the **floor**. Most jurisdictions add a capital-conservation buffer (2.5%), countercyclical buffer (variable), and a systemic-risk / O-SII buffer — pushing the effective minimum CET1 ratio for a typical European bank to ~10–12%. Don't confuse Pillar-1 floors with the **combined buffer requirement**."
   },
-
   {
     "id": "calc-cap-003",
     "category": "capital-ratios",
+    "set": 1,
     "title": "Reverse-engineering capital from reported ratios",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill on Basel capital tiers",
-    "topicTags": ["bank-regulation"],
+    "topicTags": [
+      "bank-regulation"
+    ],
     "problem": "A bank reports CET1 ratio **14.0%**, T1 ratio **15.5%**, total capital ratio **18.0%** on **REA = 800**.\n\nBack out the absolute amounts of **CET1**, **AT1** and **T2** capital.",
     "keyFormulas": [
       "CET1 = CET1 ratio × REA",
@@ -483,16 +509,17 @@
     ],
     "intuition": "Spreads between ratios = absolute capital in each tier. CET1 ratio + (AT1 capital ÷ REA) = T1 ratio; T1 ratio + (T2 capital ÷ REA) = total ratio. This decomposition is exactly how analysts reverse-engineer a peer bank's capital stack from its disclosure."
   },
-
   {
     "id": "calc-bail-001",
     "category": "bailin",
+    "set": 1,
     "title": "Lilledal bail-in — required CET1 and waterfall",
     "difficulty": "medium",
     "estimatedMinutes": 8,
     "source": "May 2025 Final, Q6c + Q6d",
-    "sourceId": "may2025-q6c",
-    "topicTags": ["recovery-resolution"],
+    "topicTags": [
+      "recovery-resolution"
+    ],
     "problem": "Continuing from the Lilledal balance sheet (with original capital stack: equity 100, AT1 10, T2 20, non-preferred senior bonds 100, senior bonds 200): the bank has lost most of its equity due to a corporate-loan portfolio collapse and now reports **equity = 20**. Liabilities are otherwise unchanged. Total REA has risen to **700** (driven by stage-3 reclassifications). The resolution authority applies the **bail-in tool** with a target **CET1 ratio of 12%**.\n\n(a) What is the needed CET1 capital to reach the 12% target?\n(b) How will it be financed under the bail-in tool? Show the waterfall.",
     "keyFormulas": [
       "Required CET1 = target ratio × Total REA",
@@ -523,18 +550,20 @@
         ]
       }
     ],
-    "intuition": "Bail-in works **bottom-up through the creditor hierarchy** until the target capital ratio is restored. Equity absorbs first, then AT1, T2, senior non-preferred — and crucially, conversion stops at the level where the target is met. Senior unsecured creditors and depositors usually walk away whole, which is precisely what BRRD was designed to achieve: no taxpayer cost, no contagion via senior depositors."
+    "intuition": "Bail-in works **bottom-up through the creditor hierarchy** until the target capital ratio is restored. Equity absorbs first, then AT1, T2, senior non-preferred — and crucially, conversion stops at the level where the target is met. Senior unsecured creditors and depositors usually walk away whole, which is precisely what BRRD was designed to achieve: no taxpayer cost, no contagion via senior depositors.",
+    "sourceId": "may2025-q6c"
   },
-
   {
     "id": "calc-bail-002",
     "category": "bailin",
+    "set": 1,
     "title": "Large-bank bail-in — summing the conversion stack",
     "difficulty": "easy",
     "estimatedMinutes": 3,
     "source": "Final 2022, Q4 (preserved fragment of grading guide)",
-    "sourceId": "final2022-q4",
-    "topicTags": ["recovery-resolution"],
+    "topicTags": [
+      "recovery-resolution"
+    ],
     "problem": "A large bank is recapitalised through bail-in. The resolution authority publishes the following **conversion amounts**:\n\n| Layer | Amount converted to CET1 |\n|---|---:|\n| Residual shareholders (equity stake retained) | 350 |\n| AT1 hybrid capital | 1,000 |\n| Subordinated debt (T2) | 1,300 |\n| Non-preferred senior bonds | 6,350 |\n\nWhat is the **total new CET1** after bail-in?",
     "keyFormulas": [
       "Total new CET1 = Σ all instruments converted (or retained)"
@@ -549,17 +578,20 @@
         ]
       }
     ],
-    "intuition": "When the resolution authority publishes conversion amounts, summing them gives total new CET1 directly. The fact that residual shareholders retain 350 — rather than being wiped out — means losses were just barely large enough to require bail-in but did not exhaust pre-existing equity completely."
+    "intuition": "When the resolution authority publishes conversion amounts, summing them gives total new CET1 directly. The fact that residual shareholders retain 350 — rather than being wiped out — means losses were just barely large enough to require bail-in but did not exhaust pre-existing equity completely.",
+    "sourceId": "final2022-q4"
   },
-
   {
     "id": "calc-bail-003",
     "category": "bailin",
+    "set": 1,
     "title": "Bail-in waterfall on a richer capital stack",
     "difficulty": "medium",
     "estimatedMinutes": 7,
     "source": "Custom drill on BRRD waterfall mechanics",
-    "topicTags": ["recovery-resolution"],
+    "topicTags": [
+      "recovery-resolution"
+    ],
     "problem": "After loss absorption, a bank reports residual **equity = 5**. Capital and senior structure on the liability side:\n\n| Layer | Amount |\n|---|---:|\n| Residual equity | 5 |\n| AT1 hybrid capital | 25 |\n| Subordinated debt (T2) | 40 |\n| Non-preferred senior bonds | 80 |\n| Senior unsecured bonds | 200 |\n\nThe bank's total REA is **1,000**. The resolution authority applies the bail-in tool with a target **CET1 ratio of 10%**.\n\nCompute the required CET1 and walk through the waterfall.",
     "keyFormulas": [
       "Required CET1 = target × REA",
@@ -592,16 +624,17 @@
     ],
     "intuition": "Bail-in stops the moment the target is met; it does not wipe out everything available. Junior layers are fully converted first because the BRRD waterfall is bottom-up. The remaining un-converted non-preferred senior bonds continue to exist as senior debt of the resolved bank (now better capitalised), and senior unsecured bonds and deposits are entirely untouched."
   },
-
   {
     "id": "calc-fx-001",
     "category": "fx-swap",
+    "set": 1,
     "title": "NOK/DKK 6-month FX swap — CIP and swap points",
     "difficulty": "easy",
     "estimatedMinutes": 5,
     "source": "May 2024 Final, Q4a (= Final 2022, Q3a)",
-    "sourceId": "may2024-q4a",
-    "topicTags": ["derivatives-fx"],
+    "topicTags": [
+      "derivatives-fx"
+    ],
     "problem": "Spot price of Danish krone: **S₀ = 1.65 NOK per DKK**. Interest rates: **r_NOK = 4% p.a.**, **r_DKK = 2% p.a.** Tenor: **6 months**.\n\n(i) What is the forward price of DKK in the FX-swap contract?\n(ii) Express the price as **swap points**.",
     "keyFormulas": [
       "Covered Interest Parity (CIP):  F = S₀ × (1 + r_d × t) / (1 + r_f × t)",
@@ -631,17 +664,20 @@
         ]
       }
     ],
-    "intuition": "NOK has the higher interest rate, so the forward NOK must **weaken** against DKK to deny arbitrage — the party lending out the higher-yielding NOK has to receive more DKK back at maturity to be compensated. Equivalently, DKK trades at a forward **premium**. This is the core mechanic of CIP."
+    "intuition": "NOK has the higher interest rate, so the forward NOK must **weaken** against DKK to deny arbitrage — the party lending out the higher-yielding NOK has to receive more DKK back at maturity to be compensated. Equivalently, DKK trades at a forward **premium**. This is the core mechanic of CIP.",
+    "sourceId": "may2024-q4a"
   },
-
   {
     "id": "calc-fx-002",
     "category": "fx-swap",
+    "set": 1,
     "title": "EUR/NOK 1-year FX swap — CIP variant",
     "difficulty": "easy",
     "estimatedMinutes": 5,
     "source": "Custom drill on CIP",
-    "topicTags": ["derivatives-fx"],
+    "topicTags": [
+      "derivatives-fx"
+    ],
     "problem": "Spot rate **S₀ = 11.50 NOK per EUR**. Interest rates: **r_NOK = 4.5% p.a.**, **r_EUR = 3.0% p.a.** Tenor: **1 year**.\n\nCompute the forward rate and the swap points.",
     "keyFormulas": [
       "F = S₀ × (1 + r_NOK × t) / (1 + r_EUR × t)",
@@ -672,15 +708,17 @@
     ],
     "intuition": "Same mechanic as the NOK/DKK case — the higher-yielding currency (NOK, 4.5%) must depreciate forward against the lower-yielding currency (EUR, 3.0%). The 1.5-pp differential over 1 year produces a ~1.5% forward premium on EUR."
   },
-
   {
     "id": "calc-fx-003",
     "category": "fx-swap",
+    "set": 1,
     "title": "Backing out an interest rate from forward and spot",
     "difficulty": "medium",
     "estimatedMinutes": 5,
     "source": "Custom drill on CIP — reverse direction",
-    "topicTags": ["derivatives-fx"],
+    "topicTags": [
+      "derivatives-fx"
+    ],
     "problem": "You observe a 3-month FX-swap quote: **S₀ = 10.50 NOK per EUR** and **F = 10.55 NOK per EUR**. The 3-month EUR rate is **r_EUR = 3.0% p.a.**\n\nWhat is the **implied 3-month NOK rate** consistent with covered interest parity?",
     "keyFormulas": [
       "CIP:  F / S₀ = (1 + r_NOK × t) / (1 + r_EUR × t)",
@@ -703,15 +741,18 @@
     ],
     "intuition": "If the FX-swap market and money markets are in equilibrium (no arbitrage), CIP holds **identically**. Any persistent deviation (a CIP basis) implies frictions — balance-sheet costs at FX-swap dealers, dollar funding stress, or regulatory constraints. The equation can be inverted in any direction: given any three of {S₀, F, r_d, r_f, t}, solve for the fourth."
   },
-
   {
     "id": "calc-credit-001",
     "category": "credit-risk-models",
+    "set": 1,
     "title": "Miller Manufacturing — moral hazard with equity (Example 7.1)",
     "difficulty": "hard",
     "estimatedMinutes": 18,
     "source": "Greenbaum/Thakor/Boot, Contemporary Financial Intermediation, Example 7.1 + Ex Ch7.xlsx (sheet Ex7-1)",
-    "topicTags": ["credit-risk", "asymmetric-info"],
+    "topicTags": [
+      "credit-risk",
+      "asymmetric-info"
+    ],
     "problem": "Miller Manufacturing requests a loan of **1.05 M** from your bank. The firm has **1 M of equity** (retained earnings, held as cash) and **2 M of senior debt repayment obligation**. Bank lending is competitive (zero expected profit) and there is no discounting; the bank's loan is junior to the senior debt. Miller can invest the 1.05 M in one of two projects, and the bank cannot directly observe the choice:\n\n| Project | Outcome | Probability |\n|---|---:|---:|\n| **A** | 2 M / 1 M | 0.8 / 0.2 |\n| **B** | 7 M / 0 M | 0.2 / 0.8 |\n\nMiller's existing assets pay 3 M with prob 0.8 and 0 with prob 0.2 (independent of the project).\n\nAssume the bank prices the loan **believing project A will be chosen**. Verify that this is a Nash equilibrium when Miller has the 1 M equity by completing the following four steps.",
     "keyFormulas": [
       "Joint distribution of independent random variables",
@@ -774,15 +815,18 @@
     ],
     "intuition": "Equity is a **commitment device**. With 1 M of skin in the game, Miller's downside under the risky project B is large enough that the safe project A becomes preferred — the bank can therefore price the loan at the safe rate (5.95%). Without the equity (Example 7.1 step 3 of the textbook), the calculation flips: Miller chooses B, the bank anticipates this, and the loan rate jumps. Capital signals **and resolves** moral hazard simultaneously."
   },
-
   {
     "id": "calc-credit-002",
     "category": "credit-risk-models",
+    "set": 1,
     "title": "Borrowers A & B — collateral as a screening device (Example 7.3)",
     "difficulty": "hard",
     "estimatedMinutes": 12,
     "source": "Greenbaum/Thakor/Boot, Example 7.3 + Ex Ch7.xlsx (sheet Ex7-3)",
-    "topicTags": ["credit-risk", "asymmetric-info"],
+    "topicTags": [
+      "credit-risk",
+      "asymmetric-info"
+    ],
     "problem": "Two borrowers indistinguishable to the bank ex ante:\n\n• **Borrower A (safe):** end-of-period assets = 100 with probability 1.\n• **Borrower B (risky):** end-of-period assets = 200 with probability 0.5, 0 with probability 0.5.\n\nEach borrower needs a **30** loan. Riskless rate = **10%**. Everyone is risk-neutral. Collateral worth 1 to a borrower is worth only **0.90** to the bank (10% liquidation haircut).\n\nDesign a pair of contracts — secured loan (rate r_s, collateral C) and unsecured loan (rate r_u) — such that A self-selects into the secured contract and B into the unsecured one (Nash separating equilibrium).",
     "keyFormulas": [
       "Bank break-even (secured, riskless borrower): 1 + r_s = 1 + r_riskless",
@@ -835,15 +879,18 @@
     ],
     "intuition": "Collateral works as a **signal** because the risky borrower B has a higher probability of losing it. By demanding C = 33 alongside the low secured rate (10%), the bank makes the secured contract unattractive enough to B that B reveals its type by accepting the 120% unsecured rate instead. Note that the haircut (0.90) does not affect the separating C in this case because the secured loan to A is riskless — A never surrenders collateral in equilibrium."
   },
-
   {
     "id": "calc-credit-003",
     "category": "credit-risk-models",
+    "set": 1,
     "title": "Brown Bakery — collateral against asset substitution (Example 7.4)",
     "difficulty": "hard",
     "estimatedMinutes": 18,
     "source": "Greenbaum/Thakor/Boot, Example 7.4 + Ex Ch7.xlsx (sheet Ex7-4)",
-    "topicTags": ["credit-risk", "asymmetric-info"],
+    "topicTags": [
+      "credit-risk",
+      "asymmetric-info"
+    ],
     "problem": "Brown Bakery needs a **100** loan. After receiving the loan, Brown chooses between two projects (the bank cannot directly observe which):\n\n• **S (safe):** 300 with probability 0.9, 0 with probability 0.1.\n• **R (risky):** 400 with probability 0.6, 0 with probability 0.4.\n\nRiskless rate = **10%**. All parties risk-neutral. Collateral worth 1 to Brown is worth **0.90** to the bank (10% haircut).\n\nDesign a contract that induces Brown to choose S and that allows the bank to break even.",
     "keyFormulas": [
       "Bank break-even (unsecured, project i with success prob π_i): [π_i × (1+r) × L] / (1+r_f) = L",
@@ -917,15 +964,18 @@
     ],
     "intuition": "Without collateral, Brown chooses R because the loan turns the firm's project-selection problem into a **call-option** problem — Brown captures the upside but the bank absorbs the downside. Collateral attaches a **personal cost to default**, partially restoring the alignment. The cost of imposing collateral is the haircut (0.90 here): a dollar of collateral protection only buys 90 cents of bank recovery, which is why the secured rate (20.20%) is well above the riskless rate (10%) — the bank prices the residual default risk and the haircut into the loan."
   },
-
   {
     "id": "calc-dd-001",
     "category": "diamond-dybvig",
+    "set": 1,
     "title": "Diamond-Dybvig: liquidity insurance via two-deposit contracts",
     "difficulty": "hard",
     "estimatedMinutes": 14,
     "source": "Ex Ch12.xlsx (sheet 12-2) — Diamond-Dybvig depositor model",
-    "topicTags": ["liquidity-risk", "foundational-models"],
+    "topicTags": [
+      "liquidity-risk",
+      "foundational-models"
+    ],
     "problem": "**100 depositors**, each endowed with 1, deposit at the bank at t=0. Each depositor learns at t=1 whether they are an early consumer (D-type, 'diers') or a late consumer (L-type, 'livers'). The probability of being D-type is **0.4**, so 40 D-types and 60 L-types in expectation.\n\n• **D-type utility:**  U_D = √C₁     (wants to consume at t=1 only)\n• **L-type utility:**  U_L = 0.6 × √(C₁ + C₂)  (the 0.6 reflects time-discount; cares about total)\n\nThe project: invest 1 at t=0 → 1 at t=1 if liquidated, **2.25** at t=2 if held to maturity (1:1 liquidation, 1:2.25 holding).\n\nCompute:\n\n(a) Expected utility under **autarky** (no bank).\n(b) The bank's two-deposit contract C₁* = **1.1**, then solve for C₂* under bank break-even.\n(c) Expected utility with the bank.\n(d) Show that the bank improves welfare.",
     "keyFormulas": [
       "Bank break-even (two-deposit contract): 100 − (40 × C₁*) of project rolls at 2.25 to fund 60 L-types' C₂*",

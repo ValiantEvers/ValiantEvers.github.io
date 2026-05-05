@@ -1,0 +1,1138 @@
+[
+  {
+    "id": "calc-fx-004",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "FX-swap-implied USD rate from EUR — Ando (2012) decomposition",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "source": "Ando (2012), 'Recent developments in US dollar funding costs through FX swaps' (Bank of Japan Review) — Box: Arbitrage Conditions for FX Swaps",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "Apply Ando's decomposition of the FX-swap-implied USD rate from EUR.\n\n**Observed rates (3M tenor):**\n\n| Rate | Value |\n|---|---:|\n| USD OIS | 4.20% |\n| USD LIBOR | 4.55% |\n| EUR OIS | 3.30% |\n| EUR LIBOR | 3.45% |\n| Basis residual α | +0.20% |\n\nCompute (a) the FX-swap-implied USD rate from EUR; (b) the USD and EUR LIBOR-OIS spreads; (c) the no-arbitrage upper bound and how much the observed rate exceeds it.",
+    "keyFormulas": [
+      "FX-swap-implied USD rate from EUR = USD OIS + (USD LIBOR − USD OIS) + (EUR LIBOR − EUR OIS) + α",
+      "No-arbitrage range: USD OIS ≤ FX-swap-implied USD rate ≤ USD LIBOR + (EUR LIBOR − EUR OIS)",
+      "α = the residual that captures stress beyond unsecured-market counterparty risk"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Compute the FX-swap-implied USD rate from EUR.",
+        "answer": "4.90%",
+        "unit": "% p.a.",
+        "working": [
+          "FX-swap-implied USD rate = USD OIS + USD LIBOR-OIS + EUR LIBOR-OIS + α",
+          "= 4.20% + (4.55% − 4.20%) + (3.45% − 3.30%) + 0.20%",
+          "= 4.20% + 0.35% + 0.15% + 0.20%",
+          "= **4.90%** (±0.01%)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Compute the USD and EUR LIBOR-OIS spreads.",
+        "answer": "USD LIBOR-OIS = 35 bp · EUR LIBOR-OIS = 15 bp",
+        "unit": "bp",
+        "working": [
+          "USD LIBOR − USD OIS = 4.55% − 4.20% = **0.35% = 35 bp**.",
+          "EUR LIBOR − EUR OIS = 3.45% − 3.30% = **0.15% = 15 bp**.",
+          "Per Ando: each LIBOR-OIS spread isolates 'concern over counterparty risk observed in the unsecured markets' for that currency."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Compute the no-arbitrage upper bound and the excess of the implied rate over it.",
+        "answer": "Upper bound = 4.70% · Excess = 20 bp = α",
+        "unit": "% / bp",
+        "working": [
+          "No-arb upper bound = USD LIBOR + (EUR LIBOR − EUR OIS) = 4.55% + 0.15% = **4.70%**.",
+          "Implied 4.90% exceeds the bound by **0.20% = 20 bp**, exactly equal to α.",
+          "Per Ando: when α > 0, 'demand for funding through the FX swap was strong' — i.e. dollar funding stress beyond what unsecured-market spreads alone explain."
+        ]
+      }
+    ],
+    "intuition": "The Ando identity makes the FX-swap-implied USD rate exactly attributable to four observable components, with α isolating the residual dollar-funding stress. When all three known components (USD OIS, the two LIBOR-OIS spreads) are pinned down, α IS the cross-currency basis dislocation. A positive α here means synthetic USD via the FX swap is more expensive than CIP + unsecured-market premia would justify — the canonical 2008 and March 2020 pattern."
+  },
+  {
+    "id": "calc-fx-005",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "Cross-currency basis cost on a EUR/USD CCBS hedge",
+    "difficulty": "medium",
+    "estimatedMinutes": 7,
+    "source": "Coffey, Kos & Verdelhan (2009), 'The global financial crisis and offshore dollar markets' + Lecture 9 (CCBS mechanics)",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "A European bank funds USD assets via a 5-year EUR/USD cross-currency basis swap. The basis on the EUR leg is **−35 bp** (i.e. the bank receives EURIBOR − 35 bp / pays USD LIBOR flat).\n\n• Notional: **EUR 100m** (= **USD 110m** at spot 1.10 USD/EUR).\n• Tenor: 5 years.\n\nCompute (a) the annualised cost of the basis in EUR; (b) in USD; (c) the 5-year total simple cost; (d) the 5-year PV of the cost stream at a 4% discount rate.",
+    "keyFormulas": [
+      "Annual basis cost = Notional × |basis spread|",
+      "PV of an annuity = C × [1 − (1+r)^(−n)] / r"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Annualised basis cost in EUR.",
+        "answer": "350,000 EUR / year",
+        "unit": "EUR",
+        "working": [
+          "Annual cost (EUR) = 100,000,000 × 35/10,000 = **350,000 EUR per year** (±0.5k)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Annualised basis cost in USD at spot 1.10.",
+        "answer": "385,000 USD / year",
+        "unit": "USD",
+        "working": [
+          "USD cost = 350,000 × 1.10 = **385,000 USD per year**.",
+          "Equivalently, 35 bp on EUR notional ≈ 35 bp on USD notional (basis is in spread units, near-invariant to currency conversion at small spreads)."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) 5-year total simple cost (no discounting), in EUR.",
+        "answer": "1,750,000 EUR",
+        "unit": "EUR",
+        "working": [
+          "5 × 350,000 = **1,750,000 EUR** (±0.5k)."
+        ]
+      },
+      {
+        "id": "d",
+        "prompt": "(d) 5-year PV of the cost stream at a 4% discount rate, in EUR.",
+        "answer": "≈ 1,558,138 EUR",
+        "unit": "EUR",
+        "working": [
+          "Annuity factor: [1 − (1.04)^(−5)] / 0.04 = [1 − 0.821927] / 0.04 = 4.4518.",
+          "PV = 350,000 × 4.4518 ≈ **1,558,138 EUR** (±100)."
+        ]
+      }
+    ],
+    "intuition": "A persistent negative basis is a direct deadweight cost on banks that fund foreign-currency assets via swaps. Coffey, Kos & Verdelhan (2009) document the post-Lehman EUR/USD basis blowing out to several hundred bp at peak — meaning tens of basis points of structural funding cost on every dollar borrowed synthetically by a non-US bank, repaid year after year, exactly when capital is scarce."
+  },
+  {
+    "id": "calc-fx-006",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "March 2020 NBFI: VM call + over-hedge rebalancing",
+    "difficulty": "hard",
+    "estimatedMinutes": 12,
+    "source": "Alstadheim, Nordal, Syrstad et al. (Norges Bank guest lecture 2026), 'Bond market fire sales and turbulence in the Norwegian FX market in March 2020'",
+    "topicTags": [
+      "derivatives-fx",
+      "bank-crises"
+    ],
+    "problem": "A Norwegian NBFI holds **USD 100m** of US equities, fully hedged via an FX swap that locks the forward sell-rate at **9.50 NOK/USD**. The swap is short-USD / long-NOK.\n\nDuring 16–20 March 2020:\n• NOK depreciates: spot rises from **9.50 → 11.30 NOK/USD**.\n• US equity portfolio falls **30%** in USD terms: USD 100m → USD 70m.\n\nCompute (a) the NOK variation-margin (VM) call from the FX swap MtM move; (b) the spot NOK selling required to right-size the over-sized hedge; (c) total NOK liquidity demand from this single firm.",
+    "keyFormulas": [
+      "MtM on a short-USD forward = (S_now − F_lock) × USD notional, expressed in NOK",
+      "Over-hedge USD = original USD notional − new asset USD value",
+      "Spot NOK sold to right-size = over-hedge USD × current spot"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Variation margin call from MtM on the FX swap.",
+        "answer": "180,000,000 NOK",
+        "unit": "NOK",
+        "working": [
+          "NBFI is short USD forward at F = 9.50. As spot rises to 11.30, the swap is in the money for the counterparty, out of the money for the NBFI.",
+          "MtM loss to NBFI = (S_now − F_lock) × USD notional = (11.30 − 9.50) × 100,000,000 = **180,000,000 NOK** (±0.5m).",
+          "Daily VM under EMIR/BCBS-IOSCO: NBFI must wire 180m NOK in cash collateral to the counterparty.",
+          "Channel (a) per Alstadheim: NBFIs raise this NOK by selling Norwegian bonds → bond risk premiums spike to 75 / 225 / 250 bp on 5y covered / senior bank / corporate."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Spot NOK selling required to right-size the over-sized hedge.",
+        "answer": "339,000,000 NOK",
+        "unit": "NOK",
+        "working": [
+          "USD asset value falls to USD 70m; hedge still locked at USD 100m → over-hedge of USD 30m.",
+          "To reduce hedge to USD 70m, NBFI buys USD 30m and sells NOK at the new spot 11.30.",
+          "NOK sold = 30,000,000 × 11.30 = **339,000,000 NOK** (±1m).",
+          "Channel (b) per Alstadheim: aggregate NBFI sector sold ~25 bn NOK net during the crisis weeks via this rebalancing channel."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Total NOK liquidity demand from this single firm.",
+        "answer": "519,000,000 NOK",
+        "unit": "NOK",
+        "working": [
+          "Total = VM cash + spot NOK sold = 180m + 339m = **519,000,000 NOK** (±1m).",
+          "Note the channels stress different markets: VM stresses the NOK bond market (forced sales for cash); rebalancing stresses the spot FX market (NOK selling pressure)."
+        ]
+      }
+    ],
+    "intuition": "The two channels operate independently and stack. A single mid-sized Norwegian NBFI can generate half a billion NOK of liquidity demand on a USD 100m position — the bond-market and FX-market dislocations of March 2020 are the aggregation of this dynamic across the sector. The textbook lesson: derivative hedges convert price risk into liquidity risk (Set 1 question on hedging) and that liquidity risk is what actually breaks markets in stress."
+  },
+  {
+    "id": "calc-fx-007",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "LIBOR-OIS arithmetic — α exceeds the no-arbitrage bound",
+    "difficulty": "medium",
+    "estimatedMinutes": 6,
+    "source": "Ando (2012), Bank of Japan Review — supplementary reading on FX-swaps topic",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "Repeat the Ando decomposition with stressed inputs.\n\n| Rate | Value |\n|---|---:|\n| USD OIS 3M | 4.20% |\n| USD LIBOR 3M | 4.50% |\n| EUR OIS 3M | 3.30% |\n| EUR LIBOR 3M | 3.40% |\n| α | +0.25% |\n\nCompute (a) the FX-swap-implied USD rate from EUR; (b) the no-arbitrage upper bound; (c) the excess and its interpretation.",
+    "keyFormulas": [
+      "FX-swap-implied USD rate from EUR = USD OIS + USD LIBOR-OIS + EUR LIBOR-OIS + α",
+      "Upper bound = USD LIBOR + EUR LIBOR-OIS"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) FX-swap-implied USD rate.",
+        "answer": "4.85%",
+        "unit": "% p.a.",
+        "working": [
+          "= 4.20% + (4.50 − 4.20) + (3.40 − 3.30) + 0.25",
+          "= 4.20% + 0.30% + 0.10% + 0.25%",
+          "= **4.85%** (±0.01%)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) No-arbitrage upper bound.",
+        "answer": "4.60%",
+        "unit": "% p.a.",
+        "working": [
+          "Upper bound = USD LIBOR + (EUR LIBOR − EUR OIS) = 4.50% + 0.10% = **4.60%**."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Excess over the upper bound and its interpretation.",
+        "answer": "Excess = 25 bp = α — dollar-funding stress beyond unsecured-market premia",
+        "unit": "bp",
+        "working": [
+          "Implied 4.85% − Upper bound 4.60% = **0.25% = 25 bp**.",
+          "By construction, the excess equals α: the residual dollar-funding stress that LIBOR-OIS spreads do not explain.",
+          "Ando's interpretation: α > 0 reflects 'demand for funding through the FX swap [that] was strong'. Empirically observed during the BNP Paribas shock (Aug 2007), post-Lehman (Q4 2008) and the European sovereign debt crisis (late 2011)."
+        ]
+      }
+    ],
+    "intuition": "α is the bit of the dollar-funding stress that even arbitrage between the cash bond market and the FX-swap market cannot eliminate, because the arbitrage requires balance-sheet capacity — and balance sheet is itself in short supply in stress. Per Coffey/Kos/Verdelhan (2009): post-2008, this is no longer a free trade; it's a paid trade, and the basis prices the cost."
+  },
+  {
+    "id": "calc-fx-008",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "JPY/USD 6-month FX swap — negative interest differential",
+    "difficulty": "easy",
+    "estimatedMinutes": 5,
+    "source": "Lecture 8 (Syrstad note); CIP standard derivation",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "Spot **S₀ = 150 JPY/USD**. Interest rates: **r_JPY = 0.5% p.a.**, **r_USD = 5.5% p.a.**. Tenor: **6 months**.\n\nCompute (a) the forward rate F via CIP; (b) the swap points; (c) state which currency appreciates forward and why.",
+    "keyFormulas": [
+      "F = S₀ × (1 + r_quote × t) / (1 + r_base × t)   (USD = base, JPY = quote)",
+      "Swap points = F − S₀"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) 6-month forward F.",
+        "answer": "146.35 JPY/USD",
+        "unit": "JPY per USD",
+        "working": [
+          "F = 150 × (1 + 0.005 × 0.5) / (1 + 0.055 × 0.5)",
+          "= 150 × 1.0025 / 1.0275",
+          "= 150 × 0.97567",
+          "= **146.35 JPY/USD** (±0.005)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Swap points.",
+        "answer": "−3.65",
+        "unit": "JPY per USD (swap pts)",
+        "working": [
+          "F − S₀ = 146.35 − 150 = **−3.65** (negative)."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Which currency appreciates forward, and why?",
+        "answer": "JPY appreciates forward, compensating the JPY lender for the lower JPY interest rate.",
+        "working": [
+          "The lower-yielding currency (JPY at 0.5%) appreciates forward against the higher-yielding currency (USD at 5.5%).",
+          "Intuition: a JPY lender hands over JPY at spot and gets back fewer JPY per USD at maturity — they earn less JPY interest but more JPY-per-USD value at the back end. The two effects exactly offset in the no-arbitrage forward (CIP)."
+        ]
+      }
+    ],
+    "intuition": "The sign of the swap points always reverses the interest-rate differential: the higher-yield currency depreciates forward by the differential. The mechanic is enforced by no-arbitrage — if it failed, you could borrow the low-yield currency, swap it for the high-yield currency, deposit, and swap back at the locked F for a riskless gain."
+  },
+  {
+    "id": "calc-fx-009",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "Basis-point spread to USD cost — quick conversion",
+    "difficulty": "easy",
+    "estimatedMinutes": 3,
+    "source": "Coffey/Kos/Verdelhan (2009) — order-of-magnitude basis costs",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "A non-US bank funds **USD 500m** synthetically via FX swap at a **60 bp** premium above the no-arbitrage CIP rate. Tenor: **90 days** (act/360).\n\nCompute (a) the 90-day USD cost of the basis; (b) the annualised USD cost.",
+    "keyFormulas": [
+      "Period cost = Notional × spread × (days / 360)",
+      "Annualised cost = Notional × spread"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) 90-day USD cost.",
+        "answer": "750,000 USD",
+        "unit": "USD",
+        "working": [
+          "= 500,000,000 × 0.0060 × 90/360",
+          "= 500,000,000 × 0.0015",
+          "= **750,000 USD** (±0.5k)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Annualised USD cost.",
+        "answer": "3,000,000 USD / year",
+        "unit": "USD",
+        "working": [
+          "= 500,000,000 × 0.0060 = **3,000,000 USD per year**.",
+          "Compare to 25 bp pre-2008: annual cost would have been 1.25m USD — half the 2008-stress level."
+        ]
+      }
+    ],
+    "intuition": "Basis-point spreads on dollar-funding books look small per dollar but are on multi-billion notionals run year after year. A 60 bp basis on USD 500m is 3m USD/year — the kind of recurring drag that pushes European banks to reduce USD-asset books even after the immediate crisis subsides."
+  },
+  {
+    "id": "calc-fx-010",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "Hedged EUR bond → NOK floating margin",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "source": "Lecture 9 (Syrstad) — full-hedge worked example",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "A Norwegian mortgage company funds NOK adjustable-rate mortgages by issuing a **5-year EUR-denominated covered bond at a 3.50% fixed coupon**, EUR 100m, hedging via:\n• **EUR IRS** — receive EUR 3.50% fixed, pay EURIBOR 3M flat.\n• **EUR/NOK CCBS** — receive EURIBOR 3M, pay NIBOR 3M + 15 bp basis (the basis is ADDED to the NOK leg the bank pays).\n\nMortgage assets earn **NIBOR 3M + 80 bp**.\n\nCompute (a) the net NOK floating margin after the full hedge; (b) the net margin if the basis widens to 30 bp; (c) the net margin if the basis tightens to 0 bp.",
+    "keyFormulas": [
+      "Net floating NOK margin = Asset spread over NIBOR − Liability spread over NIBOR",
+      "Liability spread over NIBOR (after hedges) = Basis paid on NOK leg of the CCBS"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Net floating NOK margin with 15 bp basis.",
+        "answer": "65 bp",
+        "unit": "bp",
+        "working": [
+          "Cash-flow walk (liability side):",
+          "Pay EUR 3.50% (bond) → IRS cancels with receive 3.50%, pay EURIBOR → CCBS cancels EURIBOR with receive EURIBOR, pay NIBOR + 15 bp.",
+          "Net liability cost in NOK terms: **NIBOR + 15 bp**.",
+          "Asset receives: NIBOR + 80 bp.",
+          "Net floating NOK margin = 80 − 15 = **65 bp** (±0)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Net margin if basis widens to 30 bp.",
+        "answer": "50 bp",
+        "unit": "bp",
+        "working": [
+          "Liability cost = NIBOR + 30 bp; net margin = 80 − 30 = **50 bp**.",
+          "A 15 bp basis widening shaves 15 bp off the bank's margin — exposing the bank to basis-spread risk even though FX and rate risks are fully hedged."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Net margin if basis tightens to 0 bp.",
+        "answer": "80 bp",
+        "unit": "bp",
+        "working": [
+          "Liability cost = NIBOR (flat); net margin = 80 − 0 = **80 bp**.",
+          "Zero basis is the CIP / theoretical no-arbitrage condition — bank captures the full asset spread."
+        ]
+      }
+    ],
+    "intuition": "Even a fully-hedged book retains BASIS-SPREAD risk: the cost of converting EUR funding into NOK depends on the cross-currency basis, which moves with global dollar-funding stress and EUR/NOK supply/demand. Norwegian banks issuing EUR covered bonds priced this risk into their funding plans after 2008; in March 2020 the EUR/NOK basis re-widened sharply, compressing margins on this kind of book."
+  },
+  {
+    "id": "calc-fx-011",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "Implied cross-currency basis from observed forward",
+    "difficulty": "hard",
+    "estimatedMinutes": 9,
+    "source": "Lefeuvre (2009) — basis swaps as a dollar-need signal; Lecture 8 CIP derivation",
+    "topicTags": [
+      "derivatives-fx"
+    ],
+    "problem": "Observed market quotes (1-year tenor):\n• **Spot S₀ = 1.10 USD/EUR** (USD per 1 EUR).\n• **r_USD = 5.00% p.a.**\n• **r_EUR = 3.50% p.a.**\n• **Observed 1y forward F = 1.1135 USD/EUR**.\n\nCompute (a) the CIP no-arbitrage forward F*; (b) the deviation of F from F* in pips and as an annualised basis-point spread; (c) state the sign of the implied cross-currency basis on the EUR leg and what it implies about USD funding.",
+    "keyFormulas": [
+      "CIP: F* = S₀ × (1 + r_USD × t) / (1 + r_EUR × t)   (USD = quote, EUR = base; t = tenor in years)",
+      "Deviation in % terms ≈ annualised basis spread for 1y tenor",
+      "1 pip = 0.0001 in this quote convention"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) CIP no-arbitrage forward F*.",
+        "answer": "1.115942 USD/EUR",
+        "unit": "USD per EUR",
+        "working": [
+          "F* = 1.10 × (1 + 0.05 × 1) / (1 + 0.035 × 1)",
+          "= 1.10 × 1.05 / 1.035",
+          "= 1.10 × 1.014493",
+          "= **1.115942** (±0.000001)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Deviation in pips and annualised bp.",
+        "answer": "−24.4 pips · −21.9 bp",
+        "unit": "pips / bp",
+        "working": [
+          "F − F* = 1.1135 − 1.115942 = −0.002442 = **−24.4 pips** (±0.5 pip).",
+          "% deviation = −0.002442 / 1.115942 = −0.2189% = **−21.9 bp** (±0.1 bp).",
+          "For a 1y tenor, a ~22 bp forward dislocation corresponds approximately to a ~22 bp annualised cross-currency basis."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Sign of the implied cross-currency basis on the EUR leg, and interpretation.",
+        "answer": "Basis is NEGATIVE (≈ −22 bp) → USD scarce; synthetic USD borrowers pay a premium.",
+        "working": [
+          "F < F* means the realised forward EUR is 'worth less' than CIP says it should be.",
+          "From the perspective of an FX-swap dollar borrower (lend EUR, receive USD now, pay back USD later for EUR back): they receive less EUR back at maturity than CIP entitles them to, i.e. the synthetic USD borrowing rate is ABOVE the no-arbitrage rate.",
+          "Equivalently, the EUR leg of a CCBS pays EURIBOR + (negative basis) ≈ EURIBOR − 22 bp.",
+          "Per Lefeuvre (2009) and Coffey/Kos/Verdelhan (2009): a more-negative basis is a textbook signal of dollar scarcity post-2008. Pre-2008 the basis hovered around zero (CIP held tightly)."
+        ]
+      }
+    ],
+    "intuition": "The cross-currency basis is the FX-swap market's price for any deviation from CIP. Post-2008, sustaining the arbitrage requires balance sheet, and balance sheet is costly — so the basis can persist negative for years. Hui, Genberg & Chung (2011) document that each Fed swap-line expansion in 2008-09 visibly tightened the basis by 25-50 bp, which is direct evidence that the deviation was being arbitraged away by abundant balance sheet, not by a change in rate expectations."
+  },
+  {
+    "id": "calc-fx-012",
+    "category": "fx-swap",
+    "set": 2,
+    "title": "Fed/ECB swap line vs synthetic FX-swap dollar funding",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "source": "Hui, Genberg & Chung (2011); Baba, Packer & Nagano (2009); Lecture 9",
+    "topicTags": [
+      "derivatives-fx",
+      "bank-crises"
+    ],
+    "problem": "At the peak of dollar-funding stress, a European bank can access USD via two routes:\n\n• **Fed→ECB swap line**: ECB on-lends Fed-supplied USD to the bank at **5.25%** (= USD OIS 4.25% + 100 bp policy spread). Tenor: 7 days.\n• **Private FX swap market**: implied USD rate = **8.10%** (Ando-decomposition with α at crisis levels).\n\nNotional: **USD 50bn**. Day-count: act/360.\n\nCompute (a) the 7-day USD interest cost on each route; (b) the 7-day dollar saving from using the swap line; (c) the annualised dollar saving (extrapolating the 7-day spread).",
+    "keyFormulas": [
+      "Period interest = Notional × rate × (days / 360)",
+      "Annualised spread saving = Notional × (FX-swap rate − Swap-line rate)"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) 7-day USD interest cost on each route.",
+        "answer": "Swap line: 51.04m USD · FX swap: 78.75m USD",
+        "unit": "USD",
+        "working": [
+          "Swap line: 50,000,000,000 × 0.0525 × 7/360 = **51.04m USD** (±0.05m).",
+          "FX swap: 50,000,000,000 × 0.0810 × 7/360 = **78.75m USD** (±0.05m)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) 7-day saving from using the swap line.",
+        "answer": "27.71m USD",
+        "unit": "USD",
+        "working": [
+          "Saving = 78.75 − 51.04 = **27.71m USD** for one week (±0.1m).",
+          "= 50bn × (8.10% − 5.25%) × 7/360 = 50bn × 0.0285 × 0.01944 = 27.71m USD."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Annualised dollar saving (extrapolating the 7-day spread).",
+        "answer": "≈ 1,425m USD / year",
+        "unit": "USD",
+        "working": [
+          "Annualised = 50,000,000,000 × (0.0810 − 0.0525) = 50bn × 0.0285 = **1,425m USD per year** (±5m).",
+          "Per Hui/Genberg/Chung (2011): each Fed swap-line expansion in 2008-09 visibly compressed the basis by 25-50 bp, consistent with the order of magnitude here."
+        ]
+      }
+    ],
+    "intuition": "The Fed's swap-line architecture is a global liquidity backstop that puts a CEILING on the FX-swap-implied USD rate that non-US banks face. Without it, persistent α > 0 episodes (2008, 2011, 2020) would impose multi-billion-dollar annual deadweight costs across the non-US banking system. Per Baba/Packer/Nagano (2009), this is why European banks' acute stress at end-September 2008 was concentrated in the days BEFORE the swap-line expansion — and broke after it."
+  },
+  {
+    "id": "calc-leverage-001",
+    "category": "liquidity-reg",
+    "set": 2,
+    "title": "Basel III leverage ratio — backstop check",
+    "difficulty": "easy",
+    "estimatedMinutes": 4,
+    "source": "Basel III leverage ratio (CRR Article 429); Lecture 7 (Bank Regulation)",
+    "topicTags": [
+      "bank-regulation"
+    ],
+    "problem": "A bank reports **Tier 1 capital = 110** and **total exposures (on- + off-balance-sheet, no risk-weighting) = 4,500**.\n\nCompute (a) the leverage ratio; (b) compare to the Basel III 3% minimum; (c) the additional Tier 1 capital needed to meet the minimum if exposures are unchanged.",
+    "keyFormulas": [
+      "Leverage ratio = Tier 1 capital / Total exposures",
+      "Basel III minimum: 3% (G-SIBs face an additional 50% of their G-SIB CET1 buffer)"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Leverage ratio.",
+        "answer": "2.44%",
+        "unit": "%",
+        "working": [
+          "LR = 110 / 4,500 = 0.02444 = **2.44%** (±0.01%)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Compare to the Basel III 3% minimum.",
+        "answer": "Below the minimum by 56 bp",
+        "unit": "bp",
+        "working": [
+          "3.00% − 2.44% = **56 bp shortfall**.",
+          "The leverage ratio is the non-risk-sensitive backstop — it is independent of RWA, so it constrains banks even when their risk-weighted ratios look strong."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Additional Tier 1 capital required.",
+        "answer": "+25",
+        "unit": "currency units (same as exposures)",
+        "working": [
+          "Required T1 to meet 3%: 0.03 × 4,500 = **135**.",
+          "Gap = 135 − 110 = **+25 of Tier 1**."
+        ]
+      }
+    ],
+    "intuition": "The leverage ratio is the answer to one question Basel I-II missed: what if the risk weights are wrong? It binds independently of RWA, so a bank that gamed RWA down via models still has to hold absolute Tier 1 against absolute exposures. In 2008 several European banks looked well-capitalised on RWA but ran 50× leverage on total exposures — exactly what the leverage ratio backstop now prevents."
+  },
+  {
+    "id": "calc-lcr-001",
+    "category": "liquidity-reg",
+    "set": 2,
+    "title": "Liquidity Coverage Ratio with stress add-on",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "source": "Basel III LCR (CRR Article 411-428); Lecture 7",
+    "topicTags": [
+      "bank-regulation",
+      "liquidity-risk"
+    ],
+    "problem": "A bank's 30-day liquidity profile:\n\n**HQLA (Level 1 only, no haircut):** 250\n\n**Outflows over 30 days (run-off rates per Basel):**\n• Stable retail deposits 1,000 × 5% = 50\n• Less-stable retail 200 × 10% = 20\n• Operational wholesale 300 × 25% = 75\n• Non-operational wholesale 200 × 100% = 200\n\n**Inflows over 30 days:** 80 (from contractually due loans)\n\nCompute (a) the LCR under base run-off rates; (b) the LCR if a stress scenario doubles the retail run-off rates; (c) the HQLA shortfall to meet 100% LCR under stress.",
+    "keyFormulas": [
+      "Net cash outflow = Total outflows − min(Inflows, 75% × Outflows)",
+      "LCR = HQLA / Net cash outflow ≥ 100%"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Base LCR.",
+        "answer": "94.3%",
+        "unit": "%",
+        "working": [
+          "Total outflows = 50 + 20 + 75 + 200 = **345**.",
+          "Inflow cap = 75% × 345 = 258.75; eligible inflows = min(80, 258.75) = **80**.",
+          "Net outflow = 345 − 80 = **265**.",
+          "LCR = 250 / 265 = **94.3%** (±0.1%) — below the 100% minimum."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) LCR under stress (retail run-off doubles to 10% / 20%).",
+        "answer": "74.6%",
+        "unit": "%",
+        "working": [
+          "Stressed retail outflows: 1,000 × 10% = 100; 200 × 20% = 40.",
+          "Total stressed outflows = 100 + 40 + 75 + 200 = **415**.",
+          "Net outflow = 415 − 80 = **335** (inflow cap 75% × 415 = 311.25 still > 80).",
+          "LCR = 250 / 335 = **74.6%** (±0.1%) — severe breach."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) HQLA shortfall to meet 100% LCR under stress.",
+        "answer": "+85 of HQLA",
+        "unit": "currency units",
+        "working": [
+          "Required HQLA at 100% LCR = 1.00 × 335 = **335**.",
+          "Shortfall = 335 − 250 = **+85 of HQLA**.",
+          "Bank must monetise non-HQLA assets (sell into HQLA), reduce non-operational wholesale exposure, or extend retail-deposit term to qualify as 'stable'."
+        ]
+      }
+    ],
+    "intuition": "LCR is calibrated to a 30-day idiosyncratic-plus-market-wide stress; the 75% inflow cap stops banks from arguing themselves out of HQLA on the basis of contractually-due inflows that may not actually arrive. The structural lesson: HQLA must be sized for the stressed run-off, not the base case, because run-off rates rise WHEN HQLA is hardest to monetise."
+  },
+  {
+    "id": "calc-nsfr-001",
+    "category": "liquidity-reg",
+    "set": 2,
+    "title": "Net Stable Funding Ratio — structural funding check",
+    "difficulty": "medium",
+    "estimatedMinutes": 9,
+    "source": "Basel III NSFR (CRR2 Articles 428a-az); Lecture 7",
+    "topicTags": [
+      "bank-regulation",
+      "liquidity-risk"
+    ],
+    "problem": "Apply standard NSFR ASF/RSF factors to a bank's balance sheet.\n\n**Liabilities & Equity (ASF factor):**\n\n| Item | Amount | ASF |\n|---|---:|---:|\n| Equity | 100 | 100% |\n| Term deposits >1y | 200 | 100% |\n| Stable retail <1y | 500 | 95% |\n| Less-stable retail <1y | 200 | 90% |\n| Operational deposits | 100 | 50% |\n| Wholesale <6m | 300 | 0% |\n\n**Assets (RSF factor):**\n\n| Item | Amount | RSF |\n|---|---:|---:|\n| Cash | 50 | 0% |\n| Level-1 sovereign bonds | 200 | 5% |\n| Residential mortgages | 600 | 65% |\n| Performing corporate loans | 350 | 85% |\n| Other (illiquid) | 100 | 100% |\n\nCompute (a) Available Stable Funding; (b) Required Stable Funding; (c) NSFR.",
+    "keyFormulas": [
+      "ASF = Σ (Liability × ASF factor)",
+      "RSF = Σ (Asset × RSF factor)",
+      "NSFR = ASF / RSF ≥ 100%"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Available Stable Funding (ASF).",
+        "answer": "1,005",
+        "unit": "currency units",
+        "working": [
+          "100×1.00 + 200×1.00 + 500×0.95 + 200×0.90 + 100×0.50 + 300×0.00",
+          "= 100 + 200 + 475 + 180 + 50 + 0",
+          "= **1,005**."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Required Stable Funding (RSF).",
+        "answer": "797.5",
+        "unit": "currency units",
+        "working": [
+          "50×0.00 + 200×0.05 + 600×0.65 + 350×0.85 + 100×1.00",
+          "= 0 + 10 + 390 + 297.5 + 100",
+          "= **797.5**."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) NSFR.",
+        "answer": "126.0%",
+        "unit": "%",
+        "working": [
+          "NSFR = 1,005 / 797.5 = **1.260 = 126.0%** (±0.1%) — comfortably above the 100% minimum."
+        ]
+      }
+    ],
+    "intuition": "NSFR is the long-leg complement to the LCR's short-leg: where LCR asks 'can you survive 30 days of stressed outflows', NSFR asks 'is your asset book funded by liabilities stable enough for the asset's maturity'. A bank that funds illiquid corporate loans (RSF 85%) with overnight wholesale (ASF 0%) fails NSFR — exactly the maturity-mismatch model that broke in 2007–08."
+  },
+  {
+    "id": "calc-mrel-001",
+    "category": "liquidity-reg",
+    "set": 2,
+    "title": "MREL stack — own funds + eligible liabilities vs requirement",
+    "difficulty": "medium",
+    "estimatedMinutes": 10,
+    "source": "BRRD MREL technical standards; BoE bail-in guide; Lecture 11",
+    "topicTags": [
+      "recovery-resolution",
+      "bank-regulation"
+    ],
+    "problem": "A bank's loss-absorbing stack:\n\n| Item | Amount |\n|---|---:|\n| CET1 | 100 |\n| AT1 hybrid | 10 |\n| T2 subordinated | 20 |\n| Non-preferred senior bonds (eligible) | 90 |\n| **Total bail-in-able** | **220** |\n\n**RWA = 1,000.** Pillar 1 = 8% RWA, Pillar 2 Requirement (P2R) = 2.5% RWA.\n\nCompute (a) the bank's MREL ratio; (b) the SRB-style required MREL = LAA + RA, where LAA = Loss Absorption Amount (P1 + P2R) and RA = Recapitalisation Amount (P1 + P2R); (c) the surplus or shortfall.",
+    "keyFormulas": [
+      "MREL ratio = (Own funds + Eligible liabilities) / RWA",
+      "LAA = (P1 + P2R) × RWA",
+      "RA = (P1 + P2R) × RWA   [SRB convention; jurisdictions vary on whether the CBR enters RA]",
+      "Required MREL = LAA + RA"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) MREL ratio held.",
+        "answer": "22.0% RWA",
+        "unit": "% of RWA",
+        "working": [
+          "Own funds = 100 + 10 + 20 = 130. Eligible liabilities = 90.",
+          "MREL ratio = (130 + 90) / 1,000 = 220/1,000 = **22.0%** (±0.1%)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Required MREL = LAA + RA.",
+        "answer": "21.0% RWA = 210",
+        "unit": "% of RWA / currency units",
+        "working": [
+          "LAA = (8% + 2.5%) × 1,000 = 10.5% × 1,000 = **105**.",
+          "RA = (8% + 2.5%) × 1,000 = 10.5% × 1,000 = **105**.",
+          "Required MREL = 105 + 105 = **210**, i.e. **21.0% of RWA**."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Surplus or shortfall.",
+        "answer": "Surplus +10 (≈ 1.0% RWA) above MREL",
+        "working": [
+          "Held 220 vs required 210 → **surplus of 10 = 1.0% of RWA**.",
+          "Important nuance: the Combined Buffer Requirement (CCB + CCyB + O-SII + systemic) sits on top of the MREL requirement and must be met in CET1 separately (the M-MDA threshold). If the bank has CBR = 4% RWA but only 100 of CET1, it may breach CBR-on-top-of-MREL even with the MREL surplus shown."
+        ]
+      }
+    ],
+    "intuition": "MREL = LAA + RA is engineered so a failing bank can absorb losses 'on the way down' (LAA writes off equity / converts AT1, T2, NPS) AND still re-emerge with enough capital to be a viable going concern (RA rebuilds CET1 to operating levels). Without RA, bail-in produces a recapitalised but immediately undercapitalised bank — defeating the purpose. The doubling of (P1 + P2R) is the structural minimum; the CBR layered on top via M-MDA enforces capital quality during normal times."
+  },
+  {
+    "id": "calc-cap-growth",
+    "category": "capital-ratios",
+    "set": 2,
+    "title": "Capital constraint on balance-sheet growth",
+    "difficulty": "easy",
+    "estimatedMinutes": 6,
+    "source": "Lecture 7 (Bank Regulation); May 2024 Q2b grading guide",
+    "topicTags": [
+      "bank-regulation"
+    ],
+    "problem": "A bank reports **CET1 = 140**, **REA = 1,000** (CET1 ratio 14.0%, vs combined min ~10.5%).\n\nManagement wants to grow REA by **20% next year** while maintaining the same 14.0% target ratio.\n\nCompute (a) the new REA target; (b) the CET1 needed to hold the 14.0% ratio; (c) the capital gap and at least three sources to bridge it.",
+    "keyFormulas": [
+      "Required CET1 = target ratio × REA",
+      "Sources of new CET1: retained earnings; rights issue (new equity); reduced dividend payout; lower target ratio (within minimums)"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) New REA target.",
+        "answer": "1,200",
+        "unit": "currency units",
+        "working": [
+          "1,000 × (1 + 0.20) = **1,200**."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) CET1 needed to maintain 14.0%.",
+        "answer": "168",
+        "unit": "currency units",
+        "working": [
+          "0.14 × 1,200 = **168**."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Capital gap and at least three sources to bridge it.",
+        "answer": "Gap = +28; sources: retained earnings, rights issue, reduced dividend payout (or accept a lower target ratio)",
+        "working": [
+          "Gap = 168 − 140 = **+28 CET1**.",
+          "Sources of CET1 (Lecture 7):",
+          "1. **Retained earnings** — most common; constrained by ROE and dividend policy. With ROE on RWA of 1.5% post-tax (15 of profit/year on 1,000 RWA) and 50% payout, retention ≈ 7.5/year → 28/7.5 ≈ 3.7 years to bridge.",
+          "2. **Rights issue / common equity issuance** — raise 28 directly from the market; instant but dilutive.",
+          "3. **Reduced dividend payout** — retain more profit; signal-sensitive (markets may interpret as distress).",
+          "4. **Lower target ratio** — accept e.g. 12% ratio: needed CET1 = 144; gap shrinks to 4. Constraint: must stay above combined min ~10.5% with a buffer for stress."
+        ]
+      }
+    ],
+    "intuition": "Capital is the binding constraint on bank balance-sheet growth. A bank that wants to grow assets must either: (i) grow CET1 in step, (ii) shed RWA to free capital (e.g. synthetic securitisation — see Set 1 securitisation questions), or (iii) accept a lower CET1 ratio (within minimums). This is why 'capital-light' growth strategies like off-balance-sheet conduits (Elmer 1999) became popular pre-2008 — and why the leverage ratio backstop now caps them."
+  },
+  {
+    "id": "calc-tranche-001",
+    "category": "tranche-math",
+    "set": 2,
+    "title": "Three-tranche CDO loss waterfall — three pool-loss scenarios",
+    "difficulty": "medium",
+    "estimatedMinutes": 9,
+    "source": "Gibson (2004), 'Understanding the Risk of Synthetic CDOs'; Davi (2008) tranche notes; Lecture 10",
+    "topicTags": [
+      "securitisation"
+    ],
+    "problem": "A CDO references a $1bn pool, tranched as follows:\n\n| Tranche | Attach | Detach | Notional |\n|---|---:|---:|---:|\n| Equity | 0% | 3% | $30m |\n| Mezzanine | 3% | 8% | $50m |\n| Senior | 8% | 100% | $920m |\n\nCompute the loss to each tranche under realised pool losses of (a) **$20m (2%)**; (b) **$60m (6%)**; (c) **$200m (20%)**. Express as both currency amount and as a percentage of the tranche.",
+    "keyFormulas": [
+      "Tranche loss = max(0, min(Pool loss − Attach, Tranche notional))",
+      "Cumulative subordination protects each tranche by exactly the sum of junior-tranche notionals"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Pool loss = $20m (2%).",
+        "answer": "Equity 20 (66.67%) · Mezz 0 · Senior 0",
+        "unit": "USDm / %",
+        "working": [
+          "Pool loss 20m is below the equity detach point of 30m.",
+          "Equity loss = min(20, 30) = **20m** = 20/30 = **66.67%** of equity tranche.",
+          "Mezzanine and senior take **0** losses."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Pool loss = $60m (6%).",
+        "answer": "Equity 30 (100%) · Mezz 30 (60%) · Senior 0",
+        "unit": "USDm / %",
+        "working": [
+          "Equity is fully wiped out: **30m (100%)**.",
+          "Remaining loss climbs into mezz: 60 − 30 = 30m absorbed by mezz = **30m** = 30/50 = **60.00%** of mezz tranche.",
+          "Senior unaffected: **0**."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Pool loss = $200m (20%).",
+        "answer": "Equity 30 (100%) · Mezz 50 (100%) · Senior 120 (13.04%)",
+        "unit": "USDm / %",
+        "working": [
+          "Equity 30m (100%); mezz 50m (100%) — both fully wiped.",
+          "Remaining loss to senior = 200 − 80 = **120m** = 120/920 = **13.04%** of senior tranche.",
+          "Sum check: 30 + 50 + 120 = 200 ✓."
+        ]
+      }
+    ],
+    "intuition": "Subordination is binary: a tranche either takes 100% of the loss in its band or none of it (until losses reach its attach point). This non-linearity is what makes mezz tranches 'fragile' — once attached, losses escalate fast — and what makes the senior look safe in unconditional EL terms but catastrophic conditional on extreme pool losses (Coval/Jurek/Stafford)."
+  },
+  {
+    "id": "calc-tranche-002",
+    "category": "tranche-math",
+    "set": 2,
+    "topic": "securitisation",
+    "title": "Attach/detach points from tranche notionals",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "source": "Gibson (2004); RAM Synthetic CDOs primer; Lecture 10",
+    "topicTags": [
+      "securitisation"
+    ],
+    "problem": "A CDO references $1bn. Tranche notionals: equity **$40m**, mezzanine **$80m**, super-senior **$880m** (no separate AAA tranche).\n\nCompute (a) the attach/detach points of each tranche as % of the pool; and the loss to each tranche under pool losses of (b) **$50m (5%)**, (c) **$100m (10%)**, (d) **$250m (25%)**.",
+    "keyFormulas": [
+      "Detach[i] = Σ_{j≤i} Notional[j] / Pool",
+      "Attach[i] = Detach[i−1] (with Attach[0] = 0)",
+      "Tranche loss = max(0, min(Pool loss − Attach × Pool, Tranche notional))"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Attach / detach points.",
+        "answer": "Equity 0–4% · Mezz 4–12% · SS 12–100%",
+        "working": [
+          "Equity: attach 0%, detach 40/1,000 = **4%**.",
+          "Mezz: attach 4%, detach (40+80)/1,000 = **12%**.",
+          "Super-senior: attach **12%**, detach 100%."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Pool loss = $50m (5%).",
+        "answer": "Equity 40 (100%) · Mezz 10 (12.50%) · SS 0",
+        "unit": "USDm / %",
+        "working": [
+          "Equity 40m (100%). Remaining 10m to mezz: 10/80 = **12.50%**. SS 0."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Pool loss = $100m (10%).",
+        "answer": "Equity 40 (100%) · Mezz 60 (75.00%) · SS 0",
+        "unit": "USDm / %",
+        "working": [
+          "Equity 40, mezz 60 (= 100 − 40); SS 0. Mezz % = 60/80 = **75.00%**."
+        ]
+      },
+      {
+        "id": "d",
+        "prompt": "(d) Pool loss = $250m (25%).",
+        "answer": "Equity 40 (100%) · Mezz 80 (100%) · SS 130 (14.77%)",
+        "unit": "USDm / %",
+        "working": [
+          "Equity 40, mezz 80; remaining 130 to SS = 130/880 = **14.77%**.",
+          "Sum check: 40+80+130 = 250 ✓."
+        ]
+      }
+    ],
+    "intuition": "The attach/detach grid is the only thing that determines tranche-level loss. For a synthetic CDO with thin equity (4%), even a moderate pool loss of 25% reaches the super-senior — exposing investors who thought they were buying a 'safer than AAA' instrument to material principal write-downs. This is the geometry behind the AIG super-senior debacle."
+  },
+  {
+    "id": "calc-tranche-003",
+    "category": "tranche-math",
+    "set": 2,
+    "title": "Expected loss on equity / mezz / senior under a discrete loss distribution",
+    "difficulty": "hard",
+    "estimatedMinutes": 12,
+    "source": "Coval, Jurek & Stafford (2009), 'The Economics of Structured Finance' (JEP); Gibson (2004)",
+    "topicTags": [
+      "securitisation"
+    ],
+    "problem": "A $1bn pool has the following loss distribution:\n\n| Pool loss | Probability |\n|---:|---:|\n| 0 | 0.60 |\n| 20 | 0.25 |\n| 80 | 0.10 |\n| 200 | 0.05 |\n\nTranches: equity **$30m** (0–3%), mezzanine **$50m** (3–8%), senior **$920m** (8–100%).\n\nCompute (a) the pool's expected loss; (b) the expected loss on each tranche, in $m and as a % of tranche notional; (c) verify that the three tranche ELs sum to the pool EL.",
+    "keyFormulas": [
+      "EL_tranche = Σ_s P(s) × max(0, min(L_s − Attach × Pool, Tranche notional))",
+      "EL_pool = Σ_s P(s) × L_s = Σ_i EL_tranche[i]"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Pool expected loss.",
+        "answer": "$23m",
+        "unit": "USDm",
+        "working": [
+          "EL_pool = 0×0.60 + 20×0.25 + 80×0.10 + 200×0.05",
+          "= 0 + 5 + 8 + 10",
+          "= **$23m** (±0.1m)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Expected loss on each tranche.",
+        "answer": "Equity 9.5 (31.67%) · Mezz 7.5 (15.00%) · Senior 6.0 (0.65%)",
+        "unit": "USDm / %",
+        "working": [
+          "Tranche losses by scenario:",
+          "| Loss | Equity | Mezz | Senior |",
+          "| 0   | 0  | 0  | 0   |",
+          "| 20  | 20 | 0  | 0   |",
+          "| 80  | 30 | 50 | 0   |",
+          "| 200 | 30 | 50 | 120 |",
+          "EL_equity = 0×0.60 + 20×0.25 + 30×0.10 + 30×0.05 = 0 + 5 + 3 + 1.5 = **9.5m** = 9.5/30 = **31.67%**.",
+          "EL_mezz = 0 + 0 + 50×0.10 + 50×0.05 = 5 + 2.5 = **7.5m** = 7.5/50 = **15.00%**.",
+          "EL_senior = 0 + 0 + 0 + 120×0.05 = **6.0m** = 6/920 = **0.65%** (±0.01%)."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Sum check.",
+        "answer": "9.5 + 7.5 + 6.0 = 23.0 ✓",
+        "working": [
+          "9.5 + 7.5 + 6.0 = **23.0**, equal to pool EL. ✓",
+          "This is mechanical: every dollar of pool loss is allocated to exactly one tranche, so tranche-level ELs partition the pool EL exactly."
+        ]
+      }
+    ],
+    "intuition": "The senior tranche has only 0.65% EL — looks rock-solid in unconditional terms. But notice the conditional structure: the senior takes losses ONLY in the worst-case scenario (probability 5%), and CONDITIONAL on that scenario it loses 13% of notional. This is exactly the Coval/Jurek/Stafford 'economic catastrophe bond' point: same EL as a high-grade corporate, but losses concentrated in the worst aggregate states — where marginal utility is highest. Pricing it as a single-name AAA mispriced this systematic-risk loading."
+  },
+  {
+    "id": "calc-tranche-004",
+    "category": "tranche-math",
+    "set": 2,
+    "title": "AIG-style super-senior unfunded exposure",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "source": "Gibson (2004); Lecture 10 (the AIG case); glossary entry 'aig'",
+    "topicTags": [
+      "securitisation",
+      "bank-crises"
+    ],
+    "problem": "A synthetic CDO references $1bn. Tranching: equity 0–3% ($30m), mezz 3–7% ($40m), senior 7–15% ($80m), super-senior 15–100% ($850m).\n\nA monoline / AIG-style protection seller writes unfunded protection on the super-senior tranche (no IM posted at inception).\n\nCompute (a) the pool-loss threshold above which super-senior takes losses; (b) super-senior loss at pool loss 12% ($120m); (c) super-senior loss at pool loss 25% ($250m), in $m and as % of SS; (d) explain why 'unfunded' is the structural risk in this setup.",
+    "keyFormulas": [
+      "SS attach point in $ = 15% × Pool = $150m",
+      "SS loss = max(0, Pool loss − $150m), capped at $850m"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Pool-loss threshold for SS.",
+        "answer": "$150m (15% of pool)",
+        "unit": "USDm / %",
+        "working": [
+          "SS attaches at 15% × $1bn = **$150m**. Below this, SS loss = 0."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) SS loss at 12% pool loss.",
+        "answer": "0 (still below threshold)",
+        "unit": "USDm",
+        "working": [
+          "Pool loss 120m < attach 150m → SS loss = **0**.",
+          "Sub-tranches: equity 30 (100%), mezz 40 (100%), senior 50/80 = 62.5%; SS untouched."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) SS loss at 25% pool loss.",
+        "answer": "$100m = 11.76% of SS tranche",
+        "unit": "USDm / %",
+        "working": [
+          "SS loss = 250 − 150 = **$100m** = 100/850 = **11.76%** (±0.01%) of SS notional.",
+          "Sub-tranches all fully wiped: equity 30, mezz 40, senior 80, SS 100. Sum = 250 ✓."
+        ]
+      },
+      {
+        "id": "d",
+        "prompt": "(d) Why is 'unfunded' the structural risk?",
+        "answer": "No IM posted at inception → counterparty exposure on AIG itself. AIG's downgrade triggered ISDA collateral calls (~$30bn by Sept 2008), not pool losses.",
+        "working": [
+          "Funded protection (e.g. CLNs): protection seller pre-funds par at inception → no counterparty risk for the buyer.",
+          "Unfunded protection (CDS without IM): payment is contingent on AIG's credit standing. ISDA Master Agreements include CSAs with rating triggers — when AIG was downgraded in 2008, the triggers required AIG to post collateral retroactively across its book.",
+          "Per glossary 'aig' / Lecture 10: the cumulative collateral demand reached ~$30bn by mid-September 2008, exhausting AIG's liquidity and triggering the Fed's $85bn rescue. The losses were NOT yet realised pool losses — they were collateral calls on AIG's contractual exposure."
+        ]
+      }
+    ],
+    "intuition": "The super-senior tranche illustrates why a 'safer than AAA' label is not the same as 'free of risk'. Two distinct exposures stack: (i) tail pool-loss risk above 15%; (ii) counterparty risk on the protection seller — which is dominant when the seller is AIG-FP, levered 100×, with no IM posted, holding ~$440bn of CDS protection on senior tranches. The 2008 unwind was driven by (ii) not (i)."
+  },
+  {
+    "id": "calc-money-mult",
+    "category": "theory-models",
+    "set": 2,
+    "title": "Money multiplier — and why BoE (2014) calls it 'incorrect but persistent'",
+    "difficulty": "medium",
+    "estimatedMinutes": 7,
+    "source": "Bank of England (McLeay, Radia & Thomas 2014), 'Money creation in the modern economy' — course reading",
+    "topicTags": [
+      "bank-models"
+    ],
+    "problem": "Textbook money multiplier:  m = (1 + c) / (rr + c), where rr = reserve ratio and c = currency-deposit ratio.\n\n**Base case:** rr = 5%, c = 10%, monetary base MB = 200.\n\nCompute (a) m and broad money M; (b) m and M if c falls to 5% (less currency held); (c) m and M if rr rises to 10%; (d) state the BoE (2014) critique and what actually constrains broad-money creation in modern systems.",
+    "keyFormulas": [
+      "m = (1 + c) / (rr + c)",
+      "Broad money M = MB × m",
+      "BoE 2014: in modern systems, loans CREATE deposits; reserves accommodate ex-post."
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Base case: m and M.",
+        "answer": "m = 7.33 · M = 1,467",
+        "unit": "—",
+        "working": [
+          "m = (1 + 0.10) / (0.05 + 0.10) = 1.10 / 0.15 = **7.33** (±0.01).",
+          "M = 200 × 7.33 = **1,467** (±1)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) c → 5%.",
+        "answer": "m = 10.50 · M = 2,100",
+        "unit": "—",
+        "working": [
+          "m = 1.05 / 0.10 = **10.50**; M = 200 × 10.50 = **2,100**.",
+          "Less currency leakage → larger money multiplier."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) rr → 10%.",
+        "answer": "m = 5.50 · M = 1,100",
+        "unit": "—",
+        "working": [
+          "m = 1.10 / 0.20 = **5.50**; M = 200 × 5.50 = **1,100**.",
+          "Higher reserve ratio → smaller multiplier (more reserves locked up per deposit)."
+        ]
+      },
+      {
+        "id": "d",
+        "prompt": "(d) BoE (2014) critique.",
+        "answer": "The textbook story (deposits → reserves → loans) reverses the actual sequence. Loans CREATE deposits; reserves accommodate ex-post.",
+        "working": [
+          "Per BoE (2014) 'Money creation in the modern economy': commercial banks do not lend out pre-existing deposits and they are not constrained ex-ante by reserves.",
+          "When a bank extends a loan it credits the borrower's account: a new asset (loan) and a new liability (deposit) appear simultaneously on its balance sheet — inside money is created by the credit decision, not by the reserve.",
+          "Constraints on broad-money creation in modern systems: **bank capital** (CET1 / leverage), **liquidity rules** (LCR / NSFR), **profitability** of marginal lending, **demand for credit**, and the **central-bank policy rate** (which influences loan demand and bank funding cost).",
+          "The reserve multiplier is a useful accounting identity but not a causal description of how money is created."
+        ]
+      }
+    ],
+    "intuition": "Both views co-exist in undergraduate textbooks — but the BoE (2014) view is the operational one. A reserve-multiplier story would predict that QE (huge increase in MB) directly multiplies into broad money — but post-2008 QE shows broad money barely budged because banks faced capital and demand constraints, not reserve constraints. Memorising m = (1+c)/(rr+c) is a useful identity; relying on it as causal logic gets the post-2008 macro wrong."
+  },
+  {
+    "id": "calc-dd-002",
+    "category": "diamond-dybvig",
+    "set": 2,
+    "title": "Diamond-Dybvig run scenario — welfare under a self-fulfilling panic",
+    "difficulty": "hard",
+    "estimatedMinutes": 12,
+    "source": "Diamond & Dybvig (1983), 'Bank Runs, Deposit Insurance, and Liquidity'; supplementary reading on liquidity-risk topic",
+    "topicTags": [
+      "deposit-insurance",
+      "foundational-models"
+    ],
+    "problem": "Same project technology as Set 1's calc-dd-001 (100 depositors, 1 each at t=0; project pays **1 at t=1** liquidated / **2.25 at t=2** held to maturity; 40 D-types and 60 L-types) BUT for this question assume a simpler **symmetric utility u(C) = √C for both types** and a two-deposit contract calibrated to **C₁* = 1.30, C₂* = 1.80** (this satisfies the bank's break-even: 100 − 40×1.30 = 48 of project rolls at 2.25 to fund 60×1.80 = 108 ✓; the C₁*/C₂* values differ from calc-dd-001 because that question uses a different L-type utility specification).\n\nEx-ante welfare = 40·u(C₁*) + 60·u(C₂*).\n\nCompute (a) the no-run welfare; (b) under a run (all 100 withdraw at t=1, bank can only liquidate the project at par 1, paying first-come-first-served), how many depositors are paid in full / partially / nothing; (c) the run-state welfare and the welfare loss vs no-run.",
+    "keyFormulas": [
+      "No-run welfare = 40 √C₁* + 60 √C₂*",
+      "Run capacity at t=1 = total deposits × 1 (par liquidation) = 100",
+      "First-come-first-served: paid in full while cumulative payouts ≤ 100",
+      "Welfare loss = No-run welfare − Run welfare"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) No-run ex-ante welfare.",
+        "answer": "≈ 126.11",
+        "unit": "utility units",
+        "working": [
+          "Welfare = 40 √1.30 + 60 √1.80",
+          "= 40 × 1.1402 + 60 × 1.3416",
+          "= 45.61 + 80.50",
+          "= **126.11** (±0.05)."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Run scenario: how many depositors paid in full / partially / nothing.",
+        "answer": "76 paid 1.30 in full · 1 paid 1.20 (partial, residual cash) · 23 paid 0",
+        "working": [
+          "All 100 depositors withdraw at t=1; bank can only liquidate the project at par 1, so total cash available = **100**.",
+          "Number paid in full at C₁* = 1.30: floor(100 / 1.30) = **76 depositors** (total paid out = 76 × 1.30 = 98.80).",
+          "Residual cash = 100 − 98.80 = **1.20** → goes to the 77th depositor (partial payout).",
+          "Remaining 100 − 76 − 1 = **23 depositors** get 0."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Run-state welfare and welfare loss.",
+        "answer": "Run welfare ≈ 87.75 · Welfare loss ≈ 38.36",
+        "unit": "utility units",
+        "working": [
+          "Run welfare = 76 √1.30 + 1 × √1.20 + 23 × √0",
+          "= 76 × 1.1402 + 1.0954 + 0",
+          "= 86.66 + 1.10 + 0",
+          "= **87.75** (±0.05).",
+          "Welfare loss = 126.11 − 87.75 = **38.36** (±0.1) — a 30% welfare destruction relative to no-run."
+        ]
+      }
+    ],
+    "intuition": "The run equilibrium is Pareto-dominated by the no-run equilibrium even under symmetric information — but each depositor's optimal action conditional on others running is to run too. Diamond & Dybvig's result: any of three policy devices (suspension of convertibility, deposit insurance, fully-credible LOLR) implements the no-run equilibrium under known π_D. With aggregate uncertainty over π_D, suspension fails and deposit insurance dominates — which is why DI became the global default and why Diamond, Dybvig and Bernanke share the 2022 Nobel."
+  },
+  {
+    "id": "calc-haircut-gearing",
+    "category": "theory-models",
+    "set": 2,
+    "title": "Repo haircut, gearing, and the margin spiral",
+    "difficulty": "medium",
+    "estimatedMinutes": 8,
+    "source": "Krishnamurthy (2010), 'How debt markets have malfunctioned in the crisis' (JEP); Brunnermeier & Pedersen (2009)",
+    "topicTags": [
+      "bank-crises"
+    ],
+    "problem": "A leveraged investor holds AAA structured-credit bonds funded entirely via overnight repo. **Equity = $20m**.\n\nPre-crisis repo haircut = **5%**. Crisis haircut = **30%** (per Krishnamurthy 2010 / Gorton & Metrick 'run on repo').\n\nCompute (a) the maximum position size and gearing at each haircut level; (b) the forced sale required if the position was at the pre-crisis maximum and the haircut jumps to 30%; (c) describe the Brunnermeier-Pedersen spiral that this triggers.",
+    "keyFormulas": [
+      "Position × haircut = Equity required",
+      "Max position = Equity / haircut",
+      "Gearing = Position / Equity = 1 / haircut"
+    ],
+    "parts": [
+      {
+        "id": "a",
+        "prompt": "(a) Max position and gearing at each haircut.",
+        "answer": "Pre-crisis: $400m, 20× · Crisis: $66.67m, 3.33×",
+        "unit": "USDm / ×",
+        "working": [
+          "Pre-crisis (haircut 5%): max position = 20 / 0.05 = **$400m**. Gearing = **20×**.",
+          "Crisis (haircut 30%): max position = 20 / 0.30 = **$66.67m**. Gearing = **3.33×**.",
+          "A 6× increase in haircut produces a 6× decrease in gearing — exactly because gearing = 1/haircut."
+        ]
+      },
+      {
+        "id": "b",
+        "prompt": "(b) Forced sale if pre-crisis position was at maximum and haircut jumps to 30%.",
+        "answer": "$333.33m forced sale (≈83% of original position)",
+        "unit": "USDm",
+        "working": [
+          "Original position: $400m. New max at same equity: $66.67m.",
+          "Forced sale = 400 − 66.67 = **$333.33m** = 83% of original position.",
+          "Equivalently: equity must rise by (0.30 − 0.05) × 400 = $100m to maintain the position — impossible overnight, so the position must shrink instead."
+        ]
+      },
+      {
+        "id": "c",
+        "prompt": "(c) Describe the Brunnermeier-Pedersen spiral triggered.",
+        "answer": "Forced sale → price drops → measured volatility rises → haircuts widen further → more forced sales (margin spiral). Concurrent loss spiral if equity is also being eroded.",
+        "working": [
+          "**Margin spiral (Brunnermeier-Pedersen 2009):** price falls → measured volatility rises → required margins/haircuts widen → trader's funding capacity falls → forced selling → further price falls.",
+          "**Loss spiral:** price falls → leveraged trader's equity falls → forced deleveraging → more selling → further falls. (At 20× gearing, a 5% price fall wipes out 100% of equity.)",
+          "**Empirical fingerprint (Krishnamurthy 2010 / Gorton-Metrick):** repo haircuts on structured collateral rose from ~0% to ~45-50% in 2007–08 — exactly the 6× kind of shift modelled here."
+        ]
+      }
+    ],
+    "intuition": "The 1/haircut identity is why funding-liquidity stress is non-linear in collateral conditions: a haircut moving from 2% to 8% (a small absolute change) corresponds to gearing falling from 50× to 12.5× (a factor-of-4 deleveraging). This is why the shadow-banking system unwound so fast in 2007–08 — the haircut adjustment is multiplicative on positions but is presented as a small percentage. Procyclicality of haircuts is one of the post-crisis Basel III reforms (countercyclical buffer, leverage-ratio backstop)."
+  }
+]
