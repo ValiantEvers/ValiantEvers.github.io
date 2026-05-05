@@ -110,17 +110,24 @@ function App() {
     const recallP = fetch('data/recall_questions.json')
       .then(r => r.ok ? r.json() : {})
       .catch(() => ({}));
+    const quizSet2P = fetch('data/quiz_set2.json')
+      .then(r => r.ok ? r.json() : [])
+      .catch(() => []);
     Promise.all([
       ...files.map(f =>
         fetch('data/' + f + '.json')
           .then(r => { if (!r.ok) throw new Error(f + ' not found'); return r.json(); })
       ),
       recallP,
-    ]).then(([glossary, models, timeline, flashcards, exams, topics, quiz, calculations, recall]) => {
+      quizSet2P,
+    ]).then(([glossary, models, timeline, flashcards, exams, topics, quiz, calculations, recall, quizSet2]) => {
       const withRecall = arr => arr.map(e => ({
         ...e,
         recall_questions: recall[e.id] || e.recall_questions || [],
       }));
+      // Merge quiz batches; ensure every question carries a `set` tag (defaults to 1).
+      const taggedSet1 = quiz.map(q => ({ ...q, set: q.set || 1 }));
+      const taggedSet2 = quizSet2.map(q => ({ ...q, set: q.set || 2 }));
       setData({
         glossary: withRecall(glossary),
         models: withRecall(models),
@@ -128,7 +135,7 @@ function App() {
         flashcards,
         exams,
         topics: withRecall(topics),
-        quiz,
+        quiz: [...taggedSet1, ...taggedSet2],
         calculations,
       });
       setLoading(false);
