@@ -81,7 +81,8 @@
 
 
 /* MEDIEVAL THEME */
-[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4)}
+[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);cursor:url('medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('medieval/cursor-sword.png') 2 30, pointer;}
 [data-theme="medieval"] body{font-family:'MedievalSharp','Outfit',sans-serif}
 [data-theme="medieval"] .hero h1,[data-theme="medieval"] .section-title,[data-theme="medieval"] .about-card h3,[data-theme="medieval"] .timeline-item h3,[data-theme="medieval"] .tl-title,[data-theme="medieval"] .fact-card h4,[data-theme="medieval"] .fact-flip .fact-front h4,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cv-body h3,[data-theme="medieval"] .cert-card h4,[data-theme="medieval"] .thesis-body h3,[data-theme="medieval"] .quote-author,[data-theme="medieval"] .btn,[data-theme="medieval"] .hero-tag{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
 [data-theme="medieval"] .nav-links a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .timeline-date,[data-theme="medieval"] .ticker-item,[data-theme="medieval"] .cv-lang,[data-theme="medieval"] .thesis-sub,[data-theme="medieval"] .cert-issuer{font-family:'MedievalSharp','Outfit',sans-serif}
@@ -924,35 +925,6 @@ pos=e.key===seq[0]?1:0;
 });
 })();
 
-/* ═══ PRINS VALIANT SWORD RAIN ═══ */
-(function(){
-if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
-var buf='';
-document.addEventListener('keydown',function(e){
-buf+=e.key.toLowerCase();
-if(buf.length>20)buf=buf.slice(-20);
-if(buf.includes('prins valiant')){
-buf='';
-haptic([30,20,30,20,30]);
-var swords=['⚔️','🗡️','🛡️','👑','⚔️','🗡️','👑','⚔️'];
-for(var i=0;i<80;i++){
-var s=document.createElement('div');
-s.className='confetti-piece';
-s.style.left=Math.random()*100+'vw';
-s.style.top=-20+'px';
-s.style.width='auto';s.style.height='auto';
-s.style.fontSize=(Math.random()*16+14)+'px';
-s.style.background='none';
-s.textContent=swords[Math.floor(Math.random()*swords.length)];
-s.style.animationDuration=(Math.random()*2.5+2)+'s';
-s.style.animationDelay=(Math.random()*2)+'s';
-document.body.appendChild(s);
-setTimeout(function(){s.remove()},6000);
-}
-}
-});
-})();
-
 /* ═══ 3D TILT EFFECT ON CARDS ═══ */
 (function(){
 if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
@@ -1049,7 +1021,7 @@ setTimeout(function(){
 overlay.style.opacity='0';
 setTimeout(function(){overlay.remove()},600);
 activateMedieval();
-},7600);
+},7100);
 
 }else{
 deactivateMedieval();
@@ -1071,22 +1043,6 @@ if(words[1])words[1].textContent='Valiant';
 setLang('medieval');
 document.getElementById('langBtn').textContent='⚔️';
 try{localStorage.setItem('ve-lang',prevLang)}catch(e){}
-/* Sword rain */
-var swords=['⚔️','🗡️','🛡️','👑','🏰','⚔️','🗡️','👑'];
-for(var i=0;i<60;i++){
-var s=document.createElement('div');
-s.className='confetti-piece';
-s.style.left=Math.random()*100+'vw';
-s.style.top=-20+'px';
-s.style.width='auto';s.style.height='auto';
-s.style.fontSize=(Math.random()*16+14)+'px';
-s.style.background='none';
-s.textContent=swords[Math.floor(Math.random()*swords.length)];
-s.style.animationDuration=(Math.random()*2.5+2)+'s';
-s.style.animationDelay=(Math.random()*2)+'s';
-document.body.appendChild(s);
-setTimeout(function(){s.remove()},6000);
-}
 /* Horse ride overlay */
 rideAcrossScreen('prins-ride.png',6);
 }
