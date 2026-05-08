@@ -220,7 +220,7 @@ details .course-list li::before{content:''}
   <div>
     <h1 class="cv-name">Valiant Evers</h1>
     <div class="cv-contact">
-      <a href="mailto:Valiant@evers.no">Valiant@evers.no</a>
+      <a id="cvEmailLink"><span id="cvEmailText"></span></a>
       <span class="sep">·</span>
       <a href="tel:+4798811528">+47 988 11 528</a>
       <span class="sep">·</span>
@@ -830,5 +830,23 @@ document.addEventListener('click', function(){
 })();
 </script>
 
+<script>
+(function(){
+function setEmail(){
+var el=document.getElementById('cvEmailLink');
+var txt=document.getElementById('cvEmailText');
+if(!el||!txt)return;
+var a=[86,97,108,105,97,110,116];
+var b=[101,118,101,114,115,46,110,111];
+var s='';for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);
+s+=String.fromCharCode(64);
+for(var j=0;j<b.length;j++)s+=String.fromCharCode(b[j]);
+el.href='mai'+'lto:'+s;txt.textContent=s;
+}
+setEmail();
+document.addEventListener('DOMContentLoaded',setEmail);
+window.addEventListener('load',function(){setTimeout(setEmail,500)});
+})();
+</script>
 </body>
 </html>

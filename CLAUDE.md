@@ -22,7 +22,7 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - ALL CSS, JS, HTML stays in single file per page (no extracted .css/.js — this is intentional, not a bug)
 - Custom-property-driven theming (CSS vars at `:root`)
 - 6-language support: nb-NO, en, fr, de, es, nl. Strings driven by `data-i` attributes + JS dictionary
-- Email is hardcoded plain (`Valiant@evers.no`) to avoid Cloudflare obfuscation breaking mailto
+- Email is JS-rendered from character codes after page load. The HTML source must contain only an empty `<a>` element with an empty `<span>` inside — no plain mailto: href and no visible email text. This pattern bypasses Cloudflare email obfuscation entirely. Apply to every page that exposes the email.
 
 ## Easter eggs (DO NOT BREAK)
 - Type "prins" anywhere → Prins Valiant medieval mode (CSS theme switch + APNG transitions)
