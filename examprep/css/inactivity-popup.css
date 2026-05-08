@@ -1,0 +1,95 @@
+/* inactivity-popup.css — nudge overlay for /examprep */
+
+#inactivity-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 16, 10, 0.35);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.2s ease;       /* reuses @keyframes from main.css */
+}
+
+.inactivity-popup {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 44px 52px 40px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  animation: slideDown 0.2s var(--ease-sharp);  /* reuses @keyframes from main.css */
+}
+
+.inactivity-eyebrow {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+}
+
+.inactivity-headline {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4.5vw, 38px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+
+.inactivity-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.inactivity-btn-primary {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--white);
+  border: 2px solid var(--accent);
+  padding: 11px 36px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 240px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.inactivity-btn-primary:hover,
+.inactivity-btn-primary:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  outline: none;
+}
+
+.inactivity-btn-ghost {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+.inactivity-btn-ghost:hover,
+.inactivity-btn-ghost:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+
+@media (max-width: 480px) {
+  .inactivity-popup { padding: 32px 24px 28px; }
+}
