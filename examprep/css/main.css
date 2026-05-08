@@ -123,6 +123,7 @@ p { text-wrap: pretty; }
   align-items: stretch;
   gap: 0;
   flex: 1;
+  overflow-x: auto;
 }
 
 .nav-link {
@@ -1621,7 +1622,6 @@ p { text-wrap: pretty; }
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 1100px) {
-  .nav-links { overflow-x: auto; }
   .nav-link { padding: 0 11px; font-size: 11px; }
 }
 
