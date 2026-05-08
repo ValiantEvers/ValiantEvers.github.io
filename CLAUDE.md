@@ -9,6 +9,8 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `CNAME` — points to evers.no (do not delete or modify)
 - `portfolio/index.html` — dark luxury editorial portfolio for recruiters
 - `cv/index.html` — CV page
+- `rekrutterer/index.html` — landing page for recruiters in Wealth Management / Private Banking / Fund Sales (public, indexed)
+- `strategi.html` — private internal job-search strategy tracker (noindex, nofollow — not for public)
 - `osebx/` — separate sub-app (mirrored from osebx repo)
 - `personligokonomi/` — separate sub-app (built from personligokonomi repo)
 - `fra-null-til-investor/`, `fra-null-til-investor2/`, `fra-null-til-investor3/` — FNTI iterations
