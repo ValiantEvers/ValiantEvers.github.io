@@ -277,6 +277,8 @@ p { text-wrap: pretty; }
   grid-template-columns: 320px 1fr;
   gap: 0;
   min-height: calc(100vh - var(--nav-h) - 180px);
+  max-width: var(--max-w);
+  margin: 0 auto;
 }
 
 .glossary-list {
@@ -432,6 +434,8 @@ p { text-wrap: pretty; }
   grid-template-columns: 280px 1fr;
   gap: 0;
   min-height: calc(100vh - var(--nav-h) - 180px);
+  max-width: var(--max-w);
+  margin: 0 auto;
 }
 
 .topics-sidebar {
@@ -483,7 +487,7 @@ p { text-wrap: pretty; }
   margin-top: 4px;
 }
 
-.topic-sections { max-width: 760px; }
+.topic-sections { max-width: 880px; }
 .topic-section {
   margin-bottom: 32px;
   padding-bottom: 24px;
@@ -546,7 +550,7 @@ p { text-wrap: pretty; }
   margin-top: 28px;
   padding-top: 20px;
   border-top: 1px solid var(--rule);
-  max-width: 760px;
+  max-width: 880px;
 }
 
 .topic-readings-list {
