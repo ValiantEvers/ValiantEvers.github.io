@@ -273,7 +273,7 @@ select.inp{color-scheme:dark;appearance:auto}
 .score{position:relative}
 .score.popover-open{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-.score-pop{position:absolute;z-index:9700;background:var(--surface2);border:1px solid var(--border-h);border-radius:10px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.5);min-width:240px;max-width:calc(100vw - 32px);font-size:.82rem;color:var(--text);opacity:0;transform:translateY(-4px);transition:opacity .15s,transform .15s;pointer-events:none}
+.score-pop{position:absolute;z-index:10001;background:var(--surface2);border:1px solid var(--border-h);border-radius:10px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.5);min-width:240px;max-width:calc(100vw - 32px);font-size:.82rem;color:var(--text);opacity:0;transform:translateY(-4px);transition:opacity .15s,transform .15s;pointer-events:none}
 .score-pop.show{opacity:1;transform:translateY(0);pointer-events:auto}
 .score-pop .pop-h{font-family:'Syne',sans-serif;font-weight:700;font-size:.94rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
 .score-pop .pop-h .x{background:none;border:none;color:var(--faint);font-size:1.1rem;cursor:pointer;padding:0 4px;font-family:inherit;line-height:1}
@@ -292,6 +292,63 @@ select.inp{color-scheme:dark;appearance:auto}
 .help-table td:first-child{white-space:nowrap;width:1%}
 .help-table tr:last-child td{border-bottom:none}
 .help-note{margin-top:12px;padding:10px 12px;background:var(--accent-g);border:1px solid var(--border-h);border-radius:8px;font-size:.78rem;color:var(--dim)}
+
+/* ── ETAPPE 4: import-modal ── */
+.modal.modal-lg{max-width:780px;width:100%;max-height:88vh;display:flex;flex-direction:column}
+.modal-lg h2{flex-shrink:0}
+.modal-lg .modal-body{flex:1;overflow-y:auto;margin:8px -4px;padding:0 4px;-webkit-overflow-scrolling:touch}
+.modal-lg .modal-actions{flex-shrink:0;border-top:1px solid var(--border);padding-top:12px;margin-top:8px}
+.import-section{margin-bottom:14px}
+.import-section h3{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:6px}
+.import-toggle{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--accent);font-family:inherit;font-size:.78rem;cursor:pointer;padding:2px 0}
+.import-toggle .chev{transition:transform .2s;display:inline-block;font-size:.65rem}
+.import-toggle.open .chev{transform:rotate(90deg)}
+.import-example{display:none;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:10px 12px;margin-top:6px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.74rem;color:var(--dim);white-space:pre-wrap;line-height:1.4}
+[data-theme="light"] .import-example{background:rgba(0,18,51,.03)}
+.import-example.open{display:block}
+.import-paste{width:100%;min-height:140px;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.78rem;color:var(--text);outline:none;resize:vertical;line-height:1.4}
+[data-theme="light"] .import-paste{background:rgba(0,18,51,.03)}
+.import-paste:focus{border-color:var(--accent)}
+.import-paste-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
+.import-paste-row .import-paste{flex:1;min-width:0}
+.import-paste-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.import-status{font-size:.78rem;color:var(--dim);min-height:1.4em}
+.import-status.ok{color:var(--green)}
+.import-status.warn{color:var(--yellow)}
+.import-list-section{margin-top:10px}
+.import-list-h{font-size:.78rem;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px}
+.import-list-h.dup{color:var(--yellow)}
+.import-card{background:rgba(225,231,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;position:relative}
+[data-theme="light"] .import-card{background:rgba(0,18,51,.02)}
+.import-card.invalid{border-color:var(--yellow-b);background:rgba(240,192,64,.05)}
+.import-card.dup{border-color:var(--accent2);background:rgba(105,150,255,.04)}
+.import-card .ic-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.import-card .ic-title{font-weight:600;font-size:.92rem;flex:1;min-width:0;word-break:break-word}
+.import-card .ic-remove{background:none;border:none;color:var(--faint);font-size:1.15rem;cursor:pointer;padding:0 4px;line-height:1;font-family:inherit;flex-shrink:0}
+.import-card .ic-remove:hover{color:var(--red)}
+.import-card .ic-grid{display:grid;grid-template-columns:84px 1fr;gap:6px 10px;font-size:.82rem;align-items:center}
+.import-card .ic-grid label{color:var(--faint);text-align:right;font-size:.76rem;text-transform:uppercase;letter-spacing:.3px}
+.import-card .ic-grid input,.import-card .ic-grid select,.import-card .ic-grid textarea{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;width:100%}
+[data-theme="light"] .import-card .ic-grid input,[data-theme="light"] .import-card .ic-grid select,[data-theme="light"] .import-card .ic-grid textarea{background:rgba(0,18,51,.03)}
+.import-card .ic-grid input:focus,.import-card .ic-grid select:focus,.import-card .ic-grid textarea:focus{border-color:var(--accent)}
+.import-card .ic-grid textarea{resize:vertical;min-height:60px;font-size:.78rem;line-height:1.45}
+.import-card .ic-grid .miss{border-color:var(--yellow);background:rgba(240,192,64,.08)}
+.import-card .ic-grid .miss-hint{font-size:.72rem;color:var(--yellow);margin-top:2px;grid-column:2}
+.import-card .ic-row2{display:grid;grid-template-columns:84px 1fr 84px 1fr;gap:6px 10px;font-size:.82rem;align-items:center;margin-top:6px}
+.import-card .ic-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:.78rem;color:var(--dim)}
+.import-card .ic-score{font-family:'Syne',sans-serif;font-weight:700;color:var(--accent);cursor:pointer;background:var(--accent-g);border:1px solid var(--border-h);border-radius:5px;padding:3px 9px}
+.import-card .ic-score:hover{background:rgba(105,150,255,.15)}
+.import-card .ic-dup-actions{display:flex;gap:6px;flex-wrap:wrap}
+.import-card .ic-dup-btn{background:transparent;border:1px solid var(--border);color:var(--dim);padding:4px 10px;border-radius:5px;font-family:inherit;font-size:.74rem;cursor:pointer}
+.import-card .ic-dup-btn.on{background:var(--accent-g);border-color:var(--border-h);color:var(--accent)}
+.import-empty{padding:24px 12px;text-align:center;color:var(--faint);font-size:.85rem}
+
+@media(max-width:600px){
+  .modal-overlay.full-mobile{padding:0;align-items:stretch}
+  .modal-overlay.full-mobile .modal-lg{max-width:none;width:100%;max-height:none;height:100vh;border-radius:0;border:none;border-top:1px solid var(--border)}
+  .import-card .ic-grid{grid-template-columns:72px 1fr}
+  .import-card .ic-row2{grid-template-columns:72px 1fr;gap:6px}
+}
 
 @media(max-width:600px){
   .grid2{grid-template-columns:1fr}
@@ -422,7 +479,10 @@ select.inp{color-scheme:dark;appearance:auto}
     </div>
     <div class="filter-row bulk-row">
       <span class="bulk-count" id="bulkCount">—</span>
-      <button class="bulk-btn hidden" id="bulkMarkSeenBtn">Markér alle som sett</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="bulk-btn" id="btnAddJobs">+ Legg til jobber</button>
+        <button class="bulk-btn hidden" id="bulkMarkSeenBtn">Markér alle som sett</button>
+      </div>
     </div>
   </div>
   <div class="jobs-meta" id="jobsMeta"></div>
@@ -475,6 +535,56 @@ select.inp{color-scheme:dark;appearance:auto}
 
 <!-- ═══ SCORE POPOVER ═══ -->
 <div class="score-pop" id="scorePop" role="dialog"></div>
+
+<!-- ═══ IMPORT MODAL (paste markdown → parse → save) ═══ -->
+<div class="modal-overlay full-mobile" id="importModal">
+  <div class="modal modal-lg" role="dialog" aria-labelledby="importTitle">
+    <h2 id="importTitle">Legg til jobber</h2>
+    <p class="modal-sub">Lim inn markdown med jobber fra LinkedIn, manuell oppdaging, eller annet. Parses automatisk.</p>
+    <div class="modal-body">
+
+      <div class="import-section">
+        <button class="import-toggle" id="exampleToggle"><span class="chev">▶</span> Vis format-eksempel</button>
+        <div class="import-example" id="exampleBlock">## Wealth Management Associate
+**Firma:** Pareto Wealth Management
+**Lokasjon:** Oslo
+**URL:** https://www.linkedin.com/jobs/view/3xxx
+**Frist:** 15.06.2026
+Kort beskrivelse av rollen…
+
+---
+
+## Private Banker
+**Selskap:** Nordea Private Banking
+**Sted:** Oslo
+**Lenke:** [Apply now](https://nordea.com/jobs/abc)
+
+Felt-aliaser: Firma|Selskap|Company, Lokasjon|Sted|Location|City, URL|Lenke|Link, Frist|Søknadsfrist|Deadline|Apply by.
+Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller flere "## ".</div>
+      </div>
+
+      <div class="import-section">
+        <h3>Paste-område</h3>
+        <div class="import-paste-row">
+          <textarea class="import-paste" id="importPaste" placeholder="## Stillingstittel\n**Firma:** …\n**URL:** …\n…"></textarea>
+          <div class="import-paste-actions">
+            <button class="btn btn-p" id="btnParse" style="padding:7px 12px;font-size:.8rem">Parse</button>
+            <button class="btn btn-s" id="btnPasteClear" style="padding:7px 12px;font-size:.8rem">Tøm</button>
+          </div>
+        </div>
+        <div class="import-status" id="importStatus">Ingen jobber parsed ennå.</div>
+      </div>
+
+      <div class="import-section import-list-section" id="importListSection"></div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-p" id="btnImportSave" disabled>Lagre 0 nye jobber</button>
+      <button class="btn btn-s" id="btnImportClose">Avbryt</button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══ HELP / KEYBOARD SHORTCUTS OVERLAY ═══ -->
 <div class="modal-overlay" id="helpOverlay">
@@ -589,6 +699,39 @@ var PROFILE = {
   locations: [{kw:"oslo",points:10},{kw:"paris",points:8},{kw:"london",points:5},{kw:"luxembourg",points:5},{kw:"stockholm",points:3}],
   seniorityBoost:{junior:20,mid:5,senior:-10}
 };
+
+// scoreJob — same logic as scripts/migrate-jobs.html, needed in-app for imports
+function scoreJob(job){
+  var breakdown = {};
+  var total = 0;
+  var company = (job.company||"").toLowerCase();
+  var role = (job.role||"").toLowerCase();
+  var loc = (job.location||"").toLowerCase();
+  for(var i=0;i<PROFILE.priorityCompanies.length;i++){
+    var tier = PROFILE.priorityCompanies[i];
+    var hit = tier.match.find(function(m){return company.indexOf(m)!==-1});
+    if(hit){ breakdown["selskap: "+hit] = tier.points; total += tier.points; break; }
+  }
+  PROFILE.titleKeywords.forEach(function(t){
+    if(role.indexOf(t.kw)!==-1){ breakdown["tittel: "+t.kw] = t.points; total += t.points; }
+  });
+  PROFILE.locations.forEach(function(l){
+    if(loc.indexOf(l.kw)!==-1){ breakdown["sted: "+l.kw] = l.points; total += l.points; }
+  });
+  if(job.seniority && PROFILE.seniorityBoost[job.seniority]!==undefined){
+    var b = PROFILE.seniorityBoost[job.seniority];
+    breakdown["seniority: "+job.seniority] = b; total += b;
+  }
+  if(total<0) total = 0;
+  if(total>100) total = 100;
+  return {score: total, breakdown: breakdown};
+}
+function isPriorityCompany(company){
+  var c = (company||"").toLowerCase();
+  return PROFILE.priorityCompanies.some(function(tier){
+    return tier.match.some(function(m){return c.indexOf(m) !== -1});
+  });
+}
 
 // ════════════════════════════════════════════════════════════════
 //  STATE
@@ -1032,12 +1175,26 @@ function snoozeBanner(){
 //  TOAST
 // ════════════════════════════════════════════════════════════════
 var toastTimer = null;
-function toast(msg, ms){
+function toast(msg, msOrOpts){
   var el = document.getElementById("toast");
-  el.textContent = msg;
+  var ms = 4000;
+  el.onclick = null;
+  el.style.cursor = "";
+  if(typeof msOrOpts === "number"){ ms = msOrOpts; }
+  if(msOrOpts && typeof msOrOpts === "object" && msOrOpts.actionText){
+    el.innerHTML = esc(msg) + ' <span style="color:var(--accent);text-decoration:underline;margin-left:6px;cursor:pointer">' + esc(msOrOpts.actionText) + '</span>';
+    el.style.cursor = "pointer";
+    el.onclick = function(){
+      try{ msOrOpts.action && msOrOpts.action(); }catch(_){}
+      el.classList.remove("show"); el.onclick = null; el.style.cursor = "";
+    };
+    ms = msOrOpts.ms || 8000;
+  } else {
+    el.textContent = msg;
+  }
   el.classList.add("show");
   if(toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(function(){ el.classList.remove("show"); }, ms || 4000);
+  toastTimer = setTimeout(function(){ el.classList.remove("show"); el.onclick = null; el.style.cursor = ""; }, ms);
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -1135,6 +1292,532 @@ function getFilteredJobs(){
   });
   return out;
 }
+
+// ════════════════════════════════════════════════════════════════
+//  IMPORT (LinkedIn-paste → markdown parser → review → save)
+// ════════════════════════════════════════════════════════════════
+var IMPORT = { items: [], parseDebounce: null };
+var IMPORT_FIELD_ALIASES = {
+  company:  ["Firma","Selskap","Company"],
+  location: ["Lokasjon","Sted","Location","City"],
+  url:      ["URL","Lenke","Link"],
+  deadline: ["Frist","Søknadsfrist","Deadline","Apply by"]
+};
+var IMPORT_SOURCES = ["linkedin","manual","finn","jobslu","annet"];
+var IMPORT_ALL_FIELD_LABELS = (function(){
+  var all = [];
+  Object.keys(IMPORT_FIELD_ALIASES).forEach(function(k){ all = all.concat(IMPORT_FIELD_ALIASES[k]); });
+  return all;
+})();
+
+function importFieldRegex(labels){
+  // (?:**)?  optional bold open · (label)\s*:?  · (?:**)?  optional bold close · value
+  var esc = labels.map(function(l){return l.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}).join("|");
+  return new RegExp("(?:\\*\\*)?\\s*(?:" + esc + ")\\s*\\*?\\*?\\s*:\\s*\\*?\\*?\\s*([^\\n]*)", "im");
+}
+function stripBoldAndMdLink(v){
+  v = (v||"").trim();
+  // Strip surrounding bold **…**
+  v = v.replace(/^\*+|\*+$/g, "").trim();
+  // If value is markdown link [text](url) — return text
+  var m = v.match(/^\[([^\]]*)\]\((https?:\/\/[^)]+)\)/);
+  if(m) return {text: m[1].trim(), url: m[2]};
+  return {text: v, url: null};
+}
+function extractUrl(rawValue){
+  if(!rawValue) return "";
+  var v = rawValue.trim();
+  // [text](url)
+  var md = v.match(/\((https?:\/\/[^\s)]+)\)/);
+  if(md) return md[1];
+  // bare url
+  var raw = v.match(/(https?:\/\/[^\s]+)/);
+  if(raw) return raw[1];
+  return "";
+}
+function parseImportDate(s){
+  if(!s) return null;
+  s = s.trim();
+  // YYYY-MM-DD
+  var m = s.match(/^\s*(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m) return m[1] + "-" + String(m[2]).padStart(2,"0") + "-" + String(m[3]).padStart(2,"0");
+  // DD.MM.YYYY / DD/MM/YYYY / DD-MM-YYYY
+  m = s.match(/^\s*(\d{1,2})[./\-](\d{1,2})[./\-](\d{4})/);
+  if(m) return m[3] + "-" + String(m[2]).padStart(2,"0") + "-" + String(m[1]).padStart(2,"0");
+  return null;
+}
+function detectSeniority(title){
+  var t = (title||"").toLowerCase();
+  if(/(graduate|trainee|junior|associate|nyutdannet|første\s*år|entry|internship|intern)\b/.test(t)) return "junior";
+  if(/(senior|lead|principal|director|head\s+of|vp|chief)\b/.test(t)) return "senior";
+  return "mid";
+}
+function normalizeUrl(u){
+  if(!u) return "";
+  return u.replace(/[?#].*$/, "").replace(/\/$/, "").toLowerCase();
+}
+function findImportDuplicate(url){
+  if(!url) return null;
+  var target = normalizeUrl(url);
+  return STATE.payload.jobs.find(function(j){ return j.url && normalizeUrl(j.url) === target; }) || null;
+}
+async function sha1JobId(url){
+  var buf = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(url));
+  var arr = Array.from(new Uint8Array(buf));
+  return arr.slice(0, 6).map(function(b){return b.toString(16).padStart(2,"0")}).join("");
+}
+
+function parseJobBlock(block){
+  // Title: first ## line
+  var title = "";
+  var tm = block.match(/^##\s+(.+?)\s*$/m);
+  if(tm){
+    var t = tm[1].replace(/^\*+|\*+$/g, "").trim();
+    title = t;
+  }
+  // Fields
+  var companyRaw  = (block.match(importFieldRegex(IMPORT_FIELD_ALIASES.company))  || [])[1] || "";
+  var locationRaw = (block.match(importFieldRegex(IMPORT_FIELD_ALIASES.location)) || [])[1] || "";
+  var urlRaw      = (block.match(importFieldRegex(IMPORT_FIELD_ALIASES.url))      || [])[1] || "";
+  var deadlineRaw = (block.match(importFieldRegex(IMPORT_FIELD_ALIASES.deadline)) || [])[1] || "";
+
+  var company  = stripBoldAndMdLink(companyRaw).text;
+  var location = stripBoldAndMdLink(locationRaw).text;
+  var url      = extractUrl(urlRaw);
+  var deadline = parseImportDate(deadlineRaw);
+
+  // Description: everything after the last field line
+  var fieldLineRe = new RegExp(
+    "(?:\\*\\*)?\\s*(?:" +
+    IMPORT_ALL_FIELD_LABELS.join("|").replace(/\s/g, "\\s") +
+    ")\\s*\\*?\\*?\\s*:[^\\n]*",
+    "gim"
+  );
+  var matches = [];
+  var mm;
+  while((mm = fieldLineRe.exec(block)) !== null) matches.push(mm);
+  var description = "";
+  if(matches.length){
+    var last = matches[matches.length - 1];
+    var after = block.substring(last.index + last[0].length);
+    description = after.replace(/^\s*\n+/, "").trim();
+  } else {
+    // No fields detected — everything after first ## line, if any
+    if(tm){
+      var idx = block.indexOf(tm[0]);
+      var rest = block.substring(idx + tm[0].length);
+      description = rest.replace(/^\s*\n+/, "").trim();
+    } else {
+      description = block.trim();
+    }
+  }
+
+  // Skip completely empty blocks (no title, no fields, no description)
+  if(!title && !company && !location && !url && !deadline && !description) return null;
+
+  return {
+    title: title,
+    company: company,
+    location: location,
+    url: url,
+    deadline: deadline,
+    deadlineRaw: deadlineRaw.trim(),
+    description: description,
+    source: "linkedin",
+    seniority: detectSeniority(title)
+  };
+}
+
+function parseImport(rawMarkdown){
+  if(!rawMarkdown) return [];
+  var text = rawMarkdown.replace(/\r\n/g, "\n").trim();
+  if(!text) return [];
+  var chunks = text.split(/\n[\s]*---+[\s]*\n/);
+  var blocks = [];
+  chunks.forEach(function(chunk){
+    var subBlocks = chunk.split(/\n(?=## )/);
+    subBlocks.forEach(function(b){
+      var trimmed = b.trim();
+      if(trimmed.length > 0) blocks.push(trimmed);
+    });
+  });
+  var out = [];
+  blocks.forEach(function(b){
+    var parsed = parseJobBlock(b);
+    if(parsed) out.push(parsed);
+  });
+  return out;
+}
+
+// — Modal lifecycle —
+function openImportModal(){
+  IMPORT.items = [];
+  document.getElementById("importPaste").value = "";
+  document.getElementById("importStatus").textContent = "Ingen jobber parsed ennå.";
+  document.getElementById("importStatus").className = "import-status";
+  document.getElementById("importListSection").innerHTML = "";
+  document.getElementById("exampleToggle").classList.remove("open");
+  document.getElementById("exampleBlock").classList.remove("open");
+  updateImportSaveButton();
+  document.getElementById("importModal").classList.add("open");
+  registerOverlay("importModal");
+  setTimeout(function(){ document.getElementById("importPaste").focus(); }, 50);
+}
+function closeImportModal(force){
+  var hasUnsaved = IMPORT.items.some(function(it){return !it._removed});
+  if(hasUnsaved && !force){
+    if(!confirm("Forkast " + IMPORT.items.filter(function(it){return !it._removed}).length + " parsed jobber?")) return;
+  }
+  document.getElementById("importModal").classList.remove("open");
+  unregisterOverlay("importModal");
+  IMPORT.items = [];
+}
+
+// — Parse from textarea —
+async function runImportParse(){
+  var raw = document.getElementById("importPaste").value;
+  var parsed = parseImport(raw);
+  // Map to import items with UI state
+  var items = [];
+  for(var i = 0; i < parsed.length; i++){
+    var p = parsed[i];
+    var dup = findImportDuplicate(p.url);
+    items.push({
+      title: p.title, company: p.company, location: p.location, url: p.url,
+      deadline: p.deadline, deadlineRaw: p.deadlineRaw, description: p.description,
+      source: p.source, seniority: p.seniority,
+      _isDuplicate: !!dup, _dupExistingId: dup ? dup.id : null,
+      _dupAction: dup ? "skip" : null,
+      _removed: false
+    });
+  }
+  IMPORT.items = items;
+  renderImportList();
+  var status = document.getElementById("importStatus");
+  var dupCount = items.filter(function(it){return it._isDuplicate}).length;
+  var missing = items.filter(function(it){return !it.url || !it.title}).length;
+  if(items.length === 0){
+    status.textContent = "Ingen jobber parsed (sjekk format eller separator).";
+    status.className = "import-status warn";
+  } else {
+    status.textContent = "Parsed " + items.length + " jobber" +
+      (missing ? " · " + missing + " mangler felt" : "") +
+      (dupCount ? " · " + dupCount + " duplikat" : "");
+    status.className = "import-status ok";
+  }
+  updateImportSaveButton();
+}
+
+function renderImportList(){
+  var sec = document.getElementById("importListSection");
+  var visibles = IMPORT.items.filter(function(it){return !it._removed});
+  if(visibles.length === 0){
+    sec.innerHTML = '<div class="import-empty">Ingen parsed jobber. Lim inn over.</div>';
+    return;
+  }
+  var newOnes = visibles.filter(function(it){return !it._isDuplicate});
+  var dups = visibles.filter(function(it){return it._isDuplicate});
+  var html = "";
+  if(newOnes.length){
+    html += '<div class="import-list-h">Nye jobber (' + newOnes.length + ')</div>';
+    newOnes.forEach(function(it){ html += renderImportCard(it); });
+  }
+  if(dups.length){
+    html += '<div class="import-list-h dup">Duplikater (' + dups.length + ') — finnes allerede</div>';
+    dups.forEach(function(it){ html += renderImportCard(it); });
+  }
+  sec.innerHTML = html;
+  // Wire up controls
+  bindImportCards();
+}
+
+function renderImportCard(it){
+  var idx = IMPORT.items.indexOf(it);
+  var missingTitle = !it.title;
+  var missingUrl = !it.url;
+  var classes = "import-card";
+  if(missingTitle || missingUrl) classes += " invalid";
+  if(it._isDuplicate) classes += " dup";
+
+  // Live score
+  var sc = scoreJob({company: it.company, role: it.title, location: it.location, seniority: it.seniority});
+
+  var html = '<div class="' + classes + '" data-idx="' + idx + '">' +
+    '<div class="ic-head">' +
+      '<div class="ic-title">' + (it.title ? esc(it.title) : '<span style="color:var(--yellow)">⚠ Tittel mangler</span>') + '</div>' +
+      '<button class="ic-remove" data-act="remove" title="Fjern fra import">×</button>' +
+    '</div>' +
+    '<div class="ic-grid">' +
+      '<label>Tittel</label><input type="text" data-f="title" value="' + esc(it.title) + '" class="' + (missingTitle?"miss":"") + '">' +
+      '<label>Firma</label><input type="text" data-f="company" value="' + esc(it.company) + '">' +
+      '<label>Sted</label><input type="text" data-f="location" value="' + esc(it.location) + '">' +
+      '<label>URL</label><input type="url" data-f="url" value="' + esc(it.url) + '" placeholder="https://…" class="' + (missingUrl?"miss":"") + '">' +
+      (missingUrl ? '<div class="miss-hint">URL mangler — påkrevd for å lagre (brukes som id)</div>' : '') +
+      '<label>Frist</label><input type="date" data-f="deadline" value="' + esc(it.deadline||"") + '">' +
+      (it.deadlineRaw && !it.deadline ? '<div class="miss-hint" style="color:var(--faint)">Kunne ikke parse: «' + esc(it.deadlineRaw) + '»</div>' : '') +
+    '</div>' +
+    '<div class="ic-row2">' +
+      '<label>Kilde</label>' +
+      '<select data-f="source">' + IMPORT_SOURCES.map(function(s){return '<option value="'+s+'"'+(s===it.source?" selected":"")+'>'+s+'</option>'}).join("") + '</select>' +
+      '<label>Seniority</label>' +
+      '<select data-f="seniority">' +
+        ['junior','mid','senior'].map(function(s){return '<option value="'+s+'"'+(s===it.seniority?" selected":"")+'>'+s+'</option>'}).join("") +
+      '</select>' +
+    '</div>' +
+    '<div class="ic-grid" style="margin-top:6px">' +
+      '<label>Beskrivelse</label><textarea data-f="description">' + esc(it.description||"") + '</textarea>' +
+    '</div>' +
+    '<div class="ic-footer">' +
+      (it._isDuplicate
+        ? '<div class="ic-dup-actions">' +
+          '<button class="ic-dup-btn' + (it._dupAction==="skip"?" on":"") + '" data-act="dup-skip">Hopp over</button>' +
+          '<button class="ic-dup-btn' + (it._dupAction==="replace"?" on":"") + '" data-act="dup-replace">Erstatt eksisterende</button>' +
+          '</div>'
+        : '<span></span>') +
+      '<button class="ic-score" data-act="score">Score ' + sc.score + '</button>' +
+    '</div>' +
+    '</div>';
+  return html;
+}
+
+function bindImportCards(){
+  document.querySelectorAll(".import-card").forEach(function(card){
+    var idx = parseInt(card.dataset.idx, 10);
+    card.querySelectorAll("input, select, textarea").forEach(function(el){
+      var field = el.dataset.f;
+      el.addEventListener("input", function(){ onImportFieldChange(idx, field, this.value); });
+      if(el.tagName === "SELECT") el.addEventListener("change", function(){ onImportFieldChange(idx, field, this.value); });
+    });
+    card.querySelectorAll("[data-act]").forEach(function(btn){
+      var act = btn.dataset.act;
+      btn.addEventListener("click", function(e){
+        e.stopPropagation();
+        if(act === "remove") removeImportItem(idx);
+        else if(act === "dup-skip") setDupAction(idx, "skip");
+        else if(act === "dup-replace") setDupAction(idx, "replace");
+        else if(act === "score") showImportScorePopover(idx, this);
+      });
+    });
+  });
+}
+function onImportFieldChange(idx, field, value){
+  var it = IMPORT.items[idx];
+  if(!it) return;
+  it[field] = value;
+  if(field === "url"){
+    var dup = findImportDuplicate(value);
+    it._isDuplicate = !!dup;
+    it._dupExistingId = dup ? dup.id : null;
+    if(it._isDuplicate && !it._dupAction) it._dupAction = "skip";
+    if(!it._isDuplicate) it._dupAction = null;
+    renderImportList(); // re-render to move card between sections
+    updateImportSaveButton();
+    return;
+  }
+  if(field === "title") it.seniority = detectSeniority(value);
+  // Live re-score of just this card without full re-render of all
+  var card = document.querySelector('.import-card[data-idx="'+idx+'"]');
+  if(card){
+    var sc = scoreJob({company: it.company, role: it.title, location: it.location, seniority: it.seniority});
+    var btn = card.querySelector(".ic-score");
+    if(btn) btn.textContent = "Score " + sc.score;
+    // Refresh miss highlights for title
+    if(field === "title"){
+      var titleEl = card.querySelector('[data-f="title"]');
+      var headTitle = card.querySelector(".ic-title");
+      if(value){ titleEl.classList.remove("miss"); if(headTitle) headTitle.textContent = value; }
+      else { titleEl.classList.add("miss"); if(headTitle) headTitle.innerHTML = '<span style="color:var(--yellow)">⚠ Tittel mangler</span>'; }
+      card.classList.toggle("invalid", !it.title || !it.url);
+    }
+  }
+  updateImportSaveButton();
+}
+function removeImportItem(idx){
+  if(!IMPORT.items[idx]) return;
+  IMPORT.items[idx]._removed = true;
+  renderImportList();
+  updateImportSaveButton();
+}
+function setDupAction(idx, action){
+  if(!IMPORT.items[idx]) return;
+  IMPORT.items[idx]._dupAction = action;
+  renderImportList();
+  updateImportSaveButton();
+}
+function importSavableCount(){
+  return IMPORT.items.filter(function(it){
+    if(it._removed) return false;
+    if(!it.title || !it.url) return false;
+    if(it._isDuplicate && it._dupAction === "skip") return false;
+    return true;
+  }).length;
+}
+function importHasInvalidActive(){
+  // Active = not removed, not skipped-dup
+  return IMPORT.items.some(function(it){
+    if(it._removed) return false;
+    if(it._isDuplicate && it._dupAction === "skip") return false;
+    return !it.title || !it.url;
+  });
+}
+function updateImportSaveButton(){
+  var btn = document.getElementById("btnImportSave");
+  var n = importSavableCount();
+  var invalid = importHasInvalidActive();
+  btn.disabled = invalid || n === 0;
+  btn.textContent = "Lagre " + n + " nye jobber";
+  btn.title = invalid ? "Fyll inn alle påkrevde felt (tittel + URL) eller velg «Hopp over» på duplikater" : "";
+}
+
+function showImportScorePopover(idx, anchorEl){
+  var it = IMPORT.items[idx];
+  if(!it) return;
+  var sc = scoreJob({company: it.company, role: it.title, location: it.location, seniority: it.seniority});
+  var pop = document.getElementById("scorePop");
+  var keys = Object.keys(sc.breakdown);
+  var rawSum = keys.reduce(function(a,k){return a + sc.breakdown[k]}, 0);
+  var rules = keys.map(function(k){
+    var v = sc.breakdown[k];
+    var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
+    return '<div class="pop-rule"><span>'+esc(k)+'</span><span class="pts '+cls+'">'+(v>0?"+":"")+v+'</span></div>';
+  }).join("") || '<div class="pop-rule"><span style="color:var(--faint)">Ingen regler matchet</span><span class="pts">0</span></div>';
+  pop.innerHTML = '<div class="pop-h">Score '+sc.score+'/100<button class="x" onclick="hideScorePopover()" title="Lukk (Esc)">×</button></div>'+
+    rules +
+    '<div class="pop-foot"><span>Sum: '+rawSum+(rawSum !== sc.score ? ' (cap 100)' : '')+'</span><span>'+esc(it.company||"")+'</span></div>';
+  pop.style.position = "fixed";
+  pop.style.visibility = "hidden";
+  pop.classList.add("show");
+  var rect = anchorEl.getBoundingClientRect();
+  var popRect = pop.getBoundingClientRect();
+  var margin = 8;
+  var left = rect.right - popRect.width;
+  if(left < margin) left = margin;
+  if(left + popRect.width > window.innerWidth - margin) left = window.innerWidth - popRect.width - margin;
+  var top = rect.top - popRect.height - 6;
+  if(top < margin) top = rect.bottom + 6;
+  pop.style.left = left + "px";
+  pop.style.top = top + "px";
+  pop.style.visibility = "visible";
+  STATE.scorePopoverFor = "_import_" + idx;
+  registerOverlay("scorePopover");
+}
+
+async function saveImports(){
+  var newJobs = [];
+  var replaceOps = [];
+  var nowIso = new Date().toISOString();
+  var seenInPaste = new Set(); // guard against same URL pasted twice within the same import
+  for(var i = 0; i < IMPORT.items.length; i++){
+    var it = IMPORT.items[i];
+    if(it._removed) continue;
+    if(!it.title || !it.url) continue;
+    if(it._isDuplicate && it._dupAction === "skip") continue;
+
+    var id = await sha1JobId(it.url);
+    if(seenInPaste.has(id)) continue;
+    seenInPaste.add(id);
+    var sc = scoreJob({company: it.company, role: it.title, location: it.location, seniority: it.seniority});
+    var job = {
+      id: id,
+      source: it.source || "linkedin",
+      company: it.company || "",
+      role: it.title,
+      url: it.url,
+      location: it.location || "",
+      seniority: it.seniority || "mid",
+      description: it.description || "",
+      deadline: it.deadline || null,
+      posted: null,
+      added: nowIso,
+      score: sc.score,
+      scoreBreakdown: sc.breakdown,
+      query: null,
+      priority: isPriorityCompany(it.company),
+      status: "new",
+      statusUpdated: null,
+      notes: "",
+      starred: false
+    };
+    if(it._isDuplicate && it._dupAction === "replace"){
+      replaceOps.push({existingId: it._dupExistingId, job: job});
+    } else {
+      newJobs.push(job);
+    }
+  }
+
+  // Apply replacements (preserve user-edited fields: status, notes, starred, statusUpdated)
+  replaceOps.forEach(function(op){
+    var existingIdx = STATE.payload.jobs.findIndex(function(j){return j.id === op.existingId});
+    if(existingIdx === -1) return;
+    var existing = STATE.payload.jobs[existingIdx];
+    var merged = Object.assign({}, op.job, {
+      id: existing.id,
+      status: existing.status,
+      statusUpdated: existing.statusUpdated,
+      notes: existing.notes || op.job.notes,
+      starred: existing.starred,
+      added: existing.added // preserve original added timestamp
+    });
+    STATE.payload.jobs[existingIdx] = merged;
+  });
+
+  // Insert new ones at the top
+  if(newJobs.length) STATE.payload.jobs.unshift.apply(STATE.payload.jobs, newJobs);
+
+  mutate();
+
+  closeImportModal(true);
+  // Update counts + re-render
+  document.getElementById("cntJobs").textContent = STATE.payload.jobs.length;
+  renderJobs();
+
+  // Toast + filter-skjul-info
+  var totalAdded = newJobs.length + replaceOps.length;
+  var summary = totalAdded + " jobber " + (replaceOps.length ? "(" + newJobs.length + " nye, " + replaceOps.length + " erstattet)" : "lagt til");
+  var newIds = new Set(newJobs.map(function(j){return j.id}).concat(replaceOps.map(function(o){return o.existingId})));
+  var visibleNew = getFilteredJobs().filter(function(j){return newIds.has(j.id)}).length;
+  var hidden = totalAdded - visibleNew;
+  if(hidden > 0){
+    toast(summary + " — filter skjuler " + hidden + ".", {
+      actionText: "Vis alle",
+      action: function(){ resetUiPrefs(); renderJobs(); },
+      ms: 8000
+    });
+  } else {
+    toast(summary);
+  }
+}
+
+// Wire up import controls (called once from initUI)
+function bindImportControls(){
+  document.getElementById("btnAddJobs").addEventListener("click", openImportModal);
+  document.getElementById("btnImportClose").addEventListener("click", function(){ closeImportModal(false); });
+  document.getElementById("importModal").addEventListener("click", function(e){
+    if(e.target.id === "importModal") closeImportModal(false);
+  });
+  document.getElementById("btnImportSave").addEventListener("click", saveImports);
+  document.getElementById("btnParse").addEventListener("click", runImportParse);
+  document.getElementById("btnPasteClear").addEventListener("click", function(){
+    document.getElementById("importPaste").value = "";
+    IMPORT.items = [];
+    renderImportList();
+    document.getElementById("importStatus").textContent = "Ingen jobber parsed ennå.";
+    document.getElementById("importStatus").className = "import-status";
+    updateImportSaveButton();
+  });
+  document.getElementById("exampleToggle").addEventListener("click", function(){
+    this.classList.toggle("open");
+    document.getElementById("exampleBlock").classList.toggle("open");
+  });
+  // Auto-parse on input (debounced 300ms)
+  document.getElementById("importPaste").addEventListener("input", function(){
+    if(IMPORT.parseDebounce) clearTimeout(IMPORT.parseDebounce);
+    IMPORT.parseDebounce = setTimeout(runImportParse, 300);
+  });
+}
+
+// Hook into existing global Esc handler — needs to handle importModal
+// (the handler is in bindKeyboardShortcuts and dispatches based on top of stack)
 
 // ════════════════════════════════════════════════════════════════
 //  BEFOREUNLOAD — only warn if pushTimer is pending (debounce-window)
@@ -1298,6 +1981,9 @@ function initUI(payload){
 
   // Filter controls
   bindFilterControls();
+
+  // Import controls
+  bindImportControls();
 
   // Keyboard shortcuts
   bindKeyboardShortcuts();
@@ -1773,6 +2459,7 @@ function bindKeyboardShortcuts(){
         if(top === "scorePopover") hideScorePopover();
         else if(top === "helpOverlay") hideHelpOverlay();
         else if(top === "setupModal") closeSetupModal();
+        else if(top === "importModal") closeImportModal(false);
         e.preventDefault();
       }
       return;
