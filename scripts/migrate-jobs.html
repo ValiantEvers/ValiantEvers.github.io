@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Migrer jobber → strategi.enc.json</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,system-ui,sans-serif;background:#0a0e1a;color:#e1e7ff;min-height:100vh;padding:40px 20px;line-height:1.6}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:1.5rem;margin-bottom:6px}
+.sub{color:rgba(225,231,255,.5);font-size:.88rem;margin-bottom:30px}
+.warn{background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.25);border-radius:8px;padding:12px 16px;font-size:.85rem;margin-bottom:24px;color:#f0c040}
+.sec{background:#111827;border:1px solid rgba(225,231,255,.06);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+.sec h2{font-size:.95rem;font-weight:600;margin-bottom:8px;color:#aabeff}
+.sec p{font-size:.84rem;color:rgba(225,231,255,.6);margin-bottom:10px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+input[type=password],input[type=file],textarea{background:rgba(225,231,255,.04);border:1px solid rgba(225,231,255,.1);border-radius:6px;padding:10px 12px;color:#e1e7ff;font-family:inherit;font-size:.9rem;outline:none;width:100%}
+input[type=password]:focus,textarea:focus{border-color:#6996ff}
+textarea{min-height:90px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.78rem;resize:vertical}
+button{background:#6996ff;color:#fff;border:none;border-radius:6px;padding:10px 18px;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+button:hover{opacity:.85}
+button:disabled{opacity:.4;cursor:not-allowed}
+.btn-s{background:transparent;border:1px solid rgba(225,231,255,.15);color:rgba(225,231,255,.7)}
+.status{font-size:.85rem;color:rgba(225,231,255,.6);min-height:1.4em}
+.status.ok{color:#34d399}
+.status.err{color:#ff6b6b}
+.log{background:#0a0e1a;border:1px solid rgba(225,231,255,.06);border-radius:6px;padding:10px 12px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.74rem;color:rgba(225,231,255,.5);max-height:200px;overflow-y:auto;margin-top:8px;white-space:pre-wrap}
+code{background:rgba(225,231,255,.05);padding:1px 6px;border-radius:3px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.82em}
+.pill{display:inline-block;background:rgba(105,150,255,.1);color:#aabeff;padding:2px 8px;border-radius:4px;font-size:.76rem;font-weight:500}
+.pill.ok{background:rgba(52,211,153,.1);color:#34d399}
+.pill.warn{background:rgba(240,192,64,.1);color:#f0c040}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Migrer jobber → strategi.enc.json</h1>
+<p class="sub">Engangsverktøy. Skal IKKE deployes. Kjør lokalt, last ned filen, legg den i repo-root.</p>
+
+<div class="warn"><strong>Viktig:</strong> Hvis du har brukt strategi.html på evers.no (produksjon), ligger søknader/outreach-data i localStorage der — ikke her. Lim inn JSON-en under «Eksisterende ve-jobstrat» hvis du vil ta den med over.</div>
+
+<div class="sec">
+  <h2>1 · Last inn jobs/index.html</h2>
+  <p>Forsøker først å hente <code>../jobs/index.html</code>. Hvis det feiler (file:// uten lokal server), velg filen manuelt under.</p>
+  <div class="row">
+    <button id="btnFetch">Hent automatisk</button>
+    <input type="file" id="fileIn" accept=".html,text/html" style="flex:1;min-width:220px">
+  </div>
+  <div class="status" id="jobsStatus">—</div>
+</div>
+
+<div class="sec">
+  <h2>2 · Eksisterende ve-jobstrat <span class="pill" id="lsStatus">leser…</span></h2>
+  <p>Auto-lest fra localStorage hvis tilgjengelig. Ellers: åpne <code>evers.no/strategi.html</code> → F12 → Application → Local Storage → kopier verdien av <code>ve-jobstrat</code> og lim inn under.</p>
+  <textarea id="lsJson" placeholder='{"checks":{},"apps":[],"outreach":[]}'></textarea>
+</div>
+
+<div class="sec">
+  <h2>3 · Passord</h2>
+  <p>Samme passord brukes til å låse opp strategi.html senere.</p>
+  <input type="password" id="pw" placeholder="Passord" autocomplete="off">
+</div>
+
+<div class="sec">
+  <h2>4 · Krypter og last ned</h2>
+  <div class="row">
+    <button id="btnMigrate" disabled>Migrer → strategi.enc.json</button>
+    <span class="status" id="migrateStatus">Vent på jobbene…</span>
+  </div>
+  <div class="log" id="log"></div>
+</div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+//  PROFILE  (samme i strategi.html — duplicat OK, single-file-konvensjon)
+// ════════════════════════════════════════════════════════════════
+var PROFILE = {
+  priorityCompanies: [
+    {match:["formue","formuesforvaltning"], points:30},
+    {match:["dnb","nordea","storebrand","handelsbanken","danske bank"], points:25},
+    {match:["pareto","arctic","abg","sparebank 1 markets"], points:20},
+    {match:["bnp paribas","societe generale","société générale"], points:20},
+    {match:["holberg","odin","skagen"], points:15}
+  ],
+  titleKeywords: [
+    {kw:"wealth management", points:30},
+    {kw:"private banking", points:30},
+    {kw:"fund sales", points:25},
+    {kw:"investment advis", points:20},
+    {kw:"graduate", points:20},
+    {kw:"trainee", points:20},
+    {kw:"rådgiver", points:15},
+    {kw:"investerings", points:15},
+    {kw:"kapitalforvaltning", points:15},
+    {kw:"asset management", points:15},
+    {kw:"junior", points:15},
+    {kw:"fund", points:10}
+  ],
+  locations: [
+    {kw:"oslo", points:10},
+    {kw:"paris", points:8},
+    {kw:"london", points:5},
+    {kw:"luxembourg", points:5},
+    {kw:"stockholm", points:3}
+  ],
+  seniorityBoost: {junior:20, mid:5, senior:-10}
+};
+
+function scoreJob(job){
+  var breakdown = {};
+  var total = 0;
+  var company = (job.company||"").toLowerCase();
+  var role = (job.role||"").toLowerCase();
+  var loc = (job.location||"").toLowerCase();
+
+  // Priority companies — first tier match wins (no double-count)
+  for(var i=0;i<PROFILE.priorityCompanies.length;i++){
+    var tier = PROFILE.priorityCompanies[i];
+    var hit = tier.match.find(function(m){return company.indexOf(m)!==-1});
+    if(hit){ breakdown["selskap: "+hit] = tier.points; total += tier.points; break; }
+  }
+  // Title keywords — sum all matches
+  PROFILE.titleKeywords.forEach(function(t){
+    if(role.indexOf(t.kw)!==-1){ breakdown["tittel: "+t.kw] = t.points; total += t.points; }
+  });
+  // Locations — sum all matches
+  PROFILE.locations.forEach(function(l){
+    if(loc.indexOf(l.kw)!==-1){ breakdown["sted: "+l.kw] = l.points; total += l.points; }
+  });
+  // Seniority
+  if(job.seniority && PROFILE.seniorityBoost[job.seniority]!==undefined){
+    var b = PROFILE.seniorityBoost[job.seniority];
+    breakdown["seniority: "+job.seniority] = b; total += b;
+  }
+
+  if(total<0) total = 0;
+  if(total>100) total = 100;
+  return {score: total, breakdown: breakdown};
+}
+
+// ════════════════════════════════════════════════════════════════
+//  CRYPTO  (samme i strategi.html — duplicat OK)
+// ════════════════════════════════════════════════════════════════
+function b64(u8){var s="";for(var i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s)}
+function ub64(s){var bin=atob(s);var u8=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return u8}
+
+async function deriveKey(pw, salt){
+  var enc = new TextEncoder();
+  var keyMaterial = await crypto.subtle.importKey(
+    "raw", enc.encode(pw), {name:"PBKDF2"}, false, ["deriveKey"]
+  );
+  return crypto.subtle.deriveKey(
+    {name:"PBKDF2", salt:salt, iterations:250000, hash:"SHA-256"},
+    keyMaterial,
+    {name:"AES-GCM", length:256},
+    false,
+    ["encrypt","decrypt"]
+  );
+}
+
+async function encryptPayload(pw, obj){
+  var salt = crypto.getRandomValues(new Uint8Array(16));
+  var iv = crypto.getRandomValues(new Uint8Array(12));
+  var key = await deriveKey(pw, salt);
+  var enc = new TextEncoder();
+  var pt = enc.encode(JSON.stringify(obj));
+  var ct = await crypto.subtle.encrypt({name:"AES-GCM", iv:iv}, key, pt);
+  return {v:1, salt:b64(salt), iv:b64(iv), ct:b64(new Uint8Array(ct))};
+}
+
+async function decryptBlob(pw, blob){
+  var salt = ub64(blob.salt);
+  var iv = ub64(blob.iv);
+  var ct = ub64(blob.ct);
+  var key = await deriveKey(pw, salt);
+  var pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:iv}, key, ct);
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ID — SHA-1 of url, first 12 hex chars (stable per URL)
+// ════════════════════════════════════════════════════════════════
+async function jobId(url){
+  var buf = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(url));
+  var arr = Array.from(new Uint8Array(buf));
+  return arr.slice(0,6).map(function(b){return b.toString(16).padStart(2,"0")}).join("");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PARSER
+// ════════════════════════════════════════════════════════════════
+function parseJobsHtml(htmlStr){
+  var doc = new DOMParser().parseFromString(htmlStr, "text/html");
+  var arts = doc.querySelectorAll("article.job");
+  var out = [];
+  arts.forEach(function(a){
+    var link = a.querySelector("h3 a");
+    if(!link) return;
+    var url = link.getAttribute("href")||"";
+    var role = (link.textContent||"").trim();
+    var company = (a.querySelector(".company")||{textContent:""}).textContent.trim();
+    var location = (a.querySelector(".location")||{textContent:""}).textContent.trim();
+    var source = (a.querySelector(".source")||{textContent:""}).textContent.trim();
+    var dateRaw = (a.querySelector(".date")||{textContent:""}).textContent.trim();
+    var query = (a.querySelector(".query em")||{textContent:""}).textContent.trim();
+    // Extract ISO date — pattern "sett YYYY-MM-DD"
+    var m = dateRaw.match(/(\d{4}-\d{2}-\d{2})/);
+    var posted = m ? m[1] : null;
+    // Seniority from class
+    var seniority = null;
+    if(a.classList.contains("seniority-junior")) seniority="junior";
+    else if(a.classList.contains("seniority-mid")) seniority="mid";
+    else if(a.classList.contains("seniority-senior")) seniority="senior";
+    var priority = a.classList.contains("priority");
+    out.push({url:url, role:role, company:company, location:location, source:source, posted:posted, query:query, seniority:seniority, priority:priority});
+  });
+  return out;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  STATE + UI
+// ════════════════════════════════════════════════════════════════
+var STATE = { rawJobs: null, lsData: null };
+
+function log(msg){
+  var el = document.getElementById("log");
+  el.textContent += msg + "\n";
+  el.scrollTop = el.scrollHeight;
+}
+function setStatus(id, msg, cls){
+  var el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = "status" + (cls?" "+cls:"");
+}
+function maybeEnableMigrate(){
+  document.getElementById("btnMigrate").disabled = !STATE.rawJobs;
+  if(STATE.rawJobs) setStatus("migrateStatus", STATE.rawJobs.length+" jobber klare", "ok");
+}
+
+// Try fetch on load
+async function tryFetch(){
+  setStatus("jobsStatus", "Henter…");
+  try{
+    var r = await fetch("../jobs/index.html");
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    var t = await r.text();
+    var jobs = parseJobsHtml(t);
+    if(!jobs.length) throw new Error("Ingen <article class=\"job\"> funnet");
+    STATE.rawJobs = jobs;
+    setStatus("jobsStatus", "✓ Fant "+jobs.length+" jobber via fetch", "ok");
+    maybeEnableMigrate();
+  }catch(e){
+    setStatus("jobsStatus", "✗ Fetch feilet: "+e.message+" — bruk filvelger", "err");
+  }
+}
+
+document.getElementById("btnFetch").addEventListener("click", tryFetch);
+
+document.getElementById("fileIn").addEventListener("change", function(e){
+  var f = e.target.files[0];
+  if(!f){return}
+  setStatus("jobsStatus", "Leser fil…");
+  var reader = new FileReader();
+  reader.onload = function(){
+    try{
+      var jobs = parseJobsHtml(reader.result);
+      if(!jobs.length) throw new Error("Ingen <article class=\"job\"> i filen");
+      STATE.rawJobs = jobs;
+      setStatus("jobsStatus", "✓ Fant "+jobs.length+" jobber i "+f.name, "ok");
+      maybeEnableMigrate();
+    }catch(err){
+      setStatus("jobsStatus", "✗ "+err.message, "err");
+    }
+  };
+  reader.readAsText(f);
+});
+
+// Auto-read localStorage
+(function(){
+  try{
+    var raw = localStorage.getItem("ve-jobstrat");
+    var pill = document.getElementById("lsStatus");
+    if(raw){
+      document.getElementById("lsJson").value = raw;
+      pill.textContent = "✓ funnet i localStorage";
+      pill.className = "pill ok";
+    } else {
+      pill.textContent = "ikke funnet — lim inn manuelt";
+      pill.className = "pill warn";
+    }
+  }catch(e){
+    document.getElementById("lsStatus").textContent = "localStorage utilgjengelig";
+  }
+})();
+
+// ════════════════════════════════════════════════════════════════
+//  MIGRATE
+// ════════════════════════════════════════════════════════════════
+document.getElementById("btnMigrate").addEventListener("click", async function(){
+  var btn = this;
+  btn.disabled = true;
+  document.getElementById("log").textContent = "";
+  setStatus("migrateStatus", "Starter…");
+
+  var pw = document.getElementById("pw").value;
+  if(!pw){ setStatus("migrateStatus", "Mangler passord", "err"); btn.disabled=false; return; }
+
+  // Parse ls data
+  var ls = {checks:{}, apps:[], outreach:[]};
+  var lsRaw = document.getElementById("lsJson").value.trim();
+  if(lsRaw){
+    try{
+      var parsed = JSON.parse(lsRaw);
+      ls.checks = parsed.checks || {};
+      ls.apps = parsed.apps || [];
+      ls.outreach = parsed.outreach || [];
+      log("• ve-jobstrat: "+ls.apps.length+" apps, "+ls.outreach.length+" outreach, "+Object.keys(ls.checks).length+" uker med checks");
+    }catch(e){
+      setStatus("migrateStatus", "Ugyldig JSON i ve-jobstrat-feltet", "err");
+      btn.disabled=false; return;
+    }
+  } else {
+    log("• ve-jobstrat: tom (ingen apps/outreach migrert)");
+  }
+
+  // Build job objects
+  setStatus("migrateStatus", "Bygger jobb-objekter…");
+  var nowIso = new Date().toISOString();
+  var jobs = [];
+  for(var i=0;i<STATE.rawJobs.length;i++){
+    var r = STATE.rawJobs[i];
+    var id = await jobId(r.url);
+    var s = scoreJob(r);
+    jobs.push({
+      id: id,
+      source: r.source,
+      company: r.company,
+      role: r.role,
+      url: r.url,
+      location: r.location,
+      seniority: r.seniority,
+      description: "",
+      deadline: null,
+      posted: r.posted,
+      added: nowIso,
+      score: s.score,
+      scoreBreakdown: s.breakdown,
+      query: r.query,
+      priority: !!r.priority,
+      status: "new",
+      statusUpdated: null,
+      notes: "",
+      starred: false
+    });
+  }
+  log("• "+jobs.length+" jobber skåret");
+  var top = jobs.slice().sort(function(a,b){return b.score-a.score}).slice(0,5);
+  top.forEach(function(j){ log("  ["+j.score+"] "+j.company+" — "+j.role.slice(0,60)); });
+
+  // Build payload
+  var payload = {
+    schemaVersion: 1,
+    migratedAt: nowIso,
+    jobs: jobs,
+    apps: ls.apps,
+    outreach: ls.outreach,
+    checks: ls.checks,
+    settings: {}
+  };
+
+  // Encrypt
+  setStatus("migrateStatus", "Krypterer (PBKDF2 250k iter)…");
+  try{
+    var blob = await encryptPayload(pw, payload);
+    log("• Kryptert: salt="+blob.salt.slice(0,8)+"… iv="+blob.iv.slice(0,8)+"… ct="+blob.ct.length+" b64-chars");
+
+    // Verify roundtrip
+    var check = await decryptBlob(pw, blob);
+    if(check.jobs.length !== jobs.length) throw new Error("Roundtrip mismatch");
+    log("• Roundtrip OK ("+check.jobs.length+" jobber tilbake)");
+
+    // Download
+    var dataStr = JSON.stringify(blob);
+    var url = URL.createObjectURL(new Blob([dataStr], {type:"application/json"}));
+    var a = document.createElement("a");
+    a.href = url; a.download = "strategi.enc.json"; a.click();
+    URL.revokeObjectURL(url);
+    setStatus("migrateStatus", "✓ Lastet ned strategi.enc.json — legg i repo-root", "ok");
+    log("• Ferdig. Legg filen i repo-root og åpne strategi.html.");
+  }catch(e){
+    setStatus("migrateStatus", "✗ Feilet: "+e.message, "err");
+    log("ERROR: "+e.message);
+  }finally{
+    btn.disabled = false;
+  }
+});
+
+// Auto-try fetch on load
+tryFetch();
+</script>
+</body>
+</html>
