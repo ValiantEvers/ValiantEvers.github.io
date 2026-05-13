@@ -222,6 +222,77 @@ select.inp{color-scheme:dark;appearance:auto}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:10px 16px;font-size:.85rem;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;z-index:9500;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 
+/* ── ETAPPE 3: filter bar, score-popover, focus ring, help overlay ── */
+.filter-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px}
+.filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-label{font-size:.72rem;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;min-width:78px;flex-shrink:0}
+.search-wrap{position:relative;flex:1;min-width:200px}
+.search-inp{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:8px;padding:11px 36px 11px 36px;font-family:inherit;font-size:.9rem;color:var(--text);outline:none;width:100%;transition:border-color .2s;min-height:44px}
+[data-theme="light"] .search-inp{background:rgba(0,18,51,.03)}
+.search-inp:focus{border-color:var(--accent)}
+.search-inp::placeholder{color:var(--faint)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.9rem;color:var(--faint);pointer-events:none}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--faint);font-size:1.2rem;cursor:pointer;padding:4px 8px;display:none;font-family:inherit}
+.search-clear:hover{color:var(--text)}
+.search-clear.show{display:block}
+
+.chip-row{display:flex;gap:5px;flex-wrap:wrap;flex:1;min-width:0}
+.chip .cnt{font-size:.68rem;color:var(--faint);margin-left:4px}
+.chip.on .cnt{color:var(--accent2)}
+.chip-all{background:transparent;border:1px solid var(--border);color:var(--faint)}
+.chip-all.on{background:var(--accent-g);border-color:var(--border-h);color:var(--accent)}
+.chip-starred.on{background:rgba(240,192,64,.08);border-color:var(--yellow-b);color:var(--yellow)}
+
+.score-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.score-row .num{width:64px;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:inherit;font-size:.86rem;color:var(--text);outline:none;text-align:center}
+[data-theme="light"] .score-row .num{background:rgba(0,18,51,.03)}
+.score-row .num:focus{border-color:var(--accent)}
+.score-row .dash{color:var(--faint);font-weight:500}
+.score-row .hint{font-size:.74rem;color:var(--faint)}
+
+.sort-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:space-between}
+.sort-row select{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:inherit;font-size:.84rem;color:var(--text);outline:none;cursor:pointer;color-scheme:dark}
+[data-theme="light"] .sort-row select{background:rgba(0,18,51,.03);color-scheme:light}
+.sort-row select:focus{border-color:var(--accent)}
+.reset-btn{background:transparent;border:1px solid var(--red-b);color:var(--red);padding:6px 12px;border-radius:6px;font-family:inherit;font-size:.78rem;cursor:pointer;transition:background .15s}
+.reset-btn:hover{background:var(--red-bg)}
+.reset-btn.hidden{display:none}
+
+.bulk-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.bulk-count{font-size:.78rem;color:var(--dim)}
+.bulk-btn{background:var(--accent-g);border:1px solid var(--border-h);color:var(--accent);padding:6px 12px;border-radius:6px;font-family:inherit;font-size:.78rem;font-weight:500;cursor:pointer;transition:background .15s}
+.bulk-btn:hover{background:rgba(105,150,255,.16)}
+.bulk-btn.hidden{display:none}
+
+.starred-btn{background:transparent;border:none;color:var(--faint);font-size:1.1rem;cursor:pointer;padding:2px 4px;line-height:1;transition:color .15s;font-family:inherit}
+.starred-btn:hover{color:var(--yellow)}
+.starred-btn.on{color:var(--yellow)}
+
+.job-card.focused{box-shadow:0 0 0 2px var(--accent);border-color:var(--accent)}
+
+.score{position:relative}
+.score.popover-open{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.score-pop{position:absolute;z-index:9700;background:var(--surface2);border:1px solid var(--border-h);border-radius:10px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.5);min-width:240px;max-width:calc(100vw - 32px);font-size:.82rem;color:var(--text);opacity:0;transform:translateY(-4px);transition:opacity .15s,transform .15s;pointer-events:none}
+.score-pop.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.score-pop .pop-h{font-family:'Syne',sans-serif;font-weight:700;font-size:.94rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.score-pop .pop-h .x{background:none;border:none;color:var(--faint);font-size:1.1rem;cursor:pointer;padding:0 4px;font-family:inherit;line-height:1}
+.score-pop .pop-h .x:hover{color:var(--text)}
+.score-pop .pop-rule{display:flex;justify-content:space-between;padding:3px 0;border-top:1px solid var(--border)}
+.score-pop .pop-rule:first-of-type{border-top:none;padding-top:6px}
+.score-pop .pop-rule .pts{font-family:'Syne',sans-serif;font-weight:600}
+.score-pop .pop-rule .pts.pos{color:var(--green)}
+.score-pop .pop-rule .pts.neg{color:var(--red)}
+.score-pop .pop-foot{margin-top:8px;padding-top:6px;border-top:1px solid var(--border);font-size:.74rem;color:var(--faint);display:flex;justify-content:space-between}
+
+.shortcut-hint{display:inline-block;font-family:'SFMono-Regular',Consolas,monospace;font-size:.7rem;background:rgba(225,231,255,.07);border:1px solid var(--border);border-radius:4px;padding:1px 6px;color:var(--dim);margin-right:5px}
+[data-theme="light"] .shortcut-hint{background:rgba(0,18,51,.05)}
+.help-table{width:100%;border-collapse:collapse;margin-top:8px}
+.help-table td{padding:6px 8px;font-size:.85rem;border-bottom:1px solid var(--border);color:var(--dim);vertical-align:top}
+.help-table td:first-child{white-space:nowrap;width:1%}
+.help-table tr:last-child td{border-bottom:none}
+.help-note{margin-top:12px;padding:10px 12px;background:var(--accent-g);border:1px solid var(--border-h);border-radius:8px;font-size:.78rem;color:var(--dim)}
+
 @media(max-width:600px){
   .grid2{grid-template-columns:1fr}
   .tl-row{flex-direction:column;gap:4px}
@@ -257,6 +328,7 @@ select.inp{color-scheme:dark;appearance:auto}
   </div>
   <div class="top-bar-right">
     <button class="btn-export" id="btnSnapshot" title="Last ned strategi.enc.json (seed for nye enheter)">Snapshot til repo</button>
+    <button class="icon-btn" id="btnHelp" title="Tastatursnarveier (?)">?</button>
     <button class="icon-btn" id="themeToggle" title="Bytt tema">🌙</button>
   </div>
 </div>
@@ -314,6 +386,45 @@ select.inp{color-scheme:dark;appearance:auto}
 </div>
 
 <section id="p-jobs">
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-row">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" class="search-inp" id="searchInp" placeholder="Søk i tittel, firma, lokasjon, notater…" autocomplete="off">
+        <button class="search-clear" id="searchClear" title="Tøm søk (Esc)">×</button>
+      </div>
+    </div>
+    <div class="filter-row" id="statusChipRow">
+      <span class="filter-label">Status</span>
+      <div class="chip-row" id="statusChips"></div>
+    </div>
+    <div class="filter-row" id="propsChipRow">
+      <span class="filter-label">Egenskaper</span>
+      <div class="chip-row" id="propsChips"></div>
+    </div>
+    <div class="filter-row" id="sourceChipRow">
+      <span class="filter-label">Kilde</span>
+      <div class="chip-row" id="sourceChips"></div>
+    </div>
+    <div class="filter-row score-row">
+      <span class="filter-label">Score</span>
+      <input type="number" class="num" id="scoreMin" min="0" max="100" step="5" value="0">
+      <span class="dash">–</span>
+      <input type="number" class="num" id="scoreMax" min="0" max="100" step="5" value="100">
+      <span class="hint">0–100</span>
+    </div>
+    <div class="filter-row sort-row">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="filter-label">Sort</span>
+        <select id="sortSel"></select>
+      </div>
+      <button class="reset-btn hidden" id="resetBtn">↺ Reset filtre</button>
+    </div>
+    <div class="filter-row bulk-row">
+      <span class="bulk-count" id="bulkCount">—</span>
+      <button class="bulk-btn hidden" id="bulkMarkSeenBtn">Markér alle som sett</button>
+    </div>
+  </div>
   <div class="jobs-meta" id="jobsMeta"></div>
   <div id="jobsList"></div>
 </section>
@@ -358,6 +469,35 @@ select.inp{color-scheme:dark;appearance:auto}
     <div class="modal-actions">
       <button class="btn btn-p" id="btnSetupGo">Test og opprett Gist</button>
       <button class="btn btn-s" id="btnSetupClose">Lukk uten å lagre</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCORE POPOVER ═══ -->
+<div class="score-pop" id="scorePop" role="dialog"></div>
+
+<!-- ═══ HELP / KEYBOARD SHORTCUTS OVERLAY ═══ -->
+<div class="modal-overlay" id="helpOverlay">
+  <div class="modal" role="dialog" aria-labelledby="helpTitle">
+    <h2 id="helpTitle">Tastatursnarveier</h2>
+    <p class="modal-sub">Aktive på Jobber-fanen når fokus ikke er i et tekstfelt eller en åpen dialog.</p>
+    <table class="help-table">
+      <tr><td><span class="shortcut-hint">j</span><span class="shortcut-hint">↓</span></td><td>Fokuser neste jobb</td></tr>
+      <tr><td><span class="shortcut-hint">k</span><span class="shortcut-hint">↑</span></td><td>Fokuser forrige jobb</td></tr>
+      <tr><td><span class="shortcut-hint">Enter</span></td><td>Åpne fokusert jobb i ny tab</td></tr>
+      <tr><td><span class="shortcut-hint">n</span></td><td>Status: Ny</td></tr>
+      <tr><td><span class="shortcut-hint">m</span></td><td>Status: Sett</td></tr>
+      <tr><td><span class="shortcut-hint">s</span></td><td>Status: Søkt</td></tr>
+      <tr><td><span class="shortcut-hint">x</span></td><td>Status: Avslag</td></tr>
+      <tr><td><span class="shortcut-hint">i</span></td><td>Status: Intervju</td></tr>
+      <tr><td><span class="shortcut-hint">f</span></td><td>Toggle starred på fokusert jobb</td></tr>
+      <tr><td><span class="shortcut-hint">/</span></td><td>Fokus til søkefeltet</td></tr>
+      <tr><td><span class="shortcut-hint">Esc</span></td><td>Tøm søk / lukk dialog / lukk popover</td></tr>
+      <tr><td><span class="shortcut-hint">?</span></td><td>Vis/skjul denne hjelpen</td></tr>
+    </table>
+    <p class="help-note">På mobil uten tastatur: bruk filter-baren og kort-kontrollene direkte. Snarveier funker når Bluetooth-tastatur er tilkoblet.</p>
+    <div class="modal-actions">
+      <button class="btn btn-s" id="btnHelpClose">Lukk</button>
     </div>
   </div>
 </div>
@@ -467,8 +607,33 @@ var STATE = {
   appFilter: "all",
   outFilter: "all",
   showAppForm: false,
-  showOutForm: false
+  showOutForm: false,
+  // Etappe 3 — UI state
+  openOverlays: [],        // stack of open modals/popovers; gates global keydown to Esc-only when non-empty
+  uiPrefs: null,           // loaded from localStorage "ve-strategi-ui"
+  searchDebounce: null,    // setTimeout handle for search input
+  scorePopoverFor: null    // jobId currently shown in score popover (or null)
 };
+
+var SORT_OPTIONS = [
+  {v:"score-desc",    l:"Score ↓"},
+  {v:"score-asc",     l:"Score ↑"},
+  {v:"added-desc",    l:"Dato lagt til ↓"},
+  {v:"added-asc",     l:"Dato lagt til ↑"},
+  {v:"company-asc",   l:"Firma A→Z"},
+  {v:"company-desc",  l:"Firma Z→A"},
+  {v:"status-desc",   l:"Status sist endret ↓"},
+  {v:"deadline-asc",  l:"Frist (nærmest først)"}
+];
+
+var DEFAULT_UI_PREFS = {
+  v: 1,
+  filters: { search: "", status: ["new","seen"], sources: [], scoreMin: 0, scoreMax: 100, starred: false },
+  sort: "score-desc",
+  focusedJobId: null
+};
+
+var UI_PREFS_KEY = "ve-strategi-ui";
 
 var JOB_STATUSES = [
   {v:"new",l:"Ny",cls:"b-blue"},
@@ -785,10 +950,12 @@ function openSetupModal(){
   document.getElementById("patInput").value = "";
   setSetupStatus("", "");
   document.getElementById("setupModal").classList.add("open");
+  registerOverlay("setupModal");
   setTimeout(function(){ document.getElementById("patInput").focus(); }, 50);
 }
 function closeSetupModal(){
   document.getElementById("setupModal").classList.remove("open");
+  unregisterOverlay("setupModal");
 }
 function setSetupStatus(msg, cls){
   var el = document.getElementById("setupStatus");
@@ -871,6 +1038,102 @@ function toast(msg, ms){
   el.classList.add("show");
   if(toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(function(){ el.classList.remove("show"); }, ms || 4000);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  UI PREFS — persistert filter/sort-state (ukryptert, ikke sensitive)
+// ════════════════════════════════════════════════════════════════
+function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+function loadUiPrefs(){
+  try{
+    var raw = localStorage.getItem(UI_PREFS_KEY);
+    if(!raw) return clone(DEFAULT_UI_PREFS);
+    var p = JSON.parse(raw);
+    if(!p || p.v !== 1) return clone(DEFAULT_UI_PREFS);
+    // Defensive: fill in missing fields
+    var d = clone(DEFAULT_UI_PREFS);
+    p.filters = Object.assign(d.filters, p.filters || {});
+    p.sort = p.sort || d.sort;
+    return Object.assign(d, p);
+  }catch(_){ return clone(DEFAULT_UI_PREFS); }
+}
+function saveUiPrefs(){
+  try{ localStorage.setItem(UI_PREFS_KEY, JSON.stringify(STATE.uiPrefs)); }catch(_){}
+}
+function uiPrefsIsDefault(){
+  var f = STATE.uiPrefs.filters;
+  var d = DEFAULT_UI_PREFS.filters;
+  if(f.search) return false;
+  if(f.scoreMin !== d.scoreMin || f.scoreMax !== d.scoreMax) return false;
+  if(f.starred) return false;
+  if(STATE.uiPrefs.sort !== DEFAULT_UI_PREFS.sort) return false;
+  // status: same set?
+  if(f.status.length !== d.status.length) return false;
+  var sortedF = f.status.slice().sort().join(","), sortedD = d.status.slice().sort().join(",");
+  if(sortedF !== sortedD) return false;
+  // sources: empty = "all" — default is empty
+  if(f.sources && f.sources.length !== 0) return false;
+  return true;
+}
+function resetUiPrefs(){
+  STATE.uiPrefs = clone(DEFAULT_UI_PREFS);
+  saveUiPrefs();
+}
+
+// ════════════════════════════════════════════════════════════════
+//  OVERLAY STACK — gates global keydown to Esc-only when non-empty
+// ════════════════════════════════════════════════════════════════
+function registerOverlay(name){
+  if(STATE.openOverlays.indexOf(name) === -1) STATE.openOverlays.push(name);
+}
+function unregisterOverlay(name){
+  var i = STATE.openOverlays.indexOf(name);
+  if(i !== -1) STATE.openOverlays.splice(i, 1);
+}
+function isOverlayOpen(){ return STATE.openOverlays.length > 0; }
+
+// ════════════════════════════════════════════════════════════════
+//  FILTER + SORT
+// ════════════════════════════════════════════════════════════════
+function getFilteredJobs(){
+  var jobs = STATE.payload.jobs;
+  var f = STATE.uiPrefs.filters;
+  var q = (f.search || "").trim().toLowerCase();
+  var srcSet = (f.sources && f.sources.length) ? new Set(f.sources) : null;
+  var statusSet = new Set(f.status);
+  var min = f.scoreMin, max = f.scoreMax;
+
+  var out = jobs.filter(function(j){
+    if(!statusSet.has(j.status || "new")) return false;
+    if(f.starred && !j.starred) return false;
+    if(srcSet && !srcSet.has(j.source || "")) return false;
+    var s = j.score || 0;
+    if(s < min || s > max) return false;
+    if(q){
+      var hay = ((j.role||"") + " " + (j.company||"") + " " + (j.location||"") + " " + (j.notes||"") + " " + (j.description||"")).toLowerCase();
+      if(hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+
+  var sort = STATE.uiPrefs.sort;
+  out.sort(function(a, b){
+    switch(sort){
+      case "score-desc":   return (b.score||0) - (a.score||0);
+      case "score-asc":    return (a.score||0) - (b.score||0);
+      case "added-desc":   return (b.added||"").localeCompare(a.added||"");
+      case "added-asc":    return (a.added||"").localeCompare(b.added||"");
+      case "company-asc":  return (a.company||"").localeCompare(b.company||"", "no");
+      case "company-desc": return (b.company||"").localeCompare(a.company||"", "no");
+      case "status-desc":  return (b.statusUpdated||"").localeCompare(a.statusUpdated||"");
+      case "deadline-asc":
+        var ad = a.deadline || "9999-12-31";
+        var bd = b.deadline || "9999-12-31";
+        return ad.localeCompare(bd);
+      default: return 0;
+    }
+  });
+  return out;
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -976,6 +1239,9 @@ window.addEventListener("online", function(){
 //  INIT — wire up tabs, render counts, default tab
 // ════════════════════════════════════════════════════════════════
 function initUI(payload){
+  // Load UI preferences before first render
+  STATE.uiPrefs = loadUiPrefs();
+
   // Strategitext collapsible
   document.getElementById("stratToggle").addEventListener("click", function(){
     this.classList.toggle("open");
@@ -1007,24 +1273,34 @@ function initUI(payload){
   // Snapshot button
   document.getElementById("btnSnapshot").addEventListener("click", snapshotToRepo);
 
+  // Help button (?)
+  document.getElementById("btnHelp").addEventListener("click", toggleHelpOverlay);
+  document.getElementById("btnHelpClose").addEventListener("click", hideHelpOverlay);
+  document.getElementById("helpOverlay").addEventListener("click", function(e){
+    if(e.target.id === "helpOverlay") hideHelpOverlay();
+  });
+
   // Sync indicator — clickable when in error/no-config state to open setup
   document.getElementById("savedInd").addEventListener("click", function(){
     if(STATE.syncState === "noconfig" || STATE.syncState === "patinvalid") openSetupModal();
   });
 
-  // Setup modal wiring
+  // Setup modal wiring (Esc closes via global handler)
   document.getElementById("btnSetupGo").addEventListener("click", doSetup);
   document.getElementById("btnSetupClose").addEventListener("click", closeSetupModal);
   document.getElementById("setupModal").addEventListener("click", function(e){
     if(e.target.id === "setupModal") closeSetupModal();
   });
-  document.addEventListener("keydown", function(e){
-    if(e.key === "Escape" && document.getElementById("setupModal").classList.contains("open")) closeSetupModal();
-  });
 
   // Banner wiring
   document.getElementById("bannerSetup").addEventListener("click", openSetupModal);
   document.getElementById("bannerSnooze").addEventListener("click", snoozeBanner);
+
+  // Filter controls
+  bindFilterControls();
+
+  // Keyboard shortcuts
+  bindKeyboardShortcuts();
 
   // Click outside to close any open dropdown
   document.addEventListener("click", function(e){
@@ -1035,6 +1311,12 @@ function initUI(payload){
 
   // Default tab
   renderJobs();
+
+  // Restore focused job from prefs (after render so the card exists)
+  if(STATE.uiPrefs.focusedJobId){
+    var card = document.querySelector('.job-card[data-jid="'+STATE.uiPrefs.focusedJobId+'"]');
+    if(card) setTimeout(function(){ card.scrollIntoView({behavior:"auto", block:"nearest"}); }, 60);
+  }
 
   // Banner: show only if no Gist config AND not snoozed
   if(bannerShouldShow()) showBanner();
@@ -1052,30 +1334,48 @@ function initUI(payload){
 //  JOBS TAB
 // ════════════════════════════════════════════════════════════════
 function renderJobs(){
-  var jobs = STATE.payload.jobs.slice().sort(function(a,b){return (b.score||0) - (a.score||0)});
+  renderFilterBar();
+  var jobs = getFilteredJobs();
+  var total = STATE.payload.jobs.length;
   var meta = document.getElementById("jobsMeta");
-  // Status counts
-  var byStatus = {};
-  JOB_STATUSES.forEach(function(s){byStatus[s.v]=0});
-  jobs.forEach(function(j){ if(byStatus[j.status]!==undefined) byStatus[j.status]++ });
   var meta_ts = STATE.payload.updatedAt || STATE.payload.migratedAt;
   var meta_label = STATE.payload.updatedAt ? "oppdatert" : "migrert";
   var meta_date = meta_ts ? fmtDate(meta_ts) : "?";
-  meta.innerHTML = jobs.length + " jobber · " + meta_label + " " + meta_date + " · " +
-    JOB_STATUSES.filter(function(s){return byStatus[s.v]>0}).map(function(s){return byStatus[s.v]+" "+s.l.toLowerCase()}).join(" · ");
+  meta.innerHTML = jobs.length + " av " + total + " jobber · " + meta_label + " " + meta_date;
+
+  // Drop popover if its job is no longer rendered
+  if(STATE.scorePopoverFor){
+    var stillThere = jobs.some(function(j){ return j.id === STATE.scorePopoverFor; });
+    if(!stillThere) hideScorePopover();
+  }
+  // Drop focusedJobId if no longer in filtered list
+  if(STATE.uiPrefs.focusedJobId){
+    var focusedStill = jobs.some(function(j){ return j.id === STATE.uiPrefs.focusedJobId; });
+    if(!focusedStill){ STATE.uiPrefs.focusedJobId = null; saveUiPrefs(); }
+  }
+
+  if(!jobs.length){
+    var emptyMsg = total === 0
+      ? '<div class="empty"><div class="ico">📭</div><p>Ingen jobber i payload</p></div>'
+      : '<div class="empty"><div class="ico">🔍</div><p>Ingen jobber matcher filtrene.</p><button class="btn btn-s" id="emptyReset" style="margin-top:10px">Reset filtre</button></div>';
+    document.getElementById("jobsList").innerHTML = emptyMsg;
+    var er = document.getElementById("emptyReset");
+    if(er) er.addEventListener("click", function(){ resetUiPrefs(); renderJobs(); });
+    return;
+  }
 
   var html = "";
+  var focusedId = STATE.uiPrefs.focusedJobId;
   jobs.forEach(function(j){
     var st = JOB_STATUSES.find(function(s){return s.v===j.status}) || JOB_STATUSES[0];
     var scoreClass = j.score >= 60 ? "s-hi" : (j.score < 25 ? "s-lo" : "");
-    var bdLines = [];
-    var bd = j.scoreBreakdown || {};
-    Object.keys(bd).forEach(function(k){ bdLines.push(k + ": " + (bd[k]>0?"+":"") + bd[k]); });
-    var bdTitle = "Score " + (j.score||0) + "/100\n" + (bdLines.length ? bdLines.join("\n") : "ingen match");
     var senBadge = j.seniority ? '<span class="b-sen b-sen-'+j.seniority+'">'+j.seniority+'</span>' : '';
     var prio = j.priority ? '<span class="star" title="Prioritert selskap fra scrape">★</span>' : '';
+    var starredCls = j.starred ? " on" : "";
+    var starredIcon = j.starred ? "★" : "☆";
+    var focusedCls = (j.id === focusedId) ? " focused" : "";
 
-    html += '<div class="job-card" data-jid="'+j.id+'">'+
+    html += '<div class="job-card'+focusedCls+'" data-jid="'+j.id+'">'+
       '<div class="job-row">'+
         '<div class="job-main">'+
           '<div class="job-title"><a href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(j.role)+'</a></div>'+
@@ -1088,11 +1388,14 @@ function renderJobs(){
           '</div>'+
         '</div>'+
         '<div class="job-side">'+
-          '<span class="score '+scoreClass+'" title="'+esc(bdTitle)+'">'+(j.score||0)+'</span>'+
-          '<div class="sp">'+
-            '<span class="badge '+st.cls+'" onclick="toggleJobStatus(\''+j.id+'\',event)">'+st.l+'</span>'+
-            '<div class="sp-menu" id="jsp-'+j.id+'">'+
-              JOB_STATUSES.map(function(s){return '<button class="sp-opt" onclick="setJobStatus(\''+j.id+'\',\''+s.v+'\')">'+s.l+'</button>'}).join("")+
+          '<span class="score '+scoreClass+'" onclick="onScoreClick(\''+j.id+'\',event)">'+(j.score||0)+'</span>'+
+          '<div style="display:flex;gap:6px;align-items:center">'+
+            '<button class="starred-btn'+starredCls+'" onclick="toggleStarred(\''+j.id+'\')" title="Star denne jobben (f)">'+starredIcon+'</button>'+
+            '<div class="sp">'+
+              '<span class="badge '+st.cls+'" onclick="toggleJobStatus(\''+j.id+'\',event)">'+st.l+'</span>'+
+              '<div class="sp-menu" id="jsp-'+j.id+'">'+
+                JOB_STATUSES.map(function(s){return '<button class="sp-opt" onclick="setJobStatus(\''+j.id+'\',\''+s.v+'\')">'+s.l+'</button>'}).join("")+
+              '</div>'+
             '</div>'+
           '</div>'+
         '</div>'+
@@ -1103,7 +1406,419 @@ function renderJobs(){
       '</div>'+
       '</div>';
   });
-  document.getElementById("jobsList").innerHTML = html || '<div class="empty"><div class="ico">📭</div><p>Ingen jobber i payload</p></div>';
+  document.getElementById("jobsList").innerHTML = html;
+}
+
+function toggleStarred(id){
+  var job = STATE.payload.jobs.find(function(j){return j.id===id});
+  if(!job) return;
+  // Preserve focus continuity if star-toggle filters this job out (starred-filter active)
+  var keepFocus = (STATE.uiPrefs.focusedJobId === id);
+  var beforeList = keepFocus ? getFilteredJobs() : null;
+  var prevIdx = keepFocus ? beforeList.findIndex(function(j){return j.id===id}) : -1;
+  job.starred = !job.starred;
+  if(keepFocus){
+    var afterList = getFilteredJobs();
+    if(!afterList.length){
+      STATE.uiPrefs.focusedJobId = null;
+    } else if(!afterList.some(function(j){return j.id===id})){
+      var newIdx = Math.min(Math.max(prevIdx, 0), afterList.length - 1);
+      STATE.uiPrefs.focusedJobId = afterList[newIdx].id;
+    }
+    saveUiPrefs();
+  }
+  mutate();
+  renderJobs();
+  if(keepFocus && STATE.uiPrefs.focusedJobId){
+    var card = document.querySelector('.job-card[data-jid="'+STATE.uiPrefs.focusedJobId+'"]');
+    if(card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  FILTER BAR RENDER + WIRING
+// ════════════════════════════════════════════════════════════════
+function renderFilterBar(){
+  var jobs = STATE.payload.jobs;
+  var f = STATE.uiPrefs.filters;
+
+  // Search
+  var inp = document.getElementById("searchInp");
+  if(inp.value !== f.search) inp.value = f.search;
+  document.getElementById("searchClear").classList.toggle("show", !!f.search);
+
+  // Status chips — counts shown are total per status (not after-filter)
+  var counts = {};
+  JOB_STATUSES.forEach(function(s){counts[s.v] = 0});
+  var starredCount = 0;
+  var sourceCounts = {};
+  jobs.forEach(function(j){
+    var s = j.status || "new";
+    if(counts[s] !== undefined) counts[s]++;
+    if(j.starred) starredCount++;
+    var src = j.source || "(ukjent)";
+    sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+  });
+  var allOn = (f.status.length === JOB_STATUSES.length);
+  var statusHtml = '<button class="chip chip-all'+(allOn?" on":"")+'" data-status="__all__">Alle</button>';
+  JOB_STATUSES.forEach(function(s){
+    var on = f.status.indexOf(s.v) !== -1;
+    statusHtml += '<button class="chip'+(on?" on":"")+'" data-status="'+s.v+'">'+s.l+'<span class="cnt">'+counts[s.v]+'</span></button>';
+  });
+  document.getElementById("statusChips").innerHTML = statusHtml;
+
+  // Egenskaper (starred)
+  var propsHtml = '<button class="chip chip-starred'+(f.starred?" on":"")+'" id="starredChip">☆ Vis kun starred<span class="cnt">'+starredCount+'</span></button>';
+  document.getElementById("propsChips").innerHTML = propsHtml;
+
+  // Source chips
+  var srcKeys = Object.keys(sourceCounts).sort();
+  var srcSelected = f.sources && f.sources.length ? new Set(f.sources) : null;
+  var srcAllOn = !srcSelected || srcSelected.size === srcKeys.length;
+  var srcHtml = '<button class="chip chip-all'+(srcAllOn?" on":"")+'" data-source="__all__">Alle</button>';
+  srcKeys.forEach(function(k){
+    var on = !srcSelected || srcSelected.has(k);
+    srcHtml += '<button class="chip'+(on?" on":"")+'" data-source="'+esc(k)+'">'+esc(k)+'<span class="cnt">'+sourceCounts[k]+'</span></button>';
+  });
+  document.getElementById("sourceChips").innerHTML = srcHtml;
+
+  // Score range
+  document.getElementById("scoreMin").value = f.scoreMin;
+  document.getElementById("scoreMax").value = f.scoreMax;
+
+  // Sort
+  var sortSel = document.getElementById("sortSel");
+  if(!sortSel.options.length){
+    SORT_OPTIONS.forEach(function(o){
+      var opt = document.createElement("option");
+      opt.value = o.v; opt.textContent = o.l;
+      sortSel.appendChild(opt);
+    });
+  }
+  if(sortSel.value !== STATE.uiPrefs.sort) sortSel.value = STATE.uiPrefs.sort;
+
+  // Reset btn visibility
+  document.getElementById("resetBtn").classList.toggle("hidden", uiPrefsIsDefault());
+
+  // Bulk: count + bulk-mark-seen button visibility
+  var filtered = getFilteredJobs();
+  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + jobs.length;
+  var onlyNew = f.status.length === 1 && f.status[0] === "new";
+  document.getElementById("bulkMarkSeenBtn").classList.toggle("hidden", !onlyNew || filtered.length === 0);
+
+  // Wire status chips
+  document.querySelectorAll("#statusChips .chip").forEach(function(el){
+    el.addEventListener("click", function(){
+      var v = this.dataset.status;
+      if(v === "__all__"){
+        f.status = JOB_STATUSES.map(function(s){return s.v});
+      } else {
+        var i = f.status.indexOf(v);
+        if(i === -1) f.status.push(v); else f.status.splice(i, 1);
+        if(f.status.length === 0) f.status = [v]; // never empty — re-select last toggled
+      }
+      saveUiPrefs(); renderJobs();
+    });
+  });
+  // Wire starred chip
+  document.getElementById("starredChip").addEventListener("click", function(){
+    f.starred = !f.starred; saveUiPrefs(); renderJobs();
+  });
+  // Wire source chips
+  document.querySelectorAll("#sourceChips .chip").forEach(function(el){
+    el.addEventListener("click", function(){
+      var v = this.dataset.source;
+      var keys = Object.keys(sourceCounts).sort();
+      if(v === "__all__"){
+        f.sources = []; // [] = all
+      } else {
+        var current = f.sources.length ? f.sources.slice() : keys.slice();
+        var i = current.indexOf(v);
+        if(i === -1) current.push(v); else current.splice(i, 1);
+        if(current.length === 0) current = [v];
+        f.sources = (current.length === keys.length) ? [] : current;
+      }
+      saveUiPrefs(); renderJobs();
+    });
+  });
+}
+
+function bindFilterControls(){
+  var inp = document.getElementById("searchInp");
+  inp.addEventListener("input", function(){
+    if(STATE.searchDebounce) clearTimeout(STATE.searchDebounce);
+    var val = this.value;
+    STATE.searchDebounce = setTimeout(function(){
+      STATE.uiPrefs.filters.search = val;
+      saveUiPrefs(); renderJobs();
+    }, 200);
+  });
+  inp.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && this.value){
+      this.value = "";
+      STATE.uiPrefs.filters.search = "";
+      saveUiPrefs(); renderJobs();
+      e.stopPropagation();
+    }
+  });
+  document.getElementById("searchClear").addEventListener("click", function(){
+    inp.value = "";
+    STATE.uiPrefs.filters.search = "";
+    saveUiPrefs(); renderJobs(); inp.focus();
+  });
+
+  // Score inputs
+  function bindScore(id, key){
+    var el = document.getElementById(id);
+    el.addEventListener("change", function(){
+      var v = Math.max(0, Math.min(100, parseInt(this.value,10) || 0));
+      this.value = v;
+      STATE.uiPrefs.filters[key] = v;
+      // Keep min <= max
+      if(STATE.uiPrefs.filters.scoreMin > STATE.uiPrefs.filters.scoreMax){
+        if(key === "scoreMin") STATE.uiPrefs.filters.scoreMax = v;
+        else STATE.uiPrefs.filters.scoreMin = v;
+      }
+      saveUiPrefs(); renderJobs();
+    });
+  }
+  bindScore("scoreMin", "scoreMin");
+  bindScore("scoreMax", "scoreMax");
+
+  document.getElementById("sortSel").addEventListener("change", function(){
+    STATE.uiPrefs.sort = this.value;
+    saveUiPrefs(); renderJobs();
+  });
+  document.getElementById("resetBtn").addEventListener("click", function(){
+    resetUiPrefs(); renderJobs();
+  });
+  document.getElementById("bulkMarkSeenBtn").addEventListener("click", bulkMarkSeen);
+}
+
+function bulkMarkSeen(){
+  var filtered = getFilteredJobs();
+  if(!filtered.length) return;
+  if(!confirm("Markere alle " + filtered.length + " jobber i filteret som «Sett»?")) return;
+  var nowIso = new Date().toISOString();
+  filtered.forEach(function(j){
+    var job = STATE.payload.jobs.find(function(x){return x.id===j.id});
+    if(job){ job.status = "seen"; job.statusUpdated = nowIso; }
+  });
+  // Switch status filter to "seen" so user sees what changed; start fresh — clear focus
+  // and scroll to top of filter-bar so user sees the new filter highlight + list head.
+  STATE.uiPrefs.filters.status = ["seen"];
+  STATE.uiPrefs.focusedJobId = null;
+  saveUiPrefs();
+  mutate();
+  renderJobs();
+  var fb = document.getElementById("filterBar");
+  if(fb) fb.scrollIntoView({behavior:"smooth", block:"start"});
+  toast("Merket " + filtered.length + " jobber som Sett.");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SCORE POPOVER (click-to-open, replaces title tooltip)
+// ════════════════════════════════════════════════════════════════
+function onScoreClick(jobId, e){
+  if(e) e.stopPropagation();
+  if(STATE.scorePopoverFor === jobId){ hideScorePopover(); return; }
+  var card = document.querySelector('.job-card[data-jid="'+jobId+'"]');
+  if(!card) return;
+  var badge = card.querySelector(".score");
+  if(!badge) return;
+  showScorePopover(jobId, badge);
+}
+function showScorePopover(jobId, anchorEl){
+  var job = STATE.payload.jobs.find(function(j){return j.id===jobId});
+  if(!job) return;
+  hideScorePopover();
+  var pop = document.getElementById("scorePop");
+  var bd = job.scoreBreakdown || {};
+  var keys = Object.keys(bd);
+  var rawSum = keys.reduce(function(a,k){return a + bd[k]}, 0);
+  var rules = keys.map(function(k){
+    var v = bd[k];
+    var cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
+    return '<div class="pop-rule"><span>'+esc(k)+'</span><span class="pts '+cls+'">'+(v>0?"+":"")+v+'</span></div>';
+  }).join("") || '<div class="pop-rule"><span style="color:var(--faint)">Ingen regler matchet</span><span class="pts">0</span></div>';
+  pop.innerHTML = '<div class="pop-h">Score '+(job.score||0)+'/100<button class="x" onclick="hideScorePopover()" title="Lukk (Esc)">×</button></div>'+
+    rules +
+    '<div class="pop-foot"><span>Sum: '+rawSum+(rawSum !== (job.score||0) ? ' (cap 100)' : '')+'</span><span>'+esc(job.company||"")+'</span></div>';
+  // Position relative to viewport (fixed)
+  pop.style.position = "fixed";
+  pop.style.visibility = "hidden";
+  pop.classList.add("show");
+  // Read dimensions after content set
+  var rect = anchorEl.getBoundingClientRect();
+  var popRect = pop.getBoundingClientRect();
+  var margin = 8;
+  var left = rect.right - popRect.width;
+  if(left < margin) left = margin;
+  if(left + popRect.width > window.innerWidth - margin) left = window.innerWidth - popRect.width - margin;
+  var top = rect.bottom + 6;
+  if(top + popRect.height > window.innerHeight - margin) top = rect.top - popRect.height - 6;
+  if(top < margin) top = margin;
+  pop.style.left = left + "px";
+  pop.style.top = top + "px";
+  pop.style.visibility = "visible";
+  anchorEl.classList.add("popover-open");
+  STATE.scorePopoverFor = jobId;
+  registerOverlay("scorePopover");
+}
+function hideScorePopover(){
+  var pop = document.getElementById("scorePop");
+  pop.classList.remove("show");
+  document.querySelectorAll(".score.popover-open").forEach(function(s){s.classList.remove("popover-open")});
+  if(STATE.scorePopoverFor){
+    STATE.scorePopoverFor = null;
+    unregisterOverlay("scorePopover");
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  HELP OVERLAY
+// ════════════════════════════════════════════════════════════════
+function helpOverlayKeyHandler(e){
+  // Capture-phase: fires before the global keydown handler
+  if(e.key === "?"){
+    hideHelpOverlay();
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+}
+function showHelpOverlay(){
+  document.getElementById("helpOverlay").classList.add("open");
+  registerOverlay("helpOverlay");
+  document.addEventListener("keydown", helpOverlayKeyHandler, true);
+}
+function hideHelpOverlay(){
+  document.getElementById("helpOverlay").classList.remove("open");
+  unregisterOverlay("helpOverlay");
+  document.removeEventListener("keydown", helpOverlayKeyHandler, true);
+}
+function toggleHelpOverlay(){
+  if(document.getElementById("helpOverlay").classList.contains("open")) hideHelpOverlay();
+  else showHelpOverlay();
+}
+
+// ════════════════════════════════════════════════════════════════
+//  FOCUS NAVIGATION (j/k/Enter and shortcuts on focused job)
+// ════════════════════════════════════════════════════════════════
+function focusJob(id){
+  STATE.uiPrefs.focusedJobId = id;
+  saveUiPrefs();
+  document.querySelectorAll(".job-card.focused").forEach(function(c){c.classList.remove("focused")});
+  if(!id) return;
+  var card = document.querySelector('.job-card[data-jid="'+id+'"]');
+  if(card){
+    card.classList.add("focused");
+    card.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+}
+function focusStep(delta){
+  var jobs = getFilteredJobs();
+  if(!jobs.length) return;
+  var cur = STATE.uiPrefs.focusedJobId;
+  var idx = -1;
+  if(cur){ idx = jobs.findIndex(function(j){return j.id===cur}); }
+  if(idx === -1){ idx = delta > 0 ? 0 : jobs.length - 1; }
+  else { idx = Math.max(0, Math.min(jobs.length - 1, idx + delta)); }
+  focusJob(jobs[idx].id);
+}
+function setFocusedStatus(v){
+  var id = STATE.uiPrefs.focusedJobId;
+  if(!id) return;
+  var job = STATE.payload.jobs.find(function(j){return j.id===id});
+  if(!job) return;
+  // Capture position in filtered list BEFORE mutation so we can move focus to
+  // the job that "takes over" the slot if the current one is filtered away.
+  var beforeList = getFilteredJobs();
+  var prevIdx = beforeList.findIndex(function(j){return j.id===id});
+  job.status = v;
+  job.statusUpdated = new Date().toISOString();
+  // Recompute filtered list and pick next focus
+  var afterList = getFilteredJobs();
+  var nextId = null;
+  if(afterList.length){
+    if(afterList.some(function(j){return j.id===id})) nextId = id;
+    else if(prevIdx >= 0) nextId = afterList[Math.min(prevIdx, afterList.length - 1)].id;
+    else nextId = afterList[0].id;
+  }
+  STATE.uiPrefs.focusedJobId = nextId;
+  saveUiPrefs();
+  mutate(); renderJobs();
+  if(nextId){
+    var card = document.querySelector('.job-card[data-jid="'+nextId+'"]');
+    if(card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+}
+function openFocusedUrl(){
+  var id = STATE.uiPrefs.focusedJobId;
+  if(!id) return;
+  var job = STATE.payload.jobs.find(function(j){return j.id===id});
+  if(job && job.url) window.open(job.url, "_blank", "noopener");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  KEYBOARD SHORTCUTS (gated by overlay stack + active tab + input focus)
+// ════════════════════════════════════════════════════════════════
+function bindKeyboardShortcuts(){
+  document.addEventListener("keydown", function(e){
+    // If overlay open, only Esc passes through; everything else blocked.
+    // (Help overlay handles its own '?' close in its dedicated listener.)
+    if(isOverlayOpen()){
+      if(e.key === "Escape"){
+        // Close topmost overlay
+        var top = STATE.openOverlays[STATE.openOverlays.length - 1];
+        if(top === "scorePopover") hideScorePopover();
+        else if(top === "helpOverlay") hideHelpOverlay();
+        else if(top === "setupModal") closeSetupModal();
+        e.preventDefault();
+      }
+      return;
+    }
+    // Skip shortcuts when typing in input/textarea
+    var tag = (e.target && e.target.tagName) || "";
+    if(tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    // Only on jobs tab
+    var jobsVisible = document.getElementById("p-jobs").style.display !== "none";
+    if(!jobsVisible) return;
+
+    switch(e.key){
+      case "j": case "ArrowDown": focusStep(+1); e.preventDefault(); break;
+      case "k": case "ArrowUp":   focusStep(-1); e.preventDefault(); break;
+      case "Enter": openFocusedUrl(); e.preventDefault(); break;
+      case "n": setFocusedStatus("new"); break;
+      case "m": setFocusedStatus("seen"); break;
+      case "s": setFocusedStatus("applied"); break;
+      case "x": setFocusedStatus("rejected"); break;
+      case "i": setFocusedStatus("interview"); break;
+      case "f":
+        var fid = STATE.uiPrefs.focusedJobId;
+        if(fid) toggleStarred(fid);
+        break;
+      case "/":
+        document.getElementById("searchInp").focus();
+        e.preventDefault();
+        break;
+      case "?":
+        showHelpOverlay();
+        e.preventDefault();
+        break;
+    }
+  });
+
+  // Click outside score popover closes it
+  document.addEventListener("click", function(e){
+    if(STATE.scorePopoverFor){
+      var pop = document.getElementById("scorePop");
+      if(!pop.contains(e.target) && !e.target.classList.contains("score")) hideScorePopover();
+    }
+  });
+  // Close popover on scroll (it's position:fixed so it would drift away from anchor)
+  window.addEventListener("scroll", function(){
+    if(STATE.scorePopoverFor) hideScorePopover();
+  }, {passive: true});
 }
 
 function toggleJobStatus(id, e){
