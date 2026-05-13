@@ -324,9 +324,12 @@ def is_priority_company(company: str) -> bool:
 
 
 def normalize_url(u: str) -> str:
-    if not u:
-        return ""
-    return re.sub(r"[?#].*$", "", u).rstrip("/").lower()
+    if not u: return ""
+    # Strip kun hash-fragment, IKKE query (?Id=N er identifier på
+    # noen sites som jobs.lu — bevare query er korrekt default)
+    u = re.sub(r"#.*$", "", u)
+    u = u.rstrip("/")
+    return u.lower()
 
 
 def sha1_job_id(url: str) -> str:
