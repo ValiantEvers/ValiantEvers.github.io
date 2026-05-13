@@ -188,6 +188,40 @@ select.inp{color-scheme:dark;appearance:auto}
 .tl-card{flex:1}
 .tl-now{color:var(--green)}
 
+/* ── ETAPPE 2: sync-indicator states, bootstrap-lock, banner, modal, toast ── */
+.saved-ind.s-synced{color:var(--green);border-color:var(--green-b);background:var(--green-bg)}
+.saved-ind.s-saving,.saved-ind.s-bootstrap{color:var(--yellow);border-color:var(--yellow-b);background:var(--yellow-bg)}
+.saved-ind.s-offline,.saved-ind.s-patinvalid{color:var(--red);border-color:var(--red-b);background:var(--red-bg);cursor:pointer}
+.saved-ind.s-noconfig{color:var(--gray);border-color:var(--gray-b);background:var(--gray-bg);cursor:pointer}
+.saved-ind.s-local{color:var(--accent);border-color:var(--border-h);background:var(--accent-g)}
+.spin{display:inline-block;width:8px;height:8px;border:1.5px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;margin-right:5px;vertical-align:-1px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sync-lock{pointer-events:none;opacity:.6;transition:opacity .2s}
+
+.banner{background:var(--yellow-bg);border:1px solid var(--yellow-b);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.85rem;color:var(--yellow);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.banner.hidden{display:none}
+.banner-msg{flex:1;min-width:200px}
+.banner-actions{display:flex;gap:6px;flex-shrink:0}
+.banner-btn{background:transparent;border:1px solid var(--yellow-b);color:var(--yellow);padding:5px 12px;border-radius:6px;font-family:inherit;font-size:.78rem;font-weight:500;cursor:pointer;transition:background .15s}
+.banner-btn:hover{background:rgba(240,192,64,.12)}
+.banner-btn.primary{background:var(--yellow);color:var(--bg)}
+.banner-btn.primary:hover{opacity:.88}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border-h);border-radius:14px;padding:24px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.modal h2{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:6px;color:var(--text)}
+.modal .modal-sub{font-size:.84rem;color:var(--dim);margin-bottom:14px;line-height:1.55}
+.modal .modal-sub a{color:var(--accent);border-bottom:1px solid var(--border-h)}
+.modal .modal-sub a:hover{border-bottom-color:var(--accent)}
+.modal .modal-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.modal-status{font-size:.82rem;color:var(--dim);min-height:1.4em;margin-top:10px}
+.modal-status.ok{color:var(--green)}
+.modal-status.err{color:var(--red)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:10px 16px;font-size:.85rem;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;z-index:9500;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+
 @media(max-width:600px){
   .grid2{grid-template-columns:1fr}
   .tl-row{flex-direction:column;gap:4px}
@@ -222,7 +256,7 @@ select.inp{color-scheme:dark;appearance:auto}
     <span class="saved-ind" id="savedInd">—</span>
   </div>
   <div class="top-bar-right">
-    <button class="btn-export" id="btnExport" title="Last ned ny strategi.enc.json">Eksporter</button>
+    <button class="btn-export" id="btnSnapshot" title="Last ned strategi.enc.json (seed for nye enheter)">Snapshot til repo</button>
     <button class="icon-btn" id="themeToggle" title="Bytt tema">🌙</button>
   </div>
 </div>
@@ -271,6 +305,14 @@ select.inp{color-scheme:dark;appearance:auto}
   <button class="tab" data-tab="timeline">Tidsplan</button>
 </div>
 
+<div class="banner hidden" id="syncBanner">
+  <span class="banner-msg">🔔 Synk er ikke aktivert. Endringer lagres kun på denne enheten.</span>
+  <div class="banner-actions">
+    <button class="banner-btn primary" id="bannerSetup">Sett opp synk</button>
+    <button class="banner-btn" id="bannerSnooze">Avvis</button>
+  </div>
+</div>
+
 <section id="p-jobs">
   <div class="jobs-meta" id="jobsMeta"></div>
   <div id="jobsList"></div>
@@ -301,6 +343,27 @@ select.inp{color-scheme:dark;appearance:auto}
 </section>
 
 </div>
+
+<!-- ═══ SETUP MODAL ═══ -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal" role="dialog" aria-labelledby="setupTitle">
+    <h2 id="setupTitle">Sett opp Gist-synk</h2>
+    <p class="modal-sub">
+      Du trenger en fine-grained Personal Access Token med <strong>Gists: Read and write</strong>-tilgang.
+      Lag en på <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> ↗.
+      Lim inn token under. PAT lagres kryptert sammen med resten av payload.
+    </p>
+    <input type="password" class="inp" id="patInput" placeholder="github_pat_…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text" style="margin-bottom:6px">
+    <div class="modal-status" id="setupStatus">—</div>
+    <div class="modal-actions">
+      <button class="btn btn-p" id="btnSetupGo">Test og opprett Gist</button>
+      <button class="btn btn-s" id="btnSetupClose">Lukk uten å lagre</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
 
 <script>
 // ════════════════════════════════════════════════════════════════
@@ -343,18 +406,27 @@ async function deriveKey(pw, salt){
     km, {name:"AES-GCM", length:256}, false, ["encrypt","decrypt"]
   );
 }
-async function encryptPayload(pw, obj){
-  var salt = crypto.getRandomValues(new Uint8Array(16));
-  var iv = crypto.getRandomValues(new Uint8Array(12));
-  var key = await deriveKey(pw, salt);
-  var pt = new TextEncoder().encode(JSON.stringify(obj));
-  var ct = await crypto.subtle.encrypt({name:"AES-GCM", iv:iv}, key, pt);
-  return {v:1, salt:b64(salt), iv:b64(iv), ct:b64(new Uint8Array(ct))};
-}
 async function decryptBlob(pw, blob){
   var key = await deriveKey(pw, ub64(blob.salt));
   var pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:ub64(blob.iv)}, key, ub64(blob.ct));
   return JSON.parse(new TextDecoder().decode(pt));
+}
+// Decrypt + cache derived key for fast in-session encryption (etappe 2)
+async function decryptAndCache(pw, blob){
+  var saltU8 = ub64(blob.salt);
+  var key = await deriveKey(pw, saltU8);
+  var pt = await crypto.subtle.decrypt({name:"AES-GCM", iv:ub64(blob.iv)}, key, ub64(blob.ct));
+  STATE.cryptoKey = key;
+  STATE.cryptoSalt = saltU8;
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+// Encrypt current payload with cached key — fast (no PBKDF2), rotates IV
+async function encryptCurrent(){
+  if(!STATE.cryptoKey || !STATE.cryptoSalt) throw new Error("No cached key");
+  var iv = crypto.getRandomValues(new Uint8Array(12));
+  var pt = new TextEncoder().encode(JSON.stringify(STATE.payload));
+  var ct = await crypto.subtle.encrypt({name:"AES-GCM", iv:iv}, STATE.cryptoKey, pt);
+  return {v:1, salt:b64(STATE.cryptoSalt), iv:b64(iv), ct:b64(new Uint8Array(ct))};
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -382,9 +454,16 @@ var PROFILE = {
 //  STATE
 // ════════════════════════════════════════════════════════════════
 var STATE = {
-  payload: null,        // decrypted full payload
-  password: null,       // kept in-memory for re-encryption on export
-  dirty: false,         // unsaved changes
+  payload: null,           // decrypted full payload
+  password: null,          // kept in-memory for re-decryption of fresh Gist fetches with different salt
+  cryptoSalt: null,        // Uint8Array — stable for the session (from initially-loaded blob)
+  cryptoKey: null,         // CryptoKey — cached AES-GCM key for fast re-encryption
+  initialUpdatedAt: null,  // payload.updatedAt at decrypt time — baseline for sync conflict detection
+  bootstrapping: false,    // true while bootstrapSync runs; locks UI
+  syncState: "noconfig",   // synced | saving | offline | noconfig | patinvalid | bootstrap | local
+  pushTimer: null,         // setTimeout handle for debounced Gist PATCH
+  retryAttempt: 0,         // retry counter for exponential backoff
+  retryTimer: null,        // setTimeout handle for retry
   appFilter: "all",
   outFilter: "all",
   showAppForm: false,
@@ -448,54 +527,393 @@ function daysUntil(iso){if(!iso)return 999;return Math.ceil((new Date(iso)-new D
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function esc(s){var d=document.createElement("div");d.appendChild(document.createTextNode(s||""));return d.innerHTML}
 
-function markDirty(){
-  STATE.dirty = true;
-  var ind = document.getElementById("savedInd");
-  if(ind){ ind.textContent = "Ulagret endringer"; ind.classList.add("dirty"); }
-  document.getElementById("btnExport").classList.add("dirty");
-}
-function markClean(ts){
-  STATE.dirty = false;
-  var ind = document.getElementById("savedInd");
-  if(ind){ ind.textContent = ts ? "Eksportert " + fmtTime(ts) + " — commit fil i repo" : "Lastet inn"; ind.classList.remove("dirty"); }
-  document.getElementById("btnExport").classList.remove("dirty");
+// ════════════════════════════════════════════════════════════════
+//  SYNC INDICATOR — single source of truth for top-bar status pill
+// ════════════════════════════════════════════════════════════════
+var SYNC_LABELS = {
+  synced:      function(ts){ return "Synket " + fmtTime(ts); },
+  saving:      function(){ return '<span class="spin"></span>Lagrer…'; },
+  bootstrap:   function(){ return '<span class="spin"></span>Henter siste fra Gist…'; },
+  offline:     function(){ return "Offline — prøver igjen"; },
+  noconfig:    function(){ return "Synk ikke aktivert"; },
+  patinvalid:  function(){ return "PAT ugyldig — klikk for re-setup"; },
+  local:       function(){ return "Lokal kun"; }
+};
+function updateSyncIndicator(state, ts){
+  STATE.syncState = state;
+  var el = document.getElementById("savedInd");
+  if(!el) return;
+  el.className = "saved-ind s-" + state;
+  var fn = SYNC_LABELS[state];
+  el.innerHTML = fn ? fn(ts) : state;
 }
 
+// ════════════════════════════════════════════════════════════════
+//  LOCAL CACHE (localStorage, instant — encrypted blob only)
+// ════════════════════════════════════════════════════════════════
+var CACHE_KEY = "ve-strategi-cache";
+var BANNER_SNOOZE_KEY = "ve-banner-snooze";
+async function saveToCache(){
+  if(!STATE.cryptoKey) return;
+  try{
+    var blob = await encryptCurrent();
+    var existing = {};
+    try{ existing = JSON.parse(localStorage.getItem(CACHE_KEY)||"{}"); }catch(_){}
+    var cache = {
+      v: 1,
+      blob: blob,
+      ts: STATE.payload.updatedAt || new Date().toISOString(),
+      gistSyncedAt: existing.gistSyncedAt || null
+    };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  }catch(e){
+    // Quota / serialisation issues — swallow; Gist push is the durable layer
+    console.warn("saveToCache failed:", e);
+  }
+}
+function readCache(){
+  try{
+    var raw = localStorage.getItem(CACHE_KEY);
+    if(!raw) return null;
+    var c = JSON.parse(raw);
+    if(c && c.v === 1 && c.blob) return c;
+  }catch(_){}
+  return null;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  GIST API (authenticated; PAT lives in encrypted payload)
+// ════════════════════════════════════════════════════════════════
+var GIST_API = "https://api.github.com";
+var GIST_FILENAME = "strategi.enc.json";
+
+async function gistTestPat(pat){
+  var r = await fetch(GIST_API + "/user", {
+    headers: { Authorization: "Bearer " + pat, Accept: "application/vnd.github+json" }
+  });
+  return r.ok;
+}
+async function gistCreate(pat, blob){
+  var r = await fetch(GIST_API + "/gists", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + pat,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      description: "strategi.html sync (private)",
+      "public": false,
+      files: (function(){ var f={}; f[GIST_FILENAME] = {content: JSON.stringify(blob)}; return f; })()
+    })
+  });
+  if(!r.ok) throw new Error("Gist POST " + r.status);
+  return r.json();
+}
+async function gistPatch(pat, gistId, blob){
+  var r = await fetch(GIST_API + "/gists/" + gistId, {
+    method: "PATCH",
+    headers: {
+      Authorization: "Bearer " + pat,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      files: (function(){ var f={}; f[GIST_FILENAME] = {content: JSON.stringify(blob)}; return f; })()
+    })
+  });
+  if(!r.ok){ var err = new Error("Gist PATCH " + r.status); err.status = r.status; throw err; }
+  return r.json();
+}
+async function gistGet(pat, gistId){
+  var r = await fetch(GIST_API + "/gists/" + gistId, {
+    headers: { Authorization: "Bearer " + pat, Accept: "application/vnd.github+json" },
+    cache: "no-store"
+  });
+  if(!r.ok){ var err = new Error("Gist GET " + r.status); err.status = r.status; throw err; }
+  var data = await r.json();
+  var file = data.files[GIST_FILENAME];
+  if(!file) throw new Error("Gist mangler " + GIST_FILENAME);
+  if(file.truncated){
+    var raw = await fetch(file.raw_url, {cache:"no-store"});
+    return JSON.parse(await raw.text());
+  }
+  return JSON.parse(file.content);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PUSH PIPELINE (debounced; retry with exponential backoff)
+// ════════════════════════════════════════════════════════════════
+var RETRY_DELAYS = [5000, 15000, 60000, 120000];
+
+function schedulePush(){
+  if(STATE.pushTimer) clearTimeout(STATE.pushTimer);
+  if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
+  if(STATE.bootstrapping){
+    // Don't schedule pushes while UI is locked — bootstrap will handle once done
+    return;
+  }
+  if(!STATE.payload.gist){
+    updateSyncIndicator("local");
+    return;
+  }
+  updateSyncIndicator("saving");
+  STATE.pushTimer = setTimeout(function(){
+    STATE.pushTimer = null;
+    doPush().catch(scheduleRetry);
+  }, 2000);
+}
+async function doPush(){
+  if(!STATE.payload.gist){ updateSyncIndicator("local"); return; }
+  var blob = await encryptCurrent();
+  await gistPatch(STATE.payload.gist.pat, STATE.payload.gist.id, blob);
+  STATE.retryAttempt = 0;
+  var nowIso = new Date().toISOString();
+  updateSyncIndicator("synced", nowIso);
+  // Update cache's gistSyncedAt
+  try{
+    var cache = JSON.parse(localStorage.getItem(CACHE_KEY)||"{}");
+    cache.gistSyncedAt = nowIso;
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  }catch(_){}
+}
+function scheduleRetry(err){
+  console.warn("Gist push feilet:", err);
+  if(err && err.status === 401){
+    updateSyncIndicator("patinvalid");
+    return;
+  }
+  if(err && err.status === 404){
+    // Gist deleted manually
+    updateSyncIndicator("patinvalid");
+    openSetupModal();
+    return;
+  }
+  updateSyncIndicator("offline");
+  var delay = RETRY_DELAYS[Math.min(STATE.retryAttempt, RETRY_DELAYS.length - 1)];
+  STATE.retryAttempt++;
+  STATE.retryTimer = setTimeout(function(){
+    STATE.retryTimer = null;
+    doPush().catch(scheduleRetry);
+  }, delay);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  MUTATE — called by every state-mutation site
+// ════════════════════════════════════════════════════════════════
+function mutate(){
+  STATE.payload.updatedAt = new Date().toISOString();
+  saveToCache();
+  schedulePush();
+}
+
+// ════════════════════════════════════════════════════════════════
+//  BOOTSTRAP SYNC — fetch fresh Gist, reconcile, unlock UI
+// ════════════════════════════════════════════════════════════════
+async function bootstrapSync(){
+  STATE.bootstrapping = true;
+  document.querySelectorAll("section").forEach(function(s){ s.classList.add("sync-lock"); });
+  updateSyncIndicator("bootstrap");
+  var timeoutId = setTimeout(function(){
+    if(!STATE.bootstrapping) return;
+    STATE.bootstrapping = false;
+    document.querySelectorAll("section").forEach(function(s){ s.classList.remove("sync-lock"); });
+    updateSyncIndicator("offline");
+    toast("Kunne ikke hente fra Gist innen 5s. Bruker lokal cache. Endringer synker når Gist svarer.");
+    // Schedule a retry-style attempt in the background
+    setTimeout(function(){ doPush().catch(scheduleRetry); }, 6000);
+  }, 5000);
+
+  try{
+    var remoteBlob = await gistGet(STATE.payload.gist.pat, STATE.payload.gist.id);
+    var remotePayload = await decryptBlob(STATE.password, remoteBlob);
+    clearTimeout(timeoutId);
+    if(!STATE.bootstrapping) return; // timeout already triggered
+
+    var remoteTs = remotePayload.updatedAt || remotePayload.migratedAt;
+    var localTs = STATE.payload.updatedAt || STATE.payload.migratedAt;
+    if(remoteTs && (!localTs || new Date(remoteTs) > new Date(localTs))){
+      // Gist newer → adopt
+      STATE.payload = remotePayload;
+      STATE.initialUpdatedAt = remoteTs;
+      saveToCache();
+      // Re-render visible tab
+      var activeTab = document.querySelector(".tab.on");
+      var tab = activeTab ? activeTab.dataset.tab : "jobs";
+      if(tab==="jobs") renderJobs();
+      else if(tab==="weekly") renderWeekly();
+      else if(tab==="apps") renderApps();
+      else if(tab==="outreach") renderOutreach();
+      else if(tab==="timeline") renderTimeline();
+      // Counts
+      document.getElementById("cntJobs").textContent = STATE.payload.jobs.length;
+      document.getElementById("cntApps").textContent = STATE.payload.apps.length;
+      document.getElementById("cntOut").textContent = STATE.payload.outreach.length;
+      updateSyncIndicator("synced", remoteTs);
+    } else {
+      // Local >= Gist → keep, push if dirty (local has changes not yet on Gist)
+      updateSyncIndicator("synced", new Date().toISOString());
+      if(localTs && (!remoteTs || new Date(localTs) > new Date(remoteTs))){
+        // Local newer — push so Gist catches up
+        schedulePush();
+      }
+    }
+  }catch(err){
+    clearTimeout(timeoutId);
+    if(!STATE.bootstrapping) return;
+    if(err && err.status === 401){
+      updateSyncIndicator("patinvalid");
+      openSetupModal();
+    } else if(err && err.status === 404){
+      updateSyncIndicator("patinvalid");
+      toast("Gist ikke funnet (slettet?). Sett opp synk på nytt.");
+      openSetupModal();
+    } else {
+      updateSyncIndicator("offline");
+      console.warn("bootstrapSync feilet:", err);
+    }
+  }finally{
+    STATE.bootstrapping = false;
+    document.querySelectorAll("section").forEach(function(s){ s.classList.remove("sync-lock"); });
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SETUP MODAL
+// ════════════════════════════════════════════════════════════════
+function openSetupModal(){
+  document.getElementById("patInput").value = "";
+  setSetupStatus("", "");
+  document.getElementById("setupModal").classList.add("open");
+  setTimeout(function(){ document.getElementById("patInput").focus(); }, 50);
+}
+function closeSetupModal(){
+  document.getElementById("setupModal").classList.remove("open");
+}
+function setSetupStatus(msg, cls){
+  var el = document.getElementById("setupStatus");
+  el.textContent = msg || "—";
+  el.className = "modal-status" + (cls?" "+cls:"");
+}
+async function doSetup(){
+  var pat = document.getElementById("patInput").value.trim();
+  if(!pat){ setSetupStatus("Lim inn en PAT først.", "err"); return; }
+  var btn = document.getElementById("btnSetupGo");
+  btn.disabled = true;
+  try{
+    setSetupStatus("Tester PAT…");
+    var ok = await gistTestPat(pat);
+    if(!ok){ setSetupStatus("Ugyldig PAT (401). Sjekk scope og expiration.", "err"); btn.disabled = false; return; }
+
+    setSetupStatus("Oppretter Gist…");
+    // First add the gist field provisionally so the initial Gist body contains the PAT (consistent state)
+    STATE.payload.gist = { id: null, pat: pat, createdAt: new Date().toISOString() };
+    STATE.payload.updatedAt = new Date().toISOString();
+    var initialBlob = await encryptCurrent();
+    var gistRes = await gistCreate(pat, initialBlob);
+    if(!gistRes.id) throw new Error("Gist-respons mangler id");
+
+    // Patch our state with the actual id, re-encrypt with id baked in, then PATCH the gist
+    STATE.payload.gist.id = gistRes.id;
+    STATE.payload.updatedAt = new Date().toISOString();
+    var finalBlob = await encryptCurrent();
+    await gistPatch(pat, gistRes.id, finalBlob);
+
+    saveToCache();
+    setSetupStatus("Synk aktivert", "ok");
+    updateSyncIndicator("synced", STATE.payload.updatedAt);
+    hideBanner();
+    setTimeout(function(){
+      closeSetupModal();
+      toast("Synk aktivert. «Snapshot til repo» for å oppdatere seed på nye enheter.");
+    }, 600);
+  }catch(e){
+    // Roll back the provisional gist field if we never got an id stored
+    if(STATE.payload.gist && !STATE.payload.gist.id) delete STATE.payload.gist;
+    setSetupStatus("Feilet: " + e.message, "err");
+    btn.disabled = false;
+  }
+  btn.disabled = false;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  BANNER (no-sync nudge)
+// ════════════════════════════════════════════════════════════════
+function bannerShouldShow(){
+  if(STATE.payload && STATE.payload.gist) return false;
+  try{
+    var snooze = localStorage.getItem(BANNER_SNOOZE_KEY);
+    if(snooze && new Date(snooze) > new Date()) return false;
+  }catch(_){}
+  return true;
+}
+function showBanner(){
+  document.getElementById("syncBanner").classList.remove("hidden");
+}
+function hideBanner(){
+  document.getElementById("syncBanner").classList.add("hidden");
+}
+function snoozeBanner(){
+  try{
+    var until = new Date(Date.now() + 24*3600*1000).toISOString();
+    localStorage.setItem(BANNER_SNOOZE_KEY, until);
+  }catch(_){}
+  hideBanner();
+}
+
+// ════════════════════════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════════════════════════
+var toastTimer = null;
+function toast(msg, ms){
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove("show"); }, ms || 4000);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  BEFOREUNLOAD — only warn if pushTimer is pending (debounce-window)
+// ════════════════════════════════════════════════════════════════
 window.addEventListener("beforeunload", function(e){
-  if(STATE.dirty){ e.preventDefault(); e.returnValue = ""; return ""; }
+  if(STATE.pushTimer){ e.preventDefault(); e.returnValue = ""; return ""; }
+});
+
+// On network back: if we were offline, kick a retry immediately (don't wait for backoff)
+window.addEventListener("online", function(){
+  if(STATE.syncState === "offline" && STATE.payload && STATE.payload.gist){
+    if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
+    doPush().catch(scheduleRetry);
+  }
 });
 
 // ════════════════════════════════════════════════════════════════
-//  GATE — fetch + decrypt
+//  GATE — localStorage cache → repo fetch → file picker → decrypt
 // ════════════════════════════════════════════════════════════════
 (function(){
   var gateInp = document.getElementById("gatePw");
   var gateErr = document.getElementById("gateErr");
   var gateSub = document.getElementById("gateSub");
   var encBlob = null;
+  var cacheUsed = false;
 
-  // Pre-fetch the encrypted blob; fall back to file picker if fetch fails (file:// or 404)
-  var pendingExport = null;
-  try{
-    var pendingRaw = sessionStorage.getItem("ve-payload-pending");
-    if(pendingRaw){
-      pendingExport = JSON.parse(pendingRaw);
-      encBlob = pendingExport.blob;
-      gateSub.textContent = "Bruker ikke-committet eksport fra " + new Date(pendingExport.ts).toLocaleTimeString("no-NB");
-      gateSub.style.color = "var(--yellow)";
-    }
-  }catch(_){ pendingExport = null; }
-
-  if(!pendingExport){
+  // 1. localStorage cache first (instant, survives refresh, holds latest local state)
+  var cached = readCache();
+  if(cached){
+    encBlob = cached.blob;
+    cacheUsed = true;
+    gateSub.textContent = "Lokal cache klar — skriv inn passord";
+  } else {
+    // 2. Fall back to repo seed
     fetch("strategi.enc.json", {cache:"no-store"})
       .then(function(r){
         if(!r.ok) throw new Error("HTTP "+r.status);
         return r.json();
       })
-      .then(function(j){
-        encBlob = j;
-      })
-      .catch(function(e){
+      .then(function(j){ encBlob = j; })
+      .catch(function(){
+        // 3. Fall back to file picker (file:// or 404)
         document.getElementById("gateFileFallback").style.display = "block";
       });
   }
@@ -523,28 +941,18 @@ window.addEventListener("beforeunload", function(e){
     if(!encBlob){ gateSub.textContent = "Venter på fil…"; gateSub.style.color = "var(--faint)"; return; }
     var pw = gateInp.value;
     try{
-      var payload = await decryptBlob(pw, encBlob);
-      // Success
+      var payload = await decryptAndCache(pw, encBlob);
       STATE.payload = payload;
       STATE.password = pw;
-      // Ensure required arrays exist
       payload.jobs = payload.jobs || [];
       payload.apps = payload.apps || [];
       payload.outreach = payload.outreach || [];
       payload.checks = payload.checks || {};
       payload.settings = payload.settings || {};
-      // If the fetched file is at least as fresh as a pending export, clear the stash
-      try{
-        var pendingRaw2 = sessionStorage.getItem("ve-payload-pending");
-        if(pendingRaw2){
-          var pending2 = JSON.parse(pendingRaw2);
-          var freshTs = payload.updatedAt || payload.migratedAt;
-          if(freshTs && new Date(freshTs) >= new Date(pending2.ts)){
-            sessionStorage.removeItem("ve-payload-pending");
-          }
-        }
-      }catch(_){}
-      // Initial render
+      STATE.initialUpdatedAt = payload.updatedAt || payload.migratedAt || null;
+      // If we decrypted from repo (not cache), write fresh cache so next reload is instant
+      if(!cacheUsed) await saveToCache();
+
       document.getElementById("mainContent").style.display = "block";
       var gate = document.getElementById("gate");
       gate.style.opacity = "0";
@@ -596,11 +1004,27 @@ function initUI(payload){
   document.getElementById("cntApps").textContent = payload.apps.length;
   document.getElementById("cntOut").textContent = payload.outreach.length;
 
-  // Saved indicator
-  markClean(payload.migratedAt);
+  // Snapshot button
+  document.getElementById("btnSnapshot").addEventListener("click", snapshotToRepo);
 
-  // Export button
-  document.getElementById("btnExport").addEventListener("click", exportPayload);
+  // Sync indicator — clickable when in error/no-config state to open setup
+  document.getElementById("savedInd").addEventListener("click", function(){
+    if(STATE.syncState === "noconfig" || STATE.syncState === "patinvalid") openSetupModal();
+  });
+
+  // Setup modal wiring
+  document.getElementById("btnSetupGo").addEventListener("click", doSetup);
+  document.getElementById("btnSetupClose").addEventListener("click", closeSetupModal);
+  document.getElementById("setupModal").addEventListener("click", function(e){
+    if(e.target.id === "setupModal") closeSetupModal();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && document.getElementById("setupModal").classList.contains("open")) closeSetupModal();
+  });
+
+  // Banner wiring
+  document.getElementById("bannerSetup").addEventListener("click", openSetupModal);
+  document.getElementById("bannerSnooze").addEventListener("click", snoozeBanner);
 
   // Click outside to close any open dropdown
   document.addEventListener("click", function(e){
@@ -611,6 +1035,17 @@ function initUI(payload){
 
   // Default tab
   renderJobs();
+
+  // Banner: show only if no Gist config AND not snoozed
+  if(bannerShouldShow()) showBanner();
+
+  // Initial sync indicator + bootstrap
+  if(payload.gist && payload.gist.id && payload.gist.pat){
+    // Has config → kick off bootstrap (renders current state, locks UI, fetches Gist)
+    bootstrapSync();
+  } else {
+    updateSyncIndicator("noconfig");
+  }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -682,7 +1117,7 @@ function setJobStatus(id, v){
   if(!job) return;
   job.status = v;
   job.statusUpdated = new Date().toISOString();
-  markDirty();
+  mutate();
   renderJobs();
 }
 function toggleNotes(id){
@@ -700,7 +1135,7 @@ function onJobNoteInput(el){
   if(!job) return;
   if(job.notes !== el.value){
     job.notes = el.value;
-    markDirty();
+    mutate();
   }
 }
 
@@ -739,7 +1174,7 @@ function renderWeekly(){
       var wid = getWeekId();
       if(!STATE.payload.checks[wid]) STATE.payload.checks[wid] = {};
       STATE.payload.checks[wid][sid] = !STATE.payload.checks[wid][sid];
-      markDirty();
+      mutate();
       renderWeekly();
     });
   });
@@ -747,7 +1182,7 @@ function renderWeekly(){
 function resetWeek(){
   var wid = getWeekId();
   STATE.payload.checks[wid] = {};
-  markDirty();
+  mutate();
   renderWeekly();
 }
 function openUnchecked(){
@@ -821,11 +1256,11 @@ function addApp(){
   });
   STATE.showAppForm = false;
   document.getElementById("cntApps").textContent = STATE.payload.apps.length;
-  markDirty(); renderApps();
+  mutate(); renderApps();
 }
 function toggleAppStatus(id,e){if(e)e.stopPropagation();var el=document.getElementById("sp-"+id);document.querySelectorAll(".sp-menu.open").forEach(function(m){if(m!==el)m.classList.remove("open")});el.classList.toggle("open")}
-function setAppStatus(id,v){STATE.payload.apps = STATE.payload.apps.map(function(a){return a.id===id?Object.assign({},a,{status:v,updated:new Date().toISOString()}):a});markDirty();renderApps()}
-function delApp(id){if(!confirm("Slette denne søknaden?"))return;STATE.payload.apps = STATE.payload.apps.filter(function(a){return a.id!==id});document.getElementById("cntApps").textContent = STATE.payload.apps.length;markDirty();renderApps()}
+function setAppStatus(id,v){STATE.payload.apps = STATE.payload.apps.map(function(a){return a.id===id?Object.assign({},a,{status:v,updated:new Date().toISOString()}):a});mutate();renderApps()}
+function delApp(id){if(!confirm("Slette denne søknaden?"))return;STATE.payload.apps = STATE.payload.apps.filter(function(a){return a.id!==id});document.getElementById("cntApps").textContent = STATE.payload.apps.length;mutate();renderApps()}
 
 // ════════════════════════════════════════════════════════════════
 //  OUTREACH TAB
@@ -894,11 +1329,11 @@ function addOut(){
   });
   STATE.showOutForm = false;
   document.getElementById("cntOut").textContent = STATE.payload.outreach.length;
-  markDirty(); renderOutreach();
+  mutate(); renderOutreach();
 }
 function toggleOutStatus(id,e){if(e)e.stopPropagation();var el=document.getElementById("osp-"+id);document.querySelectorAll(".sp-menu.open").forEach(function(m){if(m!==el)m.classList.remove("open")});el.classList.toggle("open")}
-function setOutStatus(id,v){STATE.payload.outreach = STATE.payload.outreach.map(function(o){return o.id===id?Object.assign({},o,{status:v}):o});markDirty();renderOutreach()}
-function delOut(id){if(!confirm("Slette denne kontakten?"))return;STATE.payload.outreach = STATE.payload.outreach.filter(function(o){return o.id!==id});document.getElementById("cntOut").textContent = STATE.payload.outreach.length;markDirty();renderOutreach()}
+function setOutStatus(id,v){STATE.payload.outreach = STATE.payload.outreach.map(function(o){return o.id===id?Object.assign({},o,{status:v}):o});mutate();renderOutreach()}
+function delOut(id){if(!confirm("Slette denne kontakten?"))return;STATE.payload.outreach = STATE.payload.outreach.filter(function(o){return o.id!==id});document.getElementById("cntOut").textContent = STATE.payload.outreach.length;mutate();renderOutreach()}
 
 // ════════════════════════════════════════════════════════════════
 //  TIMELINE TAB
@@ -924,35 +1359,32 @@ function renderTimeline(){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  EXPORT
+//  SNAPSHOT TIL REPO — frivillig nedlasting (seed for nye enheter)
 // ════════════════════════════════════════════════════════════════
-async function exportPayload(){
-  if(!STATE.payload || !STATE.password){ alert("Ingen payload lastet."); return; }
-  var btn = document.getElementById("btnExport");
+async function snapshotToRepo(){
+  if(!STATE.payload || !STATE.cryptoKey){ alert("Ingen payload lastet."); return; }
+  var btn = document.getElementById("btnSnapshot");
   var oldTxt = btn.textContent;
   btn.disabled = true; btn.textContent = "Krypterer…";
   try{
-    // Update updatedAt to reflect this export's snapshot time; preserve original migratedAt
     var stamp = new Date().toISOString();
-    STATE.payload.updatedAt = stamp;
-    if(!STATE.payload.migratedAt) STATE.payload.migratedAt = stamp;
-    var blob = await encryptPayload(STATE.password, STATE.payload);
+    STATE.payload.lastSnapshotAt = stamp;
+    // No mutate() here — per spec lastSnapshotAt is cosmetic and shouldn't push.
+    // Save to cache so a refresh sees the new field; next real mutation will pick it up to Gist.
+    saveToCache();
+    var blob = await encryptCurrent();
     var dataStr = JSON.stringify(blob);
     var url = URL.createObjectURL(new Blob([dataStr], {type:"application/json"}));
     var a = document.createElement("a");
     a.href = url; a.download = "strategi.enc.json"; a.click();
     URL.revokeObjectURL(url);
-    try{ sessionStorage.setItem("ve-payload-pending", JSON.stringify({blob: blob, ts: stamp})); }catch(_){}
-    markClean(stamp);
     btn.textContent = "✓ Lastet ned";
+    toast("Snapshot lastet ned. Flytt til repo-root og commit for å oppdatere seed på nye enheter.");
     setTimeout(function(){ btn.textContent = oldTxt; btn.disabled = false; }, 1800);
-    setTimeout(function(){
-      alert("Lagt ned strategi.enc.json.\n\nLegg filen i repo-root (erstatt eksisterende) og commit for å persistere endringene.");
-    }, 100);
   }catch(e){
     btn.textContent = oldTxt;
     btn.disabled = false;
-    alert("Eksport feilet: "+e.message);
+    alert("Snapshot feilet: "+e.message);
   }
 }
 </script>
