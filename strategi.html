@@ -2027,7 +2027,12 @@ function renderJobs(){
   var meta_ts = STATE.payload.updatedAt || STATE.payload.migratedAt;
   var meta_label = STATE.payload.updatedAt ? "oppdatert" : "migrert";
   var meta_date = meta_ts ? fmtDate(meta_ts) : "?";
-  meta.innerHTML = jobs.length + " av " + total + " jobber · " + meta_label + " " + meta_date;
+  var meta_html = jobs.length + " av " + total + " jobber · " + meta_label + " " + meta_date;
+  if(STATE.payload.lastScrape && STATE.payload.lastScrape.at){
+    meta_html += " · sist scrape " + fmtDate(STATE.payload.lastScrape.at);
+    if(STATE.payload.lastScrape.count > 0) meta_html += " (+" + STATE.payload.lastScrape.count + " nye)";
+  }
+  meta.innerHTML = meta_html;
 
   // Drop popover if its job is no longer rendered
   if(STATE.scorePopoverFor){

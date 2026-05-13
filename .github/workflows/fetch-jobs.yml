@@ -1,0 +1,24 @@
+name: Fetch jobs
+
+on:
+  schedule:
+    - cron: "0 6 * * *"  # 06:00 UTC daglig (08:00 norsk sommertid)
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests beautifulsoup4 cryptography
+      - env:
+          STRATEGI_PASSWORD: ${{ secrets.STRATEGI_PASSWORD }}
+          GIST_PAT: ${{ secrets.GIST_PAT }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: python scripts/fetch_jobs.py
