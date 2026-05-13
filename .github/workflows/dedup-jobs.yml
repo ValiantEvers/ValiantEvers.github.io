@@ -1,0 +1,33 @@
+name: Dedup jobs (one-shot)
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Apply changes? (false = dry-run, recommended first)"
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  dedup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests cryptography
+      - env:
+          STRATEGI_PASSWORD: ${{ secrets.STRATEGI_PASSWORD }}
+          GIST_PAT: ${{ secrets.GIST_PAT }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: |
+          if [ "${{ inputs.apply }}" = "true" ]; then
+            python scripts/dedup_jobs.py --apply
+          else
+            python scripts/dedup_jobs.py
+          fi
