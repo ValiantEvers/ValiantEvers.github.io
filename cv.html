@@ -62,6 +62,8 @@ main{max-width:840px;margin:0 auto;padding:3rem 2rem 4rem;position:relative;z-in
 .cv-contact .sep{opacity:.3}
 .citizenship-tag{display:inline-flex;align-items:center;gap:.35rem;background:rgba(0,112,237,.08);border:1px solid rgba(0,112,237,.2);color:var(--accent4);padding:.2rem .7rem;border-radius:50px;font-size:.75rem;font-weight:600;margin-top:.7rem}
 [data-theme="dark"] .citizenship-tag{background:rgba(105,150,255,.08);border-color:rgba(105,150,255,.2);color:var(--accent2)}
+.citizenship-tag .cit-flags{display:inline-flex;gap:2px;align-items:center}
+.citizenship-tag .cit-flag{height:.9em;width:auto;display:block;border-radius:1px}
 
 /* Profile */
 .cv-summary{margin-bottom:3rem;padding:1.4rem 1.7rem;background:var(--card-bg);border-radius:14px;border:1px solid var(--border);box-shadow:var(--card-shadow);position:relative}
@@ -230,7 +232,13 @@ details .course-list li::before{content:''}
       <span class="sep">·</span>
       <span data-i="born">f. 18. september 2000</span>
     </div>
-    <span class="citizenship-tag" data-i="citizenship">🇳🇴🇧🇪 Dobbelt norsk-belgisk statsborgerskap</span>
+    <span class="citizenship-tag">
+      <span class="cit-flags" aria-hidden="true">
+        <svg class="cit-flag" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="2" height="16" fill="#fff"/><rect y="7" width="22" height="2" fill="#fff"/><rect x="6.5" width="1" height="16" fill="#002868"/><rect y="7.5" width="22" height="1" fill="#002868"/></svg>
+        <svg class="cit-flag" viewBox="0 0 15 13" xmlns="http://www.w3.org/2000/svg"><rect width="5" height="13" fill="#000"/><rect x="5" width="5" height="13" fill="#FDDA24"/><rect x="10" width="5" height="13" fill="#EF3340"/></svg>
+      </span>
+      <span data-i="citizenship">Dobbelt norsk-belgisk statsborgerskap</span>
+    </span>
     <a href="docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf" data-i-href="downloadCVHref" target="_blank" rel="noopener" class="cv-doc-link" download>📄 <span data-i="downloadCV">Last ned som PDF</span></a>
   </div>
 </header>
@@ -451,7 +459,7 @@ var T = {
     norway: "Norge",
     denmark: "Danmark",
     born: "f. 18. september 2000",
-    citizenship: "🇳🇴🇧🇪 Dobbelt norsk-belgisk statsborgerskap",
+    citizenship: "Dobbelt norsk-belgisk statsborgerskap",
     profileLabel: "Profil",
     summary: "Norsk-belgisk MSc Finance-student ved Handelshøyskolen BI, spesialisering Asset Management (uteksamineres juni 2026). Skrev masteroppgave om finansiell kunnskap, overkonfidens og porteføljevalg blant 746 norske privatinvestorer, med innsikt som ligger tett på rådgivningsarbeid. Driver i tillegg OSEBX Dashboard, en autonom Python-pipeline som analyserer Oslo Børs ukentlig. Søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales. Bosatt i Oslo, åpen for muligheter utenfor Oslo.",
     eduTitle: "Utdanning",
@@ -518,7 +526,7 @@ var T = {
     norway: "Norway",
     denmark: "Denmark",
     born: "Born 18 September 2000",
-    citizenship: "🇳🇴🇧🇪 Dual Norwegian–Belgian citizenship",
+    citizenship: "Dual Norwegian–Belgian citizenship",
     profileLabel: "Profile",
     summary: "Norwegian-Belgian MSc Finance student at BI Norwegian Business School, specialising in Asset Management (graduating June 2026). Master's thesis on financial literacy, overconfidence and portfolio construction among 746 Norwegian retail investors, with insights directly relevant to advisory work. Also build and run the OSEBX Dashboard, an autonomous Python pipeline that analyses the Oslo Stock Exchange weekly. Seeking client-facing roles in Wealth Management, Private Banking or Fund Sales. Oslo-based, open to opportunities beyond Oslo.",
     eduTitle: "Education",
@@ -585,7 +593,7 @@ var T = {
     norway: "Norvège",
     denmark: "Danemark",
     born: "Né le 18 septembre 2000",
-    citizenship: "🇳🇴🇧🇪 Double nationalité norvégienne-belge",
+    citizenship: "Double nationalité norvégienne-belge",
     profileLabel: "Profil",
     summary: "Étudiant norvégo-belge en Master Finance à BI Norwegian Business School, spécialisation Asset Management (diplôme prévu en juin 2026). Mémoire de master sur la littératie financière, l'excès de confiance et la construction de portefeuille chez 746 investisseurs particuliers norvégiens, avec des enseignements directement pertinents pour le travail de conseil. Conçoit et exploite OSEBX Dashboard, un pipeline Python autonome d'analyse hebdomadaire de la Bourse d'Oslo. À la recherche de postes orientés client en Wealth Management, Private Banking ou Fund Sales. Basé à Oslo, ouvert aux opportunités hors d'Oslo.",
     eduTitle: "Formation",
@@ -652,7 +660,7 @@ var T = {
     norway: "Norwegen",
     denmark: "Dänemark",
     born: "Geb. 18. September 2000",
-    citizenship: "🇳🇴🇧🇪 Doppelte norwegisch-belgische Staatsbürgerschaft",
+    citizenship: "Doppelte norwegisch-belgische Staatsbürgerschaft",
     profileLabel: "Profil",
     summary: "Norwegisch-belgischer MSc-Finance-Student an der BI Norwegian Business School, Vertiefung Asset Management (Abschluss Juni 2026). Masterarbeit zu Finanzwissen, Selbstüberschätzung und Portfolioaufbau bei 746 norwegischen Privatanlegern, mit Erkenntnissen, die direkt in der Beratungspraxis anwendbar sind. Betreibe zudem das OSEBX Dashboard, eine autonome Python-Pipeline zur wöchentlichen Analyse der Osloer Börse. Suche kundennahe Rollen in Wealth Management, Private Banking oder Fund Sales. Wohnhaft in Oslo, offen für Chancen außerhalb Oslos.",
     eduTitle: "Ausbildung",
@@ -719,7 +727,7 @@ var T = {
     norway: "ノルウェー",
     denmark: "デンマーク",
     born: "2000年9月18日生まれ",
-    citizenship: "🇳🇴🇧🇪 ノルウェー・ベルギー二重国籍",
+    citizenship: "ノルウェー・ベルギー二重国籍",
     profileLabel: "プロフィール",
     summary: "ノルウェー・ベルギー二重国籍。BI経営大学院MSc Finance、Asset Management専攻(2026年6月修了予定)。修士論文ではノルウェーの個人投資家746名を対象に、金融リテラシー、過信、ポートフォリオ構築の関係を分析。顧客対応業務に直結する知見を得ました。加えてオスロ証券取引所を週次分析する自律型PythonパイプラインOSEBX Dashboardを運営。Wealth Management、Private Banking、Fund Salesでのクライアント対応職を希望。オスロ在住、オスロ以外の機会にもオープン。",
     eduTitle: "学歴",
