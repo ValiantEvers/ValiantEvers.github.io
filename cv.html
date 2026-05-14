@@ -48,6 +48,8 @@ nav{position:sticky;top:0;background:rgba(225,231,255,.82);backdrop-filter:blur(
 .lang-opt{display:block;width:100%;padding:.55rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
 .lang-opt:hover{background:rgba(0,112,237,.06)}
 .lang-opt.active{color:var(--accent);font-weight:700}
+.lang-flag{height:.85em;width:auto;display:inline-block;vertical-align:middle;border-radius:1px;margin-right:.5rem;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+[data-theme="dark"] .lang-flag{box-shadow:0 0 0 1px rgba(255,255,255,.15)}
 
 /* Layout */
 main{max-width:840px;margin:0 auto;padding:3rem 2rem 4rem;position:relative;z-index:1}
@@ -204,11 +206,11 @@ details .course-list li::before{content:''}
     <div class="lang-switch">
       <button class="lang-btn" id="langBtn">NO</button>
       <div class="lang-menu" id="langMenu">
-        <button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
-        <button class="lang-opt" data-lang="en">🇬🇧 English</button>
-        <button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
-        <button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
-        <button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
+        <button class="lang-opt active" data-lang="no"><svg class="lang-flag" viewBox="0 0 22 16" aria-hidden="true"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="2" height="16" fill="#fff"/><rect y="7" width="22" height="2" fill="#fff"/><rect x="6.5" width="1" height="16" fill="#002868"/><rect y="7.5" width="22" height="1" fill="#002868"/></svg>Norsk</button>
+        <button class="lang-opt" data-lang="en"><svg class="lang-flag" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>English</button>
+        <button class="lang-opt" data-lang="fr"><svg class="lang-flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>Français</button>
+        <button class="lang-opt" data-lang="de"><svg class="lang-flag" viewBox="0 0 5 3" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg>Deutsch</button>
+        <button class="lang-opt" data-lang="ja"><svg class="lang-flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#BC002D"/></svg>日本語</button>
       </div>
     </div>
   </div>
