@@ -231,7 +231,7 @@ details .course-list li::before{content:''}
       <span data-i="born">f. 18. september 2000</span>
     </div>
     <span class="citizenship-tag" data-i="citizenship">🇳🇴🇧🇪 Dobbelt norsk-belgisk statsborgerskap</span>
-    <a href="docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf" target="_blank" rel="noopener" class="cv-doc-link" download>📄 <span data-i="downloadCV">Last ned som PDF</span></a>
+    <a href="docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf" data-i-href="downloadCVHref" target="_blank" rel="noopener" class="cv-doc-link" download>📄 <span data-i="downloadCV">Last ned som PDF</span></a>
   </div>
 </header>
 
@@ -509,6 +509,7 @@ var T = {
     thesisMeta: "Medforfatter: Henrik Bekkevold · Veileder: Ignacio Garcia de Olalla Lopez",
     readThesis: "Les oppgaven",
     downloadCV: "Last ned som PDF",
+    downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf",
     lastUpdated: "Sist oppdatert",
     backToSite: "← evers.no"
   },
@@ -575,6 +576,7 @@ var T = {
     thesisMeta: "Co-author: Henrik Bekkevold · Supervisor: Ignacio Garcia de Olalla Lopez",
     readThesis: "Read the thesis",
     downloadCV: "Download as PDF",
+    downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(English).pdf",
     lastUpdated: "Last updated",
     backToSite: "← evers.no"
   },
@@ -641,6 +643,7 @@ var T = {
     thesisMeta: "Co-auteur : Henrik Bekkevold · Directeur : Ignacio Garcia de Olalla Lopez",
     readThesis: "Lire le mémoire",
     downloadCV: "Télécharger en PDF",
+    downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(English).pdf",
     lastUpdated: "Dernière mise à jour",
     backToSite: "← evers.no"
   },
@@ -707,6 +710,7 @@ var T = {
     thesisMeta: "Mitautor: Henrik Bekkevold · Betreuer: Ignacio Garcia de Olalla Lopez",
     readThesis: "Arbeit lesen",
     downloadCV: "Als PDF herunterladen",
+    downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(English).pdf",
     lastUpdated: "Zuletzt aktualisiert",
     backToSite: "← evers.no"
   },
@@ -773,6 +777,7 @@ var T = {
     thesisMeta: "共著者: Henrik Bekkevold · 指導教員: Ignacio Garcia de Olalla Lopez",
     readThesis: "論文を読む",
     downloadCV: "PDFをダウンロード",
+    downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(English).pdf",
     lastUpdated: "最終更新",
     backToSite: "← evers.no"
   }
@@ -784,6 +789,10 @@ function setLang(l){
   document.querySelectorAll('[data-i]').forEach(function(el){
     var k = el.getAttribute('data-i');
     if(d[k] !== undefined) el.innerHTML = d[k];
+  });
+  document.querySelectorAll('[data-i-href]').forEach(function(el){
+    var k = el.getAttribute('data-i-href');
+    if(d[k] !== undefined) el.setAttribute('href', d[k]);
   });
   document.getElementById('langBtn').textContent = l.toUpperCase();
   document.querySelectorAll('.lang-opt').forEach(function(o){
