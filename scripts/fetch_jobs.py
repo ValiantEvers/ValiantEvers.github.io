@@ -71,12 +71,21 @@ PROFILE = {
 
 QUERIES = [
     "wealth management",
+    "formuesforvaltning",
+    "formuesforvalter",
     "private banking",
     "fund sales",
     "investeringsrådgiver",
+    "finansrådgiver",
+    "porteføljeforvalter",
     "kapitalforvaltning",
+    "finansanalytiker",
+    "aksjeanalytiker",
+    "kunderådgiver bank",
+    "relasjonsleder",
     "graduate finans",
     "trainee finans",
+    "nyutdannet finans",
     "junior rådgiver finans",
     "private banker",
 ]
