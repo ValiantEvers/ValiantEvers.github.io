@@ -127,8 +127,11 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 /* notes row */
 .notes-row{margin-top:8px}
 .notes-actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.notes-actions-l{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .notes-toggle{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s}
 .notes-toggle:hover{color:var(--accent)}
+.letter-btn{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s;flex-shrink:0}
+.letter-btn:hover{color:var(--accent)}
 .del-btn{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s;flex-shrink:0}
 .del-btn:hover{color:var(--yellow)}
 .restore-btn{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s;flex-shrink:0}
@@ -347,6 +350,19 @@ select.inp{color-scheme:dark;appearance:auto}
 .import-card .ic-dup-btn{background:transparent;border:1px solid var(--border);color:var(--dim);padding:4px 10px;border-radius:5px;font-family:inherit;font-size:.74rem;cursor:pointer}
 .import-card .ic-dup-btn.on{background:var(--accent-g);border-color:var(--border-h);color:var(--accent)}
 .import-empty{padding:24px 12px;text-align:center;color:var(--faint);font-size:.85rem}
+
+/* ── ETAPPE 8: cover-letter modal ── */
+.letter-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-shrink:0}
+.letter-x{background:none;border:none;color:var(--faint);font-size:1.3rem;line-height:1;cursor:pointer;padding:2px 6px;font-family:inherit;flex-shrink:0}
+.letter-x:hover{color:var(--text)}
+.letter-step{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin:4px 0 8px}
+.letter-prompt{background:var(--surface2);border:1px solid var(--border-h);border-radius:6px;padding:12px 14px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.78rem;color:var(--text);white-space:pre-wrap;word-break:break-word;line-height:1.5;max-height:260px;overflow-y:auto}
+.letter-paste{width:100%;min-height:240px;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:.85rem;color:var(--text);outline:none;resize:vertical;line-height:1.5}
+[data-theme="light"] .letter-paste{background:rgba(0,18,51,.03)}
+.letter-paste:focus{border-color:var(--accent)}
+.letter-sep{border:none;border-top:1px solid var(--border);margin:16px 0}
+.letter-mode{display:flex;flex-direction:column;gap:6px;margin-top:10px;font-size:.82rem;color:var(--dim)}
+.letter-mode label{display:flex;align-items:center;gap:8px;cursor:pointer}
 
 @media(max-width:600px){
   .modal-overlay.full-mobile{padding:0;align-items:stretch}
@@ -591,6 +607,33 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
   </div>
 </div>
 
+<!-- ═══ COVER-LETTER MODAL (ETAPPE 8 — copy-paste mot cover-letter-valiant) ═══ -->
+<div class="modal-overlay full-mobile" id="letterModal">
+  <div class="modal modal-lg" role="dialog" aria-labelledby="letterTitle">
+    <div class="letter-head">
+      <h2 id="letterTitle">✉ Søknadsbrev</h2>
+      <button class="letter-x" id="btnLetterX" title="Lukk (Esc)" aria-label="Lukk">✕</button>
+    </div>
+    <div class="modal-body">
+      <h3 class="letter-step">Steg 1 — Kopier prompt og lim inn i Claude</h3>
+      <div class="letter-prompt" id="letterPrompt"></div>
+      <button class="btn btn-s" id="btnLetterCopy" style="padding:7px 12px;font-size:.8rem;margin-top:8px">📋 Kopier til utklippstavle</button>
+      <p class="modal-sub" style="margin-top:8px">Lim inn i Cowork, Claude Code eller claude.ai — <strong>cover-letter-valiant</strong> trigges automatisk.</p>
+      <hr class="letter-sep">
+      <h3 class="letter-step">Steg 2 — Lim inn generert brev her</h3>
+      <textarea class="letter-paste" id="letterPaste" placeholder="Lim inn det genererte søknadsbrevet her…"></textarea>
+      <div class="letter-mode" id="letterModeRow" style="display:none">
+        <label><input type="radio" name="letterMode" value="replace"> Erstatt eksisterende notater</label>
+        <label><input type="radio" name="letterMode" value="append" checked> Legg til på slutten av eksisterende</label>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-p" id="btnLetterSave">Lagre til notater</button>
+      <button class="btn btn-s" id="btnLetterClose">Lukk</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ HELP / KEYBOARD SHORTCUTS OVERLAY ═══ -->
 <div class="modal-overlay" id="helpOverlay">
   <div class="modal" role="dialog" aria-labelledby="helpTitle">
@@ -760,7 +803,8 @@ var STATE = {
   openOverlays: [],        // stack of open modals/popovers; gates global keydown to Esc-only when non-empty
   uiPrefs: null,           // loaded from localStorage "ve-strategi-ui"
   searchDebounce: null,    // setTimeout handle for search input
-  scorePopoverFor: null    // jobId currently shown in score popover (or null)
+  scorePopoverFor: null,   // jobId currently shown in score popover (or null)
+  letterModalJobId: null   // jobId the cover-letter modal currently refers to (or null)
 };
 
 var SORT_OPTIONS = [
@@ -1479,6 +1523,104 @@ function closeImportModal(force){
   IMPORT.items = [];
 }
 
+// ════════════════════════════════════════════════════════════════
+//  ETAPPE 8 — COVER-LETTER (copy-paste mot cover-letter-valiant-skill)
+// ════════════════════════════════════════════════════════════════
+function fmtDateDMY(iso){
+  if(!iso) return "";
+  var d = new Date(iso);
+  if(isNaN(d.getTime())) return "";
+  var p = function(n){ return (n<10?"0":"")+n; };
+  return p(d.getDate())+"."+p(d.getMonth()+1)+"."+d.getFullYear();
+}
+
+function buildLetterPrompt(job){
+  var lines = [
+    "Skriv søknadsbrev for følgende stilling, bruk cover-letter-valiant-skill:",
+    "",
+    "**Selskap:** " + (job.company || "—"),
+    "**Rolle:** " + (job.role || "—")
+  ];
+  if(job.location) lines.push("**Lokasjon:** " + job.location);
+  if(job.url) lines.push("**URL:** " + job.url);
+  var frist = fmtDateDMY(job.deadline);
+  if(frist) lines.push("**Frist:** " + frist);
+  var desc = (job.description || "").trim();
+  if(desc){
+    lines.push("**Beskrivelse:**");
+    lines.push(desc);
+  }
+  return lines.join("\n");
+}
+
+function openLetterModal(id){
+  var job = STATE.payload.jobs.find(function(j){return j.id===id;});
+  if(!job) return;
+  STATE.letterModalJobId = id;
+  document.getElementById("letterTitle").textContent =
+    "✉ Søknadsbrev — " + (job.role || "stilling") + (job.company ? " @ " + job.company : "");
+  document.getElementById("letterPrompt").textContent = buildLetterPrompt(job);
+  document.getElementById("letterPaste").value = "";
+  var hasNotes = !!(job.notes && job.notes.trim());
+  document.getElementById("letterModeRow").style.display = hasNotes ? "flex" : "none";
+  var appendRadio = document.querySelector('input[name="letterMode"][value="append"]');
+  if(appendRadio) appendRadio.checked = true;
+  document.getElementById("letterModal").classList.add("open");
+  registerOverlay("letterModal");
+}
+
+function closeLetterModal(){
+  document.getElementById("letterModal").classList.remove("open");
+  unregisterOverlay("letterModal");
+  STATE.letterModalJobId = null;
+}
+
+function copyLetterPrompt(){
+  var text = document.getElementById("letterPrompt").textContent;
+  function fallback(){
+    try{
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      toast(ok ? "Prompt kopiert" : "Kopier manuelt fra feltet");
+    }catch(_){ toast("Kopier manuelt fra feltet"); }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ toast("Prompt kopiert"); }, fallback);
+  } else {
+    fallback();
+  }
+}
+
+function saveLetterToNotes(){
+  var id = STATE.letterModalJobId;
+  var job = id && STATE.payload.jobs.find(function(j){return j.id===id;});
+  if(!job) return;
+  var letter = document.getElementById("letterPaste").value.trim();
+  if(!letter){ toast("Ingen tekst å lagre — lim inn brevet først"); return; }
+  var existing = (job.notes || "").trim();
+  if(!existing){
+    job.notes = letter;
+  } else {
+    var modeEl = document.querySelector('input[name="letterMode"]:checked');
+    var mode = modeEl ? modeEl.value : "append";
+    if(mode === "replace"){
+      job.notes = letter;
+    } else {
+      job.notes = job.notes + "\n\n— Søknadsbrev " + fmtDateDMY(new Date().toISOString()) + " —\n" + letter;
+    }
+  }
+  mutate();
+  renderJobs();
+  closeLetterModal();
+  toast("Lagret til notater");
+}
+
 // — Parse from textarea —
 async function runImportParse(){
   var raw = document.getElementById("importPaste").value;
@@ -1802,6 +1944,13 @@ function bindImportControls(){
     if(e.target.id === "importModal") closeImportModal(false);
   });
   document.getElementById("btnImportSave").addEventListener("click", saveImports);
+  document.getElementById("btnLetterX").addEventListener("click", closeLetterModal);
+  document.getElementById("btnLetterClose").addEventListener("click", closeLetterModal);
+  document.getElementById("letterModal").addEventListener("click", function(e){
+    if(e.target.id === "letterModal") closeLetterModal();
+  });
+  document.getElementById("btnLetterCopy").addEventListener("click", copyLetterPrompt);
+  document.getElementById("btnLetterSave").addEventListener("click", saveLetterToNotes);
   document.getElementById("btnParse").addEventListener("click", runImportParse);
   document.getElementById("btnPasteClear").addEventListener("click", function(){
     document.getElementById("importPaste").value = "";
@@ -2099,7 +2248,10 @@ function renderJobs(){
       '</div>'+
       '<div class="notes-row">'+
         '<div class="notes-actions">'+
-          '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
+          '<div class="notes-actions-l">'+
+            '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
+            '<button class="letter-btn" onclick="openLetterModal(\''+j.id+'\')" title="Generer søknadsbrev-prompt">✉ Søknadsbrev</button>'+
+          '</div>'+
           (((j.status||"new")==="removed")
             ? '<button class="restore-btn" onclick="restoreJob(\''+j.id+'\')" title="Gjenopprett til forrige status">↺ Gjenopprett</button>'
             : '<button class="del-btn" onclick="hideJob(\''+j.id+'\')" title="Skjul stillingen (kan gjenopprettes)">⊘ Skjul</button>')+
@@ -2531,6 +2683,11 @@ function bindKeyboardShortcuts(){
         else if(top === "helpOverlay") hideHelpOverlay();
         else if(top === "setupModal") closeSetupModal();
         else if(top === "importModal") closeImportModal(false);
+        else if(top === "letterModal"){
+          // Esc lukker ikke når fokus er i lim-inn-feltet (unngå å miste limt brev)
+          if(document.activeElement && document.activeElement.id === "letterPaste") return;
+          closeLetterModal();
+        }
         e.preventDefault();
       }
       return;
