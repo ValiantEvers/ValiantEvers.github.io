@@ -28,7 +28,9 @@
 <meta name="twitter:description" content="MSc Finance at BI. The bridge between financial expertise and people.">
 <meta name="twitter:image" content="https://www.evers.no/og-image.png">
 <meta name="twitter:image:alt" content="Valiant Evers — MSc Finance, BI Norwegian Business School">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="profile.jpg" as="image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1470,8 +1472,9 @@ window.addEventListener('load',function(){setTimeout(setEmail,500)});
 var canvas=document.createElement('canvas');
 canvas.width=32;canvas.height=32;
 var ctx=canvas.getContext('2d');
-var link=document.querySelector('link[rel="icon"]');
-if(!link){link=document.createElement('link');link.rel='icon';document.head.appendChild(link)}
+/* Dedicated animated icon link — never touch the static SVG/PNG links so crawlers (Google) keep seeing /favicon.svg */
+var link=document.getElementById('favicon-animated');
+if(!link){link=document.createElement('link');link.id='favicon-animated';link.rel='icon';link.type='image/png';document.head.appendChild(link)}
 var t=0;
 var isDark=function(){return document.documentElement.getAttribute('data-theme')==='dark'||document.documentElement.getAttribute('data-theme')==='medieval'};
 function draw(){
