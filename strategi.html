@@ -126,8 +126,13 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 
 /* notes row */
 .notes-row{margin-top:8px}
+.notes-actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .notes-toggle{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s}
 .notes-toggle:hover{color:var(--accent)}
+.del-btn{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s;flex-shrink:0}
+.del-btn:hover{color:var(--yellow)}
+.restore-btn{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s;flex-shrink:0}
+.restore-btn:hover{color:var(--green)}
 .notes-area{margin-top:6px;display:none}
 .notes-area.open{display:block}
 .notes-area textarea{width:100%;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;resize:vertical;min-height:60px}
@@ -783,7 +788,8 @@ var JOB_STATUSES = [
   {v:"viewed",l:"Sett",cls:"b-gray"},
   {v:"applied",l:"Søkt",cls:"b-yellow"},
   {v:"rejected",l:"Avslag",cls:"b-red"},
-  {v:"interview",l:"Intervju",cls:"b-green"}
+  {v:"interview",l:"Intervju",cls:"b-green"},
+  {v:"removed",l:"Fjernet",cls:"b-gray"}
 ];
 
 var APP_STATUSES = [
@@ -1054,7 +1060,7 @@ async function bootstrapSync(){
       else if(tab==="outreach") renderOutreach();
       else if(tab==="timeline") renderTimeline();
       // Counts
-      document.getElementById("cntJobs").textContent = STATE.payload.jobs.length;
+      document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
       document.getElementById("cntApps").textContent = STATE.payload.apps.length;
       document.getElementById("cntOut").textContent = STATE.payload.outreach.length;
       updateSyncIndicator("synced", remoteTs);
@@ -1768,7 +1774,7 @@ async function saveImports(){
 
   closeImportModal(true);
   // Update counts + re-render
-  document.getElementById("cntJobs").textContent = STATE.payload.jobs.length;
+  document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
   renderJobs();
 
   // Toast + filter-skjul-info
@@ -1949,7 +1955,7 @@ function initUI(payload){
   });
 
   // Counts
-  document.getElementById("cntJobs").textContent = payload.jobs.length;
+  document.getElementById("cntJobs").textContent = countActive(payload.jobs);
   document.getElementById("cntApps").textContent = payload.apps.length;
   document.getElementById("cntOut").textContent = payload.outreach.length;
 
@@ -2092,7 +2098,12 @@ function renderJobs(){
         '</div>'+
       '</div>'+
       '<div class="notes-row">'+
-        '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
+        '<div class="notes-actions">'+
+          '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
+          (((j.status||"new")==="removed")
+            ? '<button class="restore-btn" onclick="restoreJob(\''+j.id+'\')" title="Gjenopprett til forrige status">↺ Gjenopprett</button>'
+            : '<button class="del-btn" onclick="hideJob(\''+j.id+'\')" title="Skjul stillingen (kan gjenopprettes)">⊘ Skjul</button>')+
+        '</div>'+
         '<div class="notes-area" id="notes-'+j.id+'"><textarea data-jid="'+j.id+'" placeholder="Notater for denne jobben…" oninput="onJobNoteInput(this)">'+esc(j.notes||"")+'</textarea></div>'+
       '</div>'+
       '</div>';
@@ -2124,6 +2135,61 @@ function toggleStarred(id){
     var card = document.querySelector('.job-card[data-jid="'+STATE.uiPrefs.focusedJobId+'"]');
     if(card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
   }
+}
+
+// Antall jobber som teller (status "removed" er soft-slettet → ekskludert
+// fra fane-teller og "av N"-total; vises kun via egen status-chip).
+function countActive(arr){
+  return (arr||[]).filter(function(j){return (j.status||"new")!=="removed";}).length;
+}
+
+// Felles: bruk en status-mutasjon og bevar fokus-kontinuitet hvis jobben
+// faller ut av filtrert visning (speiler toggleStarred sin fokushåndtering).
+function applyJobMutation(id, applyFn, toastMsg, toastOpts){
+  var job = STATE.payload.jobs.find(function(j){return j.id===id;});
+  if(!job) return;
+  var keepFocus = (STATE.uiPrefs.focusedJobId === id);
+  var beforeList = keepFocus ? getFilteredJobs() : null;
+  var prevIdx = keepFocus ? beforeList.findIndex(function(j){return j.id===id;}) : -1;
+  applyFn(job);
+  job.statusUpdated = new Date().toISOString();
+  if(keepFocus){
+    var afterList = getFilteredJobs();
+    if(!afterList.length){
+      STATE.uiPrefs.focusedJobId = null;
+    } else if(!afterList.some(function(j){return j.id===id;})){
+      var newIdx = Math.min(Math.max(prevIdx, 0), afterList.length - 1);
+      STATE.uiPrefs.focusedJobId = afterList[newIdx].id;
+    }
+    saveUiPrefs();
+  }
+  document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
+  mutate();
+  renderJobs();
+  if(toastMsg) toast(toastMsg, toastOpts);
+}
+
+// Soft delete: flipp status → "removed", bevar forrige status i prevStatus.
+// Ingen confirm() — handlingen er reversibel; undo-toast er lavere friksjon.
+function hideJob(id){
+  var job = STATE.payload.jobs.find(function(j){return j.id===id;});
+  if(!job || (job.status||"new")==="removed") return;
+  var role = job.role || "stilling";
+  applyJobMutation(id, function(j){
+    j.prevStatus = j.status || "new";
+    j.status = "removed";
+  }, "Skjult «"+role+"».", { actionText:"Angre", action:function(){ restoreJob(id); }, ms:8000 });
+}
+
+// Restore: tilbake til prevStatus (fallback "new" hvis feltet mangler).
+function restoreJob(id){
+  var job = STATE.payload.jobs.find(function(j){return j.id===id;});
+  if(!job) return;
+  var role = job.role || "stilling";
+  applyJobMutation(id, function(j){
+    j.status = j.prevStatus || "new";
+    delete j.prevStatus;
+  }, "Gjenopprettet «"+role+"».");
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -2193,7 +2259,7 @@ function renderFilterBar(){
 
   // Bulk: count + bulk-mark-seen button visibility
   var filtered = getFilteredJobs();
-  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + jobs.length;
+  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + countActive(jobs);
   var onlyNew = f.status.length === 1 && f.status[0] === "new";
   document.getElementById("bulkMarkSeenBtn").classList.toggle("hidden", !onlyNew || filtered.length === 0);
 
