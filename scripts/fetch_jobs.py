@@ -1,17 +1,19 @@
 """Daily finn.no scraper for strategi.html.
 
-Decrypts the encrypted payload from the private Gist, scrapes finn.no for
-relevant jobs, dedupes against existing entries, scores each new job with
-the same PROFILE/algorithm used in strategi.html, re-encrypts the payload
-and pushes it back to the Gist. strategi.html picks up the new jobs on
-next unlock via its existing bootstrapSync flow.
+Decrypts the encrypted payload from the private Gist, scrapes finn.no via
+Playwright headless Chromium for full client-side-rendered results,
+dedupes against existing entries, scores each new job with the same
+PROFILE/algorithm used in strategi.html, re-encrypts the payload and
+pushes it back to the Gist. strategi.html picks up the new jobs on next
+unlock via its existing bootstrapSync flow.
 
 Run locally:
     STRATEGI_PASSWORD=... GIST_PAT=... GIST_ID=... \
         python scripts/fetch_jobs.py
+    (requires `playwright install chromium` once)
 
 Required env: STRATEGI_PASSWORD, GIST_PAT, GIST_ID
-Dependencies: requests, beautifulsoup4, cryptography
+Dependencies: requests, cryptography, playwright
 
 PARITY NOTE: The PROFILE constant and scoring algorithm below MUST stay
 in sync with strategi.html's PROFILE/scoreJob (search "PROFILE = {" in
@@ -30,10 +32,10 @@ import time
 from datetime import datetime, timezone
 
 import requests
-from bs4 import BeautifulSoup
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from playwright.sync_api import sync_playwright
 
 USER_AGENT = "ValiantEvers-strategi-scraper/1.0 (+https://evers.no)"
 
@@ -167,111 +169,160 @@ def gist_patch(pat: str, gist_id: str, blob: dict) -> None:
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# finn.no scraper (post-2026-redesign — Warp design system, no data-testid)
+# finn.no scraper — Playwright headless Chromium (post-2026 Warp redesign)
+#
+# finn.no renders only ~5 job cards server-side; the rest is hydrated
+# client-side and lazy-loaded on scroll, so requests+BeautifulSoup capped
+# at 1–41 jobs/query. This version renders JS, scrolls to trigger
+# lazy-loading, and captures the full result list (5–10x more candidates).
 #
 # Verified DOM (May 2026):
-#   <a class="job-card-link" href="https://www.finn.no/job/ad/{id}" id="card-anchor-{id}">
-#     <span class="inset-0 absolute" aria-hidden="true"></span>
-#     {TITLE}
-#   </a>
-#   <div class="text-caption s-text-subtle"><strong>{COMPANY}</strong></div>
-#   …
-#   <ul class="job-card__pills">
-#     <li><span class="block truncate">{LOCATION}</span></li>
-#     <li><time dateTime="2026-04-29T17:36:25.000Z">14 dager siden</time></li>
-#   </ul>
+#   <div class="job-card__body">
+#     <a class="job-card-link" href="https://www.finn.no/job/ad/{id}"
+#        id="card-anchor-{id}">
+#       <span class="inset-0 absolute" aria-hidden="true"></span>
+#       {TITLE}
+#     </a>
+#     <div class="text-caption s-text-subtle"><strong>{COMPANY}</strong></div>
+#     <ul class="job-card__pills">
+#       <li><span class="block truncate">{LOCATION}</span></li>
+#       <li><time dateTime="2026-04-29T17:36:25.000Z">14 dager siden</time></li>
+#     </ul>
+#   </div>
 #
-# SSR caveat: only ~5 cards rendered server-side per query — the rest is
-# client-hydrated. max_pages stays at 1; the loop is preserved for the day
-# finn.no re-enables SSR pagination. `?sort=PUBLISHED_DESC` is the canonical
-# sort param (verified from <select id="search-sorter">).
+# `?sort=PUBLISHED_DESC` is the canonical sort param (verified from
+# <select id="search-sorter">). If finn.no serves a captcha/block page,
+# query_selector_all finds nothing and scrape_finn() returns [] — main()
+# records 0 new for that query and continues. Pagination is now handled
+# via scroll-to-load-more, so the old max_pages param is gone.
 # ─────────────────────────────────────────────────────────────────────────
 
 FINN_SEARCH = "https://www.finn.no/job/search"
+CARD_SELECTOR = "a.job-card-link[href*='/job/ad/']"
 
 
-def scrape_finn(query: str, max_pages: int = 1) -> list:
+def scrape_finn(query: str, max_jobs: int = 100) -> list:
     jobs = []
-    for page in range(1, max_pages + 1):
-        params = {"q": query, "sort": "PUBLISHED_DESC"}
-        if page > 1:
-            params["page"] = page
+    url = f"{FINN_SEARCH}?q={requests.utils.quote(query)}&sort=PUBLISHED_DESC"
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent=USER_AGENT,
+            viewport={"width": 1280, "height": 800},
+        )
+        page = context.new_page()
+
         try:
-            r = requests.get(
-                FINN_SEARCH,
-                params=params,
-                headers={"User-Agent": USER_AGENT},
-                timeout=30,
-                allow_redirects=True,
-            )
-            r.raise_for_status()
+            page.goto(url, wait_until="networkidle", timeout=30000)
         except Exception as e:
-            print(f"  page {page} failed: {e}", file=sys.stderr)
-            break
+            print(f"  goto failed: {e}", file=sys.stderr)
+            browser.close()
+            return []
 
-        soup = BeautifulSoup(r.text, "html.parser")
-        anchors = soup.select("a.job-card-link[href*='/job/ad/']")
-        if not anchors:
-            print(f"  page {page}: 0 a.job-card-link anchors", file=sys.stderr)
-            break
+        # Cookie consent — best effort, ignore if no popup matches
+        for sel in (
+            "button:has-text('Godta alle')",
+            "button:has-text('Godta')",
+            "[id*='cookie'] button",
+        ):
+            try:
+                page.click(sel, timeout=2000)
+                page.wait_for_timeout(500)
+                break
+            except Exception:
+                pass
 
-        seen_urls_on_page = set()
-        new_on_page = 0
+        # Scroll-to-load-more: stop once the card count stabilises across
+        # 3 attempts or the hard cap is reached.
+        previous = 0
+        stable_attempts = 0
+        for _ in range(20):
+            count = len(page.query_selector_all(CARD_SELECTOR))
+            if count >= max_jobs:
+                break
+            if count == previous:
+                stable_attempts += 1
+                if stable_attempts >= 3:
+                    break  # no more loading
+            else:
+                stable_attempts = 0
+                previous = count
+            page.mouse.wheel(0, 5000)
+            page.wait_for_timeout(1500)
+
+        anchors = page.query_selector_all(CARD_SELECTOR)[:max_jobs]
+        seen_urls = set()
         for a in anchors:
-            href = a.get("href", "").strip()
-            if not href or href in seen_urls_on_page:
+            try:
+                href = (a.get_attribute("href") or "").strip()
+                if not href:
+                    continue
+                if not href.startswith("http"):
+                    href = "https://www.finn.no" + href
+                if href in seen_urls:
+                    continue
+                seen_urls.add(href)
+
+                # Title: anchor text minus the absolute-overlay span
+                title = (a.text_content() or "").strip()
+                if not title:
+                    continue
+
+                # Walk up to the card container for company/location/time
+                handle = a.evaluate_handle(
+                    "a => a.closest('.job-card__body')"
+                )
+                card = handle.as_element() if handle else None
+
+                company = ""
+                location = ""
+                posted = None
+                if card:
+                    # Company: <div class="text-caption …"><strong>…</strong>
+                    # No bare-strong fallback on purpose: if this selector
+                    # misses, company comes back empty across the board —
+                    # a loud signal that finn.no's DOM moved, not a silent
+                    # wrong-element grab.
+                    strong = card.query_selector(".text-caption strong")
+                    if strong:
+                        company = (strong.text_content() or "").strip()
+                    # Location: first <li> in <ul class="job-card__pills">
+                    loc = card.query_selector(
+                        "ul.job-card__pills > li:first-child span"
+                    )
+                    if loc:
+                        location = (loc.text_content() or "").strip()
+                    # Posted date: <time dateTime="ISO">
+                    time_el = card.query_selector("time")
+                    if time_el:
+                        dt = (
+                            time_el.get_attribute("datetime")
+                            or time_el.get_attribute("dateTime")
+                            or ""
+                        )
+                        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", dt)
+                        if m:
+                            posted = m.group(0)
+
+                jobs.append({
+                    "role": title,
+                    "company": company,
+                    "location": location,
+                    "url": href,
+                    "posted": posted,
+                    "query": query,
+                })
+            except Exception as e:
+                print(
+                    f"  extract failed for one anchor: {e}", file=sys.stderr
+                )
                 continue
-            seen_urls_on_page.add(href)
-            if not href.startswith("http"):
-                href = "https://www.finn.no" + href
 
-            # Title: anchor text minus the absolute-overlay span
-            title = a.get_text(strip=True)
-            if not title:
-                continue
+        browser.close()
 
-            # Company: <div class="text-caption s-text-subtle"><strong>...</strong></div>
-            # The div lives inside the anchor's parent (.pr-[52px]).
-            company = ""
-            parent = a.parent
-            if parent:
-                strong = parent.find("strong")
-                if strong:
-                    company = strong.get_text(strip=True)
-
-            # Location + posted: in the surrounding .job-card__body
-            location = ""
-            posted = None
-            body = a.find_parent(class_="job-card__body")
-            if body:
-                # Pills <ul class="job-card__pills"> — first <li> is location
-                pills = body.select("ul.job-card__pills > li")
-                if pills:
-                    loc_span = pills[0].find("span")
-                    if loc_span:
-                        location = loc_span.get_text(strip=True)
-                # Posted date — <time dateTime="ISO">
-                time_el = body.find("time")
-                if time_el:
-                    dt = time_el.get("datetime") or time_el.get("dateTime") or ""
-                    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", dt)
-                    if m:
-                        posted = m.group(0)
-
-            jobs.append({
-                "role": title,
-                "company": company,
-                "location": location,
-                "url": href,
-                "posted": posted,
-                "query": query,
-            })
-            new_on_page += 1
-
-        if new_on_page == 0:
-            break
-        time.sleep(1.5)
-
+    # Inter-query throttle — stay polite to finn.no (was per-page before)
+    time.sleep(1.5)
     return jobs
 
 
