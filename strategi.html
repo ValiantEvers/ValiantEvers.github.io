@@ -146,6 +146,20 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 [data-theme="light"] .notes-pad{background:rgba(0,18,51,.03)}
 .notes-pad:focus{border-color:var(--accent)}
 @media(max-width:640px){.notes-pad{height:65vh;min-height:260px;font-size:16px}}
+/* ── INTERVJU-PREP (kun status=interview) ── */
+.prep{margin-top:10px;background:var(--accent-g);border:1px solid var(--border-h);border-radius:10px;overflow:hidden}
+.prep-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;user-select:none}
+.prep-title{font-size:.85rem;font-weight:600;color:var(--accent)}
+.prep-toggle{background:none;border:none;color:var(--accent);font-size:.8rem;cursor:pointer;font-family:inherit;padding:2px 6px;line-height:1}
+.prep-body{padding:0 14px 14px;display:flex;flex-direction:column;gap:12px}
+.prep.collapsed .prep-body{display:none}
+.prep-field label{display:block;font-size:.74rem;font-weight:600;color:var(--accent2);margin-bottom:5px}
+.prep-field input[type=date]{background:rgba(225,231,255,.05);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:inherit;font-size:.84rem;color:var(--text);outline:none;color-scheme:dark}
+[data-theme="light"] .prep-field input[type=date]{background:rgba(0,18,51,.04);color-scheme:light}
+.prep-field textarea{width:100%;background:rgba(225,231,255,.05);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.84rem;line-height:1.5;color:var(--text);outline:none;resize:vertical;min-height:64px}
+[data-theme="light"] .prep-field textarea{background:rgba(0,18,51,.04)}
+.prep-field input[type=date]:focus,.prep-field textarea:focus{border-color:var(--accent)}
+@media(max-width:640px){.prep-field input[type=date]{width:100%}}
 
 /* ── EXISTING SHARED COMPONENTS (chip, prog, check, form) ── */
 .prog-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
@@ -2293,6 +2307,7 @@ function renderJobs(){
         '</div>'+
         '<div class="notes-area" id="notes-'+j.id+'"><textarea data-jid="'+j.id+'" placeholder="Notater for denne jobben…" oninput="onJobNoteInput(this)">'+esc(j.notes||"")+'</textarea></div>'+
       '</div>'+
+      (((j.status||"new")==="interview") ? jobPrepHtml(j) : "")+
       '</div>';
   });
   document.getElementById("jobsList").innerHTML = html;
@@ -2802,6 +2817,65 @@ function onJobNoteInput(el){
     job.notes = el.value;
     mutate();
   }
+}
+
+// ── Intervju-prep (vises kun når job.status === "interview") ──
+// Collapsed/expanded er per-sesjon UI-state, IKKE i payload:
+// reload → reekspandert (per spec, det er greit).
+var PREP_COLLAPSED = {};
+
+function ensurePrep(job){
+  if(!job.interviewPrep || typeof job.interviewPrep !== "object"){
+    job.interviewPrep = {date:null, who:"", research:"",
+      starStories:"", myQuestions:"", myPitch:""};
+  }
+  return job.interviewPrep;
+}
+function onPrepInput(el){
+  var id = el.dataset.jid, f = el.dataset.pf;
+  var job = STATE.payload.jobs.find(function(j){return j.id===id});
+  if(!job) return;
+  var pp = ensurePrep(job);
+  var val = (f === "date") ? (el.value || null) : el.value;
+  if(pp[f] !== val){
+    pp[f] = val;
+    mutate();
+  }
+}
+function togglePrep(id){
+  var el = document.querySelector('.job-card[data-jid="'+id+'"] .prep');
+  if(!el) return;
+  var nowCollapsed = !el.classList.contains("collapsed");
+  el.classList.toggle("collapsed", nowCollapsed);
+  if(nowCollapsed) PREP_COLLAPSED[id] = true; else delete PREP_COLLAPSED[id];
+  var btn = el.querySelector(".prep-toggle");
+  if(btn) btn.textContent = nowCollapsed ? "▶" : "▼";
+}
+function jobPrepHtml(j){
+  var pp = j.interviewPrep || {};
+  var d = (pp.date || "").slice(0, 10);
+  var isCol = !!PREP_COLLAPSED[j.id];
+  function ta(f, label, ph){
+    return '<div class="prep-field"><label>'+label+'</label>'+
+      '<textarea data-jid="'+j.id+'" data-pf="'+f+'" placeholder="'+ph+'" '+
+      'oninput="onPrepInput(this)">'+esc(pp[f]||"")+'</textarea></div>';
+  }
+  return '<div class="prep'+(isCol?" collapsed":"")+'">'+
+    '<div class="prep-head" onclick="togglePrep(\''+j.id+'\')">'+
+      '<span class="prep-title">🎯 Intervju-prep</span>'+
+      '<button class="prep-toggle" type="button">'+(isCol?"▶":"▼")+'</button>'+
+    '</div>'+
+    '<div class="prep-body">'+
+      '<div class="prep-field"><label>Dato</label>'+
+        '<input type="date" data-jid="'+j.id+'" data-pf="date" '+
+        'value="'+esc(d)+'" oninput="onPrepInput(this)"></div>'+
+      ta("who","Hvem jeg møter","Navn — rolle, LinkedIn-URL …")+
+      ta("research","Firma-research","Q-rapporter, nyheter, nøkkeltall, folk å kjenne til …")+
+      ta("starStories","STAR-historier jeg har klar","Situasjon · Task · Action · Result")+
+      ta("myQuestions","Mine spørsmål til dem","Hva vil jeg vite om rollen / teamet / veien videre?")+
+      ta("myPitch","Min pitch (tilpasset rollen)","2–3 setninger: hvorfor meg, hvorfor dem")+
+    '</div>'+
+  '</div>';
 }
 
 // ════════════════════════════════════════════════════════════════
