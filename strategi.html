@@ -304,6 +304,18 @@ select.inp{color-scheme:dark;appearance:auto}
 .help-table td{padding:6px 8px;font-size:.85rem;border-bottom:1px solid var(--border);color:var(--dim);vertical-align:top}
 .help-table td:first-child{white-space:nowrap;width:1%}
 .help-table tr:last-child td{border-bottom:none}
+/* ── PIPELINE ── */
+.pl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:6px}
+.pl-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:420px}
+.pl-table th{text-align:left;padding:7px 10px;font-size:.7rem;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border-h)}
+.pl-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--dim)}
+.pl-table tr:last-child td{border-bottom:none}
+.pl-table th.num,.pl-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+.pl-total{font-size:.82rem;color:var(--accent2);font-weight:600;margin:8px 0 4px 2px}
+.pl-bar{display:inline-block;color:var(--accent);letter-spacing:1px;font-family:'SFMono-Regular',Consolas,monospace}
+.pl-act{display:flex;justify-content:space-between;gap:14px;padding:8px 12px;border-bottom:1px solid var(--border);font-size:.86rem;color:var(--dim)}
+.pl-act:last-child{border-bottom:none}
+.pl-act-w{color:var(--text);font-weight:500}
 .help-note{margin-top:12px;padding:10px 12px;background:var(--accent-g);border:1px solid var(--border-h);border-radius:8px;font-size:.78rem;color:var(--dim)}
 
 /* ── ETAPPE 4: import-modal ── */
@@ -458,6 +470,7 @@ select.inp{color-scheme:dark;appearance:auto}
   <button class="tab" data-tab="apps">Søknader <span class="cnt" id="cntApps">0</span></button>
   <button class="tab" data-tab="outreach">Outreach <span class="cnt" id="cntOut">0</span></button>
   <button class="tab" data-tab="timeline">Tidsplan</button>
+  <button class="tab" data-tab="pipeline">Pipeline</button>
   <button class="tab" data-tab="notes">Notater</button>
 </div>
 
@@ -538,6 +551,10 @@ select.inp{color-scheme:dark;appearance:auto}
 
 <section id="p-timeline" style="display:none">
   <div id="timelineContent"></div>
+</section>
+
+<section id="p-pipeline" style="display:none">
+  <div id="pipelineContent"></div>
 </section>
 
 <section id="p-notes" style="display:none">
@@ -1116,6 +1133,7 @@ async function bootstrapSync(){
       else if(tab==="apps") renderApps();
       else if(tab==="outreach") renderOutreach();
       else if(tab==="timeline") renderTimeline();
+      else if(tab==="pipeline") renderPipeline();
       else if(tab==="notes") renderNotes();
       // Counts
       document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
@@ -2107,7 +2125,7 @@ function initUI(payload){
       document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
       this.classList.add("on");
       var tab = this.dataset.tab;
-      ["jobs","weekly","apps","outreach","timeline","notes"].forEach(function(p){
+      ["jobs","weekly","apps","outreach","timeline","pipeline","notes"].forEach(function(p){
         document.getElementById("p-"+p).style.display = (p===tab) ? "block" : "none";
       });
       if(tab==="jobs") renderJobs();
@@ -2115,6 +2133,7 @@ function initUI(payload){
       if(tab==="apps") renderApps();
       if(tab==="outreach") renderOutreach();
       if(tab==="timeline") renderTimeline();
+      if(tab==="pipeline") renderPipeline();
       if(tab==="notes") renderNotes();
     });
   });
@@ -3022,6 +3041,108 @@ function renderTimeline(){
   html += '<div style="margin-top:24px;padding:16px 20px;background:var(--accent-g);border:1px solid var(--border-h);border-radius:12px;font-size:.85rem;color:var(--dim)">'+
     '<strong style="color:var(--accent)">Husk:</strong> Det viktigste er ikke å søke på flest mulige stillinger — det er å ha 3–5 gode samtaler med folk som jobber der du vil jobbe. Resten følger av det.</div>';
   document.getElementById("timelineContent").innerHTML = html;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PIPELINE TAB — read-only funnel-diagnostikk fra payload.jobs.
+//  Ingen mutate(), ingen schema-endring. Idempotent: kalles på
+//  hver tab-aktivering for å reflektere ev. payload-endringer.
+// ════════════════════════════════════════════════════════════════
+function renderPipeline(){
+  var jobs = (STATE.payload && STATE.payload.jobs) || [];
+  var total = jobs.length;
+
+  // ── Status-fordeling ──
+  var rows = JOB_STATUSES.map(function(s){
+    var grp = jobs.filter(function(j){ return (j.status||"new")===s.v; });
+    var n = grp.length;
+    var sumScore = grp.reduce(function(a,j){
+      return a + (typeof j.score==="number" ? j.score : 0);
+    }, 0);
+    return { l:s.l, n:n, avg:(n ? Math.round(sumScore/n) : null),
+             pct:(total ? n/total*100 : 0) };
+  });
+  // Vis prosenter som summerer til nøyaktig 100 %: avrundingsresten
+  // tildeles raden med flest jobber (largest-remainder, 1 desimal).
+  if(total){
+    var disp = rows.map(function(r){ return Math.round(r.pct*10)/10; });
+    var sum = disp.reduce(function(a,b){ return a+b; }, 0);
+    var diff = Math.round((100 - sum)*10)/10;
+    if(diff!==0){
+      var maxI = 0;
+      rows.forEach(function(r,i){ if(r.n > rows[maxI].n) maxI = i; });
+      disp[maxI] = Math.round((disp[maxI]+diff)*10)/10;
+    }
+    rows.forEach(function(r,i){
+      r.pctTxt = disp[i].toFixed(1).replace(/\.0$/,"") + "%";
+    });
+  } else {
+    rows.forEach(function(r){ r.pctTxt = "0%"; });
+  }
+
+  var html = '<div class="sh">Status-fordeling</div>';
+  html += '<div class="pl-scroll"><table class="pl-table"><thead><tr>'+
+    '<th>Status</th><th class="num">Antall</th><th class="num">%</th>'+
+    '<th class="num">Gj.snitt score</th></tr></thead><tbody>';
+  rows.forEach(function(r){
+    html += '<tr><td>'+r.l+'</td><td class="num">'+r.n+'</td>'+
+      '<td class="num">'+r.pctTxt+'</td>'+
+      '<td class="num">'+(r.avg===null ? "—" : r.avg)+'</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  html += '<div class="pl-total">Total: '+total+' jobber</div>';
+
+  // ── Aktivitet siste 4 uker ──
+  var MON = ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+  // Samme uke-nummerering som getWeekId() (Jan 1-basert), parametrisert.
+  function wkNum(d){
+    var s = new Date(d.getFullYear(),0,1);
+    return Math.ceil(((d-s)/864e5 + s.getDay() + 1)/7);
+  }
+  var now = new Date();
+  var dow = (now.getDay()+6)%7; // mandag=0
+  var monday = new Date(now.getFullYear(), now.getMonth(), now.getDate()-dow, 0,0,0,0);
+
+  html += '<div class="sh">Aktivitet siste 4 uker</div><div>';
+  for(var i=0;i<4;i++){
+    var ws = new Date(monday.getTime() - i*7*864e5);
+    var we = new Date(ws.getTime() + 6*864e5);   // søndag (visning)
+    var wEnd = new Date(ws.getTime() + 7*864e5); // eksklusiv grense (telling)
+    var n = jobs.filter(function(j){
+      if(!j.added) return false;
+      var t = new Date(j.added);
+      return !isNaN(t.getTime()) && t >= ws && t < wEnd;
+    }).length;
+    var range = (ws.getMonth()===we.getMonth())
+      ? ws.getDate()+"–"+we.getDate()+" "+MON[we.getMonth()]
+      : ws.getDate()+" "+MON[ws.getMonth()]+" – "+we.getDate()+" "+MON[we.getMonth()];
+    html += '<div class="pl-act"><span><span class="pl-act-w">Uke '+wkNum(ws)+'</span> '+
+      '<span style="color:var(--faint)">('+range+')</span></span>'+
+      '<span>'+n+(n===1 ? " jobb" : " jobber")+'</span></div>';
+  }
+  html += '</div>';
+
+  // ── Score-distribusjon ──
+  var buckets = [
+    {l:"0–20", n:0}, {l:"21–40", n:0}, {l:"41–60", n:0},
+    {l:"61–80", n:0}, {l:"81–100", n:0}
+  ];
+  jobs.forEach(function(j){
+    var sc = typeof j.score==="number" ? j.score : 0;
+    buckets[ sc<=20?0 : sc<=40?1 : sc<=60?2 : sc<=80?3 : 4 ].n++;
+  });
+  var maxB = buckets.reduce(function(m,b){ return Math.max(m,b.n); }, 0) || 1;
+  html += '<div class="sh">Score-distribusjon</div>';
+  html += '<div class="pl-scroll"><table class="pl-table"><thead><tr>'+
+    '<th>Score</th><th class="num">Antall</th><th>&nbsp;</th></tr></thead><tbody>';
+  buckets.forEach(function(b){
+    var blocks = Math.round(b.n/maxB*20);
+    html += '<tr><td>'+b.l+'</td><td class="num">'+b.n+'</td>'+
+      '<td><span class="pl-bar">'+(blocks ? "█".repeat(blocks) : "")+'</span></td></tr>';
+  });
+  html += '</tbody></table></div>';
+
+  document.getElementById("pipelineContent").innerHTML = html;
 }
 
 // ════════════════════════════════════════════════════════════════
