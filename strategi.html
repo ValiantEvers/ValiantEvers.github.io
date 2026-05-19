@@ -141,6 +141,11 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .notes-area textarea{width:100%;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.82rem;color:var(--text);outline:none;resize:vertical;min-height:60px}
 [data-theme="light"] .notes-area textarea{background:rgba(0,18,51,.03)}
 .notes-area textarea:focus{border-color:var(--accent)}
+/* ── NOTATER (scratchpad) ── */
+.notes-pad{display:block;width:100%;height:60vh;min-height:320px;background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.86rem;line-height:1.55;color:var(--text);outline:none;resize:vertical;overflow:auto;-webkit-overflow-scrolling:touch}
+[data-theme="light"] .notes-pad{background:rgba(0,18,51,.03)}
+.notes-pad:focus{border-color:var(--accent)}
+@media(max-width:640px){.notes-pad{height:65vh;min-height:260px;font-size:16px}}
 
 /* ── EXISTING SHARED COMPONENTS (chip, prog, check, form) ── */
 .prog-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
@@ -453,6 +458,7 @@ select.inp{color-scheme:dark;appearance:auto}
   <button class="tab" data-tab="apps">Søknader <span class="cnt" id="cntApps">0</span></button>
   <button class="tab" data-tab="outreach">Outreach <span class="cnt" id="cntOut">0</span></button>
   <button class="tab" data-tab="timeline">Tidsplan</button>
+  <button class="tab" data-tab="notes">Notater</button>
 </div>
 
 <div class="banner hidden" id="syncBanner">
@@ -532,6 +538,12 @@ select.inp{color-scheme:dark;appearance:auto}
 
 <section id="p-timeline" style="display:none">
   <div id="timelineContent"></div>
+</section>
+
+<section id="p-notes" style="display:none">
+  <textarea id="scratchpad" class="notes-pad" spellcheck="false"
+    oninput="onScratchpadInput(this)"
+    placeholder="Notater her — synkes på tvers av enheter via Gist. Bruk markdown-stil overskrifter hvis du vil strukturere (## Pareto, ## Q3-tanker, etc.)"></textarea>
 </section>
 
 </div>
@@ -1093,6 +1105,7 @@ async function bootstrapSync(){
     if(remoteTs && (!localTs || new Date(remoteTs) > new Date(localTs))){
       // Gist newer → adopt
       STATE.payload = remotePayload;
+      if(typeof STATE.payload.scratchpad !== "string") STATE.payload.scratchpad = "";
       STATE.initialUpdatedAt = remoteTs;
       saveToCache();
       // Re-render visible tab
@@ -1103,6 +1116,7 @@ async function bootstrapSync(){
       else if(tab==="apps") renderApps();
       else if(tab==="outreach") renderOutreach();
       else if(tab==="timeline") renderTimeline();
+      else if(tab==="notes") renderNotes();
       // Counts
       document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
       document.getElementById("cntApps").textContent = STATE.payload.apps.length;
@@ -2050,6 +2064,7 @@ window.addEventListener("online", function(){
       payload.outreach = payload.outreach || [];
       payload.checks = payload.checks || {};
       payload.settings = payload.settings || {};
+      if(typeof payload.scratchpad !== "string") payload.scratchpad = "";
       STATE.initialUpdatedAt = payload.updatedAt || payload.migratedAt || null;
       // If we decrypted from repo (not cache), write fresh cache so next reload is instant
       if(!cacheUsed) await saveToCache();
@@ -2092,7 +2107,7 @@ function initUI(payload){
       document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
       this.classList.add("on");
       var tab = this.dataset.tab;
-      ["jobs","weekly","apps","outreach","timeline"].forEach(function(p){
+      ["jobs","weekly","apps","outreach","timeline","notes"].forEach(function(p){
         document.getElementById("p-"+p).style.display = (p===tab) ? "block" : "none";
       });
       if(tab==="jobs") renderJobs();
@@ -2100,6 +2115,7 @@ function initUI(payload){
       if(tab==="apps") renderApps();
       if(tab==="outreach") renderOutreach();
       if(tab==="timeline") renderTimeline();
+      if(tab==="notes") renderNotes();
     });
   });
 
@@ -2765,6 +2781,26 @@ function onJobNoteInput(el){
   if(!job) return;
   if(job.notes !== el.value){
     job.notes = el.value;
+    mutate();
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  NOTATER TAB — fri-form scratchpad, synker via payload.scratchpad
+// ════════════════════════════════════════════════════════════════
+function renderNotes(){
+  var ta = document.getElementById("scratchpad");
+  if(!ta) return;
+  var val = (STATE.payload && typeof STATE.payload.scratchpad === "string")
+    ? STATE.payload.scratchpad : "";
+  // Guard mot å overskrive caret hvis re-render skjer mens man skriver
+  // (f.eks. bootstrap-adopt). Samme filosofi som per-jobb notater.
+  if(ta.value !== val) ta.value = val;
+}
+function onScratchpadInput(el){
+  if(!STATE.payload) return;
+  if(STATE.payload.scratchpad !== el.value){
+    STATE.payload.scratchpad = el.value;
     mutate();
   }
 }
