@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leie eller eie? — Valiant Evers</title>
+<meta name="description" content="Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.">
+<meta name="author" content="Valiant Evers">
+<meta name="theme-color" content="#004eaa">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leie eller eie? — Valiant Evers">
+<meta property="og:description" content="Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge?">
+<meta property="og:image" content="https://www.evers.no/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:url" content="https://www.evers.no/leie-eller-eie/">
+<meta property="og:site_name" content="Valiant Evers">
+<meta property="og:locale" content="nb_NO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leie eller eie? — Valiant Evers">
+<meta name="twitter:description" content="Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge?">
+<meta name="twitter:image" content="https://www.evers.no/og-image.png">
+<link rel="canonical" href="https://www.evers.no/leie-eller-eie/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=UnifrakturMaguntia&family=Outfit:wght@300;400;600;800&family=Syne:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e1e7ff;--text:#001233;--accent:#0070ed;--accent2:#6996ff;--accent3:#aabeff;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 4px 30px rgba(0,18,51,0.08)}
+[data-theme="dark"]{--bg:#0a0e1a;--text:#e1e7ff;--accent:#6996ff;--accent2:#aabeff;--accent3:#1a2744;--accent4:#4080ff;--card-bg:#111827;--card-shadow:0 4px 30px rgba(0,0,0,0.3)}
+[data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
+[data-theme="dark"] .footer{color:rgba(225,231,255,.2)}
+
+[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);cursor:url('../medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('../medieval/cursor-sword.png') 2 30, pointer;}
+[data-theme="medieval"] body{font-family:'MedievalSharp','Outfit',sans-serif}
+[data-theme="medieval"] .section-title,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .page-h1,[data-theme="medieval"] .sub-title{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .nav-links a{font-family:'MedievalSharp','Outfit',sans-serif}
+[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
+[data-theme="medieval"] .theme-toggle{border-color:rgba(232,213,181,.2)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;width:100%;position:relative;line-height:1.6;-webkit-text-size-adjust:100%}
+img,video,svg,canvas{max-width:100%}
+html[lang="ja"] body{font-family:'Noto Sans JP','Outfit',sans-serif}
+
+/* GRAIN TEXTURE (consistent with site) */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+[data-theme="dark"] body::after{opacity:.04}
+
+/* FLOATING SHAPES (subtle backdrop) */
+.floating-shapes{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.shape{position:absolute;border-radius:50%;opacity:.10}
+.shape:nth-child(1){width:400px;height:400px;background:var(--accent);top:-10%;left:-8%}
+.shape:nth-child(2){width:280px;height:280px;background:var(--accent2);top:50%;right:-5%}
+.shape:nth-child(3){width:320px;height:320px;background:var(--accent3);bottom:-10%;left:30%}
+[data-theme="medieval"] .shape:nth-child(1){background:#c4841d}
+[data-theme="medieval"] .shape:nth-child(2){background:#8b6914}
+[data-theme="medieval"] .shape:nth-child(3){background:#3d2915}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
+nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-family:'Syne',sans-serif;font-weight:500;font-size:.9rem;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--accent)}
+.nav-links a.active::after{width:100%}
+[data-theme="medieval"] .nav-links a{color:var(--text)}
+
+.theme-toggle{background:none;border:1.5px solid rgba(0,18,51,.15);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .3s;color:var(--text)}
+.theme-toggle:hover{border-color:var(--accent)}
+[data-theme="dark"] .theme-toggle{border-color:rgba(225,231,255,.15)}
+[data-theme="dark"] .theme-toggle:hover{border-color:var(--accent)}
+
+.lang-switch{position:relative}
+.lang-btn{background:none;border:1.5px solid rgba(0,18,51,.15);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:all .3s;font-family:inherit}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid rgba(0,18,51,.08);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .25s ease;min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
+.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
+.lang-opt:hover{background:rgba(0,112,237,.06)}
+.lang-opt.active{color:var(--accent);font-weight:700}
+
+/* PAGE HERO */
+.page-hero{max-width:1100px;margin:0 auto;padding:8rem 2rem 1rem;text-align:center;position:relative;z-index:1}
+.page-eyebrow{display:inline-block;font-size:.75rem;text-transform:uppercase;letter-spacing:3px;font-weight:600;margin-bottom:.8rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:1rem}
+.page-sub{font-size:1.05rem;max-width:620px;margin:0 auto;color:rgba(0,18,51,.6);line-height:1.7}
+[data-theme="dark"] .page-sub{color:rgba(225,231,255,.55)}
+[data-theme="medieval"] .page-sub{color:rgba(232,213,181,.55)}
+
+/* SECTIONS */
+section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:2.5rem 2rem 0}
+.sub-header{margin-bottom:1.6rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;border-bottom:1px solid rgba(0,18,51,.08);padding-bottom:.8rem}
+[data-theme="dark"] .sub-header{border-bottom-color:rgba(225,231,255,.08)}
+[data-theme="medieval"] .sub-header{border-bottom-color:rgba(232,213,181,.1)}
+.sub-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.4rem;letter-spacing:-.3px;color:var(--text)}
+.sub-note{font-size:.78rem;font-weight:500;color:rgba(0,18,51,.4);font-family:'Syne',sans-serif}
+[data-theme="dark"] .sub-note{color:rgba(225,231,255,.4)}
+[data-theme="medieval"] .sub-note{color:rgba(232,213,181,.4)}
+
+/* PANEL */
+.panel{background:var(--card-bg);border-radius:16px;padding:1.8rem;box-shadow:var(--card-shadow)}
+
+/* MODEL TOGGLE (segmented) */
+.modeltoggle{display:flex;gap:.4rem;background:var(--accent3);padding:.4rem;border-radius:14px;max-width:760px;margin:0 auto 1.4rem}
+[data-theme="dark"] .modeltoggle{background:#1a2744}
+.modeltoggle button{flex:1;border:none;background:none;color:var(--text);font-family:'Syne',sans-serif;font-weight:600;font-size:.86rem;padding:.85rem 1rem;border-radius:11px;cursor:pointer;transition:all .3s;line-height:1.35}
+.modeltoggle button small{display:block;font-family:'Outfit',sans-serif;font-weight:400;font-size:.72rem;opacity:.7;margin-top:.15rem}
+.modeltoggle button.active{background:var(--card-bg);color:var(--accent);box-shadow:0 4px 14px rgba(0,18,51,.10)}
+
+/* INPUTS */
+.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.1rem 1.4rem}
+.field label{display:block;font-size:.8rem;font-weight:600;font-family:'Syne',sans-serif;color:var(--text);margin-bottom:.35rem}
+.field .field-wrap{display:flex;align-items:center;background:var(--bg);border:1.5px solid rgba(0,18,51,.12);border-radius:10px;transition:border-color .25s}
+[data-theme="dark"] .field .field-wrap{border-color:rgba(225,231,255,.12)}
+.field .field-wrap:focus-within{border-color:var(--accent)}
+.field input{flex:1;width:100%;background:none;border:none;outline:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:1rem;font-weight:600;padding:.65rem .75rem}
+.field input::-webkit-outer-spin-button,.field input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.field input[type=number]{-moz-appearance:textfield}
+.field .unit{font-size:.78rem;font-weight:600;color:rgba(0,18,51,.4);padding-right:.75rem;white-space:nowrap}
+[data-theme="dark"] .field .unit{color:rgba(225,231,255,.4)}
+
+details.advanced{margin-top:1.4rem;border-top:1px solid rgba(0,18,51,.08);padding-top:1.1rem}
+[data-theme="dark"] details.advanced{border-top-color:rgba(225,231,255,.08)}
+details.advanced summary{cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--accent);list-style:none;display:flex;align-items:center;gap:.5rem;user-select:none}
+details.advanced summary::-webkit-details-marker{display:none}
+details.advanced summary .chev{transition:transform .3s}
+details.advanced[open] summary .chev{transform:rotate(90deg)}
+details.advanced .input-grid{margin-top:1.2rem}
+
+/* METRICS */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.1rem}
+.metric{background:var(--card-bg);border-radius:14px;padding:1.3rem;box-shadow:var(--card-shadow);text-align:center;position:relative;overflow:hidden}
+.metric .m-label{font-size:.74rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;color:rgba(0,18,51,.45);font-family:'Syne',sans-serif}
+[data-theme="dark"] .metric .m-label{color:rgba(225,231,255,.45)}
+.metric .m-value{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:-.5px;margin-top:.45rem;color:var(--text)}
+.metric .m-sub{font-size:.78rem;color:rgba(0,18,51,.5);margin-top:.25rem}
+[data-theme="dark"] .metric .m-sub{color:rgba(225,231,255,.5)}
+.metric.win{outline:2px solid var(--accent);outline-offset:-2px}
+.metric .m-value.eie{color:var(--accent4)}
+.metric .m-value.leie{color:var(--accent)}
+[data-theme="dark"] .metric .m-value.eie{color:var(--accent2)}
+
+/* CHART */
+.chart-card{background:var(--card-bg);border-radius:16px;padding:1.6rem;box-shadow:var(--card-shadow)}
+.chart-wrap{position:relative;height:420px}
+@media (max-width:768px){.chart-wrap{height:320px}}
+
+/* TABLE */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px;box-shadow:var(--card-shadow)}
+table.cmp{width:100%;border-collapse:collapse;background:var(--card-bg);font-size:.84rem;min-width:760px}
+table.cmp th,table.cmp td{padding:.7rem .9rem;text-align:right;white-space:nowrap}
+table.cmp th{font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.5px;color:rgba(0,18,51,.5);border-bottom:2px solid rgba(0,18,51,.1);position:sticky;top:0;background:var(--card-bg)}
+[data-theme="dark"] table.cmp th{color:rgba(225,231,255,.5);border-bottom-color:rgba(225,231,255,.12)}
+table.cmp td:first-child,table.cmp th:first-child{text-align:left;font-weight:700;font-family:'Syne',sans-serif}
+table.cmp tbody tr{border-bottom:1px solid rgba(0,18,51,.05)}
+[data-theme="dark"] table.cmp tbody tr{border-bottom-color:rgba(225,231,255,.06)}
+table.cmp tbody tr:hover{background:rgba(0,112,237,.04)}
+table.cmp tbody tr.be-row{background:rgba(0,112,237,.09)}
+[data-theme="dark"] table.cmp tbody tr.be-row{background:rgba(105,150,255,.12)}
+
+.disclaimer{font-size:.8rem;color:rgba(0,18,51,.45);line-height:1.7;max-width:820px}
+[data-theme="dark"] .disclaimer{color:rgba(225,231,255,.45)}
+[data-theme="medieval"] .disclaimer{color:rgba(232,213,181,.45)}
+
+/* BACK LINK */
+.back-row{max-width:1100px;margin:0 auto;padding:3rem 2rem 0;text-align:center}
+.back-link{display:inline-block;font-family:'Syne',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .3s,transform .3s}
+.back-link:hover{border-bottom-color:var(--accent);transform:translateX(-4px)}
+[data-theme="medieval"] .back-link{font-family:'MedievalSharp','Outfit',sans-serif;letter-spacing:1px}
+
+/* FOOTER */
+.footer{max-width:1100px;margin:0 auto;padding:4rem 2rem 2.5rem;text-align:center;font-size:.8rem;color:rgba(0,18,51,.4)}
+
+@media (max-width:768px){
+  nav{padding:.9rem 1.2rem}
+  .nav-links{display:none}
+  .page-hero{padding:6.5rem 1.2rem 1rem}
+  section{padding:2rem 1.2rem 0}
+  .panel{padding:1.3rem}
+  .modeltoggle button{font-size:.8rem}
+  .back-row{padding:2rem 1.2rem 0}
+  .footer{padding:3rem 1.2rem 2rem}
+}
+</style>
+</head>
+<body>
+<div class="floating-shapes"><div class="shape"></div><div class="shape"></div><div class="shape"></div></div>
+
+<nav id="mainNav">
+<a href="/" class="nav-logo">V.</a>
+<div class="nav-right">
+<ul class="nav-links">
+<li><a href="/#om" data-i="nav1"></a></li>
+<li><a href="/#erfaring" data-i="nav2"></a></li>
+<li><a href="/#cv" data-i="nav3">CV</a></li>
+<li><a href="/#sertifiseringer" data-i="nav4"></a></li>
+<li><a href="/#forskning" data-i="nav5"></a></li>
+<li><a href="/prosjekter/" class="active" data-i="nav7"></a></li>
+<li><a href="/#kontakt" data-i="nav6"></a></li>
+</ul>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
+<div class="lang-switch">
+<button class="lang-btn" id="langBtn">NO</button>
+<div class="lang-menu" id="langMenu">
+<button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
+<button class="lang-opt" data-lang="en">🇬🇧 English</button>
+<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
+<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
+<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
+</div>
+</div>
+</div>
+</nav>
+
+<header class="page-hero">
+<span class="page-eyebrow" data-i="projLabel">Prosjekter</span>
+<h1 class="page-h1">Leie eller eie?</h1>
+<p class="page-sub">Lønner det seg å kjøpe bolig, eller å leie og investere differansen? Juster parameterne og se utfallet over tid — med norsk skjermingsfradrag, annuitetslån og skatt bakt inn.</p>
+</header>
+
+<section>
+<div class="panel">
+<div class="modeltoggle" id="modelToggle">
+<button data-model="diff" class="active">Eie vs. leie + invester differansen<small>Egenkapitalen brukes til boligkjøp. Kun den månedlige differansen investeres.</small></button>
+<button data-model="ekdiff">Eie vs. leie + invester EK + differansen<small>Egenkapitalen investeres som engangsbeløp fra dag 1, i tillegg til differansen.</small></button>
+</div>
+
+<div class="input-grid" id="coreInputs">
+<div class="field"><label for="boligpris">Boligpris</label><div class="field-wrap"><input type="number" id="boligpris" value="5000000" step="100000" min="0"><span class="unit">kr</span></div></div>
+<div class="field"><label for="egenkapital">Egenkapital</label><div class="field-wrap"><input type="number" id="egenkapital" value="750000" step="50000" min="0"><span class="unit">kr</span></div></div>
+<div class="field"><label for="rente">Boliglånsrente (nominell)</label><div class="field-wrap"><input type="number" id="rente" value="5.5" step="0.1" min="0"><span class="unit">%</span></div></div>
+<div class="field"><label for="leie">Leiekostnad</label><div class="field-wrap"><input type="number" id="leie" value="18000" step="500" min="0"><span class="unit">kr/mnd</span></div></div>
+<div class="field"><label for="horisont">Tidshorisont</label><div class="field-wrap"><input type="number" id="horisont" value="20" step="1" min="1" max="60"><span class="unit">år</span></div></div>
+<div class="field"><label for="aksjeavk">Forventet aksjeavkastning</label><div class="field-wrap"><input type="number" id="aksjeavk" value="7" step="0.5" min="0"><span class="unit">%/år</span></div></div>
+</div>
+
+<details class="advanced">
+<summary><span class="chev">▸</span> Avanserte innstillinger</summary>
+<div class="input-grid">
+<div class="field"><label for="nedbetaling">Nedbetalingstid (annuitet)</label><div class="field-wrap"><input type="number" id="nedbetaling" value="25" step="1" min="1" max="40"><span class="unit">år</span></div></div>
+<div class="field"><label for="rentefradrag">Skattefradrag på renteutgifter</label><div class="field-wrap"><input type="number" id="rentefradrag" value="22" step="1" min="0" max="100"><span class="unit">%</span></div></div>
+<div class="field"><label for="aksjeskatt">Skatt på aksjegevinst</label><div class="field-wrap"><input type="number" id="aksjeskatt" value="37.84" step="0.01" min="0" max="100"><span class="unit">%</span></div></div>
+<div class="field"><label for="skjerming">Skjermingsrente</label><div class="field-wrap"><input type="number" id="skjerming" value="3.8" step="0.1" min="0"><span class="unit">%/år</span></div></div>
+<div class="field"><label for="felles">Felleskostnader</label><div class="field-wrap"><input type="number" id="felles" value="4000" step="500" min="0"><span class="unit">kr/mnd</span></div></div>
+<div class="field"><label for="vedlikehold">Vedlikehold</label><div class="field-wrap"><input type="number" id="vedlikehold" value="1" step="0.1" min="0"><span class="unit">%/år av verdi</span></div></div>
+<div class="field"><label for="kommunale">Kommunale avgifter</label><div class="field-wrap"><input type="number" id="kommunale" value="15000" step="1000" min="0"><span class="unit">kr/år</span></div></div>
+<div class="field"><label for="boligvekst">Årlig boligprisvekst</label><div class="field-wrap"><input type="number" id="boligvekst" value="3" step="0.5" min="-10"><span class="unit">%/år</span></div></div>
+<div class="field"><label for="salgskost">Salgskostnader ved boligsalg</label><div class="field-wrap"><input type="number" id="salgskost" value="2.5" step="0.5" min="0"><span class="unit">%</span></div></div>
+<div class="field"><label for="inflasjon">Inflasjon</label><div class="field-wrap"><input type="number" id="inflasjon" value="2.5" step="0.5" min="0"><span class="unit">%/år</span></div></div>
+<div class="field"><label for="leievekst">Lønnsvekst / leieprisvekst</label><div class="field-wrap"><input type="number" id="leievekst" value="3" step="0.5" min="0"><span class="unit">%/år</span></div></div>
+</div>
+</details>
+</div>
+</section>
+
+<section>
+<div class="sub-header">
+<h2 class="sub-title">Nøkkeltall</h2>
+<span class="sub-note" id="metricNote"></span>
+</div>
+<div class="metrics-grid" id="metrics"></div>
+</section>
+
+<section>
+<div class="sub-header">
+<h2 class="sub-title">Netto formue over tid</h2>
+<span class="sub-note">Eie vs. leie + invester — netto av skatt og salgskostnader</span>
+</div>
+<div class="chart-card"><div class="chart-wrap"><canvas id="chart"></canvas></div></div>
+</section>
+
+<section>
+<div class="sub-header">
+<h2 class="sub-title">År for år</h2>
+<span class="sub-note">Alle tall i nominelle kroner</span>
+</div>
+<div class="table-scroll">
+<table class="cmp">
+<thead><tr>
+<th>År</th><th>Boligverdi</th><th>Gjenstående lån</th><th>Netto eieformue</th><th>Investeringsportefølje</th><th>Netto leieformue</th>
+</tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+</section>
+
+<section>
+<div class="sub-header">
+<h2 class="sub-title">Forutsetninger</h2>
+</div>
+<p class="disclaimer">
+Modellen er en forenkling. Den ignorerer formuesskatt, dokumentavgift ved kjøp, transaksjonskostnader ved boligkjøp, eventuell utleieinntekt og at bolig kan være belånt på nytt. Skjermingsfradraget beregnes på samlet innskutt kapital ved inngangen til hvert år pluss akkumulert ubrukt skjerming, og realiseres først ved slutten av tidshorisonten — en forenkling av de faktiske aksjonærmodell-reglene. Avkastning er forutsatt jevn og uten volatilitet. Reelle utfall avhenger sterkt av rente, boligprisvekst og avkastning, som ingen kjenner på forhånd. Ikke finansiell rådgivning.
+</p>
+</section>
+
+<div class="back-row">
+<a href="/prosjekter/" class="back-link">← Tilbake til prosjekter</a>
+</div>
+
+<div class="footer">&copy; 2026 Valiant Evers, Oslo</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+/*
+ * LEIE-ELLER-EIE — beregningsmodell
+ * ---------------------------------
+ * To scenarioer sammenliknes over en valgt tidshorisont, begge netto etter skatt:
+ *
+ *  EIE: Boliglån som annuitet (lik månedlig termin) over nedbetalingstiden.
+ *       Rentedelen gir skattefradrag (default 22%). I tillegg betales
+ *       felleskostnader, kommunale avgifter (begge justert med inflasjon) og
+ *       vedlikehold (% av løpende boligverdi). Boligverdien vokser årlig.
+ *       Netto eieformue = boligverdi*(1−salgskostnad%) − gjenstående lån.
+ *
+ *  LEIE + INVESTER: Leie justeres opp med leieprisvekst hvert år. Hver måned
+ *       investeres differansen mellom samlet eierkostnad og leie i aksjefond.
+ *       Er leien høyere enn eierkostnaden (typisk etter at lånet er nedbetalt),
+ *       investerer "eieren" differansen i sin egen sideportefølje i stedet —
+ *       slik at sammenlikningen forblir rettferdig hele veien.
+ *       Modell 1: kun differansen investeres (EK brukes til boligkjøp).
+ *       Modell 2: egenkapitalen investeres også som engangsbeløp ved start.
+ *
+ *  SKJERMINGSFRADRAG (aksjonærmodellen, forenklet):
+ *       Hvert år: skjermingsfradrag = skjermingsgrunnlag * skjermingsrente,
+ *       der skjermingsgrunnlag = innskutt kapital ved årets start + akkumulert
+ *       ubrukt skjerming fra tidligere år. Ubrukt skjerming akkumuleres så lenge
+ *       porteføljen ikke realiseres. Ved realisering (slutt av tidshorisonten):
+ *       skattbar gevinst = total gevinst − akkumulert skjerming, deretter
+ *       aksjeskatt (default 37,84%) på det justerte beløpet. Skatten kan ikke
+ *       bli negativ — skjerming reduserer skatt til 0, men gir ikke fradrag.
+ *
+ *  beregn(p) er en ren funksjon: tar parameterobjekt, returnerer
+ *  { aar: [...], oppsummering: {...} } — lett å teste isolert.
+ */
+function beregn(p){
+  var H=Math.max(1,Math.round(p.horisont));
+  var laan0=Math.max(0,p.boligpris-p.egenkapital);
+  var iM=p.rente/100/12;                 // månedlig nominell rente
+  var nMnd=Math.round(p.nedbetaling*12); // antall terminer
+  var termin; // månedlig annuitet
+  if(laan0<=0) termin=0;
+  else if(iM<=0) termin=laan0/nMnd;
+  else termin=laan0*iM/(1-Math.pow(1+iM,-nMnd));
+
+  var rM=Math.pow(1+p.aksjeavk/100,1/12)-1; // månedlig aksjeavkastning (geometrisk)
+  var infl=p.inflasjon/100, appr=p.boligvekst/100, leieG=p.leievekst/100;
+  var rentefr=p.rentefradrag/100, sCgt=p.aksjeskatt/100, skjR=p.skjerming/100;
+  var salgK=p.salgskost/100, vedlikP=p.vedlikehold/100;
+
+  // Porteføljer: leietakers, og eierens egen side-portefølje (når leie > eierkostnad)
+  var leiePf=0, eierPf=0;
+  var leieInnskutt=0, eierInnskutt=0;          // kostpris (sum innskudd)
+  var leieSkjermAkk=0, eierSkjermAkk=0;        // akkumulert ubrukt skjerming
+
+  if(p.model==='ekdiff' && p.egenkapital>0){   // modell 2: EK investeres ved start
+    leiePf+=p.egenkapital; leieInnskutt+=p.egenkapital;
+  }
+
+  var saldo=laan0, mGlobal=0;
+  var aar=[];
+  // År 0 (utgangspunkt)
+  aar.push({
+    aar:0,
+    boligverdi:p.boligpris,
+    laan:laan0,
+    nettoEie:p.boligpris*(1-salgK)-laan0,
+    leiePf:leiePf,
+    nettoLeie:leiePf,            // ingen gevinst ennå
+    eierPf:0
+  });
+
+  for(var y=1;y<=H;y++){
+    var leieInnskuttStart=leieInnskutt;   // grunnlag for skjerming = innskutt v/ årets start
+    var eierInnskuttStart=eierInnskutt;
+    var aarRente=0;
+
+    var boligverdiInn=p.boligpris*Math.pow(1+appr,y-1); // verdi v/ årets start (vedlikeholdsgrunnlag)
+    var fellesM=p.felles*Math.pow(1+infl,y-1);
+    var kommM=(p.kommunale/12)*Math.pow(1+infl,y-1);
+    var vedlikM=(vedlikP*boligverdiInn)/12;
+    var leieM=p.leie*Math.pow(1+leieG,y-1);
+
+    for(var k=0;k<12;k++){
+      mGlobal++;
+      var renteM=0, avdragM=0, terminM=0;
+      if(saldo>0.005 && mGlobal<=nMnd){
+        renteM=saldo*iM;
+        terminM=termin;
+        avdragM=terminM-renteM;
+        if(avdragM>saldo){avdragM=saldo;terminM=avdragM+renteM;}
+        saldo-=avdragM;
+      }
+      aarRente+=renteM;
+
+      // Samlet eierkostnad denne måneden (kontantstrøm), netto for skattefradrag
+      var eierKost=terminM+fellesM+kommM+vedlikM-rentefr*renteM;
+      var diff=eierKost-leieM;
+
+      // Vekst på porteføljer FØR månedens innskudd
+      leiePf*=(1+rM); eierPf*=(1+rM);
+      if(diff>0){            // eierkostnad høyest → leietaker investerer differansen
+        leiePf+=diff; leieInnskutt+=diff;
+      }else if(diff<0){      // leie høyest → eier investerer differansen i egen portefølje
+        eierPf+=(-diff); eierInnskutt+=(-diff);
+      }
+    }
+
+    // Årlig skjermingsfradrag (grunnlag = innskutt v/ årets start + akkumulert ubrukt)
+    leieSkjermAkk+=(leieInnskuttStart+leieSkjermAkk)*skjR;
+    eierSkjermAkk+=(eierInnskuttStart+eierSkjermAkk)*skjR;
+
+    // Netto verdier hvis realisert ved utgangen av dette året
+    var boligverdiUt=p.boligpris*Math.pow(1+appr,y);
+    var nettoEie=boligverdiUt*(1-salgK)-saldo;
+
+    var leieGev=leiePf-leieInnskutt;
+    var leieSkattbar=Math.max(0,leieGev-leieSkjermAkk);
+    var leiePfNetto=leiePf-leieSkattbar*sCgt;
+
+    var eierGev=eierPf-eierInnskutt;
+    var eierSkattbar=Math.max(0,eierGev-eierSkjermAkk);
+    var eierPfNetto=eierPf-eierSkattbar*sCgt;
+
+    aar.push({
+      aar:y,
+      boligverdi:boligverdiUt,
+      laan:saldo,
+      nettoEie:nettoEie+eierPfNetto,   // eiers totale netto = bolig + ev. sideportefølje
+      leiePf:leiePf,
+      nettoLeie:leiePfNetto,
+      eierPf:eierPfNetto
+    });
+  }
+
+  var sis=aar[aar.length-1];
+  var nettoEie=sis.nettoEie, nettoLeie=sis.nettoLeie;
+  var diffKr=nettoEie-nettoLeie;
+  var vinner=Math.abs(diffKr)<1?'likt':(diffKr>0?'eie':'leie');
+  var basis=Math.max(Math.abs(nettoEie),Math.abs(nettoLeie),1);
+  var diffPct=diffKr/basis*100;
+
+  // Break-even: første år der ledelsen skifter fortegn ift. år 1
+  var beAar=null;
+  if(aar.length>2){
+    var d1=aar[1].nettoEie-aar[1].nettoLeie;
+    for(var j=2;j<aar.length;j++){
+      var dj=aar[j].nettoEie-aar[j].nettoLeie;
+      if((d1<0&&dj>=0)||(d1>0&&dj<=0)||(d1===0&&dj!==0)){beAar=aar[j].aar;break;}
+    }
+  }
+
+  return {
+    aar:aar,
+    oppsummering:{
+      nettoEie:nettoEie, nettoLeie:nettoLeie,
+      diffKr:diffKr, diffPct:diffPct,
+      vinner:vinner, breakEven:beAar, horisont:H
+    }
+  };
+}
+
+/* ---------- UI ---------- */
+(function(){
+var T={
+no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",projLabel:"Prosjekter"},
+en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",projLabel:"Projects"},
+fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",projLabel:"Projets"},
+de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",projLabel:"Projekte"},
+ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",projLabel:"プロジェクト"},
+medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",projLabel:"Verk & Bedrifter"}
+};
+function setLang(l){
+  document.documentElement.lang=l;
+  var d=T[l]||T.no;
+  document.querySelectorAll('[data-i]').forEach(function(el){
+    var k=el.getAttribute('data-i'); if(d[k]!==undefined)el.innerHTML=d[k];
+  });
+  var btn=document.getElementById('langBtn');
+  if(btn)btn.textContent=(l==='medieval'?'NO':l).toUpperCase();
+  document.querySelectorAll('.lang-opt').forEach(function(o){
+    o.classList.toggle('active',o.getAttribute('data-lang')===l);
+  });
+  var menu=document.getElementById('langMenu');if(menu)menu.classList.remove('open');
+  try{localStorage.setItem('ve-lang',l)}catch(e){}
+}
+var sv;try{sv=localStorage.getItem('ve-lang')}catch(e){}
+setLang(sv&&T[sv]?sv:'no');
+
+var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
+if(savedTheme==='dark'||savedTheme==='medieval'){document.documentElement.setAttribute('data-theme',savedTheme);}
+function updateThemeIcon(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var btn=document.getElementById('themeToggle'); if(!btn)return;
+  btn.textContent=(t==='dark')?'🌙':(t==='medieval'?'⚔️':'☀️');
+}
+updateThemeIcon();
+document.getElementById('themeToggle').addEventListener('click',function(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var next=(t==='dark')?null:'dark';
+  if(next){document.documentElement.setAttribute('data-theme',next);}
+  else{document.documentElement.removeAttribute('data-theme');}
+  try{localStorage.setItem('ve-theme',next||'')}catch(e){}
+  updateThemeIcon(); render();
+});
+document.getElementById('langBtn').addEventListener('click',function(e){
+  e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open');
+});
+document.addEventListener('click',function(e){
+  var m=document.getElementById('langMenu');
+  if(m&&!m.contains(e.target)&&e.target.id!=='langBtn'){m.classList.remove('open');}
+});
+document.querySelectorAll('.lang-opt').forEach(function(o){
+  o.addEventListener('click',function(){setLang(o.getAttribute('data-lang'));});
+});
+window.addEventListener('scroll',function(){
+  var nav=document.getElementById('mainNav');
+  if(window.scrollY>50)nav.classList.add('scrolled');else nav.classList.remove('scrolled');
+});
+// Easter egg: "prins" → middelaldermodus
+var typed='';
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  typed=(typed+e.key.toLowerCase()).slice(-10);
+  if(typed.indexOf('prins')!==-1){
+    document.documentElement.setAttribute('data-theme','medieval');
+    try{localStorage.setItem('ve-theme','medieval')}catch(e){}
+    setLang('medieval'); updateThemeIcon(); render(); typed='';
+  }
+});
+
+/* tallformat: norsk tusenskille med hardt mellomrom */
+function nf(x){
+  x=Math.round(x); var neg=x<0; x=Math.abs(x);
+  var s=String(x), out='';
+  for(var i=0;i<s.length;i++){ if(i>0&&(s.length-i)%3===0)out+=' '; out+=s[i]; }
+  return (neg?'−':'')+out;
+}
+function kr(x){return nf(x)+' kr';}
+
+var model='diff';
+document.querySelectorAll('#modelToggle button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#modelToggle button').forEach(function(x){x.classList.remove('active');});
+    b.classList.add('active'); model=b.getAttribute('data-model'); render();
+  });
+});
+
+function val(id){var v=parseFloat(document.getElementById(id).value);return isFinite(v)?v:0;}
+function readParams(){
+  return {
+    model:model,
+    boligpris:val('boligpris'), egenkapital:val('egenkapital'), rente:val('rente'),
+    leie:val('leie'), horisont:val('horisont'), aksjeavk:val('aksjeavk'),
+    nedbetaling:val('nedbetaling'), rentefradrag:val('rentefradrag'),
+    aksjeskatt:val('aksjeskatt'), skjerming:val('skjerming'), felles:val('felles'),
+    vedlikehold:val('vedlikehold'), kommunale:val('kommunale'),
+    boligvekst:val('boligvekst'), salgskost:val('salgskost'),
+    inflasjon:val('inflasjon'), leievekst:val('leievekst')
+  };
+}
+
+var chart=null;
+function cssVar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+
+function render(){
+  var p=readParams();
+  var r=beregn(p);
+  var o=r.oppsummering;
+
+  // Nøkkeltall
+  var winLeie=o.vinner==='leie', winEie=o.vinner==='eie';
+  var be=o.breakEven===null?'Ingen i perioden':('År '+o.breakEven);
+  var vinnerTxt=o.vinner==='likt'?'Uavgjort':(o.vinner==='eie'?'Eie vinner':'Leie + invester vinner');
+  document.getElementById('metricNote').textContent='Ved '+o.horisont+' år · '+(model==='diff'?'Modell 1: invester differansen':'Modell 2: invester EK + differansen');
+  document.getElementById('metrics').innerHTML=
+    '<div class="metric"><div class="m-label">Break-even</div><div class="m-value">'+be+'</div><div class="m-sub">Når ledelsen snur</div></div>'+
+    '<div class="metric'+(winEie?' win':'')+'"><div class="m-label">Netto formue — eie</div><div class="m-value eie">'+kr(o.nettoEie)+'</div><div class="m-sub">Bolig minus lån, etter salgskostnad</div></div>'+
+    '<div class="metric'+(winLeie?' win':'')+'"><div class="m-label">Netto formue — leie + invester</div><div class="m-value leie">'+kr(o.nettoLeie)+'</div><div class="m-sub">Portefølje etter aksjeskatt</div></div>'+
+    '<div class="metric"><div class="m-label">Differanse</div><div class="m-value">'+kr(Math.abs(o.diffKr))+'</div><div class="m-sub">'+(Math.abs(o.diffPct)).toFixed(1).replace('.',',')+' % · '+vinnerTxt+'</div></div>';
+
+  // Graf
+  var labels=r.aar.map(function(a){return a.aar;});
+  var dEie=r.aar.map(function(a){return Math.round(a.nettoEie);});
+  var dLeie=r.aar.map(function(a){return Math.round(a.nettoLeie);});
+  var cEie=cssVar('--accent4')||'#004eaa', cLeie=cssVar('--accent')||'#0070ed';
+  var grid=getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
+  var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  var gridC=isDark?'rgba(225,231,255,.08)':'rgba(0,18,51,.07)';
+  var tickC=isDark?'rgba(225,231,255,.55)':'rgba(0,18,51,.55)';
+
+  if(chart)chart.destroy();
+  chart=new Chart(document.getElementById('chart'),{
+    type:'line',
+    data:{labels:labels,datasets:[
+      {label:'Eie (netto formue)',data:dEie,borderColor:cEie,backgroundColor:cEie+'22',borderWidth:2.5,tension:.25,pointRadius:0,pointHoverRadius:5,fill:false},
+      {label:'Leie + invester (netto formue)',data:dLeie,borderColor:cLeie,backgroundColor:cLeie+'22',borderWidth:2.5,tension:.25,pointRadius:0,pointHoverRadius:5,fill:false}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{labels:{color:tickC,font:{family:'Outfit',size:13},usePointStyle:true,pointStyle:'line'}},
+        tooltip:{
+          callbacks:{
+            title:function(it){return 'År '+it[0].label;},
+            label:function(c){return c.dataset.label+': '+kr(c.parsed.y);}
+          }
+        }
+      },
+      scales:{
+        x:{grid:{color:gridC},ticks:{color:tickC,font:{family:'Outfit'}},title:{display:true,text:'År',color:tickC}},
+        y:{grid:{color:gridC},ticks:{color:tickC,font:{family:'Outfit'},callback:function(v){return nf(v);}}}
+      }
+    }
+  });
+
+  // Tabell
+  var rows='';
+  r.aar.forEach(function(a){
+    var beHit=(o.breakEven!==null&&a.aar===o.breakEven);
+    rows+='<tr'+(beHit?' class="be-row"':'')+'><td>'+a.aar+'</td><td>'+kr(a.boligverdi)+'</td><td>'+kr(a.laan)+'</td><td>'+kr(a.nettoEie)+'</td><td>'+kr(a.leiePf)+'</td><td>'+kr(a.nettoLeie)+'</td></tr>';
+  });
+  document.getElementById('tbody').innerHTML=rows;
+}
+
+document.querySelectorAll('#coreInputs input, .advanced input').forEach(function(inp){
+  inp.addEventListener('input',render);
+});
+render();
+})();
+</script>
+</body>
+</html>
