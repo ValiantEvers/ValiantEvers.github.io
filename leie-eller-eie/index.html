@@ -250,12 +250,13 @@ table.cmp tbody tr.be-row{background:rgba(0,112,237,.09)}
 <div class="field"><label for="nedbetaling">Nedbetalingstid (annuitet)</label><div class="field-wrap"><input type="number" id="nedbetaling" value="25" step="1" min="1" max="40"><span class="unit">år</span></div></div>
 <div class="field"><label for="rentefradrag">Skattefradrag på renteutgifter</label><div class="field-wrap"><input type="number" id="rentefradrag" value="22" step="1" min="0" max="100"><span class="unit">%</span></div></div>
 <div class="field"><label for="aksjeskatt">Skatt på aksjegevinst</label><div class="field-wrap"><input type="number" id="aksjeskatt" value="37.84" step="0.01" min="0" max="100"><span class="unit">%</span></div></div>
-<div class="field"><label for="skjerming">Skjermingsrente</label><div class="field-wrap"><input type="number" id="skjerming" value="3.8" step="0.1" min="0"><span class="unit">%/år</span></div></div>
+<div class="field"><label for="skjerming">Skjermingsrente</label><div class="field-wrap"><input type="number" id="skjerming" value="3.6" step="0.1" min="0"><span class="unit">%/år</span></div></div>
 <div class="field"><label for="felles">Felleskostnader</label><div class="field-wrap"><input type="number" id="felles" value="4000" step="500" min="0"><span class="unit">kr/mnd</span></div></div>
 <div class="field"><label for="vedlikehold">Vedlikehold</label><div class="field-wrap"><input type="number" id="vedlikehold" value="1" step="0.1" min="0"><span class="unit">%/år av verdi</span></div></div>
 <div class="field"><label for="kommunale">Kommunale avgifter</label><div class="field-wrap"><input type="number" id="kommunale" value="15000" step="1000" min="0"><span class="unit">kr/år</span></div></div>
 <div class="field"><label for="boligvekst">Årlig boligprisvekst</label><div class="field-wrap"><input type="number" id="boligvekst" value="3" step="0.5" min="-10"><span class="unit">%/år</span></div></div>
 <div class="field"><label for="salgskost">Salgskostnader ved boligsalg</label><div class="field-wrap"><input type="number" id="salgskost" value="2.5" step="0.5" min="0"><span class="unit">%</span></div></div>
+<div class="field"><label for="kjopskost">Kjøpsomkostninger (dokumentavgift + tinglysing)</label><div class="field-wrap"><input type="number" id="kjopskost" value="2.5" step="0.1" min="0"><span class="unit">%</span></div></div>
 <div class="field"><label for="inflasjon">Inflasjon</label><div class="field-wrap"><input type="number" id="inflasjon" value="2.5" step="0.5" min="0"><span class="unit">%/år</span></div></div>
 <div class="field"><label for="leievekst">Lønnsvekst / leieprisvekst</label><div class="field-wrap"><input type="number" id="leievekst" value="3" step="0.5" min="0"><span class="unit">%/år</span></div></div>
 </div>
@@ -299,7 +300,7 @@ table.cmp tbody tr.be-row{background:rgba(0,112,237,.09)}
 <h2 class="sub-title">Forutsetninger</h2>
 </div>
 <p class="disclaimer">
-Modellen er en forenkling. Den ignorerer formuesskatt, dokumentavgift ved kjøp, transaksjonskostnader ved boligkjøp, eventuell utleieinntekt og at bolig kan være belånt på nytt. Skjermingsfradraget beregnes på samlet innskutt kapital ved inngangen til hvert år pluss akkumulert ubrukt skjerming, og realiseres først ved slutten av tidshorisonten — en forenkling av de faktiske aksjonærmodell-reglene. Avkastning er forutsatt jevn og uten volatilitet. Reelle utfall avhenger sterkt av rente, boligprisvekst og avkastning, som ingen kjenner på forhånd. Ikke finansiell rådgivning.
+Modellen er en forenkling. Den ignorerer formuesskatt, eventuell utleieinntekt og at bolig kan være belånt på nytt. Kjøpsomkostninger (dokumentavgift + tinglysing) inkluderes som engangskostnad eieren betaler dag 1. Skjermingsfradraget beregnes på samlet innskutt kapital ved inngangen til hvert år pluss akkumulert ubrukt skjerming, og realiseres først ved slutten av tidshorisonten — en forenkling av de faktiske aksjonærmodell-reglene. Avkastning er forutsatt jevn og uten volatilitet. Reelle utfall avhenger sterkt av rente, boligprisvekst og avkastning, som ingen kjenner på forhånd. Ikke finansiell rådgivning.
 </p>
 </section>
 
@@ -356,14 +357,16 @@ function beregn(p){
   var infl=p.inflasjon/100, appr=p.boligvekst/100, leieG=p.leievekst/100;
   var rentefr=p.rentefradrag/100, sCgt=p.aksjeskatt/100, skjR=p.skjerming/100;
   var salgK=p.salgskost/100, vedlikP=p.vedlikehold/100;
+  var kjopskostKr=p.boligpris*(p.kjopskost/100); // engangskostnad ved kjøp (sunk cost dag 1)
 
   // Porteføljer: leietakers, og eierens egen side-portefølje (når leie > eierkostnad)
   var leiePf=0, eierPf=0;
   var leieInnskutt=0, eierInnskutt=0;          // kostpris (sum innskudd)
   var leieSkjermAkk=0, eierSkjermAkk=0;        // akkumulert ubrukt skjerming
 
-  if(p.model==='ekdiff' && p.egenkapital>0){   // modell 2: EK investeres ved start
-    leiePf+=p.egenkapital; leieInnskutt+=p.egenkapital;
+  if(p.model==='ekdiff'){   // modell 2: EK + kjøpsomkostninger investeres ved start
+    var ekdiffStart=p.egenkapital+kjopskostKr;
+    if(ekdiffStart>0){ leiePf+=ekdiffStart; leieInnskutt+=ekdiffStart; }
   }
 
   var saldo=laan0, mGlobal=0;
@@ -373,7 +376,7 @@ function beregn(p){
     aar:0,
     boligverdi:p.boligpris,
     laan:laan0,
-    nettoEie:p.boligpris*(1-salgK)-laan0,
+    nettoEie:p.boligpris-laan0-kjopskostKr,  // år 0: ingen salg → ingen salgskostnad, men kjøpsomkostninger er betalt
     leiePf:leiePf,
     nettoLeie:leiePf,            // ingen gevinst ennå
     eierPf:0
@@ -421,7 +424,7 @@ function beregn(p){
 
     // Netto verdier hvis realisert ved utgangen av dette året
     var boligverdiUt=p.boligpris*Math.pow(1+appr,y);
-    var nettoEie=boligverdiUt*(1-salgK)-saldo;
+    var nettoEie=boligverdiUt*(1-salgK)-saldo-kjopskostKr;
 
     var leieGev=leiePf-leieInnskutt;
     var leieSkattbar=Math.max(0,leieGev-leieSkjermAkk);
@@ -565,6 +568,7 @@ function readParams(){
     aksjeskatt:val('aksjeskatt'), skjerming:val('skjerming'), felles:val('felles'),
     vedlikehold:val('vedlikehold'), kommunale:val('kommunale'),
     boligvekst:val('boligvekst'), salgskost:val('salgskost'),
+    kjopskost:val('kjopskost'),
     inflasjon:val('inflasjon'), leievekst:val('leievekst')
   };
 }
