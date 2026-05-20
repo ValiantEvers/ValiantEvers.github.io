@@ -39,7 +39,7 @@ function App() {
             Pensjonskalkulator
           </p>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.05] text-ink max-w-3xl">
-            Hva blir egentlig pensjonen din?
+            Hva blir egentlig din pensjon?
           </h1>
           <p className="text-base sm:text-lg text-ink/75 mt-5 max-w-2xl leading-relaxed">
             Norsk pensjon er stykket opp i fire bokser: folketrygd, tjenestepensjon, IPS og
