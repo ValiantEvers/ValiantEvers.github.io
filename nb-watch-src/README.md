@@ -117,6 +117,14 @@ rapport, mars/juni/sept/des). Når en ny rapport kommer:
 3. Kjør `python scripts/update_rentebane.py` (eller bare `fetch_all.py`)
 4. Commit
 
+## Kjente begrensninger
+
+- SSB tabell 03013 og 05327 returnerer per 20.05.2026 kun data til
+  desember 2025. Mistenkt query-bug i `fetch_ssb.py` (sannsynligvis feil
+  `ContentsCode` eller utdatert tabell-ID). Reverifiser etter 10. juni
+  2026 — hvis 03013 fortsatt stopper på 2025-12 da, krever feilsøking i
+  fetch-scriptet.
+
 ## Hva som IKKE er med i MVP
 
 - OIS-implisert markedsbane (krever betalte data)
