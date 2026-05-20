@@ -1,0 +1,63 @@
+name: Refresh nb-watch data
+
+# Aktivering: fjern '#'-en foran schedule nedenfor for å aktivere daglig
+# cron (06:00 UTC = 07:00/08:00 lokal tid avhengig av sommertid). Inntil
+# da kjør manuelt fra Actions-fanen, eller etter at smoke_test.py viser
+# at alle kilder svarer som forventet.
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: nb-watch-src/scripts/requirements.txt
+
+      - name: Installer dependencies
+        working-directory: nb-watch-src
+        run: pip install -r scripts/requirements.txt
+
+      - name: Smoke-test datakilder
+        working-directory: nb-watch-src
+        run: python scripts/smoke_test.py
+        # Smoke-test exit-koder != 0 hvis noen kilder feiler — men vi
+        # vil fortsatt forsøke å oppdatere de som virker.
+        continue-on-error: true
+
+      - name: Hent ferske data
+        working-directory: nb-watch-src
+        run: python scripts/fetch_all.py
+
+      - name: Speil data til deploy-mappe
+        # public/data/ er sannhetskilden, men nb-watch/data/ er det
+        # GitHub Pages faktisk serverer. Vi kopierer i stedet for å
+        # kjøre full Vite-build hver dag (raskere, mindre støy i diff).
+        run: |
+          mkdir -p nb-watch/data
+          cp -f nb-watch-src/public/data/*.json nb-watch/data/
+
+      - name: Commit oppdaterte JSON-filer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add nb-watch-src/public/data/ nb-watch/data/
+          if git diff --cached --quiet; then
+            echo "Ingen endringer i data — hopper over commit"
+            exit 0
+          fi
+          git commit -m "Refresh nb-watch data [skip ci]"
+          git push
