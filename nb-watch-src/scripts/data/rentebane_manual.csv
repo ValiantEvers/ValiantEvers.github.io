@@ -1,0 +1,18 @@
+dato,rente,kilde_ppr
+# TODO: Manuelt vedlikeholdt fra Pengepolitisk rapport.
+# Hent siste PPR fra: https://www.norges-bank.no/aktuelt/publikasjoner/pengepolitisk-rapport/
+# Format: dato (YYYY-MM-DD, første dag i kvartal), rente (% desimal med punktum), kilde_ppr (f.eks. "PPR 1/26").
+# Seed-rad nedenfor er fra PPR 1/2026 (mars 2026). Bytt ut etter neste publisering (juni 2026).
+2026-03-01,4.50,PPR 1/26
+2026-06-01,4.25,PPR 1/26
+2026-09-01,4.00,PPR 1/26
+2026-12-01,3.75,PPR 1/26
+2027-03-01,3.50,PPR 1/26
+2027-06-01,3.25,PPR 1/26
+2027-09-01,3.25,PPR 1/26
+2027-12-01,3.00,PPR 1/26
+2028-03-01,3.00,PPR 1/26
+2028-06-01,2.75,PPR 1/26
+2028-09-01,2.75,PPR 1/26
+2028-12-01,2.75,PPR 1/26
+2029-03-01,2.50,PPR 1/26
