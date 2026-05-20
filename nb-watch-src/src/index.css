@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-paper-dark text-ink-dark;
+  }
+}
+
+h1, h2, h3, h4 {
+  @apply font-serif;
+  letter-spacing: -0.01em;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Recharts overstyringer — fjern default-stiler som ikke matcher temaet. */
+.recharts-default-tooltip {
+  @apply bg-paper border border-line text-ink !important;
+}
+@media (prefers-color-scheme: dark) {
+  .recharts-default-tooltip {
+    @apply bg-paper-dark border-line-dark text-ink-dark !important;
+  }
+}
+
+.recharts-cartesian-axis-tick text,
+.recharts-legend-item-text {
+  fill: currentColor;
+  @apply text-muted text-xs;
+}
+@media (prefers-color-scheme: dark) {
+  .recharts-cartesian-axis-tick text,
+  .recharts-legend-item-text {
+    @apply text-muted-dark;
+  }
+}
