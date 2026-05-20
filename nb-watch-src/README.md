@@ -91,19 +91,35 @@ ut som proxy.
 
 ## GitHub Actions
 
-To workflow-filer er på plass, men begge er satt opp med kun
-`workflow_dispatch` (manuell trigger):
+Én konsolidert pipeline-workflow:
+`.github/workflows/refresh-nb-watch-data.yml`. Triggere og oppførsel:
 
-- `.github/workflows/build-nb-watch.yml` — bygger Vite-prosjektet og
-  committer `nb-watch/` til main. Aktiveres ved å fjerne kommentaren på
-  push-triggeren.
-- `.github/workflows/refresh-nb-watch-data.yml` — kjører `fetch_all.py`,
-  oppdaterer JSON-filer i både `public/data/` og `nb-watch/data/`,
-  committer med `[skip ci]`. Aktiveres ved å fjerne kommentaren på
-  schedule-triggeren (cron `0 6 * * *`).
+| Trigger             | Fetch | Build      | Commit-melding                                |
+|---------------------|-------|------------|-----------------------------------------------|
+| `schedule` (cron)   | ja    | nei (cp)   | `nb-watch: auto-refresh data [skip ci]`       |
+| `workflow_dispatch` | ja    | ja (full)  | `nb-watch: manuell pipeline [skip ci]`        |
+| `push` til main\*   | nei   | ja (full)  | `nb-watch: rebuild fra kode-endring [skip ci]`|
 
-Kjør dem manuelt fra Actions-fanen først, og verifiser at de gjør det de
-skal, før triggerne aktiveres.
+\* Kun når filer under `nb-watch-src/**` endres, med unntak av
+`nb-watch-src/public/data/**` (for å unngå loops).
+
+Cron: daglig kl. `06:00 UTC` (≈ 07:00 vinter / 08:00 sommer lokal tid).
+Forventet kjøretid: ~2-4 min på schedule, ~3-5 min på full build.
+
+### Kjør manuelt
+
+Fra Actions-fanen i GitHub UI, eller via `gh` CLI:
+
+```bash
+gh workflow run refresh-nb-watch-data.yml
+gh run watch                            # følg siste run live
+gh run list --workflow=refresh-nb-watch-data.yml --limit 5
+```
+
+Workflow committer kun hvis noe har endret seg i `public/data/` eller
+`nb-watch/`. `[skip ci]` i commit-meldingen sørger for at workflow-en ikke
+trigger seg selv. Krever "Read and write permissions" i Settings → Actions
+→ General.
 
 ## Rentebane — manuell vedlikehold
 
