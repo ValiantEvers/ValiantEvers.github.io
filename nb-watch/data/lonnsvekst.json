@@ -1,0 +1,69 @@
+{
+  "series": "lonnsvekst",
+  "unit": "NOK per måned + YoY %",
+  "description": "Gjennomsnittlig månedslønn, alle yrker og sektorer, og årlig vekst (YoY).",
+  "source": "SSB tabell 11418",
+  "data": [
+    {
+      "date": "2016-01-01",
+      "year": "2016",
+      "value": 43640.0,
+      "yoy_pct": null
+    },
+    {
+      "date": "2017-01-01",
+      "year": "2017",
+      "value": 44660.0,
+      "yoy_pct": 2.34
+    },
+    {
+      "date": "2018-01-01",
+      "year": "2018",
+      "value": 46010.0,
+      "yoy_pct": 3.02
+    },
+    {
+      "date": "2019-01-01",
+      "year": "2019",
+      "value": 47720.0,
+      "yoy_pct": 3.72
+    },
+    {
+      "date": "2020-01-01",
+      "year": "2020",
+      "value": 48750.0,
+      "yoy_pct": 2.16
+    },
+    {
+      "date": "2021-01-01",
+      "year": "2021",
+      "value": 50790.0,
+      "yoy_pct": 4.18
+    },
+    {
+      "date": "2022-01-01",
+      "year": "2022",
+      "value": 53150.0,
+      "yoy_pct": 4.65
+    },
+    {
+      "date": "2023-01-01",
+      "year": "2023",
+      "value": 56360.0,
+      "yoy_pct": 6.04
+    },
+    {
+      "date": "2024-01-01",
+      "year": "2024",
+      "value": 59370.0,
+      "yoy_pct": 5.34
+    },
+    {
+      "date": "2025-01-01",
+      "year": "2025",
+      "value": 62070.0,
+      "yoy_pct": 4.55
+    }
+  ],
+  "last_fetched": "2026-05-20T19:35:15.737145Z"
+}
