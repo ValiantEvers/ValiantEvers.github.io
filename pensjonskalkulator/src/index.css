@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30;
+  }
+
+  ::selection {
+    background: #ff5436;
+    color: #faf6ef;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .grain::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* Range slider — matches personligokonomi: coral thumb on cream bg */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 999px;
+}
+input[type='range']::-moz-range-track {
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 999px;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 28px;
+  width: 28px;
+  border-radius: 999px;
+  background: #ff5436;
+  border: 3px solid #faf6ef;
+  box-shadow: 0 4px 12px rgba(255, 84, 54, 0.4);
+  margin-top: -12px;
+  transition: transform 0.15s ease;
+}
+input[type='range']::-webkit-slider-thumb:active {
+  transform: scale(1.15);
+}
+input[type='range']::-moz-range-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 999px;
+  background: #ff5436;
+  border: 3px solid #faf6ef;
+  box-shadow: 0 4px 12px rgba(255, 84, 54, 0.4);
+}
+input[type='range']:focus-visible {
+  outline: 2px solid #ff5436;
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
