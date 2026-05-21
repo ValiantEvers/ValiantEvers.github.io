@@ -35,7 +35,8 @@ import requests
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from playwright.sync_api import sync_playwright
+# playwright importeres lazy inne i scrape_finn() slik at PROFILE/score_job
+# kan importeres (re-score-migrering, tester) uten at playwright er installert.
 
 USER_AGENT = "ValiantEvers-strategi-scraper/1.0 (+https://evers.no)"
 
@@ -53,22 +54,29 @@ PROFILE = {
     "titleKeywords": [
         ("wealth management", 30),
         ("private banking", 30),
+        ("private banker", 25),
         ("fund sales", 25),
+        ("investeringsrådgiver", 18),
+        ("formuesrådgiver", 18),
         ("investment advis", 20),
-        ("graduate", 20),
-        ("trainee", 20),
-        ("rådgiver", 15),
         ("investerings", 15),
         ("kapitalforvaltning", 15),
+        ("finansiell rådgiver", 15),
         ("asset management", 15),
+        ("fund manager", 15),
         ("junior", 15),
-        ("fund", 10),
     ],
     "locations": [
         ("oslo", 10), ("paris", 8), ("london", 5),
         ("luxembourg", 5), ("stockholm", 3),
     ],
     "seniorityBoost": {"junior": 20, "mid": 5, "senior": -10},
+    "negativeKeywords": [
+        "forsikring", "eiendomsmegl", "eiendomsrådgiver", "regnskap", "lønn",
+        "gjeldsrådgiver", "kundeservice", "kundesenter", "sykepleier", "renhold",
+        "lærling", "developer", "utvikler", "ingeniør", "it-rådgiver",
+        "controller", "comptable", "lawyer",
+    ],
 }
 
 QUERIES = [
@@ -93,6 +101,14 @@ QUERIES = [
     "nyutdannet finans",
     "junior rådgiver finans",
     "private banker",
+    # F5 — utvidet dekning: engelske titler + norske fond/formue-varianter
+    "investment advisor",
+    "client advisor",
+    "relationship manager",
+    "wealth advisor",
+    "fondsrådgiver",
+    "fondsselger",
+    "kunderådgiver formue",
 ]
 
 
@@ -205,6 +221,7 @@ CARD_SELECTOR = "a.job-card-link[href*='/job/ad/']"
 
 
 def scrape_finn(query: str, max_jobs: int = 100) -> list:
+    from playwright.sync_api import sync_playwright
     jobs = []
     url = f"{FINN_SEARCH}?q={requests.utils.quote(query)}&sort=PUBLISHED_DESC"
 
@@ -377,6 +394,12 @@ def score_job(job: dict) -> dict:
         v = PROFILE["seniorityBoost"][sen]
         breakdown[f"seniority: {sen}"] = v
         total += v
+
+    # negativeKeywords: myk straff -50 ved tittel-treff (irrelevante bransjer)
+    neg = next((n for n in PROFILE["negativeKeywords"] if n in role), None)
+    if neg:
+        breakdown[f"ekskludert: {neg}"] = -50
+        total -= 50
 
     return {"score": max(0, min(100, total)), "breakdown": breakdown}
 
