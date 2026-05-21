@@ -33,20 +33,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
           fetch-depth: 1
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         with:
           python-version: '3.11'
           cache: 'pip'
           cache-dependency-path: nb-watch-src/scripts/requirements.txt
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         with:
           node-version: '20'
@@ -105,4 +105,11 @@ jobs:
             *)                 msg="nb-watch: auto-update [skip ci]" ;;
           esac
           git commit -m "$msg"
-          git push
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then exit 0; fi
+            echo "Push attempt $attempt rejected — retrying..."
+            sleep 2
+          done
+          echo "Push failed after 3 attempts"
+          exit 1
