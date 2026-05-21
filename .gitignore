@@ -13,3 +13,7 @@ Thumbs.db
 
 # Claude Code
 .claude/
+
+# Python bytecode
+__pycache__/
+*.pyc
