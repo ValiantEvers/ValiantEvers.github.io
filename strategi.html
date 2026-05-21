@@ -782,13 +782,14 @@ var PROFILE = {
     {match:["holberg","odin","skagen"], points:15}
   ],
   titleKeywords: [
-    {kw:"wealth management",points:30},{kw:"private banking",points:30},{kw:"fund sales",points:25},
-    {kw:"investment advis",points:20},{kw:"graduate",points:20},{kw:"trainee",points:20},
-    {kw:"rådgiver",points:15},{kw:"investerings",points:15},{kw:"kapitalforvaltning",points:15},
-    {kw:"asset management",points:15},{kw:"junior",points:15},{kw:"fund",points:10}
+    {kw:"wealth management",points:30},{kw:"private banking",points:30},{kw:"private banker",points:25},{kw:"fund sales",points:25},
+    {kw:"investeringsrådgiver",points:18},{kw:"formuesrådgiver",points:18},{kw:"investment advis",points:20},
+    {kw:"investerings",points:15},{kw:"kapitalforvaltning",points:15},{kw:"finansiell rådgiver",points:15},
+    {kw:"asset management",points:15},{kw:"fund manager",points:15},{kw:"junior",points:15}
   ],
   locations: [{kw:"oslo",points:10},{kw:"paris",points:8},{kw:"london",points:5},{kw:"luxembourg",points:5},{kw:"stockholm",points:3}],
-  seniorityBoost:{junior:20,mid:5,senior:-10}
+  seniorityBoost:{junior:20,mid:5,senior:-10},
+  negativeKeywords: ["forsikring","eiendomsmegl","eiendomsrådgiver","regnskap","lønn","gjeldsrådgiver","kundeservice","kundesenter","sykepleier","renhold","lærling","developer","utvikler","ingeniør","it-rådgiver","controller","comptable","lawyer"]
 };
 
 // scoreJob — same logic as scripts/migrate-jobs.html, needed in-app for imports
@@ -813,6 +814,9 @@ function scoreJob(job){
     var b = PROFILE.seniorityBoost[job.seniority];
     breakdown["seniority: "+job.seniority] = b; total += b;
   }
+  // negativeKeywords: myk straff -50 ved tittel-treff (irrelevante bransjer)
+  var neg = PROFILE.negativeKeywords.find(function(n){return role.indexOf(n)!==-1});
+  if(neg){ breakdown["ekskludert: "+neg] = -50; total -= 50; }
   if(total<0) total = 0;
   if(total>100) total = 100;
   return {score: total, breakdown: breakdown};
@@ -872,7 +876,7 @@ var UI_PREFS_KEY = "ve-strategi-ui";
 
 var JOB_STATUSES = [
   {v:"new",l:"Ny",cls:"b-blue"},
-  {v:"viewed",l:"Sett",cls:"b-gray"},
+  {v:"seen",l:"Sett",cls:"b-gray"},
   {v:"applied",l:"Søkt",cls:"b-yellow"},
   {v:"rejected",l:"Avslag",cls:"b-red"},
   {v:"interview",l:"Intervju",cls:"b-green"},
@@ -901,16 +905,21 @@ var SOURCES = [
   {id:"linkedin",name:"LinkedIn Jobs",url:"https://www.linkedin.com/jobs/search/?keywords=wealth+management+private+banking&location=Oslo",p:"høy",f:"2-3x/uke"},
   {id:"karrierestart",name:"Karrierestart",url:"https://karrierestart.no/ledig-stilling?q=finans",p:"høy",f:"1x/uke"},
   {id:"bi",name:"BI Karriereportal",url:"https://bi.jobteaser.com/",p:"høy",f:"1x/uke"},
-  {id:"dnb",name:"DNB Karriere",url:"https://www.dnb.no/om-oss/karriere",p:"høy",f:"1x/uke"},
-  {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers",p:"høy",f:"1x/uke"},
-  {id:"storebrand",name:"Storebrand Karriere",url:"https://www.storebrand.no/om-storebrand/jobb",p:"høy",f:"1x/uke"},
-  {id:"formue",name:"Formuesforvaltning",url:"https://www.formue.no/om-formue/karriere/",p:"høy",f:"1x/uke"},
-  {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/nb/om-oss/jobb-hos-oss",p:"mid",f:"1x/uke"},
-  {id:"danskebank",name:"Danske Bank",url:"https://danskebank.com/careers",p:"mid",f:"1x/uke"},
-  {id:"pareto",name:"Pareto Securities",url:"https://www.paretosec.com/careers",p:"mid",f:"2x/mnd"},
-  {id:"arctic",name:"Arctic Securities",url:"https://www.arctic.com/secno/careers",p:"mid",f:"2x/mnd"},
-  {id:"abg",name:"ABG Sundal Collier",url:"https://www.abgsc.com/careers",p:"mid",f:"2x/mnd"},
-  {id:"sb1",name:"SpareBank 1 Markets",url:"https://www.sparebank1.no/nb/bank/om-oss/jobb.html",p:"mid",f:"2x/mnd"},
+  {id:"dnb",name:"DNB Karriere",url:"https://jobb.dnb.no/viewalljobs/",p:"høy",f:"1x/uke"},
+  {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers/open-jobs",p:"høy",f:"1x/uke"},
+  {id:"storebrand",name:"Storebrand Karriere",url:"https://storebrand.wd3.myworkdayjobs.com/Storebrand_Careers",p:"høy",f:"1x/uke"},
+  {id:"formue",name:"Formue",url:"https://career.formue.no/jobs",p:"høy",f:"1x/uke"},
+  {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/no/om-oss/jobb-hos-oss/ledige-stillinger",p:"mid",f:"1x/uke"},
+  {id:"danskebank",name:"Danske Bank",url:"https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001/jobs",p:"mid",f:"1x/uke"},
+  {id:"pareto",name:"Pareto Securities",url:"https://paretosec.com/our-firm/career",p:"mid",f:"2x/mnd"},
+  {id:"arctic",name:"Arctic Securities",url:"https://www.arctic.com/career/open-positions",p:"mid",f:"2x/mnd"},
+  {id:"abg",name:"ABG Sundal Collier",url:"https://www.abgsc.com/working-at-abgsc/",p:"mid",f:"2x/mnd"},
+  {id:"sb1",name:"SpareBank 1 Markets",url:"https://candidate.hr-manager.net/vacancies/list.aspx?customer=Sparebank1&MediaID=5",p:"mid",f:"2x/mnd"},
+  // Paris-spor (F6) — EU-tilgang via belgisk statsborgerskap
+  {id:"bnpwm",name:"BNP Paribas Wealth Management",url:"https://group.bnpparibas/en/careers/all-job-offers/bnp-paribas-wealth-management",p:"mid",f:"1x/uke"},
+  {id:"sgpb",name:"Société Générale Private Banking",url:"https://careers.societegenerale.com/en/search",p:"mid",f:"1x/uke"},
+  {id:"nordeaparis",name:"Nordea (Paris-filter)",url:"https://www.nordea.com/en/careers/open-jobs",p:"mid",f:"1x/uke"},
+  {id:"danskeintl",name:"Danske Bank International",url:"https://danskebank.lu/private-banking/career",p:"mid",f:"1x/uke"},
   {id:"finn",name:"FINN.no Jobb",url:"https://www.finn.no/job/fulltime/search.html?q=wealth+management+finans",p:"mid",f:"1x/uke"},
   {id:"holberg",name:"Holberg Fondene",url:"https://holbergfondene.no/om-oss",p:"lav",f:"1x/mnd"},
   {id:"odin",name:"ODIN Forvaltning",url:"https://odinfond.no/om-odin",p:"lav",f:"1x/mnd"},
