@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vet du like mye som du tror? — Masteroppgave</title>
+<meta name="description" content="En interaktiv, stegvis forklaring av en masteroppgave om norske investorer, finansiell kunnskap og selvtillit.">
+<meta name="author" content="Henrik Bekkevold og Valiant Evers">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vet du like mye som du tror?">
+<meta property="og:description" content="En masteroppgave om norske investorer, kunnskap og selvtillit — forklart for alle.">
+<meta property="og:url" content="https://www.evers.no/prosjekter/masteroppgave/">
+<meta property="og:site_name" content="Valiant Evers">
+<link rel="canonical" href="https://www.evers.no/prosjekter/masteroppgave/">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e1a; --bg2:#0e1424; --text:#e7ecff; --muted:rgba(231,236,255,.6);
+  --accent:#6996ff; --accent2:#aabeff; --accent-deep:#3f6fe0;
+  --warm:#ffb774; --good:#5fd0a0; --bad:#ff7b7b;
+  --card:#141d33; --card2:#18223c; --line:rgba(231,236,255,.10);
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+  --maxw:780px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+img,svg{max-width:100%}
+h1,h2,h3{font-family:'Syne',sans-serif;line-height:1.08;letter-spacing:-.02em}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Ambient backdrop */
+.backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.30}
+.glow.g1{width:50vw;height:50vw;background:var(--accent-deep);top:-12%;left:-10%}
+.glow.g2{width:42vw;height:42vw;background:#6a4fd0;bottom:-10%;right:-8%}
+.glow.g3{width:32vw;height:32vw;background:#1f8f6a;top:45%;left:55%;opacity:.16}
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+
+/* Top progress bar */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .12s linear}
+
+/* Top bar: part label + language switch */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.4rem;pointer-events:none}
+.part-pill{pointer-events:auto;background:rgba(20,29,51,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--accent2);opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
+.part-pill.show{opacity:1;transform:translateY(0)}
+.lang{pointer-events:auto;display:flex;gap:2px;background:rgba(20,29,51,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{background:none;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;padding:.34rem .66rem;border-radius:999px;cursor:pointer;transition:all .25s}
+.lang button.active{background:var(--accent);color:#06122e}
+.lang button:not(.active):hover{color:var(--text)}
+
+/* Hero */
+.hero{position:relative;z-index:2;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.4rem 4rem}
+.hero .eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--accent2);margin-bottom:1.4rem;opacity:0;animation:rise .8s .1s forwards}
+.hero h1{font-size:clamp(2.4rem,8vw,5rem);font-weight:800;max-width:14ch;margin-bottom:1.3rem;background:linear-gradient(180deg,#fff,#bcd0ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:rise .9s .25s forwards}
+.hero .sub{font-size:clamp(1rem,2.4vw,1.25rem);color:var(--muted);max-width:36ch;opacity:0;animation:rise .9s .45s forwards}
+.scroll-hint{margin-top:3.2rem;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);opacity:0;animation:rise .9s .7s forwards;display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.scroll-hint .arrow{width:22px;height:22px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);animation:bob 1.8s ease-in-out infinite}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
+.hero .eyebrow,.hero h1,.hero .sub{transform:translateY(18px)}
+
+/* Scenes */
+main{position:relative;z-index:2}
+.scene{max-width:var(--maxw);margin:0 auto;padding:7rem 1.4rem;min-height:88svh;display:flex;flex-direction:column;justify-content:center}
+.scene .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
+.scene h2{font-size:clamp(1.7rem,4.3vw,2.6rem);font-weight:800;margin-bottom:1.1rem}
+.scene .body{font-size:clamp(1.04rem,2.2vw,1.18rem);color:#d4ddf7}
+.scene .body + .body{margin-top:1rem}
+.highlight{margin-top:1.3rem;padding:1.1rem 1.25rem;border-left:3px solid var(--accent);background:rgba(105,150,255,.08);border-radius:0 12px 12px 0;font-size:1.02rem;color:#e8eeff}
+.fig{margin:0 0 2.4rem;width:100%}
+.caveat{margin-top:1.4rem;font-size:.92rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.scene.in .reveal{opacity:1;transform:none}
+.scene.in .reveal.d1{transition-delay:.12s}
+.scene.in .reveal.d2{transition-delay:.24s}
+.scene.in .reveal.d3{transition-delay:.36s}
+
+/* Figure primitives */
+.figbox{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:20px;padding:1.6rem;box-shadow:var(--shadow)}
+.fig svg{display:block;width:100%;height:auto}
+.fig-cap{margin-top:.7rem;font-size:.8rem;color:var(--muted);text-align:center}
+
+/* counters */
+.counter{font-family:'Syne',sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* Meters (vertical bars) */
+.meters{display:flex;gap:2.4rem;justify-content:center;align-items:flex-end;height:230px}
+.meter{display:flex;flex-direction:column;align-items:center;gap:.6rem;width:84px}
+.meter .bar{width:46px;height:170px;background:rgba(231,236,255,.07);border-radius:10px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.meter .fill{width:100%;height:0;border-radius:10px;transition:height 1.1s cubic-bezier(.2,.8,.2,1)}
+.meter.know .fill{background:linear-gradient(180deg,var(--accent2),var(--accent))}
+.meter.conf .fill{background:linear-gradient(180deg,#ffd6a8,var(--warm))}
+.meter .lbl{font-size:.82rem;font-weight:600;color:var(--muted);text-align:center}
+
+/* dots */
+.dotwrap{position:relative}
+
+/* quiz */
+.quiz{display:flex;flex-direction:column;gap:1rem}
+.guess{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem}
+.guess label{display:block;font-weight:600;margin-bottom:.8rem}
+.guess .row{display:flex;align-items:center;gap:1rem}
+.guess input[type=range]{flex:1;accent-color:var(--accent);height:6px}
+.guess .gval{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--accent2);min-width:1.4ch;text-align:center}
+.q{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem}
+.q .qtext{font-weight:600;margin-bottom:.9rem}
+.opts{display:flex;flex-direction:column;gap:.55rem}
+.opt{text-align:left;background:rgba(231,236,255,.04);border:1px solid var(--line);color:var(--text);padding:.7rem .9rem;border-radius:10px;cursor:pointer;font:inherit;font-size:.98rem;transition:border-color .2s,background .2s,transform .1s}
+.opt:hover{border-color:var(--accent);background:rgba(105,150,255,.08)}
+.opt:active{transform:scale(.99)}
+.opt.correct{border-color:var(--good);background:rgba(95,208,160,.16);color:#dafff0}
+.opt.wrong{border-color:var(--bad);background:rgba(255,123,123,.14)}
+.opt .mark{float:right;font-weight:700}
+.q.answered .opt:not(.correct):not(.wrong){opacity:.55}
+.verdict{margin-top:.7rem;font-size:.9rem;font-weight:600}
+.verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}
+.reveal-note{background:rgba(105,150,255,.08);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;font-size:1rem;color:#e8eeff;display:none}
+.reveal-note.show{display:block;animation:rise .6s forwards}
+.expand-btn{align-self:flex-start;background:none;border:1px solid var(--accent);color:var(--accent2);font:inherit;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;transition:all .2s}
+.expand-btn:hover{background:var(--accent);color:#06122e}
+.more-q{display:none;flex-direction:column;gap:1rem}
+.more-q.show{display:flex;animation:rise .5s forwards}
+
+/* generic small button */
+.mini-btn{background:none;border:1px solid var(--line);color:var(--accent2);font:inherit;font-weight:600;font-size:.86rem;padding:.5rem .9rem;border-radius:999px;cursor:pointer;transition:all .2s;margin-top:1rem}
+.mini-btn:hover{border-color:var(--accent);color:var(--text)}
+
+/* outro */
+.outro{max-width:var(--maxw);margin:0 auto;padding:6rem 1.4rem 8rem;text-align:center}
+.outro h2{font-size:clamp(1.8rem,4.5vw,2.6rem);margin-bottom:1rem}
+.outro .body{color:var(--muted);max-width:42ch;margin:0 auto 2rem}
+.acad{margin:2rem auto;max-width:46ch;font-size:.92rem;color:var(--muted);font-style:italic;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.2rem 0}
+.authors{font-family:'Syne',sans-serif;font-weight:700;color:var(--text);margin-bottom:2rem}
+.btn-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;padding:.85rem 1.5rem;border-radius:999px;transition:transform .25s,box-shadow .25s}
+.btn-primary{background:var(--accent);color:#06122e;box-shadow:0 8px 24px rgba(105,150,255,.3)}
+.btn-primary:hover{transform:translateY(-3px)}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent)}
+.foot{max-width:var(--maxw);margin:0 auto;padding:0 1.4rem 3rem;text-align:center;font-size:.78rem;color:rgba(231,236,255,.32)}
+.foot a{color:rgba(231,236,255,.5)}
+
+/* domino */
+.domino-stage{height:200px;position:relative}
+.tile{transform-origin:bottom center;transition:transform 1s cubic-bezier(.6,.05,.3,1)}
+.flow-dash{stroke-dasharray:6 6;animation:dash 1.4s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-24}}
+
+/* ruler trendline wobble */
+.wobble{animation:wob 2.6s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+
+@media (max-width:600px){
+  .scene{padding:5rem 1.2rem;min-height:auto}
+  .figbox{padding:1.1rem}
+  .meters{gap:1.4rem;height:200px}
+  .meter .bar{height:150px}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;scroll-behavior:auto !important}
+  .reveal{opacity:1 !important;transform:none !important;transition:none !important}
+  .meter .fill,.tile{transition:none !important}
+  .hero .eyebrow,.hero h1,.hero .sub,.scroll-hint{opacity:1 !important;transform:none !important}
+}
+</style>
+</head>
+<body>
+<div class="backdrop"><div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div></div>
+<div class="progress"><span id="progressBar"></span></div>
+
+<div class="topbar">
+  <div class="part-pill" id="partPill" data-i18n="partPill"></div>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="langNo" class="active" data-lang="no">NO</button>
+    <button id="langEn" data-lang="en">EN</button>
+  </div>
+</div>
+
+<!-- SCENE 0 — HERO -->
+<header class="hero">
+  <div class="eyebrow" data-i18n="s0_eyebrow"></div>
+  <h1 data-i18n="s0_title"></h1>
+  <p class="sub" data-i18n="s0_sub"></p>
+  <div class="scroll-hint"><span data-i18n="s0_scroll"></span><span class="arrow"></span></div>
+</header>
+
+<main>
+
+<!-- ============ DEL 1 — MOTIVASJON ============ -->
+
+<!-- SCENE 1 -->
+<section class="scene" data-part="1">
+  <div class="eyebrow reveal" data-i18n="part1"></div>
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 230" role="img" aria-hidden="true">
+        <defs><linearGradient id="grLine" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#6996ff" stop-opacity=".55"/><stop offset="1" stop-color="#6996ff" stop-opacity="0"/>
+        </linearGradient></defs>
+        <line x1="40" y1="190" x2="580" y2="190" stroke="rgba(231,236,255,.18)"/>
+        <path id="growthArea" d="M40,185 L120,178 L200,170 L280,156 L360,120 L440,74 L560,30 L560,190 L40,190 Z" fill="url(#grLine)" opacity="0"/>
+        <path id="growthLine" d="M40,185 L120,178 L200,170 L280,156 L360,120 L440,74 L560,30" fill="none" stroke="#6996ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <circle id="growthDot" cx="560" cy="30" r="6" fill="#aabeff" opacity="0"/>
+        <text x="40" y="215" fill="rgba(231,236,255,.5)" font-size="13" font-family="Outfit">2014</text>
+        <text x="520" y="215" fill="rgba(231,236,255,.5)" font-size="13" font-family="Outfit">2025</text>
+      </svg>
+      <div class="fig-cap"><span class="counter" id="cnt600" data-target="600000">0</span> <span data-i18n="s1_cap"></span></div>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s1_h"></h2>
+  <p class="body reveal d2" data-i18n="s1_b"></p>
+</section>
+
+<!-- SCENE 2 -->
+<section class="scene" data-part="1">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 200" id="dotsSvg" role="img" aria-hidden="true"></svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s2_h"></h2>
+  <p class="body reveal d2" data-i18n="s2_b"></p>
+</section>
+
+<!-- SCENE 3 -->
+<section class="scene" data-part="1">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 220" role="img" aria-hidden="true">
+        <line x1="300" y1="120" x2="300" y2="210" stroke="rgba(231,236,255,.2)" stroke-width="6" stroke-linecap="round"/>
+        <g class="reveal-sign" id="signL">
+          <rect x="70" y="70" width="200" height="54" rx="10" fill="#18223c" stroke="#6996ff"/>
+          <polygon points="60,97 78,80 78,114" fill="#6996ff"/>
+          <text x="170" y="103" text-anchor="middle" fill="#aabeff" font-size="17" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text>
+        </g>
+        <g id="signR">
+          <rect x="330" y="70" width="210" height="54" rx="10" fill="#18223c" stroke="#ffb774"/>
+          <polygon points="550,97 532,80 532,114" fill="#ffb774"/>
+          <text x="435" y="103" text-anchor="middle" fill="#ffd6a8" font-size="17" font-family="Syne" font-weight="700" data-i18n="lblThink"></text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s3_h"></h2>
+  <p class="body reveal d2" data-i18n="s3_b"></p>
+</section>
+
+<!-- SCENE 4 -->
+<section class="scene" data-part="1">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 150" role="img" aria-hidden="true">
+        <!-- basket (all eggs one) -->
+        <g transform="translate(70,30)">
+          <path d="M10,40 Q60,90 110,40" fill="none" stroke="#6996ff" stroke-width="3"/>
+          <ellipse cx="40" cy="40" rx="9" ry="12" fill="#aabeff"/><ellipse cx="60" cy="40" rx="9" ry="12" fill="#aabeff"/><ellipse cx="80" cy="40" rx="9" ry="12" fill="#aabeff"/>
+          <text x="60" y="105" text-anchor="middle" fill="#8f9bbf" fill-opacity=".7" font-size="13" font-family="Outfit" data-i18n="lblBasket"></text>
+        </g>
+        <!-- fee eats coin -->
+        <g transform="translate(250,30)">
+          <circle cx="55" cy="40" r="30" fill="none" stroke="#ffb774" stroke-width="3"/>
+          <path d="M55,10 A30,30 0 0,1 80,55 Z" fill="#ffb774" opacity=".35"/>
+          <text x="55" y="105" text-anchor="middle" fill="#8f9bbf" fill-opacity=".7" font-size="13" font-family="Outfit" data-i18n="lblFee"></text>
+        </g>
+        <!-- risk meter -->
+        <g transform="translate(430,30)">
+          <path d="M20,60 A50,50 0 0,1 120,60" fill="none" stroke="rgba(231,236,255,.18)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M20,60 A50,50 0 0,1 110,35" fill="none" stroke="#ff7b7b" stroke-width="8" stroke-linecap="round"/>
+          <line x1="70" y1="60" x2="105" y2="38" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <text x="70" y="105" text-anchor="middle" fill="#8f9bbf" fill-opacity=".7" font-size="13" font-family="Outfit" data-i18n="lblRiskMeter"></text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s4_h"></h2>
+  <p class="body reveal d2" data-i18n="s4_b"></p>
+</section>
+
+<!-- ============ DEL 2 — TEORI ============ -->
+
+<!-- SCENE 5 -->
+<section class="scene" data-part="2">
+  <div class="eyebrow reveal" data-i18n="part2"></div>
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <div class="meters">
+        <div class="meter know"><div class="bar"><div class="fill" data-fill="78%"></div></div><div class="lbl" data-i18n="lblKnow"></div></div>
+      </div>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s5_h"></h2>
+  <p class="body reveal d2" data-i18n="s5_b"></p>
+</section>
+
+<!-- SCENE 6 -->
+<section class="scene" data-part="2">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 170" role="img" aria-hidden="true">
+        <!-- speedometer -->
+        <path d="M70,140 A90,90 0 0,1 250,140" fill="none" stroke="rgba(231,236,255,.16)" stroke-width="12" stroke-linecap="round"/>
+        <path d="M70,140 A90,90 0 0,1 160,50" fill="none" stroke="#5fd0a0" stroke-width="12" stroke-linecap="round"/>
+        <line id="speedNeedle" x1="160" y1="140" x2="160" y2="62" stroke="#fff" stroke-width="4" stroke-linecap="round" transform="rotate(-32 160 140)"/>
+        <circle cx="160" cy="140" r="7" fill="#fff"/>
+        <text x="160" y="165" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblSpeedo"></text>
+        <text x="430" y="70" text-anchor="middle" fill="#d4ddf7" font-size="15" font-family="Outfit" data-i18n="lblSpeedoNote1"></text>
+        <text x="430" y="96" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblSpeedoNote2"></text>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s6_h"></h2>
+  <p class="body reveal d2" data-i18n="s6_b"></p>
+</section>
+
+<!-- SCENE 7 -->
+<section class="scene" data-part="2">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <div class="meters">
+        <div class="meter know"><div class="bar"><div class="fill" data-fill="55%"></div></div><div class="lbl" data-i18n="lblKnow"></div></div>
+        <div class="meter conf"><div class="bar"><div class="fill" data-fill="88%"></div></div><div class="lbl" data-i18n="lblConf"></div></div>
+      </div>
+      <div class="fig-cap" style="color:var(--warm)">↕ <span data-i18n="lblGap"></span></div>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s7_h"></h2>
+  <p class="body reveal d2" data-i18n="s7_b"></p>
+</section>
+
+<!-- SCENE 8 -->
+<section class="scene" data-part="2">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 150" role="img" aria-hidden="true">
+        <!-- rollercoaster -->
+        <path d="M40,120 Q90,30 140,90 T240,90" fill="none" stroke="#ff7b7b" stroke-width="3"/>
+        <circle cx="40" cy="120" r="6" fill="#ffb774"/>
+        <text x="140" y="140" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblCoaster"></text>
+        <!-- plate with portions -->
+        <g transform="translate(380,20)">
+          <circle cx="80" cy="55" r="50" fill="none" stroke="#6996ff" stroke-width="3"/>
+          <path d="M80,55 L80,5 A50,50 0 0,1 123,80 Z" fill="#6996ff" opacity=".3"/>
+          <path d="M80,55 L123,80 A50,50 0 0,1 40,95 Z" fill="#aabeff" opacity=".3"/>
+          <path d="M80,55 L40,95 A50,50 0 0,1 80,5 Z" fill="#5fd0a0" opacity=".3"/>
+          <text x="80" y="125" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblPlate"></text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s8_h"></h2>
+  <p class="body reveal d2" data-i18n="s8_b"></p>
+</section>
+
+<!-- SCENE 9 — domino setup -->
+<section class="scene" data-part="2">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 200" role="img" aria-hidden="true">
+        <!-- direct dashed arrow under -->
+        <path d="M70,170 Q300,200 520,170" fill="none" stroke="rgba(231,236,255,.3)" stroke-width="2" stroke-dasharray="6 6"/>
+        <text x="300" y="195" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblDirect"></text>
+        <!-- three upright tiles -->
+        <g><rect x="60" y="50" width="40" height="90" rx="6" fill="#6996ff"/><text x="80" y="35" text-anchor="middle" fill="#aabeff" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text></g>
+        <text x="180" y="100" text-anchor="middle" fill="#8f9bbf" font-size="22">›</text>
+        <g><rect x="280" y="50" width="40" height="90" rx="6" fill="#ffb774"/><text x="300" y="35" text-anchor="middle" fill="#ffd6a8" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblConf"></text></g>
+        <text x="400" y="100" text-anchor="middle" fill="#8f9bbf" font-size="22">›</text>
+        <g><rect x="500" y="50" width="40" height="90" rx="6" fill="#ff7b7b"/><text x="520" y="35" text-anchor="middle" fill="#ffb3b3" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblRisk"></text></g>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s9_h"></h2>
+  <p class="body reveal d2" data-i18n="s9_b"></p>
+</section>
+
+<!-- ============ DEL 3 — METODE OG DATA ============ -->
+
+<!-- SCENE 10 -->
+<section class="scene" data-part="3">
+  <div class="eyebrow reveal" data-i18n="part3"></div>
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 180" role="img" aria-hidden="true">
+        <g font-family="Outfit" font-size="14" fill="#d4ddf7">
+          <rect x="40" y="30" width="150" height="40" rx="20" fill="#18223c" stroke="rgba(231,236,255,.12)"/><text x="115" y="55" text-anchor="middle">Reddit</text>
+          <rect x="225" y="30" width="150" height="40" rx="20" fill="#18223c" stroke="rgba(231,236,255,.12)"/><text x="300" y="55" text-anchor="middle">Nordnet</text>
+          <rect x="410" y="30" width="150" height="40" rx="20" fill="#18223c" stroke="rgba(231,236,255,.12)"/><text x="485" y="55" text-anchor="middle">Facebook</text>
+        </g>
+        <path d="M115,70 Q300,110 290,120 M300,70 L300,120 M485,70 Q300,110 310,120" fill="none" stroke="#6996ff" stroke-width="1.5" opacity=".5"/>
+        <polygon points="240,120 360,120 320,160 280,160" fill="#18223c" stroke="#6996ff"/>
+        <text x="300" y="145" text-anchor="middle" fill="#aabeff" font-size="13" font-family="Outfit">1027</text>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s10_h"></h2>
+  <p class="body reveal d2" data-i18n="s10_b"></p>
+</section>
+
+<!-- SCENE 11 — funnel -->
+<section class="scene" data-part="3">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 230" role="img" aria-hidden="true">
+        <polygon points="120,20 480,20 360,150 240,150" fill="#141d33" stroke="#6996ff" stroke-width="1.5"/>
+        <rect x="270" y="150" width="60" height="60" fill="#141d33" stroke="#6996ff" stroke-width="1.5"/>
+        <g font-family="Outfit" font-size="13">
+          <text x="500" y="55" fill="#8f9bbf" data-i18n="lblFilter1"></text>
+          <text x="500" y="90" fill="#8f9bbf" data-i18n="lblFilter2"></text>
+          <text x="500" y="125" fill="#8f9bbf" data-i18n="lblFilter3"></text>
+          <line x1="360" y1="50" x2="495" y2="50" stroke="rgba(231,236,255,.12)"/>
+          <line x1="345" y1="85" x2="495" y2="85" stroke="rgba(231,236,255,.12)"/>
+          <line x1="330" y1="120" x2="495" y2="120" stroke="rgba(231,236,255,.12)"/>
+        </g>
+        <text x="300" y="60" text-anchor="middle" fill="#aabeff" font-size="22" font-family="Syne" font-weight="800"><tspan class="counter" id="cntFunnel" data-from="1027" data-target="750">1027</tspan></text>
+      </svg>
+      <div class="fig-cap"><span data-i18n="s11_cap"></span></div>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s11_h"></h2>
+  <p class="body reveal d2" data-i18n="s11_b"></p>
+</section>
+
+<!-- SCENE 12 — sample honesty -->
+<section class="scene" data-part="3">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 130" role="img" aria-hidden="true">
+        <g font-family="Syne" font-weight="800">
+          <text x="120" y="60" text-anchor="middle" fill="#aabeff" font-size="38">84%</text>
+          <text x="120" y="92" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" font-weight="400" data-i18n="lblMen"></text>
+          <text x="300" y="60" text-anchor="middle" fill="#aabeff" font-size="38">64%</text>
+          <text x="300" y="92" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" font-weight="400" data-i18n="lblYoung"></text>
+          <text x="485" y="60" text-anchor="middle" fill="#aabeff" font-size="26" font-family="Outfit" font-weight="600" data-i18n="lblOnline"></text>
+          <text x="485" y="92" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" font-weight="400" data-i18n="lblOnline2"></text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s12_h"></h2>
+  <p class="body reveal d2" data-i18n="s12_b"></p>
+</section>
+
+<!-- SCENE 13 — quiz -->
+<section class="scene" data-part="3">
+  <h2 class="reveal" data-i18n="s13_h"></h2>
+  <p class="body reveal d1" data-i18n="s13_prompt" style="margin-bottom:1.6rem"></p>
+  <div class="quiz reveal d2">
+    <div class="guess">
+      <label data-i18n="s13_guesslabel"></label>
+      <div class="row"><input type="range" min="0" max="6" value="3" id="guessRange"><span class="gval" id="guessVal">3</span></div>
+    </div>
+
+    <div class="q" data-correct="2">
+      <div class="qtext" data-i18n="q1_q"></div>
+      <div class="opts">
+        <button class="opt" data-i18n="q1_o0"></button>
+        <button class="opt" data-i18n="q1_o1"></button>
+        <button class="opt" data-i18n="q1_o2"></button>
+        <button class="opt" data-i18n="q1_o3"></button>
+      </div>
+      <div class="verdict"></div>
+    </div>
+
+    <div class="q" data-correct="2">
+      <div class="qtext" data-i18n="q2_q"></div>
+      <div class="opts">
+        <button class="opt" data-i18n="q2_o0"></button>
+        <button class="opt" data-i18n="q2_o1"></button>
+        <button class="opt" data-i18n="q2_o2"></button>
+      </div>
+      <div class="verdict"></div>
+    </div>
+
+    <div class="reveal-note" id="quizReveal" data-i18n="s13_reveal"></div>
+
+    <button class="expand-btn" id="expandQuiz" data-i18n="s13_expand"></button>
+    <div class="more-q" id="moreQ">
+      <div class="q" data-correct="1">
+        <div class="qtext" data-i18n="q3_q"></div>
+        <div class="opts">
+          <button class="opt" data-i18n="q3_o0"></button>
+          <button class="opt" data-i18n="q3_o1"></button>
+          <button class="opt" data-i18n="q3_o2"></button>
+        </div>
+        <div class="verdict"></div>
+      </div>
+      <div class="q" data-correct="0">
+        <div class="qtext" data-i18n="q4_q"></div>
+        <div class="opts">
+          <button class="opt" data-i18n="q4_o0"></button>
+          <button class="opt" data-i18n="q4_o1"></button>
+        </div>
+        <div class="verdict"></div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="qtext" data-i18n="q5_q"></div>
+        <div class="opts">
+          <button class="opt" data-i18n="q5_o0"></button>
+          <button class="opt" data-i18n="q5_o1"></button>
+          <button class="opt" data-i18n="q5_o2"></button>
+        </div>
+        <div class="verdict"></div>
+      </div>
+      <div class="q" data-correct="1">
+        <div class="qtext" data-i18n="q6_q"></div>
+        <div class="opts">
+          <button class="opt" data-i18n="q6_o0"></button>
+          <button class="opt" data-i18n="q6_o1"></button>
+          <button class="opt" data-i18n="q6_o2"></button>
+        </div>
+        <div class="verdict"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 14 — ruler / variance compression -->
+<section class="scene" data-part="3">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 180" id="rulerSvg" role="img" aria-hidden="true">
+        <line x1="40" y1="130" x2="560" y2="130" stroke="rgba(231,236,255,.25)" stroke-width="2"/>
+        <g font-family="Outfit" font-size="12" fill="#8f9bbf">
+          <text x="40" y="152" text-anchor="middle">0</text><text x="126" y="152" text-anchor="middle">1</text>
+          <text x="213" y="152" text-anchor="middle">2</text><text x="300" y="152" text-anchor="middle">3</text>
+          <text x="386" y="152" text-anchor="middle">4</text><text x="473" y="152" text-anchor="middle">5</text>
+          <text x="560" y="152" text-anchor="middle">6</text>
+        </g>
+        <g id="rulerDots"></g>
+        <line id="rulerTrend" x1="430" y1="120" x2="540" y2="60" stroke="#ffb774" stroke-width="2.5" class="wobble" style="transform-origin:485px 90px"/>
+      </svg>
+      <div class="fig-cap"><span data-i18n="s14_cap"></span></div>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s14_h"></h2>
+  <p class="body reveal d2" data-i18n="s14_b"></p>
+  <div class="highlight reveal d3" data-i18n="s14_hl"></div>
+</section>
+
+<!-- ============ DEL 4 — RESULTATER ============ -->
+
+<!-- SCENE 15 -->
+<section class="scene" data-part="4">
+  <div class="eyebrow reveal" data-i18n="part4"></div>
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 150" role="img" aria-hidden="true">
+        <path d="M180,60 Q300,150 420,60" fill="none" stroke="#6996ff" stroke-width="3"/>
+        <g id="eggs">
+          <ellipse class="egg" cx="225" cy="70" rx="11" ry="15" fill="#aabeff" opacity="0"/>
+          <ellipse class="egg" cx="258" cy="78" rx="11" ry="15" fill="#5fd0a0" opacity="0"/>
+          <ellipse class="egg" cx="291" cy="82" rx="11" ry="15" fill="#ffb774" opacity="0"/>
+          <ellipse class="egg" cx="324" cy="80" rx="11" ry="15" fill="#aabeff" opacity="0"/>
+          <ellipse class="egg" cx="357" cy="74" rx="11" ry="15" fill="#ff7b7b" opacity="0"/>
+          <ellipse class="egg" cx="390" cy="66" rx="11" ry="15" fill="#5fd0a0" opacity="0"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s15_h"></h2>
+  <p class="body reveal d2" data-i18n="s15_b"></p>
+</section>
+
+<!-- SCENE 16 -->
+<section class="scene" data-part="4">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 170" role="img" aria-hidden="true">
+        <line x1="40" y1="140" x2="560" y2="140" stroke="rgba(231,236,255,.2)"/>
+        <line x1="40" y1="20" x2="40" y2="140" stroke="rgba(231,236,255,.2)"/>
+        <g id="riskDots"></g>
+        <line id="riskTrend" x1="60" y1="120" x2="540" y2="60" stroke="#6996ff" stroke-width="3" stroke-linecap="round"/>
+        <text x="300" y="160" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblKnowAxis"></text>
+      </svg>
+      <button class="mini-btn" id="toggleH3" data-i18n="s16_toggle"></button>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s16_h"></h2>
+  <p class="body reveal d2" data-i18n="s16_b"></p>
+</section>
+
+<!-- SCENE 17 -->
+<section class="scene" data-part="4">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <div class="meters" id="convMeters">
+        <div class="meter know"><div class="bar"><div class="fill" data-fill="80%"></div></div><div class="lbl" data-i18n="lblKnow"></div></div>
+        <div class="meter conf"><div class="bar"><div class="fill" data-fill="86%"></div></div><div class="lbl" data-i18n="lblConf"></div></div>
+      </div>
+      <div class="fig-cap" style="color:var(--good)">→ <span data-i18n="lblAligned"></span> ←</div>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s17_h"></h2>
+  <p class="body reveal d2" data-i18n="s17_b"></p>
+</section>
+
+<!-- SCENE 18 — domino topple / mediation -->
+<section class="scene" data-part="4">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 210" id="dominoTopple" role="img" aria-hidden="true">
+        <!-- direct fading arrow -->
+        <path id="directArrow" d="M70,180 Q300,205 520,180" fill="none" stroke="rgba(231,236,255,.3)" stroke-width="2" stroke-dasharray="6 6"/>
+        <text id="directLbl" x="300" y="202" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblNotSig"></text>
+        <!-- indirect flow 57% -->
+        <path id="flow57" d="M90,55 L290,55 M310,55 L500,55" fill="none" stroke="#5fd0a0" stroke-width="3" class="flow-dash" opacity="0"/>
+        <text id="lbl57" x="300" y="30" text-anchor="middle" fill="#5fd0a0" font-size="16" font-family="Syne" font-weight="800" opacity="0" data-i18n="lbl57"></text>
+        <!-- tiles -->
+        <g class="tile" id="t1"><rect x="60" y="60" width="40" height="90" rx="6" fill="#6996ff"/><text x="80" y="170" text-anchor="middle" fill="#aabeff" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text></g>
+        <g class="tile" id="t2"><rect x="280" y="60" width="40" height="90" rx="6" fill="#ffb774"/><text x="300" y="170" text-anchor="middle" fill="#ffd6a8" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblConf"></text></g>
+        <g class="tile" id="t3"><rect x="500" y="60" width="40" height="90" rx="6" fill="#ff7b7b"/><text x="520" y="170" text-anchor="middle" fill="#ffb3b3" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblRisk"></text></g>
+      </svg>
+      <button class="mini-btn" id="replayDomino" data-i18n="s18_replay"></button>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s18_h"></h2>
+  <p class="body reveal d2" data-i18n="s18_b"></p>
+  <div class="highlight reveal d3" data-i18n="s18_hl"></div>
+</section>
+
+<!-- SCENE 19 — conclusion -->
+<section class="scene" data-part="4">
+  <div class="fig reveal d1">
+    <div class="figbox">
+      <svg viewBox="0 0 600 120" role="img" aria-hidden="true">
+        <g font-family="Syne" font-weight="700" font-size="14">
+          <rect x="30" y="45" width="120" height="44" rx="10" fill="#18223c" stroke="#6996ff"/><text x="90" y="72" text-anchor="middle" fill="#aabeff" data-i18n="lblKnow"></text>
+          <rect x="240" y="45" width="120" height="44" rx="10" fill="#18223c" stroke="#ffb774"/><text x="300" y="72" text-anchor="middle" fill="#ffd6a8" data-i18n="lblConf"></text>
+          <rect x="450" y="45" width="120" height="44" rx="10" fill="#18223c" stroke="#ff7b7b"/><text x="510" y="72" text-anchor="middle" fill="#ffb3b3" data-i18n="lblRisk"></text>
+          <path d="M150,67 L235,67" stroke="#5fd0a0" stroke-width="3" marker-end="url(#ar)"/>
+          <path d="M360,67 L445,67" stroke="#5fd0a0" stroke-width="3" marker-end="url(#ar)"/>
+        </g>
+        <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#5fd0a0"/></marker></defs>
+      </svg>
+    </div>
+  </div>
+  <h2 class="reveal d1" data-i18n="s19_h"></h2>
+  <p class="body reveal d2" data-i18n="s19_b"></p>
+  <div class="highlight reveal d2" data-i18n="s19_policy"></div>
+  <div class="caveat reveal d3" data-i18n="s19_caveat"></div>
+</section>
+
+<!-- SCENE 20 — outro -->
+<section class="outro">
+  <h2 class="reveal" data-i18n="s20_h"></h2>
+  <p class="body reveal d1" data-i18n="s20_b"></p>
+  <div class="acad reveal d1" data-i18n="s20_acad"></div>
+  <div class="authors reveal d1" data-i18n="s20_authors"></div>
+  <div class="btn-row reveal d2">
+    <a class="btn btn-primary" href="../../docs/Master%20Thesis.pdf" data-i18n="s20_pdf"></a>
+    <a class="btn btn-ghost" href="#top" data-i18n="s20_top"></a>
+  </div>
+</section>
+<div class="foot">
+  <span data-i18n="footText"></span> · <a href="../">← <span data-i18n="footBack"></span></a>
+</div>
+
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- i18n dictionary ---------------- */
+var I18N = {
+ no:{
+  partPill:"Del 1 av 4 · Motivasjon",
+  part1:"Del 1 · Motivasjon", part2:"Del 2 · Teori", part3:"Del 3 · Metode", part4:"Del 4 · Resultater",
+
+  s0_eyebrow:"Masteroppgave · BI · 2026",
+  s0_title:"Vet du like mye som du tror?",
+  s0_sub:"En masteroppgave om norske investorer, kunnskap og selvtillit.",
+  s0_scroll:"Bla for å begynne",
+
+  s1_h:"Hundretusener av nye investorer",
+  s1_b:"De siste årene har stadig flere nordmenn begynt å investere — over 600 000 private aksjonærer i 2025, mange av dem helt ferske etter pandemien.",
+  s1_cap:"private aksjonærer i Norge (2025)",
+
+  s2_h:"Men ikke alle har samme kart",
+  s2_b:"Selv i et land som skårer høyt på finanskunnskap er forskjellene store fra person til person. Noen forstår renter, gebyrer og risiko godt — andre kaster seg ut i markedet med et ufullstendig kart.",
+
+  s3_h:"Så: betyr kunnskap egentlig noe for hvordan du investerer?",
+  s3_b:"Tar de som kan mer, mer eller mindre risiko? Sprer de pengene bedre? Og — det mest interessante — er det kunnskapen i seg selv som styrer, eller troen på egen kunnskap?",
+
+  s4_h:"Derfor er svaret verdt å lete etter",
+  s4_b:"De vanligste tabbene småsparere gjør — alt i én aksje, glemme gebyrer, ta risiko de ikke forstår — handler nettopp om dette. Hvis kunnskap endrer atferd, er finansopplæring verdt pengene. Hvis det heller er selvtilliten som styrer, må vi lære folk å kjenne sine egne grenser.",
+
+  s5_h:"Byggekloss 1: Hva du faktisk kan",
+  s5_b:"Finansiell kunnskap er rett og slett om du forstår grunnreglene: renters rente, inflasjon, gebyrer og det å spre risiko. Tenk på det som kartlesing for pengeverdenen — og det kan måles med en liten quiz.",
+
+  s6_h:"Byggekloss 2: Hva du TROR du kan",
+  s6_b:"Selvtillit og kalibrering er to ulike ting. Selvtillit er hvor flink du tror du er. Kalibrering er hvor godt troen treffer virkeligheten. Du kan være både svært selvsikker og godt kalibrert — hvis du faktisk ér flink. Som en sjåfør sikker på at han kjører bedre enn alle: spørsmålet er om speedometeret hans viser riktig fart.",
+
+  s7_h:"Når selvtilliten løper foran",
+  s7_b:"Når troen på egen kunnskap er større enn den faktiske kunnskapen, kaller vi det overmot (overconfidence). Da har du lett for å undervurdere risiko — og ta mer av den enn du burde.",
+
+  s8_h:"Byggekloss 3 og 4: Risiko og spredning",
+  s8_b:"To ting til, i hverdagsspråk: Risikovilje er hvor mye svingninger og mulig tap du tåler for sjansen til høyere avkastning — som hvor bratt berg-og-dal-bane du tør å sette deg i. Diversifisering er å ikke legge alle eggene i én kurv.",
+
+  s9_h:"Hjertet i oppgaven: to mulige veier",
+  s9_b:"Kunnskap kan påvirke risiko på to måter. Den direkte veien: «jeg forstår risiko, derfor tør jeg mer.» Eller den indirekte veien, via et mellomledd: kunnskap gjør deg tryggere på deg selv, og den tryggheten får deg til å ta mer risiko. Tenk dominobrikker: Kunnskap velter ikke Risiko direkte — den velter Selvtillit, som velter Risiko. Hvilken vei er det som faktisk virker? Det er det vi skal måle.",
+
+  s10_h:"Vi gikk dit investorene faktisk er",
+  s10_b:"Vi laget en spørreundersøkelse og delte den der norske investorer henger: Reddit-forum som r/aksjer og r/TollbugataBets, Nordnet Shareville og Facebook-grupper. 1 027 personer svarte.",
+
+  s11_h:"Fra 1 027 til 750 — rensing av data",
+  s11_b:"Vi luket ut mindreårige, de som ikke fulgte med (vi hadde lagt inn kontrollspørsmål), og ufullstendige svar. Igjen sto 750 respondenter — grunnlaget for hele analysen.",
+  s11_cap:"respondenter igjen etter rensing",
+
+  s12_h:"Hvem er det vi har målt?",
+  s12_b:"Det er verdt å være åpen om: utvalget er investor-aktivt, mannsdominert (84 %) og rekruttert fra nettsamfunn. Det betyr at vi beskriver variasjon innad i et engasjert investormiljø — ikke hele Norges befolkning. Det er en bevisst avgrensning, ikke noe vi gjemmer bort.",
+
+  s13_h:"Prøv selv før vi forteller",
+  s13_prompt:"Hvor mange av disse tror du at du klarer? Tipp først — så prøver du.",
+  s13_guesslabel:"Min gjetning (0–6):",
+  q1_q:"Du setter 100 kr på konto til 6 % rente. Hvor mye har du etter to år, uten uttak?",
+  q1_o0:"106 kr", q1_o1:"112 kr", q1_o2:"112,36 kr", q1_o3:"130 kr",
+  q2_q:"En aksje faller 50 %. Hvor mye må den stige året etter for å være tilbake til start?",
+  q2_o0:"50 %", q2_o1:"75 %", q2_o2:"100 %",
+  s13_reveal:"Snittinvestoren i undersøkelsen klarte 5,63 av 6. Kunnskapsnivået var altså høyt — husk det, det blir viktig snart.",
+  s13_expand:"Se alle seks spørsmålene",
+  q3_q:"Kontoen din gir 1 % rente og inflasjonen er 3 %. Hvordan endrer kjøpekraften seg etter ett år?",
+  q3_o0:"Den øker", q3_o1:"Den synker", q3_o2:"Den forblir den samme",
+  q4_q:"«Å kjøpe aksjer i ett selskap er vanligvis mer risikabelt enn å kjøpe et bredt aksjefond.»",
+  q4_o0:"Sant", q4_o1:"Usant",
+  q5_q:"En investering med høy forventet avkastning har vanligvis …",
+  q5_o0:"Lav risiko", q5_o1:"Høy risiko", q5_o2:"Samme risiko som andre",
+  q6_q:"To fond ventes å gi samme avkastning før kostnader. Fond A har 1,0 % årlig kostnad, fond B 0,2 %. Hvilket gir mest etter kostnader?",
+  q6_o0:"Fond A", q6_o1:"Fond B", q6_o2:"Likt",
+
+  s14_h:"Når nesten alle er flinke, blir det vanskelig å måle",
+  s14_b:"Her er en utfordring vi tar på alvor: 73,7 % fikk alt riktig, og over 90 % klarte 5 eller 6 av 6. Når nesten alle klumper seg på samme punkt, blir det lite variasjon igjen å måle på — som å trekke en trendlinje gjennom prikker som står oppå hverandre. Det presser effektene mot null.",
+  s14_hl:"Det gjør dette til en bevisst streng test. Finner vi en sammenheng likevel, er det informativt om den underliggende mekanismen — ikke et resultat av statistisk bekvemmelighet. Tallene bør leses som nedre grenser.",
+  s14_cap:"Kunnskapsscore 0–6: nesten alle helt til høyre",
+
+  s15_h:"Funn 1: Mer kunnskap, bredere spredning",
+  s15_b:"De som kan mer, sprer pengene over flere typer investeringer. Effekten er beskjeden men tydelig — og den holder selv blant disse allerede aktive investorene. Et lite men robust steg vekk fra «alle eggene i én kurv».",
+
+  s16_h:"Funn 2: Mer kunnskap, litt mer risikovilje",
+  s16_b:"De som kan mer, tar også litt mer risiko. Men dette funnet er antydende: tar vi bort de med full pott, blir det for lite variasjon igjen til å måle sikkert. Det er i tråd med det linjalen viste, og er ikke et bevis mot sammenhengen. Vi leser tallet som en forsiktig, nedre grense.",
+  s16_toggle:"Fjern de med full pott",
+
+  s17_h:"Funn 3: Mer kunnskap, bedre selvinnsikt",
+  s17_b:"Her er det sterkeste funnet: de som kan mer har et mindre gap mellom hva de tror og hva de faktisk kan. De kjenner seg selv bedre. Dette holdt i alle robusthetssjekkene. (Med et ærlig forbehold: måles selvinnsikten på en mer konservativ måte, blir effekten svakere — så vi kaller den klar, men ikke skråsikker.)",
+
+  s18_h:"Funn 4: Selvtilliten er broen",
+  s18_b:"Nå velter dominoen. Kunnskap øker selvtilliten, og selvtilliten øker risikoviljen. Når vi holder selvtilliten konstant, forsvinner den direkte koblingen mellom kunnskap og risiko nesten helt. Omtrent 57 % av hele sammenhengen går gjennom selvtillit-kanalen.",
+  s18_hl:"Mønsteret er i tråd med at kunnskap virker på risiko først og fremst ved å gjøre folk tryggere på seg selv. Merk språket: dataene er i tråd med denne mekanismen — de beviser den ikke. Med et øyeblikksbilde kan vi ikke fastslå årsak.",
+  s18_replay:"Spill av igjen",
+
+  s19_h:"Konklusjonen: kunnskap former kvaliteten på risikoen",
+  s19_b:"Finansiell kunnskap dytter deg ikke blindt mot mer risiko. Den ser ut til å gi mer informert og bedre kalibrert risiko — du tar mer, men med tettere samsvar mellom hva du tror og hva du faktisk kan. Og veien dit går gjennom selvtilliten.",
+  s19_policy:"For finansopplæring betyr det: ikke bare pøs på fakta. Hjelp folk å vurdere sin egen kunnskap riktig. Et verktøy som viser gapet mellom hva du tror og hva du kan, kan være mer verdt enn enda en forelesning.",
+  s19_caveat:"Husk: dette er et øyeblikksbilde (ikke årsak), et skjevt utvalg, og kunnskap nær taket. Funnene gjelder investor-Norge — ikke nødvendigvis alle.",
+
+  s20_h:"Takk for at du leste",
+  s20_b:"En masteroppgave i finans, gjort tilgjengelig for alle. Vil du lese hele? Den ligger her.",
+  s20_acad:"«How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?»",
+  s20_authors:"Henrik Bekkevold og Valiant Evers · MSc Finance · BI Norwegian Business School · 2026",
+  s20_pdf:"Last ned oppgaven (PDF)",
+  s20_top:"↑ Til toppen",
+
+  footText:"© 2026 Henrik Bekkevold & Valiant Evers",
+  footBack:"Tilbake til prosjekter",
+
+  /* diagram labels */
+  lblKnow:"Kunnskap", lblConf:"Selvtillit", lblRisk:"Risiko", lblThink:"Det du tror du kan",
+  lblGap:"Overmot: gapet mellom tro og kunnskap",
+  lblBasket:"Alt i én kurv", lblFee:"Gebyrer", lblRiskMeter:"Feil risiko",
+  lblSpeedo:"Selvbilde", lblSpeedoNote1:"Viser nåla riktig fart?", lblSpeedoNote2:"Det er kalibrering.",
+  lblCoaster:"Risikovilje", lblPlate:"Diversifisering",
+  lblDirect:"direkte vei?", lblNotSig:"direkte vei: ikke signifikant",
+  lbl57:"≈ 57 % via selvtillit",
+  lblFilter1:"Under 18", lblFilter2:"Strøk kontrollsjekk", lblFilter3:"Ufullstendige svar",
+  lblMen:"menn", lblYoung:"under 35 år", lblOnline:"Nett", lblOnline2:"investorforum",
+  lblKnowAxis:"Kunnskap →", lblAligned:"tro og kunnskap møtes",
+
+  qOk:"Riktig!", qNo:"Ikke helt — riktig svar er markert."
+ },
+ en:{
+  partPill:"Part 1 of 4 · Motivation",
+  part1:"Part 1 · Motivation", part2:"Part 2 · Theory", part3:"Part 3 · Method", part4:"Part 4 · Results",
+
+  s0_eyebrow:"Master's thesis · BI · 2026",
+  s0_title:"Do you know as much as you think you do?",
+  s0_sub:"A master's thesis on Norwegian investors, knowledge, and confidence.",
+  s0_scroll:"Scroll to begin",
+
+  s1_h:"Hundreds of thousands of new investors",
+  s1_b:"In recent years, more and more Norwegians have started investing — over 600,000 private shareholders by 2025, many of them complete newcomers after the pandemic.",
+  s1_cap:"private shareholders in Norway (2025)",
+
+  s2_h:"But not everyone carries the same map",
+  s2_b:"Even in a country that scores high on financial knowledge, the gaps between people are wide. Some understand interest, fees and risk well — others dive into the market with an incomplete map.",
+
+  s3_h:"So: does knowledge actually shape how you invest?",
+  s3_b:"Do those who know more take on more risk, or less? Do they spread their money more wisely? And — most intriguing of all — is it the knowledge itself that steers us, or our belief in that knowledge?",
+
+  s4_h:"That's why the answer is worth chasing",
+  s4_b:"The most common mistakes small investors make — everything in one stock, ignoring fees, taking risks they don't grasp — come down to exactly this. If knowledge changes behaviour, financial education is worth the money. If it's confidence that steers instead, we need to teach people to recognise their own limits.",
+
+  s5_h:"Building block 1: What you actually know",
+  s5_b:"Financial literacy is simply whether you understand the basics: compound interest, inflation, fees and spreading risk. Think of it as map-reading for the world of money — and it can be measured with a short quiz.",
+
+  s6_h:"Building block 2: What you THINK you know",
+  s6_b:"Confidence and calibration are two different things. Confidence is how good you think you are. Calibration is how well that belief matches reality. You can be both highly confident and well-calibrated — if you genuinely are good. Like a driver certain he drives better than everyone else: the question is whether his speedometer reads true.",
+
+  s7_h:"When confidence runs ahead",
+  s7_b:"When your belief in your own knowledge outruns the knowledge itself, we call it overconfidence. It makes you prone to underestimate risk — and to take on more of it than you should.",
+
+  s8_h:"Building blocks 3 and 4: Risk and spreading",
+  s8_b:"Two more, in plain terms: Risk tolerance is how much swing and possible loss you'll stomach for a shot at higher returns — like how steep a rollercoaster you dare to ride. Diversification is not putting all your eggs in one basket.",
+
+  s9_h:"The heart of the thesis: two possible paths",
+  s9_b:"Knowledge can shape risk-taking in two ways. The direct path: ‘I understand risk, so I dare to take more.’ Or the indirect path, through a middle step: knowledge makes you more sure of yourself, and that self-assurance leads you to take more risk. Picture a row of dominoes: Knowledge doesn't topple Risk directly — it topples Confidence, which topples Risk. Which path actually does the work? That's what we set out to measure.",
+
+  s10_h:"We went where the investors actually are",
+  s10_b:"We built a survey and shared it where Norwegian investors gather: Reddit forums like r/aksjer and r/TollbugataBets, Nordnet Shareville and Facebook groups. 1,027 people responded.",
+
+  s11_h:"From 1,027 to 750 — cleaning the data",
+  s11_b:"We removed minors, those who weren't paying attention (we'd planted attention-check questions), and incomplete responses. That left 750 respondents — the foundation for the whole analysis.",
+  s11_cap:"respondents left after cleaning",
+
+  s12_h:"Who exactly did we measure?",
+  s12_b:"It's worth being upfront: the sample is investor-active, male-dominated (84%) and recruited from online communities. That means we're describing variation within an engaged investor crowd — not the Norwegian population as a whole. It's a deliberate scope, not something we hide.",
+
+  s13_h:"Try it yourself before we tell you",
+  s13_prompt:"How many of these do you think you'd get right? Guess first — then take a shot.",
+  s13_guesslabel:"My guess (0–6):",
+  q1_q:"You put 100 kr in an account at 6% interest. How much do you have after two years, with no withdrawals?",
+  q1_o0:"106 kr", q1_o1:"112 kr", q1_o2:"112.36 kr", q1_o3:"130 kr",
+  q2_q:"A stock falls 50%. How much must it rise the next year to get back to where it started?",
+  q2_o0:"50%", q2_o1:"75%", q2_o2:"100%",
+  s13_reveal:"The average investor in the survey got 5.63 out of 6. Knowledge was high, in other words — keep that in mind, it matters in a moment.",
+  s13_expand:"See all six questions",
+  q3_q:"Your account pays 1% interest and inflation is 3%. How does your purchasing power change after one year?",
+  q3_o0:"It increases", q3_o1:"It decreases", q3_o2:"It stays the same",
+  q4_q:"“Buying shares in a single company is usually more risky than buying a broad equity fund.”",
+  q4_o0:"True", q4_o1:"False",
+  q5_q:"An investment with a high expected return usually has …",
+  q5_o0:"Low risk", q5_o1:"High risk", q5_o2:"The same risk as others",
+  q6_q:"Two funds are expected to return the same before fees. Fund A charges 1.0% a year, fund B charges 0.2%. Which gives more after fees?",
+  q6_o0:"Fund A", q6_o1:"Fund B", q6_o2:"The same",
+
+  s14_h:"When almost everyone is sharp, measuring gets hard",
+  s14_b:"Here's a challenge we take seriously: 73.7% got everything right, and over 90% scored 5 or 6 out of 6. When almost everyone clusters at the same point, there's little variation left to measure — like drawing a trend line through dots stacked on top of each other. It pushes the effects toward zero.",
+  s14_hl:"That makes this a deliberately demanding test. If we find a relationship anyway, it's informative about the underlying mechanism — not a product of statistical comfort. The numbers should be read as lower bounds.",
+  s14_cap:"Knowledge score 0–6: almost everyone bunched at the right",
+
+  s15_h:"Finding 1: More knowledge, broader spread",
+  s15_b:"Those who know more spread their money across more types of investments. The effect is modest but clear — and it holds even among these already active investors. A small but robust step away from ‘all the eggs in one basket.’",
+
+  s16_h:"Finding 2: More knowledge, a little more appetite for risk",
+  s16_b:"Those who know more also take a bit more risk. But this finding is suggestive: remove the perfect-scorers and there's too little variation left to measure with confidence — just as the ruler showed. That's consistent with variance compression, and is not evidence against the relationship. We read the number as a cautious lower bound.",
+  s16_toggle:"Remove the perfect-scorers",
+
+  s17_h:"Finding 3: More knowledge, sharper self-insight",
+  s17_b:"Here's the strongest finding: those who know more have a smaller gap between what they think and what they actually know. They read themselves more accurately. This held across every robustness check. (With one honest caveat: measure self-insight a more conservative way and the effect softens — so we call it clear, but not beyond doubt.)",
+
+  s18_h:"Finding 4: Confidence is the bridge",
+  s18_b:"Now the dominoes fall. Knowledge raises confidence, and confidence raises the appetite for risk. Hold confidence constant, and the direct link between knowledge and risk all but disappears. Roughly 57% of the whole relationship runs through the confidence channel.",
+  s18_hl:"The pattern is consistent with knowledge acting on risk mainly by making people more sure of themselves. Note the wording: the data are consistent with this mechanism — they don't prove it. With a single snapshot in time, we can't establish cause.",
+  s18_replay:"Play again",
+
+  s19_h:"The conclusion: knowledge shapes the quality of risk",
+  s19_b:"Financial literacy doesn't blindly push you toward more risk. It appears to produce more informed, better-calibrated risk — you take on more, but with a closer match between what you think and what you actually know. And the route there runs through confidence.",
+  s19_policy:"For financial education, the lesson is: don't just pile on facts. Help people judge their own knowledge accurately. A tool that shows the gap between what you think and what you know may be worth more than another lecture.",
+  s19_caveat:"Remember: this is a snapshot (not cause), a skewed sample, and knowledge near the ceiling. The findings describe investor-Norway — not necessarily everyone.",
+
+  s20_h:"Thanks for reading",
+  s20_b:"A master's thesis in finance, made readable for everyone. Want the full version? You'll find it here.",
+  s20_acad:"“How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?”",
+  s20_authors:"Henrik Bekkevold and Valiant Evers · MSc Finance · BI Norwegian Business School · 2026",
+  s20_pdf:"Download the thesis (PDF)",
+  s20_top:"↑ Back to top",
+
+  footText:"© 2026 Henrik Bekkevold & Valiant Evers",
+  footBack:"Back to projects",
+
+  lblKnow:"Knowledge", lblConf:"Confidence", lblRisk:"Risk", lblThink:"What you think you know",
+  lblGap:"Overconfidence: the gap between belief and knowledge",
+  lblBasket:"All in one basket", lblFee:"Fees", lblRiskMeter:"Wrong risk",
+  lblSpeedo:"Self-image", lblSpeedoNote1:"Does the needle read true?", lblSpeedoNote2:"That's calibration.",
+  lblCoaster:"Risk tolerance", lblPlate:"Diversification",
+  lblDirect:"direct path?", lblNotSig:"direct path: not significant",
+  lbl57:"≈ 57% via confidence",
+  lblFilter1:"Under 18", lblFilter2:"Failed attention check", lblFilter3:"Incomplete responses",
+  lblMen:"men", lblYoung:"under 35", lblOnline:"Online", lblOnline2:"investor forums",
+  lblKnowAxis:"Knowledge →", lblAligned:"belief and knowledge meet",
+
+  qOk:"Correct!", qNo:"Not quite — the right answer is marked."
+ }
+};
+
+var lang = 'no';
+try{ var s = localStorage.getItem('ve-thesis-lang'); if(s && I18N[s]) lang = s; }catch(e){}
+
+function fmtInt(n){ var str = Math.round(n).toString();
+  var sep = (lang==='no') ? ' ' : ',';
+  return str.replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+}
+
+function applyLang(){
+  var dict = I18N[lang];
+  document.documentElement.lang = (lang==='en') ? 'en' : 'no';
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if(dict[k] !== undefined) el.innerHTML = dict[k];
+  });
+  document.getElementById('langNo').classList.toggle('active', lang==='no');
+  document.getElementById('langEn').classList.toggle('active', lang==='en');
+  // re-render dynamic counters that already finished
+  document.querySelectorAll('.counter[data-done]').forEach(function(el){
+    el.textContent = fmtInt(parseFloat(el.getAttribute('data-target')));
+  });
+  // re-render verdict text on answered questions
+  document.querySelectorAll('.q.answered .verdict').forEach(function(v){
+    var ok = v.getAttribute('data-ok')==='1';
+    v.textContent = ok ? dict.qOk : dict.qNo;
+  });
+  // part pill reflects current part
+  updatePartPill();
+}
+
+function setLang(l){ lang=l; try{localStorage.setItem('ve-thesis-lang',l)}catch(e){} applyLang(); }
+document.getElementById('langNo').addEventListener('click',function(){setLang('no')});
+document.getElementById('langEn').addEventListener('click',function(){setLang('en')});
+
+/* ---------------- progress bar + part pill ---------------- */
+var bar = document.getElementById('progressBar');
+var pill = document.getElementById('partPill');
+var currentPart = 1;
+function updatePartPill(){
+  var names = [I18N[lang].part1,I18N[lang].part2,I18N[lang].part3,I18N[lang].part4];
+  // partPill key not used directly; build "Part n · Name"
+  var label = (lang==='no'?'Del ':'Part ')+currentPart+(lang==='no'?' av 4 · ':' of 4 · ')+
+    names[currentPart-1].split('· ')[1];
+  pill.textContent = label;
+}
+function onScroll(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  var p = max>0 ? (h.scrollTop || document.body.scrollTop)/max : 0;
+  bar.style.width = (p*100).toFixed(2)+'%';
+  pill.classList.toggle('show', (h.scrollTop||document.body.scrollTop) > 300);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+
+/* ---------------- reveal + per-scene triggers ---------------- */
+var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function animateCounter(el){
+  if(el.getAttribute('data-done')) return;
+  var target = parseFloat(el.getAttribute('data-target'));
+  var from = parseFloat(el.getAttribute('data-from')||'0');
+  el.setAttribute('data-done','1');
+  if(prefersReduced){ el.textContent = fmtInt(target); return; }
+  var dur=1400, t0=null;
+  function step(ts){ if(!t0)t0=ts; var k=Math.min((ts-t0)/dur,1);
+    var eased = 1-Math.pow(1-k,3);
+    el.textContent = fmtInt(from + (target-from)*eased);
+    if(k<1) requestAnimationFrame(step); else el.textContent=fmtInt(target);
+  }
+  requestAnimationFrame(step);
+}
+
+function fillMeters(scene){
+  scene.querySelectorAll('.meter .fill').forEach(function(f){
+    f.style.height = f.getAttribute('data-fill');
+  });
+}
+
+// scatter dots near right end for ruler (scene14) and risk (scene16)
+function buildRulerDots(){
+  var g = document.getElementById('rulerDots'); if(!g||g.childNodes.length) return;
+  // most dots between x=473(5) and 560(6), few lower
+  var pts=[];
+  for(var i=0;i<70;i++){ pts.push([560 - Math.random()*90, 110 - Math.random()*70]); } // cluster 5–6
+  for(var j=0;j<8;j++){ pts.push([300 + Math.random()*150, 115 - Math.random()*55]); } // sparse 3–5
+  pts.forEach(function(p){
+    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',p[0].toFixed(1)); c.setAttribute('cy',p[1].toFixed(1));
+    c.setAttribute('r','3.2'); c.setAttribute('fill','#6996ff'); c.setAttribute('opacity','.55');
+    g.appendChild(c);
+  });
+}
+function buildRiskDots(){
+  var g=document.getElementById('riskDots'); if(!g||g.childNodes.length) return;
+  for(var i=0;i<60;i++){
+    var x=460+Math.random()*90, y=110-Math.random()*70;
+    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
+    c.setAttribute('r','3'); c.setAttribute('fill','#6996ff'); c.setAttribute('opacity','.5');
+    g.appendChild(c);
+  }
+  for(var j=0;j<10;j++){
+    var x2=120+Math.random()*300, y2=120-Math.random()*60;
+    var c2=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c2.setAttribute('cx',x2.toFixed(1)); c2.setAttribute('cy',y2.toFixed(1));
+    c2.setAttribute('r','3'); c2.setAttribute('fill','#6996ff'); c2.setAttribute('opacity','.5');
+    g.appendChild(c2);
+  }
+}
+
+function buildScatterDots(){
+  var svg=document.getElementById('dotsSvg'); if(!svg||svg.childNodes.length) return;
+  for(var i=0;i<60;i++){
+    var x=30+Math.random()*540, y=20+Math.random()*160;
+    var bright=Math.random();
+    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
+    c.setAttribute('r','5');
+    c.setAttribute('fill', bright>0.5 ? '#aabeff' : '#2c3a5c');
+    c.setAttribute('opacity', (0.4+bright*0.6).toFixed(2));
+    svg.appendChild(c);
+  }
+}
+
+function growthLinePlay(){
+  var line=document.getElementById('growthLine'), area=document.getElementById('growthArea'), dot=document.getElementById('growthDot');
+  if(!line) return;
+  if(prefersReduced){ line.style.strokeDashoffset='0'; area.style.opacity='1'; dot.setAttribute('opacity','1'); return; }
+  line.style.transition='stroke-dashoffset 1.6s ease'; line.style.strokeDashoffset='0';
+  setTimeout(function(){ area.style.transition='opacity .8s'; area.style.opacity='1'; dot.setAttribute('opacity','1'); },700);
+}
+
+function eggsPlay(scene){
+  var eggs=scene.querySelectorAll('.egg'); if(!eggs.length) return;
+  eggs.forEach(function(e,i){ setTimeout(function(){ e.style.transition='opacity .5s'; e.setAttribute('opacity','1'); }, prefersReduced?0:i*160); });
+}
+
+/* domino topple (scene 18) */
+function dominoPlay(){
+  var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3');
+  var flow=document.getElementById('flow57'),lbl=document.getElementById('lbl57');
+  var dir=document.getElementById('directArrow'), dlbl=document.getElementById('directLbl');
+  if(!t1) return;
+  // reset
+  [t1,t2,t3].forEach(function(t){t.style.transform='rotate(0deg)';});
+  flow.setAttribute('opacity','0'); lbl.setAttribute('opacity','0');
+  dir.setAttribute('opacity','.7'); dlbl.setAttribute('opacity','.8');
+  if(prefersReduced){
+    t1.style.transform='rotate(78deg)'; t2.style.transform='rotate(78deg)'; t3.style.transform='rotate(78deg)';
+    flow.setAttribute('opacity','1'); lbl.setAttribute('opacity','1'); dir.setAttribute('opacity','.18'); dlbl.setAttribute('opacity','.5');
+    return;
+  }
+  setTimeout(function(){ t1.style.transform='rotate(78deg)'; },200);
+  setTimeout(function(){ t2.style.transform='rotate(78deg)'; },900);
+  setTimeout(function(){ flow.setAttribute('opacity','1'); lbl.setAttribute('opacity','1'); },1100);
+  setTimeout(function(){ t3.style.transform='rotate(78deg)'; },1600);
+  setTimeout(function(){ dir.setAttribute('opacity','.18'); dlbl.setAttribute('opacity','.5'); },1900);
+}
+
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(en){
+    if(!en.isIntersecting) return;
+    var sc = en.target;
+    sc.classList.add('in');
+    var part = sc.getAttribute('data-part');
+    if(part){ currentPart = parseInt(part,10); updatePartPill(); }
+    // triggers
+    if(sc.querySelector('#growthLine')) growthLinePlay();
+    sc.querySelectorAll('.counter').forEach(animateCounter);
+    if(sc.querySelector('.meter')) setTimeout(function(){fillMeters(sc);}, 200);
+    if(sc.querySelector('.egg')) eggsPlay(sc);
+    if(sc.querySelector('#dominoTopple')) dominoPlay();
+  });
+},{threshold:0.35});
+document.querySelectorAll('.scene, .outro').forEach(function(s){ io.observe(s); });
+
+/* build dynamic SVG content up front */
+buildScatterDots(); buildRulerDots(); buildRiskDots();
+
+/* ---------------- quiz interactivity ---------------- */
+var guessRange=document.getElementById('guessRange'), guessVal=document.getElementById('guessVal');
+if(guessRange){ guessRange.addEventListener('input',function(){ guessVal.textContent=guessRange.value; }); }
+
+document.querySelectorAll('.q').forEach(function(q){
+  var correct=parseInt(q.getAttribute('data-correct'),10);
+  var opts=q.querySelectorAll('.opt');
+  var verdict=q.querySelector('.verdict');
+  opts.forEach(function(opt,idx){
+    opt.addEventListener('click',function(){
+      if(q.classList.contains('answered')) return;
+      q.classList.add('answered');
+      opts[correct].classList.add('correct');
+      var ok = idx===correct;
+      if(!ok) opt.classList.add('wrong');
+      verdict.classList.add(ok?'ok':'no');
+      verdict.setAttribute('data-ok', ok?'1':'0');
+      verdict.textContent = ok ? I18N[lang].qOk : I18N[lang].qNo;
+      // reveal the avg note once any of the first two answered
+      document.getElementById('quizReveal').classList.add('show');
+    });
+  });
+});
+
+var expandBtn=document.getElementById('expandQuiz'), moreQ=document.getElementById('moreQ');
+if(expandBtn){ expandBtn.addEventListener('click',function(){
+  moreQ.classList.toggle('show');
+  expandBtn.style.display = moreQ.classList.contains('show') ? 'none' : 'inline-block';
+}); }
+
+/* ---------------- scene 16 H3 toggle ---------------- */
+var toggleH3=document.getElementById('toggleH3'), riskTrend=document.getElementById('riskTrend');
+var h3removed=false;
+if(toggleH3){ toggleH3.addEventListener('click',function(){
+  h3removed=!h3removed;
+  riskTrend.style.transition='all .8s ease';
+  if(h3removed){ riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','95'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','88'); riskTrend.setAttribute('stroke','#8a93a8'); }
+  else { riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','120'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','60'); riskTrend.setAttribute('stroke','#6996ff'); }
+}); }
+
+/* ---------------- scene 18 replay ---------------- */
+var replay=document.getElementById('replayDomino');
+if(replay){ replay.addEventListener('click',dominoPlay); }
+
+/* init */
+applyLang();
+onScroll();
+})();
+</script>
+</body>
+</html>
