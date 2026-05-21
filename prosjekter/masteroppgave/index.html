@@ -152,7 +152,10 @@ main{position:relative;z-index:2}
 
 /* domino */
 .domino-stage{height:200px;position:relative}
-.tile{transform-origin:bottom center;transition:transform 1s cubic-bezier(.6,.05,.3,1)}
+.tile{transform-box:fill-box;transform-origin:bottom center;transition:transform .42s cubic-bezier(.5,.02,.35,1)}
+.node-lbl{text-transform:uppercase;letter-spacing:.05em}
+.med-arrow{transition:stroke .4s ease,opacity .4s ease}
+.dot-fade{transition:opacity .6s ease}
 .flow-dash{stroke-dasharray:6 6;animation:dash 1.4s linear infinite}
 @keyframes dash{to{stroke-dashoffset:-24}}
 
@@ -576,12 +579,14 @@ main{position:relative;z-index:2}
 <section class="scene" data-part="4">
   <div class="fig reveal d1">
     <div class="figbox">
-      <svg viewBox="0 0 600 170" role="img" aria-hidden="true">
-        <line x1="40" y1="140" x2="560" y2="140" stroke="rgba(231,236,255,.2)"/>
-        <line x1="40" y1="20" x2="40" y2="140" stroke="rgba(231,236,255,.2)"/>
+      <svg viewBox="0 0 600 180" role="img" aria-hidden="true">
+        <line x1="48" y1="140" x2="560" y2="140" stroke="rgba(231,236,255,.2)"/>
+        <line x1="48" y1="18" x2="48" y2="140" stroke="rgba(231,236,255,.2)"/>
         <g id="riskDots"></g>
-        <line id="riskTrend" x1="60" y1="120" x2="540" y2="60" stroke="#6996ff" stroke-width="3" stroke-linecap="round"/>
-        <text x="300" y="160" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblKnowAxis"></text>
+        <line id="riskTrend" x1="60" y1="120" x2="540" y2="58" stroke="#6996ff" stroke-width="3" stroke-linecap="round"/>
+        <text id="h3annot" x="300" y="36" text-anchor="middle" fill="#8f9bbf" font-size="11.5" font-family="Outfit" opacity="0" data-i18n="s16_annot"></text>
+        <text x="304" y="162" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblKnowAxis"></text>
+        <text x="16" y="80" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblRiskAxis" transform="rotate(-90 16 80)"></text>
       </svg>
       <button class="mini-btn" id="toggleH3" data-i18n="s16_toggle"></button>
     </div>
@@ -609,17 +614,24 @@ main{position:relative;z-index:2}
 <section class="scene" data-part="4">
   <div class="fig reveal d1">
     <div class="figbox">
-      <svg viewBox="0 0 600 210" id="dominoTopple" role="img" aria-hidden="true">
-        <!-- direct fading arrow -->
-        <path id="directArrow" d="M70,180 Q300,205 520,180" fill="none" stroke="rgba(231,236,255,.3)" stroke-width="2" stroke-dasharray="6 6"/>
-        <text id="directLbl" x="300" y="202" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblNotSig"></text>
-        <!-- indirect flow 57% -->
-        <path id="flow57" d="M90,55 L290,55 M310,55 L500,55" fill="none" stroke="#5fd0a0" stroke-width="3" class="flow-dash" opacity="0"/>
-        <text id="lbl57" x="300" y="30" text-anchor="middle" fill="#5fd0a0" font-size="16" font-family="Syne" font-weight="800" opacity="0" data-i18n="lbl57"></text>
-        <!-- tiles -->
-        <g class="tile" id="t1"><rect x="60" y="60" width="40" height="90" rx="6" fill="#6996ff"/><text x="80" y="170" text-anchor="middle" fill="#aabeff" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text></g>
-        <g class="tile" id="t2"><rect x="280" y="60" width="40" height="90" rx="6" fill="#ffb774"/><text x="300" y="170" text-anchor="middle" fill="#ffd6a8" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblConf"></text></g>
-        <g class="tile" id="t3"><rect x="500" y="60" width="40" height="90" rx="6" fill="#ff7b7b"/><text x="520" y="170" text-anchor="middle" fill="#ffb3b3" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblRisk"></text></g>
+      <svg viewBox="0 0 600 230" id="dominoTopple" role="img" aria-hidden="true">
+        <!-- indirect path: arrows between the three nodes (light up green as chain progresses) -->
+        <path id="medArrow1" class="med-arrow" d="M120,70 L250,70" fill="none" stroke="rgba(231,236,255,.18)" stroke-width="3" marker-end="url(#mhead)"/>
+        <path id="medArrow2" class="med-arrow" d="M350,70 L470,70" fill="none" stroke="rgba(231,236,255,.18)" stroke-width="3" marker-end="url(#mhead)"/>
+        <!-- indirect 57% counter (centered above) -->
+        <text id="lbl57wrap" x="300" y="34" text-anchor="middle" fill="#5fd0a0" font-size="16" font-family="Syne" font-weight="800" opacity="0">≈ <tspan id="cnt57">0</tspan><tspan data-i18n="lbl57suffix"></tspan></text>
+        <!-- three upright domino tiles -->
+        <g class="tile" id="t1"><rect x="55" y="62" width="42" height="88" rx="6" fill="#6996ff"/></g>
+        <g class="tile" id="t2"><rect x="279" y="62" width="42" height="88" rx="6" fill="#ffb774"/></g>
+        <g class="tile" id="t3"><rect x="503" y="62" width="42" height="88" rx="6" fill="#ff7b7b"/></g>
+        <!-- static node labels (do not rotate with tiles) -->
+        <text class="node-lbl" x="76" y="172" text-anchor="middle" fill="#aabeff" font-size="12.5" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text>
+        <text class="node-lbl" x="300" y="172" text-anchor="middle" fill="#ffd6a8" font-size="12.5" font-family="Syne" font-weight="700" data-i18n="lblConf"></text>
+        <text class="node-lbl" x="524" y="172" text-anchor="middle" fill="#ffb3b3" font-size="12.5" font-family="Syne" font-weight="700" data-i18n="lblRisk"></text>
+        <!-- direct path: faded dashed arc underneath (fades in last) -->
+        <path id="directArrow" d="M76,156 Q300,214 524,156" fill="none" stroke="rgba(231,236,255,.3)" stroke-width="2" stroke-dasharray="6 6" opacity="0"/>
+        <text id="directLbl" x="300" y="210" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" opacity="0" data-i18n="lblNotSig"></text>
+        <defs><marker id="mhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#5fd0a0"/></marker></defs>
       </svg>
       <button class="mini-btn" id="replayDomino" data-i18n="s18_replay"></button>
     </div>
@@ -750,6 +762,8 @@ var I18N = {
   s16_h:"Funn 2: Mer kunnskap, litt mer risikovilje",
   s16_b:"De som kan mer, tar også litt mer risiko. Men dette funnet er antydende: tar vi bort de med full pott, blir det for lite variasjon igjen til å måle sikkert. Det er i tråd med det linjalen viste, og er ikke et bevis mot sammenhengen. Vi leser tallet som en forsiktig, nedre grense.",
   s16_toggle:"Fjern de med full pott",
+  s16_showall:"Vis alle igjen",
+  s16_annot:"for lite variasjon igjen — funnet kan ikke måles sikkert",
 
   s17_h:"Funn 3: Mer kunnskap, bedre selvinnsikt",
   s17_b:"Her er det sterkeste funnet: de som kan mer har et mindre gap mellom hva de tror og hva de faktisk kan. De kjenner seg selv bedre. Dette holdt i alle robusthetssjekkene. (Med et ærlig forbehold: måles selvinnsikten på en mer konservativ måte, blir effekten svakere — så vi kaller den klar, men ikke skråsikker.)",
@@ -780,11 +794,11 @@ var I18N = {
   lblBasket:"Alt i én kurv", lblFee:"Gebyrer", lblRiskMeter:"Feil risiko",
   lblSpeedo:"Selvbilde", lblSpeedoNote1:"Viser nåla riktig fart?", lblSpeedoNote2:"Det er kalibrering.",
   lblCoaster:"Risikovilje", lblPlate:"Diversifisering",
-  lblDirect:"direkte vei?", lblNotSig:"direkte vei: ikke signifikant",
-  lbl57:"≈ 57 % via selvtillit",
+  lblDirect:"direkte vei?", lblNotSig:"direkte: ikke signifikant",
+  lbl57:"≈ 57 % via selvtillit", lbl57suffix:" % via selvtillit",
   lblFilter1:"Under 18", lblFilter2:"Strøk kontrollsjekk", lblFilter3:"Ufullstendige svar",
   lblMen:"menn", lblYoung:"under 35 år", lblOnline:"Nett", lblOnline2:"investorforum",
-  lblKnowAxis:"Kunnskap →", lblAligned:"tro og kunnskap møtes",
+  lblKnowAxis:"Kunnskap →", lblRiskAxis:"Risikovilje →", lblAligned:"tro og kunnskap møtes",
 
   qOk:"Riktig!", qNo:"Ikke helt — riktig svar er markert."
  },
@@ -864,6 +878,8 @@ var I18N = {
   s16_h:"Finding 2: More knowledge, a little more appetite for risk",
   s16_b:"Those who know more also take a bit more risk. But this finding is suggestive: remove the perfect-scorers and there's too little variation left to measure with confidence — just as the ruler showed. That's consistent with variance compression, and is not evidence against the relationship. We read the number as a cautious lower bound.",
   s16_toggle:"Remove the perfect-scorers",
+  s16_showall:"Show all again",
+  s16_annot:"too little variation left — the relationship can't be measured with confidence",
 
   s17_h:"Finding 3: More knowledge, sharper self-insight",
   s17_b:"Here's the strongest finding: those who know more have a smaller gap between what they think and what they actually know. They read themselves more accurately. This held across every robustness check. (With one honest caveat: measure self-insight a more conservative way and the effect softens — so we call it clear, but not beyond doubt.)",
@@ -871,7 +887,7 @@ var I18N = {
   s18_h:"Finding 4: Confidence is the bridge",
   s18_b:"Now the dominoes fall. Knowledge raises confidence, and confidence raises the appetite for risk. Hold confidence constant, and the direct link between knowledge and risk all but disappears. Roughly 57% of the whole relationship runs through the confidence channel.",
   s18_hl:"The pattern is consistent with knowledge acting on risk mainly by making people more sure of themselves. Note the wording: the data are consistent with this mechanism — they don't prove it. With a single snapshot in time, we can't establish cause.",
-  s18_replay:"Play again",
+  s18_replay:"Replay",
 
   s19_h:"The conclusion: knowledge shapes the quality of risk",
   s19_b:"Financial literacy doesn't blindly push you toward more risk. It appears to produce more informed, better-calibrated risk — you take on more, but with a closer match between what you think and what you actually know. And the route there runs through confidence.",
@@ -893,11 +909,11 @@ var I18N = {
   lblBasket:"All in one basket", lblFee:"Fees", lblRiskMeter:"Wrong risk",
   lblSpeedo:"Self-image", lblSpeedoNote1:"Does the needle read true?", lblSpeedoNote2:"That's calibration.",
   lblCoaster:"Risk tolerance", lblPlate:"Diversification",
-  lblDirect:"direct path?", lblNotSig:"direct path: not significant",
-  lbl57:"≈ 57% via confidence",
+  lblDirect:"direct path?", lblNotSig:"direct: not significant",
+  lbl57:"≈ 57% via confidence", lbl57suffix:"% via confidence",
   lblFilter1:"Under 18", lblFilter2:"Failed attention check", lblFilter3:"Incomplete responses",
   lblMen:"men", lblYoung:"under 35", lblOnline:"Online", lblOnline2:"investor forums",
-  lblKnowAxis:"Knowledge →", lblAligned:"belief and knowledge meet",
+  lblKnowAxis:"Knowledge →", lblRiskAxis:"Risk-taking →", lblAligned:"belief and knowledge meet",
 
   qOk:"Correct!", qNo:"Not quite — the right answer is marked."
  }
@@ -995,22 +1011,35 @@ function buildRulerDots(){
     g.appendChild(c);
   });
 }
+// scene 16 dots — SAME styling as scene 14 ruler (r 3.2, #6996ff, .55) so the
+// reader recognises it as the same data population seen from another angle.
 function buildRiskDots(){
   var g=document.getElementById('riskDots'); if(!g||g.childNodes.length) return;
-  for(var i=0;i<60;i++){
-    var x=460+Math.random()*90, y=110-Math.random()*70;
+  function mk(x,y,perfect){
     var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
-    c.setAttribute('r','3'); c.setAttribute('fill','#6996ff'); c.setAttribute('opacity','.5');
+    c.setAttribute('cx',x.toFixed(1));
+    c.setAttribute('data-cy',y.toFixed(1)); // target y (final scatter position)
+    c.setAttribute('cy','140');             // start on the x-axis (ruler row); spreads up on view
+    c.setAttribute('r','3.2'); c.setAttribute('fill','#6996ff'); c.setAttribute('opacity','.55');
+    c.setAttribute('class','dot-fade'+(perfect?' perfect':''));
     g.appendChild(c);
   }
-  for(var j=0;j<10;j++){
-    var x2=120+Math.random()*300, y2=120-Math.random()*60;
-    var c2=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c2.setAttribute('cx',x2.toFixed(1)); c2.setAttribute('cy',y2.toFixed(1));
-    c2.setAttribute('r','3'); c2.setAttribute('fill','#6996ff'); c2.setAttribute('opacity','.5');
-    g.appendChild(c2);
+  for(var i=0;i<40;i++){ mk(505+Math.random()*52, 112-Math.random()*72, true); }  // perfect (6/6) cluster, far right
+  for(var k=0;k<22;k++){ mk(440+Math.random()*60, 116-Math.random()*64, false); } // 5/6 cluster
+  for(var j=0;j<10;j++){ mk(120+Math.random()*300, 122-Math.random()*58, false); } // sparse lower scores
+}
+// "spread out" the ruler row into the scatter — visually links scene 16 to scene 14
+function animateRiskSpread(){
+  var g=document.getElementById('riskDots'); if(!g||g.getAttribute('data-spread')) return;
+  g.setAttribute('data-spread','1');
+  var dots=g.querySelectorAll('circle');
+  if(prefersReduced){ dots.forEach(function(c){ c.setAttribute('cy', c.getAttribute('data-cy')); }); return; }
+  var t0=null, dur=750;
+  function step(ts){ if(!t0)t0=ts; var k=Math.min((ts-t0)/dur,1); var e=1-Math.pow(1-k,3);
+    dots.forEach(function(c){ var ty=parseFloat(c.getAttribute('data-cy')); c.setAttribute('cy',(140+(ty-140)*e).toFixed(1)); });
+    if(k<1) requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
 }
 
 function buildScatterDots(){
@@ -1040,26 +1069,46 @@ function eggsPlay(scene){
   eggs.forEach(function(e,i){ setTimeout(function(){ e.style.transition='opacity .5s'; e.setAttribute('opacity','1'); }, prefersReduced?0:i*160); });
 }
 
-/* domino topple (scene 18) */
+/* mediation chain (scene 18): KNOWLEDGE → CONFIDENCE → RISK toppling in sequence,
+   indirect path glows + 57% counts up, then the direct path fades in faded/dashed */
+var _domTimers=[];
 function dominoPlay(){
   var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3');
-  var flow=document.getElementById('flow57'),lbl=document.getElementById('lbl57');
+  var a1=document.getElementById('medArrow1'),a2=document.getElementById('medArrow2');
+  var wrap=document.getElementById('lbl57wrap'), cnt=document.getElementById('cnt57');
   var dir=document.getElementById('directArrow'), dlbl=document.getElementById('directLbl');
   if(!t1) return;
-  // reset
+  var DIM='rgba(231,236,255,.18)', LIT='#5fd0a0';
+  _domTimers.forEach(clearTimeout); _domTimers=[];
+  function later(fn,ms){ _domTimers.push(setTimeout(fn,ms)); }
+  // reset to standing/blank
   [t1,t2,t3].forEach(function(t){t.style.transform='rotate(0deg)';});
-  flow.setAttribute('opacity','0'); lbl.setAttribute('opacity','0');
-  dir.setAttribute('opacity','.7'); dlbl.setAttribute('opacity','.8');
+  a1.setAttribute('stroke',DIM); a2.setAttribute('stroke',DIM);
+  wrap.setAttribute('opacity','0'); cnt.textContent='0';
+  dir.setAttribute('opacity','0'); dlbl.setAttribute('opacity','0');
   if(prefersReduced){
-    t1.style.transform='rotate(78deg)'; t2.style.transform='rotate(78deg)'; t3.style.transform='rotate(78deg)';
-    flow.setAttribute('opacity','1'); lbl.setAttribute('opacity','1'); dir.setAttribute('opacity','.18'); dlbl.setAttribute('opacity','.5');
+    t1.style.transform=t2.style.transform=t3.style.transform='rotate(80deg)';
+    a1.setAttribute('stroke',LIT); a2.setAttribute('stroke',LIT);
+    wrap.setAttribute('opacity','1'); cnt.textContent='57';
+    dir.setAttribute('opacity','.28'); dlbl.setAttribute('opacity','.6');
     return;
   }
-  setTimeout(function(){ t1.style.transform='rotate(78deg)'; },200);
-  setTimeout(function(){ t2.style.transform='rotate(78deg)'; },900);
-  setTimeout(function(){ flow.setAttribute('opacity','1'); lbl.setAttribute('opacity','1'); },1100);
-  setTimeout(function(){ t3.style.transform='rotate(78deg)'; },1600);
-  setTimeout(function(){ dir.setAttribute('opacity','.18'); dlbl.setAttribute('opacity','.5'); },1900);
+  // sequential topple, each tile tipping toward the next node (~400ms apart)
+  later(function(){ t1.style.transform='rotate(80deg)'; },250);
+  later(function(){ a1.setAttribute('stroke',LIT); wrap.setAttribute('opacity','1'); },560);
+  later(function(){ t2.style.transform='rotate(80deg)'; },650);
+  later(function(){ a2.setAttribute('stroke',LIT); },960);
+  later(function(){ t3.style.transform='rotate(80deg)'; },1050);
+  // 57% counts up alongside the chain
+  later(function(){
+    var c0=null,cd=1100;
+    function cstep(ts){ if(!c0)c0=ts; var k=Math.min((ts-c0)/cd,1);
+      cnt.textContent=Math.round(57*(1-Math.pow(1-k,3)));
+      if(k<1) requestAnimationFrame(cstep); else cnt.textContent='57'; }
+    requestAnimationFrame(cstep);
+  },560);
+  // direct path fades in last, faded and dashed
+  later(function(){ dir.setAttribute('opacity','.28'); dlbl.setAttribute('opacity','.6'); },1700);
 }
 
 var io = new IntersectionObserver(function(entries){
@@ -1074,6 +1123,7 @@ var io = new IntersectionObserver(function(entries){
     sc.querySelectorAll('.counter').forEach(animateCounter);
     if(sc.querySelector('.meter')) setTimeout(function(){fillMeters(sc);}, 200);
     if(sc.querySelector('.egg')) eggsPlay(sc);
+    if(sc.querySelector('#riskDots')) animateRiskSpread();
     if(sc.querySelector('#dominoTopple')) dominoPlay();
   });
 },{threshold:0.35});
@@ -1112,14 +1162,28 @@ if(expandBtn){ expandBtn.addEventListener('click',function(){
   expandBtn.style.display = moreQ.classList.contains('show') ? 'none' : 'inline-block';
 }); }
 
-/* ---------------- scene 16 H3 toggle ---------------- */
-var toggleH3=document.getElementById('toggleH3'), riskTrend=document.getElementById('riskTrend');
+/* ---------------- scene 16 H3 toggle (remove perfect-scorers) ---------------- */
+var toggleH3=document.getElementById('toggleH3'), riskTrend=document.getElementById('riskTrend'), h3annot=document.getElementById('h3annot');
 var h3removed=false;
 if(toggleH3){ toggleH3.addEventListener('click',function(){
   h3removed=!h3removed;
   riskTrend.style.transition='all .8s ease';
-  if(h3removed){ riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','95'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','88'); riskTrend.setAttribute('stroke','#8a93a8'); }
-  else { riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','120'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','60'); riskTrend.setAttribute('stroke','#6996ff'); }
+  var perfect=document.querySelectorAll('#riskDots .perfect');
+  if(h3removed){
+    // fade the 6/6 cluster to ~18% (still visible — reader sees what was removed)
+    perfect.forEach(function(c){ c.setAttribute('opacity','.18'); });
+    // trend flattens to near-flat, dashed = "too little variation left"
+    riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','92'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','88');
+    riskTrend.setAttribute('stroke','#8a93a8'); riskTrend.setAttribute('stroke-dasharray','7 6');
+    h3annot.setAttribute('opacity','1');
+    toggleH3.setAttribute('data-i18n','s16_showall'); toggleH3.innerHTML=I18N[lang].s16_showall;
+  } else {
+    perfect.forEach(function(c){ c.setAttribute('opacity','.55'); });
+    riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','120'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','58');
+    riskTrend.setAttribute('stroke','#6996ff'); riskTrend.removeAttribute('stroke-dasharray');
+    h3annot.setAttribute('opacity','0');
+    toggleH3.setAttribute('data-i18n','s16_toggle'); toggleH3.innerHTML=I18N[lang].s16_toggle;
+  }
 }); }
 
 /* ---------------- scene 18 replay ---------------- */
