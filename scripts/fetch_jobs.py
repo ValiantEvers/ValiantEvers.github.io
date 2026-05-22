@@ -427,7 +427,7 @@ def sha1_job_id(url: str) -> str:
 # ─────────────────────────────────────────────────────────────────────────
 
 def main():
-    password = os.environ["STRATEGI_PASSWORD"]
+    password = os.environ["STRATEGI_PASSWORD"].strip()
     pat = os.environ["GIST_PAT"]
     gist_id = os.environ["GIST_ID"]
 
@@ -436,7 +436,21 @@ def main():
 
     print("Fetching Gist…")
     blob = gist_get(pat, gist_id)
-    payload = decrypt_blob(password, blob)
+    print(
+        f"  blob fingerprint: v={blob.get('v')} "
+        f"salt={blob.get('salt', '')[:8]}… iv={blob.get('iv', '')[:8]}… "
+        f"ct_len={len(blob.get('ct', ''))} pw_len={len(password)}"
+    )
+    try:
+        payload = decrypt_blob(password, blob)
+    except Exception:
+        print(
+            "  DECRYPT FAILED. Blob above was NOT written with the "
+            "STRATEGI_PASSWORD this run used (pw_len shown). Either the "
+            "CI secret is stale, or the Gist blob was re-keyed from the browser.",
+            file=sys.stderr,
+        )
+        raise
     existing_urls = {normalize_url(j.get("url", "")) for j in payload.get("jobs", [])}
     print(f"  Eksisterende jobber: {len(existing_urls)}")
 
