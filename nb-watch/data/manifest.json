@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-21T20:31:26.496048Z",
+  "lastUpdated": "2026-05-22T08:47:34.372416Z",
   "sources": [
     {
       "name": "Norges Bank",
@@ -32,12 +32,12 @@
     "norges_bank": {
       "styringsrente": {
         "status": "ok",
-        "rows": 1856,
+        "rows": 1857,
         "key": "IR/B.KPRA.SD.R"
       },
       "nibor": {
         "status": "ok",
-        "rows": 1550,
+        "rows": 1551,
         "key": "SHORT_RATES/B.NOWA_AVERAGE.3M.R"
       },
       "valuta": {
