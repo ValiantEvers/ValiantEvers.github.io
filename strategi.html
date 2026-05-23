@@ -275,7 +275,7 @@ select.inp{color-scheme:dark;appearance:auto}
 /* ── ETAPPE 2: sync-indicator states, bootstrap-lock, banner, modal, toast ── */
 .saved-ind.s-synced{color:var(--green);border-color:var(--green-b);background:var(--green-bg)}
 .saved-ind.s-saving,.saved-ind.s-bootstrap{color:var(--yellow);border-color:var(--yellow-b);background:var(--yellow-bg)}
-.saved-ind.s-offline,.saved-ind.s-patinvalid{color:var(--red);border-color:var(--red-b);background:var(--red-bg);cursor:pointer}
+.saved-ind.s-offline,.saved-ind.s-patinvalid,.saved-ind.s-pwmismatch{color:var(--red);border-color:var(--red-b);background:var(--red-bg);cursor:pointer}
 .saved-ind.s-noconfig{color:var(--gray);border-color:var(--gray-b);background:var(--gray-bg);cursor:pointer}
 .saved-ind.s-local{color:var(--accent);border-color:var(--border-h);background:var(--accent-g)}
 .spin{display:inline-block;width:8px;height:8px;border:1.5px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;margin-right:5px;vertical-align:-1px}
@@ -932,7 +932,7 @@ var STATE = {
   cryptoKey: null,         // CryptoKey — cached AES-GCM key for fast re-encryption
   initialUpdatedAt: null,  // payload.updatedAt at decrypt time — baseline for sync conflict detection
   bootstrapping: false,    // true while bootstrapSync runs; locks UI
-  syncState: "noconfig",   // synced | saving | offline | noconfig | patinvalid | bootstrap | local
+  syncState: "noconfig",   // synced | saving | offline | noconfig | patinvalid | pwmismatch | bootstrap | local
   pushTimer: null,         // setTimeout handle for debounced Gist PATCH
   retryAttempt: 0,         // retry counter for exponential backoff
   retryTimer: null,        // setTimeout handle for retry
@@ -1041,6 +1041,7 @@ var SYNC_LABELS = {
   offline:     function(){ return "Offline — prøver igjen"; },
   noconfig:    function(){ return "Synk ikke aktivert"; },
   patinvalid:  function(){ return "PAT ugyldig — klikk for re-setup"; },
+  pwmismatch:  function(){ return "⚠ Cache-passord ≠ Gist — klikk for å tømme"; },
   local:       function(){ return "Lokal kun"; }
 };
 function updateSyncIndicator(state, ts){
@@ -1211,6 +1212,30 @@ function mutate(){
   schedulePush();
 }
 
+// Stale local cache encrypted with a different password than the Gist
+// (password rotated on another device). Offer a one-click reset.
+function clearStrategiCacheAndReload(){
+  localStorage.removeItem("ve-strategi-cache");
+  localStorage.removeItem("ve-banner-snooze");
+  location.reload();
+}
+function pwMismatchToast(){
+  toast("Cachen på denne enheten er kryptert med et annet passord enn Gist'en. Tøm nettleserdata og last inn på nytt.", {
+    actionText: "Tøm cache og last inn på nytt",
+    action: clearStrategiCacheAndReload,
+    ms: 20000
+  });
+}
+// Detect a WebCrypto decrypt failure (AES-GCM auth-tag mismatch). The remote
+// Gist was re-encrypted with a new password but this device still holds a
+// stale cache, so decryptBlob throws a DOMException("OperationError").
+function isDecryptError(err){
+  if(!err) return false;
+  if(err.name === "OperationError") return true;
+  var s = String(err.name || "") + " " + String(err.message || "");
+  return /OperationError|decrypt/i.test(s);
+}
+
 // ════════════════════════════════════════════════════════════════
 //  BOOTSTRAP SYNC — fetch fresh Gist, reconcile, unlock UI
 // ════════════════════════════════════════════════════════════════
@@ -1276,6 +1301,12 @@ async function bootstrapSync(){
       updateSyncIndicator("patinvalid");
       toast("Gist ikke funnet (slettet?). Sett opp synk på nytt.");
       openSetupModal();
+    } else if(isDecryptError(err)){
+      // Gist dekrypterer ikke med dette passordet → cache er trolig kryptert
+      // med et eldre passord enn Gist'en. Vis tydelig i stedet for stille offline.
+      updateSyncIndicator("pwmismatch");
+      pwMismatchToast();
+      console.warn("bootstrapSync: Gist-dekryptering feilet (passord-mismatch?):", err);
     } else {
       updateSyncIndicator("offline");
       console.warn("bootstrapSync feilet:", err);
@@ -2275,6 +2306,7 @@ function initUI(payload){
   // Sync indicator — clickable when in error/no-config state to open setup
   document.getElementById("savedInd").addEventListener("click", function(){
     if(STATE.syncState === "noconfig" || STATE.syncState === "patinvalid") openSetupModal();
+    else if(STATE.syncState === "pwmismatch") pwMismatchToast();
   });
 
   // Setup modal wiring (Esc closes via global handler)
