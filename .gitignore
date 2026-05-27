@@ -17,3 +17,5 @@ Thumbs.db
 # Python bytecode
 __pycache__/
 *.pyc
+.tmp-skills/
+hero-vyre/
