@@ -67,7 +67,7 @@
 @media(hover:none){.cursor-dot{display:none}}
 
 /* DARK MODE TOGGLE */
-.theme-toggle{background:none;border:1.5px solid rgba(0,18,51,.15);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .3s;position:relative}
+.theme-toggle{background:none;border:1.5px solid rgba(0,18,51,.15);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:border-color 200ms ease,color 200ms ease,background-color 200ms ease;position:relative}
 .theme-toggle:hover{border-color:var(--accent)}
 [data-theme="dark"] .theme-toggle{border-color:rgba(225,231,255,.15)}
 [data-theme="dark"] .theme-toggle:hover{border-color:var(--accent)}
@@ -145,8 +145,8 @@ nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturat
 .nav-links a{text-decoration:none;color:var(--text);font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:500;font-size:.9rem;position:relative;transition:color .3s;opacity:0;transform:translateY(-10px)}.nav-links a.visible{opacity:1;transform:translateY(0)}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}.nav-links a:hover{color:var(--accent)}.nav-links a:hover::after{width:100%}
 .lang-switch{position:relative}
-.lang-btn{background:none;border:1.5px solid rgba(0,18,51,.15);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:all .3s;font-family:inherit}.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid rgba(0,18,51,.08);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .25s ease;min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-btn{background:none;border:1.5px solid rgba(0,18,51,.15);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid rgba(0,18,51,.08);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out);min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
 .lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}.lang-opt:hover{background:rgba(0,112,237,.06)}.lang-opt.active{color:var(--accent);font-weight:700}
 section{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 2rem}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px;will-change:transform}
@@ -283,7 +283,7 @@ a.cert-link,a.thesis-link{text-decoration:none;color:inherit;display:block}
 
 /* CV PREVIEW TOOLTIP */
 .cv-card{position:relative;overflow:visible !important}
-.cv-preview-tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px) scale(.95);background:var(--card-bg);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 20px 50px rgba(0,18,51,.18);border:1px solid rgba(0,18,51,.07);opacity:0;pointer-events:none;transition:all .22s var(--ease-out);z-index:200;width:180px;text-align:center;white-space:normal;transform-origin:bottom center}
+.cv-preview-tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px) scale(.95);background:var(--card-bg);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 20px 50px rgba(0,18,51,.18);border:1px solid rgba(0,18,51,.07);opacity:0;pointer-events:none;transition:opacity 220ms var(--ease-out),transform 220ms var(--ease-out);z-index:200;width:180px;text-align:center;white-space:normal;transform-origin:bottom center}
 .cv-preview-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--card-bg)}
 .cv-preview-flag{font-size:2rem;margin-bottom:.4rem;display:block}
 .cv-preview-tip p{font-size:.72rem;color:rgba(0,18,51,.45);line-height:1.5;margin:0}
@@ -295,9 +295,9 @@ a.cert-link,a.thesis-link{text-decoration:none;color:inherit;display:block}
 .count-num{font-variant-numeric:tabular-nums}
 
 /* SHARE BUTTON */
-.share-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.1rem;background:var(--card-bg);border:1.5px solid rgba(0,18,51,.1);border-radius:50px;font-size:.8rem;font-weight:600;color:rgba(0,18,51,.55);cursor:pointer;transition:all .3s var(--ease-out);font-family:inherit;box-shadow:var(--card-shadow);margin-top:1.2rem}
+.share-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.1rem;background:var(--card-bg);border:1.5px solid rgba(0,18,51,.1);border-radius:50px;font-size:.8rem;font-weight:600;color:rgba(0,18,51,.55);cursor:pointer;transition:border-color 240ms var(--ease-out),color 240ms var(--ease-out),transform 240ms var(--ease-out),box-shadow 240ms var(--ease-out);font-family:inherit;box-shadow:var(--card-shadow);margin-top:1.2rem}
 /* STRAVA WIDGET */
-.strava-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid rgba(0,18,51,.04);max-width:480px;margin:0 auto 2rem;text-decoration:none;color:inherit;display:block;transition:all .4s var(--ease-out);position:relative;overflow:hidden}
+.strava-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid rgba(0,18,51,.04);max-width:480px;margin:0 auto 2rem;text-decoration:none;color:inherit;display:block;transition:transform 240ms var(--ease-out),box-shadow 240ms var(--ease-out),border-color 240ms var(--ease-out);position:relative;overflow:hidden}
 .strava-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
 .strava-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#fc5200,#ff7a33);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
 .strava-title{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1rem}
@@ -315,7 +315,7 @@ a.cert-link,a.thesis-link{text-decoration:none;color:inherit;display:block}
 [data-theme="dark"] .strava-powered{color:rgba(225,231,255,.15)}
 .strava-hidden{display:none}
 /* LETTERBOXD WIDGET */
-.lb-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid rgba(0,18,51,.04);max-width:580px;margin:0 auto;transition:all .4s var(--ease-out)}
+.lb-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid rgba(0,18,51,.04);max-width:580px;margin:0 auto;transition:transform 240ms var(--ease-out),box-shadow 240ms var(--ease-out)}
 .lb-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem}
 .lb-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#00e054,#40bcf4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
 .lb-label{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1rem}
@@ -376,7 +376,7 @@ a{color:#000 !important;text-decoration:underline}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#22c55e}
 .lb-sep{width:1px;height:14px;background:rgba(255,255,255,.15);flex-shrink:0}
 a.live-bar-item{transition:opacity .2s}.live-bar-item:hover{opacity:.75}
-.lb-link{display:inline-flex;align-items:center;gap:.3rem;text-decoration:none;color:#fff;font-size:.65rem;font-weight:600;letter-spacing:.5px;padding:.15rem .55rem;border-radius:4px;transition:all .25s ease;white-space:nowrap;opacity:.75}
+.lb-link{display:inline-flex;align-items:center;gap:.3rem;text-decoration:none;color:#fff;font-size:.65rem;font-weight:600;letter-spacing:.5px;padding:.15rem .55rem;border-radius:4px;transition:opacity 250ms ease,transform 250ms ease;white-space:nowrap;opacity:.75}
 .lb-link.lb-winners{background:rgba(0,200,80,.22)}.lb-link.lb-winners:hover{background:rgba(0,200,80,.35)}
 .lb-link.lb-losers{background:rgba(255,60,60,.35)}.lb-link.lb-losers:hover{background:rgba(255,60,60,.5)}
 nav.scrolled{top:28px}
@@ -627,10 +627,10 @@ img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
 </section>
 <div style="max-width:1000px;margin:0 auto;padding:0 2rem 3rem;position:relative;z-index:1">
 <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap">
-<a href="https://www.youtube.com/watch?v=PHe0bXAIuk0" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:all .4s cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
+<a href="https://www.youtube.com/watch?v=PHe0bXAIuk0" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
 <div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/PHe0bXAIuk0/hqdefault.jpg" alt="Ray Dalio" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
 <div style="padding:1rem"><p style="font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:.82rem;line-height:1.4;margin-bottom:.3rem" data-i="yt1title"></p><p style="font-size:.72rem;color:rgba(0,18,51,.4)">Ray Dalio</p></div></a>
-<a href="https://www.youtube.com/watch?v=WEDIj9JBTC8" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:all .4s cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
+<a href="https://www.youtube.com/watch?v=WEDIj9JBTC8" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
 <div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/WEDIj9JBTC8/hqdefault.jpg" alt="Bill Ackman" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
 <div style="padding:1rem"><p style="font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:.82rem;line-height:1.4;margin-bottom:.3rem" data-i="yt2title"></p><p style="font-size:.72rem;color:rgba(0,18,51,.4)">William Ackman / Big Think</p></div></a>
 </div>

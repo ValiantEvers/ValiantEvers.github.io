@@ -51,12 +51,12 @@ nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturat
 .nav-links a.active{color:var(--accent)}
 .nav-links a.active::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:2rem}
-.theme-toggle{background:none;border:1.5px solid var(--border);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .3s;font-family:inherit}
+.theme-toggle{background:none;border:1.5px solid var(--border);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
 .theme-toggle:hover{border-color:var(--accent)}
 .lang-switch{position:relative}
-.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;font-family:inherit;transition:all .3s}
+.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;font-family:inherit;transition:border-color 200ms ease,color 200ms ease}
 .lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:all .22s;min-width:140px;box-shadow:0 12px 40px rgba(0,18,51,.12);z-index:200}
+.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity 220ms ease,transform 220ms var(--ease-out);min-width:140px;box-shadow:0 12px 40px rgba(0,18,51,.12);z-index:200}
 .lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
 .lang-opt{display:block;width:100%;padding:.55rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
 .lang-opt:hover{background:rgba(0,112,237,.06)}
@@ -120,7 +120,7 @@ main{max-width:840px;margin:0 auto;padding:5.5rem 2rem 4rem;position:relative;z-
 .cv-item-body ul{list-style:none;padding:0;margin-top:.4rem}
 .cv-item-body ul li{font-size:.9rem;color:var(--text);line-height:1.65;padding-left:1.1rem;position:relative;margin-bottom:.35rem}
 .cv-item-body ul li::before{content:'–';position:absolute;left:0;color:var(--accent);font-weight:700}
-.cv-doc-link{display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--accent);font-weight:600;text-decoration:none;margin-top:.4rem;padding:.3rem .65rem;border:1px solid var(--border);border-radius:50px;transition:all .25s}
+.cv-doc-link{display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--accent);font-weight:600;text-decoration:none;margin-top:.4rem;padding:.3rem .65rem;border:1px solid var(--border);border-radius:50px;transition:border-color 250ms ease,background-color 250ms ease}
 .cv-doc-link:hover{border-color:var(--accent);background:rgba(0,112,237,.04)}
 
 .grade{font-weight:700;color:var(--accent4);font-variant-numeric:tabular-nums}
@@ -128,7 +128,7 @@ main{max-width:840px;margin:0 auto;padding:5.5rem 2rem 4rem;position:relative;z-
 
 /* Expandable */
 details{margin-top:.8rem}
-details summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--accent);user-select:none;list-style:none;display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border:1.5px solid var(--border);border-radius:50px;transition:all .25s;font-family:inherit}
+details summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--accent);user-select:none;list-style:none;display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border:1.5px solid var(--border);border-radius:50px;transition:border-color 250ms ease,background-color 250ms ease;font-family:inherit}
 details summary::-webkit-details-marker{display:none}
 details summary::before{content:'+';font-size:1rem;font-weight:700;line-height:1;transition:transform .3s;width:10px;display:inline-block;text-align:center}
 details[open] summary::before{content:'−'}
@@ -151,7 +151,7 @@ details .course-list li::before{content:''}
 
 /* Certs */
 .certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
-.cert{display:flex;align-items:center;gap:.8rem;padding:.85rem 1rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:all .25s}
+.cert{display:flex;align-items:center;gap:.8rem;padding:.85rem 1rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:border-color 250ms ease,transform 250ms var(--ease-out),box-shadow 250ms ease}
 .cert:hover{border-color:var(--accent)}
 @media(hover:hover) and (pointer:fine){
   .cert:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,112,237,.1)}
@@ -166,7 +166,7 @@ details .course-list li::before{content:''}
 .working-item{padding:1.25rem 1.4rem;background:var(--card-bg);border:1px solid var(--border);border-radius:14px;box-shadow:var(--card-shadow)}
 .working-head{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.55rem}
 .working-head h4{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1.02rem;line-height:1.3}
-.working-head h4 a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent;transition:all .2s}
+.working-head h4 a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent;transition:color 200ms ease,border-bottom-color 200ms ease}
 .working-head h4 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .status{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.2rem .6rem;border-radius:50px}
 .status-active{background:rgba(0,200,80,.1);color:#00a040;border:1px solid rgba(0,200,80,.25)}
