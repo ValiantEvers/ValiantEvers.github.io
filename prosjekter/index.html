@@ -76,13 +76,13 @@ nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturat
 .nav-links a.active::after{width:100%}
 [data-theme="medieval"] .nav-links a{color:var(--text)}
 
-.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .3s;font-family:inherit}
+.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
 .theme-toggle:hover{border-color:var(--accent)}
 
 .lang-switch{position:relative}
-.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:all .3s;font-family:inherit}
+.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
 .lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .25s ease;min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out);min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
 .lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
 .lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
 .lang-opt:hover{background:rgba(0,112,237,.06)}
