@@ -1,0 +1,21 @@
+# Auto-detect text files and store as LF in the repo.
+# This is policy: the canonical form in the repo is LF.
+# On Windows working trees, git checks out as CRLF when
+# core.autocrlf=true. .gitattributes overrides per-machine
+# autocrlf settings.
+* text=auto eol=lf
+
+# Explicit binary declarations so git never normalizes them
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.enc.json binary
