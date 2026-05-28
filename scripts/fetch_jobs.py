@@ -475,6 +475,7 @@ def main():
 
     if not all_scraped:
         payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": QUERIES}
+        payload["updatedAt"] = now_iso  # defensiv: bump så cross-device bootstrap adopterer lastScrape også når 0 nye jobber
         new_blob = encrypt_payload(password, payload)
         gist_patch(pat, gist_id, new_blob)
         print("Pushed lastScrape-update (0 nye jobber)")
