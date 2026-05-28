@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- leaflet css loaded lazily when map is opened -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=MedievalSharp&family=UnifrakturMaguntia&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=MedievalSharp&family=UnifrakturMaguntia&family=Noto+Sans+JP:wght@400;700&display=optional" rel="stylesheet">
 <style>
 :root{--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23, 1, 0.32, 1);--ease-in-out:cubic-bezier(0.77, 0, 0.175, 1)}
 [data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4)}
@@ -517,7 +517,6 @@ img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
 <nav id="mainNav"><a href="#" class="nav-logo" id="navLogo">V.</a><div class="nav-right"><ul class="nav-links"><li><a href="#om" data-i="nav1"></a></li><li><a href="#erfaring" data-i="nav2"></a></li><li><a href="#cv" data-i="nav3">CV</a></li><li><a href="#sertifiseringer" data-i="nav4"></a></li><li><a href="#forskning" data-i="nav5"></a></li><li><a href="/prosjekter/" data-i="nav7"></a></li><li><a href="#kontakt" data-i="nav6"></a></li></ul><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button><div class="lang-switch"><button class="lang-btn" id="langBtn">NO</button><div class="lang-menu" id="langMenu"><button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button><button class="lang-opt" data-lang="en">🇬🇧 English</button><button class="lang-opt" data-lang="fr">🇫🇷 Français</button><button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button><button class="lang-opt" data-lang="ja">🇯🇵 日本語</button></div></div></div></nav>
 <section class="hero" id="heroSection">
 <div class="hero-top"><div class="hero-img-wrap"><img src="profile.jpg" alt="Valiant Evers" class="hero-img" id="heroImg"></div><div class="hero-text">
-<div class="hero-tag" id="heroTag"><span class="wave">👋</span> <span data-i="heroTagText"></span></div>
 <h1 id="heroHeadline"></h1>
 </div></div>
 <p class="hero-desc" id="heroDesc" data-i="heroSub"></p>
@@ -663,7 +662,6 @@ var io=new IntersectionObserver(function(entries){entries.forEach(function(entry
 var titleIO=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');titleIO.unobserve(entry.target)}})},{threshold:.3});
 document.querySelectorAll('.split-title').forEach(function(el){titleIO.observe(el)});
 document.getElementById('heroImg').parentElement.classList.add('visible');
-document.getElementById('heroTag').classList.add('visible');
 document.getElementById('heroDesc').classList.add('visible');
 document.getElementById('heroCta').classList.add('visible');
 document.getElementById('scrollHint').classList.add('visible');
