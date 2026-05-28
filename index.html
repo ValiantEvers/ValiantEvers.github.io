@@ -657,20 +657,18 @@ document.querySelectorAll('.lang-opt').forEach(function(o){o.addEventListener('c
 document.addEventListener('click',function(){document.getElementById('langMenu').classList.remove('open')});
 var headline=document.getElementById('heroHeadline');
 headline.textContent='Valiant Evers';
-document.querySelectorAll('.nav-links a').forEach(function(a,i){a.style.transitionDelay=(i*60+200)+'ms'});
+document.querySelectorAll('.nav-links a').forEach(function(a){a.style.transitionDelay='0ms'});
 var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){var el=entry.target;var delay=el.dataset.delay?parseInt(el.dataset.delay):0;setTimeout(function(){el.classList.add('visible');el.querySelectorAll('.tag').forEach(function(t,i){setTimeout(function(){t.classList.add('visible')},i*60)})},delay);io.unobserve(el)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
 ['.about-card','.timeline-item','.cert-card','.thesis-card','.cv-card','.contact-link','.anim-label','#contactSub','.quote-section','.fact-card','.fact-flip'].forEach(function(sel){document.querySelectorAll(sel).forEach(function(el){io.observe(el)})});
 var titleIO=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('visible');titleIO.unobserve(entry.target)}})},{threshold:.3});
 document.querySelectorAll('.split-title').forEach(function(el){titleIO.observe(el)});
-window.addEventListener('load',function(){
-setTimeout(function(){
 document.getElementById('heroImg').parentElement.classList.add('visible');
 document.getElementById('heroTag').classList.add('visible');
 document.getElementById('heroDesc').classList.add('visible');
-setTimeout(function(){document.getElementById('heroCta').classList.add('visible')},700);
-setTimeout(function(){document.getElementById('scrollHint').classList.add('visible')},1100);
+document.getElementById('heroCta').classList.add('visible');
+document.getElementById('scrollHint').classList.add('visible');
 document.getElementById('navLogo').classList.add('visible');
-document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.add('visible')})},900)});
+document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.add('visible')});
 var progressBar=document.getElementById('progress-bar'),nav=document.getElementById('mainNav'),bgMorph=document.getElementById('bgMorph'),hero=document.getElementById('heroSection'),shapes=document.querySelectorAll('.shape'),timelineFill=document.getElementById('timelineFill'),timelineSection=document.querySelector('#erfaring .timeline');
 var sectionColors=[{id:'om',color:'rgba(0,112,237,0.04)'},{id:'erfaring',color:'rgba(105,150,255,0.04)'},{id:'cv',color:'rgba(0,78,170,0.04)'},{id:'sertifiseringer',color:'rgba(170,190,255,0.05)'},{id:'forskning',color:'rgba(0,18,51,0.03)'},{id:'funfacts',color:'rgba(105,150,255,0.05)'},{id:'kontakt',color:'rgba(0,112,237,0.03)'}];
 var isMobile=window.matchMedia('(max-width:768px)').matches;
