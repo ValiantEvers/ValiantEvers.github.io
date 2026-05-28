@@ -854,7 +854,7 @@ tr:last-child td{border-bottom:none;}
 <!-- HEADER -->
 <header class="header" id="overview">
   <div>
-    <div class="header-title">LØPE<span>DATA</span></div>
+    <h1 class="header-title">LØPE<span>DATA</span></h1>
     <div class="header-sub">Valiant Evers · Garmin Connect · 2024–2026</div>
   </div>
   <div class="header-badge">134 ØKTER · 1 061 KM</div>
@@ -918,42 +918,42 @@ tr:last-child td{border-bottom:none;}
 
 <!-- RACE PREDICTOR -->
 <div id="predict" class="section fade-in">
-  <div class="section-title">Tidsprediksjon · konkurranseløp</div>
+  <h2 class="section-title">Tidsprediksjon · konkurranseløp</h2>
   <div class="predict-intro">Basert på Riegel-formelen, kalibrert mot beste 1K-split (3:48) og snitt av 5 raskeste løp (4:30/km).</div>
   <div class="predict-grid" id="predictGrid"></div>
 </div>
 
 <!-- MONTHLY + VO2 -->
 <div id="trends" class="section fade-in">
-  <div class="section-title">Månedlig distanse (km)</div>
+  <h2 class="section-title">Månedlig distanse (km)</h2>
   <div class="chart-wrap" style="height:240px;"><canvas id="monthlyChart"></canvas></div>
 </div>
 
 <div class="grid-2">
   <div class="section fade-in">
-    <div class="section-title">VO₂ Maks trend</div>
+    <h2 class="section-title">VO₂ Maks trend</h2>
     <div class="chart-wrap" style="height:220px;"><canvas id="vo2Chart"></canvas></div>
   </div>
   <div class="section fade-in">
-    <div class="section-title">Tempo per løpetur (min/km)</div>
+    <h2 class="section-title">Tempo per løpetur (min/km)</h2>
     <div class="chart-wrap" style="height:220px;"><canvas id="paceChart"></canvas></div>
   </div>
 </div>
 
 <div class="grid-2">
   <div class="section fade-in">
-    <div class="section-title">Gjennomsnittlig puls (bpm)</div>
+    <h2 class="section-title">Gjennomsnittlig puls (bpm)</h2>
     <div class="chart-wrap" style="height:220px;"><canvas id="hrChart"></canvas></div>
   </div>
   <div class="section fade-in">
-    <div class="section-title">Løpeøkonomi — kadense (spm)</div>
+    <h2 class="section-title">Løpeøkonomi — kadense (spm)</h2>
     <div class="chart-wrap" style="height:220px;"><canvas id="cadenceChart"></canvas></div>
   </div>
 </div>
 
 <!-- AEROBIC EFFICIENCY -->
 <div class="section fade-in">
-  <div class="section-title">Aerob effektivitet · m/min per bpm</div>
+  <h2 class="section-title">Aerob effektivitet · m/min per bpm</h2>
   <div class="chart-wrap" style="height:200px;"><canvas id="efChart"></canvas></div>
   <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.04em;line-height:1.6;">
     Hvor mye distanse kroppen leverer per pulsslag. Stigende verdi over tid = bedre aerob form.
@@ -962,7 +962,7 @@ tr:last-child td{border-bottom:none;}
 
 <!-- HR ZONES -->
 <div id="zones" class="section fade-in">
-  <div class="section-title">Treningssone-fordeling</div>
+  <h2 class="section-title">Treningssone-fordeling</h2>
   <div class="zones-grid">
     <div>
       <div class="zones-donut-wrap">
@@ -1005,13 +1005,13 @@ tr:last-child td{border-bottom:none;}
 
 <!-- WEEKLY LOAD -->
 <div class="section fade-in">
-  <div class="section-title">Ukentlig treningsbelastning</div>
+  <h2 class="section-title">Ukentlig treningsbelastning</h2>
   <div class="chart-wrap" style="height:200px;"><canvas id="weeklyLoadChart"></canvas></div>
 </div>
 
 <!-- INJURY RISK / ACWR -->
 <div id="risk" class="section fade-in">
-  <div class="section-title">Skadefare-indikator · ACWR</div>
+  <h2 class="section-title">Skadefare-indikator · ACWR</h2>
   <div class="risk-status" id="riskStatus">
     <div>
       <div class="risk-current-label">Nåværende ACWR</div>
@@ -1033,7 +1033,7 @@ tr:last-child td{border-bottom:none;}
 
 <!-- YEAR COMPARISON -->
 <div class="section fade-in">
-  <div class="section-title">År-mot-år sammenligning</div>
+  <h2 class="section-title">År-mot-år sammenligning</h2>
   <div class="year-tabs">
     <button class="ytab active" data-metric="dist">Distanse</button>
     <button class="ytab" data-metric="runs">Antall løp</button>
@@ -1044,7 +1044,7 @@ tr:last-child td{border-bottom:none;}
 
 <!-- RUNNING FORM -->
 <div id="form" class="section fade-in">
-  <div class="section-title">Løpeform — effekt & pustefrekvens</div>
+  <h2 class="section-title">Løpeform — effekt & pustefrekvens</h2>
   <div class="form-grid-2">
     <div class="form-cell form-cell-divider">
       <div class="form-cell-label">Effekt (watt)</div>
@@ -1058,7 +1058,7 @@ tr:last-child td{border-bottom:none;}
 </div>
 
 <div class="section fade-in" style="border-bottom:1px solid var(--border);">
-  <div class="section-title">Løpeform — biomekanikk</div>
+  <h2 class="section-title">Løpeform — biomekanikk</h2>
   <div class="form-grid-4">
     <div class="form-cell form-cell-tight form-cell-divider">
       <div class="form-cell-label">Skrittelengde (m)</div>
@@ -1081,13 +1081,13 @@ tr:last-child td{border-bottom:none;}
 
 <!-- HEATMAP CALENDAR -->
 <div id="kalender" class="section fade-in">
-  <div class="section-title">Aktivitetskalender</div>
+  <h2 class="section-title">Aktivitetskalender</h2>
   <div id="heatmapContainer"></div>
 </div>
 
 <!-- MAP -->
 <div id="kart" class="section fade-in">
-  <div class="section-title">Kart over startpunkter</div>
+  <h2 class="section-title">Kart over startpunkter</h2>
   <div id="runMap"></div>
   <div class="map-legend">
     <div class="map-legend-item"><div class="map-dot" style="background:#c8f55a"></div>Oslo-området</div>
@@ -1098,7 +1098,7 @@ tr:last-child td{border-bottom:none;}
 
 <!-- RUN LOG -->
 <div id="logg" class="section fade-in">
-  <div class="section-title">Alle løpeturer</div>
+  <h2 class="section-title">Alle løpeturer</h2>
   <div class="run-controls">
     <input type="text" class="search-input" id="searchInput" placeholder="Søk sted eller navn…">
     <button class="filter-btn active" data-filter="all">Alle</button>
@@ -1137,13 +1137,13 @@ tr:last-child td{border-bottom:none;}
 
 <!-- YEAR IN REVIEW -->
 <div id="yir" class="section fade-in">
-  <div class="section-title">2024 → 2026 · året i tall</div>
+  <h2 class="section-title">2024 → 2026 · året i tall</h2>
   <div class="yir-grid" id="yirGrid"></div>
 </div>
 
 <!-- ANALYSIS -->
 <div id="analyse" class="analysis-section fade-in">
-  <div class="section-title">Skriftlig analyse</div>
+  <h2 class="section-title">Skriftlig analyse</h2>
 
   <div class="analysis-intro">
     Basert på <strong>134 løpeturer og 1 061 km</strong> fra januar 2024 til april 2026, kombinert med detaljerte tidsserier fra 153 aktiviteter. Analysen dekker volum, fysiologisk utvikling, sone-fordeling, skadefare, løpeøkonomi og biomekanikk — med direkte vurderinger og konkrete anbefalinger der dataen gir grunnlag for det.
