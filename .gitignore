@@ -19,3 +19,11 @@ __pycache__/
 *.pyc
 .tmp-skills/
 hero-vyre/
+
+# Finansielle maler — build tooling (not deploy content)
+_build_*.py
+_iterate_*.py
+_eval_*.py
+_verify_*.py
+_inspect_*.py
+_evaluated/
