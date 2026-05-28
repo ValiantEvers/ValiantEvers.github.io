@@ -39,7 +39,7 @@
 [data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);cursor:url('../medieval/cursor-sword.png') 2 30, auto;}
 [data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('../medieval/cursor-sword.png') 2 30, pointer;}
 [data-theme="medieval"] body{font-family:'MedievalSharp','Inter',sans-serif}
-[data-theme="medieval"] .sub-title,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cert-card h4,[data-theme="medieval"] .page-h1{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .sub-title,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cert-card h3,[data-theme="medieval"] .page-h1{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
 [data-theme="medieval"] .nav-links a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .cert-issuer,[data-theme="medieval"] .sub-count,[data-theme="medieval"] .back-link{font-family:'MedievalSharp','Inter',sans-serif}
 [data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
 [data-theme="medieval"] .theme-toggle,[data-theme="medieval"] .lang-btn{border-color:rgba(232,213,181,.2)}
@@ -112,7 +112,7 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 [data-theme="dark"] .cert-card::before{background:linear-gradient(135deg,rgba(105,150,255,.15),rgba(64,128,255,.15))}
 [data-theme="medieval"] .cert-card::before{background:linear-gradient(135deg,rgba(196,132,29,.15),rgba(139,105,20,.15))}
 .cert-icon{font-size:2rem;margin-bottom:.7rem}
-.cert-card h4{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:.95rem;margin-bottom:.4rem;line-height:1.3}
+.cert-card h3{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:.95rem;margin-bottom:.4rem;line-height:1.3}
 .cert-card .cert-issuer{font-size:.78rem;color:var(--muted);line-height:1.5}
 .cert-card .open-hint{display:inline-block;margin-top:.6rem;font-size:.72rem;font-weight:600;color:var(--accent);opacity:0;transition:opacity .3s}
 @media(hover:hover) and (pointer:fine){
@@ -191,14 +191,14 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 <span class="sub-count">8</span>
 </div>
 <div class="certs-grid">
-<a href="/prosjekter/forretningsenhet-dashboard/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏦</div><h4 data-i="bdTitle"></h4><p class="cert-issuer" data-i="bdDesc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/prosjekter/masteroppgave/" class="cert-link"><div class="cert-card"><div class="cert-icon">🎓</div><h4 data-i="mastTitle"></h4><p class="cert-issuer" data-i="mastDesc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/leie-eller-eie/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏠</div><h4>Leie eller eie?</h4><p class="cert-issuer">Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/personligokonomi/" class="cert-link"><div class="cert-card"><div class="cert-icon">💰</div><h4>Personlig Økonomi</h4><p class="cert-issuer">Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/osebx/" class="cert-link"><div class="cert-card"><div class="cert-icon">📊</div><h4>OSEBX Dashboard</h4><p class="cert-issuer">Ukentlig autonom analyse av Oslo Børs. Sektorrotasjon, breddemål, LLM-narrativ.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/examprep/" class="cert-link"><div class="cert-card"><div class="cert-icon">🎓</div><h4>GRA6546 — Exam Prep</h4><p class="cert-issuer">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/pensjonskalkulator/" class="cert-link"><div class="cert-card"><div class="cert-icon">🪙</div><h4>Pensjonskalkulator</h4><p class="cert-issuer">Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet — brutto og estimert netto.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/nb-watch/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏛️</div><h4>Norges Bank Watch</h4><p class="cert-issuer">Pengepolitikkens nøkkeltall, oppdatert daglig. Rentebane, KPI, lønn, bolig og valuta.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/prosjekter/forretningsenhet-dashboard/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏦</div><h3 data-i="bdTitle"></h3><p class="cert-issuer" data-i="bdDesc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="/prosjekter/masteroppgave/" class="cert-link"><div class="cert-card"><div class="cert-icon">🎓</div><h3 data-i="mastTitle"></h3><p class="cert-issuer" data-i="mastDesc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="/leie-eller-eie/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏠</div><h3>Leie eller eie?</h3><p class="cert-issuer">Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/personligokonomi/" class="cert-link"><div class="cert-card"><div class="cert-icon">💰</div><h3>Personlig Økonomi</h3><p class="cert-issuer">Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/osebx/" class="cert-link"><div class="cert-card"><div class="cert-icon">📊</div><h3>OSEBX Dashboard</h3><p class="cert-issuer">Ukentlig autonom analyse av Oslo Børs. Sektorrotasjon, breddemål, LLM-narrativ.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/examprep/" class="cert-link"><div class="cert-card"><div class="cert-icon">🎓</div><h3>GRA6546 — Exam Prep</h3><p class="cert-issuer">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/pensjonskalkulator/" class="cert-link"><div class="cert-card"><div class="cert-icon">🪙</div><h3>Pensjonskalkulator</h3><p class="cert-issuer">Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet — brutto og estimert netto.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/nb-watch/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏛️</div><h3>Norges Bank Watch</h3><p class="cert-issuer">Pengepolitikkens nøkkeltall, oppdatert daglig. Rentebane, KPI, lønn, bolig og valuta.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
 </div>
 </section>
 
@@ -208,9 +208,9 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 <span class="sub-count">12</span>
 </div>
 <div class="certs-grid">
-<a href="/prosjekter/finansielle-maler/#grunnleggende" class="cert-link"><div class="cert-card"><div class="cert-icon">📊</div><h4 data-i="finmStatTitle">Regnskapsoppstillinger</h4><p class="cert-issuer" data-i="finmStatDesc">Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/prosjekter/finansielle-maler/#integrert" class="cert-link"><div class="cert-card"><div class="cert-icon">🔗</div><h4 data-i="finmIntTitle">Integrert modellering</h4><p class="cert-issuer" data-i="finmIntDesc">3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/prosjekter/finansielle-maler/#verdsettelse" class="cert-link"><div class="cert-card"><div class="cert-icon">💎</div><h4 data-i="finmValTitle">Verdsettelse</h4><p class="cert-issuer" data-i="finmValDesc">DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/prosjekter/finansielle-maler/#grunnleggende" class="cert-link"><div class="cert-card"><div class="cert-icon">📊</div><h3 data-i="finmStatTitle">Regnskapsoppstillinger</h3><p class="cert-issuer" data-i="finmStatDesc">Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/prosjekter/finansielle-maler/#integrert" class="cert-link"><div class="cert-card"><div class="cert-icon">🔗</div><h3 data-i="finmIntTitle">Integrert modellering</h3><p class="cert-issuer" data-i="finmIntDesc">3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
+<a href="/prosjekter/finansielle-maler/#verdsettelse" class="cert-link"><div class="cert-card"><div class="cert-icon">💎</div><h3 data-i="finmValTitle">Verdsettelse</h3><p class="cert-issuer" data-i="finmValDesc">DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
 </div>
 </section>
 
@@ -220,9 +220,9 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 <span class="sub-count">3</span>
 </div>
 <div class="certs-grid">
-<a href="/fra-null-til-investor/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌱</div><h4 data-i="proj1Title"></h4><p class="cert-issuer" data-i="proj1Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/fra-null-til-investor2/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌿</div><h4 data-i="proj2Title"></h4><p class="cert-issuer" data-i="proj2Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/fra-null-til-investor3/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌳</div><h4 data-i="proj3Title"></h4><p class="cert-issuer" data-i="proj3Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="/fra-null-til-investor/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌱</div><h3 data-i="proj1Title"></h3><p class="cert-issuer" data-i="proj1Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="/fra-null-til-investor2/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌿</div><h3 data-i="proj2Title"></h3><p class="cert-issuer" data-i="proj2Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="/fra-null-til-investor3/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌳</div><h3 data-i="proj3Title"></h3><p class="cert-issuer" data-i="proj3Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
 </div>
 </section>
 
