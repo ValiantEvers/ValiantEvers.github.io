@@ -375,7 +375,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <span class="sens-control-label">Lending volume growth</span>
 <span class="sens-control-value" id="volVal">0.0%</span>
 </div>
-<input type="range" id="volSlider" min="-10" max="15" step="0.5" value="0">
+<input type="range" id="volSlider" min="-10" max="15" step="0.5" value="0" aria-label="Lending volume growth (percent)">
 <span class="sens-control-hint">vs YTD Actual baseline · applies to LSF + TB books</span>
 </div>
 
@@ -384,7 +384,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <span class="sens-control-label">Customer spread shift</span>
 <span class="sens-control-value" id="spreadVal">0 bps</span>
 </div>
-<input type="range" id="spreadSlider" min="-50" max="50" step="1" value="0">
+<input type="range" id="spreadSlider" min="-50" max="50" step="1" value="0" aria-label="Customer spread shift (basis points)">
 <span class="sens-control-hint">parallel shift to customer rates on lending and deposits</span>
 </div>
 
@@ -393,7 +393,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <span class="sens-control-label">FTP funding-cost shift</span>
 <span class="sens-control-value" id="ftpVal">0 bps</span>
 </div>
-<input type="range" id="ftpSlider" min="-50" max="100" step="1" value="0">
+<input type="range" id="ftpSlider" min="-50" max="100" step="1" value="0" aria-label="FTP funding-cost shift (basis points)">
 <span class="sens-control-hint">parallel shift in the internal transfer rate</span>
 </div>
 

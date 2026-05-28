@@ -480,7 +480,7 @@ select.inp{color-scheme:dark;appearance:auto}
     <p id="gateErr" style="font-size:.8rem;color:var(--red);margin-top:10px;min-height:1.2em;opacity:0;transition:opacity .3s">Feil passord</p>
     <div id="gateFileFallback" style="display:none;margin-top:14px">
       <p style="font-size:.75rem;color:var(--faint);margin-bottom:8px">Kunne ikke hente strategi.enc.json automatisk (vanlig via file://). Velg filen manuelt:</p>
-      <input type="file" id="gateFile" accept=".json,application/json" style="font-size:.78rem;color:var(--faint);width:100%">
+      <input type="file" id="gateFile" accept=".json,application/json" aria-label="Velg strategi.enc.json" style="font-size:.78rem;color:var(--faint);width:100%">
     </div>
   </div>
 </div>
@@ -576,9 +576,9 @@ select.inp{color-scheme:dark;appearance:auto}
     </div>
     <div class="filter-row score-row">
       <span class="filter-label">Score</span>
-      <input type="number" class="num" id="scoreMin" min="0" max="100" step="5" value="0">
+      <input type="number" class="num" id="scoreMin" min="0" max="100" step="5" value="0" aria-label="Minimum score">
       <span class="dash">–</span>
-      <input type="number" class="num" id="scoreMax" min="0" max="100" step="5" value="100">
+      <input type="number" class="num" id="scoreMax" min="0" max="100" step="5" value="100" aria-label="Maximum score">
       <span class="hint">0–100</span>
     </div>
     <div class="filter-row sort-row">
