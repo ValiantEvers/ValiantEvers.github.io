@@ -1248,10 +1248,9 @@ async function bootstrapSync(){
     STATE.bootstrapping = false;
     document.querySelectorAll("section").forEach(function(s){ s.classList.remove("sync-lock"); });
     updateSyncIndicator("offline");
-    toast("Kunne ikke hente fra Gist innen 5s. Bruker lokal cache. Endringer synker når Gist svarer.");
-    // Schedule a retry-style attempt in the background
-    setTimeout(function(){ doPush().catch(scheduleRetry); }, 6000);
-  }, 5000);
+    toast("Kunne ikke hente fra Gist innen 15s. Last siden på nytt — IKKE gjør endringer (de overskriver Gist-data).");
+    // KRITISK: ikke auto-push — vi har ikke bekreftet remote-state, kan overskrive nyere data fra cron eller andre enheter
+  }, 15000);
 
   try{
     var remoteBlob = await gistGet(STATE.payload.gist.pat, STATE.payload.gist.id);
@@ -1261,7 +1260,7 @@ async function bootstrapSync(){
 
     var remoteTs = remotePayload.updatedAt || remotePayload.migratedAt;
     var localTs = STATE.payload.updatedAt || STATE.payload.migratedAt;
-    if(remoteTs && (!localTs || new Date(remoteTs) > new Date(localTs))){
+    if(remoteTs && (!localTs || new Date(remoteTs) >= new Date(localTs))){
       // Gist newer → adopt
       STATE.payload = remotePayload;
       if(typeof STATE.payload.scratchpad !== "string") STATE.payload.scratchpad = "";
@@ -3229,9 +3228,11 @@ function saveNoteBodyFromDom(){
 }
 function flushNotebook(){
   nbCancelDebounce();                 // kanseller pending debounce -> ingen tapt data
-  saveNoteBodyFromDom();              // lagre siste tilstand synkront
+  saveNoteBodyFromDom();              // lagre siste tilstand synkront (kaller mutate() KUN hvis innhold faktisk endret seg)
+  // Push KUN hvis det var en pending push fra mutate. Ellers risikerer vi å overskrive nyere remote-data med stale lokal payload.
+  var hadPending = !!STATE.pushTimer;
   if(STATE.pushTimer){ clearTimeout(STATE.pushTimer); STATE.pushTimer = null; }
-  if(STATE.payload && STATE.payload.gist) doPush().catch(scheduleRetry);
+  if(hadPending && STATE.payload && STATE.payload.gist) doPush().catch(scheduleRetry);
 }
 function onNoteSourceInput(v){
   var n = currentNote(); if(!n) return;
