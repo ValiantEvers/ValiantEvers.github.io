@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /strategi.html
+Disallow: /jobs/
+
+Sitemap: https://www.evers.no/sitemap.xml
