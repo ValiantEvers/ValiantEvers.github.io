@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finansielle maler — Valiant Evers</title>
+<meta name="description" content="Ferdige Excel-maler for finansiell modellering: resultatregnskap, balanse, kontantstrøm, DCF, LBO, comps og mer. Tospråklige (NO/EN), profesjonell formatering.">
+<meta name="author" content="Valiant Evers">
+<meta name="theme-color" content="#004eaa">
+<meta name="robots" content="index, follow">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Finansielle maler — Valiant Evers">
+<meta property="og:description" content="Ferdige Excel-maler for finansiell modellering: 3-rapport-modell, DCF, LBO, comps og mer. Tospråklige, sell-side-kvalitet.">
+<meta property="og:image" content="https://www.evers.no/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://www.evers.no/prosjekter/finansielle-maler/">
+<meta property="og:site_name" content="Valiant Evers">
+<meta property="og:locale" content="nb_NO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Finansielle maler — Valiant Evers">
+<meta name="twitter:description" content="Ferdige Excel-maler for finansiell modellering: DCF, LBO, comps og mer.">
+<meta name="twitter:image" content="https://www.evers.no/og-image.png">
+<link rel="canonical" href="https://www.evers.no/prosjekter/finansielle-maler/">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=MedievalSharp&family=UnifrakturMaguntia&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.35);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06);--input-blue:#0066cc;--formula-black:#0a0a0a;--link-green:#16803c;--sens-yellow:#fef3c7}
+[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.35);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07);--input-blue:#5b9eff;--formula-black:#fafaf9;--link-green:#5fd0a0;--sens-yellow:#3a3010}
+[data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
+
+[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);--input-blue:#d4a54a;--formula-black:#e8d5b5;--link-green:#a8c970;--sens-yellow:#4a3a18;cursor:url('../../medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('../../medieval/cursor-sword.png') 2 30, pointer;}
+[data-theme="medieval"] body{font-family:'MedievalSharp','Inter',sans-serif}
+[data-theme="medieval"] .sub-title,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cert-card h4,[data-theme="medieval"] .page-h1{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .cert-issuer,[data-theme="medieval"] .sub-count,[data-theme="medieval"] .back-link{font-family:'MedievalSharp','Inter',sans-serif}
+[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
+[data-theme="medieval"] .theme-toggle,[data-theme="medieval"] .lang-btn{border-color:rgba(232,213,181,.2)}
+[data-theme="medieval"] body::after{opacity:.04}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;width:100%;position:relative;line-height:1.6;-webkit-text-size-adjust:100%}
+img,video,svg{max-width:100%}
+html[lang="ja"] body{font-family:'Noto Sans JP','Inter',sans-serif}
+
+/* GRAIN TEXTURE */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+[data-theme="dark"] body::after{opacity:.04}
+
+/* CURSOR */
+.cursor-dot{position:fixed;width:var(--cursor-size);height:var(--cursor-size);border-radius:50%;background:var(--accent);opacity:.35;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
+.cursor-dot.hover{width:44px;height:44px;opacity:.18}
+@media(max-width:768px){.cursor-dot{display:none}}
+@media(hover:none){.cursor-dot{display:none}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
+nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
+.nav-logo{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none}
+.nav-logo:hover{opacity:.8}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:500;font-size:.9rem;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--accent)}
+.nav-links a.active::after{width:100%}
+[data-theme="medieval"] .nav-links a{color:var(--text)}
+
+.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
+.theme-toggle:hover{border-color:var(--accent)}
+
+.lang-switch{position:relative}
+.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out);min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
+.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
+.lang-opt:hover{background:rgba(0,112,237,.06)}
+.lang-opt.active{color:var(--accent);font-weight:700}
+
+.theme-toggle:active,.lang-btn:active,.back-link:active{transform:scale(0.97)}
+.cert-card:active{transform:scale(0.98)}
+
+/* PAGE HERO */
+.page-hero{max-width:1100px;margin:0 auto;padding:8rem 2rem 2rem;text-align:center;position:relative;z-index:1}
+.section-label{display:inline-block;font-size:.75rem;text-transform:uppercase;letter-spacing:3px;font-weight:600;margin-bottom:.8rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-h1{font-family:'Inter',system-ui,sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;letter-spacing:-0.02em;color:var(--text);margin-bottom:1rem}
+.page-sub{font-size:1.05rem;max-width:640px;margin:0 auto;color:var(--muted);line-height:1.7}
+
+/* SECTIONS */
+section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 2rem 0}
+.sub-header{margin-bottom:2.2rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:.8rem}
+.sub-title{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1.4rem;color:var(--text)}
+.sub-count{font-size:.7rem;font-weight:500;color:var(--muted);font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:0}
+
+/* CONVENTIONS PANEL */
+.conventions{max-width:1100px;margin:1.5rem auto 0;padding:0 2rem;position:relative;z-index:1}
+.conventions-inner{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;box-shadow:var(--card-shadow)}
+.conventions h3{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.conv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem}
+.conv-item{display:flex;align-items:center;gap:.6rem;font-size:.85rem}
+.conv-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;border:1px solid var(--border)}
+.conv-swatch.input{background:var(--input-blue)}
+.conv-swatch.formula{background:var(--formula-black)}
+.conv-swatch.linked{background:var(--link-green)}
+.conv-swatch.sens{background:var(--sens-yellow);border-color:rgba(245,158,11,.4)}
+.conv-label{color:var(--text)}
+.conv-label code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.78rem;color:var(--muted)}
+
+/* TEMPLATE CARDS */
+.templates-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.template-card{background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);position:relative;display:flex;flex-direction:column;transition:transform 200ms var(--ease-out),box-shadow 160ms ease}
+.template-card::before{content:'';position:absolute;inset:-1px;border-radius:17px;background:linear-gradient(135deg,rgba(0,112,237,.15),rgba(0,78,170,.15));z-index:-1;opacity:0;transition:opacity 200ms ease}
+[data-theme="dark"] .template-card::before{background:linear-gradient(135deg,rgba(105,150,255,.15),rgba(64,128,255,.15))}
+[data-theme="medieval"] .template-card::before{background:linear-gradient(135deg,rgba(196,132,29,.15),rgba(139,105,20,.15))}
+.template-preview{aspect-ratio:16/10;background:var(--accent3);background-image:linear-gradient(135deg,rgba(0,112,237,.04) 0%,rgba(0,78,170,.06) 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.template-preview img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s var(--ease-out)}
+.template-preview .preview-fallback{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+[data-theme="dark"] .template-preview{background-image:linear-gradient(135deg,rgba(105,150,255,.08) 0%,rgba(64,128,255,.12) 100%)}
+[data-theme="medieval"] .template-preview{background-image:linear-gradient(135deg,rgba(196,132,29,.10) 0%,rgba(139,105,20,.14) 100%)}
+.template-body{padding:1.3rem 1.4rem 1.4rem;display:flex;flex-direction:column;flex:1}
+.template-icon{font-size:1.6rem;margin-bottom:.5rem}
+.template-card h4{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1rem;margin-bottom:.4rem;line-height:1.3;color:var(--text)}
+.template-card h4 .secondary{display:block;font-weight:500;font-size:.82rem;color:var(--muted);margin-top:.15rem;letter-spacing:0}
+.template-card .desc{font-size:.82rem;color:var(--muted);line-height:1.55;margin-bottom:1rem;flex:1}
+.template-meta{display:flex;gap:.8rem;font-size:.7rem;font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--muted);margin-bottom:1rem;padding-bottom:.9rem;border-bottom:1px dashed var(--hair)}
+.template-meta span{display:inline-flex;align-items:center;gap:.3rem}
+.download-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--accent);color:#fff;border:none;padding:.7rem 1rem;border-radius:10px;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:.84rem;text-decoration:none;cursor:pointer;transition:background 200ms ease,transform 150ms ease;letter-spacing:-0.01em}
+.download-btn:hover{background:var(--accent4)}
+[data-theme="dark"] .download-btn{color:#0a0a0a}
+[data-theme="dark"] .download-btn:hover{background:var(--accent2)}
+.download-btn.unavailable{background:transparent;border:1.5px dashed var(--border);color:var(--muted);cursor:not-allowed}
+.download-btn.unavailable:hover{background:transparent}
+
+@media(hover:hover) and (pointer:fine){
+  .template-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,18,51,.12)}
+  .template-card:hover::before{opacity:1}
+  .template-card:hover .template-preview img{transform:scale(1.03)}
+}
+
+/* BACK LINK */
+.back-row{max-width:1100px;margin:0 auto;padding:3rem 2rem 0;text-align:center}
+.back-link{display:inline-block;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .3s,transform .3s}
+.back-link:hover{border-bottom-color:var(--accent)}
+@media(hover:hover) and (pointer:fine){
+  .back-link:hover{transform:translateX(-4px)}
+}
+
+/* FOOTER */
+.footer{max-width:1100px;margin:0 auto;padding:5rem 2rem 2.5rem;text-align:center;font-size:.8rem;color:var(--subtle)}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  nav{padding:.9rem 1.2rem}
+  .nav-links{display:none}
+  .page-hero{padding:6.5rem 1.2rem 1rem}
+  section{padding:3rem 1.2rem 0}
+  .conventions{padding:0 1.2rem;margin-top:1rem}
+  .conventions-inner{padding:1.1rem 1.2rem}
+  .templates-grid{gap:.9rem}
+  .template-body{padding:1.1rem 1.2rem 1.2rem}
+  .back-row{padding:2rem 1.2rem 0}
+  .footer{padding:4rem 1.2rem 2rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav id="mainNav">
+<a href="/" class="nav-logo">V.</a>
+<div class="nav-right">
+<ul class="nav-links">
+<li><a href="/#om" data-i="nav1"></a></li>
+<li><a href="/#erfaring" data-i="nav2"></a></li>
+<li><a href="/#cv" data-i="nav3">CV</a></li>
+<li><a href="/#sertifiseringer" data-i="nav4"></a></li>
+<li><a href="/#forskning" data-i="nav5"></a></li>
+<li><a href="/prosjekter/" class="active" data-i="nav7"></a></li>
+<li><a href="/#kontakt" data-i="nav6"></a></li>
+</ul>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
+<div class="lang-switch">
+<button class="lang-btn" id="langBtn">NO</button>
+<div class="lang-menu" id="langMenu">
+<button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
+<button class="lang-opt" data-lang="en">🇬🇧 English</button>
+<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
+<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
+<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
+</div>
+</div>
+</div>
+</nav>
+
+<header class="page-hero">
+<span class="section-label" data-i="finmLabel">Finansielle maler</span>
+<h1 class="page-h1" data-i="finmTitle">Finansielle maler</h1>
+<p class="page-sub" data-i="finmSub">Tolv ferdige Excel-modeller for verdsettelse, regnskap og transaksjoner. Tospråklige etiketter (norsk/engelsk), sell-side-fargekoding, sample-data du faktisk kan trykke på. Bygd fra grunnen — ikke nedlastede maler i forkledning.</p>
+</header>
+
+<!-- CONVENTIONS PANEL -->
+<div class="conventions">
+<div class="conventions-inner">
+<h3 data-i="convTitle">Designprinsipper på tvers av alle filene</h3>
+<div class="conv-grid">
+<div class="conv-item"><div class="conv-swatch input"></div><div class="conv-label" data-i="convInput"><strong>Blå</strong> = input (forutsetning du endrer)</div></div>
+<div class="conv-item"><div class="conv-swatch formula"></div><div class="conv-label" data-i="convFormula"><strong>Sort</strong> = formel</div></div>
+<div class="conv-item"><div class="conv-swatch linked"></div><div class="conv-label" data-i="convLinked"><strong>Grønn</strong> = lenke fra annen fane</div></div>
+<div class="conv-item"><div class="conv-swatch sens"></div><div class="conv-label" data-i="convSens"><strong>Gul</strong> = sensitivitet/output</div></div>
+</div>
+</div>
+</div>
+
+<!-- REGNSKAPSOPPSTILLINGER -->
+<section id="grunnleggende">
+<div class="sub-header">
+<h2 class="sub-title" data-i="subFoundations">Regnskapsoppstillinger</h2>
+<span class="sub-count">3</span>
+</div>
+<div class="templates-grid">
+
+<!-- 1. Income Statement -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/income-statement.png" alt="Resultatregnskap preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">📊</div>
+<h4>Resultatregnskap <span class="secondary">Income Statement</span></h4>
+<p class="desc" data-i="tplIsDesc">Standard format med drift, finans og bunnlinje. Driftsmargin, EBITDA-bro, kvartalsoppstilling og fem år historikk + tre år prognose. Sample-data: Equinor-aktig integrert energi.</p>
+<div class="template-meta"><span>📑 4 faner</span><span>⏱ 8 år</span></div>
+<a href="files/resultatregnskap.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 2. Balance Sheet -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/balance-sheet.png" alt="Balanse preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">⚖️</div>
+<h4>Balanse <span class="secondary">Balance Sheet</span></h4>
+<p class="desc" data-i="tplBsDesc">Eiendeler/gjeld/egenkapital med IFRS-aktig oppdeling. Working capital-blokk, immaterielle, leasingforpliktelse (IFRS 16), og automatisk balansesjekk-flag. Common-size i tilstøtende kolonne.</p>
+<div class="template-meta"><span>📑 3 faner</span><span>✅ Balanse-sjekk</span></div>
+<a href="files/balanse.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 3. Cash Flow Statement -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/cash-flow.png" alt="Kontantstrøm preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">💧</div>
+<h4>Kontantstrømoppstilling <span class="secondary">Cash Flow Statement</span></h4>
+<p class="desc" data-i="tplCfsDesc">Indirekte metode: drift, investering, finansiering. Avstemming fra resultat til CFO, capex-spesifikasjon, fri kontantstrøm til selskap (FCFF) og til egenkapital (FCFE) regnet ut nederst.</p>
+<div class="template-meta"><span>📑 2 faner</span><span>FCFF + FCFE</span></div>
+<a href="files/kontantstrom.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- INTEGRERT MODELLERING -->
+<section id="integrert">
+<div class="sub-header">
+<h2 class="sub-title" data-i="subIntegrated">Integrert modellering</h2>
+<span class="sub-count">3</span>
+</div>
+<div class="templates-grid">
+
+<!-- 4. Three-Statement Model -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/three-statement.png" alt="3-rapport-modell preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">🔗</div>
+<h4>Tre-rapport-modell <span class="secondary">Three-Statement Model</span></h4>
+<p class="desc" data-i="tplTsmDesc">Sammenkoblet IS/BS/CFS med revenue-build, opex-driver, capex-plan, working capital-skjema og gjeldsplan. Sirkulær logikk for rentekostnad (med iterative calculations slått på). Tre scenarioer via dropdown.</p>
+<div class="template-meta"><span>📑 9 faner</span><span>♻ Sirkulær</span></div>
+<a href="files/3-rapport-modell.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 5. Working Capital Schedule -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/working-capital.png" alt="Arbeidskapital preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">🔄</div>
+<h4>Arbeidskapital-skjema <span class="secondary">Working Capital Schedule</span></h4>
+<p class="desc" data-i="tplWcDesc">DSO/DPO/DIO som driver kundefordringer, leverandørgjeld og varelager. Cash conversion cycle, NWC som % av omsetning, og endring i NWC som mater inn i kontantstrøm.</p>
+<div class="template-meta"><span>📑 2 faner</span><span>DSO/DPO/DIO</span></div>
+<a href="files/arbeidskapital.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 6. Debt Schedule -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/debt-schedule.png" alt="Gjeldsskjema preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">🏦</div>
+<h4>Gjeldsskjema <span class="secondary">Debt Schedule</span></h4>
+<p class="desc" data-i="tplDsDesc">Tranche-for-tranche debt waterfall: revolver, term loan A/B, senior notes. Mandatory + optional repayments, cash sweep-logikk, gjennomsnittsbalanse for rentekostnad og leverage-covenants.</p>
+<div class="template-meta"><span>📑 3 faner</span><span>Cash sweep</span></div>
+<a href="files/gjeldsskjema.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- VERDSETTELSE -->
+<section id="verdsettelse">
+<div class="sub-header">
+<h2 class="sub-title" data-i="subValuation">Verdsettelse</h2>
+<span class="sub-count">6</span>
+</div>
+<div class="templates-grid">
+
+<!-- 7. DCF Model -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/dcf.png" alt="DCF preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">💎</div>
+<h4>DCF-modell <span class="secondary">DCF Model</span></h4>
+<p class="desc" data-i="tplDcfDesc">Ti års eksplisitt FCFF-prognose, terminalverdi (Gordon + exit-multiple, side om side), bro fra enterprise value til equity value per aksje. Toveis sensitivitetstabell (WACC × g) og scenario-toggle.</p>
+<div class="template-meta"><span>📑 6 faner</span><span>10y + TV</span></div>
+<a href="files/dcf-modell.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 8. WACC Calculator -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/wacc.png" alt="WACC preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">🧮</div>
+<h4>WACC-kalkulator <span class="secondary">WACC Calculator</span></h4>
+<p class="desc" data-i="tplWaccDesc">Cost of equity via CAPM (risikofri + ulevered beta × ERP + relevering), cost of debt etter skatt, mål-kapitalstruktur. Peer-tabell for beta-unlevering. Resultatfelt med kildehenvisning per input.</p>
+<div class="template-meta"><span>📑 3 faner</span><span>CAPM + peer beta</span></div>
+<a href="files/wacc-kalkulator.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 9. Trading Comps -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/trading-comps.png" alt="Trading comps preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">📈</div>
+<h4>Sammenlignbare selskaper <span class="secondary">Trading Comps</span></h4>
+<p class="desc" data-i="tplTcDesc">Peer-univers med EV/EBITDA, EV/Sales, P/E, P/B på LTM, NTM, NTM+1. Statistikk (min/25p/median/snitt/75p/max) nederst, anvendt på subjekt-selskap for implisert verdi-spenn.</p>
+<div class="template-meta"><span>📑 3 faner</span><span>LTM / NTM / NTM+1</span></div>
+<a href="files/trading-comps.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 10. Transaction Comps -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/transaction-comps.png" alt="Transaksjonsmultipler preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">🤝</div>
+<h4>Transaksjonsmultipler <span class="secondary">Precedent Transactions</span></h4>
+<p class="desc" data-i="tplTxDesc">Historiske M&amp;A-transaksjoner i bransjen med kjøpspris, EV/EBITDA og EV/Sales på transaksjonstidspunktet. Premie betalt over uberørt pris, finansiering (cash/aksjer), strategisk vs financial.</p>
+<div class="template-meta"><span>📑 2 faner</span><span>Med kontrollpremie</span></div>
+<a href="files/transaksjonsmultipler.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 11. Football Field -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/football-field.png" alt="Football field preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">🏟</div>
+<h4>Verdsettelses-fotballbane <span class="secondary">Football Field</span></h4>
+<p class="desc" data-i="tplFfDesc">Samler DCF (Gordon + exit), trading comps, transaction comps, 52-ukers handelsspenn og analytikermål i én floating-bar chart. Implisert pris per aksje med low/high-spenn per metode.</p>
+<div class="template-meta"><span>📑 2 faner</span><span>Floating bar chart</span></div>
+<a href="files/football-field.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+<!-- 12. LBO Model -->
+<div class="template-card">
+<div class="template-preview">
+<img src="screenshots/lbo.png" alt="LBO preview" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="preview-fallback" style="display:none">Preview kommer</div>
+</div>
+<div class="template-body">
+<div class="template-icon">💼</div>
+<h4>LBO-modell <span class="secondary">LBO Model</span></h4>
+<p class="desc" data-i="tplLboDesc">Sources &amp; uses, gjeldspaal med revolver/TLA/TLB/sub-notes, fri kontantstrøm etter rente og obligatorisk avdrag, cash sweep. Exit i år 5 ved EBITDA-multipel. IRR, MOIC og sensitivitetstabell på exit-multipel × leverage.</p>
+<div class="template-meta"><span>📑 7 faner</span><span>IRR + MOIC</span></div>
+<a href="files/lbo-modell.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<div class="back-row">
+<a href="/prosjekter/" class="back-link" data-i="backProj">← Tilbake til prosjekter</a>
+</div>
+
+<div class="footer">&copy; 2026 Valiant Evers, Oslo</div>
+
+<script>
+(function(){
+var T={
+no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",
+finmLabel:"Finansielle maler",finmTitle:"Finansielle maler",finmSub:"Tolv ferdige Excel-modeller for verdsettelse, regnskap og transaksjoner. Tospråklige etiketter (norsk/engelsk), sell-side-fargekoding, sample-data du faktisk kan trykke på. Bygd fra grunnen — ikke nedlastede maler i forkledning.",
+convTitle:"Designprinsipper på tvers av alle filene",convInput:"<strong>Blå</strong> = input (forutsetning du endrer)",convFormula:"<strong>Sort</strong> = formel",convLinked:"<strong>Grønn</strong> = lenke fra annen fane",convSens:"<strong>Gul</strong> = sensitivitet/output",
+subFoundations:"Regnskapsoppstillinger",subIntegrated:"Integrert modellering",subValuation:"Verdsettelse",
+tplIsDesc:"Standard format med drift, finans og bunnlinje. Driftsmargin, EBITDA-bro, kvartalsoppstilling og fem år historikk + tre år prognose. Sample-data: Equinor-aktig integrert energi.",
+tplBsDesc:"Eiendeler/gjeld/egenkapital med IFRS-aktig oppdeling. Working capital-blokk, immaterielle, leasingforpliktelse (IFRS 16), og automatisk balansesjekk-flag. Common-size i tilstøtende kolonne.",
+tplCfsDesc:"Indirekte metode: drift, investering, finansiering. Avstemming fra resultat til CFO, capex-spesifikasjon, fri kontantstrøm til selskap (FCFF) og til egenkapital (FCFE) regnet ut nederst.",
+tplTsmDesc:"Sammenkoblet IS/BS/CFS med revenue-build, opex-driver, capex-plan, working capital-skjema og gjeldsplan. Sirkulær logikk for rentekostnad (med iterative calculations slått på). Tre scenarioer via dropdown.",
+tplWcDesc:"DSO/DPO/DIO som driver kundefordringer, leverandørgjeld og varelager. Cash conversion cycle, NWC som % av omsetning, og endring i NWC som mater inn i kontantstrøm.",
+tplDsDesc:"Tranche-for-tranche debt waterfall: revolver, term loan A/B, senior notes. Mandatory + optional repayments, cash sweep-logikk, gjennomsnittsbalanse for rentekostnad og leverage-covenants.",
+tplDcfDesc:"Ti års eksplisitt FCFF-prognose, terminalverdi (Gordon + exit-multiple, side om side), bro fra enterprise value til equity value per aksje. Toveis sensitivitetstabell (WACC × g) og scenario-toggle.",
+tplWaccDesc:"Cost of equity via CAPM (risikofri + ulevered beta × ERP + relevering), cost of debt etter skatt, mål-kapitalstruktur. Peer-tabell for beta-unlevering. Resultatfelt med kildehenvisning per input.",
+tplTcDesc:"Peer-univers med EV/EBITDA, EV/Sales, P/E, P/B på LTM, NTM, NTM+1. Statistikk (min/25p/median/snitt/75p/max) nederst, anvendt på subjekt-selskap for implisert verdi-spenn.",
+tplTxDesc:"Historiske M&amp;A-transaksjoner i bransjen med kjøpspris, EV/EBITDA og EV/Sales på transaksjonstidspunktet. Premie betalt over uberørt pris, finansiering (cash/aksjer), strategisk vs financial.",
+tplFfDesc:"Samler DCF (Gordon + exit), trading comps, transaction comps, 52-ukers handelsspenn og analytikermål i én floating-bar chart. Implisert pris per aksje med low/high-spenn per metode.",
+tplLboDesc:"Sources &amp; uses, gjeldspaal med revolver/TLA/TLB/sub-notes, fri kontantstrøm etter rente og obligatorisk avdrag, cash sweep. Exit i år 5 ved EBITDA-multipel. IRR, MOIC og sensitivitetstabell på exit-multipel × leverage.",
+dlBtn:"Last ned .xlsx ↓",backProj:"← Tilbake til prosjekter"},
+
+en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",
+finmLabel:"Financial templates",finmTitle:"Financial templates",finmSub:"Twelve ready-made Excel models for valuation, accounting and transactions. Bilingual labels (Norwegian/English), sell-side color coding, working sample data. Built from scratch — not downloaded templates in disguise.",
+convTitle:"Design conventions across all files",convInput:"<strong>Blue</strong> = input (assumption you change)",convFormula:"<strong>Black</strong> = formula",convLinked:"<strong>Green</strong> = link from another tab",convSens:"<strong>Yellow</strong> = sensitivity / output",
+subFoundations:"Financial statements",subIntegrated:"Integrated modeling",subValuation:"Valuation",
+tplIsDesc:"Standard format with operating, financial and bottom-line sections. Operating margin, EBITDA bridge, quarterly layout, five years history + three years forecast. Sample data: Equinor-style integrated energy.",
+tplBsDesc:"Assets/liabilities/equity with IFRS-style breakdown. Working capital block, intangibles, lease liability (IFRS 16), and automatic balance-check flag. Common-size in adjacent column.",
+tplCfsDesc:"Indirect method: operating, investing, financing. Reconciliation from net income to CFO, capex breakdown, free cash flow to firm (FCFF) and to equity (FCFE) computed at the bottom.",
+tplTsmDesc:"Linked IS/BS/CFS with revenue build, opex driver, capex plan, working capital schedule and debt schedule. Circular logic for interest expense (with iterative calculations enabled). Three scenarios via dropdown.",
+tplWcDesc:"DSO/DPO/DIO driving receivables, payables and inventory. Cash conversion cycle, NWC as % of revenue, and change in NWC feeding into the cash flow statement.",
+tplDsDesc:"Tranche-by-tranche debt waterfall: revolver, term loan A/B, senior notes. Mandatory + optional repayments, cash sweep logic, average balance for interest expense, leverage covenants.",
+tplDcfDesc:"Ten-year explicit FCFF forecast, terminal value (Gordon + exit multiple, side by side), bridge from enterprise value to equity value per share. Two-way sensitivity table (WACC × g) and scenario toggle.",
+tplWaccDesc:"Cost of equity via CAPM (risk-free + unlevered beta × ERP + relevering), after-tax cost of debt, target capital structure. Peer table for beta unlevering. Result block with source per input.",
+tplTcDesc:"Peer universe with EV/EBITDA, EV/Sales, P/E, P/B on LTM, NTM, NTM+1. Statistics (min/25p/median/mean/75p/max) at the bottom, applied to subject company for implied value range.",
+tplTxDesc:"Historical industry M&amp;A transactions with deal price, EV/EBITDA and EV/Sales at the transaction date. Premium paid over unaffected price, financing (cash/stock), strategic vs financial buyer.",
+tplFfDesc:"Combines DCF (Gordon + exit), trading comps, transaction comps, 52-week trading range and analyst targets into one floating bar chart. Implied price per share with low/high range per method.",
+tplLboDesc:"Sources &amp; uses, debt waterfall with revolver/TLA/TLB/sub-notes, free cash flow after interest and mandatory amortization, cash sweep. Year-5 exit at EBITDA multiple. IRR, MOIC and sensitivity table on exit multiple × leverage.",
+dlBtn:"Download .xlsx ↓",backProj:"← Back to projects"},
+
+fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",
+finmLabel:"Modèles financiers",finmTitle:"Modèles financiers",finmSub:"Douze modèles Excel prêts à l'emploi pour la valorisation, la comptabilité et les transactions. Étiquettes bilingues (norvégien/anglais), codage couleur sell-side, données d'exemple fonctionnelles.",
+convTitle:"Conventions de design sur tous les fichiers",convInput:"<strong>Bleu</strong> = entrée (hypothèse modifiable)",convFormula:"<strong>Noir</strong> = formule",convLinked:"<strong>Vert</strong> = lien depuis un autre onglet",convSens:"<strong>Jaune</strong> = sensibilité / sortie",
+subFoundations:"États financiers",subIntegrated:"Modélisation intégrée",subValuation:"Valorisation",
+tplIsDesc:"Format standard avec sections opérationnelle, financière et résultat net. Marge opérationnelle, bridge EBITDA, présentation trimestrielle, 5 ans d'historique + 3 ans de prévision.",
+tplBsDesc:"Actif/passif/capitaux propres avec ventilation IFRS. Bloc BFR, immobilisations incorporelles, dette de location (IFRS 16), et flag de contrôle automatique du bilan.",
+tplCfsDesc:"Méthode indirecte : exploitation, investissement, financement. Réconciliation du résultat au flux opérationnel, capex détaillé, FCFF et FCFE calculés en bas.",
+tplTsmDesc:"IS/BS/CFS liés avec construction du chiffre d'affaires, driver opex, plan capex, schéma BFR et schéma de dette. Logique circulaire pour les charges d'intérêts. Trois scénarios.",
+tplWcDesc:"DSO/DPO/DIO pilotant les créances, dettes fournisseurs et stocks. Cycle d'exploitation, BFR en % du CA, et variation du BFR alimentant le tableau de flux.",
+tplDsDesc:"Cascade de dette tranche par tranche : revolver, term loan A/B, senior notes. Remboursements obligatoires + optionnels, logique cash sweep, covenants de levier.",
+tplDcfDesc:"Prévision FCFF explicite sur 10 ans, valeur terminale (Gordon + multiple de sortie, côte à côte), pont valeur d'entreprise vers valeur par action. Tableau de sensibilité bilatéral.",
+tplWaccDesc:"Coût des fonds propres via CAPM, coût de la dette après impôt, structure cible. Tableau pairs pour delevering beta. Bloc résultat avec source par entrée.",
+tplTcDesc:"Univers pairs avec EV/EBITDA, EV/Sales, P/E, P/B sur LTM, NTM, NTM+1. Statistiques en bas, appliquées au sujet pour la fourchette de valeur implicite.",
+tplTxDesc:"Transactions M&amp;A historiques du secteur avec prix, EV/EBITDA et EV/Sales à la date. Prime payée, financement, stratégique vs financier.",
+tplFfDesc:"Combine DCF, trading comps, transaction comps, fourchette 52 semaines et objectifs analystes en un graphique à barres flottantes.",
+tplLboDesc:"Sources &amp; emplois, cascade de dette revolver/TLA/TLB/sub-notes, FCF après intérêts et amortissement, cash sweep. Sortie en année 5 au multiple EBITDA. TRI, MOIC et sensibilité.",
+dlBtn:"Télécharger .xlsx ↓",backProj:"← Retour aux projets"},
+
+de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",
+finmLabel:"Finanzvorlagen",finmTitle:"Finanzvorlagen",finmSub:"Zwölf einsatzbereite Excel-Modelle für Bewertung, Rechnungswesen und Transaktionen. Zweisprachige Beschriftungen (Norwegisch/Englisch), Sell-Side-Farbcodierung, funktionierende Beispieldaten.",
+convTitle:"Designkonventionen für alle Dateien",convInput:"<strong>Blau</strong> = Input (änderbare Annahme)",convFormula:"<strong>Schwarz</strong> = Formel",convLinked:"<strong>Grün</strong> = Verlinkung aus anderem Tab",convSens:"<strong>Gelb</strong> = Sensitivität / Output",
+subFoundations:"Abschlüsse",subIntegrated:"Integrierte Modellierung",subValuation:"Bewertung",
+tplIsDesc:"Standardformat mit Betriebs-, Finanz- und Ergebnis-Abschnitten. Betriebsmarge, EBITDA-Brücke, Quartalsdarstellung, 5 Jahre Historie + 3 Jahre Prognose.",
+tplBsDesc:"Aktiva/Passiva/Eigenkapital mit IFRS-Aufgliederung. Working-Capital-Block, immaterielle Vermögenswerte, Leasingverbindlichkeit (IFRS 16), automatischer Bilanz-Check.",
+tplCfsDesc:"Indirekte Methode: Betrieb, Investition, Finanzierung. Überleitung Jahresüberschuss zu CFO, Capex-Detail, FCFF und FCFE unten berechnet.",
+tplTsmDesc:"Verknüpfte GuV/Bilanz/Kapitalflussrechnung mit Umsatzaufbau, Opex-Treiber, Capex-Plan, Working-Capital-Schema und Schuldenplan. Zirkuläre Logik für Zinsaufwand.",
+tplWcDesc:"DSO/DPO/DIO als Treiber für Forderungen, Verbindlichkeiten und Vorräte. Cash Conversion Cycle, NWC als % vom Umsatz, NWC-Veränderung fließt in Kapitalfluss.",
+tplDsDesc:"Tranchenweise Schulden-Wasserfall: Revolver, Term Loan A/B, Senior Notes. Mandatory + optional repayments, Cash Sweep, Leverage-Covenants.",
+tplDcfDesc:"10-jährige explizite FCFF-Prognose, Terminalwert (Gordon + Exit-Multiple), Brücke Unternehmens- zu Eigenkapitalwert je Aktie. Sensitivitätstabelle WACC × g.",
+tplWaccDesc:"Eigenkapitalkosten via CAPM, nachsteuerliche Fremdkapitalkosten, Zielkapitalstruktur. Peer-Tabelle für Beta-Delevering. Ergebnisblock mit Quellen je Input.",
+tplTcDesc:"Peer-Universum mit EV/EBITDA, EV/Sales, P/E, P/B auf LTM, NTM, NTM+1. Statistiken unten, angewendet auf Zielunternehmen für implizite Wertspanne.",
+tplTxDesc:"Historische M&amp;A-Transaktionen der Branche mit Deal-Preis, EV/EBITDA und EV/Sales zum Transaktionsdatum. Übernahmeprämie, Finanzierung, strategischer vs finanzieller Käufer.",
+tplFfDesc:"Kombiniert DCF, Trading Comps, Transaction Comps, 52-Wochen-Range und Analystenziele in einem Floating-Bar-Chart.",
+tplLboDesc:"Sources &amp; Uses, Schulden-Wasserfall Revolver/TLA/TLB/Sub-Notes, FCF nach Zinsen und Pflichttilgung, Cash Sweep. Exit in Jahr 5 zum EBITDA-Multiple. IRR, MOIC und Sensitivität.",
+dlBtn:"Herunterladen .xlsx ↓",backProj:"← Zurück zu Projekten"},
+
+ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",
+finmLabel:"財務テンプレート",finmTitle:"財務テンプレート",finmSub:"バリュエーション、会計、トランザクション向けの12個の即用Excelモデル。バイリンガルラベル（ノルウェー語/英語）、セルサイド標準のカラーコーディング、動作するサンプルデータ。",
+convTitle:"全ファイル共通のデザイン規約",convInput:"<strong>青</strong> = インプット（変更可能な前提）",convFormula:"<strong>黒</strong> = 数式",convLinked:"<strong>緑</strong> = 他タブからのリンク",convSens:"<strong>黄</strong> = 感応度/アウトプット",
+subFoundations:"財務諸表",subIntegrated:"統合モデリング",subValuation:"バリュエーション",
+tplIsDesc:"営業・財務・最終利益セクション付き標準フォーマット。営業利益率、EBITDAブリッジ、四半期レイアウト、5年実績+3年予想。",
+tplBsDesc:"IFRS区分の資産/負債/資本。運転資本ブロック、無形資産、リース負債（IFRS 16）、バランスチェック自動フラグ。",
+tplCfsDesc:"間接法：営業、投資、財務。当期純利益からCFOへの調整、設備投資内訳、FCFFとFCFEを下部で計算。",
+tplTsmDesc:"連結IS/BS/CFS、売上ビルド、Opexドライバ、設備投資計画、運転資本表、債務スケジュール付き。利息費用の循環参照。",
+tplWcDesc:"DSO/DPO/DIOで売掛金・買掛金・棚卸資産を駆動。CCC、NWCの売上比、NWC変動がCFに反映。",
+tplDsDesc:"トランシェ別デットウォーターフォール：リボルバー、ターム A/B、シニアノート。強制+任意返済、キャッシュスイープ、レバレッジ条項。",
+tplDcfDesc:"10年明示的FCFF予想、ターミナルバリュー（Gordon + 出口倍率併記）、EVからエクイティ価値/株式へのブリッジ。WACC × g感応度表。",
+tplWaccDesc:"CAPMによる株主資本コスト、税後負債コスト、目標資本構成。ピアテーブルでベータアンレバー。インプット毎に出典付き。",
+tplTcDesc:"LTM/NTM/NTM+1のEV/EBITDA、EV/Sales、P/E、P/B付きピア集合。下部に統計、対象会社に適用してインプライド価値レンジ。",
+tplTxDesc:"業界M&amp;A取引履歴、取引時点のEV/EBITDA・EV/Sales。プレミアム、資金調達、戦略 vs 金融バイヤー。",
+tplFfDesc:"DCF、トレーディングコンプ、トランザクションコンプ、52週レンジ、アナリスト目標を1つのフローティングバーチャートに統合。",
+tplLboDesc:"Sources &amp; Uses、リボルバー/TLA/TLB/サブノートの債務、利息と強制償却後のFCF、キャッシュスイープ。5年目EBITDA倍率でEXIT。IRR、MOIC、感応度。",
+dlBtn:".xlsxをダウンロード ↓",backProj:"← プロジェクトへ戻る"},
+
+medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",
+finmLabel:"Gullets pergamenter",finmTitle:"Gullets pergamenter",finmSub:"Tolv ferdigsmidde regnskapspergamenter for verdsetting, regnskap og kjøp av hele kjøpmannshus. Tospråklige innskrifter, fargekoding fra mestermenneskenes laug, og prøvedata du kan trykke på uten frykt.",
+convTitle:"Smedens regler — felles for alle pergamenter",convInput:"<strong>Blå</strong> = innskudd (forutsetning du kan endre)",convFormula:"<strong>Sort</strong> = utregning",convLinked:"<strong>Grønn</strong> = bånd fra annet pergament",convSens:"<strong>Gul</strong> = følsomhet / svar",
+subFoundations:"Regnskapsoppstillinger",subIntegrated:"Sammenbundet modellering",subValuation:"Verdsettelsens kunst",
+tplIsDesc:"Inntektenes pergament, fra drift til bunnlinje. Driftsmargin, EBITDA-bro, kvartalsoppstilling, fem år bak og tre år frem.",
+tplBsDesc:"Eiendelenes og gjeldens vekt — i likevekt. Arbeidskapital, immaterielle skatter, leieforpliktelse, og automatisk våkenhet for ubalanse.",
+tplCfsDesc:"Den indirekte vei gjennom drift, investering og finansiering. Bro fra resultat til kontant, kapitalkostnader, og fri kontantstrøm beregnet til siste skilling.",
+tplTsmDesc:"Alle tre pergamenter bundet sammen med inntektsbygg, driftskostnader, investeringsplan, arbeidskapital og gjeldsplan. Med iterativ logikk for rentens forløp.",
+tplWcDesc:"DSO/DPO/DIO som driver fordringer, gjeld og varelager. Den fulle krets fra salg til kontant.",
+tplDsDesc:"Gjeldens fossefall, sjikt for sjikt: revolver, term-lån A/B, eldste obligasjoner. Cash sweep og leverage-covenants.",
+tplDcfDesc:"Ti års eksplisitt fri kontantstrøm, terminalverdi (Gordon og exit-multipel, side om side), bro fra hele bedrift til andel per aksje. Toveis følsomhet.",
+tplWaccDesc:"Kostnaden ved egne midler via CAPM, kostnaden ved gjeld etter skatt, ønsket kapitalstruktur. Peer-tabell for beta-unlevering.",
+tplTcDesc:"Liknende kjøpmannshus med EV/EBITDA, EV/Sales, P/E, P/B på LTM, NTM, NTM+1. Statistikk anvendt på subjektet.",
+tplTxDesc:"Historiske oppkjøp i bransjen, med pris og multipler på handelens dag. Premie betalt over uberørt pris.",
+tplFfDesc:"Samler DCF, trading comps, transaction comps, 52-ukers handelsspenn og analytikermål på én fotballbane.",
+tplLboDesc:"Sources &amp; uses, gjelden trekkes opp, fri kontant etter renter og avdrag, cash sweep, exit i år 5. IRR og MOIC.",
+dlBtn:"Erverv pergamentet ↓",backProj:"← Vend tilbake til verkene"}
+};
+
+function setLang(l){
+  document.documentElement.lang=l;
+  var d=T[l]||T.no;
+  document.querySelectorAll('[data-i]').forEach(function(el){
+    var k=el.getAttribute('data-i');
+    if(d[k]!==undefined)el.innerHTML=d[k];
+  });
+  var btn=document.getElementById('langBtn');
+  if(btn)btn.textContent=(l==='medieval'?'NO':l).toUpperCase();
+  document.querySelectorAll('.lang-opt').forEach(function(o){
+    o.classList.toggle('active',o.getAttribute('data-lang')===l);
+  });
+  var menu=document.getElementById('langMenu');if(menu)menu.classList.remove('open');
+  try{localStorage.setItem('ve-lang',l)}catch(e){}
+}
+window.setLang=setLang;
+
+var sv;try{sv=localStorage.getItem('ve-lang')}catch(e){}
+setLang(sv&&T[sv]?sv:'no');
+
+// Theme
+var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
+if(savedTheme==='dark'||savedTheme==='medieval'){
+  document.documentElement.setAttribute('data-theme',savedTheme);
+}
+function updateThemeIcon(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var btn=document.getElementById('themeToggle');
+  if(!btn)return;
+  btn.textContent=(t==='dark')?'🌙':(t==='medieval'?'⚔️':'☀️');
+}
+updateThemeIcon();
+document.getElementById('themeToggle').addEventListener('click',function(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var next=(t==='dark')?null:'dark';
+  if(next){document.documentElement.setAttribute('data-theme',next);}
+  else{document.documentElement.removeAttribute('data-theme');}
+  try{localStorage.setItem('ve-theme',next||'')}catch(e){}
+  updateThemeIcon();
+});
+
+// Lang menu
+document.getElementById('langBtn').addEventListener('click',function(e){
+  e.stopPropagation();
+  document.getElementById('langMenu').classList.toggle('open');
+});
+document.addEventListener('click',function(e){
+  var m=document.getElementById('langMenu');
+  if(m&&!m.contains(e.target)&&e.target.id!=='langBtn'){m.classList.remove('open');}
+});
+document.querySelectorAll('.lang-opt').forEach(function(o){
+  o.addEventListener('click',function(){setLang(o.getAttribute('data-lang'));});
+});
+
+// Nav scroll
+window.addEventListener('scroll',function(){
+  var nav=document.getElementById('mainNav');
+  if(window.scrollY>50)nav.classList.add('scrolled');else nav.classList.remove('scrolled');
+});
+
+// Easter egg
+var typed='';
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  typed=(typed+e.key.toLowerCase()).slice(-10);
+  if(typed.indexOf('prins')!==-1){
+    document.documentElement.setAttribute('data-theme','medieval');
+    try{localStorage.setItem('ve-theme','medieval')}catch(e){}
+    setLang('medieval');
+    updateThemeIcon();
+    typed='';
+  }
+});
+
+// Custom cursor
+(function(){
+  var dot=document.getElementById('cursorDot');
+  if(!dot)return;
+  var mx=0,my=0,dx=0,dy=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.opacity='';});
+  document.addEventListener('mouseleave',function(){dot.style.opacity='0';});
+  document.addEventListener('mouseenter',function(){dot.style.opacity='';});
+  (function loop(){dx+=(mx-dx)*.15;dy+=(my-dy)*.15;dot.style.left=dx+'px';dot.style.top=dy+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.template-card,.back-link,.download-btn').forEach(function(el){
+    el.addEventListener('mouseenter',function(){dot.classList.add('hover');});
+    el.addEventListener('mouseleave',function(){dot.classList.remove('hover');});
+  });
+})();
+})();
+</script>
+</body>
+</html>
