@@ -72,7 +72,7 @@ nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturat
 [data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);cursor:url('medieval/cursor-sword.png') 2 30, auto}
 [data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('medieval/cursor-sword.png') 2 30, pointer}
 [data-theme="medieval"] body{font-family:'MedievalSharp','Inter',sans-serif}
-[data-theme="medieval"] .cv-name,[data-theme="medieval"] .cv-section-title,[data-theme="medieval"] .cv-item-body h3,[data-theme="medieval"] .cert-info h4,[data-theme="medieval"] .working-head h4,[data-theme="medieval"] .skills-grid dt{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .cv-name,[data-theme="medieval"] .cv-section-title,[data-theme="medieval"] .cv-item-body h3,[data-theme="medieval"] .cert-info h3,[data-theme="medieval"] .working-head h3,[data-theme="medieval"] .skills-grid dt{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
 [data-theme="medieval"] .nav-links a,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cv-summary-label,[data-theme="medieval"] .cv-item-date,[data-theme="medieval"] .cert-info p{font-family:'MedievalSharp','Inter',sans-serif}
 [data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
 [data-theme="medieval"] .nav-links a{color:var(--text)}
@@ -158,16 +158,16 @@ details .course-list li::before{content:''}
 }
 .cert-icon{font-size:1.5rem;flex-shrink:0}
 .cert-info{min-width:0;flex:1}
-.cert-info h4{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:.88rem;margin-bottom:.15rem;line-height:1.25}
+.cert-info h3{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:.88rem;margin-bottom:.15rem;line-height:1.25}
 .cert-info p{font-size:.72rem;color:var(--muted)}
 
 /* Working on */
 .working-list{display:grid;gap:1rem}
 .working-item{padding:1.25rem 1.4rem;background:var(--card-bg);border:1px solid var(--border);border-radius:14px;box-shadow:var(--card-shadow)}
 .working-head{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.55rem}
-.working-head h4{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1.02rem;line-height:1.3}
-.working-head h4 a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent;transition:color 200ms ease,border-bottom-color 200ms ease}
-.working-head h4 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.working-head h3{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:700;font-size:1.02rem;line-height:1.3}
+.working-head h3 a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent;transition:color 200ms ease,border-bottom-color 200ms ease}
+.working-head h3 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
 .status{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.2rem .6rem;border-radius:50px}
 .status-active{background:rgba(0,200,80,.1);color:#00a040;border:1px solid rgba(0,200,80,.25)}
 [data-theme="dark"] .status-active{color:#4ade80;background:rgba(0,200,80,.08)}
@@ -382,7 +382,7 @@ details .course-list li::before{content:''}
 
     <div class="working-item">
       <div class="working-head">
-        <h4><a href="https://www.evers.no/personligokonomi/" target="_blank" rel="noopener">Personlig Økonomi</a></h4>
+        <h3><a href="https://www.evers.no/personligokonomi/" target="_blank" rel="noopener">Personlig Økonomi</a></h3>
         <span class="status status-active"><span data-i="active">Aktiv</span></span>
       </div>
       <p data-i="personligDesc">Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.</p>
@@ -390,7 +390,7 @@ details .course-list li::before{content:''}
 
     <div class="working-item">
       <div class="working-head">
-        <h4><a href="https://evers.no/osebx" target="_blank" rel="noopener">OSEBX Dashboard</a></h4>
+        <h3><a href="https://evers.no/osebx" target="_blank" rel="noopener">OSEBX Dashboard</a></h3>
         <span class="status status-active"><span data-i="active">Aktiv</span></span>
       </div>
       <p data-i="osebxDesc">Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.</p>
@@ -398,7 +398,7 @@ details .course-list li::before{content:''}
 
     <div class="working-item">
       <div class="working-head">
-        <h4><a href="https://www.evers.no/examprep/" target="_blank" rel="noopener">GRA6546 — Exam Prep</a></h4>
+        <h3><a href="https://www.evers.no/examprep/" target="_blank" rel="noopener">GRA6546 — Exam Prep</a></h3>
         <span class="status status-active"><span data-i="active">Aktiv</span></span>
       </div>
       <p data-i="examprepDesc">Interaktivt eksamensforberedelsesverktøy for GRA6546 Financial Institutions and Crises på BI. Forelesningsnotater, temasider og flashcards organisert per pensumkapittel. Eksamen 13. mai 2026.</p>
@@ -475,19 +475,19 @@ details .course-list li::before{content:''}
   <div class="certs">
     <a href="docs/BMC_certificate_of_completion.pdf" target="_blank" rel="noopener" class="cert">
       <span class="cert-icon">📈</span>
-      <div class="cert-info"><h4>Bloomberg Market Concepts</h4><p>Bloomberg for Education</p></div>
+      <div class="cert-info"><h3>Bloomberg Market Concepts</h3><p>Bloomberg for Education</p></div>
     </a>
     <a href="docs/Bloomberg_BFF_Certificate.pdf" target="_blank" rel="noopener" class="cert">
       <span class="cert-icon">💰</span>
-      <div class="cert-info"><h4 data-i="bffTitle">Finance Fundamentals</h4><p>Bloomberg for Education</p></div>
+      <div class="cert-info"><h3 data-i="bffTitle">Finance Fundamentals</h3><p>Bloomberg for Education</p></div>
     </a>
     <a href="docs/ESG_certificate_of_completion.pdf" target="_blank" rel="noopener" class="cert">
       <span class="cert-icon">🌱</span>
-      <div class="cert-info"><h4>ESG</h4><p>Bloomberg for Education</p></div>
+      <div class="cert-info"><h3>ESG</h3><p>Bloomberg for Education</p></div>
     </a>
     <a href="docs/Yale%20University%3ACoursera%20Sertifikat.pdf" target="_blank" rel="noopener" class="cert">
       <span class="cert-icon">🧠</span>
-      <div class="cert-info"><h4>Intro to Psychology</h4><p>Yale / Coursera</p></div>
+      <div class="cert-info"><h3>Intro to Psychology</h3><p>Yale / Coursera</p></div>
     </a>
   </div>
 </section>
