@@ -1,16 +1,16 @@
 {
-  "name": "Social run med BBL🧃",
+  "name": "Litta tur i finværet☀️",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 9.97,
-  "moving_time": 3740,
-  "elapsed_time": 3777,
-  "total_elevation_gain": 151.0,
-  "start_date": "2026-05-27T18:08:22Z",
-  "average_speed": 9.6,
-  "max_speed": 20.02,
-  "average_heartrate": 182.3,
-  "max_heartrate": 197.0,
+  "distance": 8.82,
+  "moving_time": 3643,
+  "elapsed_time": 3981,
+  "total_elevation_gain": 142.0,
+  "start_date": "2026-05-29T10:39:47Z",
+  "average_speed": 8.72,
+  "max_speed": 13.61,
+  "average_heartrate": 168.4,
+  "max_heartrate": 185.0,
   "suffer_score": null,
-  "id": 18677790215
+  "id": 18700010241
 }
