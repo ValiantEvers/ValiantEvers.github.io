@@ -69,6 +69,11 @@ PROFILE = {
     "locations": [
         ("oslo", 10), ("paris", 8), ("london", 5),
         ("luxembourg", 5), ("stockholm", 3),
+        # Danske byer (Jobindex-kilden) — København som sekundærmarked på linje
+        # med Paris, øvrige danske storbyer lavere. Mindre jyske byer scorer 0
+        # (bevisst: lavere prioritet enn storbyene).
+        ("københavn", 7), ("copenhagen", 7), ("aarhus", 4), ("århus", 4),
+        ("aalborg", 3), ("odense", 3),
     ],
     "seniorityBoost": {"junior": 20, "mid": 5, "senior": -10},
     "negativeKeywords": [
@@ -76,6 +81,10 @@ PROFILE = {
         "gjeldsrådgiver", "kundeservice", "kundesenter", "sykepleier", "renhold",
         "lærling", "developer", "utvikler", "ingeniør", "it-rådgiver",
         "controller", "comptable", "lawyer",
+        # Danske staveformer (Jobindex-kilden) — de norske over fyrer aldri på
+        # danske titler. KEEP IN SYNC med strategi.html (samme strenger/rekkefølge).
+        "ejendomsmægler", "regnskab", "gældsrådgiver", "kundecenter",
+        "sygeplejerske", "rengøring", "udvikler", "pædagog",
     ],
 }
 
@@ -109,6 +118,27 @@ QUERIES = [
     "fondsrådgiver",
     "fondsselger",
     "kunderådgiver formue",
+]
+
+# Danske søkeord for Jobindex.dk (source="jobindex"). Dansk stavemåte avviker
+# fra norsk: "formueforvaltning" (uten -s-), "formuerådgiver", osv. Titler som
+# "private banking/banker", "investeringsrådgiver", "kapitalforvaltning" og
+# "porteføljeforvalter" staves identisk på dansk og treffer derfor de samme
+# PROFILE.titleKeywords som finn-jobbene. De danske lokasjonene (København,
+# Aarhus …) er lagt inn i PROFILE.locations nedenfor, ellers scorer alle
+# danske jobber 0 stedspoeng. KEEP IN SYNC med strategi.html.
+DK_QUERIES = [
+    "private banking",
+    "private banker",
+    "formueforvaltning",
+    "formuerådgiver",
+    "porteføljeforvalter",
+    "investeringsrådgiver",
+    "kapitalforvaltning",
+    "fondsforvalter",
+    "investeringschef",
+    "wealth management",
+    "junior analytiker",
 ]
 
 
@@ -347,6 +377,164 @@ def scrape_finn(query: str, max_jobs: int = 100) -> list:
 
 
 # ─────────────────────────────────────────────────────────────────────────
+# Jobindex.dk scraper — Playwright headless Chromium
+#
+# Jobindex server-renders ~20 result cards per page and paginates the old
+# way (?page=N), so no scroll-to-load-more — we walk page=1..N and stop when
+# a page yields nothing new. Unlike finn, the visible title link points at
+# the EXTERNAL employer site (e.g. nykredit.com), so we DON'T trust it as the
+# identity URL. The stable jobindex permalink is built from the card's
+# data-tid: https://www.jobindex.dk/vis-job/{tid}.
+#
+# Verified DOM (May 2026), search URL https://www.jobindex.dk/jobsoegning?q=…:
+#   <div class="jobsearch-result">
+#     <div class="PaidJob">           ← (or .jix_robotjob for robot ads)
+#       … data-tid="h1666639" …       ← jobindex id, on several child elements
+#       <div class="jix-toolbar-top__company"><a>{COMPANY}</a></div>
+#       <h4><a href="{EXTERNAL_EMPLOYER_URL}">{TITLE}</a></h4>
+#       <span class="jix_robotjob--area">{LOCATION}</span>
+#       <time datetime="2026-05-19">19-05-2026</time>   ← posted (ISO date)
+#
+# Defensive parity with scrape_finn(): if div.jobsearch-result matches nothing
+# on page 1 (captcha/block/DOM move), we log and return [] rather than guess a
+# wrong element. Same {role, company, location, url, posted, query} dict shape.
+# ─────────────────────────────────────────────────────────────────────────
+
+JOBINDEX_SEARCH = "https://www.jobindex.dk/jobsoegning"
+JOBINDEX_CARD_SELECTOR = "div.jobsearch-result"
+
+
+def scrape_jobindex(query: str, max_jobs: int = 100, max_pages: int = 6) -> list:
+    from playwright.sync_api import sync_playwright
+    jobs = []
+    seen_urls = set()
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent=USER_AGENT,
+            viewport={"width": 1280, "height": 800},
+        )
+        page = context.new_page()
+        consent_done = False
+
+        for page_num in range(1, max_pages + 1):
+            url = (
+                f"{JOBINDEX_SEARCH}?q={requests.utils.quote(query)}"
+                f"&page={page_num}"
+            )
+            try:
+                page.goto(url, wait_until="networkidle", timeout=30000)
+            except Exception as e:
+                print(f"  goto failed (page {page_num}): {e}", file=sys.stderr)
+                break
+
+            # Cookie consent — best effort, only worth trying once
+            if not consent_done:
+                for sel in (
+                    "button:has-text('Accepter alle')",
+                    "button:has-text('Accepter')",
+                    "#jix-cookie-consent-accept-all",
+                    "[id*='cookie'] button",
+                ):
+                    try:
+                        page.click(sel, timeout=2000)
+                        page.wait_for_timeout(400)
+                        break
+                    except Exception:
+                        pass
+                consent_done = True
+
+            cards = page.query_selector_all(JOBINDEX_CARD_SELECTOR)
+            if not cards:
+                # Page 1 empty = block/DOM-move (loud signal). Later pages
+                # empty = simply ran out of results (normal stop).
+                if page_num == 1:
+                    print(
+                        f"  jobindex: 0 kort for {query!r} — selektor bommet "
+                        f"eller blokkert, returnerer []",
+                        file=sys.stderr,
+                    )
+                break
+
+            new_on_page = 0
+            for c in cards:
+                try:
+                    tid_el = c.query_selector("[data-tid]")
+                    tid = (
+                        tid_el.get_attribute("data-tid") if tid_el else None
+                    )
+                    if not tid:
+                        continue
+                    href = f"https://www.jobindex.dk/vis-job/{tid}"
+                    if href in seen_urls:
+                        continue
+
+                    # Title: <h4> (same text as its employer-link anchor). No
+                    # bare fallback on purpose — empty title across the board
+                    # signals a DOM move, not a silent wrong grab.
+                    h4 = c.query_selector("h4")
+                    title = (h4.text_content() or "").strip() if h4 else ""
+                    if not title:
+                        continue
+
+                    comp_el = c.query_selector(".jix-toolbar-top__company")
+                    company = (
+                        (comp_el.text_content() or "").strip()
+                        if comp_el else ""
+                    )
+
+                    # Location: .jix_robotjob--area is the clean city (the
+                    # wrapping .jobad-element-area also contains "Se rejsetid").
+                    area = c.query_selector(".jix_robotjob--area")
+                    location = (
+                        (area.text_content() or "").strip() if area else ""
+                    )
+
+                    # Posted: <time datetime="YYYY-MM-DD">
+                    posted = None
+                    time_el = c.query_selector("time[datetime]")
+                    if time_el:
+                        dt = (
+                            time_el.get_attribute("datetime")
+                            or time_el.get_attribute("dateTime")
+                            or ""
+                        )
+                        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", dt)
+                        if m:
+                            posted = m.group(0)
+
+                    seen_urls.add(href)
+                    jobs.append({
+                        "role": title,
+                        "company": company,
+                        "location": location,
+                        "url": href,
+                        "posted": posted,
+                        "query": query,
+                    })
+                    new_on_page += 1
+                except Exception as e:
+                    print(
+                        f"  extract failed for one jobindex card: {e}",
+                        file=sys.stderr,
+                    )
+                    continue
+
+            # Stop conditions: hit the cap, or a full page added nothing new
+            # (last page repeats / no further results).
+            if len(jobs) >= max_jobs or new_on_page == 0:
+                break
+
+        browser.close()
+
+    jobs = jobs[:max_jobs]
+    # Inter-query throttle — stay polite to jobindex.dk
+    time.sleep(1.5)
+    return jobs
+
+
+# ─────────────────────────────────────────────────────────────────────────
 # Score + seniority — match strategi.html scoreJob() exactly
 # ─────────────────────────────────────────────────────────────────────────
 
@@ -456,25 +644,32 @@ def main():
 
     all_scraped = []
     seen_in_scrape = set()
-    for q in QUERIES:
-        print(f"Scraping query: {q!r}")
-        scraped = scrape_finn(q)
-        kept = 0
-        for j in scraped:
-            norm = normalize_url(j["url"])
-            if norm in existing_urls or norm in seen_in_scrape:
-                continue
-            seen_in_scrape.add(norm)
-            all_scraped.append(j)
-            kept += 1
-        print(f"  {len(scraped)} SSR-jobber, {kept} nye etter dedup")
+
+    def collect(queries, scraper, source):
+        for q in queries:
+            print(f"Scraping {source} query: {q!r}")
+            scraped = scraper(q)
+            kept = 0
+            for j in scraped:
+                norm = normalize_url(j["url"])
+                if norm in existing_urls or norm in seen_in_scrape:
+                    continue
+                seen_in_scrape.add(norm)
+                j["source"] = source
+                all_scraped.append(j)
+                kept += 1
+            print(f"  {len(scraped)} jobber, {kept} nye etter dedup")
+
+    collect(QUERIES, scrape_finn, "finn")
+    collect(DK_QUERIES, scrape_jobindex, "jobindex")
 
     print(f"Nye unike jobber totalt: {len(all_scraped)}")
 
+    all_queries = QUERIES + DK_QUERIES
     now_iso = now_utc.isoformat()
 
     if not all_scraped:
-        payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": QUERIES}
+        payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": all_queries}
         payload["updatedAt"] = now_iso  # defensiv: bump så cross-device bootstrap adopterer lastScrape også når 0 nye jobber
         new_blob = encrypt_payload(password, payload)
         gist_patch(pat, gist_id, new_blob)
@@ -487,7 +682,7 @@ def main():
         sc = score_job(j)
         new_jobs.append({
             "id": sha1_job_id(j["url"]),
-            "source": "finn",
+            "source": j["source"],
             "company": j["company"],
             "role": j["role"],
             "url": j["url"],
@@ -509,7 +704,7 @@ def main():
 
     payload["jobs"] = new_jobs + payload.get("jobs", [])
     payload["updatedAt"] = now_iso
-    payload["lastScrape"] = {"at": now_iso, "count": len(new_jobs), "queries": QUERIES}
+    payload["lastScrape"] = {"at": now_iso, "count": len(new_jobs), "queries": all_queries}
 
     print("Encrypting and pushing…")
     new_blob = encrypt_payload(password, payload)
