@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-29T09:32:05.429083Z",
+  "lastUpdated": "2026-05-30T08:14:39.899095Z",
   "sources": [
     {
       "name": "Norges Bank",
@@ -42,7 +42,7 @@
       },
       "valuta": {
         "status": "ok",
-        "rows": 1611,
+        "rows": 1612,
         "key": "EXR/B.{CCY}.NOK.SP"
       }
     },
