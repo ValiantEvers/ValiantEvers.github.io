@@ -1,16 +1,16 @@
 {
-  "name": "Litta tur i finværet☀️",
+  "name": "De tre musketerer opp til topps🇩🇪🇮🇹🇧🇪",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 8.82,
-  "moving_time": 3643,
-  "elapsed_time": 3981,
-  "total_elevation_gain": 142.0,
-  "start_date": "2026-05-29T10:39:47Z",
-  "average_speed": 8.72,
-  "max_speed": 13.61,
-  "average_heartrate": 168.4,
-  "max_heartrate": 185.0,
+  "distance": 11.04,
+  "moving_time": 4164,
+  "elapsed_time": 4420,
+  "total_elevation_gain": 312.0,
+  "start_date": "2026-06-01T18:07:49Z",
+  "average_speed": 9.55,
+  "max_speed": 22.68,
+  "average_heartrate": 166.3,
+  "max_heartrate": 196.0,
   "suffer_score": null,
-  "id": 18700010241
+  "id": 18744708348
 }
