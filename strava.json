@@ -1,16 +1,16 @@
 {
-  "name": "De tre musketerer opp til topps🇩🇪🇮🇹🇧🇪",
+  "name": "Afternoon Run",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 11.04,
-  "moving_time": 4164,
-  "elapsed_time": 4420,
-  "total_elevation_gain": 312.0,
-  "start_date": "2026-06-01T18:07:49Z",
-  "average_speed": 9.55,
-  "max_speed": 22.68,
-  "average_heartrate": 166.3,
-  "max_heartrate": 196.0,
+  "distance": 5.04,
+  "moving_time": 2273,
+  "elapsed_time": 2715,
+  "total_elevation_gain": 34.0,
+  "start_date": "2026-06-02T17:02:06Z",
+  "average_speed": 7.97,
+  "max_speed": 16.42,
+  "average_heartrate": 145.7,
+  "max_heartrate": 170.0,
   "suffer_score": null,
-  "id": 18744708348
+  "id": 18757450762
 }
