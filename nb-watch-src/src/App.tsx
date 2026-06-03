@@ -10,7 +10,7 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { Section } from './components/Section'
 import { StatTile, StatTileRow } from './components/StatTile'
-import { RatePathChart } from './components/charts/RatePathChart'
+import { CombinedRateChart } from './components/charts/CombinedRateChart'
 import { InflationChart } from './components/charts/InflationChart'
 import { WageChart } from './components/charts/WageChart'
 import { HousingChart } from './components/charts/HousingChart'
@@ -59,6 +59,8 @@ function ytdPct(series: ValutaPoint[] | undefined, ccy: keyof ValutaPoint): numb
 
 export default function App() {
   const [b, setB] = useState<Bundle | null>(null)
+  // NOWA 3M-overlegg er på som standard (samme synlige tilstand som før).
+  const [showNibor, setShowNibor] = useState(true)
 
   useEffect(() => {
     Promise.all([
@@ -84,14 +86,6 @@ export default function App() {
   const srDelta = styringsrenteDelta(b?.styringsrente?.data)
   const lastFx = b?.valuta?.data?.[b.valuta.data.length - 1]
   const eurYtd = ytdPct(b?.valuta?.data, 'EUR')
-
-  // Begrens historisk styringsrente til siste 5 år for å unngå overfylt graf.
-  const srLast5y = b?.styringsrente?.data
-    ? b.styringsrente.data.filter((p) => p.date >= cutoffStr(5))
-    : []
-  const niborLast5y = b?.nibor?.data
-    ? b.nibor.data.filter((p) => p.date >= cutoffStr(5))
-    : []
 
   return (
     <div className="min-h-screen">
@@ -138,11 +132,12 @@ export default function App() {
         title={COPY.rentebane.title}
         body={COPY.rentebane.body}
         chart={
-          srLast5y.length > 0 ? (
-            <RatePathChart
-              styringsrente={srLast5y}
-              nibor={niborLast5y}
-              rentebane={b?.rentebane?.data ?? []}
+          b?.styringsrente?.data?.length ? (
+            <CombinedRateChart
+              styringsrente={b.styringsrente.data}
+              nibor={b.nibor?.data ?? []}
+              rentebane={b.rentebane?.data ?? []}
+              showNibor={showNibor}
             />
           ) : (
             <NoData />
@@ -153,9 +148,15 @@ export default function App() {
             <p className="text-xs text-muted dark:text-muted-dark italic mb-3">
               {COPY.rentebane.note}
             </p>
-            <div className="rounded border border-dashed border-line dark:border-line-dark px-3 py-2 text-xs text-muted dark:text-muted-dark">
-              TODO: {COPY.rentebane.todo}
-            </div>
+            <label className="inline-flex items-center gap-2 text-xs text-muted dark:text-muted-dark cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={showNibor}
+                onChange={(e) => setShowNibor(e.target.checked)}
+                className="accent-nbred"
+              />
+              {COPY.rentebane.legend.nibor}
+            </label>
           </>
         }
         source={COPY.rentebane.source}
@@ -228,10 +229,4 @@ function NoData() {
       {COPY.noData}
     </div>
   )
-}
-
-function cutoffStr(yearsBack: number): string {
-  const d = new Date()
-  d.setFullYear(d.getFullYear() - yearsBack)
-  return d.toISOString().slice(0, 10)
 }
