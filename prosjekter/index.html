@@ -125,6 +125,18 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
   .cert-card:hover .open-hint{opacity:1}
 }
 
+/* PROJECT CONTROLS (search + tag filter) */
+.proj-controls{max-width:1100px;margin:0 auto;padding:2rem 2rem 0;display:flex;flex-direction:column;gap:1rem}
+.proj-search{width:100%;background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:.8rem 1.1rem;font-family:inherit;font-size:.95rem;color:var(--text);transition:border-color 200ms ease,box-shadow 200ms ease;-webkit-appearance:none;appearance:none}
+.proj-search::placeholder{color:var(--subtle)}
+.proj-search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,112,237,.12)}
+.proj-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.proj-chip{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:inherit;font-size:.78rem;font-weight:500;letter-spacing:-.01em;padding:.35rem .8rem;border-radius:999px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease,background 200ms ease}
+.proj-chip:hover{border-color:var(--accent);color:var(--accent)}
+.proj-chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.proj-chip:active{transform:scale(0.97)}
+.proj-noresults{max-width:1100px;margin:0 auto;padding:2rem;text-align:center;color:var(--muted);font-size:.95rem;display:none}
+
 /* BACK LINK */
 .back-row{max-width:1100px;margin:0 auto;padding:3rem 2rem 0;text-align:center}
 .back-link{display:inline-block;font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .3s,transform .3s}
@@ -141,6 +153,7 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
   nav{padding:.9rem 1.2rem}
   .nav-links{display:none}
   .page-hero{padding:6.5rem 1.2rem 1rem}
+  .proj-controls{padding:1.5rem 1.2rem 0}
   section{padding:3rem 1.2rem 0}
   .certs-grid{gap:.9rem}
   .cert-card{padding:1.3rem}
@@ -189,47 +202,37 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 <p class="page-sub" data-i="projAllSub"></p>
 </header>
 
-<section id="verktoy">
+<div class="proj-controls" id="projControls">
+<input type="search" class="proj-search" id="projSearch" data-i-placeholder="projSearch" placeholder="Søk i prosjekter…" autocomplete="off" aria-label="Søk i prosjekter">
+<div class="proj-chips" id="projChips"></div>
+</div>
+
+<!-- Kortene genereres ved kjøretid fra projects.json (se script nederst). -->
+<section id="verktoy" data-kategori="Verktøy">
 <div class="sub-header">
 <h2 class="sub-title" data-i="subToolsTitle">Verktøy</h2>
 <span class="sub-count">9</span>
 </div>
-<div class="certs-grid">
-<a href="/prosjekter/forretningsenhet-dashboard/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏦</div><h3 data-i="bdTitle"></h3><p class="cert-issuer" data-i="bdDesc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/prosjekter/masteroppgave/" class="cert-link"><div class="cert-card"><div class="cert-icon">🎓</div><h3 data-i="mastTitle"></h3><p class="cert-issuer" data-i="mastDesc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/leie-eller-eie/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏠</div><h3>Leie eller eie?</h3><p class="cert-issuer">Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/personligokonomi/" class="cert-link"><div class="cert-card"><div class="cert-icon">💰</div><h3>Personlig Økonomi</h3><p class="cert-issuer">Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/osebx/" class="cert-link"><div class="cert-card"><div class="cert-icon">📊</div><h3>OSEBX Dashboard</h3><p class="cert-issuer">Ukentlig autonom analyse av Oslo Børs. Sektorrotasjon, breddemål, LLM-narrativ.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/examprep/" class="cert-link"><div class="cert-card"><div class="cert-icon">🎓</div><h3>GRA6546 — Exam Prep</h3><p class="cert-issuer">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/pensjonskalkulator/" class="cert-link"><div class="cert-card"><div class="cert-icon">🪙</div><h3>Pensjonskalkulator</h3><p class="cert-issuer">Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet — brutto og estimert netto.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/nb-watch/" class="cert-link"><div class="cert-card"><div class="cert-icon">🏛️</div><h3>Norges Bank Watch</h3><p class="cert-issuer">Pengepolitikkens nøkkeltall, oppdatert daglig. Rentebane, KPI, lønn, bolig og valuta.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/wc2026/" class="cert-link"><div class="cert-card"><div class="cert-icon">⚽</div><h3>World Cup 2026 Simulator</h3><p class="cert-issuer">Interaktiv VM 2026-simulator — alle 48 lag drevet av Elo. Spill én turnering med live avspilling og 2D mål-replay, eller kjør Monte Carlo for sannsynligheter.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-</div>
+<div class="certs-grid"></div>
 </section>
 
-<section id="finansmaler">
+<section id="finansmaler" data-kategori="Finansielle maler">
 <div class="sub-header">
 <h2 class="sub-title" data-i="subFinmTitle">Finansielle maler</h2>
 <span class="sub-count">12</span>
 </div>
-<div class="certs-grid">
-<a href="/prosjekter/finansielle-maler/#grunnleggende" class="cert-link"><div class="cert-card"><div class="cert-icon">📊</div><h3 data-i="finmStatTitle">Regnskapsoppstillinger</h3><p class="cert-issuer" data-i="finmStatDesc">Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/prosjekter/finansielle-maler/#integrert" class="cert-link"><div class="cert-card"><div class="cert-icon">🔗</div><h3 data-i="finmIntTitle">Integrert modellering</h3><p class="cert-issuer" data-i="finmIntDesc">3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-<a href="/prosjekter/finansielle-maler/#verdsettelse" class="cert-link"><div class="cert-card"><div class="cert-icon">💎</div><h3 data-i="finmValTitle">Verdsettelse</h3><p class="cert-issuer" data-i="finmValDesc">DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.</p><span class="open-hint" data-i="projOpen">Åpne ↗</span></div></a>
-</div>
+<div class="certs-grid"></div>
 </section>
 
-<section id="guider">
+<section id="guider" data-kategori="Guider">
 <div class="sub-header">
 <h2 class="sub-title" data-i="subGuidesTitle">Guider</h2>
 <span class="sub-count">3</span>
 </div>
-<div class="certs-grid">
-<a href="/fra-null-til-investor/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌱</div><h3 data-i="proj1Title"></h3><p class="cert-issuer" data-i="proj1Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/fra-null-til-investor2/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌿</div><h3 data-i="proj2Title"></h3><p class="cert-issuer" data-i="proj2Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="/fra-null-til-investor3/" class="cert-link"><div class="cert-card"><div class="cert-icon">🌳</div><h3 data-i="proj3Title"></h3><p class="cert-issuer" data-i="proj3Desc"></p><span class="open-hint" data-i="projOpen"></span></div></a>
-</div>
+<div class="certs-grid"></div>
 </section>
+
+<div class="proj-noresults" id="projNoResults" data-i="projNoResults">Ingen prosjekter matcher søket.</div>
 
 <div class="back-row">
 <a href="/" class="back-link" data-i="backHome">← Tilbake til forsiden</a>
@@ -240,20 +243,26 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 <script>
 (function(){
 var T={
-no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",projLabel:"Prosjekter",projAllTitle:"Alle prosjekter",projAllSub:"Interaktive verktøy og guider — alle bygd fra grunnen for å gjøre finans tilgjengelig for vanlige folk.",subToolsTitle:"Verktøy",subFinmTitle:"Finansielle maler",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",finmIntTitle:"Integrert modellering",finmIntDesc:"3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.",finmValTitle:"Verdsettelse",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.",subGuidesTitle:"Guider",proj1Title:"Fra null til investor",proj1Desc:"Interaktiv guide til personlig økonomi og investering",proj2Title:"Fra nybegynner til trygg investor",proj2Desc:"Interaktiv guide til fondsvalg, risiko og porteføljebygging",proj3Title:"Din første investering",proj3Desc:"Steg-for-steg til din første fondshandel",mastTitle:"Masteroppgaven, forklart",mastDesc:"Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit — uten fagsjargong.",bdTitle:"Forretningsenhet-dashboard",bdDesc:"Illustrativt månedsrapport-dashboard for en nordisk bankdivisjon. FTP-bevisst NII-variansdekomponering, ROAC vs avkastningskrav per segment, 24-måneders trend (faktisk + prognose) og et levende sensitivitetspanel. Python + SQLite + JSON-pipeline.",projOpen:"Åpne ↗",backHome:"← Tilbake til forsiden"},
-en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",projLabel:"Projects",projAllTitle:"All projects",projAllSub:"Interactive tools and guides — all built from scratch to make finance accessible for everyday people.",subToolsTitle:"Tools",subFinmTitle:"Financial templates",finmStatTitle:"Financial statements",finmStatDesc:"Income statement, balance sheet and cash flow — three standalone templates with IFRS-style breakdown, bilingual labels and sample data.",finmIntTitle:"Integrated modeling",finmIntDesc:"Three-statement model, working capital and debt schedule. Linked IS/BS/CFS with circular interest and three scenarios.",finmValTitle:"Valuation",finmValDesc:"DCF, WACC, trading and transaction comps, football field and LBO model. Sell-side formatting with two-way sensitivity.",subGuidesTitle:"Guides",proj1Title:"From zero to investor",proj1Desc:"Interactive guide to personal finance and investing (Norwegian)",proj2Title:"From beginner to confident investor",proj2Desc:"Interactive guide to fund selection, risk and portfolio building (Norwegian)",proj3Title:"Your first investment",proj3Desc:"Step by step to your first fund trade (Norwegian)",mastTitle:"The thesis, explained",mastDesc:"An interactive, step-by-step walkthrough of the master's thesis on Norwegian investors, knowledge and confidence — jargon-free.",bdTitle:"Business Unit Performance Dashboard",bdDesc:"Illustrative monthly management-reporting dashboard for a Nordic wholesale-bank division. FTP-aware NII variance decomposition, ROAC vs hurdle per segment, 24-month trend (Actual + Forecast), and a live sensitivity panel. Python + SQLite + JSON pipeline.",projOpen:"Open ↗",backHome:"← Back to home"},
-fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",projLabel:"Projets",projAllTitle:"Tous les projets",projAllSub:"Outils interactifs et guides — tous construits à partir de zéro pour rendre la finance accessible.",subToolsTitle:"Outils",subFinmTitle:"Modèles financiers",finmStatTitle:"États financiers",finmStatDesc:"Compte de résultat, bilan et tableau de flux — trois modèles autonomes avec ventilation IFRS, étiquettes bilingues et données d'exemple.",finmIntTitle:"Modélisation intégrée",finmIntDesc:"Modèle à trois états, BFR et schéma de dette. Compte de résultat/bilan/flux liés avec intérêts circulaires et trois scénarios.",finmValTitle:"Valorisation",finmValDesc:"DCF, WACC, comparables boursiers et transactionnels, football field et modèle LBO. Mise en forme sell-side avec sensibilité bilatérale.",subGuidesTitle:"Guides",proj1Title:"De zéro à investisseur",proj1Desc:"Guide interactif de finances personnelles (en norvégien)",proj2Title:"Du débutant à l'investisseur confiant",proj2Desc:"Guide interactif sur les fonds, le risque et la construction de portefeuille (en norvégien)",proj3Title:"Votre premier investissement",proj3Desc:"Pas à pas vers votre premier achat de fonds (en norvégien)",mastTitle:"Le mémoire, expliqué",mastDesc:"Une présentation interactive, étape par étape, du mémoire de master sur les investisseurs norvégiens, le savoir et la confiance — sans jargon.",bdTitle:"Tableau de bord d'unité opérationnelle",bdDesc:"Tableau de bord illustratif de reporting de gestion mensuel pour une division de banque de gros nordique. Décomposition de variance NII avec FTP, ROAC vs taux d'obstacle par segment, tendance 24 mois (Actual + Forecast), et un panneau de sensibilité interactif.",projOpen:"Ouvrir ↗",backHome:"← Retour à l'accueil"},
-de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",projLabel:"Projekte",projAllTitle:"Alle Projekte",projAllSub:"Interaktive Werkzeuge und Leitfäden — alle von Grund auf gebaut, um Finanzen verständlich zu machen.",subToolsTitle:"Werkzeuge",subFinmTitle:"Finanzvorlagen",finmStatTitle:"Abschlüsse",finmStatDesc:"GuV, Bilanz und Kapitalflussrechnung — drei eigenständige Vorlagen mit IFRS-Aufgliederung, zweisprachigen Beschriftungen und Beispieldaten.",finmIntTitle:"Integrierte Modellierung",finmIntDesc:"Drei-Abschlüsse-Modell, Working-Capital- und Schuldenplan. Verknüpfte GuV/Bilanz/Kapitalflussrechnung mit zirkulärem Zinsaufwand und drei Szenarien.",finmValTitle:"Bewertung",finmValDesc:"DCF, WACC, Trading- und Transaction Comps, Football Field und LBO-Modell. Sell-Side-Formatierung mit bilateraler Sensitivität.",subGuidesTitle:"Leitfäden",proj1Title:"Von Null zum Investor",proj1Desc:"Interaktiver Leitfaden zu Privatfinanzen (auf Norwegisch)",proj2Title:"Vom Anfänger zum sicheren Investor",proj2Desc:"Interaktiver Leitfaden zu Fondswahl, Risiko und Portfolioaufbau (auf Norwegisch)",proj3Title:"Ihre erste Investition",proj3Desc:"Schritt für Schritt zum ersten Fondskauf (auf Norwegisch)",mastTitle:"Die Masterarbeit, erklärt",mastDesc:"Eine interaktive Schritt-für-Schritt-Erklärung der Masterarbeit über norwegische Anleger, Wissen und Selbstvertrauen — ohne Fachjargon.",bdTitle:"Geschäftsbereichs-Dashboard",bdDesc:"Illustratives monatliches Management-Reporting-Dashboard für eine nordische Firmenkundenbank-Division. FTP-bewusste NII-Varianzzerlegung, ROAC vs Hürdensatz pro Segment, 24-Monats-Trend (Actual + Forecast) und ein interaktives Sensitivitätspanel.",projOpen:"Öffnen ↗",backHome:"← Zurück zur Startseite"},
-ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",projLabel:"プロジェクト",projAllTitle:"すべてのプロジェクト",projAllSub:"インタラクティブなツールとガイド — すべてゼロから構築し、ファイナンスを身近なものにすることを目指しました。",subToolsTitle:"ツール",subFinmTitle:"財務テンプレート",finmStatTitle:"財務諸表",finmStatDesc:"損益計算書、貸借対照表、キャッシュフロー計算書 — IFRS区分、バイリンガルラベル、サンプルデータを備えた3つの独立テンプレート。",finmIntTitle:"統合モデリング",finmIntDesc:"3表モデル、運転資本表、債務スケジュール。循環参照の利息、3シナリオで連結されたIS/BS/CFS。",finmValTitle:"バリュエーション",finmValDesc:"DCF、WACC、トレーディング・トランザクションコンプ、フットボールフィールド、LBOモデル。セルサイド書式、二次元感応度。",subGuidesTitle:"ガイド",proj1Title:"ゼロから投資家へ",proj1Desc:"個人金融と投資のインタラクティブガイド（ノルウェー語）",proj2Title:"初心者から自信ある投資家へ",proj2Desc:"ファンド選択、リスク、ポートフォリオ構築のインタラクティブガイド（ノルウェー語）",proj3Title:"はじめての投資",proj3Desc:"初めてのファンド購入へのステップガイド（ノルウェー語）",mastTitle:"修士論文をやさしく解説",mastDesc:"ノルウェーの投資家・知識・自信をめぐる修士論文を、専門用語なしで一歩ずつ解説するインタラクティブな読み物。",bdTitle:"事業部門ダッシュボード",bdDesc:"架空の北欧ホールセール銀行部門向けの月次マネジメント・レポーティング・ダッシュボード。FTP対応のNII変動分解、セグメント別ROAC対ハードルレート、24か月のトレンド（Actual＋Forecast）、およびインタラクティブな感応度パネル。",projOpen:"開く ↗",backHome:"← トップに戻る"},
-medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",projLabel:"Verk & Bedrifter",projAllTitle:"Alle den edles verk",projAllSub:"Innretninger og lærepergamenter — alle smidd fra bar grunn av den edle selv, for å gjøre gullets kunst tilgjengelig for folk av alle stender.",subToolsTitle:"Smedens redskaper",subFinmTitle:"Gullets pergamenter",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Inntekt, eiendeler og kontant — tre frittstående pergamenter med IFRS-lignende inndeling, tospråklige innskrifter og prøvedata.",finmIntTitle:"Sammenbundet modellering",finmIntDesc:"Tre-pergament-modell, arbeidskapital og gjeldsplan. IS/BS/CFS bundet sammen med sirkulær rentens forløp og tre skjebnespor.",finmValTitle:"Verdsettelsens kunst",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, fotballbane og LBO. Mestermenneskenes formatering med toveis følsomhet.",subGuidesTitle:"Lærepergamenter",proj1Title:"Fra fattiglem til kremmer",proj1Desc:"Lærdom i gullets kunst for folk av alle stender",proj2Title:"Fra novise til trygg gullforvalter",proj2Desc:"En veiviser i fondskunst, farer og forvaltning av rikdommer",proj3Title:"Eders første gullhandel",proj3Desc:"En veiledning i å erverve ens første andel av kronens fond",mastTitle:"Lærd avhandling, kunngjort",mastDesc:"En levende, trinnvis utlegning av den lærde avhandling om norske gullforvaltere, kunnskap og selvtillit — i klart mål for folk av alle stender.",bdTitle:"Skattekamres regnskapsbord",bdDesc:"En levende månedlig regnskapstavle for en oppdiktet nordisk handelsbank-divisjon. FTP-vis NII-brovariasjon, ROAC mot avkastningskrav per skattkammer, 24-måners ferd av seete og spådde tall, og et følsomhetspanel for å vri på tallene.",projOpen:"Besku ↗",backHome:"← Vend tilbake til hovedhallen"}
+no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",projLabel:"Prosjekter",projAllTitle:"Alle prosjekter",projAllSub:"Interaktive verktøy og guider — alle bygd fra grunnen for å gjøre finans tilgjengelig for vanlige folk.",subToolsTitle:"Verktøy",subFinmTitle:"Finansielle maler",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",finmIntTitle:"Integrert modellering",finmIntDesc:"3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.",finmValTitle:"Verdsettelse",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.",subGuidesTitle:"Guider",proj1Title:"Fra null til investor",proj1Desc:"Interaktiv guide til personlig økonomi og investering",proj2Title:"Fra nybegynner til trygg investor",proj2Desc:"Interaktiv guide til fondsvalg, risiko og porteføljebygging",proj3Title:"Din første investering",proj3Desc:"Steg-for-steg til din første fondshandel",mastTitle:"Masteroppgaven, forklart",mastDesc:"Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit — uten fagsjargong.",bdTitle:"Forretningsenhet-dashboard",bdDesc:"Illustrativt månedsrapport-dashboard for en nordisk bankdivisjon. FTP-bevisst NII-variansdekomponering, ROAC vs avkastningskrav per segment, 24-måneders trend (faktisk + prognose) og et levende sensitivitetspanel. Python + SQLite + JSON-pipeline.",projOpen:"Åpne ↗",projSearch:"Søk i prosjekter…",projNoResults:"Ingen prosjekter matcher søket.",backHome:"← Tilbake til forsiden"},
+en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",projLabel:"Projects",projAllTitle:"All projects",projAllSub:"Interactive tools and guides — all built from scratch to make finance accessible for everyday people.",subToolsTitle:"Tools",subFinmTitle:"Financial templates",finmStatTitle:"Financial statements",finmStatDesc:"Income statement, balance sheet and cash flow — three standalone templates with IFRS-style breakdown, bilingual labels and sample data.",finmIntTitle:"Integrated modeling",finmIntDesc:"Three-statement model, working capital and debt schedule. Linked IS/BS/CFS with circular interest and three scenarios.",finmValTitle:"Valuation",finmValDesc:"DCF, WACC, trading and transaction comps, football field and LBO model. Sell-side formatting with two-way sensitivity.",subGuidesTitle:"Guides",proj1Title:"From zero to investor",proj1Desc:"Interactive guide to personal finance and investing (Norwegian)",proj2Title:"From beginner to confident investor",proj2Desc:"Interactive guide to fund selection, risk and portfolio building (Norwegian)",proj3Title:"Your first investment",proj3Desc:"Step by step to your first fund trade (Norwegian)",mastTitle:"The thesis, explained",mastDesc:"An interactive, step-by-step walkthrough of the master's thesis on Norwegian investors, knowledge and confidence — jargon-free.",bdTitle:"Business Unit Performance Dashboard",bdDesc:"Illustrative monthly management-reporting dashboard for a Nordic wholesale-bank division. FTP-aware NII variance decomposition, ROAC vs hurdle per segment, 24-month trend (Actual + Forecast), and a live sensitivity panel. Python + SQLite + JSON pipeline.",projOpen:"Open ↗",projSearch:"Search projects…",projNoResults:"No projects match your search.",backHome:"← Back to home"},
+fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",projLabel:"Projets",projAllTitle:"Tous les projets",projAllSub:"Outils interactifs et guides — tous construits à partir de zéro pour rendre la finance accessible.",subToolsTitle:"Outils",subFinmTitle:"Modèles financiers",finmStatTitle:"États financiers",finmStatDesc:"Compte de résultat, bilan et tableau de flux — trois modèles autonomes avec ventilation IFRS, étiquettes bilingues et données d'exemple.",finmIntTitle:"Modélisation intégrée",finmIntDesc:"Modèle à trois états, BFR et schéma de dette. Compte de résultat/bilan/flux liés avec intérêts circulaires et trois scénarios.",finmValTitle:"Valorisation",finmValDesc:"DCF, WACC, comparables boursiers et transactionnels, football field et modèle LBO. Mise en forme sell-side avec sensibilité bilatérale.",subGuidesTitle:"Guides",proj1Title:"De zéro à investisseur",proj1Desc:"Guide interactif de finances personnelles (en norvégien)",proj2Title:"Du débutant à l'investisseur confiant",proj2Desc:"Guide interactif sur les fonds, le risque et la construction de portefeuille (en norvégien)",proj3Title:"Votre premier investissement",proj3Desc:"Pas à pas vers votre premier achat de fonds (en norvégien)",mastTitle:"Le mémoire, expliqué",mastDesc:"Une présentation interactive, étape par étape, du mémoire de master sur les investisseurs norvégiens, le savoir et la confiance — sans jargon.",bdTitle:"Tableau de bord d'unité opérationnelle",bdDesc:"Tableau de bord illustratif de reporting de gestion mensuel pour une division de banque de gros nordique. Décomposition de variance NII avec FTP, ROAC vs taux d'obstacle par segment, tendance 24 mois (Actual + Forecast), et un panneau de sensibilité interactif.",projOpen:"Ouvrir ↗",projSearch:"Rechercher des projets…",projNoResults:"Aucun projet ne correspond à votre recherche.",backHome:"← Retour à l'accueil"},
+de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",projLabel:"Projekte",projAllTitle:"Alle Projekte",projAllSub:"Interaktive Werkzeuge und Leitfäden — alle von Grund auf gebaut, um Finanzen verständlich zu machen.",subToolsTitle:"Werkzeuge",subFinmTitle:"Finanzvorlagen",finmStatTitle:"Abschlüsse",finmStatDesc:"GuV, Bilanz und Kapitalflussrechnung — drei eigenständige Vorlagen mit IFRS-Aufgliederung, zweisprachigen Beschriftungen und Beispieldaten.",finmIntTitle:"Integrierte Modellierung",finmIntDesc:"Drei-Abschlüsse-Modell, Working-Capital- und Schuldenplan. Verknüpfte GuV/Bilanz/Kapitalflussrechnung mit zirkulärem Zinsaufwand und drei Szenarien.",finmValTitle:"Bewertung",finmValDesc:"DCF, WACC, Trading- und Transaction Comps, Football Field und LBO-Modell. Sell-Side-Formatierung mit bilateraler Sensitivität.",subGuidesTitle:"Leitfäden",proj1Title:"Von Null zum Investor",proj1Desc:"Interaktiver Leitfaden zu Privatfinanzen (auf Norwegisch)",proj2Title:"Vom Anfänger zum sicheren Investor",proj2Desc:"Interaktiver Leitfaden zu Fondswahl, Risiko und Portfolioaufbau (auf Norwegisch)",proj3Title:"Ihre erste Investition",proj3Desc:"Schritt für Schritt zum ersten Fondskauf (auf Norwegisch)",mastTitle:"Die Masterarbeit, erklärt",mastDesc:"Eine interaktive Schritt-für-Schritt-Erklärung der Masterarbeit über norwegische Anleger, Wissen und Selbstvertrauen — ohne Fachjargon.",bdTitle:"Geschäftsbereichs-Dashboard",bdDesc:"Illustratives monatliches Management-Reporting-Dashboard für eine nordische Firmenkundenbank-Division. FTP-bewusste NII-Varianzzerlegung, ROAC vs Hürdensatz pro Segment, 24-Monats-Trend (Actual + Forecast) und ein interaktives Sensitivitätspanel.",projOpen:"Öffnen ↗",projSearch:"Projekte durchsuchen…",projNoResults:"Keine Projekte entsprechen Ihrer Suche.",backHome:"← Zurück zur Startseite"},
+ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",projLabel:"プロジェクト",projAllTitle:"すべてのプロジェクト",projAllSub:"インタラクティブなツールとガイド — すべてゼロから構築し、ファイナンスを身近なものにすることを目指しました。",subToolsTitle:"ツール",subFinmTitle:"財務テンプレート",finmStatTitle:"財務諸表",finmStatDesc:"損益計算書、貸借対照表、キャッシュフロー計算書 — IFRS区分、バイリンガルラベル、サンプルデータを備えた3つの独立テンプレート。",finmIntTitle:"統合モデリング",finmIntDesc:"3表モデル、運転資本表、債務スケジュール。循環参照の利息、3シナリオで連結されたIS/BS/CFS。",finmValTitle:"バリュエーション",finmValDesc:"DCF、WACC、トレーディング・トランザクションコンプ、フットボールフィールド、LBOモデル。セルサイド書式、二次元感応度。",subGuidesTitle:"ガイド",proj1Title:"ゼロから投資家へ",proj1Desc:"個人金融と投資のインタラクティブガイド（ノルウェー語）",proj2Title:"初心者から自信ある投資家へ",proj2Desc:"ファンド選択、リスク、ポートフォリオ構築のインタラクティブガイド（ノルウェー語）",proj3Title:"はじめての投資",proj3Desc:"初めてのファンド購入へのステップガイド（ノルウェー語）",mastTitle:"修士論文をやさしく解説",mastDesc:"ノルウェーの投資家・知識・自信をめぐる修士論文を、専門用語なしで一歩ずつ解説するインタラクティブな読み物。",bdTitle:"事業部門ダッシュボード",bdDesc:"架空の北欧ホールセール銀行部門向けの月次マネジメント・レポーティング・ダッシュボード。FTP対応のNII変動分解、セグメント別ROAC対ハードルレート、24か月のトレンド（Actual＋Forecast）、およびインタラクティブな感応度パネル。",projOpen:"開く ↗",projSearch:"プロジェクトを検索…",projNoResults:"条件に一致するプロジェクトはありません。",backHome:"← トップに戻る"},
+medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",projLabel:"Verk & Bedrifter",projAllTitle:"Alle den edles verk",projAllSub:"Innretninger og lærepergamenter — alle smidd fra bar grunn av den edle selv, for å gjøre gullets kunst tilgjengelig for folk av alle stender.",subToolsTitle:"Smedens redskaper",subFinmTitle:"Gullets pergamenter",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Inntekt, eiendeler og kontant — tre frittstående pergamenter med IFRS-lignende inndeling, tospråklige innskrifter og prøvedata.",finmIntTitle:"Sammenbundet modellering",finmIntDesc:"Tre-pergament-modell, arbeidskapital og gjeldsplan. IS/BS/CFS bundet sammen med sirkulær rentens forløp og tre skjebnespor.",finmValTitle:"Verdsettelsens kunst",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, fotballbane og LBO. Mestermenneskenes formatering med toveis følsomhet.",subGuidesTitle:"Lærepergamenter",proj1Title:"Fra fattiglem til kremmer",proj1Desc:"Lærdom i gullets kunst for folk av alle stender",proj2Title:"Fra novise til trygg gullforvalter",proj2Desc:"En veiviser i fondskunst, farer og forvaltning av rikdommer",proj3Title:"Eders første gullhandel",proj3Desc:"En veiledning i å erverve ens første andel av kronens fond",mastTitle:"Lærd avhandling, kunngjort",mastDesc:"En levende, trinnvis utlegning av den lærde avhandling om norske gullforvaltere, kunnskap og selvtillit — i klart mål for folk av alle stender.",bdTitle:"Skattekamres regnskapsbord",bdDesc:"En levende månedlig regnskapstavle for en oppdiktet nordisk handelsbank-divisjon. FTP-vis NII-brovariasjon, ROAC mot avkastningskrav per skattkammer, 24-måners ferd av seete og spådde tall, og et følsomhetspanel for å vri på tallene.",projOpen:"Besku ↗",projSearch:"Saumfar verkene…",projNoResults:"Ingen verk samsvarer med eders søken.",backHome:"← Vend tilbake til hovedhallen"}
 };
 
+var currentLang='no';
 function setLang(l){
+  currentLang=l;
   document.documentElement.lang=l;
   var d=T[l]||T.no;
   document.querySelectorAll('[data-i]').forEach(function(el){
     var k=el.getAttribute('data-i');
     if(d[k]!==undefined)el.innerHTML=d[k];
+  });
+  document.querySelectorAll('[data-i-placeholder]').forEach(function(el){
+    var k=el.getAttribute('data-i-placeholder');
+    if(d[k]!==undefined)el.placeholder=d[k];
   });
   var btn=document.getElementById('langBtn');
   if(btn)btn.textContent=(l==='medieval'?'NO':l).toUpperCase();
@@ -323,17 +332,119 @@ document.addEventListener('keydown',function(e){
 });
 
 // Custom cursor – desktop / fine-pointer only
-(function(){
-  var dot=document.getElementById('cursorDot');
-  if(!dot)return;
+var cursorDot=document.getElementById('cursorDot');
+function bindCursorHover(nodes){
+  if(!cursorDot||!nodes)return;
+  Array.prototype.forEach.call(nodes,function(el){
+    el.addEventListener('mouseenter',function(){cursorDot.classList.add('hover');});
+    el.addEventListener('mouseleave',function(){cursorDot.classList.remove('hover');});
+  });
+}
+if(cursorDot){
   var mx=0,my=0,dx=0,dy=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.opacity='';});
-  document.addEventListener('mouseleave',function(){dot.style.opacity='0';});
-  document.addEventListener('mouseenter',function(){dot.style.opacity='';});
-  (function loop(){dx+=(mx-dx)*.15;dy+=(my-dy)*.15;dot.style.left=dx+'px';dot.style.top=dy+'px';requestAnimationFrame(loop);})();
-  document.querySelectorAll('a,button,.cert-card,.back-link').forEach(function(el){
-    el.addEventListener('mouseenter',function(){dot.classList.add('hover');});
-    el.addEventListener('mouseleave',function(){dot.classList.remove('hover');});
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cursorDot.style.opacity='';});
+  document.addEventListener('mouseleave',function(){cursorDot.style.opacity='0';});
+  document.addEventListener('mouseenter',function(){cursorDot.style.opacity='';});
+  (function loop(){dx+=(mx-dx)*.15;dy+=(my-dy)*.15;cursorDot.style.left=dx+'px';cursorDot.style.top=dy+'px';requestAnimationFrame(loop);})();
+}
+bindCursorHover(document.querySelectorAll('a,button,.back-link'));
+
+// PROJECTS — render cards at runtime from projects.json + client-side search / tag filter
+(function(){
+  var searchEl=document.getElementById('projSearch');
+  var chipsEl=document.getElementById('projChips');
+  var noResEl=document.getElementById('projNoResults');
+  var sections=document.querySelectorAll('section[data-kategori]');
+  var ALL=[];
+
+  // Look up a dictionary key for the active language, falling back to Norwegian.
+  function tr(key){
+    var d=T[currentLang]||T.no;
+    if(d&&d[key]!==undefined)return d[key];
+    return (T.no&&T.no[key]!==undefined)?T.no[key]:'';
+  }
+
+  function makeCard(p){
+    var a=document.createElement('a');
+    a.href=p.url||'#';a.className='cert-link';
+    a.setAttribute('data-tags',(p.tags||[]).join(' '));
+    a.setAttribute('data-weight',(p.maler&&p.maler.length)?p.maler.length:1);
+    a.setAttribute('data-search',((p.tittel||'')+' '+(p.beskrivelse||'')+' '+(p.tags||[]).join(' ')).toLowerCase());
+    var card=document.createElement('div');card.className='cert-card';
+    var icon=document.createElement('div');icon.className='cert-icon';icon.textContent=p.ikon||'';
+    var h3=document.createElement('h3');
+    var desc=document.createElement('p');desc.className='cert-issuer';
+    // i18n cards reference dict keys via data-i so setLang re-translates them live;
+    // non-i18n cards keep the Norwegian text straight from projects.json.
+    if(p.i18n&&p.i18n.title){h3.setAttribute('data-i',p.i18n.title);h3.textContent=tr(p.i18n.title)||p.tittel||'';}
+    else{h3.textContent=p.tittel||'';}
+    if(p.i18n&&p.i18n.desc){desc.setAttribute('data-i',p.i18n.desc);desc.textContent=tr(p.i18n.desc)||p.beskrivelse||'';}
+    else{desc.textContent=p.beskrivelse||'';}
+    var hint=document.createElement('span');hint.className='open-hint';hint.setAttribute('data-i','projOpen');hint.textContent='Åpne ↗';
+    card.appendChild(icon);card.appendChild(h3);card.appendChild(desc);card.appendChild(hint);
+    a.appendChild(card);
+    return a;
+  }
+
+  function renderAll(){
+    Array.prototype.forEach.call(sections,function(sec){
+      var kat=sec.getAttribute('data-kategori');
+      var grid=sec.querySelector('.certs-grid');
+      grid.innerHTML='';
+      ALL.filter(function(p){return p.kategori===kat;}).forEach(function(p){
+        grid.appendChild(makeCard(p));
+      });
+    });
+    bindCursorHover(document.querySelectorAll('.cert-link,.cert-card'));
+  }
+
+  function buildChips(){
+    var set={};
+    ALL.forEach(function(p){(p.tags||[]).forEach(function(t){set[t]=true;});});
+    var tags=Object.keys(set).sort(function(a,b){return a.localeCompare(b,'nb');});
+    chipsEl.innerHTML='';
+    tags.forEach(function(t){
+      var b=document.createElement('button');
+      b.className='proj-chip';b.setAttribute('data-tag',t);b.textContent=t;
+      b.addEventListener('click',function(){b.classList.toggle('active');applyFilters();});
+      chipsEl.appendChild(b);
+    });
+    bindCursorHover(chipsEl.querySelectorAll('.proj-chip'));
+  }
+
+  // Search matches title + description + tags (AND with tags). Selected tags use OR (union).
+  function applyFilters(){
+    var q=((searchEl&&searchEl.value)||'').trim().toLowerCase();
+    var active=chipsEl?Array.prototype.map.call(chipsEl.querySelectorAll('.proj-chip.active'),function(c){return c.getAttribute('data-tag');}):[];
+    var anyVisible=false;
+    Array.prototype.forEach.call(sections,function(sec){
+      var count=0;
+      Array.prototype.forEach.call(sec.querySelectorAll('.cert-link'),function(a){
+        var hay=a.getAttribute('data-search')||'';
+        var tags=(a.getAttribute('data-tags')||'').split(' ');
+        var textOk=!q||hay.indexOf(q)!==-1;
+        var tagOk=active.length===0||active.some(function(t){return tags.indexOf(t)!==-1;});
+        var show=textOk&&tagOk;
+        a.style.display=show?'':'none';
+        if(show)count+=parseInt(a.getAttribute('data-weight'),10)||1;
+      });
+      var cnt=sec.querySelector('.sub-count');if(cnt)cnt.textContent=count;
+      sec.style.display=count>0?'':'none';
+      if(count>0)anyVisible=true;
+    });
+    if(noResEl)noResEl.style.display=anyVisible?'none':'block';
+  }
+
+  if(searchEl)searchEl.addEventListener('input',applyFilters);
+
+  fetch('projects.json').then(function(r){return r.json();}).then(function(data){
+    ALL=(data||[]).filter(function(p){return p.synlig===true;});
+    renderAll();
+    buildChips();
+    applyFilters();
+    setLang(currentLang); // translate the freshly-rendered "open" hints
+  }).catch(function(e){
+    if(window.console)console.error('Kunne ikke laste projects.json:',e);
   });
 })();
 })();

@@ -1,0 +1,370 @@
+[
+  {
+    "slug": "forretningsenhet-dashboard",
+    "tittel": "Forretningsenhet-dashboard",
+    "beskrivelse": "Illustrativt månedsrapport-dashboard for en nordisk bankdivisjon. FTP-bevisst NII-variansdekomponering, ROAC vs avkastningskrav per segment, 24-måneders trend (faktisk + prognose) og et levende sensitivitetspanel. Python + SQLite + JSON-pipeline.",
+    "i18n": {
+      "title": "bdTitle",
+      "desc": "bdDesc"
+    },
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/prosjekter/forretningsenhet-dashboard/",
+    "ikon": "🏦",
+    "tags": [
+      "bank",
+      "finansmodellering",
+      "dashboard"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "masteroppgave",
+    "tittel": "Masteroppgaven, forklart",
+    "beskrivelse": "Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit — uten fagsjargong.",
+    "i18n": {
+      "title": "mastTitle",
+      "desc": "mastDesc"
+    },
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/prosjekter/masteroppgave/",
+    "ikon": "🎓",
+    "tags": [
+      "forskning",
+      "personlig-økonomi"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "leie-eller-eie",
+    "tittel": "Leie eller eie?",
+    "beskrivelse": "Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/leie-eller-eie/",
+    "ikon": "🏠",
+    "tags": [
+      "bolig",
+      "personlig-økonomi",
+      "kalkulator"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "personligokonomi",
+    "tittel": "Personlig Økonomi",
+    "beskrivelse": "Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/personligokonomi/",
+    "ikon": "💰",
+    "tags": [
+      "personlig-økonomi",
+      "kalkulator"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "osebx",
+    "tittel": "OSEBX Dashboard",
+    "beskrivelse": "Ukentlig autonom analyse av Oslo Børs. Sektorrotasjon, breddemål, LLM-narrativ.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/osebx/",
+    "ikon": "📊",
+    "tags": [
+      "marked",
+      "dashboard"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "examprep",
+    "tittel": "GRA6546 — Exam Prep",
+    "beskrivelse": "Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/examprep/",
+    "ikon": "🎓",
+    "tags": [
+      "studier",
+      "bank"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "pensjonskalkulator",
+    "tittel": "Pensjonskalkulator",
+    "beskrivelse": "Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet — brutto og estimert netto.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/pensjonskalkulator/",
+    "ikon": "🪙",
+    "tags": [
+      "pensjon",
+      "personlig-økonomi",
+      "kalkulator"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "nb-watch",
+    "tittel": "Norges Bank Watch",
+    "beskrivelse": "Pengepolitikkens nøkkeltall, oppdatert daglig. Rentebane, KPI, lønn, bolig og valuta.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/nb-watch/",
+    "ikon": "🏛️",
+    "tags": [
+      "makro",
+      "dashboard"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "wc2026",
+    "tittel": "World Cup 2026 Simulator",
+    "beskrivelse": "Interaktiv VM 2026-simulator — alle 48 lag drevet av Elo. Spill én turnering med live avspilling og 2D mål-replay, eller kjør Monte Carlo for sannsynligheter.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/wc2026/",
+    "ikon": "⚽",
+    "tags": [
+      "sport",
+      "simulator"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "regnskapsoppstillinger",
+    "tittel": "Regnskapsoppstillinger",
+    "beskrivelse": "Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",
+    "i18n": {
+      "title": "finmStatTitle",
+      "desc": "finmStatDesc"
+    },
+    "kategori": "Finansielle maler",
+    "status": "live",
+    "url": "/prosjekter/finansielle-maler/#grunnleggende",
+    "ikon": "📊",
+    "tags": [
+      "regnskap",
+      "finansmodellering",
+      "mal"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true,
+    "maler": [
+      {
+        "tittel_no": "Resultatregnskap",
+        "tittel_en": "Income Statement",
+        "fil": "resultatregnskap.xlsx",
+        "faner": 3,
+        "badge": ""
+      },
+      {
+        "tittel_no": "Balanse",
+        "tittel_en": "Balance Sheet",
+        "fil": "balanse.xlsx",
+        "faner": 2,
+        "badge": ""
+      },
+      {
+        "tittel_no": "Kontantstrømoppstilling",
+        "tittel_en": "Cash Flow Statement",
+        "fil": "kontantstrom.xlsx",
+        "faner": 1,
+        "badge": "FCFF + FCFE"
+      }
+    ]
+  },
+  {
+    "slug": "integrert-modellering",
+    "tittel": "Integrert modellering",
+    "beskrivelse": "3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.",
+    "i18n": {
+      "title": "finmIntTitle",
+      "desc": "finmIntDesc"
+    },
+    "kategori": "Finansielle maler",
+    "status": "live",
+    "url": "/prosjekter/finansielle-maler/#integrert",
+    "ikon": "🔗",
+    "tags": [
+      "finansmodellering",
+      "mal"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true,
+    "maler": [
+      {
+        "tittel_no": "Tre-rapport-modell",
+        "tittel_en": "Three-Statement Model",
+        "fil": "3-rapport-modell.xlsx",
+        "faner": 7,
+        "badge": "Sirkulær"
+      },
+      {
+        "tittel_no": "Arbeidskapital-skjema",
+        "tittel_en": "Working Capital Schedule",
+        "fil": "arbeidskapital.xlsx",
+        "faner": 1,
+        "badge": "DSO/DPO/DIO"
+      },
+      {
+        "tittel_no": "Gjeldsskjema",
+        "tittel_en": "Debt Schedule",
+        "fil": "gjeldsskjema.xlsx",
+        "faner": 3,
+        "badge": "Cash sweep"
+      }
+    ]
+  },
+  {
+    "slug": "verdsettelse",
+    "tittel": "Verdsettelse",
+    "beskrivelse": "DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.",
+    "i18n": {
+      "title": "finmValTitle",
+      "desc": "finmValDesc"
+    },
+    "kategori": "Finansielle maler",
+    "status": "live",
+    "url": "/prosjekter/finansielle-maler/#verdsettelse",
+    "ikon": "💎",
+    "tags": [
+      "verdsettelse",
+      "finansmodellering",
+      "mal"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true,
+    "maler": [
+      {
+        "tittel_no": "DCF-modell",
+        "tittel_en": "DCF Model",
+        "fil": "dcf-modell.xlsx",
+        "faner": 6,
+        "badge": "10y + TV"
+      },
+      {
+        "tittel_no": "WACC-kalkulator",
+        "tittel_en": "WACC Calculator",
+        "fil": "wacc-kalkulator.xlsx",
+        "faner": 2,
+        "badge": "CAPM + peer beta"
+      },
+      {
+        "tittel_no": "Sammenlignbare selskaper",
+        "tittel_en": "Trading Comps",
+        "fil": "trading-comps.xlsx",
+        "faner": 2,
+        "badge": "LTM / NTM / NTM+1"
+      },
+      {
+        "tittel_no": "Transaksjonsmultipler",
+        "tittel_en": "Precedent Transactions",
+        "fil": "transaksjonsmultipler.xlsx",
+        "faner": 1,
+        "badge": "Med kontrollpremie"
+      },
+      {
+        "tittel_no": "Verdsettelses-fotballbane",
+        "tittel_en": "Football Field",
+        "fil": "football-field.xlsx",
+        "faner": 1,
+        "badge": "Floating bar chart"
+      },
+      {
+        "tittel_no": "LBO-modell",
+        "tittel_en": "LBO Model",
+        "fil": "lbo-modell.xlsx",
+        "faner": 6,
+        "badge": "IRR + MOIC"
+      }
+    ]
+  },
+  {
+    "slug": "fra-null-til-investor",
+    "tittel": "Fra null til investor",
+    "beskrivelse": "Interaktiv guide til personlig økonomi og investering",
+    "i18n": {
+      "title": "proj1Title",
+      "desc": "proj1Desc"
+    },
+    "kategori": "Guider",
+    "status": "live",
+    "url": "/fra-null-til-investor/",
+    "ikon": "🌱",
+    "tags": [
+      "guide",
+      "personlig-økonomi",
+      "investering"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "fra-null-til-investor2",
+    "tittel": "Fra nybegynner til trygg investor",
+    "beskrivelse": "Interaktiv guide til fondsvalg, risiko og porteføljebygging",
+    "i18n": {
+      "title": "proj2Title",
+      "desc": "proj2Desc"
+    },
+    "kategori": "Guider",
+    "status": "live",
+    "url": "/fra-null-til-investor2/",
+    "ikon": "🌿",
+    "tags": [
+      "guide",
+      "investering"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
+    "slug": "fra-null-til-investor3",
+    "tittel": "Din første investering",
+    "beskrivelse": "Steg-for-steg til din første fondshandel",
+    "i18n": {
+      "title": "proj3Title",
+      "desc": "proj3Desc"
+    },
+    "kategori": "Guider",
+    "status": "live",
+    "url": "/fra-null-til-investor3/",
+    "ikon": "🌳",
+    "tags": [
+      "guide",
+      "investering"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  }
+]
