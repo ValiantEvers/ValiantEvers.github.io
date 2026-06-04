@@ -30,7 +30,7 @@ duplisering.
 | # | Idé | Flate | Inspirert av | Innsats | Verdi |
 |---|-----|-------|--------------|---------|-------|
 | 1 | ✅ **Indeksert sammenligningschart (rebasert til 100)** — OSEBX vs. S&P 500 vs. sektorer fra samme startpunkt, via Baseline-series + `PriceScaleMode.Percentage`. Kanonisk måte å vise relativ styrke / sektorrotasjon. **— Gjort 2026-06-04** (osebx `5f7bd6e`); implementert som OSEBX vs. likevektede sektorer; S&P 500 ikke inkludert. | OSEBX | `tradingview/lightweight-charts` (plugins) | Lav | Høy |
-| 2 | **Rough Notation på CV/rekrutterer** — håndtegnet understrek/sirkel rundt nøkkelkompetanse («Wealth Management»). Lekent men proft, høy huskefaktor hos rekrutterere, vanilla/drop-in. | CV, rekrutterer/ | `design-resources-for-developers` | Lav | Høy |
+| 2 | ✅ **Rough Notation på CV/rekrutterer** — håndtegnet understrek/sirkel rundt nøkkelkompetanse («Wealth Management»). Lekent men proft, høy huskefaktor hos rekrutterere, vanilla/drop-in. **— Gjort 2026-06-04** (`90cbd85` cv + `4d3dfb1` rekrutterer). | CV, rekrutterer/ | `design-resources-for-developers` | Lav | Høy |
 | 3 | ✅ **Bytt EUR/NOK-kilde til Norges Bank (eller Frankfurter/ECB)** — autoritativ NOK-kurs for en norsk finansside; Frankfurter er nøkkelfri m/ CORS som fallback. Mer korrekt + mindre Yahoo-avhengighet. **— Gjort 2026-06-04** (`c1a01ca`); EUR/NOK hentes nå via Frankfurter/ECB i finance-proxy (`?fx=eurnok`), ikke Yahoo. | forsiden (ticker) | `public-apis` (Currency) | Lav | Høy |
 | 4 | ✅ **`text-wrap: balance` + selvhostet font (Fontshare/Bunny Fonts)** — fikser stygge overskrift-brytinger på tvers av de 6 språkene (én CSS-linje); GDPR-vennlig self-hosting fjerner Google-tracking. **— Gjort 2026-06-04** (`b215b65` + `531dce1`); alle Google Fonts selvhostet lokalt (0 tredjeparts font-kall) + `text-wrap: balance` på overskrifter. | forsiden / i18n | `tailwindcss` + `design-resources` | Lav | Middels-Høy |
 | 5 | ✅ **Sektorrotasjons-heatmap** (sektor × uke, farge = relativ avkastning) ~~via Heatmap-series-plugin~~. Den mest leselige enkeltvisualiseringen av dashboardets kjernebudskap. **— Gjort 2026-06-04** (osebx `0a4f63d`); implementert som ren CSS-grid, ikke plugin. | OSEBX | `tradingview/lightweight-charts` | Lav-Middels | Høy |
@@ -40,7 +40,7 @@ duplisering.
 | 9 | **ESLint-sjekk (airbnb-base) i CI** for hovedsidens vanilla-JS — ren *validering* (ikke reformattering), fanger syntaksfeil/ubrukte variabler før push. Beskytter i18n-ordboken og easter-eggs mot utilsiktet brekkasje. | fundament | `airbnb/javascript` | Lav | Middels-Høy |
 | 10 | **Ekte makrodata (FRED/Eurostat) bak konstanter** — erstatt hardkodet inflasjon/rente i personligøkonomi-verktøyene og pensjonskalkulatoren med gratis CORS-data, oppdatert via et `[skip ci]`-cron-Action (samme mønster som Strava/Letterboxd). | personligøkonomi, pensjonskalkulator | `public-apis` (FRED/Econdb) + `awesome-quant` (pandas-datareader) | Middels | Høy |
 
-**Raskeste gevinster:** #1, #3 og #4 ✅ gjort 2026-06-04. Gjenstår kun **#2 sin rekrutterer/-del** — Rough Notation er lagt på `cv.html`, men ikke på `rekrutterer/index.html` enda.
+**Raskeste gevinster:** #1, #2, #3 og #4 ✅ alle gjort 2026-06-04.
 
 ---
 
@@ -57,7 +57,7 @@ duplisering.
 - **Tre-kolonners verdiforslag-blokk** (skannbar) — gjenbrukbar også på rekrutterer-siden. *(vuejs.org)*
 
 ### CV / rekrutterer/
-- **Rough Notation-annotering** av nøkkelkompetanse (understrek/sirkel på WM/PB/Fund Sales). *(design-resources)*
+- ✅ **Rough Notation-annotering** av nøkkelkompetanse (understrek/sirkel på WM/PB/Fund Sales). **Gjort 2026-06-04** (`90cbd85` cv + `4d3dfb1` rekrutterer; tre understreker på WM/PB/Fund Sales i hero-subtittelen). *(design-resources)*
 - **Tre-kolonners «Wealth Management / Private Banking / Fund Sales»** med kort beskrivelse hver. *(vuejs.org)*
 
 ### OSEBX-dashboard (osebx/)
