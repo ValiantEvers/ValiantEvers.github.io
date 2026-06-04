@@ -4,18 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CV · Valiant Evers</title>
-<meta name="description" content="CV of Valiant Evers – MSc Finance at BI Norwegian Business School. Seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales.">
+<meta name="description" data-i-content="metaDesc" content="CV for Valiant Evers – MSc Finance ved Handelshøyskolen BI. Søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales.">
 <meta name="author" content="Valiant Evers">
 <meta name="theme-color" content="#004eaa">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="CV · Valiant Evers">
-<meta property="og:description" content="MSc Finance at BI – seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales.">
+<meta property="og:description" data-i-content="ogDesc" content="MSc Finance ved BI – søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales.">
 <meta property="og:image" content="https://www.evers.no/og-image.png">
 <meta property="og:url" content="https://www.evers.no/cv.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preload" href="profile.jpg" as="image">
@@ -514,6 +512,8 @@ details .course-list li::before{content:''}
 <script>
 var T = {
   no: {
+    metaDesc: "CV for Valiant Evers – MSc Finance ved Handelshøyskolen BI. Søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales.",
+    ogDesc: "MSc Finance ved BI – søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales.",
     nav1: "Om meg", nav2: "Erfaring", nav3: "CV", nav4: "Sertifiseringer", nav5: "Forskning", nav6: "Kontakt", nav7: "Prosjekter",
     norway: "Norge",
     denmark: "Danmark",
@@ -584,6 +584,8 @@ var T = {
     backToSite: "← evers.no"
   },
   en: {
+    metaDesc: "CV of Valiant Evers – MSc Finance at BI Norwegian Business School. Seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales.",
+    ogDesc: "MSc Finance at BI – seeking client-facing roles in Wealth Management, Private Banking, or Fund Sales.",
     nav1: "About", nav2: "Experience", nav3: "CV", nav4: "Certifications", nav5: "Research", nav6: "Contact", nav7: "Projects",
     norway: "Norway",
     denmark: "Denmark",
@@ -654,6 +656,8 @@ var T = {
     backToSite: "← evers.no"
   },
   fr: {
+    metaDesc: "CV de Valiant Evers – MSc Finance à la BI Norwegian Business School. À la recherche de rôles orientés client en Wealth Management, Private Banking ou Fund Sales.",
+    ogDesc: "MSc Finance à la BI – à la recherche de rôles orientés client en Wealth Management, Private Banking ou Fund Sales.",
     nav1: "À propos", nav2: "Parcours", nav3: "CV", nav4: "Certifications", nav5: "Recherche", nav6: "Contact", nav7: "Projets",
     norway: "Norvège",
     denmark: "Danemark",
@@ -724,6 +728,8 @@ var T = {
     backToSite: "← evers.no"
   },
   de: {
+    metaDesc: "Lebenslauf von Valiant Evers – MSc Finance an der BI Norwegian Business School. Auf der Suche nach kundennahen Rollen in Wealth Management, Private Banking oder Fund Sales.",
+    ogDesc: "MSc Finance an der BI – auf der Suche nach kundennahen Rollen in Wealth Management, Private Banking oder Fund Sales.",
     nav1: "Über mich", nav2: "Werdegang", nav3: "CV", nav4: "Zertifikate", nav5: "Forschung", nav6: "Kontakt", nav7: "Projekte",
     norway: "Norwegen",
     denmark: "Dänemark",
@@ -794,6 +800,8 @@ var T = {
     backToSite: "← evers.no"
   },
   ja: {
+    metaDesc: "Valiant EversのCV – BIノルウェービジネススクールのMSc Finance。Wealth Management、Private Banking、Fund Salesでのクライアント向けの役割を求めています。",
+    ogDesc: "BIのMSc Finance – Wealth Management、Private Banking、Fund Salesでのクライアント向けの役割を求めています。",
     nav1: "自己紹介", nav2: "経歴", nav3: "CV", nav4: "資格", nav5: "研究", nav6: "連絡先", nav7: "プロジェクト",
     norway: "ノルウェー",
     denmark: "デンマーク",
@@ -875,6 +883,10 @@ function setLang(l){
   document.querySelectorAll('[data-i-href]').forEach(function(el){
     var k = el.getAttribute('data-i-href');
     if(d[k] !== undefined) el.setAttribute('href', d[k]);
+  });
+  document.querySelectorAll('[data-i-content]').forEach(function(el){
+    var k = el.getAttribute('data-i-content');
+    if(d[k] !== undefined) el.setAttribute('content', d[k]);
   });
   document.getElementById('langBtn').textContent = l.toUpperCase();
   document.querySelectorAll('.lang-opt').forEach(function(o){

@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jobbstrategi | Valiant Evers</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3385,7 +3383,7 @@ function renderApps(){
     var dl = daysUntil(a.deadline);
     var dlHtml = a.deadline ? '<span'+(dl<=5&&dl>0?' style="color:var(--red);font-weight:500"':'')+'>Frist: '+fmtDate(a.deadline)+(dl<=5&&dl>0?" ⚡":"")+(dl<=0?" (utløpt)":"")+'</span>' : '';
     html += '<div class="card"><div class="card-h"><div style="flex:1">'+
-      '<div class="card-t">'+(a.url?'<a href="'+esc(a.url)+'" target="_blank" style="color:inherit;border-bottom:1px solid var(--border)">'+esc(a.role)+'</a>':esc(a.role))+'</div>'+
+      '<div class="card-t">'+(a.url?'<a href="'+esc(a.url)+'" target="_blank" rel="noopener noreferrer" style="color:inherit;border-bottom:1px solid var(--border)">'+esc(a.role)+'</a>':esc(a.role))+'</div>'+
       '<div class="card-s">'+esc(a.company)+'</div>'+
       '<div class="card-m">'+dlHtml+'<span>Lagt til '+fmtDate(a.created)+'</span></div>'+
       (a.notes?'<div style="font-size:.8rem;color:var(--faint);margin-top:6px;font-style:italic">'+esc(a.notes)+'</div>':'')+
@@ -3458,7 +3456,7 @@ function renderOutreach(){
     html += '<div class="card"><div class="card-h"><div style="flex:1">'+
       '<div class="card-t">'+esc(o.name)+'</div>'+
       '<div class="card-s">'+esc(o.title?o.title+" · ":"")+esc(o.company)+'</div>'+
-      '<div class="card-m">'+(o.linkedin?'<a href="'+esc(o.linkedin)+'" target="_blank" onclick="event.stopPropagation()">LinkedIn ↗</a>':'')+
+      '<div class="card-m">'+(o.linkedin?'<a href="'+esc(o.linkedin)+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">LinkedIn ↗</a>':'')+
       '<span>Lagt til '+fmtDate(o.created)+'</span></div>'+
       (o.notes?'<div style="font-size:.8rem;color:var(--faint);margin-top:6px;font-style:italic">'+esc(o.notes)+'</div>':'')+
       '</div><div style="display:flex;align-items:center;gap:6px">'+
