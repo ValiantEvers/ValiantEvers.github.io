@@ -1,0 +1,15 @@
+{
+  "name": "evers-no",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev-only tooling for the evers.no main site: ESLint validation in CI. The site itself is static single-file HTML served by GitHub Pages and has NO build step and NO runtime dependencies — this package.json exists only for the lint check.",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.1",
+    "eslint-plugin-html": "^8.1.4",
+    "globals": "^17.6.0"
+  }
+}

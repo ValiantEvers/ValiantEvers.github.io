@@ -27,3 +27,6 @@ _eval_*.py
 _verify_*.py
 _inspect_*.py
 _evaluated/
+
+# Node (dev-only tooling: ESLint CI — not used by the static site at runtime)
+node_modules/
