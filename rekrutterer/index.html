@@ -340,5 +340,56 @@ document.addEventListener('DOMContentLoaded',setEmail);
 window.addEventListener('load',function(){setTimeout(setEmail,500)});
 })();
 </script>
+<script src="/vendor/rough-notation.iife.js"></script>
+<script>
+/* ═══ ROUGH NOTATION — håndtegnede annoteringer på nøkkelkompetanse (speiler cv.html) ═══ */
+(function(){
+  if(!window.RoughNotation || !RoughNotation.annotate) return; /* lib ikke lastet → ren tekst */
+  var annotate = RoughNotation.annotate;
+  var target = document.querySelector('p.subtitle');
+  if(!target) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* Frasene står verbatim i hero-subtittelen (norsk-only side) */
+  var targets = [
+    { text: 'Wealth Management', type: 'underline', opts: { strokeWidth: 2, padding: 2 } },
+    { text: 'Private Banking',   type: 'underline', opts: { strokeWidth: 2, padding: 2 } },
+    { text: 'Fund Sales',        type: 'underline', opts: { strokeWidth: 2, padding: 2 } }
+  ];
+  var anns = [];
+  function accent(){ return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0066CC'; }
+  function escRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function clear(){ anns.forEach(function(a){ try{ a.remove(); }catch(e){} }); anns = []; }
+  function apply(animate){
+    try {
+      clear();
+      var color = accent();
+      var html = escHtml(target.textContent);
+      targets.forEach(function(t, idx){ html = html.replace(new RegExp(escRe(t.text)), '<span class="rn-'+idx+'">'+t.text+'</span>'); });
+      target.innerHTML = html;
+      targets.forEach(function(t, idx){
+        var el = target.querySelector('.rn-'+idx);
+        if(!el) return;
+        var o = Object.assign({ type: t.type, color: color, animate: !reduce && animate, animationDuration: 700, multiline: true }, t.opts);
+        anns.push(annotate(el, o)); /* lag annotering, ikke vis enda */
+      });
+      if(RoughNotation.annotationGroup){ RoughNotation.annotationGroup(anns).show(); } /* sekvensiell reveal */
+      else { anns.forEach(function(a){ a.show(); }); }                                 /* defensiv fallback */
+    } catch(e){ /* annotering feilet → subtittel som ren tekst, ingen konsollfeil */ }
+  }
+  function init(){ apply(true); }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { window.addEventListener('load', init); }
+  /* re-tegn ved språkbytte (guard'et — rekrutterer har ingen setLang p.t.; speiler cv.html) */
+  if(typeof window.setLang === 'function'){
+    var _setLang = window.setLang;
+    window.setLang = function(l){ _setLang(l); requestAnimationFrame(function(){ apply(true); }); };
+  }
+  /* re-tegn (uten animasjon) ved temaskifte + resize (data-theme inert på rekrutterer; resize nyttig) */
+  var tT; function redraw(){ apply(false); }
+  new MutationObserver(function(m){ for(var i=0;i<m.length;i++){ if(m[i].attributeName==='data-theme'){ clearTimeout(tT); tT=setTimeout(redraw,60); return; } } })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  var rT; window.addEventListener('resize', function(){ clearTimeout(rT); rT=setTimeout(redraw,150); }, { passive: true });
+})();
+</script>
 </body>
 </html>
