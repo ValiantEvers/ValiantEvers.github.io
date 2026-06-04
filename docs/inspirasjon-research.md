@@ -29,10 +29,10 @@ duplisering.
 
 | # | Idé | Flate | Inspirert av | Innsats | Verdi |
 |---|-----|-------|--------------|---------|-------|
-| 1 | **Indeksert sammenligningschart (rebasert til 100)** — OSEBX vs. S&P 500 vs. sektorer fra samme startpunkt, via Baseline-series + `PriceScaleMode.Percentage`. Kanonisk måte å vise relativ styrke / sektorrotasjon. | OSEBX | `tradingview/lightweight-charts` (plugins) | Lav | Høy |
+| 1 | ✅ **Indeksert sammenligningschart (rebasert til 100)** — OSEBX vs. S&P 500 vs. sektorer fra samme startpunkt, via Baseline-series + `PriceScaleMode.Percentage`. Kanonisk måte å vise relativ styrke / sektorrotasjon. **— Gjort 2026-06-04** (osebx `5f7bd6e`); implementert som OSEBX vs. likevektede sektorer; S&P 500 ikke inkludert. | OSEBX | `tradingview/lightweight-charts` (plugins) | Lav | Høy |
 | 2 | **Rough Notation på CV/rekrutterer** — håndtegnet understrek/sirkel rundt nøkkelkompetanse («Wealth Management»). Lekent men proft, høy huskefaktor hos rekrutterere, vanilla/drop-in. | CV, rekrutterer/ | `design-resources-for-developers` | Lav | Høy |
-| 3 | **Bytt EUR/NOK-kilde til Norges Bank (eller Frankfurter/ECB)** — autoritativ NOK-kurs for en norsk finansside; Frankfurter er nøkkelfri m/ CORS som fallback. Mer korrekt + mindre Yahoo-avhengighet. | forsiden (ticker) | `public-apis` (Currency) | Lav | Høy |
-| 4 | **`text-wrap: balance` + selvhostet font (Fontshare/Bunny Fonts)** — fikser stygge overskrift-brytinger på tvers av de 6 språkene (én CSS-linje); GDPR-vennlig self-hosting fjerner Google-tracking. | forsiden / i18n | `tailwindcss` + `design-resources` | Lav | Middels-Høy |
+| 3 | ✅ **Bytt EUR/NOK-kilde til Norges Bank (eller Frankfurter/ECB)** — autoritativ NOK-kurs for en norsk finansside; Frankfurter er nøkkelfri m/ CORS som fallback. Mer korrekt + mindre Yahoo-avhengighet. **— Gjort 2026-06-04** (`c1a01ca`); EUR/NOK hentes nå via Frankfurter/ECB i finance-proxy (`?fx=eurnok`), ikke Yahoo. | forsiden (ticker) | `public-apis` (Currency) | Lav | Høy |
+| 4 | ✅ **`text-wrap: balance` + selvhostet font (Fontshare/Bunny Fonts)** — fikser stygge overskrift-brytinger på tvers av de 6 språkene (én CSS-linje); GDPR-vennlig self-hosting fjerner Google-tracking. **— Gjort 2026-06-04** (`b215b65` + `531dce1`); alle Google Fonts selvhostet lokalt (0 tredjeparts font-kall) + `text-wrap: balance` på overskrifter. | forsiden / i18n | `tailwindcss` + `design-resources` | Lav | Middels-Høy |
 | 5 | ✅ **Sektorrotasjons-heatmap** (sektor × uke, farge = relativ avkastning) ~~via Heatmap-series-plugin~~. Den mest leselige enkeltvisualiseringen av dashboardets kjernebudskap. **— Gjort 2026-06-04** (osebx `0a4f63d`); implementert som ren CSS-grid, ikke plugin. | OSEBX | `tradingview/lightweight-charts` | Lav-Middels | Høy |
 | 6 | **Selvforklarende chart: Delta-tooltip + shaded-background-bånd** — dra-for-å-måle prosentendring, og fargebånd bak kursen som visualiserer dine egne breddemål / bull-bear-regimer. Ren edukasjonell gevinst uten ny data. | OSEBX | `tradingview/lightweight-charts` (primitives) | Lav | Middels-Høy |
 | 7 | **Pensum-dekningsprosent via node-state på mindmap** — marker hvert tema «kan / repeterer / ikke startet», fargekod noden, vis «% av pensum behersket». Fyller det manglende fugleperspektivet over den eksisterende kort-for-kort-SR-motoren. | examprep | `roadmap.sh` (developer-roadmap) | Middels | Høy |
@@ -40,16 +40,16 @@ duplisering.
 | 9 | **ESLint-sjekk (airbnb-base) i CI** for hovedsidens vanilla-JS — ren *validering* (ikke reformattering), fanger syntaksfeil/ubrukte variabler før push. Beskytter i18n-ordboken og easter-eggs mot utilsiktet brekkasje. | fundament | `airbnb/javascript` | Lav | Middels-Høy |
 | 10 | **Ekte makrodata (FRED/Eurostat) bak konstanter** — erstatt hardkodet inflasjon/rente i personligøkonomi-verktøyene og pensjonskalkulatoren med gratis CORS-data, oppdatert via et `[skip ci]`-cron-Action (samme mønster som Strava/Letterboxd). | personligøkonomi, pensjonskalkulator | `public-apis` (FRED/Econdb) + `awesome-quant` (pandas-datareader) | Middels | Høy |
 
-**Raskeste gevinster (gjør først):** #2 (Rough Notation), #3 (EUR/NOK-kilde), #4 (text-balance + font), #1 (indeksert chart) — alle lav innsats, synlig effekt.
+**Raskeste gevinster:** #1, #3 og #4 ✅ gjort 2026-06-04. Gjenstår kun **#2 sin rekrutterer/-del** — Rough Notation er lagt på `cv.html`, men ikke på `rekrutterer/index.html` enda.
 
 ---
 
 ## Per underside — 2-3 forslag
 
 ### Forsiden (index.html, vanilla)
-- **`text-wrap: balance` på alle overskrifter + selvhostet variabel-font** (Fontshare/Bunny) — i18n-vennlig, tracking-fritt. *(tailwindcss, design-resources)*
+- ✅ **`text-wrap: balance` på alle overskrifter + selvhostet variabel-font** (Fontshare/Bunny) — i18n-vennlig, tracking-fritt. **Gjort 2026-06-04** (`b215b65` + `531dce1`; Google Fonts selvhostet lokalt). *(tailwindcss, design-resources)*
 - **AOS / Splitting.js scroll-reveal** — vanilla, ingen build; oppgraderer de eksisterende scroll-animasjonene, Splitting gir tegn-for-tegn hero-animasjon. *(design-resources)*
-- **EUR/NOK-ticker fra Norges Bank/Frankfurter** i stedet for Yahoo — riktigere NOK-kurs. *(public-apis)*
+- ✅ **EUR/NOK-ticker fra Norges Bank/Frankfurter** i stedet for Yahoo — riktigere NOK-kurs. **Gjort 2026-06-04** (`c1a01ca`, via finance-proxy `?fx=eurnok`). *(public-apis)*
 
 ### prosjekter/
 - **Ekte-screenshot feature-kort** i stedet for abstrakte ikoner — vis faktiske skjermbilder av OSEBX/pensjonskalkulator som «bevis på kapabilitet». *(godot, vue)*
@@ -61,7 +61,7 @@ duplisering.
 - **Tre-kolonners «Wealth Management / Private Banking / Fund Sales»** med kort beskrivelse hver. *(vuejs.org)*
 
 ### OSEBX-dashboard (osebx/)
-- **Indeksert sammenligningschart (rebasert 100)** + **sektorrotasjons-heatmap** ✅ (gjort 2026-06-04, ren CSS-grid) + **delta-tooltip/shaded-bånd** — alle som drop-in lightweight-charts-plugins (du har biblioteket). Husk TradingView-attribusjonskravet. *(lightweight-charts, awesome-tradingview)*
+- **Indeksert sammenligningschart (rebasert 100)** ✅ (gjort 2026-06-04, osebx `5f7bd6e`; uten S&P 500) + **sektorrotasjons-heatmap** ✅ (gjort 2026-06-04, ren CSS-grid). **Delta-tooltip/shaded-bånd** gjenstår (drop-in lightweight-charts-primitive; husk TradingView-attribusjonskravet). *(lightweight-charts, awesome-tradingview)*
 - **Python-data-jobb i GitHub Actions med yfinance `Sector`/`Screener`** som skriver ferdig OSEBX-JSON til repoet — datadrevet sektor-gruppering og «ukens vinnere/tapere» i stedet for hardkoding; avlaster Worker-en. *(yfinance, OpenBB som mer robust data-lag)*
 - (Valgfritt, lett) **«Investor-persona»-vinkel** i LLM-narrativet («hva ville en verdiinvestor sett her?»). *(FinceptTerminal — eneste lette idé derfra)*
 
