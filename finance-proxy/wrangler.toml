@@ -1,0 +1,7 @@
+name = "finance-proxy"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+# account_id utelates med vilje — wrangler bruker den innloggede kontoen.
+# Da committes ingen kontospesifikke verdier til det offentlige evers.no-repoet.
