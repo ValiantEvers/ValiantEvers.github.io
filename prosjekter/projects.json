@@ -1,5 +1,28 @@
 [
   {
+    "slug": "skatt-mcp",
+    "tittel": "skatt-mcp",
+    "beskrivelse": "Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall — aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod.",
+    "i18n": {
+      "title": "skattTitle",
+      "desc": "skattDesc"
+    },
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "https://github.com/ValiantEvers/skatt-mcp",
+    "ikon": "🧮",
+    "tags": [
+      "skatt",
+      "mcp",
+      "claude",
+      "typescript",
+      "personvern"
+    ],
+    "opprettet": "",
+    "sist_oppdatert": "",
+    "synlig": true
+  },
+  {
     "slug": "forretningsenhet-dashboard",
     "tittel": "Forretningsenhet-dashboard",
     "beskrivelse": "Illustrativt månedsrapport-dashboard for en nordisk bankdivisjon. FTP-bevisst NII-variansdekomponering, ROAC vs avkastningskrav per segment, 24-måneders trend (faktisk + prognose) og et levende sensitivitetspanel. Python + SQLite + JSON-pipeline.",
