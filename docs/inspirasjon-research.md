@@ -37,7 +37,7 @@ duplisering.
 | 6 | **Selvforklarende chart: Delta-tooltip + shaded-background-bånd** — dra-for-å-måle prosentendring, og fargebånd bak kursen som visualiserer dine egne breddemål / bull-bear-regimer. Ren edukasjonell gevinst uten ny data. | OSEBX | `tradingview/lightweight-charts` (primitives) | Lav | Middels-Høy |
 | 7 | **Pensum-dekningsprosent via node-state på mindmap** — marker hvert tema «kan / repeterer / ikke startet», fargekod noden, vis «% av pensum behersket». Fyller det manglende fugleperspektivet over den eksisterende kort-for-kort-SR-motoren. | examprep | `roadmap.sh` (developer-roadmap) | Middels | Høy |
 | 8 | **CSV/Anki-eksport av flashcards** — «Last ned kort»-knapp så du kan repetere i Anki-appen på mobil før eksamen, uten å bygge mobilstøtte. | examprep | `system-design-primer` | Lav | Middels-Høy |
-| 9 | **ESLint-sjekk (airbnb-base) i CI** for hovedsidens vanilla-JS — ren *validering* (ikke reformattering), fanger syntaksfeil/ubrukte variabler før push. Beskytter i18n-ordboken og easter-eggs mot utilsiktet brekkasje. | fundament | `airbnb/javascript` | Lav | Middels-Høy |
+| 9 | ✅ **ESLint-sjekk (~~airbnb-base~~) i CI** for hovedsidens vanilla-JS — ren *validering* (ikke reformattering), fanger syntaksfeil/ubrukte variabler før push. Beskytter i18n-ordboken og easter-eggs mot utilsiktet brekkasje. **— Gjort 2026-06-05** (`c584af1`); ESLint 10 flat config (`eslint:recommended`) + `eslint-plugin-html` for inline-scripts, ikke airbnb-base (støtter ikke flat config). Fant + ryddet 8 reelle dead-code-funn ved oppsett. | fundament | `airbnb/javascript` | Lav | Middels-Høy |
 | 10 | **Ekte makrodata (FRED/Eurostat) bak konstanter** — erstatt hardkodet inflasjon/rente i personligøkonomi-verktøyene og pensjonskalkulatoren med gratis CORS-data, oppdatert via et `[skip ci]`-cron-Action (samme mønster som Strava/Letterboxd). | personligøkonomi, pensjonskalkulator | `public-apis` (FRED/Econdb) + `awesome-quant` (pandas-datareader) | Middels | Høy |
 
 **Raskeste gevinster:** #1, #2, #3 og #4 ✅ alle gjort 2026-06-04.
@@ -81,7 +81,7 @@ duplisering.
 - (Kun hvis lastetid blir et problem) **Astro-island** i stedet for full Vite+React-SPA — sender langt mindre JS for en side som er statisk innhold + ett interaktivt panel. *(astro)*
 
 ### strategi (privat)
-- Ingen sterke funn — siden er en intern tracker (noindex). ESLint-CI-en (#9) dekker den teknisk sammen med resten.
+- Ingen sterke funn — siden er en intern tracker (noindex). **Unntatt fra ESLint-CI-en (#9)**: inliner vendret minifisert DOMPurify + er onclick-arkitektur (mange funksjoner kun referert fra HTML-attributter), så per-`<script>`-linting gir for mye støy. Revurder hvis siden refaktoreres bort fra onclick.
 
 ---
 
