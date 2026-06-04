@@ -1,0 +1,32 @@
+name: ESLint (vanilla JS)
+
+# Validation-only lint of the main site's hand-authored vanilla JS (inline <script>
+# extracted via eslint-plugin-html). Never reformats, never --fix. Independent job:
+# does not gate or trigger any other workflow and cannot block the (classic) Pages deploy.
+
+on:
+  push:
+    branches: [main]
+    # Skip pure data-refresh commits from the Strava/Letterboxd crons (they push to main
+    # without [skip ci]); no JS changes there, so nothing to lint.
+    paths-ignore:
+      - 'strava.json'
+      - 'letterboxd.json'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
