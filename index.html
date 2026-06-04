@@ -495,7 +495,7 @@ img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
 <div class="live-dot"></div>
 <a href="https://finance.yahoo.com/quote/%5EGSPC/" target="_blank" rel="noopener noreferrer" class="live-bar-item" style="text-decoration:none;color:inherit"><span class="lb-label">S&P 500</span> <span class="lb-val" id="lbSp">-</span> <span class="lb-change" id="lbSpChg"></span></a>
 <a href="https://finance.yahoo.com/quote/OSEBX.OL/" target="_blank" rel="noopener noreferrer" class="live-bar-item" style="text-decoration:none;color:inherit"><span class="lb-label">OSEBX</span> <span class="lb-val" id="lbOse">-</span> <span class="lb-change" id="lbOseChg"></span></a>
-<a href="https://finance.yahoo.com/quote/EURNOK%3DX/" target="_blank" rel="noopener noreferrer" class="live-bar-item" style="text-decoration:none;color:inherit"><span class="lb-label">EUR/NOK</span> <span class="lb-val" id="lbEur">-</span> <span class="lb-change" id="lbEurChg"></span></a>
+<a href="https://www.norges-bank.no/tema/Statistikk/Valutakurser/?tab=currency&amp;id=EUR" target="_blank" rel="noopener noreferrer" class="live-bar-item" title="EUR/NOK: ECBs referansekurs (Frankfurter), oppdateres ~16:00 CET på virkedager" style="text-decoration:none;color:inherit"><span class="lb-label">EUR/NOK</span> <span class="lb-val" id="lbEur">-</span> <span class="lb-change" id="lbEurChg"></span></a>
 <a href="https://www.yr.no/nb/v%C3%A6rvarsel/daglig-tabell/1-72837/Norge/Oslo/Oslo/Oslo" target="_blank" rel="noopener noreferrer" class="live-bar-item lb-hide-mobile" style="text-decoration:none;color:inherit"><span class="lb-label">Oslo</span> <span class="lb-val" id="lbTime">-</span></a>
 <div class="lb-sep lb-hide-mobile"></div>
 <a href="https://www.finansavisen.no/aksjer?marketplaces=39890,33187,82836,33762&order=desc&orderby=diff1dprc" target="_blank" rel="noopener noreferrer" class="lb-link lb-winners lb-hide-mobile" data-i="lbWinners">Vinnere ↑</a>
@@ -697,7 +697,7 @@ var FINANCE_PROXY='https://finance-proxy.valiantevers1809.workers.dev';
 function fetchIndex(symbol,valId,chgId){
 var cacheKey='ve-fin-'+symbol;
 function show(price,pct){
-document.getElementById(valId).textContent=symbol.indexOf('EURNOK')>-1?price.toFixed(2):price.toLocaleString('en-US',{maximumFractionDigits:0});
+document.getElementById(valId).textContent=price.toLocaleString('en-US',{maximumFractionDigits:0});
 setChange(chgId,pct);
 }
 fetch(FINANCE_PROXY+'?symbol='+encodeURIComponent(symbol)+'&interval=1d&range=2d',{signal:AbortSignal.timeout?AbortSignal.timeout(6000):undefined}).then(function(r){
@@ -715,11 +715,29 @@ try{var c=JSON.parse(localStorage.getItem(cacheKey));if(c&&c.price)show(c.price,
 });
 }
 
+/* EUR/NOK via egen ECB-rute (Frankfurter) i workeren — egen funksjon (ulik respons fra Yahoo) */
+function fetchEurNok(){
+var cacheKey='ve-fin-eurnok';
+function show(price,pct){document.getElementById('lbEur').textContent=price.toFixed(2);if(pct!=null)setChange('lbEurChg',pct);}
+fetch(FINANCE_PROXY+'?fx=eurnok',{signal:AbortSignal.timeout?AbortSignal.timeout(6000):undefined}).then(function(r){
+if(!r.ok)throw new Error('not ok');
+return r.json();
+}).then(function(d){
+if(!d||!d.price)throw new Error('no price');
+var price=d.price,pct=(d.prevClose?(price-d.prevClose)/d.prevClose*100:null);
+show(price,pct);
+try{localStorage.setItem(cacheKey,JSON.stringify({price:price,pct:(pct==null?0:pct),time:Date.now()}))}catch(e){}
+}).catch(function(){
+/* Worker/nett feilet — vis sist kjente verdi hvis cachet, ellers behold «-» */
+try{var c=JSON.parse(localStorage.getItem(cacheKey));if(c&&c.price)show(c.price,c.pct);}catch(e){}
+});
+}
+
 fetchIndex('^GSPC','lbSp','lbSpChg');
 fetchIndex('OSEBX.OL','lbOse','lbOseChg');
-fetchIndex('EURNOK=X','lbEur','lbEurChg');
+fetchEurNok();
 
-setInterval(function(){fetchIndex('^GSPC','lbSp','lbSpChg');fetchIndex('OSEBX.OL','lbOse','lbOseChg');fetchIndex('EURNOK=X','lbEur','lbEurChg')},300000);
+setInterval(function(){fetchIndex('^GSPC','lbSp','lbSpChg');fetchIndex('OSEBX.OL','lbOse','lbOseChg');fetchEurNok()},300000);
 })();
 
 /* ═══ TICKERS ═══ */
