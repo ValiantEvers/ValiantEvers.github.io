@@ -997,5 +997,53 @@ document.addEventListener('DOMContentLoaded',setEmail);
 window.addEventListener('load',function(){setTimeout(setEmail,500)});
 })();
 </script>
+
+<!-- Rough Notation: håndtegnede annoteringer på CV-nøkkelord (progressive enhancement, kun cv.html) -->
+<script src="/vendor/rough-notation.iife.js"></script>
+<script>
+/* ═══ ROUGH NOTATION — håndtegnede annoteringer på nøkkelord ═══ */
+(function(){
+  if(!window.RoughNotation || !RoughNotation.annotate) return; /* lib ikke lastet → ren tekst */
+  var annotate = RoughNotation.annotate;
+  var summary = document.querySelector('p[data-i="summary"]');
+  if(!summary) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* Begge ordene står verbatim i alle 5 språk → språk-uavhengig */
+  var targets = [
+    { text: 'Wealth Management', type: 'underline', opts: { strokeWidth: 2, padding: 2 } },
+    { text: '746', type: 'circle', opts: { strokeWidth: 2, padding: [2, 5] } }
+  ];
+  var anns = [];
+  function accent(){ return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0070ed'; }
+  function escRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function clear(){ anns.forEach(function(a){ try{ a.remove(); }catch(e){} }); anns = []; }
+  function apply(animate){
+    clear();
+    var color = accent();
+    var html = escHtml(summary.textContent);
+    targets.forEach(function(t, idx){ html = html.replace(new RegExp(escRe(t.text)), '<span class="rn-'+idx+'">'+t.text+'</span>'); });
+    summary.innerHTML = html;
+    targets.forEach(function(t, idx){
+      var el = summary.querySelector('.rn-'+idx);
+      if(!el) return;
+      var o = Object.assign({ type: t.type, color: color, animate: !reduce && animate, animationDuration: 700, multiline: true }, t.opts);
+      var a = annotate(el, o); a.show(); anns.push(a);
+    });
+  }
+  function init(){ apply(true); }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { window.addEventListener('load', init); }
+  /* re-tegn ved språkbytte (setLang skriver om summary.innerHTML) */
+  if(typeof window.setLang === 'function'){
+    var _setLang = window.setLang;
+    window.setLang = function(l){ _setLang(l); requestAnimationFrame(function(){ apply(true); }); };
+  }
+  /* re-tegn (uten animasjon) ved temaskifte + resize */
+  var tT; function redraw(){ apply(false); }
+  new MutationObserver(function(m){ for(var i=0;i<m.length;i++){ if(m[i].attributeName==='data-theme'){ clearTimeout(tT); tT=setTimeout(redraw,60); return; } } })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  var rT; window.addEventListener('resize', function(){ clearTimeout(rT); rT=setTimeout(redraw,150); }, { passive: true });
+})();
+</script>
 </body>
 </html>
