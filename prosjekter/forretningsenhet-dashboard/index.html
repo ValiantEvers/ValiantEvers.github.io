@@ -575,12 +575,6 @@ A pandas script generates 24 months of synthetic Actual / Budget / Forecast figu
     if(abs>=1000) return (x/1000).toFixed(2)+' bn';
     return Math.round(x).toLocaleString('en-US');
   }
-  function fmtMoneyShort(x){
-    if(x===null||x===undefined||isNaN(x)) return '—';
-    var abs=Math.abs(x);
-    if(abs>=1000) return (x/1000).toFixed(1)+'bn';
-    return Math.round(x).toLocaleString('en-US');
-  }
   function fmtPct(x,dp){ if(dp===undefined) dp=1; if(x===null||x===undefined||isNaN(x)) return '—'; return x.toFixed(dp)+'%'; }
   function fmtSignedPct(x){ if(x===null||x===undefined||isNaN(x)) return '—'; return (x>=0?'+':'−')+Math.abs(x).toFixed(1)+'%'; }
   function fmtPp(x){ if(x===null||x===undefined||isNaN(x)) return '—'; return (x>=0?'+':'−')+Math.abs(x).toFixed(1)+' pp'; }
