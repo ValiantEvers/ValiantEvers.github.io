@@ -28,7 +28,7 @@
 <meta name="twitter:description" data-i-content="ogDesc" content="MSc Finance ved BI. Broen mellom finansiell kompetanse og mennesker.">
 <meta name="twitter:image" content="https://www.evers.no/og-image.png">
 <meta name="twitter:image:alt" content="Valiant Evers — MSc Finance, BI Norwegian Business School">
-<link rel="icon" type="image/svg+xml" href="/favicon-e.svg"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -123,9 +123,7 @@
 [data-theme="medieval"] .shape:nth-child(1){background:#c4841d}
 [data-theme="medieval"] .shape:nth-child(2){background:#8b6914}
 [data-theme="medieval"] .shape:nth-child(3){background:#3d2915}
-[data-theme="medieval"] .shape:nth-child(4){background:#d4a54a}
-[data-theme="medieval"] .progress-bar{background:var(--accent)}
-[data-theme="medieval"] .timeline-fill{background:linear-gradient(to bottom,#c4841d,#d4a54a,#8b6914,#3d2915)}
+[data-theme="medieval"] .shape:nth-child(4){background:#d4a54a}[data-theme="medieval"] .timeline-fill{background:linear-gradient(to bottom,#c4841d,#d4a54a,#8b6914,#3d2915)}
 [data-theme="medieval"] .timeline-dot{border-color:var(--bg)}
 [data-theme="medieval"]::after{opacity:.06}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
@@ -137,7 +135,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
 [data-theme="dark"] body::after{opacity:.04}
 
 html[lang="ja"] body{font-family:'Noto Sans JP','Outfit',sans-serif}
-#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--text);z-index:9999;transition:width .05s linear;border-radius:0 3px 3px 0}
+#progress-bar{position:absolute;left:0;bottom:0;height:3px;width:0%;background:var(--accent);z-index:1;transition:width .05s linear;border-radius:0 3px 3px 0}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
 nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
 .nav-logo{font-family:'Inter',system-ui,sans-serif;letter-spacing:-0.02em;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none;opacity:0;transform:translateY(-10px);transition:opacity .4s,transform .4s}.nav-logo.visible{opacity:1;transform:translateY(0)}
@@ -342,10 +340,6 @@ a.cert-link,a.thesis-link{text-decoration:none;color:inherit;display:block}
 [data-theme="dark"] .share-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* VISITOR COUNTER */
-.visitor-count{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;color:rgba(0,18,51,.25);margin-left:1rem}
-[data-theme="dark"] .visitor-count{color:rgba(225,231,255,.18)}
-.visitor-count .vc-dot{width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block}
-
 /* PRINT STYLES */
 @media print{
 body{background:#fff !important;color:#000 !important;font-size:11pt}
@@ -380,9 +374,7 @@ a.live-bar-item{transition:opacity .2s}.live-bar-item:hover{opacity:.75}
 .lb-link.lb-winners{background:rgba(0,200,80,.22)}.lb-link.lb-winners:hover{background:rgba(0,200,80,.35)}
 .lb-link.lb-losers{background:rgba(255,60,60,.35)}.lb-link.lb-losers:hover{background:rgba(255,60,60,.5)}
 nav.scrolled{top:28px}
-body.bar-active nav{top:28px}
-body.bar-active #progress-bar{top:28px}
-[data-theme="dark"] .live-bar{background:#0d1520}
+body.bar-active nav{top:28px}[data-theme="dark"] .live-bar{background:#0d1520}
 [data-theme="medieval"] .live-bar{background:#1a0f05}
 [data-theme="medieval"] .live-bar-item .lb-label{font-family:'MedievalSharp','Outfit',sans-serif}
 @media(max-width:768px){.live-bar~nav{top:24px}}
@@ -512,8 +504,7 @@ img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
 </div>
 <div class="bg-morph" id="bgMorph"></div>
 <div class="cursor-dot" id="cursorDot"></div>
-<div id="progress-bar"></div>
-<nav id="mainNav"><a href="#" class="nav-logo" id="navLogo">V.</a><div class="nav-right"><ul class="nav-links"><li><a href="#om" data-i="nav1"></a></li><li><a href="#erfaring" data-i="nav2"></a></li><li><a href="#cv" data-i="nav3">CV</a></li><li><a href="#sertifiseringer" data-i="nav4"></a></li><li><a href="#forskning" data-i="nav5"></a></li><li><a href="/prosjekter/" data-i="nav7"></a></li><li><a href="#kontakt" data-i="nav6"></a></li></ul><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button><div class="lang-switch"><button class="lang-btn" id="langBtn">NO</button><div class="lang-menu" id="langMenu"><button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button><button class="lang-opt" data-lang="en">🇬🇧 English</button><button class="lang-opt" data-lang="fr">🇫🇷 Français</button><button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button><button class="lang-opt" data-lang="ja">🇯🇵 日本語</button></div></div><button class="nav-toggle" id="navToggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button></div></nav>
+<nav id="mainNav"><a href="#" class="nav-logo" id="navLogo">V.</a><div class="nav-right"><ul class="nav-links"><li><a href="#om" data-i="nav1"></a></li><li><a href="#erfaring" data-i="nav2"></a></li><li><a href="#cv" data-i="nav3">CV</a></li><li><a href="#sertifiseringer" data-i="nav4"></a></li><li><a href="#forskning" data-i="nav5"></a></li><li><a href="/prosjekter/" data-i="nav7"></a></li><li><a href="#kontakt" data-i="nav6"></a></li></ul><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button><div class="lang-switch"><button class="lang-btn" id="langBtn">NO</button><div class="lang-menu" id="langMenu"><button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button><button class="lang-opt" data-lang="en">🇬🇧 English</button><button class="lang-opt" data-lang="fr">🇫🇷 Français</button><button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button><button class="lang-opt" data-lang="ja">🇯🇵 日本語</button></div></div><button class="nav-toggle" id="navToggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button></div><div id="progress-bar"></div></nav>
 <div class="mobile-menu" id="mobileMenu"><a href="#om" data-i="nav1">Om meg</a><a href="#erfaring" data-i="nav2">Erfaring</a><a href="#cv" data-i="nav3">CV</a><a href="#sertifiseringer" data-i="nav4">Sertifiseringer</a><a href="#forskning" data-i="nav5">Forskning</a><a href="/prosjekter/" data-i="nav7">Prosjekter</a><a href="#kontakt" data-i="nav6">Kontakt</a></div>
 <section class="hero" id="heroSection">
 <div class="hero-top"><div class="hero-img-wrap"><img src="profile.jpg" alt="Valiant Evers" class="hero-img" id="heroImg"></div><div class="hero-text">
@@ -635,7 +626,7 @@ img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
 </div>
 <p style="text-align:center;font-size:.72rem;color:rgba(0,18,51,.3);margin-top:1.2rem" data-i="ytSub"></p>
 </div>
-<div class="footer"><a href="https://letterboxd.com/valleyalleyg/films/by/entry-rating/" target="_blank" rel="noopener noreferrer" title="Letterboxd" style="text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;color:inherit;opacity:.45;transition:opacity .3s;vertical-align:middle" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.45'"><svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="11" r="5" fill="#00E054" opacity=".85"/><circle cx="11" cy="11" r="5" fill="#40BCF4" opacity=".85"/><circle cx="15.5" cy="11" r="5" fill="#FF8000" opacity=".85"/></svg></a> &copy; 2026 Valiant Evers, Oslo<span class="visitor-count" id="visitorCount" style="display:none"><span class="vc-dot"></span><span id="vcNum">—</span> besøk</span><span style="margin-left:1.2rem;display:inline-flex;align-items:center;gap:1.5rem"><a href="/garmin/" style="text-decoration:none;opacity:.3;transition:opacity .3s;display:inline-flex;align-items:center" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.3'" title="Garmin Løpedata"><svg width="64" height="16" viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="900" fill="#007CC3" letter-spacing="0.2">GARMIN</text></svg></a></span></div>
+<div class="footer"><a href="https://letterboxd.com/valleyalleyg/films/by/entry-rating/" target="_blank" rel="noopener noreferrer" title="Letterboxd" style="text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;color:inherit;opacity:.45;transition:opacity .3s;vertical-align:middle" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.45'"><svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="11" r="5" fill="#00E054" opacity=".85"/><circle cx="11" cy="11" r="5" fill="#40BCF4" opacity=".85"/><circle cx="15.5" cy="11" r="5" fill="#FF8000" opacity=".85"/></svg></a> &copy; 2026 Valiant Evers, Oslo<span style="margin-left:1.2rem;display:inline-flex;align-items:center;gap:1.5rem"><a href="/garmin/" style="text-decoration:none;opacity:.3;transition:opacity .3s;display:inline-flex;align-items:center" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.3'" title="Garmin Løpedata"><svg width="64" height="16" viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="900" fill="#007CC3" letter-spacing="0.2">GARMIN</text></svg></a></span></div>
 <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 <div class="page-flash" id="pageFlash"></div>
 <script>
@@ -1286,17 +1277,6 @@ setTimeout(function(){btn.innerHTML='🔗 Del siden'},2200);
 }).catch(function(){btn.textContent='🔗 '+window.location.href});
 }
 });
-})();
-
-/* ═══ VISITOR COUNTER (CounterAPI) ═══ */
-(function(){
-var el=document.getElementById('vcNum');
-var wrap=document.getElementById('visitorCount');
-if(!el)return;
-fetch('https://api.counterapi.dev/v1/valiantevers-site/visits/up')
-.then(function(r){return r.json()})
-.then(function(d){if(d&&d.count){el.textContent=Number(d.count).toLocaleString('no-NO');wrap.style.display='inline-flex'}})
-.catch(function(){});
 })();
 
 /* ═══ STRAVA WIDGET ═══ */
