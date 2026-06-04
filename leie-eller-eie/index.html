@@ -393,7 +393,6 @@ function beregn(p){
   for(var y=1;y<=H;y++){
     var leieInnskuttStart=leieInnskutt;   // grunnlag for skjerming = innskutt v/ årets start
     var eierInnskuttStart=eierInnskutt;
-    var aarRente=0;
 
     var boligverdiInn=p.boligpris*Math.pow(1+appr,y-1); // verdi v/ årets start (vedlikeholdsgrunnlag)
     var fellesM=p.felles*Math.pow(1+infl,y-1);
@@ -411,7 +410,6 @@ function beregn(p){
         if(avdragM>saldo){avdragM=saldo;terminM=avdragM+renteM;}
         saldo-=avdragM;
       }
-      aarRente+=renteM;
 
       // Samlet eierkostnad denne måneden (kontantstrøm), netto for skattefradrag
       var eierKost=terminM+fellesM+kommM+vedlikM-rentefr*renteM;
@@ -432,7 +430,7 @@ function beregn(p){
 
     // Netto verdier hvis realisert ved utgangen av dette året
     var boligverdiUt=p.boligpris*Math.pow(1+appr,y);
-    var nettoEie=boligverdiUt*(1-salgK)-saldo-kjopskostKr;
+    var nettoEieY=boligverdiUt*(1-salgK)-saldo-kjopskostKr;
 
     var leieGev=leiePf-leieInnskutt;
     var leieSkattbar=Math.max(0,leieGev-leieSkjermAkk);
@@ -446,7 +444,7 @@ function beregn(p){
       aar:y,
       boligverdi:boligverdiUt,
       laan:saldo,
-      nettoEie:nettoEie+eierPfNetto,   // eiers totale netto = bolig + ev. sideportefølje
+      nettoEie:nettoEieY+eierPfNetto,   // eiers totale netto = bolig + ev. sideportefølje
       leiePf:leiePf,
       nettoLeie:leiePfNetto,
       eierPf:eierPfNetto
@@ -605,7 +603,6 @@ function render(){
   var dEie=r.aar.map(function(a){return Math.round(a.nettoEie);});
   var dLeie=r.aar.map(function(a){return Math.round(a.nettoLeie);});
   var cEie=cssVar('--accent4')||'#004eaa', cLeie=cssVar('--accent')||'#0070ed';
-  var grid=getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
   var isDark=document.documentElement.getAttribute('data-theme')==='dark';
   var gridC=isDark?'rgba(225,231,255,.08)':'rgba(0,18,51,.07)';
   var tickC=isDark?'rgba(225,231,255,.55)':'rgba(0,18,51,.55)';

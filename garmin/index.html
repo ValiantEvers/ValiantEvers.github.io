@@ -1336,10 +1336,6 @@ const fmtDate = d => {
   const [y,mo,day]=d.split('-');
   return `${parseInt(day)}. ${['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'][parseInt(mo)-1]} ${y}`;
 };
-const fmtDateShort = d => {
-  const [y,mo,day]=d.split('-');
-  return `${parseInt(day)} ${['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'][parseInt(mo)-1]}`;
-};
 const hrColor = hr => {
   if(!hr) return '#666678';
   if(hr<130) return '#4db8ff';
@@ -1613,9 +1609,6 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
     runByDate[r.date].runs.push(r);
   });
 
-  // Build from 2024-01-01 to 2026-04-23
-  const start=new Date('2024-01-01');
-  const end=new Date('2026-04-26');
   const container=document.getElementById('heatmapContainer');
 
   // Group by year
