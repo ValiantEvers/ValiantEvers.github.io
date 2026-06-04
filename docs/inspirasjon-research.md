@@ -33,7 +33,7 @@ duplisering.
 | 2 | **Rough Notation på CV/rekrutterer** — håndtegnet understrek/sirkel rundt nøkkelkompetanse («Wealth Management»). Lekent men proft, høy huskefaktor hos rekrutterere, vanilla/drop-in. | CV, rekrutterer/ | `design-resources-for-developers` | Lav | Høy |
 | 3 | **Bytt EUR/NOK-kilde til Norges Bank (eller Frankfurter/ECB)** — autoritativ NOK-kurs for en norsk finansside; Frankfurter er nøkkelfri m/ CORS som fallback. Mer korrekt + mindre Yahoo-avhengighet. | forsiden (ticker) | `public-apis` (Currency) | Lav | Høy |
 | 4 | **`text-wrap: balance` + selvhostet font (Fontshare/Bunny Fonts)** — fikser stygge overskrift-brytinger på tvers av de 6 språkene (én CSS-linje); GDPR-vennlig self-hosting fjerner Google-tracking. | forsiden / i18n | `tailwindcss` + `design-resources` | Lav | Middels-Høy |
-| 5 | **Sektorrotasjons-heatmap** (sektor × uke, farge = relativ avkastning) via Heatmap-series-plugin. Den mest leselige enkeltvisualiseringen av dashboardets kjernebudskap. | OSEBX | `tradingview/lightweight-charts` | Lav-Middels | Høy |
+| 5 | ✅ **Sektorrotasjons-heatmap** (sektor × uke, farge = relativ avkastning) ~~via Heatmap-series-plugin~~. Den mest leselige enkeltvisualiseringen av dashboardets kjernebudskap. **— Gjort 2026-06-04** (osebx `0a4f63d`); implementert som ren CSS-grid, ikke plugin. | OSEBX | `tradingview/lightweight-charts` | Lav-Middels | Høy |
 | 6 | **Selvforklarende chart: Delta-tooltip + shaded-background-bånd** — dra-for-å-måle prosentendring, og fargebånd bak kursen som visualiserer dine egne breddemål / bull-bear-regimer. Ren edukasjonell gevinst uten ny data. | OSEBX | `tradingview/lightweight-charts` (primitives) | Lav | Middels-Høy |
 | 7 | **Pensum-dekningsprosent via node-state på mindmap** — marker hvert tema «kan / repeterer / ikke startet», fargekod noden, vis «% av pensum behersket». Fyller det manglende fugleperspektivet over den eksisterende kort-for-kort-SR-motoren. | examprep | `roadmap.sh` (developer-roadmap) | Middels | Høy |
 | 8 | **CSV/Anki-eksport av flashcards** — «Last ned kort»-knapp så du kan repetere i Anki-appen på mobil før eksamen, uten å bygge mobilstøtte. | examprep | `system-design-primer` | Lav | Middels-Høy |
@@ -61,7 +61,7 @@ duplisering.
 - **Tre-kolonners «Wealth Management / Private Banking / Fund Sales»** med kort beskrivelse hver. *(vuejs.org)*
 
 ### OSEBX-dashboard (osebx/)
-- **Indeksert sammenligningschart (rebasert 100)** + **sektorrotasjons-heatmap** + **delta-tooltip/shaded-bånd** — alle som drop-in lightweight-charts-plugins (du har biblioteket). Husk TradingView-attribusjonskravet. *(lightweight-charts, awesome-tradingview)*
+- **Indeksert sammenligningschart (rebasert 100)** + **sektorrotasjons-heatmap** ✅ (gjort 2026-06-04, ren CSS-grid) + **delta-tooltip/shaded-bånd** — alle som drop-in lightweight-charts-plugins (du har biblioteket). Husk TradingView-attribusjonskravet. *(lightweight-charts, awesome-tradingview)*
 - **Python-data-jobb i GitHub Actions med yfinance `Sector`/`Screener`** som skriver ferdig OSEBX-JSON til repoet — datadrevet sektor-gruppering og «ukens vinnere/tapere» i stedet for hardkoding; avlaster Worker-en. *(yfinance, OpenBB som mer robust data-lag)*
 - (Valgfritt, lett) **«Investor-persona»-vinkel** i LLM-narrativet («hva ville en verdiinvestor sett her?»). *(FinceptTerminal — eneste lette idé derfra)*
 
