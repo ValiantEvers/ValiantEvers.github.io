@@ -49,14 +49,15 @@ export function readInputsFromUrl(): Partial<PensionInputs> {
   return result
 }
 
-export function writeInputsToUrl(inputs: PensionInputs) {
+export function writeInputsToUrl(inputs: PensionInputs, baseline: PensionInputs = DEFAULT_INPUTS) {
   if (typeof window === 'undefined') return
   const params = new URLSearchParams()
   for (const key of Object.keys(URL_KEY_MAP) as Array<keyof PensionInputs>) {
     const short = URL_KEY_MAP[key]
     const v = inputs[key]
-    const def = DEFAULT_INPUTS[key]
-    // Skipp default-verdier for kortere URL
+    // Sammenlign mot baseline (defaults overstyrt av live makrodata) — så live-verdier
+    // brukeren ikke har endret IKKE havner i URL-en (ren lenke + fersk live ved hver visning).
+    const def = baseline[key]
     if (v === def) continue
     if (typeof v === 'boolean') {
       params.set(short, v ? '1' : '0')
@@ -69,14 +70,14 @@ export function writeInputsToUrl(inputs: PensionInputs) {
   window.history.replaceState({}, '', newUrl)
 }
 
-export function useUrlSync(inputs: PensionInputs) {
+export function useUrlSync(inputs: PensionInputs, baseline: PensionInputs = DEFAULT_INPUTS) {
   // Debounce writes for å unngå å spamme history-API'en under live input.
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    timeoutRef.current = setTimeout(() => writeInputsToUrl(inputs), 200)
+    timeoutRef.current = setTimeout(() => writeInputsToUrl(inputs, baseline), 200)
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [inputs])
+  }, [inputs, baseline])
 }

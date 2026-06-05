@@ -2,13 +2,18 @@ import type { PensionInputs } from '../pension-engine'
 import { G_CAP_LOW, G_CAP_HIGH, IPS_ANNUAL_MAX, G_DEFAULT_AS_OF } from '../pension-engine'
 import { NumberField, SliderField, ToggleField, sliderFormatters } from './InputControls'
 import { formatKr } from '../lib/format'
+import { fmtAsOf, type MacroData, type MacroSeries } from '../lib/macro'
 
 interface Props {
   inputs: PensionInputs
   update: <K extends keyof PensionInputs>(key: K, value: PensionInputs[K]) => void
+  macro?: MacroData | null
 }
 
-export function InputPanel({ inputs, update }: Props) {
+export function InputPanel({ inputs, update, macro }: Props) {
+  // Live makro-verdi → kildehenvisning + sist oppdatert; ellers en dokumentert antagelse.
+  const srcNote = (s?: MacroSeries) =>
+    s?.source ? `Kilde: ${s.source} · oppdatert ${fmtAsOf(s.asOf)}` : undefined
   const ipsOver = inputs.ipsAnnualContribution > IPS_ANNUAL_MAX
   const salaryAbove12G = inputs.salaryGross > G_CAP_HIGH * inputs.G
   const salaryAbove71G = inputs.salaryGross > G_CAP_LOW * inputs.G
@@ -61,6 +66,7 @@ export function InputPanel({ inputs, update }: Props) {
           min={0}
           max={20}
           step={0.1}
+          help={srcNote(macro?.wageGrowth) ?? 'Antagelse: forventet årlig lønnsvekst.'}
         />
         <details className="md:col-span-2 rounded-2xl border border-ink/10 p-4 group">
           <summary className="cursor-pointer text-sm font-semibold text-ink/80 select-none">
@@ -187,6 +193,7 @@ export function InputPanel({ inputs, update }: Props) {
             min={0}
             max={15}
             step={0.1}
+            help={srcNote(macro?.inflation) ?? 'Antagelse: forventet prisvekst.'}
           />
           <NumberField
             id="realReturn"
@@ -197,7 +204,7 @@ export function InputPanel({ inputs, update }: Props) {
             min={-5}
             max={15}
             step={0.1}
-            help="Etter inflasjon. Nominell avkastning regnes ut automatisk."
+            help="Antagelse: langsiktig forventet realavkastning (etter inflasjon). Nominell regnes ut automatisk."
           />
           <NumberField
             id="payoutRealReturn"
@@ -208,7 +215,7 @@ export function InputPanel({ inputs, update }: Props) {
             min={-5}
             max={15}
             step={0.1}
-            help="Lavere enn opptjeningsavkastning fordi pensjonister typisk de-risker porteføljen. Folketrygd bruker NAVs delingstall og påvirkes ikke av dette."
+            help="Antagelse: lavere enn opptjeningsavkastning fordi pensjonister typisk de-risker porteføljen. Folketrygd bruker NAVs delingstall og påvirkes ikke av dette."
           />
           <NumberField
             id="delingstall"

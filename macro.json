@@ -1,0 +1,19 @@
+{
+  "updated": "2026-06-05T00:37:28Z",
+  "inflation": {
+    "yoyPct": 3.2,
+    "indexLevel": 139.1,
+    "asOf": "2025-12",
+    "source": "SSB tabell 03013"
+  },
+  "wageGrowth": {
+    "yoyPct": 4.55,
+    "asOf": "2025",
+    "source": "SSB tabell 11418"
+  },
+  "policyRate": {
+    "pct": 4.25,
+    "asOf": "2026-06-03",
+    "source": "Norges Bank"
+  }
+}
