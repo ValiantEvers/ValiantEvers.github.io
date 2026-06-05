@@ -160,6 +160,14 @@ p{
 }
 p:last-child{margin-bottom:0}
 
+/* VALUE PROPS / ROLLE-KOLONNER (delt tre-kolonners komponent — også brukt på /prosjekter/) */
+.valueprops{--vp-display:'Crimson Text','Charter','Georgia',serif}
+.vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:1.1rem}
+.vp-col{border-top:2px solid var(--accent,#0066CC);padding-top:.9rem}
+.vp-title{font-family:var(--vp-display,'Inter',system-ui,sans-serif);font-weight:700;font-size:1.05rem;letter-spacing:-.01em;line-height:1.3;margin:0 0 .5rem;color:var(--text,#1a1a1a)}
+.vp-desc{font-size:.95rem;line-height:1.65;color:var(--muted,#444);margin:0}
+@media(max-width:720px){.vp-grid{grid-template-columns:1fr;gap:1.2rem}}
+
 /* CURATED LISTS for bakgrunn og arbeid */
 ul.kuratert{list-style:none;padding:0;margin:0}
 ul.kuratert li{
@@ -260,6 +268,7 @@ footer a:hover{color:#0066CC}
 
   <nav class="anchor-nav" aria-label="Sidenavigasjon">
     <a href="#posisjonering">Posisjonering</a><span class="sep">·</span>
+    <a href="#roller">Rollene</a><span class="sep">·</span>
     <a href="#bakgrunn">Bakgrunn</a><span class="sep">·</span>
     <a href="#arbeid">Arbeid</a><span class="sep">·</span>
     <a href="#hvorfor">Hvorfor meg</a><span class="sep">·</span>
@@ -269,6 +278,24 @@ footer a:hover{color:#0066CC}
   <section id="posisjonering">
     <h2>Posisjonering</h2>
     <p class="lede">Jeg skriver masteroppgave om finansiell kunnskap og risikoadferd blant 746 norske privatinvestorer. Om hvorfor folk handler som de gjør med pengene sine. Seks år som stengeansvarlig hos Meny lærte meg at folk sjelden er helt logiske, men de er forutsigbare når man kjenner dem godt nok. Jeg søker meg mot klientrettede roller fordi det er der finansiell kompetanse møter mennesker. I samtalen, ikke i modellen.</p>
+  </section>
+
+  <section class="valueprops" id="roller">
+    <h2>Rollene jeg søker</h2>
+    <div class="vp-grid">
+      <div class="vp-col">
+        <h3 class="vp-title">Wealth Management</h3>
+        <p class="vp-desc">Helhetlig rådgivning for formuende privatpersoner — investering, sparing, skatt og langsiktige mål sett under ett. Masteroppgaven min handler om hvordan folk faktisk tar finansielle beslutninger; den forståelsen, sammen med et solid analytisk grunnlag, er det formuesrådgivning bygger på.</p>
+      </div>
+      <div class="vp-col">
+        <h3 class="vp-title">Private Banking</h3>
+        <p class="vp-desc">Tett, langsiktig oppfølging av bankens viktigste kunder, der tillit veier tyngre enn enkelttransaksjoner. Seks år bak disken på Meny lærte meg å bygge relasjoner som varer — faste kunder kommer tilbake fordi de blir sett.</p>
+      </div>
+      <div class="vp-col">
+        <h3 class="vp-title">Fund Sales</h3>
+        <p class="vp-desc">Å presentere fond og investeringsløsninger for rådgivere og kunder, og oversette det kompliserte til noe som gir mening. Jeg kan tallene bak produktene, men styrken min er å gjøre dem forståelige i en samtale — ikke bare i et faktaark.</p>
+      </div>
+    </div>
   </section>
 
   <section id="bakgrunn">
