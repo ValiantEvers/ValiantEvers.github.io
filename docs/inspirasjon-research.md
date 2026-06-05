@@ -48,7 +48,7 @@ duplisering.
 
 ### Forsiden (index.html, vanilla)
 - ✅ **`text-wrap: balance` på alle overskrifter + selvhostet variabel-font** (Fontshare/Bunny) — i18n-vennlig, tracking-fritt. **Gjort 2026-06-04** (`b215b65` + `531dce1`; Google Fonts selvhostet lokalt). *(tailwindcss, design-resources)*
-- **AOS / Splitting.js scroll-reveal** — vanilla, ingen build; oppgraderer de eksisterende scroll-animasjonene, Splitting gir tegn-for-tegn hero-animasjon. *(design-resources)*
+- ✅ **AOS / Splitting.js scroll-reveal** — vanilla, ingen build; oppgraderer de eksisterende scroll-animasjonene. **Gjort 2026-06-05** (`6781c32` progressiv forbedring [synlig uten JS via `html:not(.js)`-fallback] + komplett reduced-motion; `011fb73` subtil slide-up på seksjonstitler). Valgte **(c)** — utvidet sidens hjemmelagde IntersectionObserver-system, **ikke** AOS/Splitting.js (ville duplisert eksisterende reveal). **Tegn-for-tegn hero vurdert + bevisst droppet**: DESIGN.md forbyr typewriter/word-by-word-fade, frekvens-rammeverket tilsier ingen hero-animasjon, og hero-intro-stagger ble fjernet bevisst (`9bc537f`) — rolig fade beholdt. *(design-resources)*
 - ✅ **EUR/NOK-ticker fra Norges Bank/Frankfurter** i stedet for Yahoo — riktigere NOK-kurs. **Gjort 2026-06-04** (`c1a01ca`, via finance-proxy `?fx=eurnok`). *(public-apis)*
 
 ### prosjekter/
