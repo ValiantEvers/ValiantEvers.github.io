@@ -12,6 +12,7 @@ on:
     paths-ignore:
       - 'strava.json'
       - 'letterboxd.json'
+      - 'macro.json'
   pull_request:
     branches: [main]
   workflow_dispatch:

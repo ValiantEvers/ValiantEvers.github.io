@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { calculatePension, DEFAULT_INPUTS, type PensionInputs } from './pension-engine'
 import { readInputsFromUrl, useUrlSync } from './lib/useUrlState'
+import { fetchMacro, type MacroData } from './lib/macro'
 import { InputPanel } from './components/InputPanel'
 import { HeroNumber } from './components/HeroNumber'
 import { PensionChart } from './components/PensionChart'
@@ -9,11 +10,51 @@ import { DisplayToggle } from './components/DisplayToggle'
 import { Footer } from './components/Footer'
 
 function App() {
+  // URL-parametre = eksplisitt brukerintensjon (delt lenke); fanges én gang.
+  const urlInputs = useRef<Partial<PensionInputs>>(readInputsFromUrl())
   const [inputs, setInputs] = useState<PensionInputs>(() => ({
     ...DEFAULT_INPUTS,
-    ...readInputsFromUrl(),
+    ...urlInputs.current,
   }))
-  useUrlSync(inputs)
+  const [macro, setMacro] = useState<MacroData | null>(null)
+
+  // Live makrodata (SSB/Norges Bank via /macro.json) overstyrer inflasjon + lønnsvekst —
+  // men kun felt brukeren ikke har satt i URL. Feiler hentingen: defaults står, ingen konsollfeil.
+  useEffect(() => {
+    let alive = true
+    fetchMacro().then((m) => {
+      if (!alive || !m) return
+      setMacro(m)
+      setInputs((prev) => {
+        const next = { ...prev }
+        if (m.inflation?.yoyPct != null && !('inflationNominal' in urlInputs.current)) {
+          next.inflationNominal = m.inflation.yoyPct / 100
+        }
+        if (m.wageGrowth?.yoyPct != null && !('wageGrowthNominal' in urlInputs.current)) {
+          next.wageGrowthNominal = m.wageGrowth.yoyPct / 100
+        }
+        return next
+      })
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  // Baseline for URL-sync = defaults overstyrt av live makrodata, så live-verdier ikke
+  // forurenser lenken (og hver visning får ferske tall).
+  const baseline = useMemo<PensionInputs>(() => {
+    if (!macro) return DEFAULT_INPUTS
+    return {
+      ...DEFAULT_INPUTS,
+      inflationNominal:
+        macro.inflation?.yoyPct != null ? macro.inflation.yoyPct / 100 : DEFAULT_INPUTS.inflationNominal,
+      wageGrowthNominal:
+        macro.wageGrowth?.yoyPct != null ? macro.wageGrowth.yoyPct / 100 : DEFAULT_INPUTS.wageGrowthNominal,
+    }
+  }, [macro])
+
+  useUrlSync(inputs, baseline)
   const [displayMode, setDisplayMode] = useState<'real' | 'nominal'>('real')
 
   const update = <K extends keyof PensionInputs>(key: K, value: PensionInputs[K]) => {
@@ -71,7 +112,7 @@ function App() {
           >
             Inntekt og sparing
           </h2>
-          <InputPanel inputs={inputs} update={update} />
+          <InputPanel inputs={inputs} update={update} macro={macro} />
         </section>
 
         {/* Chart */}

@@ -1,0 +1,30 @@
+name: Fetch macro data
+
+# Henter norske makro-nøkkeltall (inflasjon/lønnsvekst/styringsrente) månedlig og committer
+# macro.json til repo-rot — samme mønster som Strava/Letterboxd. Klientene (pensjonskalkulator,
+# personligøkonomi) leser kun denne fila; hardkodede defaults er fallback. scripts/fetch_macro.py
+# bruker kun stdlib (urllib) — ingen pip install. Committer kun ved faktisk endrede verdier.
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'  # Monthly, 1st of month at 06:00 UTC — makrotall endres sakte
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Fetch macro indicators
+        run: python scripts/fetch_macro.py
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add macro.json
+          git diff --cached --quiet || (git commit -m "Update macro indicators" && git push)
