@@ -33,6 +33,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/prosjekter/forretningsenhet-dashboard/",
+    "bilde": "screenshots/forretningsenhet-dashboard.webp",
     "ikon": "🏦",
     "tags": [
       "bank",
@@ -54,6 +55,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/prosjekter/masteroppgave/",
+    "bilde": "screenshots/masteroppgave.webp",
     "ikon": "🎓",
     "tags": [
       "forskning",
@@ -70,6 +72,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/leie-eller-eie/",
+    "bilde": "screenshots/leie-eller-eie.webp",
     "ikon": "🏠",
     "tags": [
       "bolig",
@@ -87,6 +90,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/personligokonomi/",
+    "bilde": "screenshots/personligokonomi.webp",
     "ikon": "💰",
     "tags": [
       "personlig-økonomi",
@@ -103,6 +107,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/osebx/",
+    "bilde": "screenshots/osebx.webp",
     "ikon": "📊",
     "tags": [
       "marked",
@@ -119,6 +124,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/examprep/",
+    "bilde": "screenshots/examprep.webp",
     "ikon": "🎓",
     "tags": [
       "studier",
@@ -135,6 +141,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/pensjonskalkulator/",
+    "bilde": "screenshots/pensjonskalkulator.webp",
     "ikon": "🪙",
     "tags": [
       "pensjon",
@@ -152,6 +159,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/nb-watch/",
+    "bilde": "screenshots/nb-watch.webp",
     "ikon": "🏛️",
     "tags": [
       "makro",
@@ -168,6 +176,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/wc2026/",
+    "bilde": "screenshots/wc2026.webp",
     "ikon": "⚽",
     "tags": [
       "sport",
@@ -188,6 +197,7 @@
     "kategori": "Finansielle maler",
     "status": "live",
     "url": "/prosjekter/finansielle-maler/#grunnleggende",
+    "bilde": "screenshots/regnskapsoppstillinger.webp",
     "ikon": "📊",
     "tags": [
       "regnskap",
@@ -232,6 +242,7 @@
     "kategori": "Finansielle maler",
     "status": "live",
     "url": "/prosjekter/finansielle-maler/#integrert",
+    "bilde": "screenshots/integrert-modellering.webp",
     "ikon": "🔗",
     "tags": [
       "finansmodellering",
@@ -275,6 +286,7 @@
     "kategori": "Finansielle maler",
     "status": "live",
     "url": "/prosjekter/finansielle-maler/#verdsettelse",
+    "bilde": "screenshots/verdsettelse.webp",
     "ikon": "💎",
     "tags": [
       "verdsettelse",
