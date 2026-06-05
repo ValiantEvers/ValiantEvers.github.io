@@ -68,7 +68,7 @@ duplisering.
 ### personligøkonomi-verktøyene
 - ✅ **Ekte historisk inflasjon/rente** bak renters-rente- og inflasjonsverktøyene i stedet for hardkodede antagelser. **Gjort 2026-06-05** (idé #10): inflasjonsverktøyet bruker live KPI nå-nivå fra SSB via rot-`/macro.json`; avkastningsratene merket «Antagelse». *(public-apis, awesome-quant/pandas-datareader)*
 - **Firefly-aktige mønstre** — «hvor pengene går» / sparemål med fremdrift — i din rolige redaksjonelle stil (kun inspirasjon, ikke integrasjon). *(firefly-iii; maybe-finance for formue-over-tid-visualisering)*
-- **Flere interaktive formel-widgets** («endre én parameter, se effekten») for durasjon, NPV, obligasjonsprising. *(ml4trading-prinsippet)*
+- ✅ **Flere interaktive formel-widgets** («endre én parameter, se effekten»). **Gjort 2026-06-05** (kilde personligokonomi `cf52386` + deploy `e15c068`): **Nåverdi** («hva er fremtidige penger verdt i dag?») og **Obligasjon & renterisiko** («hva skjer med obligasjonsfondet når renta endres?»). **Durasjon ærlig avgrenset** — ikke egen widget, men forklart inni obligasjons-widgeten (durasjon = rentefølsomhet). Bond-widgeten bruker /macro.json styringsrente som markedsrente-default (Kilde/Antagelse-skille); nåverdi bruker en pedagogisk diskonteringsrente (bevisst ikke live). *(ml4trading-prinsippet)*
 
 ### examprep
 > ⏸ **Parkert 2026-06-05.** GRA6546-eksamenen ble avlagt 13. mai 2026; examprep-appen vedlikeholdes ikke videre. Forslagene under (idé #7 og #8) er bevisst lagt på is — reflekterer reell prioritering, ikke en åpen TODO.
