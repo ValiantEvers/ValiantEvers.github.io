@@ -5,6 +5,7 @@
 export interface MacroSeries {
   yoyPct?: number
   indexLevel?: number
+  indexAsOf?: string
   pct?: number
   asOf?: string
   source?: string

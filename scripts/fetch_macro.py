@@ -29,16 +29,29 @@ NB = "https://data.norges-bank.no/api/data"
 TIMEOUT = 30
 
 
+def _period_key(p: str) -> tuple[int, int]:
+    """Kronologisk sorteringsnøkkel: '2026M04'→(2026,4), '2026K2'→(2026,6), '2025'→(2025,0)."""
+    if "M" in p:
+        y, m = p.split("M")
+        return (int(y), int(m))
+    if "K" in p:
+        y, q = p.split("K")
+        return (int(y), int(q) * 3)
+    return (int(p), 0) if p.isdigit() else (0, 0)
+
+
 def _ssb_series(table: str, query: list[dict]) -> list[tuple[str, float]]:
-    """POST json-stat2-query, returner [(periode, verdi)] sortert kronologisk, uten None."""
+    """POST json-stat2-query, returner [(periode, verdi)] sortert kronologisk på PERIODE
+    (ikke json-stat-posisjon), uten None — så series[-1] alltid er nyeste publiserte måned."""
     body = json.dumps({"query": query, "response": {"format": "json-stat2"}}).encode()
     req = u.Request(f"{SSB}/{table}/", data=body, headers={"Content-Type": "application/json"})
     d = json.load(u.urlopen(req, timeout=TIMEOUT))
     tid = d["dimension"]["Tid"]["category"]
     idx = tid["index"]
     vals = d["value"]
-    keys = sorted(idx, key=lambda k: idx[k])
-    return [(k, vals[idx[k]]) for k in keys if vals[idx[k]] is not None]
+    items = [(k, vals[idx[k]]) for k in idx if vals[idx[k]] is not None]
+    items.sort(key=lambda kv: _period_key(kv[0]))
+    return items
 
 
 def _period_iso(p: str) -> str:
@@ -53,6 +66,8 @@ def _period_iso(p: str) -> str:
 
 
 def fetch_inflation() -> dict:
+    # Totalindeks (headline), IKKE JAE (JAE = tabell 05327). yoy = 12-mnd endring, siste måned;
+    # index = nivå (2015=100), siste måned. Egne asOf-felt — yoy og indeks blandes ikke.
     yoy = _ssb_series("03013", [
         {"code": "Konsumgrp", "selection": {"filter": "item", "values": ["TOTAL"]}},
         {"code": "ContentsCode", "selection": {"filter": "item", "values": ["Tolvmanedersendring"]}},
@@ -61,13 +76,14 @@ def fetch_inflation() -> dict:
         {"code": "Konsumgrp", "selection": {"filter": "item", "values": ["TOTAL"]}},
         {"code": "ContentsCode", "selection": {"filter": "item", "values": ["KpiIndMnd"]}},
     ])
-    pk, pv = yoy[-1]
-    _, lv = lvl[-1]
+    yk, yv = yoy[-1]   # nyeste publiserte måned for inflasjonsraten
+    lk, lv = lvl[-1]   # nyeste publiserte måned for indeksnivået
     return {
-        "yoyPct": round(float(pv), 2),
+        "yoyPct": round(float(yv), 2),
+        "asOf": _period_iso(yk),
         "indexLevel": round(float(lv), 1),
-        "asOf": _period_iso(pk),
-        "source": "SSB tabell 03013",
+        "indexAsOf": _period_iso(lk),
+        "source": "SSB tabell 03013 (totalindeks)",
     }
 
 
