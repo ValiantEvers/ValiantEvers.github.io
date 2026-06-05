@@ -52,8 +52,8 @@ duplisering.
 - ✅ **EUR/NOK-ticker fra Norges Bank/Frankfurter** i stedet for Yahoo — riktigere NOK-kurs. **Gjort 2026-06-04** (`c1a01ca`, via finance-proxy `?fx=eurnok`). *(public-apis)*
 
 ### prosjekter/
-- **Ekte-screenshot feature-kort** i stedet for abstrakte ikoner — vis faktiske skjermbilder av OSEBX/pensjonskalkulator som «bevis på kapabilitet». *(godot, vue)*
-- **Innebygde live mini-demoer** (iframes) av OSEBX/pensjonskalkulator i stedet for statiske bilder — sterkest portfolio-effekt for en teknisk finansprofil. *(react.dev)*
+- ✅ **Ekte-screenshot feature-kort** i stedet for abstrakte ikoner — vis faktiske skjermbilder av OSEBX/pensjonskalkulator som «bevis på kapabilitet». **Gjort 2026-06-05** (`84c9543` bilder/generator + `0a85c0f` markup; 12 selvhostede WebP via headless Chrome, ≤25 KB hver / 235 KB totalt, `loading=lazy` + dimensjoner → CLS 0; tema-aware ramme, emoji-fallback i medieval, alt-i18n ×6 språk; skatt-mcp + 3 guider beholder emoji). *(godot, vue)*
+- ⏸ **Innebygde live mini-demoer** (iframes) av OSEBX/pensjonskalkulator — **vurdert 2026-06-05, avgrenset**: de sterkeste kandidatene er fulle Vite+React-SPA-er (pensjon/personligøkonomi/nb-watch) + mørk OSEBX som ikke embedder godt i kortstørrelse. Screenshot-kortet fungerer allerede som fasade (ekte UI + klikk åpner full live app), så en innebygd iframe ville lagt til vekt/kompleksitet uten reell gevinst. Ikke gjort. *(react.dev)*
 - ✅ **Tre-kolonners verdiforslag-blokk** (skannbar) — gjenbrukbar også på rekrutterer-siden. **Gjort 2026-06-05** (`88b7c56`; delt `.vp-*`-komponent, accent-strek, 6-språks i18n + medieval, NotoSansJP-subset regenerert). *(vuejs.org)*
 
 ### CV / rekrutterer/
@@ -79,7 +79,7 @@ duplisering.
 
 ### pensjonskalkulator
 - ✅ **Datadrevne konstanter** (inflasjon/lønnsvekst) via cron-Action — delvis datadrevet «vedlikeholdes årlig». **Gjort 2026-06-05** (idé #10): `inflationNominal` + `wageGrowthNominal` leses fra SSB-data i rot-`/macro.json` med hardkodet fallback; avkastningsantagelser merket «Antagelse». *(public-apis)*
-- (Kun hvis lastetid blir et problem) **Astro-island** i stedet for full Vite+React-SPA — sender langt mindre JS for en side som er statisk innhold + ett interaktivt panel. *(astro)*
+- (Kun hvis lastetid blir et problem) **Astro-island** i stedet for full Vite+React-SPA — sender langt mindre JS for en side som er statisk innhold + ett interaktivt panel. **Vurdert 2026-06-05** (Lighthouse mobil, lokal): perf 71, **LCP 4,8 s** (CWV «poor»), TBT 10 ms (god), CLS 0, ~702 KB (JS-bundle-drevet, ingen SSR). Interaktivitet er god (TBT), men LCP er svak fordi hele bundelen må lastes før paint — nettopp det Astro-island ville adressert. **Ikke prioritert i dag** (gevinst må veies mot migreringskostnad fra Vite+React-SPA); noteres som gyldig framtidig LCP-optimalisering, ikke avskrevet. *(astro)*
 
 ### strategi (privat)
 - Ingen sterke funn — siden er en intern tracker (noindex). **Unntatt fra ESLint-CI-en (#9)**: inliner vendret minifisert DOMPurify + er onclick-arkitektur (mange funksjoner kun referert fra HTML-attributter), så per-`<script>`-linting gir for mye støy. Revurder hvis siden refaktoreres bort fra onclick.
