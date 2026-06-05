@@ -2,6 +2,7 @@
 <html lang="no">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valiant Evers | Finance & Relationships</title>
 <meta name="description" data-i-content="metaDesc" content="MSc Finance-student ved Handelshøyskolen BI. Søker klientrettede roller innen Wealth Management, Private Banking og Fund Sales.">
@@ -465,9 +466,11 @@ img.emoji{height:1.2em;width:1.2em;vertical-align:-.2em;display:inline-block}
 /* PREFERS-REDUCED-MOTION */
 @media(prefers-reduced-motion:reduce){
 *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
-.about-card,.timeline-item,.cert-card,.thesis-card,.cv-card,.contact-link,.quote-section,.fact-card,.fact-flip,.section-label,.tag,.hero-img-wrap,.hero-desc,.hero-cta,.scroll-hint{opacity:1 !important;transform:none !important}
+.about-card,.timeline-item,.cert-card,.thesis-card,.cv-card,.contact-link,.quote-section,.fact-card,.fact-flip,.section-label,.tag,.hero-img-wrap,.hero-desc,.hero-cta,.scroll-hint,.split-title,.count-num,.timeline-dot,.scroll-hint-arrow{opacity:1 !important;transform:none !important}
 .live-dot,.status-dot{animation:none !important}
 }
+/* Progressiv forbedring: uten JS (ingen .js-klasse paa <html>) vises alt reveal-innhold umiddelbart */
+html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc,html:not(.js) .hero-cta,html:not(.js) .scroll-hint,html:not(.js) .section-label,html:not(.js) .about-card,html:not(.js) .tag,html:not(.js) .fact-flip,html:not(.js) .timeline-item,html:not(.js) .timeline-dot,html:not(.js) .quote-section,html:not(.js) .fact-card,html:not(.js) .cv-card,html:not(.js) .thesis-card,html:not(.js) .contact-link,html:not(.js) .cert-card,html:not(.js) #contactSub{opacity:1 !important;transform:none !important}
 
 /* PRESS FEEDBACK */
 .contact-link:active{transform:scale(0.97)}
@@ -1271,6 +1274,7 @@ entries.forEach(function(entry){
 if(!entry.isIntersecting)return;
 var el=entry.target;
 var target=parseInt(el.getAttribute('data-count'));
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=target.toLocaleString('no-NO');cio.unobserve(el);return;}
 var dur=1400;var t0=null;
 (function step(ts){
 if(!t0)t0=ts;
