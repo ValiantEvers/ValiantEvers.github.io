@@ -35,10 +35,10 @@ duplisering.
 | 4 | ✅ **`text-wrap: balance` + selvhostet font (Fontshare/Bunny Fonts)** — fikser stygge overskrift-brytinger på tvers av de 6 språkene (én CSS-linje); GDPR-vennlig self-hosting fjerner Google-tracking. **— Gjort 2026-06-04** (`b215b65` + `531dce1`); alle Google Fonts selvhostet lokalt (0 tredjeparts font-kall) + `text-wrap: balance` på overskrifter. | forsiden / i18n | `tailwindcss` + `design-resources` | Lav | Middels-Høy |
 | 5 | ✅ **Sektorrotasjons-heatmap** (sektor × uke, farge = relativ avkastning) ~~via Heatmap-series-plugin~~. Den mest leselige enkeltvisualiseringen av dashboardets kjernebudskap. **— Gjort 2026-06-04** (osebx `0a4f63d`); implementert som ren CSS-grid, ikke plugin. | OSEBX | `tradingview/lightweight-charts` | Lav-Middels | Høy |
 | 6 | ✅ **Selvforklarende chart: Delta-tooltip + shaded-background-bånd** — dra-for-å-måle prosentendring, og fargebånd bak kursen som visualiserer dine egne breddemål / bull-bear-regimer. Ren edukasjonell gevinst uten ny data. **— Gjort 2026-06-05** (osebx `952b0f6`); bånd = markedsbredde (andel OSEBX-medlemmer som steg W/W, terskler ≥60%/≤35%) via Series Primitive, + dra-for-å-måle OSEBX %-endring (mus+touch). TradingView-attribusjon lagt til. | OSEBX | `tradingview/lightweight-charts` (primitives) | Lav | Middels-Høy |
-| 7 | **Pensum-dekningsprosent via node-state på mindmap** — marker hvert tema «kan / repeterer / ikke startet», fargekod noden, vis «% av pensum behersket». Fyller det manglende fugleperspektivet over den eksisterende kort-for-kort-SR-motoren. | examprep | `roadmap.sh` (developer-roadmap) | Middels | Høy |
-| 8 | **CSV/Anki-eksport av flashcards** — «Last ned kort»-knapp så du kan repetere i Anki-appen på mobil før eksamen, uten å bygge mobilstøtte. | examprep | `system-design-primer` | Lav | Middels-Høy |
+| 7 | ⏸ **Pensum-dekningsprosent via node-state på mindmap** — marker hvert tema «kan / repeterer / ikke startet», fargekod noden, vis «% av pensum behersket». Fyller det manglende fugleperspektivet over den eksisterende kort-for-kort-SR-motoren. **Parkert 2026-06-05** — examprep-eksamenen (GRA6546, avlagt 13. mai 2026) vedlikeholdes ikke videre. | examprep | `roadmap.sh` (developer-roadmap) | Middels | Høy |
+| 8 | ⏸ **CSV/Anki-eksport av flashcards** — «Last ned kort»-knapp så du kan repetere i Anki-appen på mobil før eksamen, uten å bygge mobilstøtte. **Parkert 2026-06-05** — examprep avsluttet (eksamen avlagt 13. mai 2026). | examprep | `system-design-primer` | Lav | Middels-Høy |
 | 9 | ✅ **ESLint-sjekk (~~airbnb-base~~) i CI** for hovedsidens vanilla-JS — ren *validering* (ikke reformattering), fanger syntaksfeil/ubrukte variabler før push. Beskytter i18n-ordboken og easter-eggs mot utilsiktet brekkasje. **— Gjort 2026-06-05** (`c584af1`); ESLint 10 flat config (`eslint:recommended`) + `eslint-plugin-html` for inline-scripts, ikke airbnb-base (støtter ikke flat config). Fant + ryddet 8 reelle dead-code-funn ved oppsett. | fundament | `airbnb/javascript` | Lav | Middels-Høy |
-| 10 | **Ekte makrodata (FRED/Eurostat) bak konstanter** — erstatt hardkodet inflasjon/rente i personligøkonomi-verktøyene og pensjonskalkulatoren med gratis CORS-data, oppdatert via et `[skip ci]`-cron-Action (samme mønster som Strava/Letterboxd). | personligøkonomi, pensjonskalkulator | `public-apis` (FRED/Econdb) + `awesome-quant` (pandas-datareader) | Middels | Høy |
+| 10 | ✅ **Ekte makrodata (FRED/Eurostat) bak konstanter** — erstatt hardkodet inflasjon/rente i personligøkonomi-verktøyene og pensjonskalkulatoren med gratis CORS-data, oppdatert via et cron-Action (samme mønster som Strava/Letterboxd). **— Gjort 2026-06-05** (`392b881`); valgte norske kilder framfor FRED/Eurostat: SSB (KPI 03013 + lønn 11418) + Norges Bank (styringsrente) → månedlig cron skriver rot-`/macro.json` (uten `[skip ci]`), begge apper leser den runtime med hardkodet fallback. Avkastningsantagelser forble dokumenterte konstanter. | personligøkonomi, pensjonskalkulator | `public-apis` (FRED/Econdb) + `awesome-quant` (pandas-datareader) | Middels | Høy |
 
 **Raskeste gevinster:** #1, #2, #3 og #4 ✅ alle gjort 2026-06-04.
 
@@ -66,18 +66,19 @@ duplisering.
 - (Valgfritt, lett) **«Investor-persona»-vinkel** i LLM-narrativet («hva ville en verdiinvestor sett her?»). *(FinceptTerminal — eneste lette idé derfra)*
 
 ### personligøkonomi-verktøyene
-- **Ekte historisk inflasjon/rente (FRED/Eurostat)** bak renters-rente- og inflasjonsverktøyene i stedet for hardkodede antagelser. *(public-apis, awesome-quant/pandas-datareader)*
+- ✅ **Ekte historisk inflasjon/rente** bak renters-rente- og inflasjonsverktøyene i stedet for hardkodede antagelser. **Gjort 2026-06-05** (idé #10): inflasjonsverktøyet bruker live KPI nå-nivå fra SSB via rot-`/macro.json`; avkastningsratene merket «Antagelse». *(public-apis, awesome-quant/pandas-datareader)*
 - **Firefly-aktige mønstre** — «hvor pengene går» / sparemål med fremdrift — i din rolige redaksjonelle stil (kun inspirasjon, ikke integrasjon). *(firefly-iii; maybe-finance for formue-over-tid-visualisering)*
 - **Flere interaktive formel-widgets** («endre én parameter, se effekten») for durasjon, NPV, obligasjonsprising. *(ml4trading-prinsippet)*
 
 ### examprep
-- **Pensum-dekningsprosent (node-state på mindmap)** — fugleperspektivet som mangler. *(roadmap.sh)*
-- **CSV/Anki-eksport** av flashcards for mobil-repetisjon. *(system-design-primer)*
+> ⏸ **Parkert 2026-06-05.** GRA6546-eksamenen ble avlagt 13. mai 2026; examprep-appen vedlikeholdes ikke videre. Forslagene under (idé #7 og #8) er bevisst lagt på is — reflekterer reell prioritering, ikke en åpen TODO.
+- ⏸ **Pensum-dekningsprosent (node-state på mindmap)** — fugleperspektivet som mangler. *(roadmap.sh)* — parkert (idé #7).
+- ⏸ **CSV/Anki-eksport** av flashcards for mobil-repetisjon. *(system-design-primer)* — parkert (idé #8).
 - **«Spikkark»-modus** — hele pensum komprimert til én tett, print-vennlig side rett før 13. mai-eksamen; dataene (glossary + calculations + topics) finnes allerede, kun ny kompakt rendering. *(the-art-of-command-line)*
 - (Valgfritt) **Quiz-as-gate i en «guidet løype»** (topic → flashcards → quiz på samme tag, 3/4 riktig for å låse opp). *(freeCodeCamp)*
 
 ### pensjonskalkulator
-- **FRED/Econdb-drevne konstanter** (inflasjon/rente) via cron-Action — delvis datadrevet «vedlikeholdes årlig». *(public-apis)*
+- ✅ **Datadrevne konstanter** (inflasjon/lønnsvekst) via cron-Action — delvis datadrevet «vedlikeholdes årlig». **Gjort 2026-06-05** (idé #10): `inflationNominal` + `wageGrowthNominal` leses fra SSB-data i rot-`/macro.json` med hardkodet fallback; avkastningsantagelser merket «Antagelse». *(public-apis)*
 - (Kun hvis lastetid blir et problem) **Astro-island** i stedet for full Vite+React-SPA — sender langt mindre JS for en side som er statisk innhold + ett interaktivt panel. *(astro)*
 
 ### strategi (privat)
