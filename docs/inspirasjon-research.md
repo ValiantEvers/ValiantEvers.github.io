@@ -54,11 +54,11 @@ duplisering.
 ### prosjekter/
 - **Ekte-screenshot feature-kort** i stedet for abstrakte ikoner — vis faktiske skjermbilder av OSEBX/pensjonskalkulator som «bevis på kapabilitet». *(godot, vue)*
 - **Innebygde live mini-demoer** (iframes) av OSEBX/pensjonskalkulator i stedet for statiske bilder — sterkest portfolio-effekt for en teknisk finansprofil. *(react.dev)*
-- **Tre-kolonners verdiforslag-blokk** (skannbar) — gjenbrukbar også på rekrutterer-siden. *(vuejs.org)*
+- ✅ **Tre-kolonners verdiforslag-blokk** (skannbar) — gjenbrukbar også på rekrutterer-siden. **Gjort 2026-06-05** (`88b7c56`; delt `.vp-*`-komponent, accent-strek, 6-språks i18n + medieval, NotoSansJP-subset regenerert). *(vuejs.org)*
 
 ### CV / rekrutterer/
 - ✅ **Rough Notation-annotering** av nøkkelkompetanse (understrek/sirkel på WM/PB/Fund Sales). **Gjort 2026-06-04** (`90cbd85` cv + `4d3dfb1` rekrutterer; tre understreker på WM/PB/Fund Sales i hero-subtittelen). *(design-resources)*
-- **Tre-kolonners «Wealth Management / Private Banking / Fund Sales»** med kort beskrivelse hver. *(vuejs.org)*
+- ✅ **Tre-kolonners «Wealth Management / Private Banking / Fund Sales»** med kort beskrivelse hver. **Gjort 2026-06-05** (`d12bbe2`; samme delte komponent, Crimson-titler, norsk-only, `#roller`-anker). *(vuejs.org)*
 
 ### OSEBX-dashboard (osebx/)
 - **Indeksert sammenligningschart (rebasert 100)** ✅ (gjort 2026-06-04, osebx `5f7bd6e`; uten S&P 500) + **sektorrotasjons-heatmap** ✅ (gjort 2026-06-04, ren CSS-grid). **Delta-tooltip/shaded-bånd** ✅ (gjort 2026-06-05, osebx `952b0f6`; breddebånd + dra-for-å-måle via Series Primitive, TradingView-attribusjon lagt til). *(lightweight-charts, awesome-tradingview)*
