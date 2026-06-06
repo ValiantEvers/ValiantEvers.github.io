@@ -5,3 +5,8 @@ workers_dev = true
 
 # account_id utelates med vilje — wrangler bruker den innloggede kontoen.
 # Da committes ingen kontospesifikke verdier til det offentlige evers.no-repoet.
+
+# Web-vitals RUM (P-9): Analytics Engine-datasett. Opprettes automatisk ved første write.
+[[analytics_engine_datasets]]
+binding = "VITALS"
+dataset = "evers_web_vitals"
