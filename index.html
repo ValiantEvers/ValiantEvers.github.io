@@ -1416,5 +1416,15 @@ window.addEventListener('load',function(){setTimeout(setEmail,500)});
 })();
 
 </script>
+<script type="module">
+// web-vitals RUM (P-9) → egen Worker. Personvern: ingen cookies, ingen persistente id, ingen samtykke.
+import {onLCP,onINP,onCLS,onFCP,onTTFB} from 'https://cdn.jsdelivr.net/npm/web-vitals@4.2.4/+esm';
+var ENDPOINT='https://finance-proxy.valiantevers1809.workers.dev/vitals';
+function send(m){try{
+var body=JSON.stringify({n:m.name,v:Math.round(m.value*1000)/1000,id:m.id,p:location.pathname,t:m.navigationType});
+(navigator.sendBeacon&&navigator.sendBeacon(ENDPOINT,new Blob([body],{type:'text/plain'})));
+}catch(e){}}
+onLCP(send);onINP(send);onCLS(send);onFCP(send);onTTFB(send);
+</script>
 </body>
 </html>

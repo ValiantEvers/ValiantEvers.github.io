@@ -11,7 +11,8 @@ const TTL = 300; // sekunder (5 min, Yahoo)
 const ECB_TTL = 3600; // sekunder (1 time; ECB/Frankfurter oppdateres ~1×/virkedag ~16:00 CET)
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
+    if (new URL(request.url).pathname === '/vitals') return vitals(request, env);
     if (request.method === 'OPTIONS') return new Response(null, { headers: CORS });
     if (request.method !== 'GET') return json({ error: 'method not allowed' }, 405);
 
@@ -61,6 +62,48 @@ function json(obj, status, cacheSeconds) {
   const headers = { ...CORS, 'Content-Type': 'application/json; charset=utf-8' };
   if (cacheSeconds) headers['Cache-Control'] = `public, max-age=${cacheSeconds}, s-maxage=${cacheSeconds}`;
   return new Response(JSON.stringify(obj), { status, headers });
+}
+
+// ── web-vitals RUM (P-9) ──────────────────────────────────────────────────
+// POST /vitals fra evers.no → Workers Analytics Engine. Personvern: ingen IP/cookies
+// lagres; kun metrikk-navn, verdi, sidesti, navigationType og per-load metrikk-id.
+const VITALS_ORIGINS = new Set(['https://www.evers.no', 'https://evers.no']);
+const VNAMES = new Set(['LCP', 'INP', 'CLS', 'FCP', 'TTFB']);
+function vcors(o) {
+  const allow = VITALS_ORIGINS.has(o) ? o : 'https://www.evers.no';
+  return {
+    'Access-Control-Allow-Origin': allow,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    Vary: 'Origin',
+  };
+}
+async function vitals(request, env) {
+  const o = request.headers.get('Origin') || '';
+  if (request.method === 'OPTIONS') return new Response(null, { headers: vcors(o) });
+  if (request.method !== 'POST') return new Response('method not allowed', { status: 405, headers: vcors(o) });
+  if (o && !VITALS_ORIGINS.has(o)) return new Response(null, { status: 403, headers: vcors(o) });
+  let d;
+  try {
+    const t = await request.text();
+    if (t.length > 600) return new Response(null, { status: 413, headers: vcors(o) });
+    d = JSON.parse(t);
+  } catch (e) {
+    return new Response(null, { status: 400, headers: vcors(o) });
+  }
+  const name = String(d.n || '');
+  const value = Number(d.v);
+  if (!VNAMES.has(name) || !isFinite(value) || value < 0 || value > 3600000) {
+    return new Response(null, { status: 400, headers: vcors(o) });
+  }
+  if (env && env.VITALS) {
+    env.VITALS.writeDataPoint({
+      indexes: [name],
+      blobs: [String(d.p || '/').slice(0, 128), String(d.t || '').slice(0, 32), String(d.id || '').slice(0, 40)],
+      doubles: [value],
+    });
+  }
+  return new Response(null, { status: 204, headers: vcors(o) });
 }
 
 // ECB daglige referansekurser via Frankfurter (gratis, nøkkelfri). Henter et 14-dagers
