@@ -534,8 +534,8 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <div class="mobile-menu" id="mobileMenu"><a href="#om" data-i="nav1">Om meg</a><a href="#erfaring" data-i="nav2">Erfaring</a><a href="#cv" data-i="nav3">CV</a><a href="#sertifiseringer" data-i="nav4">Sertifiseringer</a><a href="#forskning" data-i="nav5">Forskning</a><a href="/prosjekter/" data-i="nav7">Prosjekter</a><a href="#kontakt" data-i="nav6">Kontakt</a></div>
 <main id="main" tabindex="-1">
 <section class="hero" id="heroSection">
-<div class="hero-top"><div class="hero-img-wrap"><img src="profile.jpg" alt="Valiant Evers" class="hero-img" id="heroImg"></div><div class="hero-text">
-<h1 id="heroHeadline"></h1>
+<div class="hero-top"><div class="hero-img-wrap"><img src="profile.jpg" alt="Valiant Evers" class="hero-img" id="heroImg" width="168" height="168" fetchpriority="high"></div><div class="hero-text">
+<h1 id="heroHeadline">Valiant Evers</h1>
 </div></div>
 <p class="hero-desc" id="heroDesc" data-i="heroSub"></p>
 <div class="hero-cta" id="heroCta"><a href="#kontakt" class="btn btn-primary" data-i="heroBtn1"></a><a href="#om" class="btn btn-secondary" data-i="heroBtn2"></a></div>
@@ -761,9 +761,9 @@ try{var c=JSON.parse(localStorage.getItem(cacheKey));if(c&&c.price)show(c.price,
 });
 }
 
-fetchIndex('^GSPC','lbSp','lbSpChg');
-fetchIndex('OSEBX.OL','lbOse','lbOseChg');
-fetchEurNok();
+function kickFinance(){fetchIndex('^GSPC','lbSp','lbSpChg');fetchIndex('OSEBX.OL','lbOse','lbOseChg');fetchEurNok();}
+var ric=window.requestIdleCallback||function(f){return setTimeout(f,1)};
+if(document.readyState==='complete'){ric(kickFinance);}else{window.addEventListener('load',function(){ric(kickFinance);});}
 
 setInterval(function(){fetchIndex('^GSPC','lbSp','lbSpChg');fetchIndex('OSEBX.OL','lbOse','lbOseChg');fetchEurNok()},300000);
 })();
@@ -1175,7 +1175,7 @@ if(buf.length>15)buf=buf.slice(-15);
 })();
 </script>
 <!-- leaflet js loaded lazily on map open -->
-<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js" crossorigin="anonymous" defer></script>
 <script>
 var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
 window.addEventListener('load',function(){
