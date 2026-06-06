@@ -63,6 +63,16 @@ Norsk pensjonskalkulator. Live: https://www.evers.no/pensjonskalkulator/
 Vite er konfigurert med `outDir: '../pensjonskalkulator'` og
 `base: '/pensjonskalkulator/'`. Build-output går rett til deploy-mappen.
 
+### Offentlig kilde-repo (mirror)
+Kilden er også publisert som eget offentlig repo:
+[`ValiantEvers/pensjonskalkulator`](https://github.com/ValiantEvers/pensjonskalkulator)
+(rekrutterer-synlig portefølje). **`pensjonskalkulator-src/` her er fortsatt
+kanonisk for deploy** — den live siden bygger fra denne in-tree-kopien, ikke fra
+mirror-repoet. De to holdes manuelt i synk ved (~årlige) sats-/G-oppdateringer;
+eneste tilsiktede forskjell er at mirror-repoets `vite.config.ts` bygger til
+`dist/` (standalone) i stedet for `../pensjonskalkulator`. (De-drift til single
+source — submodule / cross-repo-trigger — er en mulig senere oppgave.)
+
 ### Deploy
 `.github/workflows/build-pensjonskalkulator.yml` bygger og committer
 deploy-output ved push til main når noe under `pensjonskalkulator-src/` endres.
