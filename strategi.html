@@ -152,6 +152,9 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .nb-search{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-family:inherit;font-size:.85rem;color:var(--text);outline:none}
 [data-theme="light"] .nb-search{background:rgba(0,18,51,.03)}
 .nb-search:focus{border-color:var(--accent)}
+.nb-sort{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:.78rem;color:var(--text);outline:none;color-scheme:dark}
+[data-theme="light"] .nb-sort{background:rgba(0,18,51,.03);color-scheme:light}
+.nb-sort:focus{border-color:var(--accent)}
 .nb-newnote{padding:9px!important;font-size:.82rem!important}
 .nb-tree{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch}
 .nb-folder{display:flex;flex-direction:column;gap:2px}
@@ -160,9 +163,12 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .nb-fcount{color:var(--faint);font-weight:600}
 .nb-fdel{background:none;border:none;color:var(--faint);cursor:pointer;font-size:1.05rem;line-height:1;padding:0 2px}
 .nb-fdel:hover{color:var(--red)}
-.nb-note{padding:7px 10px;border-radius:7px;font-size:.85rem;color:var(--text);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent}
+.nb-note{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:7px;font-size:.85rem;color:var(--text);cursor:pointer;border:1px solid transparent}
 .nb-note:hover{background:var(--accent-g)}
 .nb-note.on{background:var(--accent-g);border-color:var(--border-h)}
+.nb-note-t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nb-pin{flex-shrink:0;background:none;border:none;color:var(--faint);cursor:pointer;font-size:.9rem;line-height:1;padding:0}
+.nb-pin.on,.nb-pin:hover{color:var(--accent)}
 .nb-tree-empty{color:var(--faint);font-size:.82rem;padding:10px 4px}
 .nb-newfolder{padding:10px!important;font-size:.82rem!important}
 .nb-main{display:flex;flex-direction:column;min-width:0}
@@ -632,6 +638,10 @@ select.inp{color-scheme:dark;appearance:auto}
     <aside class="nb-side">
       <div class="nb-side-top">
         <input id="nbSearch" class="nb-search" type="search" placeholder="Søk i alle notater..." oninput="onNoteSearch(this.value)">
+        <select id="nbSort" class="nb-sort" onchange="setNoteSort(this.value)" title="Sortering" aria-label="Sortering">
+          <option value="updated">Sist endret</option>
+          <option value="title">Tittel (A–Å)</option>
+        </select>
         <button class="btn-ghost nb-newnote" onclick="createNote()">+ Notat</button>
       </div>
       <div id="nbTree" class="nb-tree"></div>
@@ -675,6 +685,20 @@ select.inp{color-scheme:dark;appearance:auto}
     <div class="modal-actions">
       <button class="btn btn-p" id="btnSetupGo">Test og opprett Gist</button>
       <button class="btn btn-s" id="btnSetupClose">Lukk uten å lagre</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROMPT MODAL (styled erstatning for window.prompt — mappe-CRUD) ═══ -->
+<div class="modal-overlay" id="nbPromptModal">
+  <div class="modal" role="dialog" aria-labelledby="nbPromptTitle">
+    <h2 id="nbPromptTitle">—</h2>
+    <p class="modal-sub" id="nbPromptLabel">—</p>
+    <input type="text" class="inp" id="nbPromptInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+           onkeydown="if(event.key==='Enter'){event.preventDefault();closeNbPrompt(this.value);}">
+    <div class="modal-actions">
+      <button class="btn btn-p" onclick="closeNbPrompt(document.getElementById('nbPromptInput').value)">OK</button>
+      <button class="btn btn-s" onclick="closeNbPrompt(null)">Avbryt</button>
     </div>
   </div>
 </div>
@@ -1267,10 +1291,13 @@ async function bootstrapSync(){
     var remoteTs = remotePayload.updatedAt || remotePayload.migratedAt;
     var localTs = STATE.payload.updatedAt || STATE.payload.migratedAt;
     if(remoteTs && (!localTs || new Date(remoteTs) >= new Date(localTs))){
-      // Gist newer → adopt
+      // Gist newer → adopt. Men notebook merges per-notat (C1) så upushede
+      // lokale notat-endringer ikke klobbres av full-payload-adopsjonen.
+      var localNb = STATE.payload.notebook;
       STATE.payload = remotePayload;
       if(typeof STATE.payload.scratchpad !== "string") STATE.payload.scratchpad = "";
       ensureNotebook(STATE.payload);
+      STATE.payload.notebook = mergeNotebook(localNb, STATE.payload.notebook);
       STATE.initialUpdatedAt = remoteTs;
       saveToCache();
       // Re-render visible tab
@@ -2873,6 +2900,7 @@ function bindKeyboardShortcuts(){
         var top = STATE.openOverlays[STATE.openOverlays.length - 1];
         if(top === "scorePopover") hideScorePopover();
         else if(top === "helpOverlay") hideHelpOverlay();
+        else if(top === "nbPrompt") closeNbPrompt(null);
         else if(top === "setupModal") closeSetupModal();
         else if(top === "importModal") closeImportModal(false);
         else if(top === "letterModal"){
@@ -3089,12 +3117,48 @@ function ensureNotebook(payload){
 }
 
 // ── Notebook UI-state (ikke persistert) + accessors ──
-function nbState(){ if(!STATE.nb) STATE.nb = {noteId:null, search:"", mode:"rich"}; return STATE.nb; }
+function nbState(){ if(!STATE.nb) STATE.nb = {noteId:null, search:"", mode:"rich", sort:"updated"}; return STATE.nb; }
 function nbData(){ return STATE.payload.notebook || {folders:[], notes:[]}; }
-function nbNotes(){ return nbData().notes || []; }
-function nbFolders(){ return nbData().folders || []; }
-function currentNote(){ var s = nbState(); return nbNotes().find(function(n){return n.id===s.noteId}) || null; }
-function nbFoldersSorted(){ return nbFolders().slice().sort(function(a,b){return (a.order||0)-(b.order||0)}); }
+function nbNotes(){ return nbData().notes || []; }          // rå (inkl. tombstones — for merge/mutasjon)
+function nbFolders(){ return nbData().folders || []; }       // rå (inkl. tombstones)
+// currentNote ignorerer tombstones: et slettet notat kan aldri være aktivt.
+function currentNote(){ var s = nbState(); return nbNotes().find(function(n){return n.id===s.noteId && !n.deleted}) || null; }
+// UI-facing: ekskluder tombstones, sortér på order.
+function nbFoldersSorted(){ return nbFolders().filter(function(f){return !f.deleted;}).sort(function(a,b){return (a.order||0)-(b.order||0)}); }
+
+// C2: pinned først, deretter valgt sortering (sist endret / tittel).
+function sortNotes(arr){
+  var key = nbState().sort || "updated";
+  return arr.slice().sort(function(a,b){
+    if(!!a.pinned !== !!b.pinned) return a.pinned ? -1 : 1;
+    if(key === "title") return (a.title||"").localeCompare(b.title||"", "no");
+    return (b.updatedAt||"").localeCompare(a.updatedAt||"");  // nyeste først
+  });
+}
+
+// C1: additiv per-id merge ved bootstrap-adopt. Nyeste (deletedAt vs updatedAt
+// vs createdAt) vinner per id; tombstone slår gjennom med mindre en senere
+// updatedAt gjenoppliver. Forhindrer at en åpen fanes upushede notat-endringer
+// klobbres bort når en annen enhets payload adopteres.
+function mergeNotebook(localNb, remoteNb){
+  localNb = localNb || {folders:[], notes:[]};
+  remoteNb = remoteNb || {folders:[], notes:[]};
+  function ts(o){ return o ? (o.deletedAt || o.updatedAt || o.createdAt || "") : ""; }
+  function mergeById(localArr, remoteArr){
+    var byId = {};
+    (remoteArr||[]).forEach(function(o){ byId[o.id] = o; });
+    (localArr||[]).forEach(function(o){
+      var ex = byId[o.id];
+      if(!ex || ts(o) > ts(ex)) byId[o.id] = o;
+    });
+    return Object.keys(byId).map(function(k){ return byId[k]; });
+  }
+  return {
+    v: Math.max(localNb.v||1, remoteNb.v||1),
+    folders: mergeById(localNb.folders, remoteNb.folders),
+    notes: mergeById(localNb.notes, remoteNb.notes)
+  };
+}
 
 // renderNotes — entry point (tab-switch + bootstrap-adopt kaller denne)
 function renderNotes(){
@@ -3109,14 +3173,19 @@ function renderNotes(){
 
 function renderNoteTree(){
   var s = nbState(), q = (s.search||"").toLowerCase();
-  var notes = nbNotes();
+  var notes = nbNotes().filter(function(n){return !n.deleted;});   // skjul tombstones
+  var folders = nbFoldersSorted();
+  var activeFolderIds = {};
+  folders.forEach(function(f){ activeFolderIds[f.id] = true; });
   function matches(n){ if(!q) return true; return (n.title+" "+stripNoteHtml(n.body)).toLowerCase().indexOf(q)!==-1; }
   function noteRow(n){
-    return '<div class="nb-note'+(n.id===s.noteId?" on":"")+'" onclick="selectNote(\''+n.id+'\')">'+esc(n.title||"(uten tittel)")+'</div>';
+    return '<div class="nb-note'+(n.id===s.noteId?" on":"")+'" onclick="selectNote(\''+n.id+'\')">'+
+      '<button class="nb-pin'+(n.pinned?" on":"")+'" title="'+(n.pinned?"Løsne":"Fest øverst")+'" onclick="event.stopPropagation();togglePin(\''+n.id+'\')">'+(n.pinned?"★":"☆")+'</button>'+
+      '<span class="nb-note-t">'+esc(n.title||"(uten tittel)")+'</span></div>';
   }
   var html = "";
-  nbFoldersSorted().forEach(function(f){
-    var fnotes = notes.filter(function(n){return n.folderId===f.id && matches(n)});
+  folders.forEach(function(f){
+    var fnotes = sortNotes(notes.filter(function(n){return n.folderId===f.id && matches(n)}));
     if(q && !fnotes.length) return;
     html += '<div class="nb-folder"><div class="nb-folder-h">'+
       '<span class="nb-fname" ondblclick="renameFolder(\''+f.id+'\')" title="Dobbeltklikk for å omdøpe">'+esc(f.name)+'</span>'+
@@ -3124,7 +3193,7 @@ function renderNoteTree(){
       '<button class="nb-fdel" title="Slett mappe" onclick="deleteFolder(\''+f.id+'\')">×</button>'+
       '</div>'+fnotes.map(noteRow).join("")+'</div>';
   });
-  var orphan = notes.filter(function(n){ return !nbFolders().some(function(f){return f.id===n.folderId}) && matches(n); });
+  var orphan = sortNotes(notes.filter(function(n){ return !activeFolderIds[n.folderId] && matches(n); }));
   if(orphan.length){
     html += '<div class="nb-folder"><div class="nb-folder-h"><span class="nb-fname">Uten mappe</span><span class="nb-fcount">'+orphan.length+'</span></div>'+orphan.map(noteRow).join("")+'</div>';
   }
@@ -3182,13 +3251,19 @@ function selectNote(id){
   renderNotes();
   document.getElementById("nb").classList.add("nb-show-editor");
 }
+// Soft-delete: tombstone (deleted+deletedAt) i stedet for å fjerne raden, så
+// merge ikke gjenoppliver et notat slettet på én enhet. Undo-toast, ingen confirm.
 function deleteCurrentNote(){
   var n = currentNote(); if(!n) return;
-  if(!confirm("Slette notatet «"+(n.title||"uten tittel")+"»?")) return;
   nbCancelDebounce();
-  STATE.payload.notebook.notes = nbNotes().filter(function(x){return x.id!==n.id});
+  n.deleted = true; n.deletedAt = new Date().toISOString();
   nbState().noteId = null;
   mutate(); renderNotes();
+  toast("Notat slettet.", { actionText:"Angre", ms:8000, action:function(){
+    delete n.deleted; delete n.deletedAt; n.updatedAt = new Date().toISOString();
+    nbState().noteId = n.id; mutate(); renderNotes();
+    document.getElementById("nb").classList.add("nb-show-editor");
+  }});
 }
 function onNoteTitleInput(v){
   var n = currentNote(); if(!n) return;
@@ -3201,25 +3276,62 @@ function onNoteFolderChange(v){
   mutate(); renderNoteTree();
 }
 function createFolder(){
-  var name = (prompt("Navn på mappe:")||"").trim(); if(!name) return;
-  var order = nbFolders().reduce(function(m,f){return Math.max(m, f.order||0)}, -1) + 1;
-  STATE.payload.notebook.folders.push({id:genId(), name:name, order:order, createdAt:new Date().toISOString()});
-  mutate(); renderNoteTree(); renderNoteEditor();
+  uiPrompt("Ny mappe", "Navn på mappe", "").then(function(name){
+    name = (name||"").trim(); if(!name) return;
+    var order = nbFolders().reduce(function(m,f){return Math.max(m, f.order||0)}, -1) + 1;
+    STATE.payload.notebook.folders.push({id:genId(), name:name, order:order, createdAt:new Date().toISOString()});
+    mutate(); renderNoteTree(); renderNoteEditor();
+  });
 }
 function renameFolder(id){
   var f = nbFolders().find(function(x){return x.id===id}); if(!f) return;
-  var name = (prompt("Nytt mappenavn:", f.name)||"").trim(); if(!name) return;
-  f.name = name; mutate(); renderNotes();
+  uiPrompt("Omdøp mappe", "Nytt mappenavn", f.name).then(function(name){
+    name = (name||"").trim(); if(!name) return;
+    f.name = name; mutate(); renderNotes();
+  });
 }
+// Soft-delete: tombstone mappen. Notater beholder folderId og blir orphans
+// (vises under «Uten mappe») til evt. angre. Undo-toast, ingen confirm.
 function deleteFolder(id){
   var f = nbFolders().find(function(x){return x.id===id}); if(!f) return;
-  var count = nbNotes().filter(function(n){return n.folderId===id}).length;
-  if(!confirm("Slette mappen «"+f.name+"»? "+count+" notat(er) flyttes til «Uten mappe».")) return;
-  nbNotes().forEach(function(n){ if(n.folderId===id) n.folderId = null; });
-  STATE.payload.notebook.folders = nbFolders().filter(function(x){return x.id!==id});
+  var count = nbNotes().filter(function(n){return n.folderId===id && !n.deleted;}).length;
+  f.deleted = true; f.deletedAt = new Date().toISOString();
   mutate(); renderNotes();
+  toast("Mappe «"+f.name+"» slettet."+(count?" "+count+" notat(er) → «Uten mappe».":""), {
+    actionText:"Angre", ms:8000, action:function(){
+      delete f.deleted; delete f.deletedAt; mutate(); renderNotes();
+    }
+  });
 }
+function togglePin(id){
+  var n = nbNotes().find(function(x){return x.id===id;}); if(!n) return;
+  n.pinned = !n.pinned; n.updatedAt = new Date().toISOString();
+  mutate(); renderNoteTree();
+}
+function setNoteSort(v){ nbState().sort = v || "updated"; renderNoteTree(); }
 function onNoteSearch(v){ nbState().search = v||""; renderNoteTree(); }
+
+// ── Styled prompt (erstatter window.prompt for mappe-CRUD) ──
+var nbPromptResolver = null;
+function uiPrompt(title, label, def){
+  return new Promise(function(resolve){
+    if(nbPromptResolver){ nbPromptResolver(null); }   // ev. åpen prompt avbrytes
+    nbPromptResolver = resolve;
+    document.getElementById("nbPromptTitle").textContent = title || "";
+    document.getElementById("nbPromptLabel").textContent = label || "";
+    var inp = document.getElementById("nbPromptInput");
+    inp.value = def || "";
+    document.getElementById("nbPromptModal").classList.add("open");
+    registerOverlay("nbPrompt");
+    setTimeout(function(){ inp.focus(); inp.select(); }, 50);
+  });
+}
+function closeNbPrompt(value){
+  document.getElementById("nbPromptModal").classList.remove("open");
+  unregisterOverlay("nbPrompt");
+  var r = nbPromptResolver; nbPromptResolver = null;
+  if(r) r(value);
+}
 
 // ── Lagring (caret-trygt: leser DOM, skriver aldri innerHTML under skriving) ──
 var NB_INPUT_TIMER = null;
