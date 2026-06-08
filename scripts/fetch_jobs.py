@@ -64,7 +64,6 @@ PROFILE = {
         ("finansiell rådgiver", 15),
         ("asset management", 15),
         ("fund manager", 15),
-        ("junior", 15),
     ],
     "locations": [
         ("oslo", 10), ("paris", 8), ("london", 5),
@@ -540,7 +539,7 @@ def scrape_jobindex(query: str, max_jobs: int = 100, max_pages: int = 6) -> list
 
 def detect_seniority(title: str) -> str:
     t = (title or "").lower()
-    if re.search(r"\b(graduate|trainee|junior|associate|nyutdannet|entry|internship|intern)\b", t):
+    if re.search(r"\b(graduate|trainee|junior|associate|nyutdannet|første\s*år|entry|internship|intern)\b", t):
         return "junior"
     if re.search(r"\b(senior|lead|principal|director|head\s+of|vp|chief)\b", t):
         return "senior"
@@ -556,13 +555,18 @@ def score_job(job: dict) -> dict:
     role = (job.get("role") or "").lower()
     loc = (job.get("location") or "").lower()
 
-    # priorityCompanies: first-tier match wins (no double-count)
-    for tier in PROFILE["priorityCompanies"]:
-        hit = next((m for m in tier["match"] if m in company), None)
-        if hit:
-            breakdown[f"selskap: {hit}"] = tier["points"]
-            total += tier["points"]
-            break
+    # A1: selskapspoeng krever minst ett tittel-treff. Et reelt seniority-treff
+    # (junior/senior — IKKE default "mid") teller også som tittel-treff (A2b).
+    title_hit = any(kw in role for kw, _ in PROFILE["titleKeywords"])
+    sen_hit = job.get("seniority") in ("junior", "senior")
+    if title_hit or sen_hit:
+        # priorityCompanies: first-tier match wins (no double-count)
+        for tier in PROFILE["priorityCompanies"]:
+            hit = next((m for m in tier["match"] if m in company), None)
+            if hit:
+                breakdown[f"selskap: {hit}"] = tier["points"]
+                total += tier["points"]
+                break
 
     # titleKeywords: sum all matches on role only (NOT company)
     for kw, pts in PROFILE["titleKeywords"]:

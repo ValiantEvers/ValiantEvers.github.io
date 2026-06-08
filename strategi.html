@@ -878,7 +878,7 @@ var PROFILE = {
     {kw:"wealth management",points:30},{kw:"private banking",points:30},{kw:"private banker",points:25},{kw:"fund sales",points:25},
     {kw:"investeringsrådgiver",points:18},{kw:"formuesrådgiver",points:18},{kw:"investment advis",points:20},
     {kw:"investerings",points:15},{kw:"kapitalforvaltning",points:15},{kw:"finansiell rådgiver",points:15},
-    {kw:"asset management",points:15},{kw:"fund manager",points:15},{kw:"junior",points:15}
+    {kw:"asset management",points:15},{kw:"fund manager",points:15}
   ],
   // Danske byer (Jobindex-kilden) MÅ holdes i sync med scripts/fetch_jobs.py PROFILE.locations.
   locations: [{kw:"oslo",points:10},{kw:"paris",points:8},{kw:"london",points:5},{kw:"luxembourg",points:5},{kw:"stockholm",points:3},{kw:"københavn",points:7},{kw:"copenhagen",points:7},{kw:"aarhus",points:4},{kw:"århus",points:4},{kw:"aalborg",points:3},{kw:"odense",points:3}],
@@ -894,10 +894,16 @@ function scoreJob(job){
   var company = (job.company||"").toLowerCase();
   var role = (job.role||"").toLowerCase();
   var loc = (job.location||"").toLowerCase();
-  for(var i=0;i<PROFILE.priorityCompanies.length;i++){
-    var tier = PROFILE.priorityCompanies[i];
-    var hit = tier.match.find(function(m){return company.indexOf(m)!==-1});
-    if(hit){ breakdown["selskap: "+hit] = tier.points; total += tier.points; break; }
+  // A1: selskapspoeng krever minst ett tittel-treff. Et reelt seniority-treff
+  // (junior/senior — IKKE default "mid") teller også som tittel-treff (A2b).
+  var titleHit = PROFILE.titleKeywords.some(function(t){return role.indexOf(t.kw)!==-1});
+  var senHit = job.seniority === "junior" || job.seniority === "senior";
+  if(titleHit || senHit){
+    for(var i=0;i<PROFILE.priorityCompanies.length;i++){
+      var tier = PROFILE.priorityCompanies[i];
+      var hit = tier.match.find(function(m){return company.indexOf(m)!==-1});
+      if(hit){ breakdown["selskap: "+hit] = tier.points; total += tier.points; break; }
+    }
   }
   PROFILE.titleKeywords.forEach(function(t){
     if(role.indexOf(t.kw)!==-1){ breakdown["tittel: "+t.kw] = t.points; total += t.points; }
@@ -1578,8 +1584,8 @@ function parseImportDate(s){
 }
 function detectSeniority(title){
   var t = (title||"").toLowerCase();
-  if(/(graduate|trainee|junior|associate|nyutdannet|første\s*år|entry|internship|intern)\b/.test(t)) return "junior";
-  if(/(senior|lead|principal|director|head\s+of|vp|chief)\b/.test(t)) return "senior";
+  if(/\b(graduate|trainee|junior|associate|nyutdannet|første\s*år|entry|internship|intern)\b/.test(t)) return "junior";
+  if(/\b(senior|lead|principal|director|head\s+of|vp|chief)\b/.test(t)) return "senior";
   return "mid";
 }
 function normalizeUrl(u){
