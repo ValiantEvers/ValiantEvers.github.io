@@ -1615,6 +1615,13 @@ function detectSeniority(title){
   if(/\b(senior|lead|principal|director|head\s+of|vp|chief)\b/.test(t)) return "senior";
   return "mid";
 }
+// MERK — bevisst divergens fra Python normalize_url (fetch_jobs.py).
+// Denne JS-en brukes KUN av findImportDuplicate (LinkedIn-paste-dedup).
+// LinkedIn-URLer bærer ?refId=/?trackingId= som er tracking-søppel, ikke
+// identitet — derfor strippes hele query her (to pastes av samme jobb med
+// ulik trackingId skal telle som dubletter). Python bevarer query fordi
+// jobs.lu bruker ?Id=N som identitet. Ikke "fiks" til paritet uten først å
+// håndtere LinkedIn tracking-parametre, ellers brytes paste-dedup.
 function normalizeUrl(u){
   if(!u) return "";
   return u.replace(/[?#].*$/, "").replace(/\/$/, "").toLowerCase();
