@@ -53,14 +53,14 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 
 /* Top progress bar */
 .progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent}
-.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .12s linear}
+.progress span{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:0 0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:transform .12s linear}
 
 /* Top bar: part label + language switch */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.4rem;pointer-events:none}
 .part-pill{pointer-events:auto;background:rgba(20,29,51,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--accent2);opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
 .part-pill.show{opacity:1;transform:translateY(0)}
 .lang{pointer-events:auto;display:flex;gap:2px;background:rgba(20,29,51,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:3px}
-.lang button{background:none;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;padding:.34rem .66rem;border-radius:999px;cursor:pointer;transition:all .25s}
+.lang button{background:none;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;padding:.34rem .66rem;border-radius:999px;cursor:pointer;transition:background-color .25s,color .25s}
 .lang button.active{background:var(--accent);color:#06122e}
 .lang button:not(.active):hover{color:var(--text)}
 
@@ -77,7 +77,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opac
 
 /* Scenes */
 main{position:relative;z-index:2}
-.scene{max-width:var(--maxw);margin:0 auto;padding:7rem 1.4rem;min-height:88svh;display:flex;flex-direction:column;justify-content:center}
+.scene{max-width:var(--maxw);margin:0 auto;padding:5rem 1.4rem;min-height:78svh;display:flex;flex-direction:column;justify-content:center}
 .scene .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
 .scene h2{font-size:clamp(1.7rem,4.3vw,2.6rem);font-weight:800;margin-bottom:1.1rem}
 .scene .body{font-size:clamp(1.04rem,2.2vw,1.18rem);color:#d4ddf7}
@@ -87,7 +87,7 @@ main{position:relative;z-index:2}
 .caveat{margin-top:1.4rem;font-size:.92rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
 
 /* reveal-on-scroll */
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal{opacity:0;transform:translateY(34px);will-change:opacity,transform;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 .scene.in .reveal{opacity:1;transform:none}
 .scene.in .reveal.d1{transition-delay:.12s}
 .scene.in .reveal.d2{transition-delay:.24s}
@@ -134,13 +134,13 @@ main{position:relative;z-index:2}
 .verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}
 .reveal-note{background:rgba(105,150,255,.08);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;font-size:1rem;color:#e8eeff;display:none}
 .reveal-note.show{display:block;animation:rise .6s forwards}
-.expand-btn{align-self:flex-start;background:none;border:1px solid var(--accent);color:var(--accent2);font:inherit;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;transition:all .2s}
+.expand-btn{align-self:flex-start;background:none;border:1px solid var(--accent);color:var(--accent2);font:inherit;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
 .expand-btn:hover{background:var(--accent);color:#06122e}
 .more-q{display:none;flex-direction:column;gap:1rem}
 .more-q.show{display:flex;animation:rise .5s forwards}
 
 /* generic small button */
-.mini-btn{background:none;border:1px solid var(--line);color:var(--accent2);font:inherit;font-weight:600;font-size:.86rem;padding:.5rem .9rem;border-radius:999px;cursor:pointer;transition:all .2s;margin-top:1rem}
+.mini-btn{background:none;border:1px solid var(--line);color:var(--accent2);font:inherit;font-weight:600;font-size:.86rem;padding:.5rem .9rem;border-radius:999px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;margin-top:1rem}
 .mini-btn:hover{border-color:var(--accent);color:var(--text)}
 
 /* outro */
@@ -171,6 +171,14 @@ main{position:relative;z-index:2}
 .wobble{animation:wob 2.6s ease-in-out infinite}
 @keyframes wob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
 
+@media (max-width:1024px){
+  .scene{padding:4rem 1.5rem;min-height:72svh}
+  .figbox{padding:1.3rem}
+  .meters{gap:2rem;height:210px}
+  .meter .bar{height:155px}
+  .hero{padding:5rem 1.4rem 3rem}
+}
+
 @media (max-width:600px){
   .scene{padding:5rem 1.2rem;min-height:auto}
   .figbox{padding:1.1rem}
@@ -181,7 +189,7 @@ main{position:relative;z-index:2}
 /* reduced motion */
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;scroll-behavior:auto !important}
-  .reveal{opacity:1 !important;transform:none !important;transition:none !important}
+  .reveal{opacity:1 !important;transform:none !important;transition:none !important;will-change:auto !important}
   .meter .fill,.tile{transition:none !important}
   .hero .eyebrow,.hero h1,.hero .sub,.scroll-hint{opacity:1 !important;transform:none !important}
 }
@@ -678,7 +686,7 @@ main{position:relative;z-index:2}
   <div class="acad reveal d1" data-i18n="s20_acad"></div>
   <div class="authors reveal d1" data-i18n="s20_authors"></div>
   <div class="btn-row reveal d2">
-    <a class="btn btn-primary" href="../../docs/Master%20Thesis.pdf" data-i18n="s20_pdf"></a>
+    <a class="btn btn-primary" href="../../docs/Master%20Thesis.pdf" target="_blank" rel="noopener" data-i18n="s20_pdf"></a>
     <a class="btn btn-ghost" href="#top" data-i18n="s20_top"></a>
   </div>
 </section>
@@ -695,6 +703,7 @@ main{position:relative;z-index:2}
 /* ---------------- i18n dictionary ---------------- */
 var I18N = {
  no:{
+  docTitle:"Vet du like mye som du tror? — Masteroppgave",
   partPill:"Del 1 av 4 · Motivasjon",
   part1:"Del 1 · Motivasjon", part2:"Del 2 · Teori", part3:"Del 3 · Metode", part4:"Del 4 · Resultater",
 
@@ -811,6 +820,7 @@ var I18N = {
   qOk:"Riktig!", qNo:"Ikke helt — riktig svar er markert."
  },
  en:{
+  docTitle:"Do you know as much as you think you do? — Master's Thesis",
   partPill:"Part 1 of 4 · Motivation",
   part1:"Part 1 · Motivation", part2:"Part 2 · Theory", part3:"Part 3 · Method", part4:"Part 4 · Results",
 
@@ -938,6 +948,7 @@ function fmtInt(n){ var str = Math.round(n).toString();
 function applyLang(){
   var dict = I18N[lang];
   document.documentElement.lang = (lang==='en') ? 'en' : 'no';
+  document.title = dict.docTitle;
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var k = el.getAttribute('data-i18n');
     if(dict[k] !== undefined) el.innerHTML = dict[k];
@@ -976,7 +987,7 @@ function onScroll(){
   var h = document.documentElement;
   var max = h.scrollHeight - h.clientHeight;
   var p = max>0 ? (h.scrollTop || document.body.scrollTop)/max : 0;
-  bar.style.width = (p*100).toFixed(2)+'%';
+  bar.style.transform = 'scaleX('+p.toFixed(4)+')';
   pill.classList.toggle('show', (h.scrollTop||document.body.scrollTop) > 300);
 }
 window.addEventListener('scroll', onScroll, {passive:true});
@@ -1124,6 +1135,9 @@ var io = new IntersectionObserver(function(entries){
     if(!en.isIntersecting) return;
     var sc = en.target;
     sc.classList.add('in');
+    // reveals are one-shot: release the will-change layers once the longest
+    // transition is done (.36s max delay + .8s duration)
+    setTimeout(function(){ sc.querySelectorAll('.reveal').forEach(function(r){ r.style.willChange='auto'; }); }, 1400);
     var part = sc.getAttribute('data-part');
     if(part){ currentPart = parseInt(part,10); updatePartPill(); }
     // triggers
