@@ -76,6 +76,7 @@ export default [
         toggleMedieval: "writable",
         deactivateMedieval: "writable",
         rideAcrossScreen: "writable",
+        haptic: "readonly", // function helper defined in one <script>, called from another (index.html)
       },
     },
     rules: {
