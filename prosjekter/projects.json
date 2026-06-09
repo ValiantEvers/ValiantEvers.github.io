@@ -6,6 +6,7 @@
     "kategori": "Verktøy",
     "status": "live",
     "url": "/aksjeskatt/",
+    "bilde": "screenshots/aksjeskatt.webp",
     "ikon": "📊",
     "tags": [
       "skatt",
