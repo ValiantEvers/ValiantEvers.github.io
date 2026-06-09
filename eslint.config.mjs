@@ -96,4 +96,11 @@ export default [
       "no-useless-assignment": "off",
     },
   },
+  {
+    // index.html contains a <script type="module"> (web-vitals RUM, P-9), so its inline
+    // scripts must be parsed as ES modules. Override sourceType for this one file only —
+    // the other vanilla pages above stay sourceType:"script".
+    files: ["index.html"],
+    languageOptions: { sourceType: "module" },
+  },
 ];
