@@ -43,6 +43,9 @@ export default [
       // noise + onclick false-positives. (See plan; revisit if it gets refactored.)
       "strategi.html",
       "osebx/**",
+      // aksjeskatt: self-contained chart sub-page (vendored lightweight-charts + LWC global +
+      // canvas series code), same shape as osebx/ — excluded from the vanilla-page linter.
+      "aksjeskatt/**",
       "personligokonomi/**",
       "pensjonskalkulator/**",
       "pensjonskalkulator-src/**",

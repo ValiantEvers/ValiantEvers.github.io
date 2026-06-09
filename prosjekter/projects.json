@@ -1,5 +1,24 @@
 [
   {
+    "slug": "aksjeskatt",
+    "tittel": "Aksjeskatt på tvers av kontotyper",
+    "beskrivelse": "Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap. Velg strategi, kapital, utbytte og sivilstand — se kurvene krysse, skattesplitten (gevinst/utbytte/formue/uttak) og hvordan rangeringen etter skatt kan snu rangeringen før skatt. Alle tall beregnet av en deterministisk skattemotor; ingen skatteregning i nettleseren, ingen data lastes opp.",
+    "kategori": "Verktøy",
+    "status": "live",
+    "url": "/aksjeskatt/",
+    "ikon": "📊",
+    "tags": [
+      "skatt",
+      "aksjer",
+      "ASK",
+      "holdingselskap",
+      "personlig-økonomi"
+    ],
+    "opprettet": "2026-06-09",
+    "sist_oppdatert": "2026-06-09",
+    "synlig": true
+  },
+  {
     "slug": "skatt-mcp",
     "tittel": "skatt-mcp",
     "beskrivelse": "Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall — aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod.",
