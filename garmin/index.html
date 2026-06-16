@@ -45,7 +45,7 @@ h1,h2,h3{text-wrap:balance}
   --text:#111116; --text2:#444455; --muted:#888899;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:auto;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;transition:background .3s,color .3s;}
 
 /* NAV */
@@ -2123,8 +2123,25 @@ themeBtn.addEventListener('click',()=>{
 });
 
 /* ── NAV SCROLL ─────────────────────────────────────────────── */
+/* JS-driven tween. Native scroll-behavior:smooth / scrollIntoView er ustabil her
+   (samtidig rAF/animasjon avbryter native in-page smooth-scroll), så vi skriver
+   scrollTop direkte for deterministisk bevegelse. Portert fra index.html veScrollTo. */
+var NAV_OFFSET=68; /* sticky .topbar er ~60px; land seksjonen rett under baren */
+function veScrollTo(targetY){
+  var maxY=document.documentElement.scrollHeight-window.innerHeight;
+  targetY=Math.max(0,Math.min(targetY,maxY));
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.scrollTop=targetY;return;}
+  var startY=window.scrollY,dist=targetY-startY;
+  if(Math.abs(dist)<2)return;
+  var dur=Math.min(900,Math.max(300,Math.abs(dist)*0.45)),start=null;
+  function ease(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+  function step(ts){if(start===null)start=ts;var t=Math.min(1,(ts-start)/dur);document.documentElement.scrollTop=startY+dist*ease(t);if(t<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
 window.scrollTo=id=>{
-  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  var el=document.getElementById(id);
+  if(!el)return;
+  veScrollTo(el.getBoundingClientRect().top+window.scrollY-NAV_OFFSET);
 };
 
 /* ── FADE IN OBSERVER ──────────────────────────────────────── */
