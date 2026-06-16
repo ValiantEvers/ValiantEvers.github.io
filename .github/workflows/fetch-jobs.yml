@@ -2,7 +2,7 @@ name: Fetch jobs
 
 on:
   schedule:
-    - cron: "0 6 * * *"  # 06:00 UTC daglig (08:00 norsk sommertid)
+    - cron: "0 4 * * *"  # 04:00 UTC daglig (06:00 norsk sommertid / 05:00 norsk vintertid)
   workflow_dispatch:
 
 jobs:
