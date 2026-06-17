@@ -846,16 +846,16 @@ tr:last-child td{border-bottom:none;}
 <nav class="topbar">
   <span class="nav-logo">LØPEDATA</span>
   <div class="nav-links">
-    <a class="nav-link" onclick="scrollTo('overview')">Oversikt</a>
-    <a class="nav-link" onclick="scrollTo('predict')">Prediksjon</a>
-    <a class="nav-link" onclick="scrollTo('trends')">Trender</a>
-    <a class="nav-link" onclick="scrollTo('zones')">Soner</a>
-    <a class="nav-link" onclick="scrollTo('risk')">Risiko</a>
-    <a class="nav-link" onclick="scrollTo('form')">Løpeform</a>
-    <a class="nav-link" onclick="scrollTo('kalender')">Kalender</a>
-    <a class="nav-link" onclick="scrollTo('yir')">Året</a>
-    <a class="nav-link" onclick="scrollTo('analyse')">Analyse</a>
-    <a class="nav-link" onclick="scrollTo('logg')">Logg</a>
+    <a class="nav-link" onclick="veNav('overview')">Oversikt</a>
+    <a class="nav-link" onclick="veNav('predict')">Prediksjon</a>
+    <a class="nav-link" onclick="veNav('trends')">Trender</a>
+    <a class="nav-link" onclick="veNav('zones')">Soner</a>
+    <a class="nav-link" onclick="veNav('risk')">Risiko</a>
+    <a class="nav-link" onclick="veNav('form')">Løpeform</a>
+    <a class="nav-link" onclick="veNav('kalender')">Kalender</a>
+    <a class="nav-link" onclick="veNav('yir')">Året</a>
+    <a class="nav-link" onclick="veNav('analyse')">Analyse</a>
+    <a class="nav-link" onclick="veNav('logg')">Logg</a>
   </div>
   <div style="display:flex;gap:8px;align-items:center;">
     <button class="theme-toggle" id="pdfBtn" title="Eksporter som PDF">↓ PDF</button>
@@ -2138,11 +2138,11 @@ function veScrollTo(targetY){
   function step(ts){if(start===null)start=ts;var t=Math.min(1,(ts-start)/dur);document.documentElement.scrollTop=startY+dist*ease(t);if(t<1)requestAnimationFrame(step);}
   requestAnimationFrame(step);
 }
-window.scrollTo=id=>{
+function veNav(id){
   var el=document.getElementById(id);
   if(!el)return;
   veScrollTo(el.getBoundingClientRect().top+window.scrollY-NAV_OFFSET);
-};
+}
 
 /* ── FADE IN OBSERVER ──────────────────────────────────────── */
 const obs=new IntersectionObserver(entries=>{
