@@ -3,5 +3,7 @@ Allow: /
 
 Disallow: /strategi.html
 Disallow: /jobs/
+Disallow: /pensjonskalkulator-src/
+Disallow: /nb-watch-src/
 
 Sitemap: https://www.evers.no/sitemap.xml
