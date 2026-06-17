@@ -2138,7 +2138,7 @@ function veScrollTo(targetY){
   function step(ts){if(start===null)start=ts;var t=Math.min(1,(ts-start)/dur);document.documentElement.scrollTop=startY+dist*ease(t);if(t<1)requestAnimationFrame(step);}
   requestAnimationFrame(step);
 }
-function veNav(id){
+window.veNav = function veNav(id){
   var el=document.getElementById(id);
   if(!el)return;
   veScrollTo(el.getBoundingClientRect().top+window.scrollY-NAV_OFFSET);
