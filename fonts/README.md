@@ -5,6 +5,30 @@ fonts.gstatic.com). Each page declares the families it uses via inline `@font-fa
 these files. Latin families use Google's standard `latin` + `latin-ext` subsets (full coverage
 for no/en/fr/de). Variable fonts ship one file per subset/style (covers all weights).
 
+## Hovedsitens type-system (FT-emulering)
+
+Den redaksjonelle «Inter-kjernen» — `index.html`, `cv.html`, `prosjekter/index.html`,
+`prosjekter/finansielle-maler/index.html`, `prosjekter/forretningsenhet-dashboard/index.html`,
+`rekrutterer/index.html` — deler ett type-system via `:root`-variabler
+(`--font-serif` / `--font-sans` / `--font-mono`):
+
+- **Serif (overskrifter):** `Newsreader` — fra `@fontsource-variable/newsreader@5.2.10`,
+  `newsreader-latin[-ext]-standard-normal.woff2` (opsz + wght-akser; `font-optical-sizing:auto`
+  på overskrifter).
+- **Sans (brødtekst / UI):** `Hanken Grotesk` — fra `@fontsource-variable/hanken-grotesk@5.2.8`,
+  `hanken-grotesk-latin[-ext]-wght-normal.woff2`.
+- **Mono:** `JetBrains Mono` (uendret). **Japansk:** `Noto Sans JP` ligger i begge
+  tekstvariablene (per-glyf-fallback) — så `html[lang="ja"]` trenger ingen egen regel.
+
+Begge tekstvariabler faller videre til system-fonter. `Noto Sans JP`-fallbacken gjelder fortsatt
+det innholds-subsettede subsetet under (regenererings-advarselen nedenfor gjelder uendret).
+
+**Fjernet** (ikke lenger referert noe sted etter byttet): `InterVariable.woff2` (Inter),
+`crimson-text-*.woff2` (rekrutterer brukte Crimson Text, nå Newsreader), og kandidat-serifen
+`source-serif-4-*.woff2` (kun brukt av den nå slettede sammenligningssiden `font-lab.html`).
+Medieval-easter-egget beholder en inert `'Inter'`-**navne**fallback i font-stacken (ingen
+`@font-face` lastes for den lenger → faller til system-sans); easter-egget er ellers urørt.
+
 ## ⚠️ `noto-sans-jp-subset.woff2` is content-subsetted — regenerate if the Japanese UI text changes
 
 `noto-sans-jp-subset.woff2` contains **only the glyphs used by the current Japanese (`ja`)
