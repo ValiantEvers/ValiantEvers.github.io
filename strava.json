@@ -1,16 +1,16 @@
 {
-  "name": "Morning Run",
+  "name": "4x4 NG☀️",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 5.01,
-  "moving_time": 1578,
-  "elapsed_time": 1578,
-  "total_elevation_gain": 10.0,
-  "start_date": "2026-06-19T10:02:37Z",
-  "average_speed": 11.42,
-  "max_speed": 14.4,
-  "average_heartrate": 176.7,
-  "max_heartrate": 196.0,
-  "suffer_score": 83.0,
-  "id": 18996510706
+  "distance": 8.77,
+  "moving_time": 3119,
+  "elapsed_time": 3311,
+  "total_elevation_gain": 113.0,
+  "start_date": "2026-06-21T15:23:58Z",
+  "average_speed": 10.12,
+  "max_speed": 18.07,
+  "average_heartrate": 175.8,
+  "max_heartrate": 202.0,
+  "suffer_score": 142.0,
+  "id": 19011190169
 }
