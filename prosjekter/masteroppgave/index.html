@@ -3,1218 +3,1069 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vet du like mye som du tror? — Masteroppgave</title>
-<meta name="description" content="En interaktiv, stegvis forklaring av en masteroppgave om norske investorer, finansiell kunnskap og selvtillit.">
-<meta name="author" content="Henrik Bekkevold og Valiant Evers">
-<meta name="theme-color" content="#0a0e1a">
+<title>Vet du like mye som du tror?, Masteroppgave</title>
 <meta name="robots" content="index, follow">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Vet du like mye som du tror?">
-<meta property="og:description" content="En masteroppgave om norske investorer, kunnskap og selvtillit — forklart for alle.">
-<meta property="og:url" content="https://www.evers.no/prosjekter/masteroppgave/">
-<meta property="og:site_name" content="Valiant Evers">
 <link rel="canonical" href="https://www.evers.no/prosjekter/masteroppgave/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#00101e">
 <style>
-@font-face{font-family:'Outfit';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/outfit-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Outfit';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/outfit-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:'Syne';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/syne-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Syne';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/syne-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-h1,h2,h3{text-wrap:balance}
-</style>
-<style>
+@font-face{font-family:'Outfit';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/outfit-latin-wght-normal.woff2') format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/newsreader-latin-standard-normal.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2')}
+
 :root{
-  --bg:#0a0e1a; --bg2:#0e1424; --text:#e7ecff; --muted:rgba(231,236,255,.6);
-  --accent:#6996ff; --accent2:#aabeff; --accent-deep:#3f6fe0;
-  --warm:#ffb774; --good:#5fd0a0; --bad:#ff7b7b;
-  --card:#141d33; --card2:#18223c; --line:rgba(231,236,255,.10);
-  --shadow:0 20px 60px rgba(0,0,0,.45);
-  --maxw:780px;
+  --bg:#00101e; --bg2:#06182b; --text:#eaf6fb; --muted:rgba(234,246,251,.62);
+  --know:#4ec3e3; --know2:#c4e9ee;   /* Kunnskap */
+  --conf:#c98cd4;                     /* Selvtillit */
+  --risk:#ff9e7a;                     /* Risiko */
+  --good:#4fd1b0; --slate:#88a0b0;
+  --line:rgba(196,233,238,.12);
+  --serif:'Newsreader',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --maxw:760px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
-img,svg{max-width:100%}
-h1,h2,h3{font-family:'Syne',sans-serif;line-height:1.08;letter-spacing:-.02em}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{line-height:1.06;letter-spacing:-.02em;text-wrap:balance}
 
-/* Ambient backdrop */
-.backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.30}
-.glow.g1{width:50vw;height:50vw;background:var(--accent-deep);top:-12%;left:-10%}
-.glow.g2{width:42vw;height:42vw;background:#6a4fd0;bottom:-10%;right:-8%}
-.glow.g3{width:32vw;height:32vw;background:#1f8f6a;top:45%;left:55%;opacity:.16}
-body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;
+/* ---- backdrop + particle canvas ---- */
+.backdrop{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(125% 85% at 50% -8%,#06223b 0%,#00101e 52%,#00060f 100%)}
+.bgfield{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+.bgfield.on{opacity:.82}
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 
-/* Top progress bar */
-.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent}
-.progress span{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:0 0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:transform .12s linear}
-
-/* Top bar: part label + language switch */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 1.4rem;pointer-events:none}
-.part-pill{pointer-events:auto;background:rgba(20,29,51,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--accent2);opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
-.part-pill.show{opacity:1;transform:translateY(0)}
-.lang{pointer-events:auto;display:flex;gap:2px;background:rgba(20,29,51,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:3px}
-.lang button{background:none;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.06em;padding:.34rem .66rem;border-radius:999px;cursor:pointer;transition:background-color .25s,color .25s}
-.lang button.active{background:var(--accent);color:#06122e}
-.lang button:not(.active):hover{color:var(--text)}
-
-/* Hero */
-.hero{position:relative;z-index:2;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.4rem 4rem}
-.hero .eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--accent2);margin-bottom:1.4rem;opacity:0;animation:rise .8s .1s forwards}
-.hero h1{font-size:clamp(2.4rem,8vw,5rem);font-weight:800;max-width:14ch;margin-bottom:1.3rem;background:linear-gradient(180deg,#fff,#bcd0ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:rise .9s .25s forwards}
-.hero .sub{font-size:clamp(1rem,2.4vw,1.25rem);color:var(--muted);max-width:36ch;opacity:0;animation:rise .9s .45s forwards}
-.scroll-hint{margin-top:3.2rem;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);opacity:0;animation:rise .9s .7s forwards;display:flex;flex-direction:column;align-items:center;gap:.6rem}
-.scroll-hint .arrow{width:22px;height:22px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);animation:bob 1.8s ease-in-out infinite}
-@keyframes rise{to{opacity:1;transform:translateY(0)}}
-@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
-.hero .eyebrow,.hero h1,.hero .sub{transform:translateY(18px)}
-
-/* Scenes */
 main{position:relative;z-index:2}
-.scene{max-width:var(--maxw);margin:0 auto;padding:5rem 1.4rem;min-height:78svh;display:flex;flex-direction:column;justify-content:center}
-.scene .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
-.scene h2{font-size:clamp(1.7rem,4.3vw,2.6rem);font-weight:800;margin-bottom:1.1rem}
-.scene .body{font-size:clamp(1.04rem,2.2vw,1.18rem);color:#d4ddf7}
-.scene .body + .body{margin-top:1rem}
-.highlight{margin-top:1.3rem;padding:1.1rem 1.25rem;border-left:3px solid var(--accent);background:rgba(105,150,255,.08);border-radius:0 12px 12px 0;font-size:1.02rem;color:#e8eeff}
-.fig{margin:0 0 2.4rem;width:100%}
-.caveat{margin-top:1.4rem;font-size:.92rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
 
-/* reveal-on-scroll */
-.reveal{opacity:0;transform:translateY(34px);will-change:opacity,transform;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-.scene.in .reveal{opacity:1;transform:none}
-.scene.in .reveal.d1{transition-delay:.12s}
-.scene.in .reveal.d2{transition-delay:.24s}
-.scene.in .reveal.d3{transition-delay:.36s}
+/* ---- left progress rail (replaces the old top-left pill) ---- */
+.rail{position:fixed;left:max(18px,2.4vw);top:50%;transform:translateY(-50%);z-index:40;
+  display:flex;flex-direction:column;align-items:center;gap:0;pointer-events:none}
+.rail__track{position:relative;width:2px;height:46vh;background:var(--line);border-radius:2px;overflow:hidden}
+.rail__fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(180deg,var(--know),var(--conf));border-radius:2px}
+.rail__marks{position:absolute;inset:0}
+.rail__mark{position:absolute;left:50%;width:7px;height:7px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--line);transform:translate(-50%,-50%);transition:background .3s,border-color .3s,box-shadow .3s}
+.rail__mark.on{background:var(--know);border-color:var(--know);box-shadow:0 0 0 4px rgba(78,195,227,.15)}
+.rail__lbl{position:absolute;left:18px;white-space:nowrap;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transform:translateY(-50%);opacity:0;transition:opacity .3s}
+.rail__mark.on + .rail__lbl{opacity:1;color:var(--know2)}
+@media (max-width:760px){ .rail{display:none} }
 
-/* Figure primitives */
-.figbox{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:20px;padding:1.6rem;box-shadow:var(--shadow)}
-.fig svg{display:block;width:100%;height:auto}
-.fig-cap{margin-top:.7rem;font-size:.8rem;color:var(--muted);text-align:center}
+/* ---- hero ---- */
+.hero{position:relative;z-index:2;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:6rem clamp(1.4rem,6vw,5rem) 4rem;max-width:1100px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:100vw;height:100%;z-index:-1;pointer-events:none;background:radial-gradient(130% 92% at 37% 42%,rgba(0,10,18,.93) 0%,rgba(0,10,18,.7) 28%,rgba(0,10,18,.32) 50%,rgba(0,10,18,0) 66%)}
+.hero .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--know);margin-bottom:1.6rem;text-shadow:0 1px 12px rgba(0,8,16,.85)}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,7.5vw,5.4rem);max-width:16ch;margin-bottom:1.4rem;
+  background:linear-gradient(180deg,#fff,#e3eef3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 24px rgba(0,8,16,.9))}
+.hero p{font-size:clamp(1.05rem,2.2vw,1.3rem);color:rgba(234,246,251,.84);max-width:42ch;text-shadow:0 1px 16px rgba(0,8,16,.92)}
+.hero .down{position:absolute;left:50%;bottom:2.6rem;transform:translateX(-50%);font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.hero .down i{width:18px;height:18px;border-right:1.5px solid var(--know);border-bottom:1.5px solid var(--know);transform:rotate(45deg);animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(3px,3px)}}
 
-/* counters */
-.counter{font-family:'Syne',sans-serif;font-weight:800;font-variant-numeric:tabular-nums}
+/* ---- lead-in editorial block ---- */
+.lead{position:relative;max-width:var(--maxw);margin:0 auto;padding:8rem clamp(1.4rem,6vw,2rem)}
+.lead::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:138%;height:150%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(0,9,17,.74),rgba(0,9,17,0))}
+.lead .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--conf);margin-bottom:1rem;text-shadow:0 1px 12px rgba(0,8,16,.8)}
+.lead h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,4.4vw,2.9rem);margin-bottom:1.2rem;text-shadow:0 1px 20px rgba(0,8,16,.85)}
+.lead p{font-size:clamp(1.05rem,2.2vw,1.18rem);color:#dbeaf1;text-shadow:0 1px 14px rgba(0,8,16,.85)}
 
-/* Meters (vertical bars) */
-.meters{display:flex;gap:2.4rem;justify-content:center;align-items:flex-end;height:230px}
-.meter{display:flex;flex-direction:column;align-items:center;gap:.6rem;width:84px}
-.meter .bar{width:46px;height:170px;background:rgba(231,236,255,.07);border-radius:10px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
-.meter .fill{width:100%;height:0;border-radius:10px;transition:height 1.1s cubic-bezier(.2,.8,.2,1)}
-.meter.know .fill{background:linear-gradient(180deg,var(--accent2),var(--accent))}
-.meter.conf .fill{background:linear-gradient(180deg,#ffd6a8,var(--warm))}
-.meter .lbl{font-size:.82rem;font-weight:600;color:var(--muted);text-align:center}
+/* ================= SCROLLY (sticky + scrubbed) ================= */
+.scrolly{position:relative;z-index:2}
+.scrolly__sticky{position:sticky;top:0;height:100svh;display:grid;grid-template-rows:1fr auto;align-items:center;overflow:hidden}
+.scrolly__sticky::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(58% 48% at 50% 42%,rgba(0,7,14,.66),transparent 72%)}
+.scrolly__spacer{height:420vh}            /* drives scroll length; progress measured from real geometry */
 
-/* dots */
-.dotwrap{position:relative}
+.stage{width:100%;max-width:1000px;margin:0 auto;padding:0 clamp(1.2rem,5vw,2rem)}
+.med-eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:.4rem}
+.med-svg{display:block;width:100%;height:auto}
+.med-svg .pathline{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.med-svg .nodebox{transition:opacity .25s}
+.med-svg text{font-family:var(--sans)}
+.med-svg .coef{font-family:var(--mono);font-weight:600}
 
+/* caption block, cross-fades by scroll progress, no card */
+.scrolly__caption{position:relative;min-height:7.5rem;max-width:680px;margin:0 auto 5vh;padding:0 clamp(1.2rem,5vw,2rem);text-align:center}
+.cap{position:absolute;left:50%;top:0;width:min(680px,92vw);padding:0 clamp(1.2rem,5vw,2rem);opacity:0;transform:translate(-50%,10px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;text-shadow:0 1px 18px rgba(0,8,16,.94),0 1px 3px rgba(0,8,16,.8)}
+.cap.on{opacity:1;transform:translate(-50%,0)}
+.cap b{color:var(--text);font-weight:600}
+.cap .big{font-family:var(--serif);font-size:clamp(1.25rem,3vw,1.7rem);font-weight:400;color:var(--text);display:block;margin-bottom:.5rem}
+.cap small{display:block;margin-top:.6rem;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:var(--muted)}
+.tag-know{color:var(--know)} .tag-conf{color:var(--conf)} .tag-risk{color:var(--risk)} .tag-good{color:var(--good)}
+
+.outro{max-width:var(--maxw);margin:0 auto;padding:14vh clamp(1.4rem,6vw,2rem) 18vh;text-align:center}
+.outro h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,4.5vw,2.6rem);margin-bottom:1rem}
+.outro p{color:var(--muted);max-width:44ch;margin:0 auto}
+
+@media (prefers-reduced-motion:reduce){
+  .hero .down i{animation:none}
+}
+
+/* progress bar */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent}
+.progress span{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:0 0;background:linear-gradient(90deg,var(--know),var(--conf));transition:transform .15s linear}
+/* topbar lang */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:flex-end;padding:1rem 1.4rem;pointer-events:none}
+.lang{pointer-events:auto;display:flex;gap:2px;background:rgba(6,24,43,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{background:none;border:none;color:var(--muted);font-family:var(--mono);font-weight:600;font-size:.72rem;letter-spacing:.08em;padding:.34rem .7rem;border-radius:999px;cursor:pointer;transition:background-color .25s,color .25s}
+.lang button.active{background:var(--know);color:#04121f}
+.lang button:not(.active):hover{color:var(--text)}
+/* editorial reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.lead .caveat{margin-top:1.4rem;font-size:.9rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem;font-style:italic}
 /* quiz */
-.quiz{display:flex;flex-direction:column;gap:1rem}
-.guess{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem}
-.guess label{display:block;font-weight:600;margin-bottom:.8rem}
+.quizwrap{max-width:680px}
+.quiz{display:flex;flex-direction:column;gap:1rem;margin-top:1.6rem;text-align:left}
+.guess,.q{border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;background:rgba(6,24,43,.45)}
+.guess label{display:block;font-weight:600;margin-bottom:.7rem}
 .guess .row{display:flex;align-items:center;gap:1rem}
-.guess input[type=range]{flex:1;accent-color:var(--accent);height:6px}
-.guess .gval{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--accent2);min-width:1.4ch;text-align:center}
-.q{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem}
+.guess input[type=range]{flex:1;accent-color:var(--know);height:6px}
+.guess .gval{font-family:var(--serif);font-weight:500;font-size:1.5rem;color:var(--know2);min-width:1.4ch;text-align:center}
 .q .qtext{font-weight:600;margin-bottom:.9rem}
 .opts{display:flex;flex-direction:column;gap:.55rem}
-.opt{text-align:left;background:rgba(231,236,255,.04);border:1px solid var(--line);color:var(--text);padding:.7rem .9rem;border-radius:10px;cursor:pointer;font:inherit;font-size:.98rem;transition:border-color .2s,background .2s,transform .1s}
-.opt:hover{border-color:var(--accent);background:rgba(105,150,255,.08)}
-.opt:active{transform:scale(.99)}
-.opt.correct{border-color:var(--good);background:rgba(95,208,160,.16);color:#dafff0}
-.opt.wrong{border-color:var(--bad);background:rgba(255,123,123,.14)}
-.opt .mark{float:right;font-weight:700}
+.opt{text-align:left;background:rgba(196,233,238,.04);border:1px solid var(--line);color:var(--text);padding:.7rem .9rem;border-radius:10px;cursor:pointer;font:inherit;font-size:.98rem;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--know);background:rgba(78,195,227,.08)}
+.opt.correct{border-color:var(--good);background:rgba(79,209,176,.16)}
+.opt.wrong{border-color:var(--bad);background:rgba(245,115,111,.14)}
 .q.answered .opt:not(.correct):not(.wrong){opacity:.55}
 .verdict{margin-top:.7rem;font-size:.9rem;font-weight:600}
 .verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}
-.reveal-note{background:rgba(105,150,255,.08);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;font-size:1rem;color:#e8eeff;display:none}
-.reveal-note.show{display:block;animation:rise .6s forwards}
-.expand-btn{align-self:flex-start;background:none;border:1px solid var(--accent);color:var(--accent2);font:inherit;font-weight:600;padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
-.expand-btn:hover{background:var(--accent);color:#06122e}
-.more-q{display:none;flex-direction:column;gap:1rem}
-.more-q.show{display:flex;animation:rise .5s forwards}
-
-/* generic small button */
-.mini-btn{background:none;border:1px solid var(--line);color:var(--accent2);font:inherit;font-weight:600;font-size:.86rem;padding:.5rem .9rem;border-radius:999px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s;margin-top:1rem}
-.mini-btn:hover{border-color:var(--accent);color:var(--text)}
-
+.reveal-note{margin-top:.4rem;background:rgba(78,195,227,.08);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;font-size:1rem;color:#e4f3f8;display:none}
+.reveal-note.show{display:block}
 /* outro */
-.outro{max-width:var(--maxw);margin:0 auto;padding:6rem 1.4rem 8rem;text-align:center}
-.outro h2{font-size:clamp(1.8rem,4.5vw,2.6rem);margin-bottom:1rem}
-.outro .body{color:var(--muted);max-width:42ch;margin:0 auto 2rem}
-.acad{margin:2rem auto;max-width:46ch;font-size:.92rem;color:var(--muted);font-style:italic;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.2rem 0}
-.authors{font-family:'Syne',sans-serif;font-weight:700;color:var(--text);margin-bottom:2rem}
+.outro .acad{margin:2rem auto;max-width:46ch;font-size:.92rem;color:var(--muted);font-style:italic;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.2rem 0}
+.outro .authors{font-family:var(--serif);font-weight:500;color:var(--text);margin-bottom:2rem}
 .btn-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;text-decoration:none;padding:.85rem 1.5rem;border-radius:999px;transition:transform .25s,box-shadow .25s}
-.btn-primary{background:var(--accent);color:#06122e;box-shadow:0 8px 24px rgba(105,150,255,.3)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.04em;text-decoration:none;padding:.8rem 1.4rem;border-radius:999px;transition:transform .25s,box-shadow .25s}
+.btn-primary{background:var(--know);color:#04121f}
 .btn-primary:hover{transform:translateY(-3px)}
 .btn-ghost{border:1px solid var(--line);color:var(--text)}
-.btn-ghost:hover{border-color:var(--accent)}
-.foot{max-width:var(--maxw);margin:0 auto;padding:0 1.4rem 3rem;text-align:center;font-size:.78rem;color:rgba(231,236,255,.32)}
-.foot a{color:rgba(231,236,255,.5)}
+.btn-ghost:hover{border-color:var(--know)}
+.foot{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 1.4rem 3rem;text-align:center;font-size:.78rem;color:rgba(234,246,251,.34)}
+.foot a{color:rgba(234,246,251,.55)}
+/* calibration test */
+.calibwrap{max-width:700px}
+.ctest{display:flex;flex-direction:column;gap:1rem;margin-top:1.6rem;text-align:left}
+.ctq{border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;background:rgba(6,24,43,.45)}
+.ctq__q{font-weight:600;margin-bottom:.8rem}
+.ctq__opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.9rem}
+.ctopt{text-align:left;background:rgba(196,233,238,.04);border:1px solid var(--line);color:var(--text);padding:.6rem .85rem;border-radius:10px;cursor:pointer;font:inherit;font-size:.96rem;transition:border-color .2s,background .2s}
+.ctopt:hover{border-color:var(--know)}
+.ctopt.sel{border-color:var(--know);background:rgba(78,195,227,.12)}
+.ctq.done .ctopt{cursor:default}
+.ctopt.correct{border-color:var(--good);background:rgba(79,209,176,.16)}
+.ctopt.wrong{border-color:var(--bad);background:rgba(245,115,111,.14)}
+.ctq.done .ctopt:not(.correct):not(.wrong){opacity:.5}
+.ctq__conf{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.84rem;color:var(--muted)}
+.ctc{background:none;border:1px solid var(--line);color:var(--muted);padding:.34rem .8rem;border-radius:999px;cursor:pointer;font:inherit;font-size:.8rem;transition:border-color .2s,background .2s,color .2s}
+.ctc:hover{border-color:var(--conf);color:var(--text)}
+.ctc.sel{border-color:var(--conf);background:rgba(201,140,212,.16);color:var(--text)}
+.ctest__go{align-self:flex-start;font-family:var(--mono);font-weight:600;font-size:.82rem;letter-spacing:.04em;background:var(--know);color:#04121f;border:none;padding:.8rem 1.4rem;border-radius:999px;cursor:pointer;transition:transform .2s,opacity .2s}
+.ctest__go:disabled{opacity:.38;cursor:not-allowed}
+.ctest__go:not(:disabled):hover{transform:translateY(-2px)}
+.ctest__result{border:1px solid var(--line);border-radius:14px;padding:1.3rem 1.4rem;background:rgba(6,24,43,.62)}
+.ctr__row{display:flex;justify-content:space-between;align-items:baseline;padding:.45rem 0;border-bottom:1px solid var(--line)}
+.ctr__row span{color:var(--muted);font-size:.92rem}
+.ctr__row b{font-family:var(--serif);font-size:1.35rem;font-weight:500}
+.ctr__gap{display:flex;justify-content:space-between;align-items:baseline;padding:.75rem 0 .2rem}
+.ctr__gap span{color:var(--muted);font-size:.92rem}
+.ctr__gap b{font-family:var(--serif);font-size:2rem;font-weight:500}
+.ctr__verdict{font-family:var(--serif);font-size:1.18rem;margin:.5rem 0 .85rem}
+.ctr__tie{font-size:.9rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.85rem;margin:0}
+/* stronger dark dim behind data figures + text (calmer field, data/text pops) */
+.scrolly__sticky::before{background:radial-gradient(78% 72% at 50% 46%,rgba(0,7,14,.9),rgba(0,7,14,.46) 58%,transparent 84%)}
+.lead::before{background:radial-gradient(closest-side,rgba(0,8,15,.86),rgba(0,8,15,0))}
+.scrolly__caption{position:relative}
+.scrolly__caption::before{content:'';position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:130%;height:280%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(0,8,15,.74),transparent)}
+.outro{position:relative;z-index:2}
+.outro::before{content:'';position:absolute;left:50%;top:48%;transform:translateX(-50%);width:150vw;height:150%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(0,5,11,.93),rgba(0,5,11,.5) 50%,transparent 78%)}
+/* outro: trim dead space below + dim reaches under the buttons */
+.outro{padding-top:13vh;padding-bottom:4vh}
+.outro::before{top:50%;height:124%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(0,4,9,.97),rgba(0,4,9,.82) 48%,rgba(0,4,9,.4) 72%,transparent 88%)}
+.foot{padding-bottom:2.4rem}
+/* larger, clearer explanatory sub-texts site-wide */
+.cap{font-size:1.06rem}
+.cap small{font-size:.85rem;color:rgba(234,246,251,.75);margin-top:.7rem}
+.lead .caveat{font-size:1rem;color:rgba(234,246,251,.7)}
+.ctr__tie{font-size:1rem;color:rgba(234,246,251,.72)}
 
-/* domino */
-.domino-stage{height:200px;position:relative}
-.tile{transform-box:fill-box;transform-origin:bottom center;transition:transform .42s cubic-bezier(.5,.02,.35,1)}
-.node-lbl{text-transform:uppercase;letter-spacing:.05em}
-.med-arrow{transition:stroke .4s ease,opacity .4s ease}
-.dot-fade{transition:opacity .6s ease}
-.flow-dash{stroke-dasharray:6 6;animation:dash 1.4s linear infinite}
-@keyframes dash{to{stroke-dashoffset:-24}}
-
-/* ruler trendline wobble */
-.wobble{animation:wob 2.6s ease-in-out infinite}
-@keyframes wob{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
-
-@media (max-width:1024px){
-  .scene{padding:4rem 1.5rem;min-height:72svh}
-  .figbox{padding:1.3rem}
-  .meters{gap:2rem;height:210px}
-  .meter .bar{height:155px}
-  .hero{padding:5rem 1.4rem 3rem}
-}
-
-@media (max-width:600px){
-  .scene{padding:5rem 1.2rem;min-height:auto}
-  .figbox{padding:1.1rem}
-  .meters{gap:1.4rem;height:200px}
-  .meter .bar{height:150px}
-}
-
-/* reduced motion */
-@media (prefers-reduced-motion:reduce){
-  *{animation:none !important;scroll-behavior:auto !important}
-  .reveal{opacity:1 !important;transform:none !important;transition:none !important;will-change:auto !important}
-  .meter .fill,.tile{transition:none !important}
-  .hero .eyebrow,.hero h1,.hero .sub,.scroll-hint{opacity:1 !important;transform:none !important}
-}
 </style>
 </head>
 <body>
-<div class="backdrop"><div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div></div>
+<div class="backdrop"></div><canvas class="bgfield" id="bgfield" aria-hidden="true"></canvas>
 <div class="progress"><span id="progressBar"></span></div>
-
-<div class="topbar">
-  <div class="part-pill" id="partPill" data-i18n="partPill"></div>
-  <div class="lang" role="group" aria-label="Language">
-    <button id="langNo" class="active" data-lang="no">NO</button>
-    <button id="langEn" data-lang="en">EN</button>
-  </div>
-</div>
-
-<!-- SCENE 0 — HERO -->
-<header class="hero">
-  <div class="eyebrow" data-i18n="s0_eyebrow"></div>
-  <h1 data-i18n="s0_title"></h1>
-  <p class="sub" data-i18n="s0_sub"></p>
-  <div class="scroll-hint"><span data-i18n="s0_scroll"></span><span class="arrow"></span></div>
-</header>
+<div class="topbar"><div class="lang" role="group" aria-label="Language"><button id="langNo" class="active">NO</button><button id="langEn">EN</button></div></div>
+<div class="rail" aria-hidden="true"><div class="rail__track"><div class="rail__fill" id="railFill"></div><div class="rail__marks" id="railMarks"></div></div></div>
 
 <main>
+  <header class="hero">
+    <div class="kicker" data-i18n="kicker"></div>
+    <h1 data-i18n="hero_h"></h1>
+    <p data-i18n="hero_sub"></p>
+    <div class="down"><span data-i18n="scrollcue"></span><i></i></div>
+  </header>
 
-<!-- ============ DEL 1 — MOTIVASJON ============ -->
+<section class="scrolly" data-fig="growth" data-part="1">
+  <div class="scrolly__sticky">
+    <div class="stage"><div class="med-eyebrow">Vekst: flere private aksjonærer</div><svg viewBox="0 0 960 460" role="img" aria-label="Linjediagram: antall norske private aksjonærer 2014 til 2025, stiger forbi 600 000">
+  <defs>
+    <linearGradient id="growth-fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4ec3e3" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#4ec3e3" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="growth-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#c4e9ee" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#c4e9ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
 
-<!-- SCENE 1 -->
-<section class="scene" data-part="1">
-  <div class="eyebrow reveal" data-i18n="part1"></div>
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 230" role="img" aria-hidden="true">
-        <defs><linearGradient id="grLine" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#6996ff" stop-opacity=".55"/><stop offset="1" stop-color="#6996ff" stop-opacity="0"/>
-        </linearGradient></defs>
-        <line x1="40" y1="190" x2="580" y2="190" stroke="rgba(231,236,255,.18)"/>
-        <path id="growthArea" d="M40,185 L120,178 L200,170 L280,156 L360,120 L440,74 L560,30 L560,190 L40,190 Z" fill="url(#grLine)" opacity="0"/>
-        <path id="growthLine" d="M40,185 L120,178 L200,170 L280,156 L360,120 L440,74 L560,30" fill="none" stroke="#6996ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-        <circle id="growthDot" cx="560" cy="30" r="6" fill="#aabeff" opacity="0"/>
-        <text x="40" y="215" fill="rgba(231,236,255,.5)" font-size="13" font-family="Outfit">2014</text>
-        <text x="520" y="215" fill="rgba(231,236,255,.5)" font-size="13" font-family="Outfit">2025</text>
-      </svg>
-      <div class="fig-cap"><span class="counter" id="cnt600" data-target="600000">0</span> <span data-i18n="s1_cap"></span></div>
-    </div>
+  <!-- hairline baseline + faint gridlines -->
+  <line x1="90" y1="360" x2="880" y2="360" stroke="rgba(196,233,238,.14)"/>
+  <line id="growth-grid6" x1="90" y1="215" x2="880" y2="215" stroke="rgba(196,233,238,.14)" stroke-dasharray="2 6" opacity="0"/>
+  <line id="growth-grid3" x1="90" y1="288" x2="880" y2="288" stroke="rgba(196,233,238,.14)" stroke-dasharray="2 6" opacity="0"/>
+
+  <!-- y reference label for the 600k gridline -->
+  <text id="growth-ylbl" x="90" y="206" fill="#88a0b0" font-size="11" font-family="'JetBrains Mono',monospace" opacity="0">600 000</text>
+
+  <!-- area under the line (revealed via clip-like opacity) -->
+  <path id="growth-area" d="M90,338 L162,341 L234,344 L306,343 L378,340 L450,336 L522,331 L594,310 L666,268 L738,222 L810,190 L880,162 L880,360 L90,360 Z" fill="url(#growth-fill)" opacity="0"/>
+
+  <!-- the rising line, draws left to right -->
+  <path id="growth-line" d="M90,338 L162,341 L234,344 L306,343 L378,340 L450,336 L522,331 L594,310 L666,268 L738,222 L810,190 L880,162" fill="none" stroke="#4ec3e3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+
+  <!-- pulsing end glow + dot -->
+  <circle id="growth-pulse" cx="880" cy="162" r="20" fill="url(#growth-glow)" opacity="0"/>
+  <circle id="growth-dot" cx="880" cy="162" r="6" fill="#c4e9ee" stroke="#00101e" stroke-width="1.5" opacity="0"/>
+
+  <!-- big serif counter, centred upper-left of the rise -->
+  <g id="growth-counter" opacity="0">
+    <text x="90" y="118" font-family="'Newsreader',Georgia,serif" font-weight="400" font-size="74" fill="#eaf6fb"><tspan id="growth-num">0</tspan></text>
+    <text x="92" y="146" font-family="'JetBrains Mono',monospace" font-size="12.5" letter-spacing=".06em" fill="#88a0b0" data-i18n="figl_0">private aksjonærer i Norge, 2025</text>
+  </g>
+
+  <!-- end-value pill anchored to the bright dot (light text on dark, cyan stroke) -->
+  <g id="growth-endpill" opacity="0">
+    <rect x="772" y="120" width="120" height="28" rx="14" fill="#06182b" stroke="#4ec3e3" stroke-opacity=".45"/>
+    <text x="832" y="139" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-weight="600" font-size="14" fill="#eaf6fb">600 000+</text>
+  </g>
+
+  <!-- axis ticks: 2014 and 2025 (mono) -->
+  <text x="90" y="384" text-anchor="middle" fill="#88a0b0" font-size="13" font-family="'JetBrains Mono',monospace">2014</text>
+  <text x="880" y="384" text-anchor="middle" fill="#88a0b0" font-size="13" font-family="'JetBrains Mono',monospace">2025</text>
+
+  <!-- pandemic marker, fades in late -->
+  <g id="growth-pandemic" opacity="0">
+    <line x1="594" y1="310" x2="594" y2="360" stroke="rgba(196,233,238,.14)" stroke-dasharray="3 4"/>
+    <text x="594" y="404" text-anchor="middle" fill="#88a0b0" font-size="11" font-family="'JetBrains Mono',monospace">2020</text>
+  </g>
+</svg></div>
+    <div class="scrolly__caption" data-caps="growth"></div>
   </div>
-  <h2 class="reveal d1" data-i18n="s1_h"></h2>
-  <p class="body reveal d2" data-i18n="s1_b"></p>
+  <div class="scrolly__spacer" style="height:320vh"></div>
 </section>
 
-<!-- SCENE 2 -->
-<section class="scene" data-part="1">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 200" id="dotsSvg" role="img" aria-hidden="true"></svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s2_h"></h2>
-  <p class="body reveal d2" data-i18n="s2_b"></p>
+<section class="lead reveal" data-part="1">
+  <div class="eyebrow" data-i18n="map_eyebrow"></div>
+  <h2 data-i18n="map_h"></h2>
+  <p data-i18n="map_b"></p>
+  
 </section>
 
-<!-- SCENE 3 -->
-<section class="scene" data-part="1">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 220" role="img" aria-hidden="true">
-        <line x1="300" y1="120" x2="300" y2="210" stroke="rgba(231,236,255,.2)" stroke-width="6" stroke-linecap="round"/>
-        <g class="reveal-sign" id="signL">
-          <rect x="70" y="70" width="200" height="54" rx="10" fill="#18223c" stroke="#6996ff"/>
-          <polygon points="60,97 78,80 78,114" fill="#6996ff"/>
-          <text x="170" y="103" text-anchor="middle" fill="#aabeff" font-size="17" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text>
-        </g>
-        <g id="signR">
-          <rect x="330" y="70" width="210" height="54" rx="10" fill="#18223c" stroke="#ffb774"/>
-          <polygon points="550,97 532,80 532,114" fill="#ffb774"/>
-          <text x="435" y="103" text-anchor="middle" fill="#ffd6a8" font-size="17" font-family="Syne" font-weight="700" data-i18n="lblThink"></text>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s3_h"></h2>
-  <p class="body reveal d2" data-i18n="s3_b"></p>
+<section class="lead reveal" data-part="2">
+  <div class="eyebrow" data-i18n="bb1_eyebrow"></div>
+  <h2 data-i18n="bb1_h"></h2>
+  <p data-i18n="bb1_b"></p>
+  
 </section>
 
-<!-- SCENE 4 -->
-<section class="scene" data-part="1">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 150" role="img" aria-hidden="true">
-        <!-- basket (all eggs one) -->
-        <g transform="translate(70,30)">
-          <path d="M10,40 Q60,90 110,40" fill="none" stroke="#6996ff" stroke-width="3"/>
-          <ellipse cx="40" cy="40" rx="9" ry="12" fill="#aabeff"/><ellipse cx="60" cy="40" rx="9" ry="12" fill="#aabeff"/><ellipse cx="80" cy="40" rx="9" ry="12" fill="#aabeff"/>
-          <text x="60" y="105" text-anchor="middle" fill="#8f9bbf" fill-opacity=".7" font-size="13" font-family="Outfit" data-i18n="lblBasket"></text>
-        </g>
-        <!-- fee eats coin -->
-        <g transform="translate(250,30)">
-          <circle cx="55" cy="40" r="30" fill="none" stroke="#ffb774" stroke-width="3"/>
-          <path d="M55,10 A30,30 0 0,1 80,55 Z" fill="#ffb774" opacity=".35"/>
-          <text x="55" y="105" text-anchor="middle" fill="#8f9bbf" fill-opacity=".7" font-size="13" font-family="Outfit" data-i18n="lblFee"></text>
-        </g>
-        <!-- risk meter -->
-        <g transform="translate(430,30)">
-          <path d="M20,60 A50,50 0 0,1 120,60" fill="none" stroke="rgba(231,236,255,.18)" stroke-width="8" stroke-linecap="round"/>
-          <path d="M20,60 A50,50 0 0,1 110,35" fill="none" stroke="#ff7b7b" stroke-width="8" stroke-linecap="round"/>
-          <line x1="70" y1="60" x2="105" y2="38" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-          <text x="70" y="105" text-anchor="middle" fill="#8f9bbf" fill-opacity=".7" font-size="13" font-family="Outfit" data-i18n="lblRiskMeter"></text>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s4_h"></h2>
-  <p class="body reveal d2" data-i18n="s4_b"></p>
+<section class="lead reveal" data-part="2">
+  <div class="eyebrow" data-i18n="bb2_eyebrow"></div>
+  <h2 data-i18n="bb2_h"></h2>
+  <p data-i18n="bb2_b"></p>
+  
 </section>
 
-<!-- ============ DEL 2 — TEORI ============ -->
-
-<!-- SCENE 5 -->
-<section class="scene" data-part="2">
-  <div class="eyebrow reveal" data-i18n="part2"></div>
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <div class="meters">
-        <div class="meter know"><div class="bar"><div class="fill" data-fill="78%"></div></div><div class="lbl" data-i18n="lblKnow"></div></div>
-      </div>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s5_h"></h2>
-  <p class="body reveal d2" data-i18n="s5_b"></p>
+<section class="lead reveal" data-part="2">
+  <div class="eyebrow" data-i18n="bb34_eyebrow"></div>
+  <h2 data-i18n="bb34_h"></h2>
+  <p data-i18n="bb34_b"></p>
+  
 </section>
 
-<!-- SCENE 6 -->
-<section class="scene" data-part="2">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 170" role="img" aria-hidden="true">
-        <!-- speedometer -->
-        <path d="M70,140 A90,90 0 0,1 250,140" fill="none" stroke="rgba(231,236,255,.16)" stroke-width="12" stroke-linecap="round"/>
-        <path d="M70,140 A90,90 0 0,1 160,50" fill="none" stroke="#5fd0a0" stroke-width="12" stroke-linecap="round"/>
-        <line id="speedNeedle" x1="160" y1="140" x2="160" y2="62" stroke="#fff" stroke-width="4" stroke-linecap="round" transform="rotate(-32 160 140)"/>
-        <circle cx="160" cy="140" r="7" fill="#fff"/>
-        <text x="160" y="165" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblSpeedo"></text>
-        <text x="430" y="70" text-anchor="middle" fill="#d4ddf7" font-size="15" font-family="Outfit" data-i18n="lblSpeedoNote1"></text>
-        <text x="430" y="96" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblSpeedoNote2"></text>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s6_h"></h2>
-  <p class="body reveal d2" data-i18n="s6_b"></p>
-</section>
+<section class="scrolly" data-fig="funnel" data-part="3">
+  <div class="scrolly__sticky">
+    <div class="stage"><div class="med-eyebrow">Rensing</div><svg viewBox="0 0 960 460" role="img" aria-label="Rensing av datasettet fra 1027 til 750 respondenter">
+  <defs>
+    <linearGradient id="funnel-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4ec3e3" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#4ec3e3" stop-opacity=".06"/>
+    </linearGradient>
+  </defs>
 
-<!-- SCENE 7 -->
-<section class="scene" data-part="2">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <div class="meters">
-        <div class="meter know"><div class="bar"><div class="fill" data-fill="55%"></div></div><div class="lbl" data-i18n="lblKnow"></div></div>
-        <div class="meter conf"><div class="bar"><div class="fill" data-fill="88%"></div></div><div class="lbl" data-i18n="lblConf"></div></div>
-      </div>
-      <div class="fig-cap" style="color:var(--warm)">↕ <span data-i18n="lblGap"></span></div>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s7_h"></h2>
-  <p class="body reveal d2" data-i18n="s7_b"></p>
-</section>
+  <line x1="80" y1="400" x2="880" y2="400" stroke="rgba(196,233,238,.14)"/>
 
-<!-- SCENE 8 -->
-<section class="scene" data-part="2">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 150" role="img" aria-hidden="true">
-        <!-- rollercoaster -->
-        <path d="M40,120 Q90,30 140,90 T240,90" fill="none" stroke="#ff7b7b" stroke-width="3"/>
-        <circle cx="40" cy="120" r="6" fill="#ffb774"/>
-        <text x="140" y="140" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblCoaster"></text>
-        <!-- plate with portions -->
-        <g transform="translate(380,20)">
-          <circle cx="80" cy="55" r="50" fill="none" stroke="#6996ff" stroke-width="3"/>
-          <path d="M80,55 L80,5 A50,50 0 0,1 123,80 Z" fill="#6996ff" opacity=".3"/>
-          <path d="M80,55 L123,80 A50,50 0 0,1 40,95 Z" fill="#aabeff" opacity=".3"/>
-          <path d="M80,55 L40,95 A50,50 0 0,1 80,5 Z" fill="#5fd0a0" opacity=".3"/>
-          <text x="80" y="125" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" data-i18n="lblPlate"></text>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s8_h"></h2>
-  <p class="body reveal d2" data-i18n="s8_b"></p>
-</section>
+  <!-- source pills, centered above the box -->
+  <g id="funnel-intro" opacity="0" font-family="'Outfit',sans-serif" font-size="12.5" fill="#cfe6ef" text-anchor="middle">
+    <rect x="255" y="42" width="90" height="30" rx="15" fill="#06182b" stroke="rgba(196,233,238,.14)"/><text x="300" y="61" data-i18n="figl_1">Reddit</text>
+    <rect x="363" y="42" width="234" height="30" rx="15" fill="#06182b" stroke="rgba(196,233,238,.14)"/><text x="480" y="61" data-i18n="figl_2">Shareville (nå Nordnet Social)</text>
+    <rect x="615" y="42" width="104" height="30" rx="15" fill="#06182b" stroke="rgba(196,233,238,.14)"/><text x="667" y="61" data-i18n="figl_3">Facebook</text>
+    <path id="funnel-introlines" d="M300,72 Q480,90 480,100 M480,72 L480,100 M667,72 Q480,90 480,100" fill="none" stroke="#4ec3e3" stroke-width="1.2" opacity=".45"/>
+  </g>
 
-<!-- SCENE 9 — domino setup -->
-<section class="scene" data-part="2">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 200" role="img" aria-hidden="true">
-        <!-- direct dashed arrow under -->
-        <path d="M70,170 Q300,200 520,170" fill="none" stroke="rgba(231,236,255,.3)" stroke-width="2" stroke-dasharray="6 6"/>
-        <text x="300" y="195" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblDirect"></text>
-        <!-- three upright tiles -->
-        <g><rect x="60" y="50" width="40" height="90" rx="6" fill="#6996ff"/><text x="80" y="35" text-anchor="middle" fill="#aabeff" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text></g>
-        <text x="180" y="100" text-anchor="middle" fill="#8f9bbf" font-size="22">›</text>
-        <g><rect x="280" y="50" width="40" height="90" rx="6" fill="#ffb774"/><text x="300" y="35" text-anchor="middle" fill="#ffd6a8" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblConf"></text></g>
-        <text x="400" y="100" text-anchor="middle" fill="#8f9bbf" font-size="22">›</text>
-        <g><rect x="500" y="50" width="40" height="90" rx="6" fill="#ff7b7b"/><text x="520" y="35" text-anchor="middle" fill="#ffb3b3" font-size="13" font-family="Syne" font-weight="700" data-i18n="lblRisk"></text></g>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s9_h"></h2>
-  <p class="body reveal d2" data-i18n="s9_b"></p>
-</section>
+  <!-- centered funnel box (bottom anchored at y=400; height driven by applyJs) -->
+  <g id="funnel-raw" opacity="0">
+    <rect id="funnel-bar" x="400" y="120" width="160" height="280" rx="3" fill="url(#funnel-grad)"/>
+    <rect id="funnel-barfill" x="400" y="120" width="160" height="280" rx="3" fill="none" stroke="#4ec3e3" stroke-width="2"/>
+    <line id="funnel-bartop" x1="400" y1="120" x2="560" y2="120" stroke="#c4e9ee" stroke-width="2.5"/>
+  </g>
 
-<!-- ============ DEL 3 — METODE OG DATA ============ -->
+  <g font-family="'Newsreader',serif" text-anchor="middle">
+    <text id="funnel-count" x="480" y="270" font-size="60" font-weight="300" fill="#c4e9ee">1 027</text>
+    <text id="funnel-label" x="480" y="300" font-size="14" font-weight="400" fill="#c4e9ee" font-family="'JetBrains Mono',monospace" letter-spacing=".06em" data-i18n="figl_4">respondenter</text>
+  </g>
 
-<!-- SCENE 10 -->
-<section class="scene" data-part="3">
-  <div class="eyebrow reveal" data-i18n="part3"></div>
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 180" role="img" aria-hidden="true">
-        <g font-family="Outfit" font-size="14" fill="#d4ddf7">
-          <rect x="40" y="30" width="150" height="40" rx="20" fill="#18223c" stroke="rgba(231,236,255,.12)"/><text x="115" y="55" text-anchor="middle">Reddit</text>
-          <rect x="225" y="30" width="150" height="40" rx="20" fill="#18223c" stroke="rgba(231,236,255,.12)"/><text x="300" y="55" text-anchor="middle">Nordnet</text>
-          <rect x="410" y="30" width="150" height="40" rx="20" fill="#18223c" stroke="rgba(231,236,255,.12)"/><text x="485" y="55" text-anchor="middle">Facebook</text>
-        </g>
-        <path d="M115,70 Q300,110 290,120 M300,70 L300,120 M485,70 Q300,110 310,120" fill="none" stroke="#6996ff" stroke-width="1.5" opacity=".5"/>
-        <polygon points="240,120 360,120 320,160 280,160" fill="#18223c" stroke="#6996ff"/>
-        <text x="300" y="145" text-anchor="middle" fill="#aabeff" font-size="13" font-family="Outfit">1027</text>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s10_h"></h2>
-  <p class="body reveal d2" data-i18n="s10_b"></p>
-</section>
+  <!-- exclusion strata: reasons we removed, in the "removed" colour (not data pills) -->
+  <path id="funnel-con1" d="M560,170 L628,170" fill="none" stroke="#88a0b0" stroke-width="1.2" stroke-dasharray="1" stroke-dashoffset="1" pathLength="1" opacity=".5"/>
+  <path id="funnel-con2" d="M560,250 L628,250" fill="none" stroke="#88a0b0" stroke-width="1.2" stroke-dasharray="1" stroke-dashoffset="1" pathLength="1" opacity=".5"/>
+  <path id="funnel-con3" d="M560,330 L628,330" fill="none" stroke="#88a0b0" stroke-width="1.2" stroke-dasharray="1" stroke-dashoffset="1" pathLength="1" opacity=".5"/>
 
-<!-- SCENE 11 — funnel -->
-<section class="scene" data-part="3">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 230" role="img" aria-hidden="true">
-        <polygon points="120,20 480,20 360,150 240,150" fill="#141d33" stroke="#6996ff" stroke-width="1.5"/>
-        <rect x="270" y="150" width="60" height="60" fill="#141d33" stroke="#6996ff" stroke-width="1.5"/>
-        <g font-family="Outfit" font-size="13">
-          <text x="500" y="55" fill="#8f9bbf" data-i18n="lblFilter1"></text>
-          <text x="500" y="90" fill="#8f9bbf" data-i18n="lblFilter2"></text>
-          <text x="500" y="125" fill="#8f9bbf" data-i18n="lblFilter3"></text>
-          <line x1="360" y1="50" x2="495" y2="50" stroke="rgba(231,236,255,.12)"/>
-          <line x1="345" y1="85" x2="495" y2="85" stroke="rgba(231,236,255,.12)"/>
-          <line x1="330" y1="120" x2="495" y2="120" stroke="rgba(231,236,255,.12)"/>
-        </g>
-        <text x="300" y="60" text-anchor="middle" fill="#aabeff" font-size="22" font-family="Syne" font-weight="800"><tspan class="counter" id="cntFunnel" data-from="1027" data-target="750">1027</tspan></text>
-      </svg>
-      <div class="fig-cap"><span data-i18n="s11_cap"></span></div>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s11_h"></h2>
-  <p class="body reveal d2" data-i18n="s11_b"></p>
-</section>
+  <g id="funnel-excl1" opacity="0" font-family="'Outfit',sans-serif">
+    <text x="640" y="166" font-size="15" fill="#ff9e7a" data-i18n="figl_5">Strøk oppmerksomhetssjekk</text>
+    <text x="640" y="187" font-size="12.5" fill="#88a0b0" font-family="'JetBrains Mono',monospace" letter-spacing=".04em">&#8722;262</text>
+  </g>
+  <g id="funnel-excl2" opacity="0" font-family="'Outfit',sans-serif">
+    <text x="640" y="255" font-size="15" fill="#ff9e7a" data-i18n="figl_6">Under 18 år</text>
+  </g>
+  <g id="funnel-excl3" opacity="0" font-family="'Outfit',sans-serif">
+    <text x="640" y="335" font-size="15" fill="#ff9e7a" data-i18n="figl_7">Ufullstendige svar</text>
+  </g>
 
-<!-- SCENE 12 — sample honesty -->
-<section class="scene" data-part="3">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 130" role="img" aria-hidden="true">
-        <g font-family="Syne" font-weight="800">
-          <text x="120" y="60" text-anchor="middle" fill="#aabeff" font-size="38">84%</text>
-          <text x="120" y="92" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" font-weight="400" data-i18n="lblMen"></text>
-          <text x="300" y="60" text-anchor="middle" fill="#aabeff" font-size="38">64%</text>
-          <text x="300" y="92" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" font-weight="400" data-i18n="lblYoung"></text>
-          <text x="485" y="60" text-anchor="middle" fill="#aabeff" font-size="26" font-family="Outfit" font-weight="600" data-i18n="lblOnline"></text>
-          <text x="485" y="92" text-anchor="middle" fill="#8f9bbf" font-size="13" font-family="Outfit" font-weight="400" data-i18n="lblOnline2"></text>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s12_h"></h2>
-  <p class="body reveal d2" data-i18n="s12_b"></p>
-</section>
-
-<!-- SCENE 13 — quiz -->
-<section class="scene" data-part="3">
-  <h2 class="reveal" data-i18n="s13_h"></h2>
-  <p class="body reveal d1" data-i18n="s13_prompt" style="margin-bottom:1.6rem"></p>
-  <div class="quiz reveal d2">
-    <div class="guess">
-      <label data-i18n="s13_guesslabel" for="guessRange"></label>
-      <div class="row"><input type="range" min="0" max="6" value="3" id="guessRange"><span class="gval" id="guessVal">3</span></div>
-    </div>
-
-    <div class="q" data-correct="2">
-      <div class="qtext" data-i18n="q1_q"></div>
-      <div class="opts">
-        <button class="opt" data-i18n="q1_o0"></button>
-        <button class="opt" data-i18n="q1_o1"></button>
-        <button class="opt" data-i18n="q1_o2"></button>
-        <button class="opt" data-i18n="q1_o3"></button>
-      </div>
-      <div class="verdict"></div>
-    </div>
-
-    <div class="q" data-correct="2">
-      <div class="qtext" data-i18n="q2_q"></div>
-      <div class="opts">
-        <button class="opt" data-i18n="q2_o0"></button>
-        <button class="opt" data-i18n="q2_o1"></button>
-        <button class="opt" data-i18n="q2_o2"></button>
-      </div>
-      <div class="verdict"></div>
-    </div>
-
-    <div class="reveal-note" id="quizReveal" data-i18n="s13_reveal"></div>
-
-    <button class="expand-btn" id="expandQuiz" data-i18n="s13_expand"></button>
-    <div class="more-q" id="moreQ">
-      <div class="q" data-correct="1">
-        <div class="qtext" data-i18n="q3_q"></div>
-        <div class="opts">
-          <button class="opt" data-i18n="q3_o0"></button>
-          <button class="opt" data-i18n="q3_o1"></button>
-          <button class="opt" data-i18n="q3_o2"></button>
-        </div>
-        <div class="verdict"></div>
-      </div>
-      <div class="q" data-correct="0">
-        <div class="qtext" data-i18n="q4_q"></div>
-        <div class="opts">
-          <button class="opt" data-i18n="q4_o0"></button>
-          <button class="opt" data-i18n="q4_o1"></button>
-        </div>
-        <div class="verdict"></div>
-      </div>
-      <div class="q" data-correct="1">
-        <div class="qtext" data-i18n="q5_q"></div>
-        <div class="opts">
-          <button class="opt" data-i18n="q5_o0"></button>
-          <button class="opt" data-i18n="q5_o1"></button>
-          <button class="opt" data-i18n="q5_o2"></button>
-        </div>
-        <div class="verdict"></div>
-      </div>
-      <div class="q" data-correct="1">
-        <div class="qtext" data-i18n="q6_q"></div>
-        <div class="opts">
-          <button class="opt" data-i18n="q6_o0"></button>
-          <button class="opt" data-i18n="q6_o1"></button>
-          <button class="opt" data-i18n="q6_o2"></button>
-        </div>
-        <div class="verdict"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SCENE 14 — ruler / variance compression -->
-<section class="scene" data-part="3">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 180" id="rulerSvg" role="img" aria-hidden="true">
-        <line x1="40" y1="130" x2="560" y2="130" stroke="rgba(231,236,255,.25)" stroke-width="2"/>
-        <g font-family="Outfit" font-size="12" fill="#8f9bbf">
-          <text x="40" y="152" text-anchor="middle">0</text><text x="126" y="152" text-anchor="middle">1</text>
-          <text x="213" y="152" text-anchor="middle">2</text><text x="300" y="152" text-anchor="middle">3</text>
-          <text x="386" y="152" text-anchor="middle">4</text><text x="473" y="152" text-anchor="middle">5</text>
-          <text x="560" y="152" text-anchor="middle">6</text>
-        </g>
-        <g id="rulerDots"></g>
-        <line id="rulerTrend" x1="430" y1="120" x2="540" y2="60" stroke="#ffb774" stroke-width="2.5" class="wobble" style="transform-origin:485px 90px"/>
-      </svg>
-      <div class="fig-cap"><span data-i18n="s14_cap"></span></div>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s14_h"></h2>
-  <p class="body reveal d2" data-i18n="s14_b"></p>
-  <div class="highlight reveal d3" data-i18n="s14_hl"></div>
-</section>
-
-<!-- ============ DEL 4 — RESULTATER ============ -->
-
-<!-- SCENE 15 -->
-<section class="scene" data-part="4">
-  <div class="eyebrow reveal" data-i18n="part4"></div>
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 150" role="img" aria-hidden="true">
-        <path d="M180,60 Q300,150 420,60" fill="none" stroke="#6996ff" stroke-width="3"/>
-        <g id="eggs">
-          <ellipse class="egg" cx="225" cy="70" rx="11" ry="15" fill="#aabeff" opacity="0"/>
-          <ellipse class="egg" cx="258" cy="78" rx="11" ry="15" fill="#5fd0a0" opacity="0"/>
-          <ellipse class="egg" cx="291" cy="82" rx="11" ry="15" fill="#ffb774" opacity="0"/>
-          <ellipse class="egg" cx="324" cy="80" rx="11" ry="15" fill="#aabeff" opacity="0"/>
-          <ellipse class="egg" cx="357" cy="74" rx="11" ry="15" fill="#ff7b7b" opacity="0"/>
-          <ellipse class="egg" cx="390" cy="66" rx="11" ry="15" fill="#5fd0a0" opacity="0"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s15_h"></h2>
-  <p class="body reveal d2" data-i18n="s15_b"></p>
-</section>
-
-<!-- SCENE 16 -->
-<section class="scene" data-part="4">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 180" role="img" aria-hidden="true">
-        <line x1="48" y1="140" x2="560" y2="140" stroke="rgba(231,236,255,.2)"/>
-        <line x1="48" y1="18" x2="48" y2="140" stroke="rgba(231,236,255,.2)"/>
-        <g id="riskDots"></g>
-        <line id="riskTrend" x1="60" y1="120" x2="540" y2="58" stroke="#6996ff" stroke-width="3" stroke-linecap="round"/>
-        <text id="h3annot" x="300" y="36" text-anchor="middle" fill="#8f9bbf" font-size="11.5" font-family="Outfit" opacity="0" data-i18n="s16_annot"></text>
-        <text x="304" y="162" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblKnowAxis"></text>
-        <text x="16" y="80" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" data-i18n="lblRiskAxis" transform="rotate(-90 16 80)"></text>
-      </svg>
-      <button class="mini-btn" id="toggleH3" data-i18n="s16_toggle"></button>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s16_h"></h2>
-  <p class="body reveal d2" data-i18n="s16_b"></p>
-</section>
-
-<!-- SCENE 17 -->
-<section class="scene" data-part="4">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <div class="meters" id="convMeters">
-        <div class="meter know"><div class="bar"><div class="fill" data-fill="80%"></div></div><div class="lbl" data-i18n="lblKnow"></div></div>
-        <div class="meter conf"><div class="bar"><div class="fill" data-fill="86%"></div></div><div class="lbl" data-i18n="lblConf"></div></div>
-      </div>
-      <div class="fig-cap" style="color:var(--good)">→ <span data-i18n="lblAligned"></span> ←</div>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s17_h"></h2>
-  <p class="body reveal d2" data-i18n="s17_b"></p>
-</section>
-
-<!-- SCENE 18 — domino topple / mediation -->
-<section class="scene" data-part="4">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 230" id="dominoTopple" role="img" aria-hidden="true">
-        <!-- indirect path: arrows between the three nodes (light up green as chain progresses) -->
-        <path id="medArrow1" class="med-arrow" d="M120,70 L250,70" fill="none" stroke="rgba(231,236,255,.18)" stroke-width="3" marker-end="url(#mhead)"/>
-        <path id="medArrow2" class="med-arrow" d="M350,70 L470,70" fill="none" stroke="rgba(231,236,255,.18)" stroke-width="3" marker-end="url(#mhead)"/>
-        <!-- indirect 57% counter (centered above) -->
-        <text id="lbl57wrap" x="300" y="34" text-anchor="middle" fill="#5fd0a0" font-size="16" font-family="Syne" font-weight="800" opacity="0">≈ <tspan id="cnt57">0</tspan><tspan data-i18n="lbl57suffix"></tspan></text>
-        <!-- three upright domino tiles -->
-        <g class="tile" id="t1"><rect x="55" y="62" width="42" height="88" rx="6" fill="#6996ff"/></g>
-        <g class="tile" id="t2"><rect x="279" y="62" width="42" height="88" rx="6" fill="#ffb774"/></g>
-        <g class="tile" id="t3"><rect x="503" y="62" width="42" height="88" rx="6" fill="#ff7b7b"/></g>
-        <!-- static node labels (do not rotate with tiles) -->
-        <text class="node-lbl" x="76" y="172" text-anchor="middle" fill="#aabeff" font-size="12.5" font-family="Syne" font-weight="700" data-i18n="lblKnow"></text>
-        <text class="node-lbl" x="300" y="172" text-anchor="middle" fill="#ffd6a8" font-size="12.5" font-family="Syne" font-weight="700" data-i18n="lblConf"></text>
-        <text class="node-lbl" x="524" y="172" text-anchor="middle" fill="#ffb3b3" font-size="12.5" font-family="Syne" font-weight="700" data-i18n="lblRisk"></text>
-        <!-- direct path: faded dashed arc underneath (fades in last) -->
-        <path id="directArrow" d="M76,156 Q300,214 524,156" fill="none" stroke="rgba(231,236,255,.3)" stroke-width="2" stroke-dasharray="6 6" opacity="0"/>
-        <text id="directLbl" x="300" y="210" text-anchor="middle" fill="#8f9bbf" font-size="12" font-family="Outfit" opacity="0" data-i18n="lblNotSig"></text>
-        <defs><marker id="mhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#5fd0a0"/></marker></defs>
-      </svg>
-      <button class="mini-btn" id="replayDomino" data-i18n="s18_replay"></button>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s18_h"></h2>
-  <p class="body reveal d2" data-i18n="s18_b"></p>
-  <div class="highlight reveal d3" data-i18n="s18_hl"></div>
-</section>
-
-<!-- SCENE 19 — conclusion -->
-<section class="scene" data-part="4">
-  <div class="fig reveal d1">
-    <div class="figbox">
-      <svg viewBox="0 0 600 120" role="img" aria-hidden="true">
-        <g font-family="Syne" font-weight="700" font-size="14">
-          <rect x="30" y="45" width="120" height="44" rx="10" fill="#18223c" stroke="#6996ff"/><text x="90" y="72" text-anchor="middle" fill="#aabeff" data-i18n="lblKnow"></text>
-          <rect x="240" y="45" width="120" height="44" rx="10" fill="#18223c" stroke="#ffb774"/><text x="300" y="72" text-anchor="middle" fill="#ffd6a8" data-i18n="lblConf"></text>
-          <rect x="450" y="45" width="120" height="44" rx="10" fill="#18223c" stroke="#ff7b7b"/><text x="510" y="72" text-anchor="middle" fill="#ffb3b3" data-i18n="lblRisk"></text>
-          <path d="M150,67 L235,67" stroke="#5fd0a0" stroke-width="3" marker-end="url(#ar)"/>
-          <path d="M360,67 L445,67" stroke="#5fd0a0" stroke-width="3" marker-end="url(#ar)"/>
-        </g>
-        <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#5fd0a0"/></marker></defs>
-      </svg>
-    </div>
-  </div>
-  <h2 class="reveal d1" data-i18n="s19_h"></h2>
-  <p class="body reveal d2" data-i18n="s19_b"></p>
-  <div class="highlight reveal d2" data-i18n="s19_policy"></div>
-  <div class="caveat reveal d3" data-i18n="s19_caveat"></div>
-</section>
-
-<!-- SCENE 20 — outro -->
-<section class="outro">
-  <h2 class="reveal" data-i18n="s20_h"></h2>
-  <p class="body reveal d1" data-i18n="s20_b"></p>
-  <div class="acad reveal d1" data-i18n="s20_acad"></div>
-  <div class="authors reveal d1" data-i18n="s20_authors"></div>
-  <div class="btn-row reveal d2">
-    <a class="btn btn-primary" href="../../docs/Master%20Thesis.pdf" target="_blank" rel="noopener" data-i18n="s20_pdf"></a>
-    <a class="btn btn-ghost" href="#top" data-i18n="s20_top"></a>
-  </div>
-</section>
-<div class="foot">
-  <span data-i18n="footText"></span> · <a href="../">← <span data-i18n="footBack"></span></a>
+  <g id="funnel-base" opacity="0" text-anchor="middle" font-family="'JetBrains Mono',monospace">
+    <text x="480" y="428" font-size="12.5" fill="#4fd1b0" letter-spacing=".08em" data-i18n="figl_8">analysegrunnlag</text>
+  </g>
+</svg>
 </div>
+    <div class="scrolly__caption" data-caps="funnel"></div>
+  </div>
+  <div class="scrolly__spacer" style="height:360vh"></div>
+</section>
 
+<section class="lead reveal" data-part="3">
+  <div class="eyebrow" data-i18n="sample_eyebrow"></div>
+  <h2 data-i18n="sample_h"></h2>
+  <p data-i18n="sample_b"></p>
+  
+</section>
+
+<section class="lead reveal calibwrap" data-part="3">
+  <div class="eyebrow" data-i18n="ct_eyebrow"></div>
+  <h2 data-i18n="ct_h"></h2>
+  <p data-i18n="ct_intro"></p>
+  <div class="ctest" id="ctest">
+    <div class="ctq" data-correct="2">
+      <div class="ctq__q" data-i18n="ct_q1"></div>
+      <div class="ctq__opts"><button class="ctopt" data-i18n="ct_q1_o0"></button><button class="ctopt" data-i18n="ct_q1_o1"></button><button class="ctopt" data-i18n="ct_q1_o2"></button><button class="ctopt" data-i18n="ct_q1_o3"></button></div>
+      <div class="ctq__conf"><span data-i18n="ct_conflbl"></span><button class="ctc" data-c="20" data-i18n="ct_conf0"></button><button class="ctc" data-c="60" data-i18n="ct_conf1"></button><button class="ctc" data-c="100" data-i18n="ct_conf2"></button></div>
+    </div>
+    <div class="ctq" data-correct="2">
+      <div class="ctq__q" data-i18n="ct_q2"></div>
+      <div class="ctq__opts"><button class="ctopt" data-i18n="ct_q2_o0"></button><button class="ctopt" data-i18n="ct_q2_o1"></button><button class="ctopt" data-i18n="ct_q2_o2"></button></div>
+      <div class="ctq__conf"><span data-i18n="ct_conflbl"></span><button class="ctc" data-c="20" data-i18n="ct_conf0"></button><button class="ctc" data-c="60" data-i18n="ct_conf1"></button><button class="ctc" data-c="100" data-i18n="ct_conf2"></button></div>
+    </div>
+    <div class="ctq" data-correct="1">
+      <div class="ctq__q" data-i18n="ct_q3"></div>
+      <div class="ctq__opts"><button class="ctopt" data-i18n="ct_q3_o0"></button><button class="ctopt" data-i18n="ct_q3_o1"></button><button class="ctopt" data-i18n="ct_q3_o2"></button></div>
+      <div class="ctq__conf"><span data-i18n="ct_conflbl"></span><button class="ctc" data-c="20" data-i18n="ct_conf0"></button><button class="ctc" data-c="60" data-i18n="ct_conf1"></button><button class="ctc" data-c="100" data-i18n="ct_conf2"></button></div>
+    </div>
+    <button class="ctest__go" id="ctestGo" disabled data-i18n="ct_go"></button>
+    <div class="ctest__result" id="ctestResult" hidden></div>
+  </div>
+</section>
+
+<section class="scrolly" data-fig="ceiling" data-part="3">
+  <div class="scrolly__sticky">
+    <div class="stage"><div class="med-eyebrow">Kunnskaps-taket</div><svg viewBox="0 0 960 460" role="img" aria-label="Histogram av finansiell kunnskapsskaar 0 til 6, der nesten alle traff fullt hus">
+  <defs>
+    <linearGradient id="ceiling-barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4ec3e3"/>
+      <stop offset="1" stop-color="#4ec3e3" stop-opacity=".42"/>
+    </linearGradient>
+    <linearGradient id="ceiling-tallGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c4e9ee"/>
+      <stop offset="1" stop-color="#4ec3e3" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- baseline + faint horizontal hairlines -->
+  <line x1="92" y1="382" x2="864" y2="382" stroke="rgba(196,233,238,.22)" stroke-width="1"/>
+  <line id="ceiling-grid1" x1="92" y1="304" x2="864" y2="304" stroke="rgba(196,233,238,.07)" stroke-width="1" opacity="0"/>
+  <line id="ceiling-grid2" x1="92" y1="226" x2="864" y2="226" stroke="rgba(196,233,238,.07)" stroke-width="1" opacity="0"/>
+  <line id="ceiling-grid3" x1="92" y1="148" x2="864" y2="148" stroke="rgba(196,233,238,.07)" stroke-width="1" opacity="0"/>
+
+  <!-- y-axis caption -->
+  <text id="ceiling-yhint" x="92" y="56" font-family="'JetBrains Mono',monospace" font-size="11" fill="#88a0b0" letter-spacing=".06em" opacity="0" data-i18n="figl_9">antall respondenter (N = 750)</text>
+
+  <!-- ===== BARS (baseline y=382). transform scaleY drives growth ===== -->
+  <!-- each bar: g translated to baseline, rect drawn upward, scaled via transform on the g -->
+  <g id="ceiling-bar0" transform="translate(112,382) scale(1,0)">
+    <rect x="0" y="-2" width="74" height="2" fill="url(#ceiling-barGrad)"/>
+  </g>
+  <g id="ceiling-bar1" transform="translate(216,382) scale(1,0)">
+    <rect x="0" y="-2" width="74" height="2" fill="url(#ceiling-barGrad)"/>
+  </g>
+  <g id="ceiling-bar2" transform="translate(320,382) scale(1,0)">
+    <rect x="0" y="-2" width="74" height="2" fill="url(#ceiling-barGrad)"/>
+  </g>
+  <g id="ceiling-bar3" transform="translate(424,382) scale(1,0)">
+    <rect x="0" y="-3" width="74" height="3" fill="url(#ceiling-barGrad)"/>
+  </g>
+  <g id="ceiling-bar4" transform="translate(528,382) scale(1,0)">
+    <rect x="0" y="-38" width="74" height="38" fill="url(#ceiling-barGrad)"/>
+  </g>
+  <g id="ceiling-bar5" transform="translate(632,382) scale(1,0)">
+    <rect x="0" y="-79" width="74" height="79" fill="url(#ceiling-barGrad)"/>
+  </g>
+  <g id="ceiling-bar6" transform="translate(736,382) scale(1,0)">
+    <rect x="0" y="-300" width="74" height="300" fill="url(#ceiling-tallGrad)"/>
+  </g>
+
+  <!-- x-axis labels: scores 0..6 -->
+  <g font-family="'JetBrains Mono',monospace" font-size="14" fill="#88a0b0" text-anchor="middle">
+    <text x="149" y="404">0</text>
+    <text x="253" y="404">1</text>
+    <text x="357" y="404">2</text>
+    <text x="461" y="404">3</text>
+    <text x="565" y="404">4</text>
+    <text x="669" y="404">5</text>
+    <text x="773" y="404" fill="#c4e9ee">6</text>
+  </g>
+  <text x="478" y="436" font-family="'JetBrains Mono',monospace" font-size="11" fill="#88a0b0" text-anchor="middle" letter-spacing=".16em" data-i18n="figl_10">KUNNSKAPSSKÅR (0 TIL 6 RIKTIGE)</text>
+
+  <!-- count labels above the small bars (light, muted) -->
+  <g id="ceiling-smallcounts" font-family="'JetBrains Mono',monospace" font-size="11" fill="rgba(234,246,251,.62)" text-anchor="middle" opacity="0">
+    <text x="149" y="368">1</text>
+    <text x="253" y="368">1</text>
+    <text x="357" y="368">2</text>
+    <text x="461" y="362">3</text>
+    <text x="565" y="336">62</text>
+    <text x="669" y="295">128</text>
+  </g>
+
+  <!-- ===== mean line at score 5,63 ===== -->
+  <!-- score axis: x(score) = 149 + score*104 ; 5,63 -> 149 + 585.5 = 734.5 -->
+  <g id="ceiling-mean" opacity="0">
+    <line x1="734" y1="104" x2="734" y2="382" stroke="#4fd1b0" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <line x1="588" y1="232" x2="732" y2="232" stroke="#4fd1b0" stroke-width="1" stroke-opacity=".5"/>
+    <rect x="470" y="219" width="118" height="26" rx="13" fill="#06182b" stroke="#4fd1b0" stroke-opacity=".45"/>
+    <text x="529" y="236" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="#eaf6fb" data-i18n="figl_11">snitt 5,63</text>
+  </g>
+
+  <!-- ===== big 73,7 % pill on the 6-bar ===== -->
+  <g id="ceiling-pct" opacity="0">
+    <text x="773" y="20" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#c4e9ee" letter-spacing=".04em" data-i18n="figl_12">fikk full pott (553 av 750)</text>
+    <rect x="703" y="30" width="140" height="48" rx="14" fill="#06182b" stroke="#4ec3e3" stroke-opacity=".55"/>
+    <text x="773" y="63" text-anchor="middle" font-family="'Newsreader',serif" font-weight="400" font-size="27" fill="#eaf6fb"><tspan id="ceiling-pctnum">0,0</tspan><tspan font-size="17"> %</tspan></text>
+  </g>
+
+</svg></div>
+    <div class="scrolly__caption" data-caps="ceiling"></div>
+  </div>
+  <div class="scrolly__spacer" style="height:340vh"></div>
+</section>
+
+<section class="lead reveal" data-part="4">
+  <div class="eyebrow" data-i18n="findings_eyebrow"></div>
+  <h2 data-i18n="findings_h"></h2>
+  <p data-i18n="findings_b"></p>
+  
+</section>
+
+<section class="scrolly" data-fig="findings3" data-part="4">
+  <div class="scrolly__sticky">
+    <div class="stage"><div class="med-eyebrow">Tre funn, ett bilde</div><svg viewBox="0 0 960 460" role="img" aria-label="Tre funn i klartekst, kalibrering er det klart sterkeste">
+  <defs>
+    <linearGradient id="find3-gc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4ec3e3"/><stop offset="1" stop-color="#4ec3e3" stop-opacity=".4"/></linearGradient>
+    <linearGradient id="find3-gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c98cd4"/><stop offset="1" stop-color="#c98cd4" stop-opacity=".45"/></linearGradient>
+  </defs>
+  <g id="find3-row1" opacity="0">
+    <text x="100" y="120" font-family="'Outfit',sans-serif" font-size="17" font-weight="600" fill="#eaf6fb" data-i18n="figl_24">Sprer pengene litt bredere</text>
+    <g id="find3-bar1" transform="translate(100,132) scale(0,1)"><rect x="0" y="0" width="80" height="20" rx="4" fill="url(#find3-gc)"/></g>
+  </g>
+  <g id="find3-row2" opacity="0">
+    <text x="100" y="224" font-family="'Outfit',sans-serif" font-size="17" font-weight="600" fill="#eaf6fb" data-i18n="figl_25">Tar litt mer risiko</text>
+    <text x="282" y="224" font-family="'JetBrains Mono',monospace" font-size="12" fill="#88a0b0" data-i18n="figl_26">(funnet er skjørt)</text>
+    <g id="find3-bar2" transform="translate(100,236) scale(0,1)"><rect x="0" y="0" width="130" height="20" rx="4" fill="url(#find3-gc)"/></g>
+  </g>
+  <g id="find3-row3" opacity="0">
+    <text x="100" y="338" font-family="'Outfit',sans-serif" font-size="19" font-weight="600" fill="#e6c4ee" data-i18n="figl_27">Kjenner seg selv mye bedre</text>
+    <text x="378" y="338" font-family="'JetBrains Mono',monospace" font-size="12" fill="#c98cd4" data-i18n="figl_28">det klart sterkeste funnet</text>
+    <g id="find3-bar3" transform="translate(100,350) scale(0,1)"><rect x="0" y="0" width="700" height="26" rx="5" fill="url(#find3-gl)"/></g>
+  </g>
+</svg></div>
+    <div class="scrolly__caption" data-caps="findings3"></div>
+  </div>
+  <div class="scrolly__spacer" style="height:320vh"></div>
+</section>
+
+<section class="scrolly" data-fig="calib" data-part="4">
+  <div class="scrolly__sticky">
+    <div class="stage"><div class="med-eyebrow">Kalibrering</div><svg viewBox="0 0 960 460" role="img" aria-label="Spredningsplott: finansiell kunnskap mot overmot-gap, sterk negativ trend r lik minus 0,561">
+  <defs>
+    <clipPath id="calib-plotclip"><rect x="150" y="55" width="730" height="362"/></clipPath>
+  </defs>
+
+  <!-- hairline plot frame (left + bottom only, editorial) -->
+  <line x1="150" y1="55" x2="150" y2="417" stroke="rgba(196,233,238,.14)" stroke-width="1"/>
+  <line x1="150" y1="417" x2="880" y2="417" stroke="rgba(196,233,238,.14)" stroke-width="1"/>
+
+  <!-- axis labels (mono) -->
+  <text x="150" y="446" font-family="'JetBrains Mono',monospace" font-size="12" fill="#88a0b0" letter-spacing=".06em" data-i18n="figl_13">lav</text>
+  <text x="515" y="446" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12.5" fill="rgba(234,246,251,.62)" letter-spacing=".14em" data-i18n="figl_14">KUNNSKAP</text>
+  <text x="880" y="446" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="12" fill="#88a0b0" letter-spacing=".06em" data-i18n="figl_15">høy</text>
+  <g transform="translate(40,236) rotate(-90)">
+    <text x="0" y="0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12.5" fill="rgba(234,246,251,.62)" letter-spacing=".14em" data-i18n="figl_16">OVERMOT-GAP</text>
+  </g>
+
+  <!-- zero line: perfekt kalibrering (always visible) -->
+  <line id="calib-zero" x1="150" y1="264" x2="880" y2="264" stroke="#88a0b0" stroke-width="1.4" stroke-dasharray="6 6" opacity=".7"/>
+  <g id="calib-zerolbl">
+    <rect x="150" y="252" width="224" height="24" rx="12" fill="#06182b" stroke="#88a0b0" stroke-opacity=".4" stroke-width="1"/>
+    <text x="262" y="268" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11.5" fill="#eaf6fb" letter-spacing=".02em" data-i18n="figl_17">gap = 0 : perfekt kalibrering</text>
+  </g>
+
+  <!-- above/below annotations -->
+  <text id="calib-overmodig" x="160" y="86" font-family="'Outfit',sans-serif" font-size="12.5" font-style="italic" fill="rgba(234,246,251,.62)" opacity="0" data-i18n="figl_18">over linjen: overmodig</text>
+  <text id="calib-beskjeden" x="160" y="408" font-family="'Outfit',sans-serif" font-size="12.5" font-style="italic" fill="rgba(234,246,251,.62)" opacity="0" data-i18n="figl_19">under linjen: beskjeden</text>
+
+  <!-- scatter cloud (cyan, low opacity, staggered) -->
+  <g id="calib-cloud" fill="#4ec3e3" clip-path="url(#calib-plotclip)">
+    <circle id="calib-pt0" cx="165" cy="184" r="3.2" data-f="0.000" opacity="0"/>
+    <circle id="calib-pt1" cx="165" cy="203" r="3.2" data-f="0.000" opacity="0"/>
+    <circle id="calib-pt2" cx="172" cy="250" r="3.2" data-f="0.010" opacity="0"/>
+    <circle id="calib-pt3" cx="185" cy="184" r="3.2" data-f="0.029" opacity="0"/>
+    <circle id="calib-pt4" cx="210" cy="70" r="3.2" data-f="0.064" opacity="0"/>
+    <circle id="calib-pt5" cx="221" cy="246" r="3.2" data-f="0.080" opacity="0"/>
+    <circle id="calib-pt6" cx="222" cy="256" r="3.2" data-f="0.081" opacity="0"/>
+    <circle id="calib-pt7" cx="227" cy="90" r="3.2" data-f="0.089" opacity="0"/>
+    <circle id="calib-pt8" cx="272" cy="315" r="3.2" data-f="0.153" opacity="0"/>
+    <circle id="calib-pt9" cx="299" cy="118" r="3.2" data-f="0.191" opacity="0"/>
+    <circle id="calib-pt10" cx="303" cy="237" r="3.2" data-f="0.197" opacity="0"/>
+    <circle id="calib-pt11" cx="313" cy="167" r="3.2" data-f="0.211" opacity="0"/>
+    <circle id="calib-pt12" cx="321" cy="302" r="3.2" data-f="0.223" opacity="0"/>
+    <circle id="calib-pt13" cx="339" cy="310" r="3.2" data-f="0.249" opacity="0"/>
+    <circle id="calib-pt14" cx="343" cy="276" r="3.2" data-f="0.254" opacity="0"/>
+    <circle id="calib-pt15" cx="363" cy="183" r="3.2" data-f="0.283" opacity="0"/>
+    <circle id="calib-pt16" cx="377" cy="352" r="3.2" data-f="0.303" opacity="0"/>
+    <circle id="calib-pt17" cx="378" cy="238" r="3.2" data-f="0.304" opacity="0"/>
+    <circle id="calib-pt18" cx="398" cy="275" r="3.2" data-f="0.333" opacity="0"/>
+    <circle id="calib-pt19" cx="434" cy="140" r="3.2" data-f="0.384" opacity="0"/>
+    <circle id="calib-pt20" cx="438" cy="214" r="3.2" data-f="0.390" opacity="0"/>
+    <circle id="calib-pt21" cx="439" cy="295" r="3.2" data-f="0.391" opacity="0"/>
+    <circle id="calib-pt22" cx="449" cy="188" r="3.2" data-f="0.406" opacity="0"/>
+    <circle id="calib-pt23" cx="449" cy="205" r="3.2" data-f="0.406" opacity="0"/>
+    <circle id="calib-pt24" cx="454" cy="212" r="3.2" data-f="0.413" opacity="0"/>
+    <circle id="calib-pt25" cx="475" cy="244" r="3.2" data-f="0.443" opacity="0"/>
+    <circle id="calib-pt26" cx="479" cy="204" r="3.2" data-f="0.449" opacity="0"/>
+    <circle id="calib-pt27" cx="500" cy="289" r="3.2" data-f="0.479" opacity="0"/>
+    <circle id="calib-pt28" cx="521" cy="205" r="3.2" data-f="0.509" opacity="0"/>
+    <circle id="calib-pt29" cx="537" cy="236" r="3.2" data-f="0.531" opacity="0"/>
+    <circle id="calib-pt30" cx="556" cy="291" r="3.2" data-f="0.559" opacity="0"/>
+    <circle id="calib-pt31" cx="560" cy="276" r="3.2" data-f="0.564" opacity="0"/>
+    <circle id="calib-pt32" cx="568" cy="322" r="3.2" data-f="0.576" opacity="0"/>
+    <circle id="calib-pt33" cx="576" cy="270" r="3.2" data-f="0.587" opacity="0"/>
+    <circle id="calib-pt34" cx="582" cy="208" r="3.2" data-f="0.596" opacity="0"/>
+    <circle id="calib-pt35" cx="587" cy="249" r="3.2" data-f="0.603" opacity="0"/>
+    <circle id="calib-pt36" cx="607" cy="346" r="3.2" data-f="0.631" opacity="0"/>
+    <circle id="calib-pt37" cx="634" cy="323" r="3.2" data-f="0.670" opacity="0"/>
+    <circle id="calib-pt38" cx="634" cy="167" r="3.2" data-f="0.670" opacity="0"/>
+    <circle id="calib-pt39" cx="659" cy="368" r="3.2" data-f="0.706" opacity="0"/>
+    <circle id="calib-pt40" cx="669" cy="256" r="3.2" data-f="0.720" opacity="0"/>
+    <circle id="calib-pt41" cx="671" cy="257" r="3.2" data-f="0.723" opacity="0"/>
+    <circle id="calib-pt42" cx="673" cy="277" r="3.2" data-f="0.726" opacity="0"/>
+    <circle id="calib-pt43" cx="702" cy="361" r="3.2" data-f="0.767" opacity="0"/>
+    <circle id="calib-pt44" cx="726" cy="323" r="3.2" data-f="0.801" opacity="0"/>
+    <circle id="calib-pt45" cx="731" cy="189" r="3.2" data-f="0.809" opacity="0"/>
+    <circle id="calib-pt46" cx="734" cy="246" r="3.2" data-f="0.813" opacity="0"/>
+    <circle id="calib-pt47" cx="770" cy="321" r="3.2" data-f="0.864" opacity="0"/>
+    <circle id="calib-pt48" cx="772" cy="374" r="3.2" data-f="0.867" opacity="0"/>
+    <circle id="calib-pt49" cx="786" cy="293" r="3.2" data-f="0.887" opacity="0"/>
+    <circle id="calib-pt50" cx="792" cy="402" r="3.2" data-f="0.896" opacity="0"/>
+    <circle id="calib-pt51" cx="802" cy="254" r="3.2" data-f="0.910" opacity="0"/>
+    <circle id="calib-pt52" cx="837" cy="322" r="3.2" data-f="0.960" opacity="0"/>
+    <circle id="calib-pt53" cx="848" cy="391" r="3.2" data-f="0.976" opacity="0"/>
+    <circle id="calib-pt54" cx="865" cy="355" r="3.2" data-f="1.000" opacity="0"/>
+  </g>
+
+  <!-- trend line (draws on scroll) upper-left to lower-right -->
+  <line id="calib-trend" x1="165" y1="171" x2="865" y2="345" stroke="#4ec3e3" stroke-width="2.6" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" opacity="0"/>
+
+</svg></div>
+    <div class="scrolly__caption" data-caps="calib"></div>
+  </div>
+  <div class="scrolly__spacer" style="height:360vh"></div>
+</section>
+
+<section class="lead reveal" data-part="4">
+  <div class="eyebrow" data-i18n="twopaths_eyebrow"></div>
+  <h2 data-i18n="twopaths_h"></h2>
+  <p data-i18n="twopaths_b"></p>
+  
+</section>
+
+<section class="scrolly" data-fig="mediation" data-part="4">
+  <div class="scrolly__sticky">
+    <div class="stage"><div class="med-eyebrow">Kunnskap → Selvtillit → Risiko</div><svg class="med-svg" id="medSvg" viewBox="0 0 960 440" role="img" aria-label="Mediasjons-sti-diagram med faktiske koeffisienter">
+          <defs>
+            <marker id="ah-know" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#4ec3e3"/></marker>
+            <marker id="ah-conf" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#c98cd4"/></marker>
+            <marker id="ah-slate" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#88a0b0"/></marker>
+          </defs>
+
+          <!-- DIRECT path X->Y (bottom) -->
+          <path id="pDirect" class="pathline" d="M205,330 Q480,392 755,330" stroke="#4ec3e3" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" marker-end="url(#ah-know)"/>
+          <!-- a path X->M -->
+          <path id="pA" class="pathline" d="M196,300 Q300,160 452,128" stroke="#4ec3e3" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" marker-end="url(#ah-conf)"/>
+          <!-- b path M->Y -->
+          <path id="pB" class="pathline" d="M508,128 Q660,160 764,300" stroke="#c98cd4" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" marker-end="url(#ah-risk)"/>
+          <marker id="ah-risk" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#ff9e7a"/></marker>
+
+          <!-- coef labels -->
+          <g id="lblDirect" opacity="0">
+            <rect id="lblDirectBg" x="430" y="356" width="100" height="30" rx="15" fill="#06182b" stroke="#4ec3e3" stroke-opacity=".5"/>
+            <text id="lblDirectTxt" class="coef" x="480" y="376" text-anchor="middle" font-size="15" fill="#eaf6fb">c = 0,100</text>
+          </g>
+          <g id="lblA" opacity="0">
+            <rect x="251" y="184" width="98" height="28" rx="14" fill="#06182b" stroke="#4ec3e3" stroke-opacity=".45"/>
+            <text class="coef" x="300" y="203" text-anchor="middle" font-size="15" fill="#eaf6fb">a = 0,211</text>
+          </g>
+          <g id="lblB" opacity="0">
+            <rect x="619" y="184" width="98" height="28" rx="14" fill="#06182b" stroke="#c98cd4" stroke-opacity=".45"/>
+            <text class="coef" x="668" y="203" text-anchor="middle" font-size="15" fill="#eaf6fb">b = 0,275</text>
+          </g>
+
+          <!-- nodes -->
+          <g class="nodebox" id="nKnow" opacity="0">
+            <circle cx="160" cy="320" r="52" fill="#06182b" stroke="#4ec3e3" stroke-width="2"/>
+            <text x="160" y="316" text-anchor="middle" font-size="17" font-weight="600" fill="#c4e9ee" data-i18n="figl_20">Kunnskap</text>
+            <text x="160" y="338" text-anchor="middle" font-size="11" fill="#88a0b0" font-family="'JetBrains Mono',monospace">X</text>
+          </g>
+          <g class="nodebox" id="nConf" opacity="0">
+            <circle cx="480" cy="110" r="52" fill="#06182b" stroke="#c98cd4" stroke-width="2"/>
+            <text x="480" y="106" text-anchor="middle" font-size="17" font-weight="600" fill="#e6c4ee" data-i18n="figl_21">Selvtillit</text>
+            <text x="480" y="128" text-anchor="middle" font-size="11" fill="#88a0b0" font-family="'JetBrains Mono',monospace">M</text>
+          </g>
+          <g class="nodebox" id="nRisk" opacity="0">
+            <circle cx="800" cy="320" r="52" fill="#06182b" stroke="#ff9e7a" stroke-width="2"/>
+            <text x="800" y="316" text-anchor="middle" font-size="17" font-weight="600" fill="#ffc4ad" data-i18n="figl_22">Risiko</text>
+            <text x="800" y="338" text-anchor="middle" font-size="11" fill="#88a0b0" font-family="'JetBrains Mono',monospace">Y</text>
+          </g>
+
+          <!-- mediation % readout -->
+          <g id="pctReadout" opacity="0">
+            <text x="480" y="250" text-anchor="middle" font-family="'Newsreader',serif" font-size="46" fill="#4fd1b0"><tspan id="pctNum">0</tspan><tspan font-size="26"> %</tspan></text>
+            <text x="480" y="278" text-anchor="middle" font-size="12.5" fill="#88a0b0" font-family="'JetBrains Mono',monospace" data-i18n="figl_23">av sammenhengen via selvtillit</text>
+          </g>
+        </svg></div>
+    <div class="scrolly__caption" data-caps="mediation"></div>
+  </div>
+  <div class="scrolly__spacer" style="height:420vh"></div>
+</section>
+
+<section class="lead reveal" data-part="4">
+  <div class="eyebrow" data-i18n="conclusion_eyebrow"></div>
+  <h2 data-i18n="conclusion_h"></h2>
+  <p data-i18n="conclusion_b"></p>
+  <p class="caveat" data-i18n="conclusion_caveat"></p>
+</section>
+
+  <section class="outro">
+    <h2 data-i18n="outro_h"></h2>
+    <p data-i18n="outro_b"></p>
+    <div class="acad" data-i18n="outro_acad"></div>
+    <div class="authors" data-i18n="outro_authors"></div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="../../docs/Master%20Thesis.pdf" target="_blank" rel="noopener" data-i18n="outro_pdf"></a>
+      <a class="btn btn-ghost" href="#top" data-i18n="outro_back"></a>
+    </div>
+  </section>
+  <div class="foot"><span data-i18n="foot"></span> · <a href="../">← <span data-i18n="outro_back"></span></a></div>
 </main>
 
+<!-- ===== particle field: VERTICAL curtain, mouse-reactive (cursor parts the field + bulges it toward you; parallax) ===== -->
+<script type="module">
+(async function(){
+  "use strict";
+  var canvas=document.getElementById('bgfield'); if(!canvas) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var THREE; try{ THREE=await import('https://unpkg.com/three@0.160.0/build/three.module.min.js'); }catch(e){ return; }
+  try{
+    var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
+    renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+    var scene=new THREE.Scene();
+    var camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,200);
+    var BASE_Z=7;
+    camera.position.set(0,0,BASE_Z); camera.lookAt(0,0,0);
+
+    // VERTICAL curtain on the XY-plane, facing the viewer (fills the screen, fades at the edges)
+    var small=innerWidth<760;
+    var COLS=small?86:132, ROWS=small?78:112, GAP=0.13, n=COLS*ROWS;
+    var bx=new Float32Array(n), by=new Float32Array(n);          // base grid (with slight jitter)
+    var pos=new Float32Array(n*3), col=new Float32Array(n*3);
+    var cNear=new THREE.Color(0x7ad7f1), cFar=new THREE.Color(0x18414f);
+    var halfW=(COLS*GAP)/2, halfH=(ROWS*GAP)/2, maxR=Math.hypot(halfW,halfH), k=0;
+    for(var yy=0;yy<ROWS;yy++)for(var xx=0;xx<COLS;xx++){
+      var jx=Math.sin(k*12.9898)*0.5, jy=Math.cos(k*78.233)*0.5;  // deterministic jitter so it isn't a rigid grid
+      var X=(xx-COLS/2)*GAP+jx*GAP*0.7, Y=(yy-ROWS/2)*GAP+jy*GAP*0.7;
+      bx[k]=X; by[k]=Y;
+      pos[k*3]=X; pos[k*3+1]=Y; pos[k*3+2]=0;
+      var rr=Math.hypot(X,Y)/maxR;
+      var c=cNear.clone().lerp(cFar,Math.pow(rr,0.92));
+      col[k*3]=c.r; col[k*3+1]=c.g; col[k*3+2]=c.b; k++;
+    }
+    var geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+    var field=new THREE.Points(geo,new THREE.PointsMaterial({size:small?0.05:0.04,vertexColors:true,transparent:true,opacity:0.95,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true}));
+    scene.add(field);
+    var arr=geo.attributes.position.array;
+
+    // selectable mouse reaction: ?fx=parting|attract|ripple|swirl|risk (default parting)
+    var FXMAP={parting:0,attract:1,ripple:2,swirl:3,risk:4};
+    var FXI=FXMAP[(new URLSearchParams(location.search).get('fx')||'swirl')]; if(FXI==null)FXI=3;
+    var heat=new Float32Array(n);       // for the 'risk' heat-bloom
+    var baseCol=col.slice(0);           // pristine colours to tint from
+
+    var sy=0; addEventListener('scroll',function(){sy=scrollY||pageYOffset||0;},{passive:true});
+    var nx=0, ny=0, hasPtr=false;
+    addEventListener('pointermove',function(e){ nx=(e.clientX/innerWidth)*2-1; ny=-(e.clientY/innerHeight)*2+1; hasPtr=true; },{passive:true});
+    addEventListener('pointerleave',function(){ hasPtr=false; },{passive:true});
+    var ndc=new THREE.Vector2(), ray=new THREE.Raycaster(), plane=new THREE.Plane(new THREE.Vector3(0,0,1),0), hit=new THREE.Vector3();
+    var cur=new THREE.Vector3(0,0,0), tgt=new THREE.Vector3(0,0,0), cInf=0, cInfT=0;
+    var camX=0, camY=0;
+
+    function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+    addEventListener('resize',resize,{passive:true}); resize();
+
+    var R=2.2, R2=R*R, PUSH=1.0, FWD=1.7, PULL=0.72, RR=4.6, RR2=RR*RR, raf=0, run=false;
+    function frame(now){
+      var t=now*0.001;
+      if(hasPtr){ ndc.set(nx,ny); ray.setFromCamera(ndc,camera); if(ray.ray.intersectPlane(plane,hit)) tgt.copy(hit); cInfT=1; }
+      else cInfT=0;
+      cur.lerp(tgt,0.16); cInf += (cInfT-cInf)*0.07;             // fade interaction in/out
+      var cx=cur.x, cy=cur.y, act=cInf>0.01, hot=(FXI===4);
+      for(var i=0;i<n;i++){
+        var i3=i*3, X=bx[i], Y=by[i];
+        var zw=Math.sin(X*1.35+t*0.55)*0.3+Math.cos(Y*1.1-t*0.45)*0.3;   // gentle depth shimmer
+        var x=X, y=Y, z=zw;
+        var dx=X-cx, dy=Y-cy, d2=dx*dx+dy*dy;
+        if(act){
+          if(FXI===0){            // DELING: part the curtain + bulge toward viewer
+            if(d2<R2){ var d=Math.sqrt(d2),inf=(1-d/R);inf*=inf;inf*=cInf;var inv=d>1e-4?1/d:0; x=X+dx*inv*PUSH*inf; y=Y+dy*inv*PUSH*inf; z=zw+FWD*inf; }
+          } else if(FXI===1){     // TILTREKNING: gather toward cursor + bulge (glowing core)
+            if(d2<R2){ var d1=Math.sqrt(d2),i1=(1-d1/R);i1*=i1;i1*=cInf; x=X-dx*PULL*i1; y=Y-dy*PULL*i1; z=zw+FWD*i1; }
+          } else if(FXI===2){     // SJOKKBØLGE: concentric z-rings radiating from cursor
+            if(d2<RR2){ var d2s=Math.sqrt(d2),fo=(1-d2s/RR);fo*=fo; z=zw+1.6*Math.sin(d2s*3.0 - t*5.0)*fo*cInf; }
+          } else if(FXI===3){     // VIRVEL: rotate points around the cursor
+            if(d2<R2){ var d3=Math.sqrt(d2),i3f=(1-d3/R);i3f*=i3f;i3f*=cInf;var a=i3f*1.7,ca=Math.cos(a),sa=Math.sin(a); x=cx+dx*ca-dy*sa; y=cy+dx*sa+dy*ca; z=zw+0.5*i3f; }
+          } else {                // RISIKO: heat bloom, warm + turbulent near cursor, cools back
+            var inr=0; if(d2<R2){ var d4=Math.sqrt(d2);inr=(1-d4/R);inr*=inr;inr*=cInf; }
+            heat[i]=Math.max(heat[i]*0.95, inr); var h=heat[i];
+            if(h>0.002){ var jt=h*0.55; x=X+Math.sin(X*9.1+t*7.0+i)*jt; y=Y+Math.cos(Y*8.7-t*6.3+i)*jt; z=zw*(1+h*1.6)+h*0.7; }
+          }
+        } else if(hot){ heat[i]*=0.95; }
+        arr[i3]=x; arr[i3+1]=y; arr[i3+2]=z;
+        if(hot){ var hh=heat[i]>1?1:heat[i]; col[i3]=baseCol[i3]+(1.0-baseCol[i3])*hh; col[i3+1]=baseCol[i3+1]+(0.62-baseCol[i3+1])*hh; col[i3+2]=baseCol[i3+2]+(0.48-baseCol[i3+2])*hh; }
+      }
+      geo.attributes.position.needsUpdate=true;
+      if(hot) geo.attributes.color.needsUpdate=true;
+      camX += ((hasPtr?nx:0)*0.7 - camX)*0.045;                 // pointer parallax
+      camY += ((hasPtr?ny:0)*0.5 - camY)*0.045;
+      camera.position.set(camX, camY - Math.min(sy,6000)*0.00009, BASE_Z);
+      camera.lookAt(camX*0.5, camY*0.5, 0);
+      renderer.render(scene,camera);
+      raf=requestAnimationFrame(frame);
+    }
+    function start(){if(run)return;run=true;raf=requestAnimationFrame(frame);} function stop(){run=false;if(raf)cancelAnimationFrame(raf);raf=0;}
+    document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+    canvas.addEventListener('webglcontextlost',function(e){e.preventDefault();stop();canvas.classList.remove('on');});
+    canvas.classList.add('on'); start();
+  }catch(err){}
+})();
+</script>
 <script>
+window.smooth=function(e0,e1,x){var t=(x-e0)/(e1-e0); t=t<0?0:t>1?1:t; return t*t*(3-2*t);};
+window.clamp=function(v,a,b){return v<a?a:v>b?b:v;};
+window.nf=new Intl.NumberFormat('nb-NO');
+window.__FIGFNS={'growth':function(p){// --- Vekst: line draws left->right, serif counter scrubs to 600 000, end dot pulses in ---
+var line=document.getElementById('growth-line');
+var area=document.getElementById('growth-area');
+var dot=document.getElementById('growth-dot');
+var pulse=document.getElementById('growth-pulse');
+var counter=document.getElementById('growth-counter');
+var num=document.getElementById('growth-num');
+var endpill=document.getElementById('growth-endpill');
+var grid6=document.getElementById('growth-grid6');
+var grid3=document.getElementById('growth-grid3');
+var ylbl=document.getElementById('growth-ylbl');
+var pandemic=document.getElementById('growth-pandemic');
+
+// beat 1: gridlines settle in early (0 -> .12)
+var gridIn=smooth(0.00,0.12,p);
+grid3.setAttribute('opacity', (0.5*gridIn).toFixed(3));
+
+// beat 2: the line draws across the full decade (0.06 -> 0.80)
+var draw=smooth(0.06,0.80,p);
+line.setAttribute('stroke-dashoffset', (1-draw).toFixed(4));
+// area fills in just behind the leading edge
+area.setAttribute('opacity', (0.9*smooth(0.10,0.78,p)).toFixed(3));
+
+// the 600k gridline + label resolve as the line climbs into that band (0.45 -> 0.72)
+var hi=smooth(0.45,0.72,p);
+grid6.setAttribute('opacity', (0.6*hi).toFixed(3));
+ylbl.setAttribute('opacity', hi.toFixed(3));
+
+// beat 3: serif counter scrubs 0 -> 600 000, tracking the climb (0.10 -> 0.90)
+counter.setAttribute('opacity', smooth(0.08,0.20,p).toFixed(3));
+var target=Math.round(600000*smooth(0.10,0.90,p));
+num.textContent=nf.format(target);
+
+// beat 4: bright end dot + pulse + value pill arrive once the line lands (0.80 -> 0.96)
+var land=smooth(0.80,0.96,p);
+dot.setAttribute('opacity', land.toFixed(3));
+endpill.setAttribute('opacity', smooth(0.84,0.98,p).toFixed(3));
+// gentle breathing pulse on the end dot, only after it has landed
+var breathe=0.5+0.5*Math.sin(p*Math.PI*6.0);
+pulse.setAttribute('opacity', (land*(0.35+0.45*breathe)).toFixed(3));
+var rr=(16+8*land+4*breathe*land).toFixed(2);
+pulse.setAttribute('r', rr);
+
+// pandemic context marker fades in at the end (0.82 -> 1)
+pandemic.setAttribute('opacity', smooth(0.82,1.00,p).toFixed(3));
+},
+'funnel':function(p){  var TOTAL=1027, KEPT=750;
+  var yBottom=400, maxH=300;
+
+  // beat 1: sources + the raw pool appear
+  document.getElementById('funnel-intro').setAttribute('opacity', smooth(0.02,0.16,p));
+  document.getElementById('funnel-raw').setAttribute('opacity', smooth(0.06,0.20,p));
+
+  // beat 2: exclusion reasons get flagged on the RAW 1027 pool, then fly off again
+  var out = 1 - smooth(0.72,0.90,p);
+  var s1=smooth(0.22,0.36,p)*out, s2=smooth(0.36,0.50,p)*out, s3=smooth(0.50,0.64,p)*out;
+  var e1=document.getElementById('funnel-excl1'); e1.setAttribute('opacity', s1); e1.setAttribute('transform','translate('+(20*(1-s1)).toFixed(1)+',0)');
+  var e2=document.getElementById('funnel-excl2'); e2.setAttribute('opacity', s2); e2.setAttribute('transform','translate('+(20*(1-s2)).toFixed(1)+',0)');
+  var e3=document.getElementById('funnel-excl3'); e3.setAttribute('opacity', s3); e3.setAttribute('transform','translate('+(20*(1-s3)).toFixed(1)+',0)');
+  document.getElementById('funnel-con1').setAttribute('stroke-dashoffset', 1-s1);
+  document.getElementById('funnel-con2').setAttribute('stroke-dashoffset', 1-s2);
+  document.getElementById('funnel-con3').setAttribute('stroke-dashoffset', 1-s3);
+
+  // beat 3: the pool drains 1027 -> 750 as the exclusions leave; the bar height tracks the count
+  var cd=smooth(0.60,0.86,p);
+  var count=Math.round(TOTAL-(TOTAL-KEPT)*cd);
+  document.getElementById('funnel-count').textContent=nf.format(count);
+  var h=maxH*(count/TOTAL), yTop=(yBottom-h);
+  // source lines follow the box top as the pool drains
+  var yt=yTop.toFixed(0), yc=(yTop-12).toFixed(0);
+  document.getElementById('funnel-introlines').setAttribute('d','M300,72 Q480,'+yc+' 480,'+yt+' M480,72 L480,'+yt+' M667,72 Q480,'+yc+' 480,'+yt);
+  var bar=document.getElementById('funnel-bar'); bar.setAttribute('y', yTop.toFixed(1)); bar.setAttribute('height', h.toFixed(1));
+  var barfill=document.getElementById('funnel-barfill'); barfill.setAttribute('y', yTop.toFixed(1)); barfill.setAttribute('height', h.toFixed(1));
+  var bartop=document.getElementById('funnel-bartop'); bartop.setAttribute('y1', yTop.toFixed(1)); bartop.setAttribute('y2', yTop.toFixed(1));
+
+  // beat 4: clean 750 settles to mint, alone
+  var res=smooth(0.88,1.0,p);
+  document.getElementById('funnel-base').setAttribute('opacity', res);
+  document.getElementById('funnel-label').setAttribute('fill', res>0.5 ? '#4fd1b0' : '#c4e9ee');
+  document.getElementById('funnel-count').setAttribute('fill', res>0.5 ? '#4fd1b0' : '#c4e9ee');
+  document.getElementById('funnel-barfill').setAttribute('stroke', res>0.5 ? '#4fd1b0' : '#4ec3e3');
+
+},
+'ceiling':function(p){var $=function(id){return document.getElementById('ceiling-'+id);};
+
+// bars grow in: low scores first, then the towering 6-bar last
+var bars=[{a:0.04,b:0.16},{a:0.06,b:0.18},{a:0.08,b:0.20},{a:0.10,b:0.23},{a:0.14,b:0.28},{a:0.20,b:0.36}];
+var tx=[112,216,320,424,528,632];
+for(var i=0;i<bars.length;i++){ var s=smooth(bars[i].a,bars[i].b,p); $('bar'+i).setAttribute('transform','translate('+tx[i]+',382) scale(1,'+s.toFixed(4)+')'); }
+$('bar6').setAttribute('transform','translate(736,382) scale(1,'+smooth(0.30,0.52,p).toFixed(4)+')');
+
+// grid + axis hints
+var gIn=smooth(0.02,0.14,p);
+$('grid1').setAttribute('opacity',gIn); $('grid2').setAttribute('opacity',gIn); $('grid3').setAttribute('opacity',gIn);
+$('yhint').setAttribute('opacity',gIn);
+$('smallcounts').setAttribute('opacity',smooth(0.16,0.30,p));
+
+// 73,7 % pill counts up above the 6-bar
+$('pct').setAttribute('opacity',smooth(0.40,0.54,p));
+var pvr=Math.round(73.7*smooth(0.40,0.66,p)*10)/10;
+$('pctnum').textContent=pvr.toLocaleString('nb-NO',{minimumFractionDigits:1,maximumFractionDigits:1});
+
+// mean line reveals
+$('mean').setAttribute('opacity',smooth(0.56,0.70,p));
+
+},
+'findings3':function(p){var $=function(id){return document.getElementById('find3-'+id);};
+$('row1').setAttribute('opacity',smooth(0.04,0.16,p));
+$('bar1').setAttribute('transform','translate(100,132) scale('+smooth(0.10,0.30,p).toFixed(3)+',1)');
+$('row2').setAttribute('opacity',smooth(0.20,0.32,p));
+$('bar2').setAttribute('transform','translate(100,236) scale('+smooth(0.26,0.46,p).toFixed(3)+',1)');
+$('row3').setAttribute('opacity',smooth(0.42,0.54,p));
+$('bar3').setAttribute('transform','translate(100,350) scale('+smooth(0.50,0.82,p).toFixed(3)+',1)');
+},
+'calib':function(p){// scatter of knowledge (x) vs overconfidence gap (y), strong negative trend (no r number shown)
+var revStart=0.04, revEnd=0.50;
+for (var i=0;i<55;i++){ var c=document.getElementById('calib-pt'+i); if(!c) continue;
+  var f=parseFloat(c.getAttribute('data-f')); var a=revStart+f*(revEnd-revStart);
+  c.setAttribute('opacity',(0.62*smooth(a,a+0.10,p)).toFixed(3)); }
+
+var annO=smooth(0.10,0.24,p);
+document.getElementById('calib-overmodig').setAttribute('opacity',annO.toFixed(3));
+document.getElementById('calib-beskjeden').setAttribute('opacity',annO.toFixed(3));
+
+var trend=document.getElementById('calib-trend');
+trend.setAttribute('stroke-dashoffset',(1-smooth(0.40,0.70,p)).toFixed(4));
+trend.setAttribute('opacity',smooth(0.39,0.44,p).toFixed(3));
+
+// trend warms toward mint as the relationship "holds"
+var hold=smooth(0.74,0.88,p);
+trend.setAttribute('stroke','rgb('+Math.round(78+1*hold)+','+Math.round(195+14*hold)+','+Math.round(227-51*hold)+')');
+trend.setAttribute('stroke-width',(2.6+0.5*hold).toFixed(2));
+
+},
+'mediation':function(p){
+var sm=window.smooth, nf=window.nf, D=document;
+function S(id){return D.getElementById(id);}
+var pDirect=S('pDirect'),pA=S('pA'),pB=S('pB'),lblDirect=S('lblDirect'),lblDirectTxt=S('lblDirectTxt'),lblDirectBg=S('lblDirectBg'),lblA=S('lblA'),lblB=S('lblB'),nKnow=S('nKnow'),nConf=S('nConf'),nRisk=S('nRisk'),pctReadout=S('pctReadout'),pctNum=S('pctNum');
+if(!pDirect) return;
+var CYAN=[78,195,227],SLATE=[136,160,176];
+function mix(c1,c2,t){return 'rgb('+Math.round(c1[0]+(c2[0]-c1[0])*t)+','+Math.round(c1[1]+(c2[1]-c1[1])*t)+','+Math.round(c1[2]+(c2[2]-c1[2])*t)+')';}
+function setDirect(faded){var st=faded?'1':'0'; if(lblDirectBg.getAttribute('data-st')===st)return; lblDirectBg.setAttribute('data-st',st);
+  lblDirectTxt.textContent=faded?'c\u2032 = 0,042 \u00b7 ikke sig.':'c = 0,100';
+  lblDirectTxt.setAttribute('fill',faded?'#dbe6ec':'#eaf6fb');
+  try{var bb=lblDirectTxt.getBBox(),pad=20; lblDirectBg.setAttribute('x',(bb.x-pad).toFixed(1)); lblDirectBg.setAttribute('width',(bb.width+2*pad).toFixed(1));}catch(e){}}
+nKnow.setAttribute('opacity',sm(0.02,0.12,p)); nRisk.setAttribute('opacity',sm(0.02,0.12,p)); nConf.setAttribute('opacity',sm(0.36,0.46,p));
+var fade=sm(0.78,0.96,p);
+pDirect.setAttribute('stroke-dashoffset',1-sm(0.12,0.30,p)); pDirect.setAttribute('opacity',sm(0.115,0.14,p)*(1-0.55*fade)); lblDirect.setAttribute('opacity',sm(0.22,0.30,p));
+pA.setAttribute('stroke-dashoffset',1-sm(0.40,0.56,p)); pA.setAttribute('opacity',sm(0.395,0.42,p)); lblA.setAttribute('opacity',sm(0.44,0.54,p));
+pB.setAttribute('stroke-dashoffset',1-sm(0.58,0.74,p)); pB.setAttribute('opacity',sm(0.575,0.60,p)); lblB.setAttribute('opacity',sm(0.62,0.72,p));
+pDirect.setAttribute('stroke',mix(CYAN,SLATE,fade)); pDirect.setAttribute('stroke-dasharray',fade>0.04?'0.012 0.018':'1');
+setDirect(fade>0.5);
+pctReadout.setAttribute('opacity',sm(0.80,0.92,p)); pctNum.textContent=nf.format(Math.round(57*sm(0.80,0.97,p)));
+
+}};
+window.__CAPS={"growth":{"no":[{"from":0,"html":"<span class=\"big\">De siste årene har stadig flere nordmenn begynt å investere.</span>Antallet private aksjonærer har klatret jevnt gjennom hele tiåret.<small>Eierskap i børsnoterte selskaper · privatpersoner · 2014 til 2025</small>"},{"from":0.5,"html":"Over <b class=\"tag-know\">600 000</b> private aksjonærer i Norge i 2025, opp fra rundt 360 000 ti år tidligere.<small>En av de bredeste folkelige eierandelene i Europa</small>"},{"from":0.85,"html":"Mange er helt <b>ferske</b>, kommet til etter pandemien. Men de starter fra <b class=\"tag-conf\">svært ulik forståelse</b> av hva de faktisk kan.<small>Bredden i deltakelse skjuler store forskjeller i kunnskap</small>"}],"en":[{"from":0,"html":"<span class=\"big\">More and more Norwegians have started investing.</span>The number of private shareholders has climbed steadily through the decade.<small>Ownership in listed companies · individuals · 2014 to 2025</small>"},{"from":0.5,"html":"Over <b class=\"tag-know\">600 000</b> private shareholders in Norway in 2025, up from around 360 000 ten years earlier.<small>One of the broadest popular ownership bases in Europe</small>"},{"from":0.85,"html":"Many are entirely <b>new</b>, arriving after the pandemic. But they start from <b class=\"tag-conf\">very different levels of understanding</b> of what they actually know.<small>Breadth of participation hides large gaps in knowledge</small>"}]},"funnel":{"no":[{"from":0,"html":"Vi gikk dit investorene faktisk er: <b>Reddit</b>, <b>Shareville (nå Nordnet Social)</b> og <b>Facebook</b>.<small>Selvrekruttert utvalg, ikke et tilfeldig befolkningsutvalg</small>"},{"from":0.32,"html":"<span class=\"big\"><b>1 027</b> svarte.</span>Det rå datasettet, for vi luker ut det som ikke holder.<small>Rå responser samlet inn</small>"},{"from":0.52,"html":"Vi tok ut <span class=\"tag-risk\">mindreårige</span>, <span class=\"tag-risk\">uoppmerksomme</span> (strøk kontrollspørsmål, <b>-262</b>) og <span class=\"tag-risk\">ufullstendige</span> svar.<small>Forhåndsdefinerte eksklusjonskriterier</small>"},{"from":0.86,"html":"<span class=\"big\"><b class=\"tag-good\">750</b> står igjen.</span>Grunnlaget for hele analysen.<small>Ren analysebase, N = 750</small>"}],"en":[{"from":0,"html":"We went where investors actually are: <b>Reddit</b>, <b>Shareville (now Nordnet Social)</b> and <b>Facebook</b>.<small>Self-selected sample, not a random population draw</small>"},{"from":0.32,"html":"<span class=\"big\"><b>1,027</b> answered.</span>The raw dataset, before we clean out what does not hold up.<small>Raw responses collected</small>"},{"from":0.52,"html":"We removed <span class=\"tag-risk\">minors</span>, the <span class=\"tag-risk\">inattentive</span> (failed the attention check, <b>-262</b>) and <span class=\"tag-risk\">incomplete</span> answers.<small>Pre-registered exclusion criteria</small>"},{"from":0.86,"html":"<span class=\"big\"><b class=\"tag-good\">750</b> remain.</span>The basis for the entire analysis.<small>Clean analysis base, N = 750</small>"}]},"ceiling":{"no":[{"from":0,"html":"<span class=\"big\">Nesten alle er skarpe.</span>Vi målte <span class=\"tag-know\">finansiell kunnskap</span> med 6 sann/usann-påstander. Her er fordelingen av antall riktige.<small>N = 750 · skår 0 til 6</small>"},{"from":0.4,"html":"<b class=\"tag-know\">73,7 %</b> fikk full pott (6 av 6). Over <b>90 %</b> landet på 5 eller 6.<small>snitt 5,63 av 6</small>"},{"from":0.7,"html":"<span class=\"big\">Da er det knapt variasjon igjen å måle på.</span>Når nesten alle ligger på toppen, blir <span class=\"tag-know\">kunnskap</span> nesten en konstant, ikke en variabel.<small>tak-effekt (ceiling effect)</small>"},{"from":0.9,"html":"Derfor leses alle kunnskaps-effektene i oppgaven som <b>forsiktige nedre grenser</b>. Nesten all variasjon ligger i ett eneste hakk: <b class=\"tag-risk\">5 mot 6</b>.<small>komprimert varians, dempet målt effekt</small>"}],"en":[{"from":0,"html":"<span class=\"big\">Almost everyone is sharp.</span>We measured <span class=\"tag-know\">financial knowledge</span> with 6 true/false items. Here is the distribution of correct answers.<small>N = 750 · score 0 to 6</small>"},{"from":0.4,"html":"<b class=\"tag-know\">73,7 %</b> scored full marks (6 of 6). Over <b>90 %</b> landed on 5 or 6.<small>mean 5,63 of 6</small>"},{"from":0.7,"html":"<span class=\"big\">There is barely any variation left to measure.</span>When almost everyone sits at the ceiling, <span class=\"tag-know\">knowledge</span> behaves like a constant, not a variable.<small>ceiling effect</small>"},{"from":0.9,"html":"So every knowledge effect in the thesis reads as a <b>conservative lower bound</b>. Almost all the variation sits in a single notch: <b class=\"tag-risk\">5 versus 6</b>.<small>compressed variance, attenuated measured effect</small>"}]},"findings3":{"no":[{"from":0,"html":"<span class=\"big\">Tre funn, fortalt enkelt.</span>Mer kunnskap henger sammen med tre ting, og ett av dem stikker seg kraftig ut."},{"from":0.26,"html":"De som kan mer <span class=\"tag-know\">sprer pengene litt bredere</span> og <span class=\"tag-risk\">tar litt mer risiko</span>. Begge er små effekter, og risiko-funnet er skjørt."},{"from":0.54,"html":"<span class=\"big\">Men det store: de <span class=\"tag-conf\">kjenner seg selv mye bedre</span>.</span>Mye mindre gap mellom hva de tror og hva de faktisk kan. Det er funnet som virkelig holder."}],"en":[{"from":0,"html":"<span class=\"big\">Three findings, told simply.</span>More knowledge goes with three things, and one of them stands out sharply."},{"from":0.26,"html":"Those who know more <span class=\"tag-know\">spread their money a little wider</span> and <span class=\"tag-risk\">take a little more risk</span>. Both are small, and the risk finding is fragile."},{"from":0.54,"html":"<span class=\"big\">But the big one: they <span class=\"tag-conf\">know themselves much better</span>.</span>A much smaller gap between what they think and what they actually know. That is the finding that really holds."}]},"calib":{"no":[{"from":0,"html":"<span class=\"big\">Det sterkeste funnet i oppgaven.</span>De som faktisk kan mer, kjenner seg selv bedre.<small>x = <span class=\"tag-know\">finansiell kunnskap</span> · y = overmot-gap (tror minus kan)</small>"},{"from":0.5,"html":"Mer kunnskap, <b>mindre gap</b> mellom hva de tror og hva de faktisk kan. <b class=\"tag-know\"></b>.<small>negativ sammenheng · N = 714 · gap = 0 er perfekt kalibrering</small>"},{"from":0.8,"html":"Sammenhengen <b class=\"tag-good\">holdt i alle robusthetssjekkene</b>: ulike mål, delutvalg og kontroller.<small>retningen og styrken endrer seg lite</small>"},{"from":0.9,"html":"Ærlig forbehold: måler vi gapet <b>mer konservativt</b>, blir effekten svakere, men fortsatt negativ.<small>en del av rå-gapet er mekanisk · poenget står</small>"}],"en":[{"from":0,"html":"<span class=\"big\">The thesis's strongest finding.</span>Those who actually know more judge themselves better.<small>x = <span class=\"tag-know\">financial literacy</span> · y = overconfidence gap (think minus know)</small>"},{"from":0.5,"html":"More knowledge, a <b>smaller gap</b> between what they think and what they actually know. <b class=\"tag-know\"></b>.<small>negative relationship · N = 714 · gap = 0 is perfect calibration</small>"},{"from":0.8,"html":"The relationship <b class=\"tag-good\">survived every robustness check</b>: alternative measures, subsamples, controls.<small>direction and strength barely move</small>"},{"from":0.9,"html":"Honest caveat: measure the gap <b>more conservatively</b> and the effect weakens, though it stays negative.<small>part of the raw gap is mechanical · the point holds</small>"}]},"mediation":{"no":[{"from":0,"html":"<span class=\"big\">Påvirker kunnskap risiko <em>direkte</em>, eller via selvtilliten?</span><small>To kandidat-veier. Vi måler hvilken som faktisk virker.</small>"},{"from":0.2,"html":"<span class=\"big\">Den <span class=\"tag-know\">direkte</span> veien finnes.</span>Mer kunnskap henger sammen med litt mer risiko. <b>Samlet effekt c = 0,100</b> (p = 0,008).<small>OLS · standardisert kunnskap · N = 714</small>"},{"from":0.42,"html":"Men kunnskap gjør deg også <span class=\"tag-conf\">tryggere på deg selv</span>. <b>a = 0,211</b> (p &lt; 0,001).<small>Kunnskap → subjektiv selvtillit</small>"},{"from":0.6,"html":"Og den tryggheten driver <span class=\"tag-risk\">risikoviljen</span>. <b>b = 0,275</b> (p &lt; 0,001).<small>Selvtillit → risiko, kontrollert for kunnskap</small>"},{"from":0.8,"html":"<span class=\"big\">Holder vi selvtilliten konstant, <span class=\"tag-conf\">forsvinner</span> den direkte koblingen.</span><b>c′ = 0,042, ikke signifikant.</b> ≈ <b class=\"tag-good\">57 %</b> av sammenhengen går gjennom selvtillit.<small>indirekte a·b = 0,058 · 95 % KI [0,035–0,089] · 5000 bootstrap</small>"}],"en":[{"from":0,"html":"<span class=\"big\">Does knowledge affect risk <em>directly</em>, or through confidence?</span><small>Two candidate paths. We measure which one does the work.</small>"},{"from":0.2,"html":"<span class=\"big\">The <span class=\"tag-know\">direct</span> path exists.</span>More knowledge goes with a little more risk. <b>Total effect c = 0,100</b> (p = 0,008).<small>OLS · standardised knowledge · N = 714</small>"},{"from":0.42,"html":"But knowledge also makes you <span class=\"tag-conf\">more sure of yourself</span>. <b>a = 0,211</b> (p &lt; 0,001).<small>Knowledge → subjective confidence</small>"},{"from":0.6,"html":"And that self-assurance drives <span class=\"tag-risk\">risk-taking</span>. <b>b = 0,275</b> (p &lt; 0,001).<small>Confidence → risk, controlling for knowledge</small>"},{"from":0.8,"html":"<span class=\"big\">Hold confidence constant and the direct link <span class=\"tag-conf\">disappears</span>.</span><b>c′ = 0,042, not significant.</b> ≈ <b class=\"tag-good\">57 %</b> of the relationship runs through confidence.<small>indirect a·b = 0,058 · 95 % CI [0,035–0,089] · 5000 bootstrap</small>"}]}};
 (function(){
-"use strict";
+ "use strict";
+ var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var I18N={"no":{"kicker":"Masteroppgave · BI · 2026","hero_h":"Vet du like mye som du tror?","hero_sub":"En masteroppgave om norske investorer, kunnskap og selvtillit, fortalt med data.","scrollcue":"Bla for å begynne","map_eyebrow":"Del 1 · Motivasjon","map_h":"Men ikke alle forstår like mye","map_b":"Selv i et land som skårer høyt på finanskunnskap er forskjellene store fra person til person. Noen forstår renter, gebyrer og risiko godt. Andre kaster seg ut i markedet med store hull i forståelsen.","bb1_eyebrow":"Del 2 · Teori","bb1_h":"Byggekloss 1: hva du faktisk kan","bb1_b":"Finansiell kunnskap er rett og slett om du forstår grunnreglene: renters rente, inflasjon, gebyrer og det å spre risiko. Det er grunnmuren under alle pengebeslutninger, og den kan måles.","bb2_eyebrow":"Del 2 · Teori","bb2_h":"Byggekloss 2: hva du tror du kan","bb2_b":"Selvtillit er hvor flink du tror du er. Kalibrering er hvor godt troen treffer virkeligheten. Når troen på egen kunnskap er større enn den faktiske kunnskapen, kaller vi det overmot, og da undervurderer du lett risikoen.","bb34_eyebrow":"Del 2 · Teori","bb34_h":"Byggekloss 3 og 4: risiko og spredning","bb34_b":"Risikovilje er hvor mye svingninger og mulig tap du tåler for sjansen til høyere avkastning. Diversifisering er å ikke legge alle eggene i én kurv. To enkle, målbare størrelser.","sample_eyebrow":"Del 3 · Metode","sample_h":"Hvem er det vi har målt?","sample_b":"Utvalget er investor-aktivt, mannsdominert (84 %) og rekruttert fra nettsamfunn. Vi beskriver altså variasjon innad i et engasjert investormiljø, ikke hele Norges befolkning. Det er en bevisst avgrensning.","findings_eyebrow":"Del 4 · Resultater","findings_h":"Fire funn, én rød tråd","findings_b":"Mer kunnskap henger sammen med bredere spredning, litt mer risiko, og klart bedre selvinnsikt. Men det mest interessante er ikke om kunnskap betyr noe, det er hvilken vei den virker gjennom.","twopaths_eyebrow":"Del 4 · Resultater","twopaths_h":"Hjertet i oppgaven: to mulige veier","twopaths_b":"Tenk på en kirurg: å lese teori på skolebenken gjør deg ikke klar til å operere over natten. Men kunnskapen bygger selvtillit, selvtilliten får deg til å tørre praksis, og praksisen fører til slutt til operasjonsbordet. Det samme spørsmålet gjelder investorer: virker kunnskap på risiko direkte, eller gjennom selvtilliten? Bla videre, så måler vi det.","conclusion_eyebrow":"Del 4 · Konklusjon","conclusion_h":"Kunnskap former kvaliteten på risikoen","conclusion_b":"Finansiell kunnskap dytter deg ikke blindt mot mer risiko. Den ser ut til å gi mer informert og bedre kalibrert risiko, og veien dit går gjennom selvtilliten. For finansopplæring betyr det: ikke bare pøs på fakta, hjelp folk å vurdere sin egen kunnskap riktig.","conclusion_caveat":"Husk: dette er et øyeblikksbilde (ikke årsak), et skjevt utvalg, og kunnskap nær taket. Funnene gjelder investor-Norge, ikke nødvendigvis alle.","quiz_eyebrow":"Del 3 · Metode","quiz_h":"Prøv selv før vi forteller","quiz_prompt":"Hvor mange av disse tror du at du klarer? Tipp først, så prøver du.","quiz_guesslabel":"Min gjetning (0–6):","q1_q":"Du setter 100 kr på konto til 6 % rente. Hvor mye har du etter to år, uten uttak?","q1_o0":"106 kr","q1_o1":"112 kr","q1_o2":"112,36 kr","q1_o3":"130 kr","q2_q":"En aksje faller 50 %. Hvor mye må den stige året etter for å være tilbake til start?","q2_o0":"50 %","q2_o1":"75 %","q2_o2":"100 %","quiz_reveal":"Snittinvestoren i undersøkelsen klarte 5,63 av 6. Kunnskapsnivået var altså høyt, husk det, det blir viktig snart.","qOk":"Riktig!","qNo":"Ikke helt, riktig svar er markert.","ct_eyebrow":"Del 3 · Metode","ct_h":"Hvor godt kjenner du deg selv?","ct_intro":"Svar på tre spørsmål, og si hvor sikker du er på hvert. Til slutt måler vi ditt eget overmot-gap, akkurat som i oppgaven.","ct_q1":"Du setter 100 kr på konto til 6 % rente. Hvor mye har du etter to år, uten uttak?","ct_q1_o0":"106 kr","ct_q1_o1":"112 kr","ct_q1_o2":"112,36 kr","ct_q1_o3":"130 kr","ct_q2":"En aksje faller 50 %. Hvor mye må den stige året etter for å være tilbake til start?","ct_q2_o0":"50 %","ct_q2_o1":"75 %","ct_q2_o2":"100 %","ct_q3":"Kontoen din gir 1 % rente og inflasjonen er 3 %. Hvordan endrer kjøpekraften seg på ett år?","ct_q3_o0":"Den øker","ct_q3_o1":"Den synker","ct_q3_o2":"Den er uendret","ct_conflbl":"Hvor sikker?","ct_conf0":"Gjetter","ct_conf1":"Ganske sikker","ct_conf2":"Sikker","ct_go":"Vis resultatet","ct_score":"Du fikk riktig","ct_conf":"Din snitt-selvtillit","ct_gap":"Ditt overmot-gap","ct_over":"Du er overmodig: troen løper foran kunnskapen.","ct_under":"Du er beskjeden: du kan mer enn du tror.","ct_cal":"Du er godt kalibrert: troen treffer kunnskapen.","ct_tie":"Snittinvestoren i studien var overmodig, men gapet krympet med kunnskap. Det er nettopp dette H4 måler.","outro_h":"Takk for at du leste","outro_b":"En masteroppgave i finans, gjort tilgjengelig for alle. Vil du lese hele? Den ligger her.","outro_acad":"«How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?»","outro_authors":"Henrik Bekkevold og Valiant Evers · MSc Finance · BI Norwegian Business School · 2026","outro_pdf":"Last ned oppgaven (PDF)","outro_back":"Tilbake til prosjekter","foot":"© 2026 Henrik Bekkevold & Valiant Evers","figt_growth":"Vekst: flere private aksjonærer","figl_0":"private aksjonærer i Norge, 2025","figt_funnel":"Rensing","figl_1":"Reddit","figl_2":"Shareville (nå Nordnet Social)","figl_3":"Facebook","figl_4":"respondenter","figl_5":"Strøk oppmerksomhetssjekk","figl_6":"Under 18 år","figl_7":"Ufullstendige svar","figl_8":"analysegrunnlag","figt_ceiling":"Kunnskaps-taket","figl_9":"antall respondenter (N = 750)","figl_10":"KUNNSKAPSSKÅR (0 TIL 6 RIKTIGE)","figl_11":"snitt 5,63","figl_12":"fikk full pott (553 av 750)","figt_calib":"Kalibrering","figl_13":"lav","figl_14":"KUNNSKAP","figl_15":"høy","figl_16":"OVERMOT-GAP","figl_17":"gap = 0 : perfekt kalibrering","figl_18":"over linjen: overmodig","figl_19":"under linjen: beskjeden","figt_mediation":"Kunnskap → Selvtillit → Risiko","figl_20":"Kunnskap","figl_21":"Selvtillit","figl_22":"Risiko","figl_23":"av sammenhengen via selvtillit","figt_findings3":"Tre funn, ett bilde","figl_24":"Sprer pengene litt bredere","figl_25":"Tar litt mer risiko","figl_26":"(funnet er skjørt)","figl_27":"Kjenner seg selv mye bedre","figl_28":"det klart sterkeste funnet"},"en":{"kicker":"Master’s thesis · BI · 2026","hero_h":"Do you know as much as you think you do?","hero_sub":"A master’s thesis on Norwegian investors, knowledge and confidence, told with data.","scrollcue":"Scroll to begin","map_eyebrow":"Part 1 · Motivation","map_h":"But not everyone understands the same amount","map_b":"Even in a country that scores high on financial knowledge, the gaps between people are wide. Some understand interest, fees and risk well. Others dive into the market with big gaps in their understanding.","bb1_eyebrow":"Part 2 · Theory","bb1_h":"Building block 1: what you actually know","bb1_b":"Financial literacy is simply whether you understand the basics: compound interest, inflation, fees and spreading risk. It is the bedrock under every money decision, and it can be measured.","bb2_eyebrow":"Part 2 · Theory","bb2_h":"Building block 2: what you think you know","bb2_b":"Confidence is how good you think you are. Calibration is how well that belief matches reality. When belief outruns the knowledge itself, we call it overconfidence, and you tend to underestimate risk.","bb34_eyebrow":"Part 2 · Theory","bb34_h":"Building blocks 3 and 4: risk and spreading","bb34_b":"Risk tolerance is how much swing and possible loss you will stomach for a shot at higher returns. Diversification is not putting all your eggs in one basket. Two simple, measurable quantities.","sample_eyebrow":"Part 3 · Method","sample_h":"Who exactly did we measure?","sample_b":"The sample is investor-active, male-dominated (84%) and recruited from online communities. So we describe variation within an engaged investor crowd, not the Norwegian population as a whole. A deliberate scope.","findings_eyebrow":"Part 4 · Results","findings_h":"Four findings, one thread","findings_b":"More knowledge goes with broader spread, a little more risk, and clearly sharper self-insight. But the most interesting question is not whether knowledge matters, it is which path it works through.","twopaths_eyebrow":"Part 4 · Results","twopaths_h":"The heart of the thesis: two possible paths","twopaths_b":"Picture a surgeon: reading theory at school does not make you ready to operate overnight. But the knowledge builds confidence, the confidence makes you dare to practise, and the practice eventually leads to the operating table. The same question holds for investors: does knowledge act on risk directly, or through confidence? Scroll on, and we measure it.","conclusion_eyebrow":"Part 4 · Conclusion","conclusion_h":"Knowledge shapes the quality of risk","conclusion_b":"Financial literacy does not blindly push you toward more risk. It appears to produce more informed, better-calibrated risk, and the route there runs through confidence. For financial education: do not just pile on facts, help people judge their own knowledge accurately.","conclusion_caveat":"Remember: this is a snapshot (not cause), a skewed sample, and knowledge near the ceiling. The findings describe investor-Norway, not necessarily everyone.","quiz_eyebrow":"Part 3 · Method","quiz_h":"Try it yourself before we tell you","quiz_prompt":"How many of these do you think you would get right? Guess first, then take a shot.","quiz_guesslabel":"My guess (0–6):","q1_q":"You put 100 kr in an account at 6% interest. How much do you have after two years, with no withdrawals?","q1_o0":"106 kr","q1_o1":"112 kr","q1_o2":"112,36 kr","q1_o3":"130 kr","q2_q":"A stock falls 50%. How much must it rise the next year to get back to where it started?","q2_o0":"50%","q2_o1":"75%","q2_o2":"100%","quiz_reveal":"The average investor in the survey got 5,63 out of 6. Knowledge was high, keep that in mind, it matters in a moment.","qOk":"Correct!","qNo":"Not quite, the right answer is marked.","ct_eyebrow":"Part 3 · Method","ct_h":"How well do you know yourself?","ct_intro":"Answer three questions, and say how sure you are of each. At the end we measure your own overconfidence gap, just like in the thesis.","ct_q1":"You put 100 kr in an account at 6% interest. How much do you have after two years, with no withdrawals?","ct_q1_o0":"106 kr","ct_q1_o1":"112 kr","ct_q1_o2":"112,36 kr","ct_q1_o3":"130 kr","ct_q2":"A stock falls 50%. How much must it rise the next year to get back to where it started?","ct_q2_o0":"50%","ct_q2_o1":"75%","ct_q2_o2":"100%","ct_q3":"Your account pays 1% interest and inflation is 3%. How does your purchasing power change over one year?","ct_q3_o0":"It rises","ct_q3_o1":"It falls","ct_q3_o2":"It is unchanged","ct_conflbl":"How sure?","ct_conf0":"Guessing","ct_conf1":"Fairly sure","ct_conf2":"Certain","ct_go":"Show the result","ct_score":"You got right","ct_conf":"Your average confidence","ct_gap":"Your overconfidence gap","ct_over":"You are overconfident: belief runs ahead of knowledge.","ct_under":"You are modest: you know more than you think.","ct_cal":"You are well calibrated: belief matches knowledge.","ct_tie":"The average investor in the study was overconfident, but the gap shrank with knowledge. That is exactly what H4 measures.","outro_h":"Thanks for reading","outro_b":"A master’s thesis in finance, made readable for everyone. Want the full version? You will find it here.","outro_acad":"«How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?»","outro_authors":"Henrik Bekkevold and Valiant Evers · MSc Finance · BI Norwegian Business School · 2026","outro_pdf":"Download the thesis (PDF)","outro_back":"Back to projects","foot":"© 2026 Henrik Bekkevold & Valiant Evers","figt_growth":"Growth: more private shareholders","figl_0":"private shareholders in Norway, 2025","figt_funnel":"Cleaning","figl_1":"Reddit","figl_2":"Shareville (now Nordnet Social)","figl_3":"Facebook","figl_4":"respondents","figl_5":"Failed attention check","figl_6":"Under 18 years","figl_7":"Incomplete answers","figl_8":"analysis base","figt_ceiling":"The knowledge ceiling","figl_9":"number of respondents (N = 750)","figl_10":"KNOWLEDGE SCORE (0 TO 6 CORRECT)","figl_11":"mean 5,63","figl_12":"scored full marks (553 of 750)","figt_calib":"Calibration","figl_13":"low","figl_14":"KNOWLEDGE","figl_15":"high","figl_16":"OVERCONFIDENCE GAP","figl_17":"gap = 0 : perfect calibration","figl_18":"above the line: overconfident","figl_19":"below the line: modest","figt_mediation":"Knowledge → Confidence → Risk","figl_20":"Knowledge","figl_21":"Confidence","figl_22":"Risk","figl_23":"of the relationship via confidence","figt_findings3":"Three findings, one picture","figl_24":"Spread their money a little wider","figl_25":"Take a little more risk","figl_26":"(the finding is fragile)","figl_27":"Know themselves much better","figl_28":"clearly the strongest finding"}};
+ var lang='no'; try{var s=localStorage.getItem('ve-thesis-lang'); if(s&&I18N[s])lang=s;}catch(e){}
 
-/* ---------------- i18n dictionary ---------------- */
-var I18N = {
- no:{
-  docTitle:"Vet du like mye som du tror? — Masteroppgave",
-  partPill:"Del 1 av 4 · Motivasjon",
-  part1:"Del 1 · Motivasjon", part2:"Del 2 · Teori", part3:"Del 3 · Metode", part4:"Del 4 · Resultater",
-
-  s0_eyebrow:"Masteroppgave · BI · 2026",
-  s0_title:"Vet du like mye som du tror?",
-  s0_sub:"En masteroppgave om norske investorer, kunnskap og selvtillit.",
-  s0_scroll:"Bla for å begynne",
-
-  s1_h:"Hundretusener av nye investorer",
-  s1_b:"De siste årene har stadig flere nordmenn begynt å investere — over 600 000 private aksjonærer i 2025, mange av dem helt ferske etter pandemien.",
-  s1_cap:"private aksjonærer i Norge (2025)",
-
-  s2_h:"Men ikke alle har samme kart",
-  s2_b:"Selv i et land som skårer høyt på finanskunnskap er forskjellene store fra person til person. Noen forstår renter, gebyrer og risiko godt — andre kaster seg ut i markedet med et ufullstendig kart.",
-
-  s3_h:"Så: betyr kunnskap egentlig noe for hvordan du investerer?",
-  s3_b:"Tar de som kan mer, mer eller mindre risiko? Sprer de pengene bedre? Og — det mest interessante — er det kunnskapen i seg selv som styrer, eller troen på egen kunnskap?",
-
-  s4_h:"Derfor er svaret verdt å lete etter",
-  s4_b:"De vanligste tabbene småsparere gjør — alt i én aksje, glemme gebyrer, ta risiko de ikke forstår — handler nettopp om dette. Hvis kunnskap endrer atferd, er finansopplæring verdt pengene. Hvis det heller er selvtilliten som styrer, må vi lære folk å kjenne sine egne grenser.",
-
-  s5_h:"Byggekloss 1: Hva du faktisk kan",
-  s5_b:"Finansiell kunnskap er rett og slett om du forstår grunnreglene: renters rente, inflasjon, gebyrer og det å spre risiko. Tenk på det som kartlesing for pengeverdenen — og det kan måles med en liten quiz.",
-
-  s6_h:"Byggekloss 2: Hva du TROR du kan",
-  s6_b:"Selvtillit og kalibrering er to ulike ting. Selvtillit er hvor flink du tror du er. Kalibrering er hvor godt troen treffer virkeligheten. Du kan være både svært selvsikker og godt kalibrert — hvis du faktisk ér flink. Som en sjåfør sikker på at han kjører bedre enn alle: spørsmålet er om speedometeret hans viser riktig fart.",
-
-  s7_h:"Når selvtilliten løper foran",
-  s7_b:"Når troen på egen kunnskap er større enn den faktiske kunnskapen, kaller vi det overmot (overconfidence). Da har du lett for å undervurdere risiko — og ta mer av den enn du burde.",
-
-  s8_h:"Byggekloss 3 og 4: Risiko og spredning",
-  s8_b:"To ting til, i hverdagsspråk: Risikovilje er hvor mye svingninger og mulig tap du tåler for sjansen til høyere avkastning — som hvor bratt berg-og-dal-bane du tør å sette deg i. Diversifisering er å ikke legge alle eggene i én kurv.",
-
-  s9_h:"Hjertet i oppgaven: to mulige veier",
-  s9_b:"Kunnskap kan påvirke risiko på to måter. Den direkte veien: «jeg forstår risiko, derfor tør jeg mer.» Eller den indirekte veien, via et mellomledd: kunnskap gjør deg tryggere på deg selv, og den tryggheten får deg til å ta mer risiko. Tenk dominobrikker: Kunnskap velter ikke Risiko direkte — den velter Selvtillit, som velter Risiko. Hvilken vei er det som faktisk virker? Det er det vi skal måle.",
-
-  s10_h:"Vi gikk dit investorene faktisk er",
-  s10_b:"Vi laget en spørreundersøkelse og delte den der norske investorer henger: Reddit-forum som r/aksjer og r/TollbugataBets, Nordnet Shareville og Facebook-grupper. 1 027 personer svarte.",
-
-  s11_h:"Fra 1 027 til 750 — rensing av data",
-  s11_b:"Vi luket ut mindreårige, de som ikke fulgte med (vi hadde lagt inn kontrollspørsmål), og ufullstendige svar. Igjen sto 750 respondenter — grunnlaget for hele analysen.",
-  s11_cap:"respondenter igjen etter rensing",
-
-  s12_h:"Hvem er det vi har målt?",
-  s12_b:"Det er verdt å være åpen om: utvalget er investor-aktivt, mannsdominert (84 %) og rekruttert fra nettsamfunn. Det betyr at vi beskriver variasjon innad i et engasjert investormiljø — ikke hele Norges befolkning. Det er en bevisst avgrensning, ikke noe vi gjemmer bort.",
-
-  s13_h:"Prøv selv før vi forteller",
-  s13_prompt:"Hvor mange av disse tror du at du klarer? Tipp først — så prøver du.",
-  s13_guesslabel:"Min gjetning (0–6):",
-  q1_q:"Du setter 100 kr på konto til 6 % rente. Hvor mye har du etter to år, uten uttak?",
-  q1_o0:"106 kr", q1_o1:"112 kr", q1_o2:"112,36 kr", q1_o3:"130 kr",
-  q2_q:"En aksje faller 50 %. Hvor mye må den stige året etter for å være tilbake til start?",
-  q2_o0:"50 %", q2_o1:"75 %", q2_o2:"100 %",
-  s13_reveal:"Snittinvestoren i undersøkelsen klarte 5,63 av 6. Kunnskapsnivået var altså høyt — husk det, det blir viktig snart.",
-  s13_expand:"Se alle seks spørsmålene",
-  q3_q:"Kontoen din gir 1 % rente og inflasjonen er 3 %. Hvordan endrer kjøpekraften seg etter ett år?",
-  q3_o0:"Den øker", q3_o1:"Den synker", q3_o2:"Den forblir den samme",
-  q4_q:"«Å kjøpe aksjer i ett selskap er vanligvis mer risikabelt enn å kjøpe et bredt aksjefond.»",
-  q4_o0:"Sant", q4_o1:"Usant",
-  q5_q:"En investering med høy forventet avkastning har vanligvis …",
-  q5_o0:"Lav risiko", q5_o1:"Høy risiko", q5_o2:"Samme risiko som andre",
-  q6_q:"To fond ventes å gi samme avkastning før kostnader. Fond A har 1,0 % årlig kostnad, fond B 0,2 %. Hvilket gir mest etter kostnader?",
-  q6_o0:"Fond A", q6_o1:"Fond B", q6_o2:"Likt",
-
-  s14_h:"Når nesten alle er flinke, blir det vanskelig å måle",
-  s14_b:"Her er en utfordring vi tar på alvor: 73,7 % fikk alt riktig, og over 90 % klarte 5 eller 6 av 6. Når nesten alle klumper seg på samme punkt, blir det lite variasjon igjen å måle på — som å trekke en trendlinje gjennom prikker som står oppå hverandre. Det presser effektene mot null.",
-  s14_hl:"Det gjør dette til en bevisst streng test. Finner vi en sammenheng likevel, er det informativt om den underliggende mekanismen — ikke et resultat av statistisk bekvemmelighet. Tallene bør leses som nedre grenser.",
-  s14_cap:"Kunnskapsscore 0–6: nesten alle helt til høyre",
-
-  s15_h:"Funn 1: Mer kunnskap, bredere spredning",
-  s15_b:"De som kan mer, sprer pengene over flere typer investeringer. Effekten er beskjeden men tydelig — og den holder selv blant disse allerede aktive investorene. Et lite men robust steg vekk fra «alle eggene i én kurv».",
-
-  s16_h:"Funn 2: Mer kunnskap, litt mer risikovilje",
-  s16_b:"De som kan mer, tar også litt mer risiko. Men dette funnet er antydende: tar vi bort de med full pott, blir det for lite variasjon igjen til å måle sikkert. Det er i tråd med det linjalen viste, og er ikke et bevis mot sammenhengen. Vi leser tallet som en forsiktig, nedre grense.",
-  s16_toggle:"Fjern de med full pott",
-  s16_showall:"Vis alle igjen",
-  s16_annot:"for lite variasjon igjen — funnet kan ikke måles sikkert",
-
-  s17_h:"Funn 3: Mer kunnskap, bedre selvinnsikt",
-  s17_b:"Her er det sterkeste funnet: de som kan mer har et mindre gap mellom hva de tror og hva de faktisk kan. De kjenner seg selv bedre. Dette holdt i alle robusthetssjekkene. (Med et ærlig forbehold: måles selvinnsikten på en mer konservativ måte, blir effekten svakere — så vi kaller den klar, men ikke skråsikker.)",
-
-  s18_h:"Funn 4: Selvtilliten er broen",
-  s18_b:"Nå velter dominoen. Kunnskap øker selvtilliten, og selvtilliten øker risikoviljen. Når vi holder selvtilliten konstant, forsvinner den direkte koblingen mellom kunnskap og risiko nesten helt. Omtrent 57 % av hele sammenhengen går gjennom selvtillit-kanalen.",
-  s18_hl:"Mønsteret er i tråd med at kunnskap virker på risiko først og fremst ved å gjøre folk tryggere på seg selv. Merk språket: dataene er i tråd med denne mekanismen — de beviser den ikke. Med et øyeblikksbilde kan vi ikke fastslå årsak.",
-  s18_replay:"Spill av igjen",
-
-  s19_h:"Konklusjonen: kunnskap former kvaliteten på risikoen",
-  s19_b:"Finansiell kunnskap dytter deg ikke blindt mot mer risiko. Den ser ut til å gi mer informert og bedre kalibrert risiko — du tar mer, men med tettere samsvar mellom hva du tror og hva du faktisk kan. Og veien dit går gjennom selvtilliten.",
-  s19_policy:"For finansopplæring betyr det: ikke bare pøs på fakta. Hjelp folk å vurdere sin egen kunnskap riktig. Et verktøy som viser gapet mellom hva du tror og hva du kan, kan være mer verdt enn enda en forelesning.",
-  s19_caveat:"Husk: dette er et øyeblikksbilde (ikke årsak), et skjevt utvalg, og kunnskap nær taket. Funnene gjelder investor-Norge — ikke nødvendigvis alle.",
-
-  s20_h:"Takk for at du leste",
-  s20_b:"En masteroppgave i finans, gjort tilgjengelig for alle. Vil du lese hele? Den ligger her.",
-  s20_acad:"«How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?»",
-  s20_authors:"Henrik Bekkevold og Valiant Evers · MSc Finance · BI Norwegian Business School · 2026",
-  s20_pdf:"Last ned oppgaven (PDF)",
-  s20_top:"↑ Til toppen",
-
-  footText:"© 2026 Henrik Bekkevold & Valiant Evers",
-  footBack:"Tilbake til prosjekter",
-
-  /* diagram labels */
-  lblKnow:"Kunnskap", lblConf:"Selvtillit", lblRisk:"Risiko", lblThink:"Det du tror du kan",
-  lblGap:"Overmot: gapet mellom tro og kunnskap",
-  lblBasket:"Alt i én kurv", lblFee:"Gebyrer", lblRiskMeter:"Feil risiko",
-  lblSpeedo:"Selvbilde", lblSpeedoNote1:"Viser nåla riktig fart?", lblSpeedoNote2:"Det er kalibrering.",
-  lblCoaster:"Risikovilje", lblPlate:"Diversifisering",
-  lblDirect:"direkte vei?", lblNotSig:"direkte: ikke signifikant",
-  lbl57:"≈ 57 % via selvtillit", lbl57suffix:" % via selvtillit",
-  lblFilter1:"Under 18", lblFilter2:"Strøk kontrollsjekk", lblFilter3:"Ufullstendige svar",
-  lblMen:"menn", lblYoung:"under 35 år", lblOnline:"Nett", lblOnline2:"investorforum",
-  lblKnowAxis:"Kunnskap →", lblRiskAxis:"Risikovilje →", lblAligned:"tro og kunnskap møtes",
-
-  qOk:"Riktig!", qNo:"Ikke helt — riktig svar er markert."
- },
- en:{
-  docTitle:"Do you know as much as you think you do? — Master's Thesis",
-  partPill:"Part 1 of 4 · Motivation",
-  part1:"Part 1 · Motivation", part2:"Part 2 · Theory", part3:"Part 3 · Method", part4:"Part 4 · Results",
-
-  s0_eyebrow:"Master's thesis · BI · 2026",
-  s0_title:"Do you know as much as you think you do?",
-  s0_sub:"A master's thesis on Norwegian investors, knowledge, and confidence.",
-  s0_scroll:"Scroll to begin",
-
-  s1_h:"Hundreds of thousands of new investors",
-  s1_b:"In recent years, more and more Norwegians have started investing — over 600,000 private shareholders by 2025, many of them complete newcomers after the pandemic.",
-  s1_cap:"private shareholders in Norway (2025)",
-
-  s2_h:"But not everyone carries the same map",
-  s2_b:"Even in a country that scores high on financial knowledge, the gaps between people are wide. Some understand interest, fees and risk well — others dive into the market with an incomplete map.",
-
-  s3_h:"So: does knowledge actually shape how you invest?",
-  s3_b:"Do those who know more take on more risk, or less? Do they spread their money more wisely? And — most intriguing of all — is it the knowledge itself that steers us, or our belief in that knowledge?",
-
-  s4_h:"That's why the answer is worth chasing",
-  s4_b:"The most common mistakes small investors make — everything in one stock, ignoring fees, taking risks they don't grasp — come down to exactly this. If knowledge changes behaviour, financial education is worth the money. If it's confidence that steers instead, we need to teach people to recognise their own limits.",
-
-  s5_h:"Building block 1: What you actually know",
-  s5_b:"Financial literacy is simply whether you understand the basics: compound interest, inflation, fees and spreading risk. Think of it as map-reading for the world of money — and it can be measured with a short quiz.",
-
-  s6_h:"Building block 2: What you THINK you know",
-  s6_b:"Confidence and calibration are two different things. Confidence is how good you think you are. Calibration is how well that belief matches reality. You can be both highly confident and well-calibrated — if you genuinely are good. Like a driver certain he drives better than everyone else: the question is whether his speedometer reads true.",
-
-  s7_h:"When confidence runs ahead",
-  s7_b:"When your belief in your own knowledge outruns the knowledge itself, we call it overconfidence. It makes you prone to underestimate risk — and to take on more of it than you should.",
-
-  s8_h:"Building blocks 3 and 4: Risk and spreading",
-  s8_b:"Two more, in plain terms: Risk tolerance is how much swing and possible loss you'll stomach for a shot at higher returns — like how steep a rollercoaster you dare to ride. Diversification is not putting all your eggs in one basket.",
-
-  s9_h:"The heart of the thesis: two possible paths",
-  s9_b:"Knowledge can shape risk-taking in two ways. The direct path: ‘I understand risk, so I dare to take more.’ Or the indirect path, through a middle step: knowledge makes you more sure of yourself, and that self-assurance leads you to take more risk. Picture a row of dominoes: Knowledge doesn't topple Risk directly — it topples Confidence, which topples Risk. Which path actually does the work? That's what we set out to measure.",
-
-  s10_h:"We went where the investors actually are",
-  s10_b:"We built a survey and shared it where Norwegian investors gather: Reddit forums like r/aksjer and r/TollbugataBets, Nordnet Shareville and Facebook groups. 1,027 people responded.",
-
-  s11_h:"From 1,027 to 750 — cleaning the data",
-  s11_b:"We removed minors, those who weren't paying attention (we'd planted attention-check questions), and incomplete responses. That left 750 respondents — the foundation for the whole analysis.",
-  s11_cap:"respondents left after cleaning",
-
-  s12_h:"Who exactly did we measure?",
-  s12_b:"It's worth being upfront: the sample is investor-active, male-dominated (84%) and recruited from online communities. That means we're describing variation within an engaged investor crowd — not the Norwegian population as a whole. It's a deliberate scope, not something we hide.",
-
-  s13_h:"Try it yourself before we tell you",
-  s13_prompt:"How many of these do you think you'd get right? Guess first — then take a shot.",
-  s13_guesslabel:"My guess (0–6):",
-  q1_q:"You put 100 kr in an account at 6% interest. How much do you have after two years, with no withdrawals?",
-  q1_o0:"106 kr", q1_o1:"112 kr", q1_o2:"112.36 kr", q1_o3:"130 kr",
-  q2_q:"A stock falls 50%. How much must it rise the next year to get back to where it started?",
-  q2_o0:"50%", q2_o1:"75%", q2_o2:"100%",
-  s13_reveal:"The average investor in the survey got 5.63 out of 6. Knowledge was high, in other words — keep that in mind, it matters in a moment.",
-  s13_expand:"See all six questions",
-  q3_q:"Your account pays 1% interest and inflation is 3%. How does your purchasing power change after one year?",
-  q3_o0:"It increases", q3_o1:"It decreases", q3_o2:"It stays the same",
-  q4_q:"“Buying shares in a single company is usually more risky than buying a broad equity fund.”",
-  q4_o0:"True", q4_o1:"False",
-  q5_q:"An investment with a high expected return usually has …",
-  q5_o0:"Low risk", q5_o1:"High risk", q5_o2:"The same risk as others",
-  q6_q:"Two funds are expected to return the same before fees. Fund A charges 1.0% a year, fund B charges 0.2%. Which gives more after fees?",
-  q6_o0:"Fund A", q6_o1:"Fund B", q6_o2:"The same",
-
-  s14_h:"When almost everyone is sharp, measuring gets hard",
-  s14_b:"Here's a challenge we take seriously: 73.7% got everything right, and over 90% scored 5 or 6 out of 6. When almost everyone clusters at the same point, there's little variation left to measure — like drawing a trend line through dots stacked on top of each other. It pushes the effects toward zero.",
-  s14_hl:"That makes this a deliberately demanding test. If we find a relationship anyway, it's informative about the underlying mechanism — not a product of statistical comfort. The numbers should be read as lower bounds.",
-  s14_cap:"Knowledge score 0–6: almost everyone bunched at the right",
-
-  s15_h:"Finding 1: More knowledge, broader spread",
-  s15_b:"Those who know more spread their money across more types of investments. The effect is modest but clear — and it holds even among these already active investors. A small but robust step away from ‘all the eggs in one basket.’",
-
-  s16_h:"Finding 2: More knowledge, a little more appetite for risk",
-  s16_b:"Those who know more also take a bit more risk. But this finding is suggestive: remove the perfect-scorers and there's too little variation left to measure with confidence — just as the ruler showed. That's consistent with variance compression, and is not evidence against the relationship. We read the number as a cautious lower bound.",
-  s16_toggle:"Remove the perfect-scorers",
-  s16_showall:"Show all again",
-  s16_annot:"too little variation left — the relationship can't be measured with confidence",
-
-  s17_h:"Finding 3: More knowledge, sharper self-insight",
-  s17_b:"Here's the strongest finding: those who know more have a smaller gap between what they think and what they actually know. They read themselves more accurately. This held across every robustness check. (With one honest caveat: measure self-insight a more conservative way and the effect softens — so we call it clear, but not beyond doubt.)",
-
-  s18_h:"Finding 4: Confidence is the bridge",
-  s18_b:"Now the dominoes fall. Knowledge raises confidence, and confidence raises the appetite for risk. Hold confidence constant, and the direct link between knowledge and risk all but disappears. Roughly 57% of the whole relationship runs through the confidence channel.",
-  s18_hl:"The pattern is consistent with knowledge acting on risk mainly by making people more sure of themselves. Note the wording: the data are consistent with this mechanism — they don't prove it. With a single snapshot in time, we can't establish cause.",
-  s18_replay:"Replay",
-
-  s19_h:"The conclusion: knowledge shapes the quality of risk",
-  s19_b:"Financial literacy doesn't blindly push you toward more risk. It appears to produce more informed, better-calibrated risk — you take on more, but with a closer match between what you think and what you actually know. And the route there runs through confidence.",
-  s19_policy:"For financial education, the lesson is: don't just pile on facts. Help people judge their own knowledge accurately. A tool that shows the gap between what you think and what you know may be worth more than another lecture.",
-  s19_caveat:"Remember: this is a snapshot (not cause), a skewed sample, and knowledge near the ceiling. The findings describe investor-Norway — not necessarily everyone.",
-
-  s20_h:"Thanks for reading",
-  s20_b:"A master's thesis in finance, made readable for everyone. Want the full version? You'll find it here.",
-  s20_acad:"“How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?”",
-  s20_authors:"Henrik Bekkevold and Valiant Evers · MSc Finance · BI Norwegian Business School · 2026",
-  s20_pdf:"Download the thesis (PDF)",
-  s20_top:"↑ Back to top",
-
-  footText:"© 2026 Henrik Bekkevold & Valiant Evers",
-  footBack:"Back to projects",
-
-  lblKnow:"Knowledge", lblConf:"Confidence", lblRisk:"Risk", lblThink:"What you think you know",
-  lblGap:"Overconfidence: the gap between belief and knowledge",
-  lblBasket:"All in one basket", lblFee:"Fees", lblRiskMeter:"Wrong risk",
-  lblSpeedo:"Self-image", lblSpeedoNote1:"Does the needle read true?", lblSpeedoNote2:"That's calibration.",
-  lblCoaster:"Risk tolerance", lblPlate:"Diversification",
-  lblDirect:"direct path?", lblNotSig:"direct: not significant",
-  lbl57:"≈ 57% via confidence", lbl57suffix:"% via confidence",
-  lblFilter1:"Under 18", lblFilter2:"Failed attention check", lblFilter3:"Incomplete responses",
-  lblMen:"men", lblYoung:"under 35", lblOnline:"Online", lblOnline2:"investor forums",
-  lblKnowAxis:"Knowledge →", lblRiskAxis:"Risk-taking →", lblAligned:"belief and knowledge meet",
-
-  qOk:"Correct!", qNo:"Not quite — the right answer is marked."
+ function buildCaps(){
+   document.querySelectorAll('[data-caps]').forEach(function(box){
+     var key=box.getAttribute('data-caps'), caps=(window.__CAPS[key]||{})[lang]||[];
+     box.innerHTML=caps.map(function(c){return '<div class="cap" data-from="'+c.from+'">'+c.html+'</div>';}).join('');
+   });
  }
-};
+ function applyLang(){
+   var d=I18N[lang]; document.documentElement.lang=lang;
+   document.title=d.hero_h+' \u00b7 Masteroppgave';
+   document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n'); if(d[k]!==undefined) el.innerHTML=d[k];});
+   document.getElementById('langNo').classList.toggle('active',lang==='no');
+   document.getElementById('langEn').classList.toggle('active',lang==='en');
+   document.querySelectorAll('.q.answered .verdict').forEach(function(v){v.textContent=v.getAttribute('data-ok')==='1'?d.qOk:d.qNo;});
+   buildCaps();
+ }
+ function setLang(l){lang=l; try{localStorage.setItem('ve-thesis-lang',l)}catch(e){} applyLang();}
+ document.getElementById('langNo').addEventListener('click',function(){setLang('no')});
+ document.getElementById('langEn').addEventListener('click',function(){setLang('en')});
 
-var lang = 'no';
-try{ var s = localStorage.getItem('ve-thesis-lang'); if(s && I18N[s]) lang = s; }catch(e){}
+ /* progress bar + left rail */
+ var bar=document.getElementById('progressBar');
+ var rail=document.getElementById('railMarks'), railFill=document.getElementById('railFill');
+ var parts=['Motivasjon','Teori','Metode','Resultater'], marks=[];
+ parts.forEach(function(name,i){
+   var top=(i/(parts.length-1))*100;
+   var m=document.createElement('div'); m.className='rail__mark'; m.style.top=top+'%';
+   var l=document.createElement('div'); l.className='rail__lbl'; l.style.top=top+'%'; l.textContent=name;
+   rail.appendChild(m); rail.appendChild(l); marks.push(m);
+ });
+ var curPart=1;
+ function railUpdate(){
+   var h=document.documentElement, max=h.scrollHeight-h.clientHeight, pr=max>0?clamp(h.scrollTop/max,0,1):0;
+   if(bar) bar.style.transform='scaleX('+pr.toFixed(4)+')';
+   if(railFill) railFill.style.height=pr*100+'%';
+   marks.forEach(function(m,i){m.classList.toggle('on', (i+1)===curPart);});
+ }
 
-function fmtInt(n){ var str = Math.round(n).toString();
-  var sep = (lang==='no') ? ' ' : ',';
-  return str.replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-}
+ /* editorial reveals + part tracking */
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); var pt=e.target.getAttribute('data-part'); if(pt){curPart=parseInt(pt,10); railUpdate();} } });},{threshold:0.25});
+ document.querySelectorAll('.reveal,[data-part]').forEach(function(el){io.observe(el);});
 
-function applyLang(){
-  var dict = I18N[lang];
-  document.documentElement.lang = (lang==='en') ? 'en' : 'no';
-  document.title = dict.docTitle;
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var k = el.getAttribute('data-i18n');
-    if(dict[k] !== undefined) el.innerHTML = dict[k];
-  });
-  document.getElementById('langNo').classList.toggle('active', lang==='no');
-  document.getElementById('langEn').classList.toggle('active', lang==='en');
-  // re-render dynamic counters that already finished
-  document.querySelectorAll('.counter[data-done]').forEach(function(el){
-    el.textContent = fmtInt(parseFloat(el.getAttribute('data-target')));
-  });
-  // re-render verdict text on answered questions
-  document.querySelectorAll('.q.answered .verdict').forEach(function(v){
-    var ok = v.getAttribute('data-ok')==='1';
-    v.textContent = ok ? dict.qOk : dict.qNo;
-  });
-  // part pill reflects current part
-  updatePartPill();
-}
+ /* figure scrolly scenes: scrub progress -> apply fn + caption switch */
+ var scenes=[].slice.call(document.querySelectorAll('.scrolly[data-fig]')).map(function(sec){
+   return {sec:sec, key:sec.getAttribute('data-fig'), fn:window.__FIGFNS[sec.getAttribute('data-fig')],
+           caps:sec.querySelector('[data-caps]'), cur:0, on:false};
+ });
+ function sceneProgress(sec){var total=sec.offsetHeight-window.innerHeight; var sc=clamp(-sec.getBoundingClientRect().top,0,total); return total>0?sc/total:0;}
+ function applyCaps(sc,p){
+   var caps=sc.caps?sc.caps.querySelectorAll('.cap'):[]; if(!caps.length)return;
+   var a=0; for(var i=0;i<caps.length;i++){ if(p>=parseFloat(caps[i].getAttribute('data-from')))a=i; }
+   for(var j=0;j<caps.length;j++) caps[j].classList.toggle('on',j===a);
+ }
+ function renderScene(sc,p){ try{ if(sc.fn) sc.fn(p); }catch(e){} applyCaps(sc,p); }
 
-function setLang(l){ lang=l; try{localStorage.setItem('ve-thesis-lang',l)}catch(e){} applyLang(); }
-document.getElementById('langNo').addEventListener('click',function(){setLang('no')});
-document.getElementById('langEn').addEventListener('click',function(){setLang('en')});
+ if(reduce){ scenes.forEach(function(sc){renderScene(sc,1);}); applyLang(); railUpdate(); return; }
 
-/* ---------------- progress bar + part pill ---------------- */
-var bar = document.getElementById('progressBar');
-var pill = document.getElementById('partPill');
-var currentPart = 1;
-function updatePartPill(){
-  var names = [I18N[lang].part1,I18N[lang].part2,I18N[lang].part3,I18N[lang].part4];
-  // partPill key not used directly; build "Part n · Name"
-  var label = (lang==='no'?'Del ':'Part ')+currentPart+(lang==='no'?' av 4 · ':' of 4 · ')+
-    names[currentPart-1].split('· ')[1];
-  pill.textContent = label;
-}
-function onScroll(){
-  var h = document.documentElement;
-  var max = h.scrollHeight - h.clientHeight;
-  var p = max>0 ? (h.scrollTop || document.body.scrollTop)/max : 0;
-  bar.style.transform = 'scaleX('+p.toFixed(4)+')';
-  pill.classList.toggle('show', (h.scrollTop||document.body.scrollTop) > 300);
-}
-window.addEventListener('scroll', onScroll, {passive:true});
+ var raf=0, running=false;
+ var visible=[];
+ var sio=new IntersectionObserver(function(es){es.forEach(function(e){ var sc=scenes.filter(function(s){return s.sec===e.target;})[0]; if(sc)sc.on=e.isIntersecting; }); start();},{rootMargin:'200px 0px'});
+ scenes.forEach(function(sc){sio.observe(sc.sec);});
+ function tick(){
+   var any=false;
+   for(var i=0;i<scenes.length;i++){var sc=scenes[i]; if(!sc.on)continue; any=true;
+     var tgt=sceneProgress(sc.sec); sc.cur+=(tgt-sc.cur)*0.14; if(Math.abs(tgt-sc.cur)<0.0004)sc.cur=tgt; renderScene(sc,sc.cur);}
+   railUpdate();
+   if(any){raf=requestAnimationFrame(tick);} else {running=false;}
+ }
+ function start(){ if(running)return; if(!scenes.some(function(s){return s.on;}))return; running=true; raf=requestAnimationFrame(tick); }
+ window.addEventListener('scroll',railUpdate,{passive:true});
+ document.addEventListener('visibilitychange',function(){ if(!document.hidden) start(); });
 
-/* ---------------- reveal + per-scene triggers ---------------- */
-var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ /* quiz */
+ var gr=document.getElementById('guessRange'), gv=document.getElementById('guessVal');
+ if(gr) gr.addEventListener('input',function(){gv.textContent=gr.value;});
+ document.querySelectorAll('.q').forEach(function(q){
+   var correct=parseInt(q.getAttribute('data-correct'),10), opts=q.querySelectorAll('.opt'), verdict=q.querySelector('.verdict');
+   opts.forEach(function(opt,idx){opt.addEventListener('click',function(){
+     if(q.classList.contains('answered'))return; q.classList.add('answered'); opts[correct].classList.add('correct');
+     var ok=idx===correct; if(!ok)opt.classList.add('wrong'); verdict.classList.add(ok?'ok':'no'); verdict.setAttribute('data-ok',ok?'1':'0');
+     verdict.textContent=ok?I18N[lang].qOk:I18N[lang].qNo; var rn=document.getElementById('quizReveal'); if(rn)rn.classList.add('show');
+   });});
+ });
 
-function animateCounter(el){
-  if(el.getAttribute('data-done')) return;
-  var target = parseFloat(el.getAttribute('data-target'));
-  var from = parseFloat(el.getAttribute('data-from')||'0');
-  el.setAttribute('data-done','1');
-  if(prefersReduced){ el.textContent = fmtInt(target); return; }
-  var dur=1400, t0=null;
-  function step(ts){ if(!t0)t0=ts; var k=Math.min((ts-t0)/dur,1);
-    var eased = 1-Math.pow(1-k,3);
-    el.textContent = fmtInt(from + (target-from)*eased);
-    if(k<1) requestAnimationFrame(step); else el.textContent=fmtInt(target);
-  }
-  requestAnimationFrame(step);
-}
+ /* calibration test: answer + confidence -> personal overconfidence gap */
+ (function(){
+   var test=document.getElementById('ctest'); if(!test) return;
+   var qs=[].slice.call(test.querySelectorAll('.ctq'));
+   var stt=qs.map(function(){return {opt:null,conf:null};});
+   var go=document.getElementById('ctestGo');
+   function check(){ go.disabled=!stt.every(function(s){return s.opt!=null&&s.conf!=null;}); }
+   qs.forEach(function(q,qi){
+     q.querySelectorAll('.ctopt').forEach(function(o,oi){ o.addEventListener('click',function(){ if(q.classList.contains('done'))return; stt[qi].opt=oi; q.querySelectorAll('.ctopt').forEach(function(x){x.classList.remove('sel');}); o.classList.add('sel'); check(); }); });
+     q.querySelectorAll('.ctc').forEach(function(c){ c.addEventListener('click',function(){ if(q.classList.contains('done'))return; stt[qi].conf=parseInt(c.getAttribute('data-c'),10); q.querySelectorAll('.ctc').forEach(function(x){x.classList.remove('sel');}); c.classList.add('sel'); check(); }); });
+   });
+   go.addEventListener('click',function(){
+     var correct=0, confSum=0;
+     qs.forEach(function(q,qi){ q.classList.add('done'); var cor=parseInt(q.getAttribute('data-correct'),10), opts=q.querySelectorAll('.ctopt'); opts[cor].classList.add('correct'); if(stt[qi].opt!==cor){opts[stt[qi].opt].classList.add('wrong');} else {correct++;} confSum+=stt[qi].conf; });
+     var n=qs.length, actual=Math.round(correct/n*100), conf=Math.round(confSum/n), gap=conf-actual, d=I18N[lang];
+     var v=gap>12?d.ct_over:gap<-12?d.ct_under:d.ct_cal, vc=gap>12?'tag-conf':gap<-12?'tag-know':'tag-good';
+     var r=document.getElementById('ctestResult'); r.hidden=false;
+     r.innerHTML='<div class="ctr__row"><span>'+d.ct_score+'</span><b>'+correct+' / '+n+'</b></div><div class="ctr__row"><span>'+d.ct_conf+'</span><b>'+conf+' %</b></div><div class="ctr__gap"><span>'+d.ct_gap+'</span><b class="'+vc+'">'+(gap>0?'+':'')+gap+'</b></div><div class="ctr__verdict '+vc+'">'+v+'</div><p class="ctr__tie">'+d.ct_tie+'</p>';
+     go.style.display='none';
+   });
+ })();
 
-function fillMeters(scene){
-  scene.querySelectorAll('.meter .fill').forEach(function(f){
-    f.style.height = f.getAttribute('data-fill');
-  });
-}
-
-// scatter dots near right end for ruler (scene14) and risk (scene16)
-function buildRulerDots(){
-  var g = document.getElementById('rulerDots'); if(!g||g.childNodes.length) return;
-  // most dots between x=473(5) and 560(6), few lower
-  var pts=[];
-  for(var i=0;i<70;i++){ pts.push([560 - Math.random()*90, 110 - Math.random()*70]); } // cluster 5–6
-  for(var j=0;j<8;j++){ pts.push([300 + Math.random()*150, 115 - Math.random()*55]); } // sparse 3–5
-  pts.forEach(function(p){
-    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',p[0].toFixed(1)); c.setAttribute('cy',p[1].toFixed(1));
-    c.setAttribute('r','3.2'); c.setAttribute('fill','#6996ff'); c.setAttribute('opacity','.55');
-    g.appendChild(c);
-  });
-}
-// scene 16 dots — SAME styling as scene 14 ruler (r 3.2, #6996ff, .55) so the
-// reader recognises it as the same data population seen from another angle.
-function buildRiskDots(){
-  var g=document.getElementById('riskDots'); if(!g||g.childNodes.length) return;
-  function mk(x,y,perfect){
-    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',x.toFixed(1));
-    c.setAttribute('data-cy',y.toFixed(1)); // target y (final scatter position)
-    c.setAttribute('cy','140');             // start on the x-axis (ruler row); spreads up on view
-    c.setAttribute('r','3.2'); c.setAttribute('fill','#6996ff'); c.setAttribute('opacity','.55');
-    c.setAttribute('class','dot-fade'+(perfect?' perfect':''));
-    g.appendChild(c);
-  }
-  for(var i=0;i<40;i++){ mk(505+Math.random()*52, 112-Math.random()*72, true); }  // perfect (6/6) cluster, far right
-  for(var k=0;k<22;k++){ mk(440+Math.random()*60, 116-Math.random()*64, false); } // 5/6 cluster
-  for(var j=0;j<10;j++){ mk(120+Math.random()*300, 122-Math.random()*58, false); } // sparse lower scores
-}
-// "spread out" the ruler row into the scatter — visually links scene 16 to scene 14
-function animateRiskSpread(){
-  var g=document.getElementById('riskDots'); if(!g||g.getAttribute('data-spread')) return;
-  g.setAttribute('data-spread','1');
-  var dots=g.querySelectorAll('circle');
-  if(prefersReduced){ dots.forEach(function(c){ c.setAttribute('cy', c.getAttribute('data-cy')); }); return; }
-  var t0=null, dur=750;
-  function step(ts){ if(!t0)t0=ts; var k=Math.min((ts-t0)/dur,1); var e=1-Math.pow(1-k,3);
-    dots.forEach(function(c){ var ty=parseFloat(c.getAttribute('data-cy')); c.setAttribute('cy',(140+(ty-140)*e).toFixed(1)); });
-    if(k<1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-
-function buildScatterDots(){
-  var svg=document.getElementById('dotsSvg'); if(!svg||svg.childNodes.length) return;
-  for(var i=0;i<60;i++){
-    var x=30+Math.random()*540, y=20+Math.random()*160;
-    var bright=Math.random();
-    var c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',x.toFixed(1)); c.setAttribute('cy',y.toFixed(1));
-    c.setAttribute('r','5');
-    c.setAttribute('fill', bright>0.5 ? '#aabeff' : '#2c3a5c');
-    c.setAttribute('opacity', (0.4+bright*0.6).toFixed(2));
-    svg.appendChild(c);
-  }
-}
-
-function growthLinePlay(){
-  var line=document.getElementById('growthLine'), area=document.getElementById('growthArea'), dot=document.getElementById('growthDot');
-  if(!line) return;
-  if(prefersReduced){ line.style.strokeDashoffset='0'; area.style.opacity='1'; dot.setAttribute('opacity','1'); return; }
-  line.style.transition='stroke-dashoffset 1.6s ease'; line.style.strokeDashoffset='0';
-  setTimeout(function(){ area.style.transition='opacity .8s'; area.style.opacity='1'; dot.setAttribute('opacity','1'); },700);
-}
-
-function eggsPlay(scene){
-  var eggs=scene.querySelectorAll('.egg'); if(!eggs.length) return;
-  eggs.forEach(function(e,i){ setTimeout(function(){ e.style.transition='opacity .5s'; e.setAttribute('opacity','1'); }, prefersReduced?0:i*160); });
-}
-
-/* mediation chain (scene 18): KNOWLEDGE → CONFIDENCE → RISK toppling in sequence,
-   indirect path glows + 57% counts up, then the direct path fades in faded/dashed */
-var _domTimers=[];
-function dominoPlay(){
-  var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3');
-  var a1=document.getElementById('medArrow1'),a2=document.getElementById('medArrow2');
-  var wrap=document.getElementById('lbl57wrap'), cnt=document.getElementById('cnt57');
-  var dir=document.getElementById('directArrow'), dlbl=document.getElementById('directLbl');
-  if(!t1) return;
-  var DIM='rgba(231,236,255,.18)', LIT='#5fd0a0';
-  _domTimers.forEach(clearTimeout); _domTimers=[];
-  function later(fn,ms){ _domTimers.push(setTimeout(fn,ms)); }
-  // reset to standing/blank
-  [t1,t2,t3].forEach(function(t){t.style.transform='rotate(0deg)';});
-  a1.setAttribute('stroke',DIM); a2.setAttribute('stroke',DIM);
-  wrap.setAttribute('opacity','0'); cnt.textContent='0';
-  dir.setAttribute('opacity','0'); dlbl.setAttribute('opacity','0');
-  if(prefersReduced){
-    t1.style.transform=t2.style.transform=t3.style.transform='rotate(80deg)';
-    a1.setAttribute('stroke',LIT); a2.setAttribute('stroke',LIT);
-    wrap.setAttribute('opacity','1'); cnt.textContent='57';
-    dir.setAttribute('opacity','.28'); dlbl.setAttribute('opacity','.6');
-    return;
-  }
-  // sequential topple, each tile tipping toward the next node (~400ms apart)
-  later(function(){ t1.style.transform='rotate(80deg)'; },250);
-  later(function(){ a1.setAttribute('stroke',LIT); wrap.setAttribute('opacity','1'); },560);
-  later(function(){ t2.style.transform='rotate(80deg)'; },650);
-  later(function(){ a2.setAttribute('stroke',LIT); },960);
-  later(function(){ t3.style.transform='rotate(80deg)'; },1050);
-  // 57% counts up alongside the chain
-  later(function(){
-    var c0=null,cd=1100;
-    function cstep(ts){ if(!c0)c0=ts; var k=Math.min((ts-c0)/cd,1);
-      cnt.textContent=Math.round(57*(1-Math.pow(1-k,3)));
-      if(k<1) requestAnimationFrame(cstep); else cnt.textContent='57'; }
-    requestAnimationFrame(cstep);
-  },560);
-  // direct path fades in last, faded and dashed
-  later(function(){ dir.setAttribute('opacity','.28'); dlbl.setAttribute('opacity','.6'); },1700);
-}
-
-var io = new IntersectionObserver(function(entries){
-  entries.forEach(function(en){
-    if(!en.isIntersecting) return;
-    var sc = en.target;
-    sc.classList.add('in');
-    // reveals are one-shot: release the will-change layers once the longest
-    // transition is done (.36s max delay + .8s duration)
-    setTimeout(function(){ sc.querySelectorAll('.reveal').forEach(function(r){ r.style.willChange='auto'; }); }, 1400);
-    var part = sc.getAttribute('data-part');
-    if(part){ currentPart = parseInt(part,10); updatePartPill(); }
-    // triggers
-    if(sc.querySelector('#growthLine')) growthLinePlay();
-    sc.querySelectorAll('.counter').forEach(animateCounter);
-    if(sc.querySelector('.meter')) setTimeout(function(){fillMeters(sc);}, 200);
-    if(sc.querySelector('.egg')) eggsPlay(sc);
-    if(sc.querySelector('#riskDots')) animateRiskSpread();
-    if(sc.querySelector('#dominoTopple')) dominoPlay();
-  });
-},{threshold:0.35});
-document.querySelectorAll('.scene, .outro').forEach(function(s){ io.observe(s); });
-
-/* build dynamic SVG content up front */
-buildScatterDots(); buildRulerDots(); buildRiskDots();
-
-/* ---------------- quiz interactivity ---------------- */
-var guessRange=document.getElementById('guessRange'), guessVal=document.getElementById('guessVal');
-if(guessRange){ guessRange.addEventListener('input',function(){ guessVal.textContent=guessRange.value; }); }
-
-document.querySelectorAll('.q').forEach(function(q){
-  var correct=parseInt(q.getAttribute('data-correct'),10);
-  var opts=q.querySelectorAll('.opt');
-  var verdict=q.querySelector('.verdict');
-  opts.forEach(function(opt,idx){
-    opt.addEventListener('click',function(){
-      if(q.classList.contains('answered')) return;
-      q.classList.add('answered');
-      opts[correct].classList.add('correct');
-      var ok = idx===correct;
-      if(!ok) opt.classList.add('wrong');
-      verdict.classList.add(ok?'ok':'no');
-      verdict.setAttribute('data-ok', ok?'1':'0');
-      verdict.textContent = ok ? I18N[lang].qOk : I18N[lang].qNo;
-      // reveal the avg note once any of the first two answered
-      document.getElementById('quizReveal').classList.add('show');
-    });
-  });
-});
-
-var expandBtn=document.getElementById('expandQuiz'), moreQ=document.getElementById('moreQ');
-if(expandBtn){ expandBtn.addEventListener('click',function(){
-  moreQ.classList.toggle('show');
-  expandBtn.style.display = moreQ.classList.contains('show') ? 'none' : 'inline-block';
-}); }
-
-/* ---------------- scene 16 H3 toggle (remove perfect-scorers) ---------------- */
-var toggleH3=document.getElementById('toggleH3'), riskTrend=document.getElementById('riskTrend'), h3annot=document.getElementById('h3annot');
-var h3removed=false;
-if(toggleH3){ toggleH3.addEventListener('click',function(){
-  h3removed=!h3removed;
-  riskTrend.style.transition='all .8s ease';
-  var perfect=document.querySelectorAll('#riskDots .perfect');
-  if(h3removed){
-    // fade the 6/6 cluster to ~18% (still visible — reader sees what was removed)
-    perfect.forEach(function(c){ c.setAttribute('opacity','.18'); });
-    // trend flattens to near-flat, dashed = "too little variation left"
-    riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','92'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','88');
-    riskTrend.setAttribute('stroke','#8a93a8'); riskTrend.setAttribute('stroke-dasharray','7 6');
-    h3annot.setAttribute('opacity','1');
-    toggleH3.setAttribute('data-i18n','s16_showall'); toggleH3.innerHTML=I18N[lang].s16_showall;
-  } else {
-    perfect.forEach(function(c){ c.setAttribute('opacity','.55'); });
-    riskTrend.setAttribute('x1','60'); riskTrend.setAttribute('y1','120'); riskTrend.setAttribute('x2','540'); riskTrend.setAttribute('y2','58');
-    riskTrend.setAttribute('stroke','#6996ff'); riskTrend.removeAttribute('stroke-dasharray');
-    h3annot.setAttribute('opacity','0');
-    toggleH3.setAttribute('data-i18n','s16_toggle'); toggleH3.innerHTML=I18N[lang].s16_toggle;
-  }
-}); }
-
-/* ---------------- scene 18 replay ---------------- */
-var replay=document.getElementById('replayDomino');
-if(replay){ replay.addEventListener('click',dominoPlay); }
-
-/* init */
-applyLang();
-onScroll();
+ applyLang(); railUpdate(); start();
+ setTimeout(function(){scenes.forEach(function(sc){renderScene(sc,sceneProgress(sc.sec));});},60);
 })();
 </script>
 </body>
