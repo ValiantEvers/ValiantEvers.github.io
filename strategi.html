@@ -533,10 +533,6 @@ select.inp{color-scheme:dark;appearance:auto}
     <h3>🏢 Prioriterte selskaper</h3>
     <p>Formuesforvaltning (klientmodell = deg), DNB Private Banking, Nordea WM, Handelsbanken, Danske Bank, Storebrand. Sekundært: Pareto WM, Arctic, ABG, SpareBank 1 Markets.</p>
   </div>
-  <div class="strat-block">
-    <h3>🇫🇷 Paris-sporet</h3>
-    <p>Belgisk statsborgerskap = fri tilgang til EU. Målselskaper: BNP Paribas Wealth Management, Société Générale Private Banking, Nordea (Paris), Danske Bank (internasjonalt). Bruk LinkedIn med «wealth management Paris» og kontakt skandinaviske folk som jobber der — de er mer tilgjengelige enn du tror.</p>
-  </div>
 </div>
 
 <!-- Tabs -->
@@ -904,8 +900,10 @@ var PROFILE = {
     {kw:"investerings",points:15},{kw:"kapitalforvaltning",points:15},{kw:"finansiell rådgiver",points:15},
     {kw:"asset management",points:15},{kw:"fund manager",points:15}
   ],
-  // Danske byer (Jobindex-kilden) MÅ holdes i sync med scripts/fetch_jobs.py PROFILE.locations.
-  locations: [{kw:"oslo",points:10},{kw:"paris",points:8},{kw:"london",points:5},{kw:"luxembourg",points:5},{kw:"stockholm",points:3},{kw:"københavn",points:7},{kw:"copenhagen",points:7},{kw:"aarhus",points:4},{kw:"århus",points:4},{kw:"aalborg",points:3},{kw:"odense",points:3}],
+  // Oslo + pendlerbelte. «oslo» dekker hele Oslo kommune; beltet legger til Bærum/Asker-
+  // kommuner som «oslo» ikke fanger. Danske byer/utland avviklet juni 2026. KEEP IN SYNC
+  // med scripts/fetch_jobs.py PROFILE.locations (samme nøkler + poeng).
+  locations: [{kw:"oslo",points:10},{kw:"lysaker",points:8},{kw:"fornebu",points:8},{kw:"sandvika",points:8},{kw:"bærum",points:8},{kw:"asker",points:5}],
   seniorityBoost:{junior:20,mid:5,senior:-10},
   // Danske staveformer til slutt MÅ holdes i sync med scripts/fetch_jobs.py negativeKeywords (samme strenger/rekkefølge).
   negativeKeywords: ["forsikring","eiendomsmegl","eiendomsrådgiver","regnskap","lønn","gjeldsrådgiver","kundeservice","kundesenter","sykepleier","renhold","lærling","developer","utvikler","ingeniør","it-rådgiver","controller","comptable","lawyer","ejendomsmægler","regnskab","gældsrådgiver","kundecenter","sygeplejerske","rengøring","udvikler","pædagog"]
@@ -1040,11 +1038,6 @@ var SOURCES = [
   {id:"arctic",name:"Arctic Securities",url:"https://www.arctic.com/career/open-positions",p:"mid",f:"2x/mnd"},
   {id:"abg",name:"ABG Sundal Collier",url:"https://www.abgsc.com/working-at-abgsc/",p:"mid",f:"2x/mnd"},
   {id:"sb1",name:"SpareBank 1 Markets",url:"https://candidate.hr-manager.net/vacancies/list.aspx?customer=Sparebank1&MediaID=5",p:"mid",f:"2x/mnd"},
-  // Paris-spor (F6) — EU-tilgang via belgisk statsborgerskap
-  {id:"bnpwm",name:"BNP Paribas Wealth Management",url:"https://group.bnpparibas/en/careers/all-job-offers/bnp-paribas-wealth-management",p:"mid",f:"1x/uke"},
-  {id:"sgpb",name:"Société Générale Private Banking",url:"https://careers.societegenerale.com/en/search",p:"mid",f:"1x/uke"},
-  {id:"nordeaparis",name:"Nordea (Paris-filter)",url:"https://www.nordea.com/en/careers/open-jobs",p:"mid",f:"1x/uke"},
-  {id:"danskeintl",name:"Danske Bank International",url:"https://danskebank.lu/private-banking/career",p:"mid",f:"1x/uke"},
   {id:"finn",name:"FINN.no Jobb",url:"https://www.finn.no/job/fulltime/search.html?q=wealth+management+finans",p:"mid",f:"1x/uke"},
   {id:"jobindex",name:"Jobindex (DK)",url:"https://www.jobindex.dk/jobsoegning?q=private+banking",p:"mid",f:"1x/uke"},
   {id:"holberg",name:"Holberg Fondene",url:"https://holbergfondene.no/om-oss",p:"lav",f:"1x/mnd"},

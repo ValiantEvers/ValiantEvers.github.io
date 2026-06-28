@@ -40,6 +40,8 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 USER_AGENT = "ValiantEvers-strategi-scraper/1.0 (+https://evers.no)"
 
+ENABLE_JOBINDEX = False  # dansk Jobindex deaktivert (Oslo-fokus, juni 2026). Sett True for å gjenoppta.
+
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
 # ─────────────────────────────────────────────────────────────────────────
@@ -66,13 +68,14 @@ PROFILE = {
         ("fund manager", 15),
     ],
     "locations": [
-        ("oslo", 10), ("paris", 8), ("london", 5),
-        ("luxembourg", 5), ("stockholm", 3),
-        # Danske byer (Jobindex-kilden) — København som sekundærmarked på linje
-        # med Paris, øvrige danske storbyer lavere. Mindre jyske byer scorer 0
-        # (bevisst: lavere prioritet enn storbyene).
-        ("københavn", 7), ("copenhagen", 7), ("aarhus", 4), ("århus", 4),
-        ("aalborg", 3), ("odense", 3),
+        ("oslo", 10),  # hele Oslo kommune: Bjørvika, Aker Brygge, Vika, Skøyen, Majorstuen, Nydalen
+        # Pendlerbelte (Bærum/Asker-korridoren, direkte tog fra Oslo S):
+        ("lysaker", 8), ("fornebu", 8), ("sandvika", 8), ("bærum", 8),
+        ("asker", 5),  # ytre belte ~20 min tog
+        # Avviklet juni 2026 — gjenopprett sammen med ENABLE_JOBINDEX hvis utland tas inn igjen:
+        # ("paris", 8), ("london", 5), ("luxembourg", 5), ("stockholm", 3),
+        # ("københavn", 7), ("copenhagen", 7), ("aarhus", 4), ("århus", 4),
+        # ("aalborg", 3), ("odense", 3),
     ],
     "seniorityBoost": {"junior": 20, "mid": 5, "senior": -10},
     "negativeKeywords": [
@@ -665,7 +668,8 @@ def main():
             print(f"  {len(scraped)} jobber, {kept} nye etter dedup")
 
     collect(QUERIES, scrape_finn, "finn")
-    collect(DK_QUERIES, scrape_jobindex, "jobindex")
+    if ENABLE_JOBINDEX:
+        collect(DK_QUERIES, scrape_jobindex, "jobindex")
 
     print(f"Nye unike jobber totalt: {len(all_scraped)}")
 
