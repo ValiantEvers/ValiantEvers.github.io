@@ -88,6 +88,9 @@ PROFILE = {
         "ejendomsmægler", "regnskab", "gældsrådgiver", "kundecenter",
         "sygeplejerske", "rengøring", "udvikler", "pædagog",
     ],
+    # Ikke-Oslo-penalty: jobber UTEN lokasjons-treff (Oslo+belte) får myk straff så
+    # Oslo rangerer over sammenlignbar ikke-Oslo. KEEP IN SYNC med strategi.html PROFILE.
+    "nonOsloPenalty": -60,
 }
 
 QUERIES = [
@@ -577,11 +580,16 @@ def score_job(job: dict) -> dict:
             breakdown[f"tittel: {kw}"] = pts
             total += pts
 
-    # locations: sum all matches
+    # locations: sum all matches; penalty if NO Oslo+belte match (Oslo-fokus)
+    loc_hit = False
     for kw, pts in PROFILE["locations"]:
         if kw in loc:
             breakdown[f"sted: {kw}"] = pts
             total += pts
+            loc_hit = True
+    if not loc_hit:
+        breakdown["utenfor Oslo+belte"] = PROFILE["nonOsloPenalty"]
+        total += PROFILE["nonOsloPenalty"]
 
     # seniorityBoost
     sen = job.get("seniority")

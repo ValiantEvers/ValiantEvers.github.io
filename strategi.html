@@ -95,7 +95,9 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 
 /* ── JOB CARDS ── */
 .jobs-meta{font-size:.78rem;color:var(--faint);margin-bottom:12px}
-.job-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;transition:border-color .2s}
+.job-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;margin-bottom:6px;transition:border-color .2s}
+.job-card.removed{opacity:.5}
+.job-card.removed:hover{opacity:.8}
 .job-card:hover{border-color:var(--border-h)}
 .job-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .job-main{flex:1;min-width:0}
@@ -129,7 +131,7 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .b-purple{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-b)}
 
 /* notes row */
-.notes-row{margin-top:8px}
+.notes-row{margin-top:5px}
 .notes-actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .notes-actions-l{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .notes-toggle{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s}
@@ -906,7 +908,10 @@ var PROFILE = {
   locations: [{kw:"oslo",points:10},{kw:"lysaker",points:8},{kw:"fornebu",points:8},{kw:"sandvika",points:8},{kw:"bærum",points:8},{kw:"asker",points:5}],
   seniorityBoost:{junior:20,mid:5,senior:-10},
   // Danske staveformer til slutt MÅ holdes i sync med scripts/fetch_jobs.py negativeKeywords (samme strenger/rekkefølge).
-  negativeKeywords: ["forsikring","eiendomsmegl","eiendomsrådgiver","regnskap","lønn","gjeldsrådgiver","kundeservice","kundesenter","sykepleier","renhold","lærling","developer","utvikler","ingeniør","it-rådgiver","controller","comptable","lawyer","ejendomsmægler","regnskab","gældsrådgiver","kundecenter","sygeplejerske","rengøring","udvikler","pædagog"]
+  negativeKeywords: ["forsikring","eiendomsmegl","eiendomsrådgiver","regnskap","lønn","gjeldsrådgiver","kundeservice","kundesenter","sykepleier","renhold","lærling","developer","utvikler","ingeniør","it-rådgiver","controller","comptable","lawyer","ejendomsmægler","regnskab","gældsrådgiver","kundecenter","sygeplejerske","rengøring","udvikler","pædagog"],
+  // Ikke-Oslo-penalty: jobber UTEN lokasjons-treff (Oslo+belte) får myk straff så Oslo
+  // rangerer over sammenlignbar ikke-Oslo. KEEP IN SYNC med fetch_jobs.py PROFILE.
+  nonOsloPenalty: -60
 };
 
 // scoreJob — same logic as scripts/migrate-jobs.html, needed in-app for imports
@@ -930,9 +935,11 @@ function scoreJob(job){
   PROFILE.titleKeywords.forEach(function(t){
     if(role.indexOf(t.kw)!==-1){ breakdown["tittel: "+t.kw] = t.points; total += t.points; }
   });
+  var locHit = false;
   PROFILE.locations.forEach(function(l){
-    if(loc.indexOf(l.kw)!==-1){ breakdown["sted: "+l.kw] = l.points; total += l.points; }
+    if(loc.indexOf(l.kw)!==-1){ breakdown["sted: "+l.kw] = l.points; total += l.points; locHit = true; }
   });
+  if(!locHit){ breakdown["utenfor Oslo+belte"] = PROFILE.nonOsloPenalty; total += PROFILE.nonOsloPenalty; }
   if(job.seniority && PROFILE.seniorityBoost[job.seniority]!==undefined){
     var b = PROFILE.seniorityBoost[job.seniority];
     breakdown["seniority: "+job.seniority] = b; total += b;
@@ -989,11 +996,13 @@ var SORT_OPTIONS = [
 ];
 
 var DEFAULT_UI_PREFS = {
-  v: 1,
-  filters: { search: "", status: ["new","seen"], sources: [], scoreMin: 0, scoreMax: 100, starred: false },
+  v: 2,
+  filters: { search: "", status: ["new","seen"], sources: [], scoreMin: 0, scoreMax: 100, starred: false, locationOslo: true },
   sort: "score-desc",
   focusedJobId: null
 };
+// #6: døde kilder kollapses under én "Arkiv"-chip i kilde-filteret (beholdes for historikk).
+var ARCHIVE_SOURCES = ["jobindex","jobslu"];
 
 var UI_PREFS_KEY = "ve-strategi-ui";
 
@@ -1462,7 +1471,17 @@ function loadUiPrefs(){
     var raw = localStorage.getItem(UI_PREFS_KEY);
     if(!raw) return clone(DEFAULT_UI_PREFS);
     var p = JSON.parse(raw);
-    if(!p || p.v !== 1) return clone(DEFAULT_UI_PREFS);
+    if(!p || (p.v !== 1 && p.v !== 2)) return clone(DEFAULT_UI_PREFS);
+    // Migrering v1 → v2: fjern "removed" fra default-visning (#2) + skru på Oslo+belte-filter
+    // (#1a) — uten å miste øvrige persisterte valg (sort, sources, search, score-range).
+    if(p.v === 1){
+      if(p.filters && Array.isArray(p.filters.status)){
+        p.filters.status = p.filters.status.filter(function(s){ return s !== "removed"; });
+        if(!p.filters.status.length) p.filters.status = ["new","seen"];
+      }
+      if(p.filters && p.filters.locationOslo === undefined) p.filters.locationOslo = true;
+      p.v = 2;
+    }
     // Defensive: fill in missing fields
     var d = clone(DEFAULT_UI_PREFS);
     p.filters = Object.assign(d.filters, p.filters || {});
@@ -1508,6 +1527,11 @@ function isOverlayOpen(){ return STATE.openOverlays.length > 0; }
 // ════════════════════════════════════════════════════════════════
 //  FILTER + SORT
 // ════════════════════════════════════════════════════════════════
+// #1a: Oslo + pendlerbelte-filter. Gjenbruker PROFILE.locations-nøklene (parity m/ scoring).
+function matchesOsloBelt(j){
+  var loc = (j.location||"").toLowerCase();
+  return PROFILE.locations.some(function(l){ return loc.indexOf(l.kw) !== -1; });
+}
 function getFilteredJobs(){
   var jobs = STATE.payload.jobs;
   var f = STATE.uiPrefs.filters;
@@ -1518,6 +1542,7 @@ function getFilteredJobs(){
 
   var out = jobs.filter(function(j){
     if(!statusSet.has(j.status || "new")) return false;
+    if(f.locationOslo && !matchesOsloBelt(j)) return false;
     if(f.starred && !j.starred) return false;
     if(srcSet && !srcSet.has(j.source || "")) return false;
     var s = j.score || 0;
@@ -2371,10 +2396,9 @@ function initUI(payload){
   // Default tab
   renderJobs();
 
-  // Restore focused job from prefs (after render so the card exists)
+  // Restore focused job from prefs (#4: paginér inn kortet om det er under folden)
   if(STATE.uiPrefs.focusedJobId){
-    var card = document.querySelector('.job-card[data-jid="'+STATE.uiPrefs.focusedJobId+'"]');
-    if(card) setTimeout(function(){ card.scrollIntoView({behavior:"auto", block:"nearest"}); }, 60);
+    setTimeout(function(){ focusJob(STATE.uiPrefs.focusedJobId, false); }, 60);
   }
 
   // Banner: show only if no Gist config AND not snoozed
@@ -2392,6 +2416,75 @@ function initUI(payload){
 // ════════════════════════════════════════════════════════════════
 //  JOBS TAB
 // ════════════════════════════════════════════════════════════════
+// #4: append-only paginering — mal kun synlige kort + buffer, last mer ved scroll.
+var JOBS_VIEW = { list: [], rendered: 0, io: null };
+var JOBS_PAGE = 60;
+
+// Bygger ett jobb-kort. sp-menu + notes-textarea bygges lazy (toggleJobStatus/toggleNotes, #4 fase C).
+function jobCardHtml(j, focusedId){
+  var st = JOB_STATUSES.find(function(s){return s.v===j.status}) || JOB_STATUSES[0];
+  var scoreClass = j.score >= 60 ? "s-hi" : (j.score < 25 ? "s-lo" : "");
+  var senBadge = j.seniority ? '<span class="b-sen b-sen-'+j.seniority+'">'+j.seniority+'</span>' : '';
+  var prio = j.priority ? '<span class="star" title="Prioritert selskap fra scrape">★</span>' : '';
+  var starredCls = j.starred ? " on" : "";
+  var starredIcon = j.starred ? "★" : "☆";
+  var focusedCls = (j.id === focusedId) ? " focused" : "";
+  var removedCls = ((j.status||"new")==="removed") ? " removed" : "";
+  return '<div class="job-card'+focusedCls+removedCls+'" data-jid="'+j.id+'">'+
+    '<div class="job-row">'+
+      '<div class="job-main">'+
+        '<div class="job-title"><a href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(j.role)+'</a></div>'+
+        '<div class="job-meta">'+
+          '<span>'+esc(j.company)+'</span>'+
+          (j.location && j.location!==j.company ? '<span class="dot">·</span><span>'+esc(j.location)+'</span>' : '')+
+          (j.source ? '<span class="dot">·</span><span>'+esc(j.source)+'</span>' : '')+
+          (senBadge ? '<span class="dot">·</span>'+senBadge : '')+
+          (prio ? '<span class="dot">·</span>'+prio : '')+
+        '</div>'+
+      '</div>'+
+      '<div class="job-side">'+
+        '<span class="score '+scoreClass+'" onclick="onScoreClick(\''+j.id+'\',event)">'+(j.score||0)+'</span>'+
+        '<div style="display:flex;gap:6px;align-items:center">'+
+          '<button class="starred-btn'+starredCls+'" onclick="toggleStarred(\''+j.id+'\')" title="Star denne jobben (f)">'+starredIcon+'</button>'+
+          '<div class="sp">'+
+            '<span class="badge '+st.cls+'" onclick="toggleJobStatus(\''+j.id+'\',event)">'+st.l+'</span>'+
+            '<div class="sp-menu" id="jsp-'+j.id+'"></div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="notes-row">'+
+      '<div class="notes-actions">'+
+        '<div class="notes-actions-l">'+
+          '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
+          '<button class="letter-btn" onclick="openLetterModal(\''+j.id+'\')" title="Generer søknadsbrev-prompt">✉ Søknadsbrev</button>'+
+        '</div>'+
+        (((j.status||"new")==="removed")
+          ? '<button class="restore-btn" onclick="restoreJob(\''+j.id+'\')" title="Gjenopprett til forrige status">↺ Gjenopprett</button>'
+          : '<button class="del-btn" onclick="hideJob(\''+j.id+'\')" title="Skjul stillingen (kan gjenopprettes)">⊘ Skjul</button>')+
+      '</div>'+
+      '<div class="notes-area" id="notes-'+j.id+'"></div>'+
+    '</div>'+
+    (((j.status||"new")==="interview") ? jobPrepHtml(j) : "")+
+    '</div>';
+}
+
+function appendNextPage(){
+  var v = JOBS_VIEW;
+  if(v.rendered >= v.list.length) return false;
+  var focusedId = STATE.uiPrefs.focusedJobId;
+  var slice = v.list.slice(v.rendered, v.rendered + JOBS_PAGE);
+  var html = slice.map(function(j){ return jobCardHtml(j, focusedId); }).join("");
+  var sentinel = document.getElementById("jobsSentinel");
+  if(sentinel) sentinel.insertAdjacentHTML("beforebegin", html);
+  v.rendered += slice.length;
+  if(v.rendered >= v.list.length && v.io){ v.io.disconnect(); v.io = null; }
+  return true;
+}
+function ensureRenderedUpTo(idx){
+  while(JOBS_VIEW.rendered <= idx && appendNextPage()){}
+}
+
 function renderJobs(){
   renderFilterBar();
   var jobs = getFilteredJobs();
@@ -2400,7 +2493,7 @@ function renderJobs(){
   var meta_ts = STATE.payload.updatedAt || STATE.payload.migratedAt;
   var meta_label = STATE.payload.updatedAt ? "oppdatert" : "migrert";
   var meta_date = meta_ts ? fmtDate(meta_ts) : "?";
-  var meta_html = jobs.length + " av " + total + " jobber · " + meta_label + " " + meta_date;
+  var meta_html = jobs.length + " av " + countInStatusScope() + " jobber · " + total + " totalt · " + meta_label + " " + meta_date;
   if(STATE.payload.lastScrape && STATE.payload.lastScrape.at){
     meta_html += " · sist scrape " + fmtDate(STATE.payload.lastScrape.at);
     if(STATE.payload.lastScrape.count > 0) meta_html += " (+" + STATE.payload.lastScrape.count + " nye)";
@@ -2418,6 +2511,10 @@ function renderJobs(){
     if(!focusedStill){ STATE.uiPrefs.focusedJobId = null; saveUiPrefs(); }
   }
 
+  // #4: reset paginerings-state + observer (unngår stacked observers per re-render)
+  if(JOBS_VIEW.io){ JOBS_VIEW.io.disconnect(); }
+  JOBS_VIEW = { list: jobs, rendered: 0, io: null };
+
   if(!jobs.length){
     var emptyMsg = total === 0
       ? '<div class="empty"><div class="ico">📭</div><p>Ingen jobber i payload</p></div>'
@@ -2428,64 +2525,34 @@ function renderJobs(){
     return;
   }
 
-  var html = "";
-  var focusedId = STATE.uiPrefs.focusedJobId;
-  jobs.forEach(function(j){
-    var st = JOB_STATUSES.find(function(s){return s.v===j.status}) || JOB_STATUSES[0];
-    var scoreClass = j.score >= 60 ? "s-hi" : (j.score < 25 ? "s-lo" : "");
-    var senBadge = j.seniority ? '<span class="b-sen b-sen-'+j.seniority+'">'+j.seniority+'</span>' : '';
-    var prio = j.priority ? '<span class="star" title="Prioritert selskap fra scrape">★</span>' : '';
-    var starredCls = j.starred ? " on" : "";
-    var starredIcon = j.starred ? "★" : "☆";
-    var focusedCls = (j.id === focusedId) ? " focused" : "";
-
-    html += '<div class="job-card'+focusedCls+'" data-jid="'+j.id+'">'+
-      '<div class="job-row">'+
-        '<div class="job-main">'+
-          '<div class="job-title"><a href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(j.role)+'</a></div>'+
-          '<div class="job-meta">'+
-            '<span>'+esc(j.company)+'</span>'+
-            (j.location && j.location!==j.company ? '<span class="dot">·</span><span>'+esc(j.location)+'</span>' : '')+
-            (j.source ? '<span class="dot">·</span><span>'+esc(j.source)+'</span>' : '')+
-            (senBadge ? '<span class="dot">·</span>'+senBadge : '')+
-            (prio ? '<span class="dot">·</span>'+prio : '')+
-          '</div>'+
-        '</div>'+
-        '<div class="job-side">'+
-          '<span class="score '+scoreClass+'" onclick="onScoreClick(\''+j.id+'\',event)">'+(j.score||0)+'</span>'+
-          '<div style="display:flex;gap:6px;align-items:center">'+
-            '<button class="starred-btn'+starredCls+'" onclick="toggleStarred(\''+j.id+'\')" title="Star denne jobben (f)">'+starredIcon+'</button>'+
-            '<div class="sp">'+
-              '<span class="badge '+st.cls+'" onclick="toggleJobStatus(\''+j.id+'\',event)">'+st.l+'</span>'+
-              '<div class="sp-menu" id="jsp-'+j.id+'">'+
-                JOB_STATUSES.map(function(s){return '<button class="sp-opt" onclick="setJobStatus(\''+j.id+'\',\''+s.v+'\')">'+s.l+'</button>'}).join("")+
-              '</div>'+
-            '</div>'+
-          '</div>'+
-        '</div>'+
-      '</div>'+
-      '<div class="notes-row">'+
-        '<div class="notes-actions">'+
-          '<div class="notes-actions-l">'+
-            '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
-            '<button class="letter-btn" onclick="openLetterModal(\''+j.id+'\')" title="Generer søknadsbrev-prompt">✉ Søknadsbrev</button>'+
-          '</div>'+
-          (((j.status||"new")==="removed")
-            ? '<button class="restore-btn" onclick="restoreJob(\''+j.id+'\')" title="Gjenopprett til forrige status">↺ Gjenopprett</button>'
-            : '<button class="del-btn" onclick="hideJob(\''+j.id+'\')" title="Skjul stillingen (kan gjenopprettes)">⊘ Skjul</button>')+
-        '</div>'+
-        '<div class="notes-area" id="notes-'+j.id+'"><textarea data-jid="'+j.id+'" placeholder="Notater for denne jobben…" oninput="onJobNoteInput(this)">'+esc(j.notes||"")+'</textarea></div>'+
-      '</div>'+
-      (((j.status||"new")==="interview") ? jobPrepHtml(j) : "")+
-      '</div>';
-  });
-  document.getElementById("jobsList").innerHTML = html;
+  // Mal kun første side + sentinel; resten lastes ved scroll (#4)
+  document.getElementById("jobsList").innerHTML = '<div id="jobsSentinel" style="height:1px"></div>';
+  appendNextPage();
+  if(JOBS_VIEW.rendered < JOBS_VIEW.list.length){
+    JOBS_VIEW.io = new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting) appendNextPage();
+    }, { rootMargin: "600px 0px" });
+    JOBS_VIEW.io.observe(document.getElementById("jobsSentinel"));
+  }
 }
 
 function toggleStarred(id){
   var job = STATE.payload.jobs.find(function(j){return j.id===id});
   if(!job) return;
-  // Preserve focus continuity if star-toggle filters this job out (starred-filter active)
+  // #4: starred-filter AV → star endrer ikke membership/rekkefølge → patch in-place
+  // (stjerne-glyf + telling) i stedet for full re-render. Tomt patch om kortet er under folden.
+  if(!STATE.uiPrefs.filters.starred){
+    job.starred = !job.starred;
+    mutate();
+    var card0 = document.querySelector('.job-card[data-jid="'+id+'"]');
+    if(card0){
+      var btn = card0.querySelector(".starred-btn");
+      if(btn){ btn.classList.toggle("on", !!job.starred); btn.textContent = job.starred ? "★" : "☆"; }
+    }
+    renderFilterBar();  // oppdater "Vis kun starred (N)"-telleren — kort-fri, billig
+    return;
+  }
+  // Starred-filter aktivt: membership kan endres → bevar fokus-kontinuitet + full re-render
   var keepFocus = (STATE.uiPrefs.focusedJobId === id);
   var beforeList = keepFocus ? getFilteredJobs() : null;
   var prevIdx = keepFocus ? beforeList.findIndex(function(j){return j.id===id}) : -1;
@@ -2502,16 +2569,18 @@ function toggleStarred(id){
   }
   mutate();
   renderJobs();
-  if(keepFocus && STATE.uiPrefs.focusedJobId){
-    var card = document.querySelector('.job-card[data-jid="'+STATE.uiPrefs.focusedJobId+'"]');
-    if(card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
-  }
+  if(keepFocus && STATE.uiPrefs.focusedJobId) focusJob(STATE.uiPrefs.focusedJobId);
 }
 
 // Antall jobber som teller (status "removed" er soft-slettet → ekskludert
 // fra fane-teller og "av N"-total; vises kun via egen status-chip).
 function countActive(arr){
   return (arr||[]).filter(function(j){return (j.status||"new")!=="removed";}).length;
+}
+// #3: nevner = jobber i valgt status-scope, så "Viser X av Y" alltid har X ≤ Y (også når Fjernet vises).
+function countInStatusScope(){
+  var ss = STATE.uiPrefs.filters.status;
+  return STATE.payload.jobs.filter(function(j){ return ss.indexOf(j.status||"new")!==-1; }).length;
 }
 
 // Felles: bruk en status-mutasjon og bevar fokus-kontinuitet hvis jobben
@@ -2579,11 +2648,13 @@ function renderFilterBar(){
   var counts = {};
   JOB_STATUSES.forEach(function(s){counts[s.v] = 0});
   var starredCount = 0;
+  var osloBeltCount = 0;
   var sourceCounts = {};
   jobs.forEach(function(j){
     var s = j.status || "new";
     if(counts[s] !== undefined) counts[s]++;
     if(j.starred) starredCount++;
+    if(s !== "removed" && matchesOsloBelt(j)) osloBeltCount++;
     var src = j.source || "(ukjent)";
     sourceCounts[src] = (sourceCounts[src] || 0) + 1;
   });
@@ -2595,19 +2666,27 @@ function renderFilterBar(){
   });
   document.getElementById("statusChips").innerHTML = statusHtml;
 
-  // Egenskaper (starred)
-  var propsHtml = '<button class="chip chip-starred'+(f.starred?" on":"")+'" id="starredChip">☆ Vis kun starred<span class="cnt">'+starredCount+'</span></button>';
+  // Egenskaper (Oslo+belte, starred)
+  var propsHtml = '<button class="chip'+(f.locationOslo?" on":"")+'" id="osloChip">📍 Oslo + belte<span class="cnt">'+osloBeltCount+'</span></button>'+
+    '<button class="chip chip-starred'+(f.starred?" on":"")+'" id="starredChip">☆ Vis kun starred<span class="cnt">'+starredCount+'</span></button>';
   document.getElementById("propsChips").innerHTML = propsHtml;
 
-  // Source chips
+  // Source chips — døde kilder (jobindex/jobslu) kollapses under én "Arkiv"-chip (#6)
   var srcKeys = Object.keys(sourceCounts).sort();
   var srcSelected = f.sources && f.sources.length ? new Set(f.sources) : null;
   var srcAllOn = !srcSelected || srcSelected.size === srcKeys.length;
+  var archiveKeys = srcKeys.filter(function(k){ return ARCHIVE_SOURCES.indexOf(k) !== -1; });
+  var liveKeys = srcKeys.filter(function(k){ return ARCHIVE_SOURCES.indexOf(k) === -1; });
   var srcHtml = '<button class="chip chip-all'+(srcAllOn?" on":"")+'" data-source="__all__">Alle</button>';
-  srcKeys.forEach(function(k){
+  liveKeys.forEach(function(k){
     var on = !srcSelected || srcSelected.has(k);
     srcHtml += '<button class="chip'+(on?" on":"")+'" data-source="'+esc(k)+'">'+esc(k)+'<span class="cnt">'+sourceCounts[k]+'</span></button>';
   });
+  if(archiveKeys.length){
+    var archiveCount = archiveKeys.reduce(function(a,k){ return a + sourceCounts[k]; }, 0);
+    var archiveOn = !srcSelected || archiveKeys.every(function(k){ return srcSelected.has(k); });
+    srcHtml += '<button class="chip'+(archiveOn?" on":"")+'" data-source="__arkiv__" title="Døde kilder: '+esc(archiveKeys.join(", "))+'">🗄 Arkiv<span class="cnt">'+archiveCount+'</span></button>';
+  }
   document.getElementById("sourceChips").innerHTML = srcHtml;
 
   // Score range
@@ -2630,7 +2709,7 @@ function renderFilterBar(){
 
   // Bulk: count + bulk-mark-seen button visibility
   var filtered = getFilteredJobs();
-  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + countActive(jobs);
+  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + countInStatusScope();
   var onlyNew = f.status.length === 1 && f.status[0] === "new";
   document.getElementById("bulkMarkSeenBtn").classList.toggle("hidden", !onlyNew || filtered.length === 0);
 
@@ -2648,6 +2727,10 @@ function renderFilterBar(){
       saveUiPrefs(); renderJobs();
     });
   });
+  // Wire Oslo+belte chip
+  document.getElementById("osloChip").addEventListener("click", function(){
+    f.locationOslo = !f.locationOslo; saveUiPrefs(); renderJobs();
+  });
   // Wire starred chip
   document.getElementById("starredChip").addEventListener("click", function(){
     f.starred = !f.starred; saveUiPrefs(); renderJobs();
@@ -2661,9 +2744,15 @@ function renderFilterBar(){
         f.sources = []; // [] = all
       } else {
         var current = f.sources.length ? f.sources.slice() : keys.slice();
-        var i = current.indexOf(v);
-        if(i === -1) current.push(v); else current.splice(i, 1);
-        if(current.length === 0) current = [v];
+        // "__arkiv__" toggler jobindex+jobslu samlet (#6)
+        var toggle = (v === "__arkiv__") ? ARCHIVE_SOURCES.filter(function(k){ return keys.indexOf(k)!==-1; }) : [v];
+        var allSel = toggle.every(function(k){ return current.indexOf(k)!==-1; });
+        toggle.forEach(function(k){
+          var i = current.indexOf(k);
+          if(allSel){ if(i!==-1) current.splice(i,1); }
+          else if(i===-1){ current.push(k); }
+        });
+        if(current.length === 0) current = toggle.slice();
         f.sources = (current.length === keys.length) ? [] : current;
       }
       saveUiPrefs(); renderJobs();
@@ -2832,24 +2921,29 @@ function toggleHelpOverlay(){
 // ════════════════════════════════════════════════════════════════
 //  FOCUS NAVIGATION (j/k/Enter and shortcuts on focused job)
 // ════════════════════════════════════════════════════════════════
-function focusJob(id){
+function focusJob(id, smooth){
   STATE.uiPrefs.focusedJobId = id;
   saveUiPrefs();
   document.querySelectorAll(".job-card.focused").forEach(function(c){c.classList.remove("focused")});
   if(!id) return;
   var card = document.querySelector('.job-card[data-jid="'+id+'"]');
+  if(!card){
+    // #4: kortet kan være på en ikke-malt side → paginér inn til det
+    var idx = JOBS_VIEW.list.findIndex(function(j){return j.id===id;});
+    if(idx >= 0){ ensureRenderedUpTo(idx); card = document.querySelector('.job-card[data-jid="'+id+'"]'); }
+  }
   if(card){
     card.classList.add("focused");
-    card.scrollIntoView({behavior:"smooth", block:"nearest"});
+    card.scrollIntoView({behavior: smooth===false ? "auto" : "smooth", block:"nearest"});
   }
 }
 function focusStep(delta){
-  var jobs = getFilteredJobs();
+  var jobs = JOBS_VIEW.list;   // #4: gjenbruk render-snapshotet (samme rekkefølge som getFilteredJobs)
   if(!jobs.length) return;
   var cur = STATE.uiPrefs.focusedJobId;
-  var idx = -1;
-  if(cur){ idx = jobs.findIndex(function(j){return j.id===cur}); }
-  if(idx === -1){ idx = delta > 0 ? 0 : jobs.length - 1; }
+  var idx = cur ? jobs.findIndex(function(j){return j.id===cur}) : -1;
+  // Kald k/j uten fokus: klamr til siste *malte* kort (unngår å rendre alt på én gang)
+  if(idx === -1){ idx = delta > 0 ? 0 : Math.min(JOBS_VIEW.rendered - 1, jobs.length - 1); }
   else { idx = Math.max(0, Math.min(jobs.length - 1, idx + delta)); }
   focusJob(jobs[idx].id);
 }
@@ -2875,10 +2969,7 @@ function setFocusedStatus(v){
   STATE.uiPrefs.focusedJobId = nextId;
   saveUiPrefs();
   mutate(); renderJobs();
-  if(nextId){
-    var card = document.querySelector('.job-card[data-jid="'+nextId+'"]');
-    if(card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
-  }
+  if(nextId) focusJob(nextId);
 }
 function openFocusedUrl(){
   var id = STATE.uiPrefs.focusedJobId;
@@ -2960,6 +3051,11 @@ function bindKeyboardShortcuts(){
 function toggleJobStatus(id, e){
   if(e) e.stopPropagation();
   var menu = document.getElementById("jsp-"+id);
+  if(!menu) return;
+  // #4 fase C: bygg de 6 status-knappene ved første åpning (lazy)
+  if(!menu.firstChild){
+    menu.innerHTML = JOB_STATUSES.map(function(s){return '<button class="sp-opt" onclick="setJobStatus(\''+id+'\',\''+s.v+'\')">'+s.l+'</button>'}).join("");
+  }
   document.querySelectorAll(".sp-menu.open").forEach(function(m){ if(m!==menu) m.classList.remove("open") });
   menu.classList.toggle("open");
 }
@@ -2974,6 +3070,16 @@ function setJobStatus(id, v){
 function toggleNotes(id){
   var area = document.getElementById("notes-"+id);
   if(!area) return;
+  // #4 fase C: bygg textarea ved første åpning (lazy); verdien leses fra payload.
+  if(!area.firstChild){
+    var job = STATE.payload.jobs.find(function(j){return j.id===id});
+    var ta0 = document.createElement("textarea");
+    ta0.setAttribute("data-jid", id);
+    ta0.placeholder = "Notater for denne jobben…";
+    ta0.value = job ? (job.notes||"") : "";
+    ta0.addEventListener("input", function(){ onJobNoteInput(this); });
+    area.appendChild(ta0);
+  }
   area.classList.toggle("open");
   if(area.classList.contains("open")){
     var ta = area.querySelector("textarea");

@@ -277,6 +277,21 @@ def main():
         for role, url in rows[:4]:
             print(f"      - {role}  |  {url}")
 
+    # ── Topp-N aktive jobber etter ny score (verifiser Oslo-rangering #1b) ──
+    active_sorted = sorted(
+        (j for j in jobs if (j.get("status") or "new") != "removed"),
+        key=lambda j: -(j.get("score") or 0))
+    print("\nTopp 12 aktive jobber etter ny score ([OSLO] = Oslo+belte):")
+    for rank, j in enumerate(active_sorted[:12], 1):
+        loc = (j.get("location") or "").lower()
+        flag = "[OSLO]" if any(k in loc for k in KEPT_LOCATIONS) else "      "
+        print(f"  {rank:>2}. {flag} {(j.get('score') or 0):>3}  "
+              f"{(j.get('role') or '?')[:36]:36}  {(j.get('location') or '?')[:18]:18}  {j.get('source') or '?'}")
+    top_oslo = bool(active_sorted) and any(
+        k in (active_sorted[0].get('location') or '').lower() for k in KEPT_LOCATIONS)
+    print("  -> Akseptanse #1b (topp aktiv = Oslo+belte): "
+          + ("OK" if top_oslo else "IKKE OPPFYLT - oek nonOsloPenalty"))
+
     if not apply:
         print("\n⚠ DRY-RUN — ingenting pushet. Inspiser tallene over.")
         print("  Bekreft at INGEN aktive (applied/interview) jobber er i fjern-lista;")
