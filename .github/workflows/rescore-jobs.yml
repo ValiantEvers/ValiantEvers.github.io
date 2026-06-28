@@ -1,0 +1,33 @@
+name: Rescore jobs (one-shot)
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Apply changes? (false = dry-run, recommended first)"
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  rescore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: pip install requests cryptography
+      - env:
+          STRATEGI_PASSWORD: ${{ secrets.STRATEGI_PASSWORD }}
+          GIST_PAT: ${{ secrets.GIST_PAT }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: |
+          if [ "${{ inputs.apply }}" = "true" ]; then
+            python scripts/rescore_jobs.py --apply
+          else
+            python scripts/rescore_jobs.py
+          fi
