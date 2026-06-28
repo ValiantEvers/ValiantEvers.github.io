@@ -3,8 +3,8 @@
 The daily scraper (fetch_jobs.py) never re-scores jobs it already knows
 (URL-dedup skips them), so any change to the scoring algorithm requires a
 one-shot pass over the whole backlog. This script re-runs the current
-score_job() over every job and, while at it, soft-removes jobs from dead /
-old-schema sources.
+score_job() over every job and, while at it, soft-removes out-of-scope jobs
+(dead sources, retired Danish Jobindex, locations outside Oslo).
 
 Dry-run by default — pass --apply to push the re-scored payload back to the
 Gist. Before any Gist write, a timestamped backup of the current ENCRYPTED
@@ -14,10 +14,11 @@ What it does (Runde 2 — A1 gate + A2 junior + A2b seniority):
 - Re-derives seniority from role via detect_seniority (the detector changed in
   A2b), then recomputes score + breakdown via score_job. Both are imported
   from fetch_jobs.py — the parity code that MUST match strategi.html.
-- Legacy soft-remove (status -> "removed", prevStatus preserved):
-  * source == "jobslu": dead source (no scraper) — safe to remove by source.
-  * source == "jobindex": LIVE source. Only old-schema URLs (NOT matching
-    "/vis-job/") are legacy; daily /vis-job/ jobs are kept active.
+- Soft-remove (status -> "removed", prevStatus preserved) — Oslo refocus (June
+  2026); active pipeline (applied/interview) is protected from removal:
+  * source == "jobslu": dead source (no scraper).
+  * source == "jobindex": Danish source retired (Oslo focus) — ALL jobindex removed.
+  * location outside Oslo + commuter belt, unless the listing also names Oslo/belt.
 
 NOTE: crypto + gist helpers below are duplicated from fetch_jobs.py for
 standalone runnability (same precedent as dedup_jobs.py). If crypto params
