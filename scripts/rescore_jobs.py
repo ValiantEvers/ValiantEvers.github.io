@@ -121,16 +121,39 @@ def gist_patch(pat: str, gist_id: str, blob: dict) -> None:
 # Classification + distribution helpers
 # ─────────────────────────────────────────────────────────────────────────
 
-def classify_legacy(job: dict):
-    """Return (is_legacy, reason) for dead / old-schema sources. jobindex is
-    LIVE — only its old (non /vis-job/) URLs are legacy."""
+# Lokasjoner avviklet ifm. Oslo-refokus (juni 2026) — substring-match mot job.location.
+DROPPED_LOCATIONS = ("københavn", "copenhagen", "aarhus", "århus", "aalborg",
+                     "odense", "luxembourg", "paris", "london", "stockholm")
+# In-scope-lokasjoner (mirror av aktive PROFILE.locations-nøkler). En fler-by-utlysning
+# som lister BÅDE Oslo/pendlerbelte OG en avviklet by beholdes — droppes ikke.
+KEPT_LOCATIONS = ("oslo", "lysaker", "fornebu", "sandvika", "bærum", "asker")
+# Aktiv pipeline vernes mot soft-remove. Jobber bruker reelt bare applied/interview
+# (JOB_STATUSES); offer/accepted er inerte fremtidssikringer (kun på søknadslista).
+PROTECTED_STATUSES = ("applied", "interview", "offer", "accepted")
+
+
+def _drop_reason(job: dict):
+    """Soft-remove-grunn (eller None) basert KUN på kilde/lokasjon — uten vern.
+    Brukes av classify_legacy OG av dry-run-rapporten for å telle vernede."""
     source = (job.get("source") or "").lower()
-    url = job.get("url") or ""
+    loc = (job.get("location") or "").lower()
     if source == "jobslu":
-        return True, "jobslu — død kilde (ingen scraper)"
-    if source == "jobindex" and "/vis-job/" not in url:
-        return True, "jobindex — gammelt URL-skjema (ikke /vis-job/)"
-    return False, None
+        return "jobslu — død kilde"
+    if source == "jobindex":
+        return "jobindex — dansk kilde avviklet (Oslo-fokus)"
+    if any(c in loc for c in DROPPED_LOCATIONS) and not any(k in loc for k in KEPT_LOCATIONS):
+        return "lokasjon utenfor Oslo-fokus"
+    return None
+
+
+def classify_legacy(job: dict):
+    """Return (is_legacy, reason). Soft-remover døde kilder, avviklet dansk
+    Jobindex og lokasjoner utenfor Oslo-fokus — men VERNER aktiv pipeline
+    (PROTECTED_STATUSES). score_job arves via import; ikke dupliser scoring her."""
+    reason = _drop_reason(job)
+    if reason and (job.get("status") or "").lower() in PROTECTED_STATUSES:
+        return False, None  # vern aktiv pipeline
+    return (reason is not None), reason
 
 
 def bucket(score: int) -> str:
@@ -174,18 +197,28 @@ def main():
     jobs = payload.get("jobs", [])
     print(f"\nTotal jobs: {len(jobs)}")
 
-    # ── jobindex URL-skjema-inspeksjon (gate-betingelse: aldri anta) ──
-    jobindex = [j for j in jobs if (j.get("source") or "").lower() == "jobindex"]
-    ji_new = [j for j in jobindex if "/vis-job/" in (j.get("url") or "")]
-    ji_old = [j for j in jobindex if "/vis-job/" not in (j.get("url") or "")]
-    print("\n── jobindex URL-skjema (LEVENDE kilde — kun gammelt skjema fjernes) ──")
-    print(f"  jobindex totalt:      {len(jobindex)}")
-    print(f"  /vis-job/ (beholdes): {len(ji_new)}")
-    print(f"  gammelt skjema (fjernes): {len(ji_old)}")
-    for j in ji_new[:3]:
-        print(f"    KEEP  {(j.get('url') or '')[:90]}")
-    for j in ji_old[:3]:
-        print(f"    DROP  {(j.get('url') or '')[:90]}")
+    # ── Pre-pass: hva vil soft-removes, og hva vernes (gate-betingelse: aldri anta) ──
+    drop_by_reason = {}
+    protected_spared = []  # (source, status, role) — matcher drop-regel men vernes
+    for j in jobs:
+        reason = _drop_reason(j)
+        if not reason:
+            continue
+        if (j.get("status") or "").lower() in PROTECTED_STATUSES:
+            protected_spared.append((j.get("source"), j.get("status"),
+                                     (j.get("role") or "?")[:50]))
+        elif j.get("status") != "removed":
+            drop_by_reason[reason] = drop_by_reason.get(reason, 0) + 1
+    print("\n── Soft-remove forhåndsvisning (Oslo-fokus) ──")
+    if not drop_by_reason:
+        print("  (ingen nye soft-removes)")
+    for reason, n in drop_by_reason.items():
+        print(f"  [{n}x] {reason}")
+    print(f"\n── Vernet aktiv pipeline (matcher drop-regel, men beholdes): {len(protected_spared)} ──")
+    if not protected_spared:
+        print("  (ingen)")
+    for src, status, role in protected_spared[:10]:
+        print(f"    VERN  source={src!r} status={status!r}  {role}")
 
     dist_before_total = distribution(jobs, active_only=False)
     dist_before_active = distribution(jobs, active_only=True)
@@ -215,8 +248,7 @@ def main():
             j["prevStatus"] = j.get("status", "new")
             j["status"] = "removed"
             soft_removed += 1
-            schema = "jobslu" if "jobslu" in (reason or "") else "jobindex-gammelt"
-            remove_sample.append((j.get("source"), schema,
+            remove_sample.append((j.get("source"), reason or "?",
                                   (j.get("role") or "?")[:50],
                                   (j.get("url") or "")[:80]))
 
@@ -232,21 +264,22 @@ def main():
     print_dist("Distribusjon — KUN AKTIVE (før → etter):",
                dist_before_active, dist_after_active)
 
-    # ── Soft-remove-sample gruppert på source OG URL-skjema ──
+    # ── Soft-remove-sample gruppert på source OG grunn ──
     by_group = {}
-    for src, schema, role, url in remove_sample:
-        by_group.setdefault((src, schema), []).append((role, url))
-    print("\nSoft-remove — gruppert på (source, URL-skjema):")
+    for src, reason, role, url in remove_sample:
+        by_group.setdefault((src, reason), []).append((role, url))
+    print("\nSoft-remove — gruppert på (source, grunn):")
     if not by_group:
         print("  (ingen)")
-    for (src, schema), rows in by_group.items():
-        print(f"  [{len(rows)}x] source={src!r}  skjema={schema}")
+    for (src, reason), rows in by_group.items():
+        print(f"  [{len(rows)}x] source={src!r}  grunn={reason}")
         for role, url in rows[:4]:
             print(f"      - {role}  |  {url}")
 
     if not apply:
         print("\n⚠ DRY-RUN — ingenting pushet. Inspiser tallene over.")
-        print("  Bekreft at /vis-job/-jobindex IKKE er i fjern-lista, så kjør --apply")
+        print("  Bekreft at INGEN aktive (applied/interview) jobber er i fjern-lista;")
+        print("  all jobindex + DK/utland soft-removes med vilje (Oslo-fokus). Så --apply")
         print("  (med ALLE faner + andre enheter lukket).")
         return
 
