@@ -95,7 +95,7 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 
 /* ── JOB CARDS ── */
 .jobs-meta{font-size:.78rem;color:var(--faint);margin-bottom:12px}
-.job-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;margin-bottom:6px;transition:border-color .2s}
+.job-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;margin-bottom:6px;transition:border-color .2s;cursor:pointer}
 .job-card.removed{opacity:.5}
 .job-card.removed:hover{opacity:.8}
 .job-card:hover{border-color:var(--border-h)}
@@ -131,7 +131,9 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .b-purple{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-b)}
 
 /* notes row */
-.notes-row{margin-top:5px}
+.notes-row{margin-top:5px;display:none}
+/* #5: klikk-for-å-utvide — notes-rad vises når kortet er utvidet/fokusert, eller notater er åpne */
+.job-card.expanded>.notes-row,.job-card.focused>.notes-row,.job-card:has(.notes-area.open)>.notes-row{display:block}
 .notes-actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .notes-actions-l{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .notes-toggle{background:none;border:none;color:var(--faint);font-family:inherit;font-size:.74rem;cursor:pointer;padding:2px 0;transition:color .15s}
@@ -2385,6 +2387,13 @@ function initUI(payload){
 
   // Keyboard shortcuts
   bindKeyboardShortcuts();
+
+  // #5: klikk på kort-kropp (ikke interaktivt element) utvider/kollapser kortet
+  document.getElementById("jobsList").addEventListener("click", function(e){
+    if(e.target.closest("a,button,textarea,input,select,.score,.badge,.sp-menu,.starred-btn")) return;
+    var card = e.target.closest(".job-card");
+    if(card) card.classList.toggle("expanded");
+  });
 
   // Click outside to close any open dropdown
   document.addEventListener("click", function(e){
