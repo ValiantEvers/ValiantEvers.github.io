@@ -892,7 +892,7 @@ async function encryptCurrent(){
 // ════════════════════════════════════════════════════════════════
 var PROFILE = {
   priorityCompanies: [
-    {match:["formue","formuesforvaltning"], points:30},
+    {match:["formue","formuesforvaltning","nbim","norges bank investment management"], points:30},
     {match:["dnb","nordea","storebrand","handelsbanken","danske bank"], points:25},
     {match:["pareto","arctic","abg","sparebank 1 markets"], points:20},
     {match:["bnp paribas","societe generale","société générale"], points:20},
@@ -902,7 +902,9 @@ var PROFILE = {
     {kw:"wealth management",points:30},{kw:"private banking",points:30},{kw:"private banker",points:25},{kw:"fund sales",points:25},
     {kw:"investeringsrådgiver",points:18},{kw:"formuesrådgiver",points:18},{kw:"investment advis",points:20},
     {kw:"investerings",points:15},{kw:"kapitalforvaltning",points:15},{kw:"finansiell rådgiver",points:15},
-    {kw:"asset management",points:15},{kw:"fund manager",points:15}
+    {kw:"asset management",points:15},{kw:"fund manager",points:15},
+    // Forvalter-titler (juni 2026) — KEEP IN SYNC med fetch_jobs.py titleKeywords.
+    {kw:"formuesforvalt",points:25},{kw:"porteføljeforvalt",points:18},{kw:"fondsforvalt",points:18}
   ],
   // Oslo + pendlerbelte. «oslo» dekker hele Oslo kommune; beltet legger til Bærum/Asker-
   // kommuner som «oslo» ikke fanger. Danske byer/utland avviklet juni 2026. KEEP IN SYNC
@@ -1043,6 +1045,7 @@ var SOURCES = [
   {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers/open-jobs",p:"høy",f:"1x/uke"},
   {id:"storebrand",name:"Storebrand Karriere",url:"https://storebrand.wd3.myworkdayjobs.com/Storebrand_Careers",p:"høy",f:"1x/uke"},
   {id:"formue",name:"Formue",url:"https://career.formue.no/jobs",p:"høy",f:"1x/uke"},
+  {id:"nbim",name:"NBIM (Oljefondet)",url:"https://www.nbim.no/en/about-us/career/vacancies/",p:"høy",f:"daglig (auto)"},
   {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/no/om-oss/jobb-hos-oss/ledige-stillinger",p:"mid",f:"1x/uke"},
   {id:"danskebank",name:"Danske Bank",url:"https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001/jobs",p:"mid",f:"1x/uke"},
   {id:"pareto",name:"Pareto Securities",url:"https://paretosec.com/our-firm/career",p:"mid",f:"2x/mnd"},
@@ -1051,6 +1054,7 @@ var SOURCES = [
   {id:"sb1",name:"SpareBank 1 Markets",url:"https://candidate.hr-manager.net/vacancies/list.aspx?customer=Sparebank1&MediaID=5",p:"mid",f:"2x/mnd"},
   {id:"finn",name:"FINN.no Jobb",url:"https://www.finn.no/job/fulltime/search.html?q=wealth+management+finans",p:"mid",f:"1x/uke"},
   {id:"jobindex",name:"Jobindex (DK)",url:"https://www.jobindex.dk/jobsoegning?q=private+banking",p:"mid",f:"1x/uke"},
+  {id:"nav",name:"NAV Arbeidsplassen",url:"https://arbeidsplassen.nav.no/",p:"høy",f:"daglig (auto)"},
   {id:"holberg",name:"Holberg Fondene",url:"https://holbergfondene.no/om-oss",p:"lav",f:"1x/mnd"},
   {id:"odin",name:"ODIN Forvaltning",url:"https://odinfond.no/om-odin",p:"lav",f:"1x/mnd"},
   {id:"skagen",name:"SKAGEN Fondene",url:"https://www.skagenfondene.no/om-oss/karriere/",p:"lav",f:"1x/mnd"}];
@@ -1586,7 +1590,7 @@ var IMPORT_FIELD_ALIASES = {
   url:      ["URL","Lenke","Link"],
   deadline: ["Frist","Søknadsfrist","Deadline","Apply by"]
 };
-var IMPORT_SOURCES = ["linkedin","manual","finn","jobindex","jobslu","annet"];
+var IMPORT_SOURCES = ["linkedin","manual","finn","jobindex","jobslu","nav","nbim","nordea","dnb","formue","annet"];
 var IMPORT_ALL_FIELD_LABELS = (function(){
   var all = [];
   Object.keys(IMPORT_FIELD_ALIASES).forEach(function(k){ all = all.concat(IMPORT_FIELD_ALIASES[k]); });
