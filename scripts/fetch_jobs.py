@@ -42,12 +42,20 @@ USER_AGENT = "ValiantEvers-strategi-scraper/1.0 (+https://evers.no)"
 
 ENABLE_JOBINDEX = False  # dansk Jobindex deaktivert (Oslo-fokus, juni 2026). Sett True for å gjenoppta.
 
+# Nye kilder (juni 2026) — NAV-feed + arbeidsgiver-ATS/scrape hos målbedriftene.
+# Default PÅ, reversibelt (sett False for å deaktivere en enkelt kilde).
+ENABLE_NAV = True       # NAV pam-stilling-feed (requests)
+ENABLE_NORDEA = True    # Nordea SuccessFactors RSS (requests)
+ENABLE_DNB = True       # DNB SuccessFactors RSS (requests)
+ENABLE_FORMUE = True    # Formue Teamtailor JSON (requests)
+ENABLE_NBIM = True      # NBIM vacancies (Playwright)
+
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
 # ─────────────────────────────────────────────────────────────────────────
 PROFILE = {
     "priorityCompanies": [
-        {"match": ["formue", "formuesforvaltning"], "points": 30},
+        {"match": ["formue", "formuesforvaltning", "nbim", "norges bank investment management"], "points": 30},
         {"match": ["dnb", "nordea", "storebrand", "handelsbanken", "danske bank"], "points": 25},
         {"match": ["pareto", "arctic", "abg", "sparebank 1 markets"], "points": 20},
         {"match": ["bnp paribas", "societe generale", "société générale"], "points": 20},
@@ -66,6 +74,11 @@ PROFILE = {
         ("finansiell rådgiver", 15),
         ("asset management", 15),
         ("fund manager", 15),
+        # Forvalter-titler (juni 2026) — lå i finn-QUERIES men manglet i scoring,
+        # så «Formuesforvalter» o.l. scoret lavt. KEEP IN SYNC med strategi.html.
+        ("formuesforvalt", 25),
+        ("porteføljeforvalt", 18),
+        ("fondsforvalt", 18),
     ],
     "locations": [
         ("oslo", 10),  # hele Oslo kommune: Bjørvika, Aker Brygge, Vika, Skøyen, Majorstuen, Nydalen
@@ -612,6 +625,369 @@ def is_priority_company(company: str) -> bool:
     return any(m in c for tier in PROFILE["priorityCompanies"] for m in tier["match"])
 
 
+# ─────────────────────────────────────────────────────────────────────────
+# Keep-filter for de brede/arbeidsgiver-kildene (NAV/ATS/NBIM).
+# finn er query-forhåndsfiltrert og går UTENOM dette (beholder alt som før).
+#
+# Behold en jobb hvis: (finans-tittel som finn) ELLER graduate-nett — men for
+# brede NAV gjelder graduate-nettet KUN målbedrift i priorityCompanies-allowlist
+# (ellers fanges hele Oslos graduate-marked). Oslo-avgrensning + negativeKeywords
+# gjenbrukes. «neg and not finance» dropper tech-graduate/lærling-støy, men
+# beholder finansroller som tilfeldigvis har et neg-ord («Private Banking Controller»).
+# ─────────────────────────────────────────────────────────────────────────
+
+# Graduate-nett (substring-match, som resten av PROFILE-matchingen). Bare «intern»
+# er utelatt med vilje (treffer «internasjonal» o.l.); «internship» er trygt.
+GRADUATE_NET = [
+    "graduate", "trainee", "nyutdannet", "internship",
+    "sommerjobb", "sommerinternship", "lærling", "junior",
+]
+
+# Finans-vokabular for keep-filteret — bevisst BREDERE enn PROFILE.titleKeywords
+# (som er SCORING-vokabular). Speiler finn-søkeordene (QUERIES) slik at ekte
+# finansroller fra de ufiltrerte feedene fanges (f.eks. «Formuesforvalter»,
+# «Porteføljeforvalter» — som IKKE er titleKeywords). Påvirker IKKE scoring →
+# ingen parity-krav mot strategi.html.
+FINANCE_TERMS = [kw for kw, _ in PROFILE["titleKeywords"]] + [
+    "fondsrådgiv", "fondsselg", "finansrådgiv", "finansanalytiker",
+    "aksjeanalytiker", "premium banking", "relasjonsleder",
+    "client advisor", "relationship manager", "wealth advisor",
+]
+
+
+def matches_oslo_belt(location: str) -> bool:
+    """Speiler matchesOsloBelt() i strategi.html — Oslo + pendlerbelte."""
+    loc = (location or "").lower()
+    return any(kw in loc for kw, _ in PROFILE["locations"])
+
+
+def keep_job(job: dict, source: str) -> bool:
+    """Keep-filter for brede/arbeidsgiver-kilder. finn kaller IKKE denne."""
+    role = (job.get("role") or "").lower()
+    company = job.get("company") or ""
+    loc = (job.get("location") or "").strip()
+    finance = any(t in role for t in FINANCE_TERMS)
+    grad = any(g in role for g in GRADUATE_NET)
+    neg = any(n in role for n in PROFILE["negativeKeywords"])
+    oslo_ok = (not loc) or matches_oslo_belt(loc)  # lenient på ukjent location
+    if source == "nav":
+        eligible = finance or (grad and is_priority_company(company))
+    else:  # nbim/nordea/dnb/formue er allerede én målbedrift
+        eligible = finance or grad
+    return oslo_ok and eligible and not (neg and not finance)
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# NAV pam-stilling-feed — offisiell gratis JSON-feed (hele det norske markedet),
+# requests, ingen Playwright. publicToken-svaret er menneskelesbart
+# («Current public token…: <JWT>») → JWT må parses ut. Event-feed: eldst→nyest,
+# paginer framover via next_url; ?last=true gir tuppen.
+#
+# Cursor (siste konsumerte side-id) persisteres i payload.sourceCursors.nav.
+# Første kjøring (cursor None) starter på tuppen — ingen bakover-/dato-seek finnes
+# (verifisert: ?date= ignoreres, ingen prev_url), så 7–14-dagers-backfill er ikke
+# mulig; hullet dekkes av ATS/finn-overlapp. Senere kjøringer re-henter cursor-
+# siden (kan ha vokst) og følger next_url framover.
+#
+# ToS (arbeidsplassen.nav.no/vilkar-api): kun ACTIVE slippes; deep-link til den
+# kanoniske NAV-annonsen. Lista (_feed_entry) har title/businessName/municipal/
+# status/uuid → ingen per-jobb detalj-henting nødvendig (færre kall, høfligere).
+# Arbeidsplassen-ad-URL er verifisert HTTP 200 for både aktive og inaktive uuid.
+# ─────────────────────────────────────────────────────────────────────────
+
+NAV_BASE = "https://pam-stilling-feed.nav.no"
+NAV_AD_URL = "https://arbeidsplassen.nav.no/stillinger/stilling/{uuid}"
+NAV_MAX_PAGES = 200  # sikkerhetstak per kjøring (forhindrer runaway forward-walk)
+
+
+def _nav_token() -> str:
+    r = requests.get(
+        f"{NAV_BASE}/api/publicToken",
+        headers={"User-Agent": USER_AGENT},
+        timeout=30,
+    )
+    r.raise_for_status()
+    m = re.search(r"eyJ[A-Za-z0-9._-]+", r.text)
+    if not m:
+        raise RuntimeError("NAV publicToken: fant ingen JWT i svaret")
+    return m.group(0)
+
+
+def fetch_nav(cursor):
+    """NAV-feed → (jobs, new_cursor). cursor = siste konsumerte side-id eller None.
+    Filtrerer ACTIVE + keep_job på liste-feltene (NAV er hele markedet → må filtreres
+    her), bygger jobb-dict med arbeidsplassen-deep-link, følger next_url til tuppen."""
+    token = _nav_token()
+    sess = requests.Session()
+    sess.headers.update({
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/json",
+        "User-Agent": USER_AGENT,
+    })
+
+    url = f"{NAV_BASE}/api/v1/feed/{cursor}" if cursor else f"{NAV_BASE}/api/v1/feed?last=true"
+    jobs = []
+    new_cursor = cursor
+    pages = 0
+    while url and pages < NAV_MAX_PAGES:
+        full = url if url.startswith("http") else NAV_BASE + url
+        try:
+            r = sess.get(full, timeout=30)
+        except Exception as e:
+            print(f"  nav: feed-henting feilet: {e}", file=sys.stderr)
+            break
+        if r.status_code != 200:
+            print(f"  nav: feed status {r.status_code}, stopper", file=sys.stderr)
+            break
+        data = r.json()
+        if data.get("id"):
+            new_cursor = data["id"]
+        for it in data.get("items", []):
+            fe = it.get("_feed_entry") or {}
+            if fe.get("status") != "ACTIVE":
+                continue
+            uuid = fe.get("uuid") or it.get("id")
+            if not uuid:
+                continue
+            cand = {
+                "role": fe.get("title") or it.get("title") or "",
+                "company": fe.get("businessName") or "",
+                "location": fe.get("municipal") or "",
+            }
+            if not keep_job(cand, "nav"):
+                continue
+            posted = None
+            dm = it.get("date_modified") or fe.get("sistEndret") or ""
+            m = re.match(r"(\d{4})-(\d{2})-(\d{2})", dm)
+            if m:
+                posted = m.group(0)
+            jobs.append({
+                "role": cand["role"],
+                "company": cand["company"],
+                "location": (cand["location"] or "").title(),
+                "url": NAV_AD_URL.format(uuid=uuid),
+                "posted": posted,
+                "query": "nav-feed",
+            })
+        nxt = data.get("next_url")
+        pages += 1
+        if not nxt:
+            break  # nådd tuppen
+        url = nxt
+        time.sleep(0.5)  # throttle — vær høflig mot NAV
+    if pages >= NAV_MAX_PAGES:
+        print(
+            f"  nav: traff sikkerhetstak {NAV_MAX_PAGES} sider — resten tas "
+            f"neste kjøring (cursor lagret)",
+            file=sys.stderr,
+        )
+    return jobs, new_cursor
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Arbeidsgiver-ATS — requests, ingen Playwright.
+#
+# SAP SuccessFactors RSS (Nordea, DNB): RSS 2.0 + xmlns:g. Per <item>: title,
+# link (deep-link), g:id, g:location (ren by, f.eks. «Oslo, Norge, 0191»),
+# g:employer, g:expiration_date, g:job_function (kun DNB). Felles parser.
+#
+# Teamtailor JSON Feed (Formue): location ligger i _jobposting (schema.org
+# JobPosting → jobLocation), ev. tittel-parentes. Realistisk browser-UA brukes
+# defensivt (rå curl ga 200 i juni 2026, men UA er billig forsikring).
+# ─────────────────────────────────────────────────────────────────────────
+
+SF_NS = {"g": "http://base.google.com/ns/1.0"}
+BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
+
+
+def _strip_location_paren(title: str) -> str:
+    """Fjern etterstilt «(By, Land, postnr)»-parentes fra SF-titler (har komma).
+    Lar legitime parenteser som «(Maternity cover)» være."""
+    return re.sub(r"\s*\([^)]*,[^)]*\)\s*$", "", title or "").strip()
+
+
+def fetch_successfactors(url: str, source: str) -> list:
+    """Felles parser for SAP SuccessFactors RSS (Nordea, DNB)."""
+    import xml.etree.ElementTree as ET
+    jobs = []
+    try:
+        r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=40)
+        r.raise_for_status()
+        root = ET.fromstring(r.content)
+    except Exception as e:
+        print(f"  {source}: RSS-henting/parse feilet: {e}", file=sys.stderr)
+        return []
+
+    def gtext(item, tag):
+        el = item.find(tag, SF_NS)
+        return (el.text or "").strip() if el is not None and el.text else ""
+
+    for item in root.findall(".//item"):
+        title = _strip_location_paren(gtext(item, "title"))
+        link = gtext(item, "link")
+        if not title or not link:
+            continue
+        exp = gtext(item, "g:expiration_date")
+        jobs.append({
+            "role": title,
+            "company": gtext(item, "g:employer") or source.upper(),
+            "location": gtext(item, "g:location"),
+            "url": link,
+            "posted": None,  # SF-feeden har ingen pubDate
+            "deadline": exp or None,
+            "query": f"{source}-ats",
+        })
+    time.sleep(1.0)
+    return jobs
+
+
+def _teamtailor_location(item: dict) -> str:
+    """By fra _jobposting (schema.org jobLocation), ellers tittel-parentes."""
+    jp = item.get("_jobposting") or {}
+    jl = jp.get("jobLocation")
+    if isinstance(jl, list):
+        jl = jl[0] if jl else None
+    if isinstance(jl, dict):
+        addr = jl.get("address")
+        if isinstance(addr, dict):
+            city = addr.get("addressLocality") or addr.get("addressRegion")
+            if city:
+                return str(city).strip()
+    m = re.search(r"\(([^)]+)\)\s*$", item.get("title") or "")
+    return m.group(1).strip() if m else ""
+
+
+def fetch_teamtailor(url: str, source: str) -> list:
+    """Teamtailor JSON Feed (Formue)."""
+    jobs = []
+    try:
+        r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        print(f"  {source}: JSON-henting feilet: {e}", file=sys.stderr)
+        return []
+    for it in data.get("items", []):
+        title = (it.get("title") or "").strip()
+        link = it.get("url") or ""
+        if not title or not link:
+            continue
+        posted = None
+        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", it.get("date_published") or "")
+        if m:
+            posted = m.group(0)
+        jobs.append({
+            "role": title,
+            "company": source.capitalize(),
+            "location": _teamtailor_location(it),
+            "url": link,
+            "posted": posted,
+            "query": f"{source}-ats",
+        })
+    time.sleep(1.0)
+    return jobs
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# NBIM (Norges Bank Investment Management) — Webcruiter-basert, ingen JSON →
+# Playwright DOM (lazy import). På nbim.no (IKKE .com — .com 301-redirecter).
+# Eneste kilde uten aggregator-fallback (ikke på finn ELLER NAV). Vacancies-
+# siden lenker Webcruiter-annonser (tenant 398280). Sesong-landingssider for
+# Graduate Programme / Summer Internship legges i NBIM_SEASONAL når de er live.
+# NBIM HQ er Oslo (Bankplassen) → location default «Oslo».
+# ─────────────────────────────────────────────────────────────────────────
+
+NBIM_VACANCIES = "https://www.nbim.no/en/about-us/career/vacancies/"
+NBIM_SEASONAL = []  # f.eks. graduate-/internship-landingssider (sesong)
+
+
+def scrape_nbim() -> list:
+    from playwright.sync_api import sync_playwright
+    jobs = []
+    seen = set()
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent=USER_AGENT, viewport={"width": 1280, "height": 800}
+        )
+        page = context.new_page()
+        for u in [NBIM_VACANCIES] + NBIM_SEASONAL:
+            try:
+                page.goto(u, wait_until="networkidle", timeout=30000)
+            except Exception as e:
+                print(f"  nbim: goto feilet {u}: {e}", file=sys.stderr)
+                continue
+            page.wait_for_timeout(1500)
+            for a in page.query_selector_all("a[href*='webcruiter']"):
+                try:
+                    href = (a.get_attribute("href") or "").strip()
+                    title = re.sub(r"\s+", " ", a.text_content() or "").strip()
+                    if "recruit/public" not in href or not title or href in seen:
+                        continue
+                    seen.add(href)
+                    jobs.append({
+                        "role": title,
+                        "company": "NBIM",
+                        "location": "Oslo",
+                        "url": href,
+                        "posted": None,
+                        "query": "nbim",
+                    })
+                except Exception as e:
+                    print(f"  nbim: extract feilet: {e}", file=sys.stderr)
+        browser.close()
+    time.sleep(1.0)
+    return jobs
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Cross-source dedup — fingerprint (selskap+tittel+by) på toppen av URL-dedup,
+# så samme jobb fra finn/NAV/ATS ikke vises 2–3×. Kilde-preferanse: direkte
+# arbeidsgiver > nav > finn > arkiv. Konjunktiv match = streng → få falske positiver.
+# ─────────────────────────────────────────────────────────────────────────
+
+SOURCE_PREF = {
+    "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
+    "nav": 1, "finn": 2, "jobindex": 3,
+}
+
+
+def _canon_company(company: str) -> str:
+    """Kanonisk selskaps-token så «DNB», «DNB Bank ASA» osv. kollapser til ett.
+    priorityCompanies-match er kanon for målbedrifter (der triplettene oppstår);
+    ellers normalisert fullnavn m/ suffiks-strip. NBIM-synonymer slås sammen."""
+    c = (company or "").lower()
+    if "nbim" in c or "norges bank investment management" in c:
+        return "nbim"
+    for tier in PROFILE["priorityCompanies"]:
+        for m in tier["match"]:
+            if m in c:
+                return re.sub(r"[^a-z0-9æøå]+", "", m)
+    c = re.sub(r"\([^)]*\)", "", c)
+    c = re.sub(r"\b(as|asa|abp|ab|sa)\b", "", c)
+    return re.sub(r"[^a-z0-9æøå]+", "", c)
+
+
+def _canon_city(location: str) -> str:
+    """Kanonisk by — belte-nøkkel hvis Oslo+belte («Oslo, Norge, 0191» → «oslo»),
+    ellers første ledd normalisert. Gjør by-komponenten robust på tvers av kilder."""
+    loc = (location or "").lower()
+    for kw, _ in PROFILE["locations"]:
+        if kw in loc:
+            return kw
+    first = re.split(r"[,/]", location or "")[0]
+    return re.sub(r"[^a-z0-9æøå]+", "", first.lower())
+
+
+def fingerprint(job: dict) -> str:
+    role = re.sub(r"\([^)]*\)", "", (job.get("role") or "").lower())
+    role = re.sub(r"[^a-z0-9æøå]+", "", role)
+    return f"{_canon_company(job.get('company'))}|{role}|{_canon_city(job.get('location'))}"
+
+
 def normalize_url(u: str) -> str:
     if not u: return ""
     # Strip kun hash-fragment, IKKE query (?Id=N er identifier på
@@ -656,28 +1032,76 @@ def main():
         raise
     existing_urls = {normalize_url(j.get("url", "")) for j in payload.get("jobs", [])}
     print(f"  Eksisterende jobber: {len(existing_urls)}")
+    nav_cursor = (payload.get("sourceCursors") or {}).get("nav")
 
     all_scraped = []
     seen_in_scrape = set()
+
+    def ingest(jobs, source, apply_keep):
+        """URL-dedup + (valgfritt) keep-filter; tagger source og samler opp."""
+        kept = 0
+        for j in jobs:
+            if apply_keep and not keep_job(j, source):
+                continue
+            norm = normalize_url(j.get("url", ""))
+            if not norm or norm in existing_urls or norm in seen_in_scrape:
+                continue
+            seen_in_scrape.add(norm)
+            j["source"] = source
+            all_scraped.append(j)
+            kept += 1
+        return kept
 
     def collect(queries, scraper, source):
         for q in queries:
             print(f"Scraping {source} query: {q!r}")
             scraped = scraper(q)
-            kept = 0
-            for j in scraped:
-                norm = normalize_url(j["url"])
-                if norm in existing_urls or norm in seen_in_scrape:
-                    continue
-                seen_in_scrape.add(norm)
-                j["source"] = source
-                all_scraped.append(j)
-                kept += 1
-            print(f"  {len(scraped)} jobber, {kept} nye etter dedup")
+            print(f"  {len(scraped)} jobber, {ingest(scraped, source, False)} nye etter dedup")
 
+    # finn er query-forhåndsfiltrert → ingen keep_job. Nye kilder → keep_job.
     collect(QUERIES, scrape_finn, "finn")
     if ENABLE_JOBINDEX:
         collect(DK_QUERIES, scrape_jobindex, "jobindex")
+
+    # Hver ny kilde er isolert: feiler én, logges den og resten + finn fortsetter
+    # (en daglig kjøring skal aldri tape finn-resultatene fordi NAV/ATS er nede).
+    if ENABLE_NAV:
+        print("Henter NAV-feed…")
+        try:
+            nav_jobs, new_nav_cursor = fetch_nav(nav_cursor)
+            payload.setdefault("sourceCursors", {})["nav"] = new_nav_cursor
+            print(f"  nav: {len(nav_jobs)} kandidater, {ingest(nav_jobs, 'nav', True)} nye etter dedup")
+        except Exception as e:
+            print(f"  nav: FEILET ({type(e).__name__}: {e}) — hopper over", file=sys.stderr)
+    for enabled, label, fn in (
+        (ENABLE_NORDEA, "nordea", lambda: fetch_successfactors("https://careers.nordea.com/sitemal.xml", "nordea")),
+        (ENABLE_DNB, "dnb", lambda: fetch_successfactors("https://jobb.dnb.no/sitemal.xml", "dnb")),
+        (ENABLE_FORMUE, "formue", lambda: fetch_teamtailor("https://career.formue.no/jobs.json", "formue")),
+        (ENABLE_NBIM, "nbim", scrape_nbim),
+    ):
+        if not enabled:
+            continue
+        print(f"Henter {label}…")
+        try:
+            found = fn()
+            print(f"  {label}: {len(found)} kandidater, {ingest(found, label, True)} nye etter dedup")
+        except Exception as e:
+            print(f"  {label}: FEILET ({type(e).__name__}: {e}) — hopper over", file=sys.stderr)
+
+    # Cross-source fingerprint-dedup (selskap+tittel+by): behold høyest-preferanse
+    # kilde innen kjøringen, dropp mot eksisterende payload. Muter aldri eksisterende.
+    existing_fps = {fingerprint(j) for j in payload.get("jobs", [])}
+    all_scraped.sort(key=lambda j: SOURCE_PREF.get(j.get("source"), 9))
+    deduped, seen_fps = [], set()
+    for j in all_scraped:
+        fp = fingerprint(j)
+        if fp in existing_fps or fp in seen_fps:
+            continue
+        seen_fps.add(fp)
+        deduped.append(j)
+    if len(deduped) != len(all_scraped):
+        print(f"Cross-source dedup: fjernet {len(all_scraped) - len(deduped)} duplikater (selskap+tittel+by)")
+    all_scraped = deduped
 
     print(f"Nye unike jobber totalt: {len(all_scraped)}")
 
@@ -705,7 +1129,7 @@ def main():
             "location": j["location"],
             "seniority": j["seniority"],
             "description": "",
-            "deadline": None,
+            "deadline": j.get("deadline"),
             "posted": j["posted"],
             "added": now_iso,
             "score": sc["score"],
