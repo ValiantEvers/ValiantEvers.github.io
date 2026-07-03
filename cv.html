@@ -11,7 +11,8 @@
 <meta property="og:title" content="CV · Valiant Evers">
 <meta property="og:description" data-i-content="ogDesc" content="MSc Finance ved BI – søker klientrettede roller innen Wealth Management, Private Banking eller Fund Sales.">
 <meta property="og:image" content="https://www.evers.no/og-image.png">
-<meta property="og:url" content="https://www.evers.no/cv.html">
+<meta property="og:url" content="https://www.evers.no/cv">
+<link rel="canonical" href="https://www.evers.no/cv">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -262,7 +263,7 @@ details .course-list li::before{content:''}
     </ul>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
     <div class="lang-switch">
-      <button class="lang-btn" id="langBtn">NO</button>
+      <button class="lang-btn" id="langBtn" aria-label="Velg språk" aria-haspopup="true" aria-controls="langMenu" aria-expanded="false">NO</button>
       <div class="lang-menu" id="langMenu">
         <button class="lang-opt active" data-lang="no"><svg class="lang-flag" viewBox="0 0 22 16" aria-hidden="true"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="2" height="16" fill="#fff"/><rect y="7" width="22" height="2" fill="#fff"/><rect x="6.5" width="1" height="16" fill="#002868"/><rect y="7.5" width="22" height="1" fill="#002868"/></svg>Norsk</button>
         <button class="lang-opt" data-lang="en"><svg class="lang-flag" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>English</button>
@@ -628,7 +629,7 @@ var T = {
     strategyCourse: "Strategy <span class=\"grade\">(B)</span>",
     mathCourse: "Mathematics for Economists <span class=\"grade\">(B)</span>",
     expTitle: "Experience",
-    igfTitle: "Event Coordinator, IGF 2025",
+    igfTitle: "Event Staff, IGF 2025",
     igf1: "Managed the exhibition hall hosting 70+ exhibitors from international technology companies including Google, Meta, TikTok, and GlobalConnect.",
     igf2: "Performed logistics, setup, and accreditation tasks in accordance with a strict production schedule and the UN's high security requirements.",
     menyShiftDate: "Jan 2021 – Sep 2025",
@@ -700,7 +701,7 @@ var T = {
     strategyCourse: "Stratégie <span class=\"grade\">(B)</span>",
     mathCourse: "Mathématiques pour économistes <span class=\"grade\">(B)</span>",
     expTitle: "Expérience",
-    igfTitle: "Coordinateur d'événement, IGF 2025",
+    igfTitle: "Employé événementiel, IGF 2025",
     igf1: "Responsable du hall d'exposition accueillant plus de 70 exposants issus d'entreprises technologiques internationales telles que Google, Meta, TikTok et GlobalConnect.",
     igf2: "Tâches de logistique, d'installation et d'accréditation conformément à un calendrier de production strict et aux exigences de sécurité de l'ONU.",
     menyShiftDate: "Jan 2021 – Sep 2025",
@@ -844,7 +845,7 @@ var T = {
     strategyCourse: "戦略 <span class=\"grade\">(B)</span>",
     mathCourse: "経済数学 <span class=\"grade\">(B)</span>",
     expTitle: "職歴",
-    igfTitle: "イベントコーディネーター、IGF 2025",
+    igfTitle: "イベントスタッフ、IGF 2025",
     igf1: "Google、Meta、TikTok、GlobalConnectなど、世界各国のテクノロジー企業70社以上が出展する展示ホールを担当。",
     igf2: "厳格な制作スケジュールと国連の高度なセキュリティ要件に従って、ロジスティクス、設営、認証業務を遂行。",
     menyShiftDate: "2021年1月 – 2025年9月",
@@ -905,8 +906,13 @@ function setLang(l){
   document.querySelectorAll('.lang-opt').forEach(function(o){
     o.classList.toggle('active', o.getAttribute('data-lang') === l);
   });
-  document.getElementById('langMenu').classList.remove('open');
+  setLangMenuOpen(false);
   try { localStorage.setItem('ve-lang', l); } catch(e) {}
+}
+
+function setLangMenuOpen(open){
+  document.getElementById('langMenu').classList.toggle('open', open);
+  document.getElementById('langBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
 }
 
 /* Initial language – reuse main-site preference */
@@ -917,7 +923,7 @@ setLang(sv);
 /* Language menu */
 document.getElementById('langBtn').addEventListener('click', function(e){
   e.stopPropagation();
-  document.getElementById('langMenu').classList.toggle('open');
+  setLangMenuOpen(!document.getElementById('langMenu').classList.contains('open'));
 });
 document.querySelectorAll('.lang-opt').forEach(function(o){
   o.addEventListener('click', function(){
@@ -925,7 +931,13 @@ document.querySelectorAll('.lang-opt').forEach(function(o){
   });
 });
 document.addEventListener('click', function(){
-  document.getElementById('langMenu').classList.remove('open');
+  setLangMenuOpen(false);
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && document.getElementById('langMenu').classList.contains('open')){
+    setLangMenuOpen(false);
+    document.getElementById('langBtn').focus();
+  }
 });
 
 /* Theme toggle – reuse main-site preference (light / dark; medieval via easter egg) */
