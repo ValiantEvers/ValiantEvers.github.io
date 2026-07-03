@@ -1030,8 +1030,7 @@ window.__CAPS={"growth":{"no":[{"from":0,"html":"<span class=\"big\">De siste å
 
  if(reduce){ scenes.forEach(function(sc){renderScene(sc,1);}); applyLang(); railUpdate(); return; }
 
- var raf=0, running=false;
- var visible=[];
+ var running=false;
  var sio=new IntersectionObserver(function(es){es.forEach(function(e){ var sc=scenes.filter(function(s){return s.sec===e.target;})[0]; if(sc)sc.on=e.isIntersecting; }); start();},{rootMargin:'200px 0px'});
  scenes.forEach(function(sc){sio.observe(sc.sec);});
  function tick(){
@@ -1039,9 +1038,9 @@ window.__CAPS={"growth":{"no":[{"from":0,"html":"<span class=\"big\">De siste å
    for(var i=0;i<scenes.length;i++){var sc=scenes[i]; if(!sc.on)continue; any=true;
      var tgt=sceneProgress(sc.sec); sc.cur+=(tgt-sc.cur)*0.14; if(Math.abs(tgt-sc.cur)<0.0004)sc.cur=tgt; renderScene(sc,sc.cur);}
    railUpdate();
-   if(any){raf=requestAnimationFrame(tick);} else {running=false;}
+   if(any){requestAnimationFrame(tick);} else {running=false;}
  }
- function start(){ if(running)return; if(!scenes.some(function(s){return s.on;}))return; running=true; raf=requestAnimationFrame(tick); }
+ function start(){ if(running)return; if(!scenes.some(function(s){return s.on;}))return; running=true; requestAnimationFrame(tick); }
  window.addEventListener('scroll',railUpdate,{passive:true});
  document.addEventListener('visibilitychange',function(){ if(!document.hidden) start(); });
 

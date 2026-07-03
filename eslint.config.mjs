@@ -107,4 +107,13 @@ export default [
     files: ["index.html"],
     languageOptions: { sourceType: "module" },
   },
+  {
+    // masteroppgave: helper fns are attached as window.smooth/clamp/nf in the first inline
+    // <script> (fig/WebGL block) and read bare later + in the second block — same
+    // cross-block-globals pattern as T/setLang above, scoped to this one page.
+    files: ["prosjekter/masteroppgave/index.html"],
+    languageOptions: {
+      globals: { smooth: "readonly", clamp: "readonly", nf: "readonly" },
+    },
+  },
 ];
