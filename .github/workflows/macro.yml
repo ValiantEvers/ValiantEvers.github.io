@@ -27,4 +27,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add macro.json
-          git diff --cached --quiet || (git commit -m "Update macro indicators" && git push)
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Update macro indicators"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then exit 0; fi
+            echo "Push attempt $attempt rejected — retrying..."
+            sleep 2
+          done
+          echo "Push failed after 3 attempts"
+          exit 1

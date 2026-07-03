@@ -242,7 +242,10 @@ def main():
         if res["score"] != old_score:
             score_changed += 1
         j["score"] = res["score"]
-        j["breakdown"] = res["breakdown"]
+        # Nøkkelen er "scoreBreakdown" (fetch_jobs.py + strategi.html leser den);
+        # pop fjerner streifende "breakdown"-nøkler bakt inn av tidligere kjøringer.
+        j["scoreBreakdown"] = res["breakdown"]
+        j.pop("breakdown", None)
 
         legacy, reason = classify_legacy(j)
         if legacy and j.get("status") != "removed":

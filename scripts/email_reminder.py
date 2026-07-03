@@ -181,7 +181,7 @@ def send_email(subject, plain, html):
 
 
 def main():
-    password = os.environ["STRATEGI_PASSWORD"]
+    password = os.environ["STRATEGI_PASSWORD"].strip()
     pat = os.environ["GIST_PAT"]
     gist_id = os.environ["GIST_ID"]
 

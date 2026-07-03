@@ -1030,9 +1030,13 @@ def main():
             file=sys.stderr,
         )
         raise
+    # updatedAt ved start — clobber-guard sammenligner mot fersk blob før push
+    # for å oppdage eksterne skrivinger (nettleser) under scrapingen.
+    start_updated_at = payload.get("updatedAt")
     existing_urls = {normalize_url(j.get("url", "")) for j in payload.get("jobs", [])}
     print(f"  Eksisterende jobber: {len(existing_urls)}")
     nav_cursor = (payload.get("sourceCursors") or {}).get("nav")
+    new_nav_cursor = None  # settes av NAV-blokka; graftes på fersk payload før push
 
     all_scraped = []
     seen_in_scrape = set()
@@ -1108,14 +1112,6 @@ def main():
     all_queries = QUERIES + DK_QUERIES
     now_iso = now_utc.isoformat()
 
-    if not all_scraped:
-        payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": all_queries}
-        payload["updatedAt"] = now_iso  # defensiv: bump så cross-device bootstrap adopterer lastScrape også når 0 nye jobber
-        new_blob = encrypt_payload(password, payload)
-        gist_patch(pat, gist_id, new_blob)
-        print("Pushed lastScrape-update (0 nye jobber)")
-        return
-
     new_jobs = []
     for j in all_scraped:
         j["seniority"] = detect_seniority(j["role"])
@@ -1141,6 +1137,42 @@ def main():
             "notes": "",
             "starred": False,
         })
+
+    # ── Clobber-guard: scrapingen tar 5–10 min, og nettleseren kan ha pushet
+    # statuser/notater/notatbok i mellomtiden. Re-fetch + re-dekrypter fersk
+    # payload rett før push, re-dedup de nye jobbene mot den (URL + fingerprint,
+    # samme regler som over) og graft dem på den ferske payloaden — så ferske
+    # brukerdata aldri overskrives av den stale kopien lest ved start. ──
+    print("Re-fetching Gist før push (clobber-guard)…")
+    fresh_blob = gist_get(pat, gist_id)
+    fresh_payload = decrypt_blob(password, fresh_blob)
+    # updatedAt bumper ved hver skriving — enhver endring betyr ekstern push under scrapingen.
+    remote_changed = fresh_payload.get("updatedAt") != start_updated_at
+    if remote_changed:
+        print(f"  Gist endret under scraping (updatedAt {start_updated_at!r} → "
+              f"{fresh_payload.get('updatedAt')!r}) — grafter på fersk payload")
+    fresh_urls = {normalize_url(j.get("url", "")) for j in fresh_payload.get("jobs", [])}
+    fresh_fps = {fingerprint(j) for j in fresh_payload.get("jobs", [])}
+    pre_guard = len(new_jobs)
+    new_jobs = [j for j in new_jobs
+                if normalize_url(j.get("url", "")) not in fresh_urls
+                and fingerprint(j) not in fresh_fps]
+    if len(new_jobs) != pre_guard:
+        print(f"  Clobber-guard dedup: fjernet {pre_guard - len(new_jobs)} duplikater mot fersk payload")
+    payload = fresh_payload
+    if new_nav_cursor is not None:
+        payload.setdefault("sourceCursors", {})["nav"] = new_nav_cursor
+
+    if not new_jobs:
+        if remote_changed:
+            print("0 nye jobber og Gist endret eksternt under scraping — hopper over push")
+            return
+        payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": all_queries}
+        payload["updatedAt"] = now_iso  # defensiv: bump så cross-device bootstrap adopterer lastScrape også når 0 nye jobber
+        new_blob = encrypt_payload(password, payload)
+        gist_patch(pat, gist_id, new_blob)
+        print("Pushed lastScrape-update (0 nye jobber)")
+        return
 
     payload["jobs"] = new_jobs + payload.get("jobs", [])
     payload["updatedAt"] = now_iso
