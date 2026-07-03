@@ -38,7 +38,11 @@ export function NumberField({
           inputMode="numeric"
           value={Number.isFinite(value) ? value : ''}
           onChange={(e) => {
-            const v = e.target.value === '' ? 0 : Number(e.target.value)
+            const raw = e.target.value === '' ? 0 : Number(e.target.value)
+            // Klipp til feltets grenser — hindrer Infinity/NaN og verdier utenfor min/max.
+            let v = Number.isFinite(raw) ? raw : (min ?? 0)
+            if (min !== undefined && v < min) v = min
+            if (max !== undefined && v > max) v = max
             onChange(v)
           }}
           min={min}

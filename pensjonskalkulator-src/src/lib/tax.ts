@@ -2,15 +2,17 @@
 // tax.ts — forenklet norsk skattemodell for pensjonsinntekt
 // =====================================================================
 //
-// Modellen er kalibrert mot 2025-satser. CC: før produksjon, verifiser
-// mot siste statsbudsjett (regjeringen.no/skatt). Skattesystemet endres
-// årlig.
+// Modellen bruker 2025-satser, verifisert mot Skatteetaten
+// (Forskuddsmeldingen 2025 / Stortingets skattevedtak for inntektsåret
+// 2025). Skattesystemet endres årlig — oppdater konstantene med nytt
+// statsbudsjett (regjeringen.no/skatt).
 //
 // Pensjonsinntekt (folketrygd + OTP + IPS + AFP) beskattes som:
-//   - Alminnelig inntekt 22 % på inntekt etter minstefradrag
-//   - Trygdeavgift 5,1 % (vs 7,8 % på lønn)
-//   - Trinnskatt 1,7–17,6 % på personinntekt
-//   - Pensjonsskattefradrag (maks ~33 250, trappes ned)
+//   - Alminnelig inntekt 22 % på inntekt etter minstefradrag og personfradrag
+//   - Trygdeavgift 5,1 % (vs 7,7 % på lønn), med 25 %-opptrappingsregel
+//     rett over nedre grense
+//   - Trinnskatt 1,7–17,7 % på personinntekt
+//   - Skattefradrag for pensjonsinntekt (maks 36 000, trappes ned)
 //
 // ASK-uttak beskattes ikke som pensjon men som aksjegevinst:
 //   - 37,84 % på gevinst-andelen (over skjermingsfradrag, som er liten)
@@ -18,33 +20,40 @@
 //
 // =====================================================================
 
-// 2025-tall — verifiser før produksjon
+// 2025-tall — verifisert mot Skatteetaten 2026-07-03
 export const TAX_YEAR = 2025
 
 export const ALMINNELIG_INNTEKT_RATE = 0.22
+
+// Personfradrag — trekkes fra alminnelig inntekt før 22 %-satsen
+export const PERSONFRADRAG = 108_550
+
 export const TRYGDEAVGIFT_PENSJON_RATE = 0.051
-export const TRYGDEAVGIFT_LOWER_LIMIT = 25_000 // pensjon under denne grensen ikke trygdeavgift
+// Nedre grense med opptrappingsregel: avgiften skal ikke overstige 25 % av
+// (personinntekt − nedre grense). Glatter overgangen rett over grensen.
+export const TRYGDEAVGIFT_NEDRE_GRENSE = 99_650
+export const TRYGDEAVGIFT_OPPTRAPPING_RATE = 0.25
 
 // Minstefradrag for pensjonsinntekt
 export const MINSTEFRADRAG_RATE = 0.4
-export const MINSTEFRADRAG_MAX = 90_800
+export const MINSTEFRADRAG_MAX = 73_150
 
 // Trinnskatt 2025
 export const TRINNSKATT_BRACKETS: Array<[number, number, number]> = [
   // [low, high, rate]
   [217_400, 306_050, 0.017],
   [306_050, 697_150, 0.04],
-  [697_150, 942_400, 0.136],
-  [942_400, 1_410_750, 0.166],
-  [1_410_750, Infinity, 0.176],
+  [697_150, 942_400, 0.137],
+  [942_400, 1_410_750, 0.167],
+  [1_410_750, Infinity, 0.177],
 ]
 
-// Pensjonsskattefradrag — forenklet 3-trinns nedtrapping (2025)
-export const PENSJONSFRADRAG_MAX = 33_250
-export const PENSJONSFRADRAG_TRINN1_GRENSE = 219_950
-export const PENSJONSFRADRAG_TRINN2_GRENSE = 359_700
+// Skattefradrag for pensjonsinntekt — to-trinns nedtrapping (2025)
+export const PENSJONSFRADRAG_MAX = 36_000
+export const PENSJONSFRADRAG_TRINN1_GRENSE = 276_400
+export const PENSJONSFRADRAG_TRINN2_GRENSE = 422_950
 export const PENSJONSFRADRAG_TRINN1_NEDTRAPPING = 0.167
-export const PENSJONSFRADRAG_TRINN2_NEDTRAPPING = 0.067
+export const PENSJONSFRADRAG_TRINN2_NEDTRAPPING = 0.06
 
 // Aksjegevinstskatt 2025 (oppjustert sats)
 export const ASK_GAIN_TAX_RATE = 0.3784
@@ -61,14 +70,23 @@ export function calculatePensionTax(annualGrossPensionIncome: number): number {
     annualGrossPensionIncome * MINSTEFRADRAG_RATE,
     MINSTEFRADRAG_MAX,
   )
-  const alminneligInntekt = Math.max(0, annualGrossPensionIncome - minstefradrag)
+  // Personfradrag trekkes fra alminnelig inntekt før 22 %-satsen
+  const alminneligInntekt = Math.max(
+    0,
+    annualGrossPensionIncome - minstefradrag - PERSONFRADRAG,
+  )
   const inntektsskatt = alminneligInntekt * ALMINNELIG_INNTEKT_RATE
 
-  // Trygdeavgift på brutto pensjon (under grense = 0)
-  const trygdeavgift =
-    annualGrossPensionIncome > TRYGDEAVGIFT_LOWER_LIMIT
-      ? annualGrossPensionIncome * TRYGDEAVGIFT_PENSJON_RATE
-      : 0
+  // Trygdeavgift: 5,1 % av brutto pensjon, men aldri mer enn 25 % av
+  // inntekten over nedre grense (opptrappingsregelen). Under grensen = 0.
+  const trygdeavgift = Math.max(
+    0,
+    Math.min(
+      annualGrossPensionIncome * TRYGDEAVGIFT_PENSJON_RATE,
+      TRYGDEAVGIFT_OPPTRAPPING_RATE *
+        (annualGrossPensionIncome - TRYGDEAVGIFT_NEDRE_GRENSE),
+    ),
+  )
 
   // Trinnskatt på personinntekt (= brutto pensjonsinntekt)
   let trinnskatt = 0
@@ -78,7 +96,7 @@ export function calculatePensionTax(annualGrossPensionIncome: number): number {
     }
   }
 
-  // Pensjonsskattefradrag (max 33 250, trappes ned)
+  // Skattefradrag for pensjonsinntekt (maks 36 000, trappes ned)
   let pensjonsfradrag = 0
   if (annualGrossPensionIncome <= PENSJONSFRADRAG_TRINN1_GRENSE) {
     pensjonsfradrag = PENSJONSFRADRAG_MAX
