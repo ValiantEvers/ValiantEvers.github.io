@@ -7,18 +7,23 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `index.html` — main page with everything (CSS in `<style>`, JS at bottom)
 - `profile.jpg`, `og-image.png`, `favicon.svg` — assets in root
 - `CNAME` — points to evers.no (do not delete or modify)
-- `portfolio/index.html` — dark luxury editorial portfolio for recruiters
-- `cv/index.html` — CV page
+- `cv.html` — CV page (single file at root, not a directory)
 - `rekrutterer/index.html` — landing page for recruiters in Wealth Management / Private Banking / Fund Sales (public, indexed)
 - `strategi.html` — private internal job-search strategy tracker (noindex, nofollow — not for public)
-- `osebx/` — separate sub-app (mirrored from osebx repo)
+- `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`) with subpages `masteroppgave/` (scrollytelling thesis presentation), `finansielle-maler/`, `forretningsenhet-dashboard/`
+- `aksjeskatt/` — after-tax return comparison depot vs ASK vs holdingselskap; reads pre-computed `aksjeskatt_grid.json` (deterministic tax engine runs offline, not in the browser)
+- `klima/` — climate status/myths page, every number with a source reference
+- `leie-eller-eie/` — rent-vs-buy interactive calculator (Chart.js from CDN)
+- `nb-watch/` — Norges Bank Watch macro dashboard, built output + `data/*.json` refreshed by the autonomous pipeline (ikke rediger direkte)
+- `nb-watch-src/` — source for nb-watch (Vite + React + Tailwind; crawl-blocked in robots.txt)
+- `osebx/` og `wc2026/` — IKKE mapper i dette repoet: egne prosjekt-repoer (ValiantEvers/osebx, ValiantEvers/wc2026) servert under evers.no-stiene via GitHub Pages prosjektside-ruting
 - `personligokonomi/` — separate sub-app (built from personligokonomi repo)
 - `pensjonskalkulator/` — bygd output for pensjonskalkulator (generert av GitHub Actions, ikke rediger direkte)
 - `pensjonskalkulator-src/` — kildekode for pensjonskalkulatoren (Vite + React + Tailwind + Recharts)
-- `fra-null-til-investor/`, `fra-null-til-investor2/`, `fra-null-til-investor3/` — FNTI iterations
-- `examprep/` — mock exam tool with question models + timeline data (JSX-based, no build step — loaded via CDN?)
-- `garmin/` — ? Garmin fitness/activity data page
-- `jobs/` — ? job search or applications tracker
+- `fra-null-til-investor/`, `fra-null-til-investor2/`, `fra-null-til-investor3/` — deliberate 3-part FNTI series (all three stay live — parts, not superseded iterations)
+- `examprep/` — GRA6546 (Financial Institutions and Crises) exam-prep hub: quiz, flashcards, timeline, Cytoscape mind-map, mock exams. React UMD + Babel standalone from CDN, JSX modules in `js/`, no build step
+- `garmin/` — running dashboard for Garmin data (inline run data, Chart.js trends + Leaflet route map)
+- `jobs/` — meta-refresh redirect stub to `/strategi.html` (noindex; kept so old links don't 404)
 - `travel/` — compressed travel photos used in Leaflet map
 - `.github/workflows/` — Strava + Letterboxd integrations
 
