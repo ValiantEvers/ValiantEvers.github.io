@@ -425,7 +425,7 @@
  {
   "slug": "klima",
   "tittel": "Klima: fakta og kostnader",
-  "beskrivelse": "Faktabasert side om klimaendringer: hvor verden står, hva det koster Norge, og hvordan klimarisiko påvirker verdien av selskaper. Hvert tall er verifisert mot primærkilder, med komplett kildeliste.",
+  "beskrivelse": "Faktabasert side om klimaendringer: hvor verden står, hva det koster Norge, og hvordan klimarisiko påvirker verdien av selskaper. Hvert tall verifisert mot primærkilder.",
   "kategori": "Guider",
   "status": "live",
   "url": "/klima/",
@@ -438,6 +438,11 @@
   ],
   "opprettet": "2026-07-03",
   "sist_oppdatert": "2026-07-03",
-  "synlig": true
+  "synlig": true,
+  "i18n": {
+   "title": "klimaTitle",
+   "desc": "klimaDesc"
+  },
+  "bilde": "screenshots/klima.webp"
  }
 ]
