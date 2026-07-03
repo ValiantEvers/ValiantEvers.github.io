@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
 
-Disallow: /strategi.html
-Disallow: /jobs/
 Disallow: /pensjonskalkulator-src/
 Disallow: /nb-watch-src/
 
