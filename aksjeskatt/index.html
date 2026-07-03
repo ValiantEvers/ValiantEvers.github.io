@@ -413,7 +413,7 @@
 
   // --- guide modal ---
   var GUIDE = [
-    ["Aksjeoppjustering", "Gevinst og utbytte på aksjer ganges med en oppjusteringsfaktor (1,72 i 2025) før de skattlegges med 22 %. Effektiv sats blir derfor ca. 37,84 %. Dette gjelder i vanlig depot og ved uttak fra ASK."],
+    ["Aksjeoppjustering", "Gevinst og utbytte på aksjer ganges med en oppjusteringsfaktor (1,72 i 2026) før de skattlegges med 22 %. Effektiv sats blir derfor ca. 37,84 %. Dette gjelder i vanlig depot og ved uttak fra ASK."],
     ["Skjermingsfradrag", "Et skjermingsfradrag (skjermingsrente × kostpris) skjermer en del av utbytte/gevinst mot skatt. Ubrukt skjerming akkumuleres år for år og kan brukes senere — en fordel for langsiktige eiere."],
     ["ASK — utsatt skatt", "På aksjesparekonto kan du kjøpe og selge aksjer/fond uten å utløse skatt; gevinst skattlegges først ved uttak utover innskutt beløp. Innskuddet kan tas ut skattefritt først. Utsettelsen gir rentes-rente på ubeskattet kapital."],
     ["Fritaksmetoden (§2-38)", "Et holdingselskap (AS) betaler i praksis ingen skatt på aksjegevinster og kun 0,66 % på utbytte innenfor selskapet. Skatt utløses først når penger tas ut til deg som personlig eier. Bra for reinvestering, men gir et ekstra skattelag ved uttak."],
@@ -450,10 +450,14 @@
 
   function initNotices(){
     document.getElementById("noticeTax").innerHTML = "⚠ " + DATA.notice.not_tax_advice_no;
-    document.getElementById("noticeIllustrative").innerHTML = "ℹ " + DATA.notice.illustrative_no;
+    var ill = "ℹ " + DATA.notice.illustrative_no;
+    if(DATA.notice.skjermingsrente_provisional_no){
+      ill += " " + DATA.notice.skjermingsrente_provisional_no;
+    }
+    document.getElementById("noticeIllustrative").innerHTML = ill;
     var r = DATA.rates;
     document.getElementById("provenance").textContent =
-      "Satser: " + r.aar + " (hentet " + r.hentet + "). Motor: skatt-optimizer, deterministisk.";
+      "Satser: " + r.aar + " (vedtatt 2025-12-18, hentet " + r.hentet + "). Motor: skatt-optimizer, deterministisk.";
   }
 
   function boot(DATA_){
