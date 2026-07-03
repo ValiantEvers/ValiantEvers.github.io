@@ -1179,6 +1179,7 @@ async function gistGet(pat, gistId){
   if(!file) throw new Error("Gist mangler " + GIST_FILENAME);
   if(file.truncated){
     var raw = await fetch(file.raw_url, {cache:"no-store"});
+    if(!raw.ok){ var err2 = new Error("Gist raw GET " + raw.status); err2.status = raw.status; throw err2; }
     return JSON.parse(await raw.text());
   }
   return JSON.parse(file.content);
@@ -2996,6 +2997,9 @@ function openFocusedUrl(){
 // ════════════════════════════════════════════════════════════════
 function bindKeyboardShortcuts(){
   document.addEventListener("keydown", function(e){
+    // Bootstrap-lås (.sync-lock) er kun pointer-events — blokker også
+    // tastatursnarveier mens bootstrapSync kjører (Esc slipper gjennom).
+    if(STATE.bootstrapping && e.key !== "Escape") return;
     // If overlay open, only Esc passes through; everything else blocked.
     // (Help overlay handles its own '?' close in its dedicated listener.)
     if(isOverlayOpen()){
