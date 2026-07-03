@@ -209,7 +209,7 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 </ul>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
 <div class="lang-switch">
-<button class="lang-btn" id="langBtn">NO</button>
+<button class="lang-btn" id="langBtn" aria-label="Velg språk" aria-haspopup="true" aria-controls="langMenu" aria-expanded="false">NO</button>
 <div class="lang-menu" id="langMenu">
 <button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
 <button class="lang-opt" data-lang="en">🇬🇧 English</button>
@@ -318,6 +318,7 @@ function setLang(l){
     o.classList.toggle('active',o.getAttribute('data-lang')===l);
   });
   var menu=document.getElementById('langMenu');if(menu)menu.classList.remove('open');
+  if(btn)btn.setAttribute('aria-expanded','false');
   try{localStorage.setItem('ve-lang',l)}catch(e){}
 }
 window.setLang=setLang;
@@ -329,6 +330,8 @@ setLang(sv&&T[sv]?sv:'no');
 var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
 if(savedTheme==='dark'||savedTheme==='medieval'){
   document.documentElement.setAttribute('data-theme',savedTheme);
+}else if(!savedTheme&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){
+  document.documentElement.setAttribute('data-theme','dark');
 }
 function updateThemeIcon(){
   var t=document.documentElement.getAttribute('data-theme');
@@ -342,18 +345,25 @@ document.getElementById('themeToggle').addEventListener('click',function(){
   var next=(t==='dark')?null:'dark';
   if(next){document.documentElement.setAttribute('data-theme',next);}
   else{document.documentElement.removeAttribute('data-theme');}
-  try{localStorage.setItem('ve-theme',next||'')}catch(e){}
+  try{localStorage.setItem('ve-theme',next||'light')}catch(e){}
   updateThemeIcon();
 });
 
-// Lang menu toggle
-document.getElementById('langBtn').addEventListener('click',function(e){
+// Lang menu toggle (mirrors main site's nav-toggle ARIA pattern)
+var langBtn=document.getElementById('langBtn'),langMenu=document.getElementById('langMenu');
+function setLangMenuOpen(open){
+  langMenu.classList.toggle('open',open);
+  langBtn.setAttribute('aria-expanded',open?'true':'false');
+}
+langBtn.addEventListener('click',function(e){
   e.stopPropagation();
-  document.getElementById('langMenu').classList.toggle('open');
+  setLangMenuOpen(!langMenu.classList.contains('open'));
 });
 document.addEventListener('click',function(e){
-  var m=document.getElementById('langMenu');
-  if(m&&!m.contains(e.target)&&e.target.id!=='langBtn'){m.classList.remove('open');}
+  if(langMenu&&!langMenu.contains(e.target)&&e.target.id!=='langBtn'){setLangMenuOpen(false);}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&langMenu.classList.contains('open')){setLangMenuOpen(false);langBtn.focus();}
 });
 document.querySelectorAll('.lang-opt').forEach(function(o){
   o.addEventListener('click',function(){setLang(o.getAttribute('data-lang'));});

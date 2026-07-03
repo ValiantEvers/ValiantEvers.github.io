@@ -476,6 +476,8 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
 if(savedTheme==='dark'||savedTheme==='medieval'){
   document.documentElement.setAttribute('data-theme',savedTheme);
+}else if(!savedTheme&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){
+  document.documentElement.setAttribute('data-theme','dark');
 }
 function updateThemeIcon(){
   var t=document.documentElement.getAttribute('data-theme');
@@ -489,7 +491,7 @@ document.getElementById('themeToggle').addEventListener('click',function(){
   var next=(t==='dark')?null:'dark';
   if(next){document.documentElement.setAttribute('data-theme',next);}
   else{document.documentElement.removeAttribute('data-theme');}
-  try{localStorage.setItem('ve-theme',next||'')}catch(e){}
+  try{localStorage.setItem('ve-theme',next||'light')}catch(e){}
   updateThemeIcon();
 });
 
