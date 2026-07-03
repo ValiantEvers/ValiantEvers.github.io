@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klima · Valiant Evers</title>
+<meta name="description" content="Hvor står klimaet, hva koster det Norge, og hvilke myter holder ikke? En nøktern gjennomgang der hvert tall har kildehenvisning.">
+<meta name="author" content="Valiant Evers">
+<meta name="theme-color" content="#004eaa">
+<meta name="robots" content="index, follow">
+<!-- Open Graph / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Klima · Valiant Evers">
+<meta property="og:description" content="Hvor står klimaet, hva koster det Norge, og hvilke myter holder ikke? En nøktern gjennomgang der hvert tall har kildehenvisning.">
+<meta property="og:image" content="https://www.evers.no/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="Valiant Evers, MSc Finance, BI Norwegian Business School">
+<meta property="og:url" content="https://www.evers.no/klima/">
+<meta property="og:site_name" content="Valiant Evers">
+<meta property="og:locale" content="nb_NO">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Klima · Valiant Evers">
+<meta name="twitter:description" content="Hvor står klimaet, hva koster det Norge, og hvilke myter holder ikke?">
+<meta name="twitter:image" content="https://www.evers.no/og-image.png">
+<meta name="twitter:image:alt" content="Valiant Evers, MSc Finance, BI Norwegian Business School">
+<link rel="canonical" href="https://www.evers.no/klima/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/newsreader-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/newsreader-latin-standard-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/newsreader-latin-ext-standard-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/hanken-grotesk-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'MedievalSharp';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/MedievalSharp-Latin.woff2') format('woff2')}
+@font-face{font-family:'UnifrakturMaguntia';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/UnifrakturMaguntia-Latin.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/jetbrains-mono-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+h1,h2,h3{text-wrap:balance}
+</style>
+<style>
+:root{--font-serif:"Newsreader",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.35);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06)}
+[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.35);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07)}
+[data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
+
+[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);cursor:url('../medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"],[data-theme="medieval"] summary{cursor:url('../medieval/cursor-sword.png') 2 30, pointer;}
+[data-theme="medieval"] body{font-family:'MedievalSharp',sans-serif}
+[data-theme="medieval"] .page-h1,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .sub-title,[data-theme="medieval"] .stat-big{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .back-link{font-family:'MedievalSharp',sans-serif}
+[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
+[data-theme="medieval"] .theme-toggle{border-color:rgba(232,213,181,.2)}
+[data-theme="medieval"] body::after{opacity:.04}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);overflow-x:hidden;width:100%;position:relative;line-height:1.6;-webkit-text-size-adjust:100%}
+img,video,svg{max-width:100%}
+body .page-h1,body .sub-title,body .nav-logo,body .stat-big{font-family:var(--font-serif);font-optical-sizing:auto}
+
+/* GRAIN TEXTURE (consistent with site) */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+[data-theme="dark"] body::after{opacity:.04}
+
+/* CUSTOM CURSOR (site-wide, fine-pointer only) */
+.cursor-dot{position:fixed;width:var(--cursor-size);height:var(--cursor-size);border-radius:50%;background:var(--accent);opacity:.35;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
+.cursor-dot.hover{width:44px;height:44px;opacity:.18}
+@media(max-width:768px){.cursor-dot{display:none}}
+@media(hover:none){.cursor-dot{display:none}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
+nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
+.nav-logo{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none}
+.nav-logo:hover{opacity:.8}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:500;font-size:.9rem;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+[data-theme="medieval"] .nav-links a{color:var(--text)}
+
+.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle:active,.back-link:active{transform:scale(0.97)}
+
+/* PAGE HERO */
+.page-hero{max-width:860px;margin:0 auto;padding:8rem 2rem 1rem;text-align:center;position:relative;z-index:1}
+.section-label{display:inline-block;font-size:.75rem;text-transform:uppercase;letter-spacing:3px;font-weight:600;margin-bottom:.8rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-h1{font-weight:600;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.08;letter-spacing:-0.02em;color:var(--text);margin-bottom:1rem}
+.page-sub{font-size:1.05rem;max-width:620px;margin:0 auto;color:var(--muted);line-height:1.7}
+
+/* SECTIONS */
+section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:3.5rem 2rem 0}
+.sub-header{margin-bottom:1.6rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:.8rem}
+.sub-title{font-weight:600;font-size:1.65rem;letter-spacing:-0.01em;color:var(--text)}
+.sub-note{font-size:.7rem;font-weight:500;color:var(--muted);font-family:var(--font-mono);letter-spacing:0}
+
+/* PROSE */
+.prose p{font-size:1rem;line-height:1.75;margin:0 0 1.1rem;color:var(--text)}
+.prose p:last-child{margin-bottom:0}
+.prose strong{font-weight:700}
+
+/* SOURCE REFERENCES (discreet, clickable) */
+a.src,span.src{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);letter-spacing:0;white-space:nowrap;text-decoration:none;border-bottom:1px dotted var(--subtle);padding-bottom:1px}
+a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* STAT CARDS */
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-bottom:1.6rem}
+.stat{background:var(--card-bg);border-radius:16px;padding:1.4rem 1.4rem 1.2rem;box-shadow:var(--card-shadow);border:1px solid var(--hair)}
+.stat-big{font-size:2.1rem;font-weight:600;line-height:1.1;letter-spacing:-0.01em;color:var(--text);margin-bottom:.4rem}
+.stat-lbl{font-size:.85rem;color:var(--muted);line-height:1.55;margin-bottom:.5rem}
+.stat .src{display:inline-block}
+
+/* COST LIST (Norge-kostnader) */
+.costlist{list-style:none;display:flex;flex-direction:column;gap:.9rem;margin-bottom:1.6rem}
+.costlist li{background:var(--card-bg);border-radius:16px;padding:1.2rem 1.4rem;box-shadow:var(--card-shadow);border:1px solid var(--hair);display:flex;gap:1.2rem;align-items:baseline;flex-wrap:wrap}
+.cost-amt{font-family:var(--font-serif);font-size:1.45rem;font-weight:600;letter-spacing:-0.01em;min-width:7.5rem}
+.cost-txt{flex:1;font-size:.95rem;color:var(--text);line-height:1.6;min-width:230px}
+.cost-txt .src{margin-left:.3rem}
+
+/* MYTHS */
+.myte{background:var(--card-bg);border-radius:16px;box-shadow:var(--card-shadow);border:1px solid var(--hair);margin-bottom:.8rem}
+.myte summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:.8rem;padding:1.1rem 1.4rem;user-select:none}
+.myte summary::-webkit-details-marker{display:none}
+.myte summary .m-tag{font-family:var(--font-mono);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);flex-shrink:0}
+.myte summary h3{font-family:var(--font-sans);font-size:1rem;font-weight:600;letter-spacing:-0.01em;flex:1}
+.myte summary .chev{color:var(--subtle);transition:transform 200ms var(--ease-out);flex-shrink:0}
+.myte[open] summary .chev{transform:rotate(90deg)}
+.myte .m-body{padding:0 1.4rem 1.2rem;font-size:.95rem;line-height:1.7;color:var(--text)}
+.myte .m-body p{margin-bottom:.7rem}
+.myte .m-body p:last-child{margin-bottom:0}
+
+/* DEEP-DIVE BOX (finansdetaljer) */
+.deepbox{background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);margin-top:1.4rem}
+.deepbox summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.7rem;padding:1.1rem 1.4rem;user-select:none}
+.deepbox summary::-webkit-details-marker{display:none}
+.deepbox summary .d-label{font-family:var(--font-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent)}
+.deepbox summary .chev{margin-left:auto;color:var(--subtle);transition:transform 200ms var(--ease-out)}
+.deepbox[open] summary .chev{transform:rotate(90deg)}
+.deepbox .d-body{padding:0 1.4rem 1.3rem;font-size:.95rem;line-height:1.7}
+.deepbox .d-body p{margin-bottom:.9rem}
+.deepbox .d-body ul{margin:0 0 .9rem 1.2rem}
+.deepbox .d-body li{margin-bottom:.55rem}
+.deepbox .d-note{font-size:.82rem;color:var(--muted);border-top:1px solid var(--hair);padding-top:.8rem;margin-top:1rem}
+
+/* SOURCES LIST */
+.kilder h3{font-family:var(--font-mono);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:1.6rem 0 .6rem}
+.kilder ul{list-style:none}
+.kilder li{font-size:.85rem;line-height:1.6;padding:.35rem 0;border-bottom:1px solid var(--hair);color:var(--text)}
+.kilder li a{color:var(--accent);text-decoration:none;word-break:break-all;font-size:.78rem;font-family:var(--font-mono)}
+.kilder li a:hover{text-decoration:underline}
+
+/* BACK LINK / FOOTER */
+.back-row{max-width:860px;margin:0 auto;padding:3rem 2rem 0;text-align:center}
+.back-link{display:inline-block;font-family:var(--font-sans);font-weight:600;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .3s,transform .3s}
+.back-link:hover{border-bottom-color:var(--accent)}
+@media(hover:hover) and (pointer:fine){
+  .back-link:hover{transform:translateX(-4px)}
+}
+.footer{max-width:860px;margin:0 auto;padding:4rem 2rem 2.5rem;text-align:center;font-size:.8rem;color:var(--subtle)}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  nav{padding:.9rem 1.2rem}
+  .nav-links{display:none}
+  .page-hero{padding:6.5rem 1.2rem 1rem}
+  section{padding:2.6rem 1.2rem 0}
+  .statgrid{gap:.8rem}
+  .cost-amt{min-width:0}
+  .back-row{padding:2rem 1.2rem 0}
+  .footer{padding:3rem 1.2rem 2rem}
+}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav id="mainNav">
+<a href="/" class="nav-logo">V.</a>
+<div class="nav-right">
+<ul class="nav-links">
+<li><a href="/#om">Om meg</a></li>
+<li><a href="/#erfaring">Erfaring</a></li>
+<li><a href="/#cv">CV</a></li>
+<li><a href="/#forskning">Forskning</a></li>
+<li><a href="/prosjekter/">Prosjekter</a></li>
+<li><a href="/#kontakt">Kontakt</a></li>
+</ul>
+<button class="theme-toggle" id="themeToggle" aria-label="Bytt mellom lyst og mørkt tema">☀️</button>
+</div>
+</nav>
+
+<header class="page-hero">
+<span class="section-label">Klima</span>
+<h1 class="page-h1">Klima: hvor vi står, og hva det koster</h1>
+<p class="page-sub">Status for kloden, regningen for Norge og de vanligste mytene. Nøkternt, med tall fra primærkilder: hvert tall har kildehenvisning i teksten, og alle kilder står samlet nederst på siden.</p>
+</header>
+
+<section id="globalt" aria-labelledby="h-globalt">
+<div class="sub-header">
+<h2 class="sub-title" id="h-globalt">Hvor vi står globalt</h2>
+<span class="sub-note">Målt, ikke ment</span>
+</div>
+<div class="statgrid">
+<div class="stat">
+<div class="stat-big">1,47&nbsp;°C</div>
+<div class="stat-lbl">over førindustriell tid (1850 til 1900) i 2025, det nest eller tredje varmeste året som er målt</div>
+<a class="src" href="https://climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record" target="_blank" rel="noopener">Copernicus, 2026</a>
+</div>
+<div class="stat">
+<div class="stat-big">432&nbsp;ppm</div>
+<div class="stat-lbl">CO₂ i atmosfæren, målt ved Mauna Loa i mai 2026. Omtrent 50&nbsp;% over førindustrielt nivå, som aldri var over 280&nbsp;ppm</div>
+<a class="src" href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener">NOAA, 2026</a>
+</div>
+<div class="stat">
+<div class="stat-big">38,1&nbsp;Gt</div>
+<div class="stat-lbl">fossile CO₂-utslipp i 2025, ny rekord og 1,1&nbsp;% mer enn året før. Arealbruksendringer kom i tillegg med 4,1&nbsp;Gt</div>
+<a class="src" href="https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/" target="_blank" rel="noopener">Global Carbon Project, 2025</a>
+</div>
+<div class="stat">
+<div class="stat-big">11 av 11</div>
+<div class="stat-lbl">de siste elleve årene (2015 til 2025) er de elleve varmeste som er målt</div>
+<a class="src" href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">WMO, 2025</a>
+</div>
+</div>
+<div class="prose">
+<p>2024 er det varmeste enkeltåret som er målt, med 1,60&nbsp;°C over førindustrielt nivå. Den langsiktige, menneskeskapte oppvarmingen ligger på omtrent 1,4&nbsp;°C <a class="src" href="https://climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record" target="_blank" rel="noopener">Copernicus, 2026</a>. Treårsperioden 2023 til 2025 er den første med et snitt over 1,5&nbsp;°C <a class="src" href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">WMO, 2025</a>.</p>
+<p>Skal oppvarmingen begrenses til 1,5&nbsp;°C, gjenstår et karbonbudsjett på 170&nbsp;Gt CO₂ fra 2026. Med dagens utslippsnivå tilsvarer det omtrent fire år, og budsjettet er brukt opp før 2030 hvis tempoet fortsetter <a class="src" href="https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/" target="_blank" rel="noopener">Global Carbon Project, 2025</a>. Med dagens politikk ligger kloden an til rundt 2,6&nbsp;°C oppvarming i 2100. Innfris alle avgitte løfter, blir det rundt 2,2&nbsp;°C, og nås alle netto null-mål, 1,9&nbsp;°C <a class="src" href="https://climateactiontracker.org/global/temperatures/" target="_blank" rel="noopener">Climate Action Tracker, 2025</a>.</p>
+<p>Havet har steget 11&nbsp;cm siden 1993, og stigningstakten er doblet: fra 2,1&nbsp;mm i året (1993 til 2002) til 4,7&nbsp;mm i året (2015 til 2024) <a class="src" href="https://wmo.int/news/media-centre/wmo-report-documents-spiralling-weather-and-climate-impacts" target="_blank" rel="noopener">WMO, 2025</a>. Sjøisen i Arktis krymper: september-minimumet faller med 12,2&nbsp;% per tiår sammenlignet med snittet for 1981 til 2010 <a class="src" href="https://climate.nasa.gov/vital-signs/arctic-sea-ice/" target="_blank" rel="noopener">NASA, 2026</a>. Grønland mister omtrent 265&nbsp;Gt is i året og Antarktis omtrent 135&nbsp;Gt, målt med GRACE-satellittene <a class="src" href="https://climate.nasa.gov/vital-signs/ice-sheets/" target="_blank" rel="noopener">NASA, 2026</a>. Åtte av de ti verste årene for verdens isbreer har kommet etter 2016 <a class="src" href="https://wmo.int/news/media-centre/wmo-report-documents-spiralling-weather-and-climate-impacts" target="_blank" rel="noopener">WMO, 2025</a>.</p>
+<p>Havet blir også surere: pH i overflaten har falt fra 8,21 til 8,10 siden rundt 1750, en økning i surhet på omtrent 30&nbsp;% som er uten sidestykke på minst 26&nbsp;000 år <a class="src" href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide" target="_blank" rel="noopener">NOAA, 2026</a>. Og enkelthendelser kan nå kobles til oppvarmingen: ekstremvarmen som rammet Sør-Asia i april 2024 var omtrent 45 ganger mer sannsynlig og 0,85&nbsp;°C varmere på grunn av menneskeskapte klimaendringer <a class="src" href="https://www.worldweatherattribution.org/climate-change-made-the-deadly-heatwaves-that-hit-millions-of-highly-vulnerable-people-across-asia-more-frequent-and-extreme/" target="_blank" rel="noopener">World Weather Attribution, 2024</a>.</p>
+</div>
+</section>
+
+<section id="norge-kostnader" aria-labelledby="h-kostnader">
+<div class="sub-header">
+<h2 class="sub-title" id="h-kostnader">Hva det koster Norge</h2>
+<span class="sub-note">Lommebok og økonomi</span>
+</div>
+<div class="prose">
+<p>Klimaendringer er ikke bare et spørsmål om isbjørner og fjerne øystater. De vises allerede i norske forsikringsoppgjør, landbruksstøtte og kommunebudsjetter.</p>
+</div>
+<ul class="costlist">
+<li>
+<span class="cost-amt">42,3 mrd. kr</span>
+<span class="cost-txt">i vær- og naturskadeerstatninger for bygning og innbo de siste ti årene (2016 til 2025). De tre siste årene har vært klart dyrest, omtrent 100 forsikringskunder rammes hver dag, og styrtregn i tettbygde strøk står for rundt halvparten av skadene.<a class="src" href="https://www.finansnorge.no/artikler/2026/03/var--og-naturskader-for-423-milliarder/" target="_blank" rel="noopener">Finans Norge, 2026</a></span>
+</li>
+<li>
+<span class="cost-amt">7,4 mrd. kr</span>
+<span class="cost-txt">i vær- og naturskadeerstatninger i rekordåret 2023, mot 2,8 milliarder i 2022. Det høyeste nivået siden målingene startet i 1980.<a class="src" href="https://www.finansnorge.no/artikler/2024/03/var--og-naturskader-for-35-milliarder-kroner/" target="_blank" rel="noopener">Finans Norge, 2024</a></span>
+</li>
+<li>
+<span class="cost-amt">3,9 mrd. kr</span>
+<span class="cost-txt">i forsikringserstatninger etter ekstremværet «Hans» i august 2023. Den samlede samfunnsregningen, med veier, jernbane og annen infrastruktur, er langt høyere, men ikke tallfestet.<a class="src" href="https://www.finansnorge.no/artikler/2026/03/var--og-naturskader-for-423-milliarder/" target="_blank" rel="noopener">Finans Norge, 2026</a></span>
+</li>
+<li>
+<span class="cost-amt">ca. 2 mrd. kr</span>
+<span class="cost-txt">ble utbetalt i avlingsskadeerstatning etter tørkesommeren 2018, til 13&nbsp;460 bønder. Kilden oppgir beløpet noe ulikt, fra 1,2 til nesten 2 milliarder.<a class="src" href="https://www.bondelaget.no/nyhetsarkiv/nesten-to-milliarder-kroner-erstattet-etter-fjorarets-torke" target="_blank" rel="noopener">Bondelaget, 2019</a></span>
+</li>
+<li>
+<span class="cost-amt">85 mrd. kr</span>
+<span class="cost-txt">er beste estimat for hva det vil koste å sikre bebyggelse i faresoner for flom og skred: omtrent 210&nbsp;000 bygg, rundt 10&nbsp;% av bygningsmassen, står i slike soner. Anslaget spenner fra 50 til 115 milliarder.<a class="src" href="https://publikasjoner.nve.no/rapport/2021/rapport2021_20.pdf" target="_blank" rel="noopener">NVE, 2021</a></span>
+</li>
+</ul>
+</section>
+
+<section id="norge-natur" aria-labelledby="h-natur">
+<div class="sub-header">
+<h2 class="sub-title" id="h-natur">Natur, friluftsliv og vær i Norge</h2>
+<span class="sub-note">Det vi merker der vi bor</span>
+</div>
+<div class="prose">
+<p>Norge er allerede 1,4&nbsp;°C varmere enn i 1901, og oppvarmingen har gått raskere de siste tiårene. Årsnedbøren har økt med 21&nbsp;% i samme periode <a class="src" href="https://www.miljodirektoratet.no/ansvarsomrader/klima/for-myndigheter/klimatilpasning/klimatilpasning-krever-kunnskap/dagens-og-framtidens-klima/" target="_blank" rel="noopener">Miljødirektoratet, 2025</a>.</p>
+<p>For skifolket er utviklingen konkret: ved høye utslipp kan Tromsø gå fra omtrent fire og en halv måned skiføre i dag til rundt én måned mot 2100. Sesongen blir kortere i hele landet, og i lavlandet langs kysten blir snøen nesten borte <a class="src" href="https://www.met.no/nyhetsarkiv/framtidens-klima-i-norge-flere-oversvommelser-mer-torke-og-mindre-sno" target="_blank" rel="noopener">Meteorologisk institutt, 2025</a>. Isbreene er alt godt i gang: de 131 målte norske breene har mistet rundt 10&nbsp;% av arealet og i snitt 16 meter tykkelse siden 1960-tallet og er nå på sitt minste siden rundt 1900. Ifølge NVE kan to tredjedeler av ismassene være borte om 70 til 100 år <a class="src" href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/bre/breer-og-klima/" target="_blank" rel="noopener">NVE, 2026</a>.</p>
+<p>I havet flytter fisken seg: torske- og hysesamfunnene i Barentshavet har trukket markant nordover, raskere enn IPCC forutså, og opptil 25 nye arter kan komme inn i Barentshavet innen 2050 <a class="src" href="https://www.hi.no/hi/nyheter/2019/september/ny-animasjon-se-hvordan-fisken-flytter-seg" target="_blank" rel="noopener">Havforskningsinstituttet, 2019</a>.</p>
+<p>Været blir våtere og villere i begge ender. Styrtregnet blir enda kraftigere og kommer oftere, og ved fortsatt økende utslipp øker årsnedbøren med 11&nbsp;% mot 2100 <a class="src" href="https://www.met.no/nyhetsarkiv/framtidens-klima-i-norge-flere-oversvommelser-mer-torke-og-mindre-sno" target="_blank" rel="noopener">Meteorologisk institutt, 2025</a>. Ved samme utslippsutvikling ventes større middelflom og større 200-årsflom i nesten hele landet mot 2100, flere regnflommer og flere jord- og flomskred <a class="src" href="https://kommunikasjon.ntb.no/pressemelding/18697327/ny-rapport-slik-kan-klimaet-i-norge-bli-framover?publisherId=17847187&amp;lang=no" target="_blank" rel="noopener">Miljødirektoratet og NVE, 2025</a>.</p>
+</div>
+</section>
+
+<section id="fremtid" aria-labelledby="h-fremtid">
+<div class="sub-header">
+<h2 class="sub-title" id="h-fremtid">Fremtid og generasjoner</h2>
+<span class="sub-note">Norge mot 2100</span>
+</div>
+<div class="prose">
+<p>Et barn som fødes i Norge i dag, vil leve mesteparten av livet i klimaet disse framskrivningene beskriver. Hvis utslippene fortsetter å øke, blir Norge omtrent 3,4&nbsp;°C varmere mot slutten av århundret, og økningen blir størst i nord <a class="src" href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/" target="_blank" rel="noopener">Miljødirektoratet og NVE, 2025</a>.</p>
+<p>Svalbard viser hvor fort det kan gå. Der er det observert 4,0&nbsp;°C oppvarming bare mellom 1971 og 2017, vintrene er blitt 7,3&nbsp;°C varmere på 46 år, og omtrent to måneder med vinter har forsvunnet siden 1970-tallet. Ved middels til høye utslipp framskrives ytterligere 7 til 10&nbsp;°C oppvarming mot 2100 <a class="src" href="https://www.hi.no/hi/nyheter/2019/februar/svalbard-oppvarming-pa-4-grader-i-lopet-av-de-siste-50-arene" target="_blank" rel="noopener">NCCS, 2019</a>.</p>
+<p>Norges egne utslipp var 44,6 millioner tonn CO₂-ekvivalenter i 2024, 4&nbsp;% lavere enn året før og 13&nbsp;% under 1990-nivået. Målene er kutt på 55&nbsp;% innen 2030 og 70 til 75&nbsp;% innen 2035, slik det ble meldt til FN i juni 2025 <a class="src" href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2025/november-2025/utslipp-av-klimagasser-ble-redusert-i-2024/" target="_blank" rel="noopener">Miljødirektoratet, 2025</a>. Avstanden mellom dagens takt og målene sier noe om hvor mye som gjenstår i løpet av få år.</p>
+</div>
+</section>
+
+<section id="naeringsliv" aria-labelledby="h-naeringsliv">
+<div class="sub-header">
+<h2 class="sub-title" id="h-naeringsliv">Næringsliv og verdsettelse</h2>
+<span class="sub-note">Hva klima gjør med verdien av bedrifter</span>
+</div>
+<div class="prose">
+<p>Klimakostnader treffer verdien av bedrifter gjennom to kanaler. Den ene er kontantstrømmen: fysiske skader, forsikring, karbonpriser og tilpasningskostnader spiser av fremtidig inntjening, slik de norske kostnadstallene lenger opp på siden er eksempler på. Den andre er avkastningskravet: klimarisiko gjør fremtidig inntjening mer usikker, og usikker inntjening verdsettes lavere i dag. En bedrift kan altså tape verdi før skadene inntreffer, fordi markedet priser inn risikoen.</p>
+<p>Men forskningen viser at markedet foreløpig priser denne risikoen lavt: kapitalmarkedene straffer utslipp tilsvarende en karbonpris på 4 til 7 dollar per tonn, mens den samfunnsøkonomiske kostnaden anslås til mellom 43 og 300 dollar <a class="src" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5549819" target="_blank" rel="noopener">Pedersen, 2026</a>. Og det er ikke gitt at grønne selskaper alltid får billigere kapital enn brune.</p>
+</div>
+<details class="deepbox">
+<summary><span class="d-label">For deg som vil ha finansdetaljene</span><span class="chev" aria-hidden="true">›</span></summary>
+<div class="d-body">
+<p>Nåverdien av en bedrift er summen av forventede kontantstrømmer delt på (1&nbsp;+&nbsp;avkastningskrav)^t. Klima treffer både telleren og nevneren: kostnader, skader og karbonpriser reduserer kontantstrømmen, mens klimarisiko øker avkastningskravet, som senker nåverdien av alt som ligger langt frem i tid. Fordi nevner-effekten virker eksponentielt over tid, rammes langsiktige investeringer hardest. Det er nettopp de investeringene omstillingen krever.</p>
+<ul>
+<li>Den samfunnsøkonomiske karbonkostnaden (SCC) anslås til mellom 43 og 300 dollar per tonn CO₂ (Nordhaus 2019); amerikanske EPA anslo 190 dollar i 2023 <a class="src" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5549819" target="_blank" rel="noopener">Pedersen, 2026</a>.</li>
+<li>Markedet priser langt lavere: målt i implisitt og opplevd kapitalkostnad straffes utslipp med en helning på omtrent 4,2 til 6,5 dollar per tonn, en størrelsesorden for lavt til å drive netto null. Effekten har vokst over tid, og forskjellene mellom grønne og brune selskaper oppsto rundt 2014 <a class="src" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5549819" target="_blank" rel="noopener">Pedersen, 2026</a>.</li>
+<li>Grønne selskaper har i dag et målbart «greenium» i avkastningskravet: aggregert grønn skår gir omtrent 39 basispunkter lavere årlig avkastningskrav. I realiserte avkastninger er greenium derimot nær null og i praksis umulig å måle presist <a class="src" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5549819" target="_blank" rel="noopener">Pedersen, 2026</a>.</li>
+<li>Karbonbyrden kan settes i nåverditermer: i en forskningskalibrering er nåverdien av brune selskapers fremtidige utslipp, priset til SCC, omtrent tre ganger selskapsverdien. Byrden faller først under én gang selskapsverdien når karbonskatten overstiger 70 dollar per tonn. Dette er et modellresultat, ikke en observasjon <a class="src" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5978854" target="_blank" rel="noopener">Garleanu og Pedersen, 2026</a>.</li>
+</ul>
+<p>Et regneeksempel, merket som modellresultat: hvis et selskap med høye utslipp måtte betale den fulle samfunnskostnaden for fremtidige utslipp, ville nåverdien av den regningen i en forskningskalibrering vært rundt tre ganger selskapets verdi.</p>
+<p>Én nyanse er obligatorisk å ha med: fortegnet på risikopremien mellom grønt og brunt er et aktivt forskningsspørsmål, ikke avgjort. I kalibreringene kan greenium fra ren klimarisikoprising ha begge fortegn og er under ett prosentpoeng per år, og brune selskaper kan paradoksalt fungere som en hedge mot at klimapolitikken mislykkes <a class="src" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5978854" target="_blank" rel="noopener">Garleanu og Pedersen, 2026</a>.</p>
+<p class="d-note">Empirien over er fra globale aksjedata; kalibreringene er modellresultater og merket som det. Underliggende studier (Eskildsen m.fl. og Gormsen m.fl.) siteres her via Pedersen (2026). Alle beløp er i dollar per tonn CO₂ og regnes bevisst ikke om til kroner.</p>
+</div>
+</details>
+</section>
+
+<section id="myter" aria-labelledby="h-myter">
+<div class="sub-header">
+<h2 class="sub-title" id="h-myter">Myter og fakta</h2>
+<span class="sub-note">Ni vanlige innvendinger, etterprøvd</span>
+</div>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Klimaet har alltid endret seg»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Ja, klimaet har endret seg før. Men dagens oppvarming går omtrent ti ganger raskere enn den typiske oppvarmingen etter en istid, og menneskeskapt CO₂ tilføres atmosfæren rundt 250 ganger raskere enn den naturlige økningen etter siste istid <a class="src" href="https://science.nasa.gov/climate-change/evidence/" target="_blank" rel="noopener">NASA, 2026</a>. CO₂-økningen er den raskeste på minst 66 millioner år, og i perioden 1970 til 2020 varmet kloden seg raskere enn i noen annen 50-årsperiode de siste 2000 årene <a class="src" href="https://www.met.no/nyhetsarkiv/skyldes-klimaendringene-naturlige-variasjoner-eller-menneskeskapte-utslipp" target="_blank" rel="noopener">Meteorologisk institutt, 2026</a>.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Det er sola»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Satellitter har målt solinnstrålingen siden 1978: det er ingen økende trend. Energien fra sola har vært konstant eller svakt synkende siden 1750, samtidig som temperaturen på bakken stiger. I tillegg kjøles stratosfæren mens de nedre luftlagene varmes opp. Det er det motsatte av hva en varmere sol ville gitt, men akkurat det drivhusgasser gir <a class="src" href="https://science.nasa.gov/climate-change/faq/is-the-sun-causing-global-warming/" target="_blank" rel="noopener">NASA, 2026</a>.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«CO₂ er bare en sporgass, ren plantemat»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Effekten er målt, ikke teoretisk. Strålingspådrivet fra langlivede drivhusgasser var i 2024 på 3,54 watt per kvadratmeter over førindustrielt nivå. CO₂ alene står for 2,33 watt, altså to tredjedeler, og pådrivet har økt med 54&nbsp;% bare siden 1990 <a class="src" href="https://gml.noaa.gov/aggi/aggi.html" target="_blank" rel="noopener">NOAA, 2026</a>. Selve fysikken ble påvist på 1800-tallet, av Foote (1856), Tyndall (1861) og Arrhenius (1896).</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Forskerne er ikke enige»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>I den fagfellevurderte klimalitteraturen fant Lynas med flere (2021) over 99&nbsp;% enighet om at oppvarmingen er menneskeskapt. En eldre gjennomgang (Cook 2013) fant 97&nbsp;%. Alle store vitenskapsakademier og fagorganisasjoner har offisielle uttalelser som bekrefter menneskeskapt oppvarming <a class="src" href="https://science.nasa.gov/climate-change/scientific-consensus/" target="_blank" rel="noopener">NASA, 2026</a>.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Klimamodellene bommer»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Hausfather med flere (2020) etterprøvde 17 modellprognoser publisert mellom 1970 og 2007: 14 av dem var statistisk umulige å skille fra den observerte temperaturutviklingen. Modellene forutsa også avkjølingen etter Pinatubo-utbruddet, den arktiske forsterkningen og avkjølingen av stratosfæren <a class="src" href="https://skepticalscience.com/climate-models.htm" target="_blank" rel="noopener">Hausfather m.fl., 2020</a>.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Det var varmere i middelalderen»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Middelaldervarmen var regional, konsentrert rundt Nord-Atlanteren, ikke global. En stor rekonstruksjon av de siste 2000 årene (Neukom med flere, Nature 2019) finner ingen globalt sammenfallende varmeepoke i førindustriell tid. 1900-tallets oppvarming dekker derimot over 98&nbsp;% av kloden, og det er uten sidestykke <a class="src" href="https://skepticalscience.com/medieval-warm-period.htm" target="_blank" rel="noopener">Neukom m.fl., 2019</a>.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Oppvarmingen stoppet i 1998»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>2024 er det varmeste året i NOAAs 175 år lange måleserie, som starter i 1850, og de ti varmeste årene i serien er alle fra 2015 til 2024. Siden 1975 har oppvarmingen gått i en takt på 0,20&nbsp;°C per tiår <a class="src" href="https://www.climate.gov/news-features/understanding-climate/climate-change-global-temperature" target="_blank" rel="noopener">NOAA, 2026</a>. Året 2005, som en gang var rekordår, er nå nummer 13 på listen.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Kaldt vær motbeviser oppvarming»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Vær er ikke klima: klima er gjennomsnittet over 30 år. Enkeltdager og enkeltvintre kan være kalde i en verden som varmes opp. I USA settes det stadig flere varmerekorder og stadig færre kulderekorder siden 1950, og det er 48 år siden sist et år lå under 1900-tallssnittet <a class="src" href="https://oceanservice.noaa.gov/facts/weather_climate.html" target="_blank" rel="noopener">NOAA og NASA, 2026</a>.</p>
+</div>
+</details>
+<details class="myte">
+<summary><span class="m-tag">Myte</span><h3>«Det er vulkanene»</h3><span class="chev" aria-hidden="true">›</span></summary>
+<div class="m-body">
+<p>Alle verdens vulkaner slipper til sammen ut mellom 0,13 og 0,44 milliarder tonn CO₂ i året. Menneskeheten slipper ut omtrent 35 milliarder tonn, altså 80 til 270 ganger mer. Sagt på en annen måte: menneskehetens utslipp tilsvarer et Mount St. Helens-utbrudd (10 millioner tonn) hver 2,5 time <a class="src" href="https://www.usgs.gov/programs/VHP/volcanoes-can-affect-climate" target="_blank" rel="noopener">USGS, 2026</a>.</p>
+</div>
+</details>
+</section>
+
+<section id="migrasjon" aria-labelledby="h-migrasjon">
+<div class="sub-header">
+<h2 class="sub-title" id="h-migrasjon">Klima og migrasjon</h2>
+<span class="sub-note">Hva som faktisk er belagt</span>
+</div>
+<div class="prose">
+<p>Klimaendringer fordriver allerede titalls millioner mennesker årlig, men nesten alt skjer innenfor egne landegrenser, og de som rammes hardest er fattige land i det globale sør. Framskrivninger av migrasjon over landegrenser er svært usikre; politisk vold og styresett er sterkere drivere av asylstrømmer enn klima.</p>
+<p>Tallene bak: i 2024 ble det registrert 45,8 millioner interne fordrivelser som følge av katastrofer, det høyeste som er målt, og 99,5&nbsp;% var værrelaterte. I 2025 var tallet 29,9 millioner, 35&nbsp;% lavere enn året før, men fortsatt 13&nbsp;% over tiårssnittet. Merk at dette teller fordrivelser, ikke personer, og at mange er forebyggende evakueringer <a class="src" href="https://www.nrc.no/news/2026/conflict-and-violence-become-the-leading-driver-of-internal-displacements" target="_blank" rel="noopener">IDMC, 2026</a>. IPCC anslår at værekstremer i snitt har fordrevet over 20 millioner mennesker internt hvert år siden 2008, at omfanget øker med videre oppvarming, og at det meste skjer innenfor landegrenser, med internasjonale bevegelser primært til naboland <a class="src" href="https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-7/" target="_blank" rel="noopener">IPCC, 2022</a>.</p>
+<p>Verdensbankens Groundswell-rapport anslår i sitt øvre scenario opptil 216 millioner interne klimamigranter innen 2050, innenfor egne land i seks regioner i det globale sør. Tidlige tiltak kan redusere omfanget med inntil 80&nbsp;% <a class="src" href="https://www.worldbank.org/en/news/press-release/2021/09/13/climate-change-could-force-216-million-people-to-migrate-within-their-own-countries-by-2050" target="_blank" rel="noopener">Verdensbanken, 2021</a>. På kort sikt drives migrasjonsmønstre mer av sosioøkonomi og styresett enn av klima, ifølge IPCC, og en studie av asylstrømmer til EU finner at politisk vold er den klart sterkeste prediktoren, mens klimavariabler er svake <a class="src" href="https://www.nature.com/articles/s41467-021-22255-4" target="_blank" rel="noopener">Schutte m.fl., 2021</a>.</p>
+</div>
+</section>
+
+<section id="kilder" aria-labelledby="h-kilder" class="kilder">
+<div class="sub-header">
+<h2 class="sub-title" id="h-kilder">Kilder</h2>
+<span class="sub-note">Komplett liste, samme rekkefølge som på siden</span>
+</div>
+<h3>Globalt</h3>
+<ul>
+<li>Copernicus C3S / WMO (2026): 2025 var det tredje varmeste året som er målt. <a href="https://climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record" target="_blank" rel="noopener">climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record</a></li>
+<li>WMO (2025): Earth's climate swings increasingly out of balance. <a href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance</a></li>
+<li>NOAA Global Monitoring Laboratory (2026): Trends in atmospheric CO₂, Mauna Loa. <a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener">gml.noaa.gov/ccgg/trends/</a></li>
+<li>Global Carbon Project (2025): Fossil fuel CO₂ emissions hit record high in 2025. <a href="https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/" target="_blank" rel="noopener">globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/</a></li>
+<li>Climate Action Tracker (2025): Temperatures. <a href="https://climateactiontracker.org/global/temperatures/" target="_blank" rel="noopener">climateactiontracker.org/global/temperatures/</a></li>
+<li>WMO (2025): WMO report documents spiralling weather and climate impacts. <a href="https://wmo.int/news/media-centre/wmo-report-documents-spiralling-weather-and-climate-impacts" target="_blank" rel="noopener">wmo.int/news/media-centre/wmo-report-documents-spiralling-weather-and-climate-impacts</a></li>
+<li>NASA (2026): Arctic sea ice minimum, vital signs. <a href="https://climate.nasa.gov/vital-signs/arctic-sea-ice/" target="_blank" rel="noopener">climate.nasa.gov/vital-signs/arctic-sea-ice/</a></li>
+<li>NASA (2026): Ice sheets, vital signs. <a href="https://climate.nasa.gov/vital-signs/ice-sheets/" target="_blank" rel="noopener">climate.nasa.gov/vital-signs/ice-sheets/</a></li>
+<li>World Weather Attribution (2024): Klimaendringer gjorde hetebølgene i Asia mer sannsynlige og mer ekstreme. <a href="https://www.worldweatherattribution.org/climate-change-made-the-deadly-heatwaves-that-hit-millions-of-highly-vulnerable-people-across-asia-more-frequent-and-extreme/" target="_blank" rel="noopener">worldweatherattribution.org/climate-change-made-the-deadly-heatwaves…</a></li>
+<li>NOAA Climate.gov (2026): Climate change: atmospheric carbon dioxide. <a href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide" target="_blank" rel="noopener">climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide</a></li>
+</ul>
+<h3>Norge: kostnader</h3>
+<ul>
+<li>Finans Norge (2026): Vær- og naturskader for 42,3 milliarder. <a href="https://www.finansnorge.no/artikler/2026/03/var--og-naturskader-for-423-milliarder/" target="_blank" rel="noopener">finansnorge.no/artikler/2026/03/var--og-naturskader-for-423-milliarder/</a></li>
+<li>Finans Norge (2024): Vær- og naturskader for 3,5 milliarder kroner (2023-tallene). <a href="https://www.finansnorge.no/artikler/2024/03/var--og-naturskader-for-35-milliarder-kroner/" target="_blank" rel="noopener">finansnorge.no/artikler/2024/03/var--og-naturskader-for-35-milliarder-kroner/</a></li>
+<li>Norges Bondelag (2019): Nesten to milliarder kroner erstattet etter fjorårets tørke. <a href="https://www.bondelaget.no/nyhetsarkiv/nesten-to-milliarder-kroner-erstattet-etter-fjorarets-torke" target="_blank" rel="noopener">bondelaget.no/nyhetsarkiv/nesten-to-milliarder-kroner-erstattet-etter-fjorarets-torke</a></li>
+<li>NVE (2021): Rapport 20/2021, kostnader for sikring mot flom og skred (FOSS). <a href="https://publikasjoner.nve.no/rapport/2021/rapport2021_20.pdf" target="_blank" rel="noopener">publikasjoner.nve.no/rapport/2021/rapport2021_20.pdf</a></li>
+</ul>
+<h3>Norge: natur, vær og fremtid</h3>
+<ul>
+<li>Miljødirektoratet (2025): Dagens og framtidens klima. <a href="https://www.miljodirektoratet.no/ansvarsomrader/klima/for-myndigheter/klimatilpasning/klimatilpasning-krever-kunnskap/dagens-og-framtidens-klima/" target="_blank" rel="noopener">miljodirektoratet.no/…/dagens-og-framtidens-klima/</a></li>
+<li>Meteorologisk institutt (2025): Framtidens klima i Norge: flere oversvømmelser, mer tørke og mindre snø. <a href="https://www.met.no/nyhetsarkiv/framtidens-klima-i-norge-flere-oversvommelser-mer-torke-og-mindre-sno" target="_blank" rel="noopener">met.no/nyhetsarkiv/framtidens-klima-i-norge-flere-oversvommelser-mer-torke-og-mindre-sno</a></li>
+<li>NVE (2026): Breer og klima. <a href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/bre/breer-og-klima/" target="_blank" rel="noopener">nve.no/vann-og-vassdrag/vannets-kretsloep/bre/breer-og-klima/</a></li>
+<li>Havforskningsinstituttet (2019): Se hvordan fisken flytter seg. <a href="https://www.hi.no/hi/nyheter/2019/september/ny-animasjon-se-hvordan-fisken-flytter-seg" target="_blank" rel="noopener">hi.no/hi/nyheter/2019/september/ny-animasjon-se-hvordan-fisken-flytter-seg</a></li>
+<li>Miljødirektoratet / NVE via NTB (2025): Ny rapport: slik kan klimaet i Norge bli framover. <a href="https://kommunikasjon.ntb.no/pressemelding/18697327/ny-rapport-slik-kan-klimaet-i-norge-bli-framover?publisherId=17847187&amp;lang=no" target="_blank" rel="noopener">kommunikasjon.ntb.no/pressemelding/18697327/…</a></li>
+<li>NVE (2025): Klima nå og i framtiden. <a href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/" target="_blank" rel="noopener">nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/</a></li>
+<li>NCCS / Havforskningsinstituttet (2019): Svalbard: oppvarming på 4 grader i løpet av de siste 50 årene. <a href="https://www.hi.no/hi/nyheter/2019/februar/svalbard-oppvarming-pa-4-grader-i-lopet-av-de-siste-50-arene" target="_blank" rel="noopener">hi.no/hi/nyheter/2019/februar/svalbard-oppvarming-pa-4-grader-i-lopet-av-de-siste-50-arene</a></li>
+<li>Miljødirektoratet (2025): Utslipp av klimagasser ble redusert i 2024. <a href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2025/november-2025/utslipp-av-klimagasser-ble-redusert-i-2024/" target="_blank" rel="noopener">miljodirektoratet.no/aktuelt/fagmeldinger/2025/november-2025/utslipp-av-klimagasser-ble-redusert-i-2024/</a></li>
+</ul>
+<h3>Næringsliv og verdsettelse</h3>
+<ul>
+<li>Garleanu og Pedersen (2025, revidert 2026): Climate Risk Pricing. SSRN 5978854. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5978854" target="_blank" rel="noopener">papers.ssrn.com/sol3/papers.cfm?abstract_id=5978854</a></li>
+<li>Pedersen (2026): Can Sustainable Finance Save the Planet? SSRN 5549819, kommer i Journal of Finance: Insights and Perspectives. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5549819" target="_blank" rel="noopener">papers.ssrn.com/sol3/papers.cfm?abstract_id=5549819</a></li>
+<li>Pedersen, Fitzgibbons og Pomorski (2021): Responsible Investing: The ESG-Efficient Frontier. Journal of Financial Economics 142. <a href="https://www.sciencedirect.com/science/article/pii/S0304405X20302853" target="_blank" rel="noopener">sciencedirect.com/science/article/pii/S0304405X20302853</a></li>
+</ul>
+<h3>Myter og fakta</h3>
+<ul>
+<li>NASA (2026): Evidence for climate change. <a href="https://science.nasa.gov/climate-change/evidence/" target="_blank" rel="noopener">science.nasa.gov/climate-change/evidence/</a></li>
+<li>Meteorologisk institutt (2026): Skyldes klimaendringene naturlige variasjoner eller menneskeskapte utslipp? <a href="https://www.met.no/nyhetsarkiv/skyldes-klimaendringene-naturlige-variasjoner-eller-menneskeskapte-utslipp" target="_blank" rel="noopener">met.no/nyhetsarkiv/skyldes-klimaendringene-naturlige-variasjoner-eller-menneskeskapte-utslipp</a></li>
+<li>NASA (2026): Is the sun causing global warming? <a href="https://science.nasa.gov/climate-change/faq/is-the-sun-causing-global-warming/" target="_blank" rel="noopener">science.nasa.gov/climate-change/faq/is-the-sun-causing-global-warming/</a></li>
+<li>NOAA Global Monitoring Laboratory (2026): The NOAA Annual Greenhouse Gas Index (AGGI). <a href="https://gml.noaa.gov/aggi/aggi.html" target="_blank" rel="noopener">gml.noaa.gov/aggi/aggi.html</a></li>
+<li>NASA (2026): Scientific consensus. <a href="https://science.nasa.gov/climate-change/scientific-consensus/" target="_blank" rel="noopener">science.nasa.gov/climate-change/scientific-consensus/</a></li>
+<li>Hausfather m.fl. (2020) via Skeptical Science: How reliable are climate models? <a href="https://skepticalscience.com/climate-models.htm" target="_blank" rel="noopener">skepticalscience.com/climate-models.htm</a></li>
+<li>Neukom m.fl. (Nature 2019) via Skeptical Science: What ended the Medieval Warm Period? <a href="https://skepticalscience.com/medieval-warm-period.htm" target="_blank" rel="noopener">skepticalscience.com/medieval-warm-period.htm</a></li>
+<li>NOAA Climate.gov (2026): Climate change: global temperature. <a href="https://www.climate.gov/news-features/understanding-climate/climate-change-global-temperature" target="_blank" rel="noopener">climate.gov/news-features/understanding-climate/climate-change-global-temperature</a></li>
+<li>NOAA Ocean Service (2026): What's the difference between weather and climate? <a href="https://oceanservice.noaa.gov/facts/weather_climate.html" target="_blank" rel="noopener">oceanservice.noaa.gov/facts/weather_climate.html</a></li>
+<li>USGS (2026): Volcanoes can affect climate. <a href="https://www.usgs.gov/programs/VHP/volcanoes-can-affect-climate" target="_blank" rel="noopener">usgs.gov/programs/VHP/volcanoes-can-affect-climate</a></li>
+</ul>
+<h3>Klima og migrasjon</h3>
+<ul>
+<li>IDMC / Flyktninghjelpen (2026): Global Report on Internal Displacement. <a href="https://www.nrc.no/news/2026/conflict-and-violence-become-the-leading-driver-of-internal-displacements" target="_blank" rel="noopener">nrc.no/news/2026/conflict-and-violence-become-the-leading-driver-of-internal-displacements</a></li>
+<li>IPCC (2022): AR6 WG2, kapittel 7. <a href="https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-7/" target="_blank" rel="noopener">ipcc.ch/report/ar6/wg2/chapter/chapter-7/</a></li>
+<li>Verdensbanken (2021): Groundswell: climate change could force 216 million people to migrate within their own countries by 2050. <a href="https://www.worldbank.org/en/news/press-release/2021/09/13/climate-change-could-force-216-million-people-to-migrate-within-their-own-countries-by-2050" target="_blank" rel="noopener">worldbank.org/en/news/press-release/2021/09/13/…</a></li>
+<li>Schutte m.fl. (2021): Nature Communications, klimavariabler og asylstrømmer til EU. <a href="https://www.nature.com/articles/s41467-021-22255-4" target="_blank" rel="noopener">nature.com/articles/s41467-021-22255-4</a></li>
+</ul>
+</section>
+
+<div class="back-row">
+<a href="/" class="back-link">← Tilbake til forsiden</a>
+</div>
+
+<div class="footer">&copy; 2026 Valiant Evers, Oslo</div>
+
+<script>
+(function(){
+// Theme toggle (matches main site: cycles light and dark; medieval is set by easter egg)
+var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
+if(savedTheme==='dark'||savedTheme==='medieval'){
+  document.documentElement.setAttribute('data-theme',savedTheme);
+}
+function updateThemeIcon(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var btn=document.getElementById('themeToggle');
+  if(!btn)return;
+  btn.textContent=(t==='dark')?'🌙':(t==='medieval'?'⚔️':'☀️');
+}
+updateThemeIcon();
+document.getElementById('themeToggle').addEventListener('click',function(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var next=(t==='dark')?null:'dark';
+  if(next){document.documentElement.setAttribute('data-theme',next);}
+  else{document.documentElement.removeAttribute('data-theme');}
+  try{localStorage.setItem('ve-theme',next||'')}catch(e){}
+  updateThemeIcon();
+});
+
+// Nav scroll style
+window.addEventListener('scroll',function(){
+  var nav=document.getElementById('mainNav');
+  if(window.scrollY>50)nav.classList.add('scrolled');else nav.classList.remove('scrolled');
+});
+
+// Easter egg: typing "prins" switches to medieval theme (matches main site)
+var typed='';
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  typed=(typed+e.key.toLowerCase()).slice(-10);
+  if(typed.indexOf('prins')!==-1){
+    document.documentElement.setAttribute('data-theme','medieval');
+    try{localStorage.setItem('ve-theme','medieval')}catch(e){}
+    updateThemeIcon();
+    typed='';
+  }
+});
+
+// Custom cursor, desktop / fine-pointer only
+var cursorDot=document.getElementById('cursorDot');
+if(cursorDot){
+  var mx=0,my=0,dx=0,dy=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cursorDot.style.opacity='';});
+  document.addEventListener('mouseleave',function(){cursorDot.style.opacity='0';});
+  document.addEventListener('mouseenter',function(){cursorDot.style.opacity='';});
+  (function loop(){dx+=(mx-dx)*.15;dy+=(my-dy)*.15;cursorDot.style.left=dx+'px';cursorDot.style.top=dy+'px';requestAnimationFrame(loop);})();
+  Array.prototype.forEach.call(document.querySelectorAll('a,button,summary'),function(el){
+    el.addEventListener('mouseenter',function(){cursorDot.classList.add('hover');});
+    el.addEventListener('mouseleave',function(){cursorDot.classList.remove('hover');});
+  });
+}
+})();
+</script>
+</body>
+</html>
