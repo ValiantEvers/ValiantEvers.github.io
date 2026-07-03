@@ -2,26 +2,35 @@
 //
 // Forventet (default inputs, realkroner): månedlig brutto pensjon mellom 24 000 og 34 000 kr.
 
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
+import { mkdtempSync, rmSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import { tmpdir } from 'node:os'
+import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'node:path'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-// Transpile pension-engine.ts on the fly using a tiny inline TS stripper —
-// or just import via tsx/esbuild. Easiest path: use the registered TS loader.
-// Since we may not have tsx in the standard project, we manually compile.
-
+// Transpiler pension-engine.ts (+ lib/tax.ts) med repoets egen installerte
+// typescript (devDependency) — hermetisk: ingen npx, ingen nettverk.
+// CommonJS-output slik at Node kan følge den extension-løse './lib/tax'-importen.
+const require = createRequire(import.meta.url)
+const tscJs = require.resolve('typescript/lib/tsc.js')
 const tsFile = resolve(__dirname, 'pension-engine.ts')
-const jsFile = resolve(__dirname, '.pension-engine.compiled.mjs')
+const outDir = mkdtempSync(join(tmpdir(), 'pensjonskalkulator-sanity-'))
 
-execSync(
-  `npx --yes esbuild ${tsFile} --bundle --format=esm --platform=node --outfile=${jsFile}`,
-  { stdio: 'inherit' },
-)
-
-const { calculatePension, DEFAULT_INPUTS } = await import(jsFile)
+let calculatePension, DEFAULT_INPUTS
+try {
+  execFileSync(
+    process.execPath,
+    [tscJs, tsFile, '--outDir', outDir, '--module', 'commonjs', '--target', 'es2022', '--skipLibCheck'],
+    { stdio: 'inherit' },
+  )
+  ;({ calculatePension, DEFAULT_INPUTS } = require(join(outDir, 'pension-engine.js')))
+} finally {
+  rmSync(outDir, { recursive: true, force: true })
+}
 
 const result = calculatePension(DEFAULT_INPUTS)
 

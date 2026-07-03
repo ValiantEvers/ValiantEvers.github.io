@@ -54,10 +54,11 @@ De viktigste antakelsene:
 
 Modellen i `src/lib/tax.ts` er kalibrert mot **2025-satser** og dekker:
 
-- Alminnelig inntekt 22 % på pensjonsinntekt etter minstefradrag
-- Trygdeavgift 5,1 % på pensjon (vs 7,8 % på lønn)
-- Trinnskatt (5 brakketter, 1,7–17,6 %)
-- Pensjonsskattefradrag (maks 33 250, 3-trinns nedtrapping)
+- Alminnelig inntekt 22 % på pensjonsinntekt etter minstefradrag og personfradrag
+- Trygdeavgift 5,1 % på pensjon (vs 7,7 % på lønn), med 25 %-opptrappingsregel
+  rett over nedre grense
+- Trinnskatt (5 brakketter, 1,7–17,7 %)
+- Skattefradrag for pensjonsinntekt (maks 36 000, to-trinns nedtrapping)
 - ASK beskattes separat som aksjegevinst, 37,84 % på gevinst-andelen
 
 Skatten anvendes på **real** (dagens kjøpekraft) pensjonsinntekt, ikke

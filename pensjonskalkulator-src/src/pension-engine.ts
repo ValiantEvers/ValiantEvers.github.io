@@ -187,9 +187,10 @@ export function calculatePension(inputs: PensionInputs): PensionResult {
 
   // Visualiser til siste relevante utbetalingsår + et lite tillegg.
   // Folketrygd og AFP er livsvarig — ikke begrensende.
+  // Defensivt tak på 120 år så ekstreme inputs ikke kan fryse fanen.
   const visualizeEndAge =
     retirementAge + Math.max(otpPayoutYears, ipsPayoutYears, askPayoutYears) + 2
-  const totalYears = visualizeEndAge - currentAge
+  const totalYears = Math.min(visualizeEndAge - currentAge, 120)
 
   // IPS er capet på 15 000 kr / år (norske skatteregler)
   const ipsAnnualCapped = Math.min(Math.max(0, ipsAnnualContribution), IPS_ANNUAL_MAX)
@@ -252,6 +253,26 @@ export function calculatePension(inputs: PensionInputs): PensionResult {
     monthlyAfp: 0,
     salaryNominal: salaryGross,
   })
+
+  // Allerede ved/over pensjonsalder: frys balansene nå og beregn månedlige
+  // utbetalinger (inkl. garantipensjon-floor) umiddelbart — ellers ville
+  // loopens "siste arbeidsår"-gren aldri truffet og resultatet blitt 0 kr.
+  if (yearsToRetirement === 0) {
+    retirementFolketrygdBalance = folketrygdBalance
+    retirementOtpBalance = otpBalance
+    retirementIpsBalance = ipsBalance
+    retirementAskBalance = askBalance
+    retirementSalaryNominal = salaryGross
+    retirementG = G
+
+    const beregnetMonthlyFolketrygd = retirementFolketrygdBalance / delingstall / 12
+    const monthlyGarantipensjonNominal = (GARANTIPENSJON_G_FACTOR * retirementG) / 12
+    monthlyFolketrygd = Math.max(beregnetMonthlyFolketrygd, monthlyGarantipensjonNominal)
+    monthlyOtp = pmt(retirementOtpBalance, otpPayoutYears)
+    monthlyIps = pmt(retirementIpsBalance, ipsPayoutYears)
+    monthlyAsk = pmt(retirementAskBalance, askPayoutYears)
+    monthlyAfp = includeAfp ? (AFP_RATE_OF_G * retirementG) / 12 : 0
+  }
 
   for (let yearOffset = 1; yearOffset <= totalYears; yearOffset++) {
     const age = currentAge + yearOffset
