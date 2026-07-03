@@ -51,8 +51,8 @@ USER_AGENT = "ValiantEvers-strategi-rescore/1.0"
 GIST_API = "https://api.github.com"
 GIST_FILENAME = "strategi.enc.json"
 
-# Backup goes OUTSIDE the repo (projects/), never committed.
-BACKUP_DIR = Path(__file__).resolve().parents[2]
+# Backup goes OUTSIDE the repo (projects/_backups/strategi-gist/), never committed.
+BACKUP_DIR = Path(__file__).resolve().parents[2] / "_backups" / "strategi-gist"
 
 
 def derive_key(password: str, salt: bytes) -> bytes:
@@ -301,6 +301,7 @@ def main():
 
     # ── APPLY: obligatorisk backup FØR Gist-skriving ──
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    BACKUP_DIR.mkdir(parents=True, exist_ok=True)
     backup_path = BACKUP_DIR / f"gist-backup-pre-rescore-{ts}.json"
     backup_path.write_text(json.dumps(blob), encoding="utf-8")
     print(f"\n✓ Backup av nåværende kryptert blob: {backup_path}")
