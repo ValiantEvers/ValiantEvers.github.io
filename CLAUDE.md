@@ -30,7 +30,9 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 ## Conventions
 - ALL CSS, JS, HTML stays in single file per page (no extracted .css/.js — this is intentional, not a bug)
 - Custom-property-driven theming (CSS vars at `:root`)
-- 6-language support: no, en, fr, de, ja + medieval (easter egg). Strings driven by `data-i` attributes + JS dictionary
+- Language support: no, en, fr, de, ja + medieval (easter egg). Strings driven by `data-i` attributes + JS dictionary.
+  BESLUTTET 2026-07-04: dette 5-språksettet (med ja, uten es/nl) er det BEVISSTE valget for
+  index.html og cv.html — ikke forsømt rydding. Ikke legg til es/nl uten eksplisitt ønske.
 - Email is JS-rendered from character codes after page load. The HTML source must contain only an empty `<a>` element with an empty `<span>` inside — no plain mailto: href and no visible email text. This pattern bypasses Cloudflare email obfuscation entirely. Apply to every page that exposes the email.
 
 ## Easter eggs (DO NOT BREAK)
