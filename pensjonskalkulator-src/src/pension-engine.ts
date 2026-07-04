@@ -489,15 +489,19 @@ export function calculatePension(inputs: PensionInputs): PensionResult {
   }
 
   let extraAskMonthlyToday = 0
-  if (balanceNeededAtRetirement > 0 && yearsToRetirement > 0 && nominalReturn > 0) {
+  if (balanceNeededAtRetirement > 0 && yearsToRetirement > 0 && nominalReturn !== 0) {
     // FV av månedlig bidrag i 12*N måneder med månedlig avkastning, forenklet til årlig:
-    // FV = C_year × ((1+r)^N - 1) / r, der C_year = 12 × c_month
+    // FV = C_year × ((1+r)^N - 1) / r, der C_year = 12 × c_month.
+    // Formelen gjelder for alle r ≠ 0, også negative (r > −1). Grensen r → 0 er
+    // ((1+r)^N − 1)/r → N, så lineær-fallbacken under er den kontinuerlige grensen.
+    // (Lineær divisjon for r < 0 ville underestimert nødvendig sparing, siden
+    // bidragene taper verdi frem til pensjon.)
     const r = nominalReturn
     const N = yearsToRetirement
     const fvFactor = (Math.pow(1 + r, N) - 1) / r
     extraAskMonthlyToday = balanceNeededAtRetirement / (12 * fvFactor)
   } else if (balanceNeededAtRetirement > 0 && yearsToRetirement > 0) {
-    // Hvis nominalReturn er 0, faller annuiteten ned til balanse / antall år
+    // nominalReturn er nøyaktig 0: annuiteten faller ned til balanse / antall år
     extraAskMonthlyToday = balanceNeededAtRetirement / (12 * yearsToRetirement)
   }
 

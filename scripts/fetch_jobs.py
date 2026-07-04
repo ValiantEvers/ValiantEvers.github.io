@@ -638,9 +638,12 @@ def is_priority_company(company: str) -> bool:
 
 # Graduate-nett (substring-match, som resten av PROFILE-matchingen). Bare «intern»
 # er utelatt med vilje (treffer «internasjonal» o.l.); «internship» er trygt.
+# «lærling» er utelatt: strengen står også i PROFILE["negativeKeywords"], så
+# keep_job dropper alltid ikke-finans lærling-treff («neg and not finance») —
+# entryen kunne aldri avgjøre noe.
 GRADUATE_NET = [
     "graduate", "trainee", "nyutdannet", "internship",
-    "sommerjobb", "sommerinternship", "lærling", "junior",
+    "sommerjobb", "sommerinternship", "junior",
 ]
 
 # Finans-vokabular for keep-filteret — bevisst BREDERE enn PROFILE.titleKeywords

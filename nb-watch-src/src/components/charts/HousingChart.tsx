@@ -2,7 +2,7 @@ import {
   ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts'
 import { useTheme } from '../../lib/useTheme'
-import { fmtPct, fmtNum, fmtYearFromEpoch, toEpoch, yearTickEpochs } from '../../lib/format'
+import { fmtPct, fmtNum, fmtMonthYear, fmtYearFromEpoch, toEpoch, yearTickEpochs } from '../../lib/format'
 import { LabeledPoint } from '../../lib/data'
 import { COPY } from '../../content/descriptions'
 
@@ -60,7 +60,7 @@ export function HousingChart({ boligpris }: { boligpris: LabeledPoint[] }) {
               if (name === COPY.bolig.legend.yoy) return fmtPct(v)
               return fmtNum(v, 1)
             }}
-            labelFormatter={(v: number) => new Date(v).toISOString().slice(0, 7)}
+            labelFormatter={(v: number) => fmtMonthYear(new Date(v).toISOString().slice(0, 10))}
             contentStyle={{ fontSize: 12 }}
           />
           <Legend wrapperStyle={{ fontSize: 12 }} />
