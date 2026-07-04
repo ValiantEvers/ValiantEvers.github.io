@@ -11,8 +11,8 @@ Deployes under `evers.no/pensjonskalkulator/`.
 npm install
 npm run dev          # http://localhost:5173/pensjonskalkulator/
 npm run typecheck    # TypeScript-validering uten emit
-npm run build        # Produksjons-build til dist/
-npm run preview      # Forhåndsvis dist/ lokalt
+npm run build        # Produksjons-build til ../pensjonskalkulator/ (deploy-mappen)
+npm run preview      # Forhåndsvis bygget lokalt
 ```
 
 ## Sanity-test av beregningsmotoren
@@ -81,17 +81,20 @@ korte. Logikken ligger i `src/lib/useUrlState.ts`.
 
 ## Deploy til evers.no
 
-Bygget havner i `pensjonskalkulator/dist/`. For at GitHub Pages skal servere det under
-`evers.no/pensjonskalkulator/` må innholdet i `dist/` flyttes opp ett nivå, slik
-`personligokonomi/` er strukturert i hovedrepoet. Eksempel:
+Deploy er automatisk. `.github/workflows/build-pensjonskalkulator.yml` bygger og
+committer output til søsken-mappen `../pensjonskalkulator/` ved push til main når
+noe under `pensjonskalkulator-src/` endres (auto-commiten har `[skip ci]` så den
+ikke trigger seg selv). Ikke rediger `../pensjonskalkulator/` direkte, og ingen
+manuell kopiering av build-output er nødvendig.
 
-```bash
-npm run build
-rsync -av --delete dist/ ../  # overskriver kilde — bruk med varsomhet
-```
+`vite.config.ts` har `outDir: '../pensjonskalkulator'` (med `emptyOutDir`), så et
+lokalt `npm run build` skriver også rett til deploy-mappen — CI regenererer den
+uansett ved neste push til main.
 
-Mer praktisk: hold kilden i pensjonskalkulator-mappen, og kopier kun `index.html`,
-`assets/` og `favicon.svg` fra `dist/` til ønsket deploy-sti.
+Det offentlige mirror-repoet
+([ValiantEvers/pensjonskalkulator](https://github.com/ValiantEvers/pensjonskalkulator))
+bygger i stedet standalone til `dist/` — den eneste tilsiktede forskjellen mellom
+de to kopiene.
 
 ## Struktur
 

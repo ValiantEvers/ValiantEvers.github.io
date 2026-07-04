@@ -11,8 +11,11 @@ Thumbs.db
 # Logs
 *.log
 
-# Claude Code
-.claude/
+# Claude Code (local state ignored, but tracked .claude/commands/ must stay
+# visible to git — a plain `.claude/` would swallow new files there too)
+.claude/*
+!.claude/commands/
+!.claude/commands/**
 
 # Python bytecode
 __pycache__/
