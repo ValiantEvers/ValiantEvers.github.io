@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0c10">
+<title>aksje-lab — verdiscreening & backtest (Oslo Børs / Norden) — Valiant Evers</title>
+<meta name="description" content="Et walk-forward backtest- og verdiscreening-verktøy for ASK-kvalifiserte aksjer på Oslo Børs og i Norden. Punkt-i-tid-korrekt, kildeverifiserte data, caveat-først. Sammendrag av et privat verktøy.">
+<link rel="canonical" href="https://www.evers.no/aksje-lab/">
+<link rel="alternate" hreflang="nb-NO" href="https://www.evers.no/aksje-lab/">
+<link rel="alternate" hreflang="en" href="https://www.evers.no/aksje-lab/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.evers.no/aksje-lab/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nb_NO">
+<meta property="og:url" content="https://www.evers.no/aksje-lab/">
+<meta property="og:title" content="aksje-lab — verdiscreening & backtest for Oslo Børs / Norden">
+<meta property="og:description" content="Walk-forward-backtest av faktorstrategier, punkt-i-tid-korrekt og caveat-først. Rangeringen etter skatt (ASK) er den robuste innsikten — ikke desimalene.">
+<meta property="og:image" content="https://www.evers.no/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="aksje-lab — verdiscreening & backtest for Oslo Børs / Norden">
+<meta name="twitter:description" content="Walk-forward-backtest av faktorstrategier, punkt-i-tid-korrekt og caveat-først.">
+<meta name="twitter:image" content="https://www.evers.no/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --bg:#0a0c10; --bg-elevated:#12151c; --bg-surface:#171b24; --border:rgba(255,255,255,0.09);
+    --text:#e8ecf4; --text-secondary:rgba(232,236,244,0.62); --text-muted:rgba(232,236,244,0.40);
+    --green:#22c55e; --red:#ef4444; --amber:#f59e0b; --blue:#3b82f6; --violet:#a78bfa;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",SFMono-Regular,ui-monospace,"JetBrains Mono","Cascadia Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.55;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 80px}
+  @media(max-width:600px){.wrap{padding:18px 14px 60px}}
+  a{color:var(--blue)}
+  .back{font-size:.82rem;color:var(--text-muted);text-decoration:none}
+  .back:hover{color:var(--text-secondary)}
+  h1{font-size:clamp(1.7rem,4vw,2.5rem);margin:.35em 0 .1em;letter-spacing:-.02em;font-family:var(--mono);font-weight:600}
+  h2{font-size:1.15rem;margin:2em 0 .6em;letter-spacing:-.01em}
+  .lede{color:var(--text-secondary);max-width:64ch;margin:.4em 0 1.2em}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);font-family:var(--mono)}
+  /* notices */
+  .notice{border-radius:10px;padding:12px 14px;font-size:.86rem;margin:10px 0;border:1px solid}
+  .notice-warn{background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.35);color:#f7d9a0}
+  .notice-info{background:rgba(59,130,246,.07);border-color:rgba(59,130,246,.32);color:#bcd4ff}
+  .notice b{color:inherit}
+  /* result table + bars */
+  .result{background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;padding:8px 16px 16px;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{text-align:right;padding:10px 8px;border-bottom:1px solid var(--border)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--text-muted);font-weight:600;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
+  tbody tr:last-child td{border-bottom:none}
+  td.mono{font-family:var(--mono)}
+  .rank{color:var(--text-muted);font-family:var(--mono);font-size:.82rem;padding-right:4px}
+  .bar-cell{width:42%;padding-left:14px}
+  .bar-track{background:var(--bg-surface);border-radius:5px;height:10px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#2b6fd4,#3b82f6)}
+  .bar-fill.top{background:linear-gradient(90deg,#15883f,#22c55e)}
+  .win td{color:#eafff1}
+  .cagr{font-family:var(--mono);font-weight:650;font-size:1.02rem}
+  /* method cards */
+  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:12px 0}
+  .card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .card .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);font-family:var(--mono)}
+  .card p{margin:.4em 0 0;font-size:.9rem;color:var(--text-secondary)}
+  .card b{color:var(--text)}
+  /* honesty list */
+  ul.honest{list-style:none;padding:0;margin:8px 0}
+  ul.honest li{position:relative;padding:8px 0 8px 26px;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--text-secondary)}
+  ul.honest li:last-child{border-bottom:none}
+  ul.honest li:before{content:"→";position:absolute;left:0;color:var(--violet);font-family:var(--mono)}
+  ul.honest b{color:var(--text)}
+  /* legend */
+  .legend{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:10px 0;font-size:.86rem}
+  .legend div{color:var(--text-secondary)}
+  .legend .tag{font-family:var(--mono);color:var(--text);font-weight:600;margin-right:6px}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--border);color:var(--text-muted);font-size:.8rem}
+  footer a{color:var(--text-secondary)}
+  .prov{color:var(--text-muted);font-size:.78rem;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← evers.no</a> <span style="color:var(--text-muted)">·</span> <a class="back" href="/aksje-lab/en/">EN</a>
+  <header>
+    <p class="eyebrow" style="margin-top:18px">Privat verktøy · sammendrag</p>
+    <h1>aksje-lab</h1>
+    <p class="lede">Et verdiscreening- og <b>walk-forward-backtest</b>-verktøy for ASK-kvalifiserte aksjer
+      på Oslo Børs og i Norden. Bygget for å teste om en faktorstrategi faktisk overlever kostnader,
+      skatt og ærlig metode — ikke bare ser fin ut i et regneark. Motoren er et privat repo;
+      denne siden er et sammendrag av resultatene og hvordan de er kommet fram.</p>
+  </header>
+
+  <div class="notice notice-warn" role="note">
+    <b>Historiske backtest-tall, ikke en prognose.</b> Alle hodetall er <b>øvre grenser</b>: resultatene
+    bærer survivorship-bias (kun selskaper som fortsatt er notert inngår), så behandle dem som et tak,
+    ikke en forventning.
+  </div>
+  <div class="notice notice-info" role="note">
+    <b>Ikke investeringsråd.</b> Poenget er metode og etterprøvbarhet, ikke å anbefale en strategi.
+  </div>
+
+  <h2>Hovedresultat: rangering etter skatt (ASK)</h2>
+  <p class="lede">Fem kandidatstrategier kjørt gjennom ett identisk walk-forward-harness, deretter gjennom
+    en etter-skatt-kaskade på en norsk aksjesparekonto (<span class="mono">ASK, 1 MNOK, 2017–2026</span>).
+    <b>Rekkefølgen — ikke desimalene — er den robuste innsikten:</b> toppen holdt seg gjennom fire
+    uavhengige re-baseliner etter datakvalitetsrettinger.</p>
+
+  <div class="result">
+    <table>
+      <thead>
+        <tr><th>Strategi</th><th>Etter skatt (CAGR)</th><th>Total</th><th class="bar-cell"></th></tr>
+      </thead>
+      <tbody>
+        <tr class="win">
+          <td><span class="rank">1</span>DY <span class="mono" style="color:var(--text-muted)">· utbytte</span></td>
+          <td class="cagr">20,8 %</td><td class="mono">+440,9 %</td>
+          <td class="bar-cell"><div class="bar-track"><div class="bar-fill top" style="width:100%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank">2</span>VMD <span class="mono" style="color:var(--text-muted)">· ask204</span></td>
+          <td class="cagr">18,4 %</td><td class="mono">+351,8 %</td>
+          <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:88.5%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank">3</span>MOM <span class="mono" style="color:var(--text-muted)">· momentum</span></td>
+          <td class="cagr">16,3 %</td><td class="mono">+283,5 %</td>
+          <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:78.4%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank">4</span>VAL <span class="mono" style="color:var(--text-muted)">· verdi</span></td>
+          <td class="cagr">15,3 %</td><td class="mono">+256,2 %</td>
+          <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:73.6%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="rank">5</span>VMD <span class="mono" style="color:var(--text-muted)">· nordic</span></td>
+          <td class="cagr">14,9 %</td><td class="mono">+244,7 %</td>
+          <td class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:71.6%"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prov">Robusthet: toppen (DY, VMD-ask204, MOM) står uendret gjennom alle fire re-baseliner.
+    Alle fem etter-skatt-gates grønne (avstemt mot backtestens justerte basis). Tall fra den committede
+    rapporten <span class="mono">docs/strategy-suite-rebaseline-2026-07.md</span> (re-baseline #4).</p>
+
+  <div class="legend">
+    <div><span class="tag">DY</span>utbytte (trailing dividend yield)</div>
+    <div><span class="tag">VMD</span>verdi + momentum + utbytte (P/B + momentum 12–1 + utbytte, likevektet rank-sum)</div>
+    <div><span class="tag">MOM</span>momentum (12–1)</div>
+    <div><span class="tag">VAL</span>verdi (P/B / earnings yield)</div>
+  </div>
+
+  <h2>Hva verktøyet gjør</h2>
+  <div class="grid">
+    <div class="card"><span class="k">Punkt-i-tid</span>
+      <p><b>Samme as_of-logikk</b> for live screening og backtest. Fundamentals tilgjengeliggjøres på
+        Börsdatas <span class="mono">report_Date</span> — ekte PIT, ingen lookahead.</p></div>
+    <div class="card"><span class="k">Data</span>
+      <p>Priser fra Yahoo, fundamentals + <b>verifiserte ISIN-er</b> fra Börsdata Pro+.
+        ~113 navn på Oslo, ~825 i det nordiske universet.</p></div>
+    <div class="card"><span class="k">Backtest</span>
+      <p><b>Walk-forward</b> out-of-sample-segmenter, kostnadssensitivitet og likviditetsbevisst
+        slippage — ikke én enkelt lykketreff-periode.</p></div>
+    <div class="card"><span class="k">Disiplin</span>
+      <p><b>312 hermetiske tester</b> grønne, ruff + mypy rene. Rent domenelag uten I/O; all data
+        gjennom én punkt-i-tid-port.</p></div>
+  </div>
+
+  <h2>Ærligheten er poenget</h2>
+  <p class="lede">Det som skiller dette fra en pen backtest er hva verktøyet nekter å skjule.</p>
+  <ul class="honest">
+    <li><b>Kildeverifisert eller NULL.</b> Identifikatorer og tall kommer fra en verifisert kilde eller
+      står tomme og flagges — aldri gjettet.</li>
+    <li><b>Caveat-først.</b> Hver rapportflate bærer sine forbehold åpent (survivorship, overfitting,
+      modellert slippage), i stedet for å pynte på tallet.</li>
+    <li><b>Datakvalitet tas på alvor.</b> Fire uavhengige feilklasser funnet og rettet — blant annet en
+      ex-dato-feiljustering og en utbyttefaktor anvendt inntil 3× (oppdaget ved kryssvalidering mot
+      Börsdatas utbyttekalender). Alltid via et <b>korreksjonsoverlegg som aldri endrer originaldata</b>.</li>
+    <li><b>Verifiseringsgate.</b> Dobbeltkjøring gir byte-identisk resultat; markedsserien er avstemt
+      mot Ødegaards uavhengige Oslo Børs-data (Pearson 0,976).</li>
+    <li><b>Den ekte testen kommer.</b> En forward paper-logg akkumulerer nå survivorship-immun
+      out-of-sample-avkastning over tid — det eneste beviset en backtest aldri kan gi.</li>
+  </ul>
+
+  <footer>
+    <p>Tallene er beregnet i verktøyet og hentet fra en committet rapport — <b>ingen beregning skjer
+      i nettleseren</b>, ingen data lastes opp. aksje-lab er et privat repo; denne siden er et sammendrag.</p>
+    <p class="prov">Ikke investerings- eller skatteråd. · Relatert: <a href="/aksjeskatt/">avkastning etter skatt på tvers av kontotyper</a> · <a href="/">evers.no</a></p>
+  </footer>
+</div>
+</body>
+</html>
