@@ -40,8 +40,8 @@
 h1,h2,h3{text-wrap:balance}
 </style>
 <style>
-:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.35);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06);--input-blue:#0066cc;--formula-black:#0a0a0a;--link-green:#16803c;--sens-yellow:#fef3c7}
-[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.35);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07);--input-blue:#5b9eff;--formula-black:#fafaf9;--link-green:#5fd0a0;--sens-yellow:#3a3010}
+:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.58);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06);--input-blue:#0066cc;--formula-black:#0a0a0a;--link-green:#16803c;--sens-yellow:#fef3c7}
+[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.48);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07);--input-blue:#5b9eff;--formula-black:#fafaf9;--link-green:#5fd0a0;--sens-yellow:#3a3010}
 [data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
 
 [data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);--input-blue:#d4a54a;--formula-black:#e8d5b5;--link-green:#a8c970;--sens-yellow:#4a3a18;cursor:url('../../medieval/cursor-sword.png') 2 30, auto;}
@@ -440,7 +440,7 @@ section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 
 <div class="template-body">
 <div class="template-icon">💼</div>
 <h3>LBO-modell <span class="secondary">LBO Model</span></h3>
-<p class="desc" data-i="tplLboDesc">Sources &amp; uses, gjeldspaal med revolver/TLA/TLB/sub-notes, fri kontantstrøm etter rente og obligatorisk avdrag, cash sweep. Exit i år 5 ved EBITDA-multipel. IRR, MOIC og sensitivitetstabell på exit-multipel × leverage.</p>
+<p class="desc" data-i="tplLboDesc">Sources &amp; uses, gjeldsfossefall med revolver/TLA/TLB/sub-notes, fri kontantstrøm etter rente og obligatorisk avdrag, cash sweep. Exit i år 5 ved EBITDA-multipel. IRR, MOIC og sensitivitetstabell på exit-multipel × leverage.</p>
 <div class="template-meta"><span>📑 7 faner</span><span>IRR + MOIC</span></div>
 <a href="files/lbo-modell.xlsx" class="download-btn" download data-i="dlBtn">Last ned .xlsx ↓</a>
 </div>
@@ -473,7 +473,7 @@ tplWaccDesc:"Cost of equity via CAPM (risikofri + ulevered beta × ERP + relever
 tplTcDesc:"Peer-univers med EV/EBITDA, EV/Sales, P/E, P/B på LTM, NTM, NTM+1. Statistikk (min/25p/median/snitt/75p/max) nederst, anvendt på subjekt-selskap for implisert verdi-spenn.",
 tplTxDesc:"Historiske M&amp;A-transaksjoner i bransjen med kjøpspris, EV/EBITDA og EV/Sales på transaksjonstidspunktet. Premie betalt over uberørt pris, finansiering (cash/aksjer), strategisk vs financial.",
 tplFfDesc:"Samler DCF (Gordon + exit), trading comps, transaction comps, 52-ukers handelsspenn og analytikermål i én floating-bar chart. Implisert pris per aksje med low/high-spenn per metode.",
-tplLboDesc:"Sources &amp; uses, gjeldspaal med revolver/TLA/TLB/sub-notes, fri kontantstrøm etter rente og obligatorisk avdrag, cash sweep. Exit i år 5 ved EBITDA-multipel. IRR, MOIC og sensitivitetstabell på exit-multipel × leverage.",
+tplLboDesc:"Sources &amp; uses, gjeldsfossefall med revolver/TLA/TLB/sub-notes, fri kontantstrøm etter rente og obligatorisk avdrag, cash sweep. Exit i år 5 ved EBITDA-multipel. IRR, MOIC og sensitivitetstabell på exit-multipel × leverage.",
 dlBtn:"Last ned .xlsx ↓",backProj:"← Tilbake til prosjekter"},
 
 en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",

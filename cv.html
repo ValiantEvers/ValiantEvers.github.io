@@ -33,8 +33,8 @@
 h1,h2,h3{text-wrap:balance}
 </style>
 <style>
-:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.35);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06)}
-[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.35);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07)}
+:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.6);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06)}
+[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.5);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07)}
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -187,6 +187,8 @@ details .course-list li::before{content:''}
 .status{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.2rem .6rem;border-radius:50px}
 .status-active{background:rgba(0,200,80,.1);color:#00a040;border:1px solid rgba(0,200,80,.25)}
 [data-theme="dark"] .status-active{color:#4ade80;background:rgba(0,200,80,.08)}
+.status-done{background:rgba(120,130,150,.12);color:#556070;border:1px solid rgba(120,130,150,.30)}
+[data-theme="dark"] .status-done{color:#9aa7b8;background:rgba(120,130,150,.14);border-color:rgba(120,130,150,.22)}
 .working-item > p{font-size:.88rem;color:var(--text);line-height:1.6}
 .working-item .meta{font-size:.75rem;color:var(--subtle);margin-top:.55rem;font-style:italic}
 
@@ -319,7 +321,7 @@ details .course-list li::before{content:''}
     <div class="cv-item-body">
       <h3 data-i="mscTitle">MSc in Finance</h3>
       <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
-      <p data-i="mscDesc">Valgfag: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance og Financial Institutions and Crises.</p>
+      <p data-i="mscDesc">Valgfag: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation og Financial Institutions and Crises.</p>
       <details>
         <summary data-i="showCourses">Vis alle fag</summary>
         <div class="details-content">
@@ -330,6 +332,7 @@ details .course-list li::before{content:''}
             <li>Applied Valuation <span class="grade">(B)</span></li>
             <li>International Finance <span class="grade">(B)</span></li>
             <li>Sustainable Finance <span class="grade">(C)</span></li>
+            <li>Financial Institutions and Crises <span class="grade">(C)</span></li>
           </ul>
         </div>
       </details>
@@ -423,7 +426,7 @@ details .course-list li::before{content:''}
     <div class="working-item">
       <div class="working-head">
         <h3><a href="https://www.evers.no/examprep/" target="_blank" rel="noopener">GRA6546 — Exam Prep</a></h3>
-        <span class="status status-active"><span data-i="active">Aktiv</span></span>
+        <span class="status status-done"><span data-i="completed">Fullført</span></span>
       </div>
       <p data-i="examprepDesc">Interaktivt eksamensforberedelsesverktøy for GRA6546 Financial Institutions and Crises på BI. Forelesningsnotater, temasider og flashcards organisert per pensumkapittel. Eksamen 13. mai 2026.</p>
     </div>
@@ -543,7 +546,7 @@ var T = {
     skattMcpDesc: "Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall framfor generelle forklaringer. Tolv verktøy dekker aksjegevinst (FIFO), verdipapirfond, ASK, formue, bolig, krypto, Nordnet-import og et samlet skatteoppgjør. Kjører 100 % lokalt over stdio — ingen finansdata forlater maskinen. Bygget med TypeScript, MCP-protokollen og Zod. Åpen kildekode (MIT).",
     present: "d.d.",
     mscTitle: "MSc in Finance",
-    mscDesc: "Valgfag: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance og Financial Institutions and Crises.",
+    mscDesc: "Valgfag: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation og Financial Institutions and Crises.",
     showCourses: "Vis relevante fag",
     summer2025: "Juli 2025 (sommerkurs)",
     aarhusDesc: "Intensivt sommerkurs i Python for dataanalyse og maskinlæring. Toppkarakter <span class=\"grade\">(12/A)</span>.",
@@ -585,6 +588,7 @@ var T = {
     certsTitle: "Sertifiseringer",
     bffTitle: "Finance Fundamentals",
     active: "Aktiv",
+    completed: "Fullført",
     personligDesc: "Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.",
     osebxDesc: "Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.",
     examprepDesc: "Interaktivt eksamensforberedelsesverktøy for GRA6546 Financial Institutions and Crises på BI. Forelesningsnotater, temasider og flashcards organisert per pensumkapittel. Eksamen 13. mai 2026.",
@@ -615,7 +619,7 @@ var T = {
     skattMcpDesc: "Local MCP server that lets Claude compute Norwegian tax with actual figures rather than general explanations. Twelve tools cover capital gains (FIFO), mutual funds, ASK accounts, wealth, property, crypto, Nordnet import and a consolidated tax settlement. Runs 100% locally over stdio — no financial data leaves the machine. Built with TypeScript, the MCP protocol and Zod. Open source (MIT).",
     present: "present",
     mscTitle: "MSc in Finance",
-    mscDesc: "Electives: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, and Financial Institutions and Crises.",
+    mscDesc: "Electives: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation, and Financial Institutions and Crises.",
     showCourses: "Show relevant courses",
     summer2025: "July 2025 (summer course)",
     aarhusDesc: "Intensive summer course in Python for data analysis and machine learning. Top grade <span class=\"grade\">(12/A)</span>.",
@@ -657,6 +661,7 @@ var T = {
     certsTitle: "Certifications",
     bffTitle: "Finance Fundamentals",
     active: "Live",
+    completed: "Completed",
     personligDesc: "Interactive learning tool for personal finance aimed at ordinary Norwegians. Three modules: compound interest calculator with crossover visualisation, opportunity cost tool based on streaming subscription costs, and inflation calculator with housing price evolution. Built with React, Recharts and Framer Motion.",
     osebxDesc: "Autonomous market analysis tool for the Oslo Stock Exchange. Weekly pipeline analysing all ASK-eligible stocks (~129) to generate sector rotation, breadth metrics, and LLM-narrated briefs. Built with Python and GitHub Actions.",
     examprepDesc: "Interactive exam prep tool for GRA6546 Financial Institutions and Crises at BI. Lecture notes, topic pages and flashcards organised by syllabus chapter. Exam 13 May 2026.",
@@ -687,7 +692,7 @@ var T = {
     skattMcpDesc: "Serveur MCP local qui permet à Claude de calculer l'impôt norvégien avec des chiffres réels plutôt que des explications générales. Douze outils couvrent les plus-values (FIFO), les fonds, les comptes ASK, la fortune, l'immobilier, la crypto, l'import Nordnet et un décompte fiscal consolidé. Tout s'exécute en local via stdio — aucune donnée financière ne quitte la machine. Développé avec TypeScript, le protocole MCP et Zod. Open source (MIT).",
     present: "aujourd'hui",
     mscTitle: "Master en Finance",
-    mscDesc: "Options : Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance et Financial Institutions and Crises.",
+    mscDesc: "Options : Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation et Financial Institutions and Crises.",
     showCourses: "Voir les cours pertinents",
     summer2025: "Juillet 2025 (cours d'été)",
     aarhusDesc: "Cours d'été intensif en Python pour l'analyse de données et le machine learning. Note maximale <span class=\"grade\">(12/A)</span>.",
@@ -729,6 +734,7 @@ var T = {
     certsTitle: "Certifications",
     bffTitle: "Finance Fundamentals",
     active: "Actif",
+    completed: "Terminé",
     personligDesc: "Outil d'apprentissage interactif des finances personnelles destiné au grand public norvégien. Trois modules : calculateur d'intérêts composés avec visualisation du croisement, outil de coût d'opportunité basé sur les abonnements de streaming, et calculateur d'inflation avec évolution des prix immobiliers. Construit avec React, Recharts et Framer Motion.",
     osebxDesc: "Outil autonome d'analyse de marché pour la Bourse d'Oslo. Pipeline hebdomadaire analysant toutes les actions éligibles ASK (~129) pour générer rotation sectorielle, mesures de largeur et briefings narrés par LLM. Construit avec Python et GitHub Actions.",
     examprepDesc: "Outil interactif de préparation à l'examen pour GRA6546 Financial Institutions and Crises à BI. Notes de cours, fiches thématiques et cartes mémoire organisées par chapitre du programme. Examen le 13 mai 2026.",
@@ -759,7 +765,7 @@ var T = {
     skattMcpDesc: "Lokaler MCP-Server, mit dem Claude die norwegische Steuer mit echten Zahlen statt allgemeiner Erklärungen berechnet. Zwölf Werkzeuge decken Kursgewinne (FIFO), Fonds, ASK-Konten, Vermögen, Immobilien, Krypto, Nordnet-Import und eine konsolidierte Steuerabrechnung ab. Läuft vollständig lokal über stdio — keine Finanzdaten verlassen den Rechner. Entwickelt mit TypeScript, dem MCP-Protokoll und Zod. Open Source (MIT).",
     present: "heute",
     mscTitle: "MSc in Finance",
-    mscDesc: "Wahlfächer: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance und Financial Institutions and Crises.",
+    mscDesc: "Wahlfächer: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation und Financial Institutions and Crises.",
     showCourses: "Relevante Kurse anzeigen",
     summer2025: "Juli 2025 (Sommerkurs)",
     aarhusDesc: "Intensiver Sommerkurs in Python für Datenanalyse und Machine Learning. Bestnote <span class=\"grade\">(12/A)</span>.",
@@ -801,6 +807,7 @@ var T = {
     certsTitle: "Zertifikate",
     bffTitle: "Finance Fundamentals",
     active: "Aktiv",
+    completed: "Abgeschlossen",
     personligDesc: "Interaktives Lerntool für persönliche Finanzen für den durchschnittlichen Norweger. Drei Module: Zinseszinsrechner mit Crossover-Visualisierung, Opportunitätskostentool basierend auf Streaming-Abonnements und Inflationsrechner mit Immobilienpreisentwicklung. Gebaut mit React, Recharts und Framer Motion.",
     osebxDesc: "Autonomes Marktanalysewerkzeug für die Osloer Börse. Wöchentliche Pipeline, die alle ASK-berechtigten Aktien (~129) analysiert und Sektorrotation, Breitenmaße und LLM-erzählte Briefings generiert. Gebaut mit Python und GitHub Actions.",
     examprepDesc: "Interaktives Prüfungsvorbereitungstool für GRA6546 Financial Institutions and Crises an der BI. Vorlesungsnotizen, Themenseiten und Karteikarten geordnet nach Lehrplankapitel. Prüfung am 13. Mai 2026.",
@@ -831,7 +838,7 @@ var T = {
     skattMcpDesc: "Claudeがノルウェーの税金を一般的な説明ではなく実際の数値で計算できるローカルMCPサーバー。12のツールが株式譲渡益（FIFO）、投資信託、ASK口座、資産、不動産、暗号資産、Nordnetインポート、統合納税計算を網羅。すべてstdio経由でローカルに動作し、金融データが端末から出ることはありません。TypeScript、MCPプロトコル、Zodで構築。オープンソース（MIT）。",
     present: "現在",
     mscTitle: "MSc in Finance",
-    mscDesc: "選択科目:Asset Management、Financial Risk Management、Strategic Asset Allocation、International Finance、Financial Institutions and Crises。",
+    mscDesc: "選択科目:Asset Management、Financial Risk Management、Strategic Asset Allocation、International Finance、Applied Valuation、Financial Institutions and Crises。",
     showCourses: "関連科目を表示",
     summer2025: "2025年7月(サマーコース)",
     aarhusDesc: "データ分析と機械学習のためのPython集中サマーコース。最高評価<span class=\"grade\">(12/A)</span>。",
@@ -873,6 +880,7 @@ var T = {
     certsTitle: "資格",
     bffTitle: "Finance Fundamentals",
     active: "稼働中",
+    completed: "完了",
     personligDesc: "一般のノルウェー人を対象としたパーソナルファイナンスのインタラクティブな学習ツール。3つのモジュール:クロスオーバー可視化付きの複利計算機、ストリーミング購読料に基づく機会費用ツール、住宅価格推移を含むインフレ計算機。React、Recharts、Framer Motionで構築。",
     osebxDesc: "オスロ証券取引所の自律的市場分析ツール。ASK対象全銘柄(約129)を週次分析し、セクターローテーション、ブレドス指標、LLMナレーションブリーフを生成。PythonとGitHub Actionsで構築。",
     examprepDesc: "BIのGRA6546 Financial Institutions and Crisesに向けたインタラクティブな試験対策ツール。シラバスの章ごとに講義ノート、トピックページ、フラッシュカードを整理。試験日は2026年5月13日。",
