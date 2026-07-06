@@ -290,7 +290,9 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <a href="#globalt" data-lbl="Globalt"></a>
 <a href="#norge-kostnader" data-lbl="Kostnader"></a>
 <a href="#norge-natur" data-lbl="Natur"></a>
+<a href="#helse" data-lbl="Helse"></a>
 <a href="#fremtid" data-lbl="Fremtid"></a>
+<a href="#omstilling" data-lbl="Omstilling"></a>
 <a href="#naeringsliv" data-lbl="Næringsliv"></a>
 <a href="#myter" data-lbl="Myter"></a>
 <a href="#migrasjon" data-lbl="Migrasjon"></a>
@@ -353,6 +355,16 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <div class="stat-lbl">de siste elleve årene (2015 til 2025) er de elleve varmeste som er målt</div>
 <a class="src" href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">WMO, 2025</a>
 </div>
+<div class="stat">
+<div class="stat-big">9 av 10</div>
+<div class="stat-lbl">varmeenheter fra oppvarmingen lagres i havet, ikke i lufta. Øvre 2000 meter satte ny varmerekord i 2025, niende år på rad</div>
+<a class="src" href="https://www.ncei.noaa.gov/access/global-ocean-heat-content/" target="_blank" rel="noopener">NOAA, 2026</a>
+</div>
+<div class="stat">
+<div class="stat-big">1&nbsp;940 ppb</div>
+<div class="stat-lbl">metan i atmosfæren, omtrent 2,6 ganger førindustrielt nivå. Per kilo varmer metan rundt 80 ganger mer enn CO₂ over 20 år</div>
+<a class="src" href="https://gml.noaa.gov/ccgg/trends_ch4/" target="_blank" rel="noopener">NOAA, 2026</a>
+</div>
 </div>
 <figure class="chart-fig rv" id="co2Fig">
 <div class="c-title">CO₂ i atmosfæren, 1959 til 2025</div>
@@ -364,11 +376,22 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 </svg>
 <div class="chart-cap">Kilde: <a class="src" href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener">NOAA GML, Mauna Loa</a></div>
 </figure>
+<figure class="chart-fig rv" id="ohcFig">
+<div class="c-title">Havets varmeinnhold stiger, år etter år</div>
+<div class="c-sub">Havet tar opp rundt 90 % av overskuddsvarmen. Fordi det jevner ut kortsiktig støy, er dette det reneste målet på at planeten hoper opp energi. Øvre 700 meter, vist her, når ny rekord nesten hvert år.</div>
+<svg viewBox="0 0 640 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Kurve som viser havets varmeinnhold i øvre 700 meter stige jevnt fra 1955 til rekord i 2025">
+<g id="ohcGrid"></g>
+<path id="ohcLine" class="drawline" fill="none" stroke="#e5484d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="ohcAx"></g>
+</svg>
+<div class="chart-cap">Øvre 700 m, avvik i varmeinnhold fra 1955 til 2006-snittet. Kilde: <a class="src" href="https://www.ncei.noaa.gov/access/global-ocean-heat-content/" target="_blank" rel="noopener">NOAA NCEI</a></div>
+</figure>
 <div class="prose">
 <p>2024 er det varmeste enkeltåret som er målt, med 1,60&nbsp;°C over førindustrielt nivå. Den langsiktige, menneskeskapte oppvarmingen ligger på omtrent 1,4&nbsp;°C <a class="src" href="https://climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record" target="_blank" rel="noopener">Copernicus, 2026</a>. Treårsperioden 2023 til 2025 er den første med et snitt over 1,5&nbsp;°C <a class="src" href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">WMO, 2025</a>.</p>
 <p>Skal oppvarmingen begrenses til 1,5&nbsp;°C, gjenstår et karbonbudsjett på 170&nbsp;Gt CO₂ fra 2026. Med dagens utslippsnivå tilsvarer det omtrent fire år, og budsjettet er brukt opp før 2030 hvis tempoet fortsetter <a class="src" href="https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/" target="_blank" rel="noopener">Global Carbon Project, 2025</a>. Med dagens politikk ligger kloden an til rundt 2,6&nbsp;°C oppvarming i 2100. Innfris alle avgitte løfter, blir det rundt 2,2&nbsp;°C, og nås alle netto null-mål, 1,9&nbsp;°C <a class="src" href="https://climateactiontracker.org/global/temperatures/" target="_blank" rel="noopener">Climate Action Tracker, 2025</a>.</p>
 <p>Havet har steget 11&nbsp;cm siden 1993, og stigningstakten er doblet: fra 2,1&nbsp;mm i året (1993 til 2002) til 4,7&nbsp;mm i året (2015 til 2024) <a class="src" href="https://wmo.int/news/media-centre/wmo-report-documents-spiralling-weather-and-climate-impacts" target="_blank" rel="noopener">WMO, 2025</a>. Sjøisen i Arktis krymper: september-minimumet faller med 12,2&nbsp;% per tiår sammenlignet med snittet for 1981 til 2010 <a class="src" href="https://climate.nasa.gov/vital-signs/arctic-sea-ice/" target="_blank" rel="noopener">NASA, 2026</a>. Grønland mister omtrent 265&nbsp;Gt is i året og Antarktis omtrent 135&nbsp;Gt, målt med GRACE-satellittene <a class="src" href="https://climate.nasa.gov/vital-signs/ice-sheets/" target="_blank" rel="noopener">NASA, 2026</a>. Åtte av de ti verste årene for verdens isbreer har kommet etter 2016 <a class="src" href="https://wmo.int/news/media-centre/wmo-report-documents-spiralling-weather-and-climate-impacts" target="_blank" rel="noopener">WMO, 2025</a>.</p>
 <p>Havet blir også surere: pH i overflaten har falt fra 8,21 til 8,10 siden rundt 1750, en økning i surhet på omtrent 30&nbsp;% som er uten sidestykke på minst 26&nbsp;000 år <a class="src" href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide" target="_blank" rel="noopener">NOAA, 2026</a>. Og enkelthendelser kan nå kobles til oppvarmingen: ekstremvarmen som rammet Sør-Asia i april 2024 var omtrent 45 ganger mer sannsynlig og 0,85&nbsp;°C varmere på grunn av menneskeskapte klimaendringer <a class="src" href="https://www.worldweatherattribution.org/climate-change-made-the-deadly-heatwaves-that-hit-millions-of-highly-vulnerable-people-across-asia-more-frequent-and-extreme/" target="_blank" rel="noopener">World Weather Attribution, 2024</a>.</p>
+<p>To ting til gjør bildet skarpere. Arktis varmes nesten fire ganger så raskt som kloden ellers, 3,8 ganger snittet siden 1979, og det er motoren bak de dramatiske Svalbard-tallene lenger ned på siden <a class="src" href="https://www.nature.com/articles/s43247-022-00498-3" target="_blank" rel="noopener">Rantanen m.fl., 2022</a>. Og under den tinende permafrosten i nord ligger anslagsvis dobbelt så mye karbon som alt som allerede er i lufta. Området begynner å skifte fra å lagre karbon til å slippe det ut, en tilbakekobling som i liten grad er med i karbonbudsjettene <a class="src" href="https://arctic.noaa.gov/report-card/report-card-2019/permafrost-and-the-global-carbon-cycle/" target="_blank" rel="noopener">NOAA, 2019</a>.</p>
 </div>
 </section>
 
@@ -420,6 +443,19 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <p>For skifolket er utviklingen konkret: ved høye utslipp kan Tromsø gå fra omtrent fire og en halv måned skiføre i dag til rundt én måned mot 2100. Sesongen blir kortere i hele landet, og i lavlandet langs kysten blir snøen nesten borte <a class="src" href="https://www.met.no/nyhetsarkiv/framtidens-klima-i-norge-flere-oversvommelser-mer-torke-og-mindre-sno" target="_blank" rel="noopener">Meteorologisk institutt, 2025</a>. Isbreene er alt godt i gang: de 131 målte norske breene har mistet rundt 10&nbsp;% av arealet og i snitt 16 meter tykkelse siden 1960-tallet og er nå på sitt minste siden rundt 1900. Ifølge NVE kan to tredjedeler av ismassene være borte om 70 til 100 år <a class="src" href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/bre/breer-og-klima/" target="_blank" rel="noopener">NVE, 2026</a>.</p>
 <p>I havet flytter fisken seg: torske- og hysesamfunnene i Barentshavet har trukket markant nordover, raskere enn IPCC forutså, og opptil 25 nye arter kan komme inn i Barentshavet innen 2050 <a class="src" href="https://www.hi.no/hi/nyheter/2019/september/ny-animasjon-se-hvordan-fisken-flytter-seg" target="_blank" rel="noopener">Havforskningsinstituttet, 2019</a>.</p>
 <p>Været blir våtere og villere i begge ender. Styrtregnet blir enda kraftigere og kommer oftere, og ved fortsatt økende utslipp øker årsnedbøren med 11&nbsp;% mot 2100 <a class="src" href="https://www.met.no/nyhetsarkiv/framtidens-klima-i-norge-flere-oversvommelser-mer-torke-og-mindre-sno" target="_blank" rel="noopener">Meteorologisk institutt, 2025</a>. Ved samme utslippsutvikling ventes større middelflom og større 200-årsflom i nesten hele landet mot 2100, flere regnflommer og flere jord- og flomskred <a class="src" href="https://kommunikasjon.ntb.no/pressemelding/18697327/ny-rapport-slik-kan-klimaet-i-norge-bli-framover?publisherId=17847187&amp;lang=no" target="_blank" rel="noopener">Miljødirektoratet og NVE, 2025</a>.</p>
+<p>Det er ikke bare mengden som endrer seg, men karakteren. Tørrsnøskredene avtar, mens sørpeskred og vannmettede jord- og flomskred blir vanligere, og vårflommen fra snøsmelting kommer tidligere og krymper mens regnflommene sein høst og vinter vokser. Både når og hvorfor Norge flommer er i endring <a class="src" href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/" target="_blank" rel="noopener">NVE, 2025</a>. Én ting går motsatt vei: fordi landet fortsatt hever seg etter istiden, stiger havet langs mye av norskekysten 40 til 70&nbsp;% mindre enn det globale snittet, så Norge står ikke overfor samme kystflomtrussel som lavland som Nederland <a class="src" href="https://www.kartverket.no/en/at-sea/se-havniva/sea-level/future-sea-level-along-the-norwegian-coast" target="_blank" rel="noopener">Kartverket, 2026</a>.</p>
+</div>
+</section>
+
+<section id="helse" aria-labelledby="h-helse">
+<div class="sub-header">
+<h2 class="sub-title wp" id="h-helse">Klima og helse</h2>
+<span class="sub-note">Det kroppen merker</span>
+</div>
+<div class="prose">
+<p>Varme dreper. Europas rekordsommer 2022 kostet anslagsvis 61&nbsp;700 varmerelaterte liv, og en egen studie fant at rundt 56&nbsp;% av dem kan tilskrives menneskeskapt oppvarming <a class="src" href="https://www.nature.com/articles/s41591-023-02419-z" target="_blank" rel="noopener">Ballester m.fl., 2023</a>. Globalt anslås rundt 546&nbsp;000 varmedød i året det siste tiåret, 23&nbsp;% flere enn på 1990-tallet <a class="src" href="https://www.who.int/news/item/29-10-2025-climate-inaction-is-claiming-millions-of-lives-every-year--warns-new-lancet-countdown-report" target="_blank" rel="noopener">Lancet Countdown, 2025</a>. Ett forbehold hører med: i Norge dør fortsatt flere av kulde enn av varme. Poenget er retningen. For Oslo framskrives varmedød fra rundt 1,8&nbsp;% av dødsfallene i dag til nær 3&nbsp;% mot slutten av århundret ved moderate utslipp <a class="src" href="https://www.fhi.no/he/fr/folkehelserapporten/miljo/klima-og-helse/" target="_blank" rel="noopener">FHI, 2026</a>.</p>
+<p>Nærmere hjem kommer klimaet krypende med flåtten. Skogflåtten brer seg nordover og innover i landet med varmere vintre og lengre sesong, og den tar med seg sykdom: 715 tilfeller av borreliose i 2025, og skogflåttencefalitt satte rekord med 113 tilfeller i 2023. Klima er en medvirkende årsak blant flere, ikke den eneste <a class="src" href="https://www.fhi.no/he/fr/folkehelserapporten/miljo/klima-og-helse/" target="_blank" rel="noopener">FHI, 2026</a>. Pollensesongen merkes av mange: på Østlandet starter den i snitt tre til fire uker tidligere enn på 1980-tallet, or og hassel blomstrer nå i februar, mens slutten ligger fast, så vinduet er blitt lengre <a class="src" href="https://www.naaf.no/allergi/pollenallergi/varmere-klima-kan-gi-lengre-og-kraftigere-pollensesong" target="_blank" rel="noopener">NAAF, 2026</a>.</p>
+<p>Til slutt maten. Menneskeskapte utslipp har allerede kuttet samlet avling av fire hovedvekster med anslagsvis 9,5&nbsp;% <a class="src" href="https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/" target="_blank" rel="noopener">IPCC, 2022</a>. For Norge er ikke poenget innenlands avlingssvikt, men avhengighet: under halvparten av maten på tallerkenen dyrkes i Norge, rundt 41&nbsp;% selvforsyning, og enda mindre når importert dyrefôr regnes med. Dermed er norsk matforsyning og matpriser eksponert for klimasjokk i andre land <a class="src" href="https://www.fhi.no/he/fr/folkehelserapporten/miljo/klima-og-helse/" target="_blank" rel="noopener">FHI, 2026</a>.</p>
 </div>
 </section>
 
@@ -432,6 +468,59 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <p>Et barn som fødes i Norge i dag, vil leve mesteparten av livet i klimaet disse framskrivningene beskriver. Hvis utslippene fortsetter å øke, blir Norge omtrent 3,4&nbsp;°C varmere mot slutten av århundret, og økningen blir størst i nord <a class="src" href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/" target="_blank" rel="noopener">Miljødirektoratet og NVE, 2025</a>.</p>
 <p>Svalbard viser hvor fort det kan gå. Der er det observert 4,0&nbsp;°C oppvarming bare mellom 1971 og 2017, vintrene er blitt 7,3&nbsp;°C varmere på 46 år, og omtrent to måneder med vinter har forsvunnet siden 1970-tallet. Ved middels til høye utslipp framskrives ytterligere 7 til 10&nbsp;°C oppvarming mot 2100 <a class="src" href="https://www.hi.no/hi/nyheter/2019/februar/svalbard-oppvarming-pa-4-grader-i-lopet-av-de-siste-50-arene" target="_blank" rel="noopener">NCCS, 2019</a>.</p>
 <p>Norges egne utslipp var 44,6 millioner tonn CO₂-ekvivalenter i 2024, 4&nbsp;% lavere enn året før og 13&nbsp;% under 1990-nivået. Målene er kutt på 55&nbsp;% innen 2030 og 70 til 75&nbsp;% innen 2035, slik det ble meldt til FN i juni 2025 <a class="src" href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2025/november-2025/utslipp-av-klimagasser-ble-redusert-i-2024/" target="_blank" rel="noopener">Miljødirektoratet, 2025</a>. Avstanden mellom dagens takt og målene sier noe om hvor mye som gjenstår i løpet av få år.</p>
+<p>Men det norske klimaregnskapet forteller bare en del av historien. Det teller nemlig kun utslipp på norsk jord. Olja og gassen Norge eksporterer slipper ut i størrelsesorden 500 millioner tonn CO₂ når den brennes, mest i utlandet, rundt elleve ganger de innenlandske utslippene. Fordi disse utslippene bokføres hos landene som kjøper og brenner fossilene, ikke hos Norge, dukker de aldri opp i det offisielle regnskapet <a class="src" href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2024/januar-2024/utslipp-av-klimagasser-fra-norsk-forbruk-er-beregnet/" target="_blank" rel="noopener">Miljødirektoratet, 2024</a>.</p>
+</div>
+<figure class="cost-compare rv" id="expFig">
+<div class="cc-title">Norges utslipp: hjemme mot eksportert (Mt CO₂ per år)</div>
+<div class="cc-row"><span class="cc-yr">Hjemme</span><div class="cc-track"><div class="cc-fill" data-w="9"></div></div><span class="cc-val">45 Mt</span></div>
+<div class="cc-row"><span class="cc-yr">Eksport</span><div class="cc-track"><div class="cc-fill" data-w="100"></div></div><span class="cc-val">500 Mt</span></div>
+<div class="cc-note">For hvert tonn CO₂ Norge slipper ut hjemme, slipper de eksporterte fossilene ut elleve. <a class="src" href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2024/januar-2024/utslipp-av-klimagasser-fra-norsk-forbruk-er-beregnet/" target="_blank" rel="noopener">Miljødirektoratet, 2024</a></div>
+</figure>
+<div class="prose">
+<p>Så er det spørsmålet alle nordmenn før eller siden stiller: hva med Golfstrømmen? Det er den som gir kysten et klima 10 til 15 grader mildere enn breddegraden skulle tilsi. Havstrømsystemet i Atlanterhavet ventes å svekkes gjennom århundret, det er IPCC trygg på, men et fullstendig sammenbrudd før 2100 vurderes som lite sannsynlig <a class="src" href="https://www.met.no/nyhetsarkiv/hva-er-amoc-og-hva-betyr-det-at-den-kan-kollapse" target="_blank" rel="noopener">met.no og IPCC, 2026</a>. Og her er paradokset: en svekket strøm ville i seg selv kjølt Norge, men den globale oppvarmingen ventes å mer enn oppveie, så Norge blir ikke kaldere. Enkelte nyere studier antyder en tidligere terskel, men de er faglig omdiskuterte og bør ikke leses som en spådom.</p>
+<p>Norges eksponering er dobbel: staten lever av oljen, og oljefondet ble bygd av den. At risikoen er reell, er ikke bare en påstand fra miljøhold. I 2019 besluttet staten å trekke oljefondet ut av rene olje- og gasselskaper i leteleddet, nettopp for å redusere Norges samlede oljeprisrisiko, siden landet allerede er tungt eksponert mot olje gjennom selve ressursen <a class="src" href="https://www.regjeringen.no/no/aktuelt/reduksjon-av-oljeprisrisikoen-i-statens-formue/id2631707/" target="_blank" rel="noopener">Finansdepartementet, 2019</a>.</p>
+</div>
+</section>
+
+<section id="omstilling" aria-labelledby="h-omstilling">
+<div class="sub-header">
+<h2 class="sub-title wp" id="h-omstilling">Omstilling og løsninger</h2>
+<span class="sub-note">Finnes det håp?</span>
+</div>
+<div class="prose">
+<p>En side full av problemer kan lett etterlate inntrykk av at ingenting nytter. Det stemmer ikke. Den billigste strømmen verden noen gang har bygget er nå sol og vind, ikke fordi vi subsidierer den, men fordi kostnaden falt rundt 90&nbsp;% på ti år. I 2024 underbød 91&nbsp;% av all ny fornybar kraft det billigste nye fossile alternativet <a class="src" href="https://www.irena.org/Publications/2025/Jun/Renewable-Power-Generation-Costs-in-2024" target="_blank" rel="noopener">IRENA, 2025</a>. Flaskehalsen er ikke lenger prisen på å produsere strømmen, men nett og lagring.</p>
+</div>
+<figure class="chart-fig rv" id="solarFig">
+<div class="c-title">Solkraftens pris har kollapset</div>
+<div class="c-sub">Global snittkostnad for ny solkraft, i dollar per kilowattime. Fra rundt 0,42 i 2010 til 0,043 i 2024, altså rundt en tiendedel av prisen.</div>
+<svg viewBox="0 0 640 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Kurve som viser solkraftens kostnad falle fra 0,42 dollar per kilowattime i 2010 til 0,043 i 2024">
+<g id="solarGrid"></g>
+<path id="solarLine" class="drawline" fill="none" stroke="#2f9e6e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="solarAx"></g>
+</svg>
+<div class="chart-cap">Kilde: <a class="src" href="https://www.irena.org/Publications/2025/Jun/Renewable-Power-Generation-Costs-in-2024" target="_blank" rel="noopener">IRENA, via Our World in Data</a></div>
+</figure>
+<div class="prose">
+<p>Norge er beviset på at et helt marked kan snus fort. I 2025 var 95,9&nbsp;% av alle nye personbiler helelektriske, omtrent 19 av 20, og det er nå flere elbiler enn dieselbiler på veiene <a class="src" href="https://www.ofv.no/bilsalget" target="_blank" rel="noopener">OFV, 2026</a>. Men det skjedde med vedvarende avgiftskutt, billig vannkraft og høy velstand, ikke lett å kopiere, og det gjelder personbiler, mens fly, skip, tungtransport og eksportøkonomien står igjen.</p>
+<p>Og kapitalen har allerede snudd. Verden investerer nå omtrent to kroner i ren energi for hver krone i fossil, rundt 2&nbsp;200 mot 1&nbsp;100 milliarder dollar i 2025 <a class="src" href="https://www.iea.org/reports/world-energy-investment-2025/executive-summary" target="_blank" rel="noopener">IEA, 2025</a>.</p>
+</div>
+<figure class="cost-compare rv" id="capFig">
+<div class="cc-title">Global energiinvestering 2025 (milliarder dollar)</div>
+<div class="cc-row"><span class="cc-yr">Ren</span><div class="cc-track"><div class="cc-fill" data-w="100" style="background:linear-gradient(90deg,#2f9e6e,#16613f)"></div></div><span class="cc-val">2&nbsp;200</span></div>
+<div class="cc-row"><span class="cc-yr">Fossil</span><div class="cc-track"><div class="cc-fill" data-w="50" style="background:linear-gradient(90deg,#8a8f96,#5a5f66)"></div></div><span class="cc-val">1&nbsp;100</span></div>
+<div class="cc-note">To kroner i ren energi for hver krone i fossil. <a class="src" href="https://www.iea.org/reports/world-energy-investment-2025/executive-summary" target="_blank" rel="noopener">IEA, 2025</a></div>
+</figure>
+<div class="prose">
+<p>For en finansleser er kanskje det siste tallet det tydeligste: forsikrings- og sentralbankmodeller peker samme vei. Uten kutt kan verdens BNP være rundt 18&nbsp;% lavere i 2050; med Paris-målet bare rundt 4&nbsp;% <a class="src" href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/expertise-publication-economics-of-climate-change.html" target="_blank" rel="noopener">Swiss Re, 2021</a>. Å handle er den billige forsikringen, og hvert års utsettelse gjør regningen større. Dette er modellanslag med stor usikkerhet, men retningen er robust.</p>
+</div>
+<figure class="cost-compare rv" id="gdpFig">
+<div class="cc-title">Anslått tap i verdens BNP mot 2050</div>
+<div class="cc-row"><span class="cc-yr">Uten kutt</span><div class="cc-track"><div class="cc-fill" data-w="100" style="background:linear-gradient(90deg,#e5484d,#7a0f14)"></div></div><span class="cc-val">18&nbsp;%</span></div>
+<div class="cc-row"><span class="cc-yr">Paris-målet</span><div class="cc-track"><div class="cc-fill" data-w="22" style="background:linear-gradient(90deg,#2f9e6e,#16613f)"></div></div><span class="cc-val">4&nbsp;%</span></div>
+<div class="cc-note">Å handle er den billige forsikringen. Modellanslag med stor usikkerhet. <a class="src" href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/expertise-publication-economics-of-climate-change.html" target="_blank" rel="noopener">Swiss Re, 2021</a></div>
+</figure>
+<div class="prose">
+<p>Kort sagt: løsningene finnes, de er billigere enn problemet, og de skaleres raskt. Men ennå ikke raskt nok. Investeringene ligger fortsatt under halvparten av det en netto null-bane krever, og de globale utslippene har ikke toppet.</p>
 </div>
 </section>
 
@@ -589,6 +678,10 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <li>NASA (2026): Ice sheets, vital signs. <a href="https://climate.nasa.gov/vital-signs/ice-sheets/" target="_blank" rel="noopener">climate.nasa.gov/vital-signs/ice-sheets/</a></li>
 <li>World Weather Attribution (2024): Klimaendringer gjorde hetebølgene i Asia mer sannsynlige og mer ekstreme. <a href="https://www.worldweatherattribution.org/climate-change-made-the-deadly-heatwaves-that-hit-millions-of-highly-vulnerable-people-across-asia-more-frequent-and-extreme/" target="_blank" rel="noopener">worldweatherattribution.org/climate-change-made-the-deadly-heatwaves…</a></li>
 <li>NOAA Climate.gov (2026): Climate change: atmospheric carbon dioxide. <a href="https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide" target="_blank" rel="noopener">climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide</a></li>
+<li>NOAA NCEI (2026): Global Ocean Heat Content. <a href="https://www.ncei.noaa.gov/access/global-ocean-heat-content/" target="_blank" rel="noopener">ncei.noaa.gov/access/global-ocean-heat-content/</a></li>
+<li>NOAA Global Monitoring Laboratory (2026): Trends in atmospheric methane. <a href="https://gml.noaa.gov/ccgg/trends_ch4/" target="_blank" rel="noopener">gml.noaa.gov/ccgg/trends_ch4/</a></li>
+<li>Rantanen m.fl. (2022): The Arctic has warmed nearly four times faster than the globe. Communications Earth &amp; Environment. <a href="https://www.nature.com/articles/s43247-022-00498-3" target="_blank" rel="noopener">nature.com/articles/s43247-022-00498-3</a></li>
+<li>NOAA Arctic Report Card (2019): Permafrost and the global carbon cycle. <a href="https://arctic.noaa.gov/report-card/report-card-2019/permafrost-and-the-global-carbon-cycle/" target="_blank" rel="noopener">arctic.noaa.gov/report-card/report-card-2019/permafrost-and-the-global-carbon-cycle/</a></li>
 </ul>
 <h3>Norge: kostnader</h3>
 <ul>
@@ -607,6 +700,25 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <li>NVE (2025): Klima nå og i framtiden. <a href="https://www.nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/" target="_blank" rel="noopener">nve.no/vann-og-vassdrag/vannets-kretsloep/klima/klima-naa-og-i-framtiden/</a></li>
 <li>NCCS / Havforskningsinstituttet (2019): Svalbard: oppvarming på 4 grader i løpet av de siste 50 årene. <a href="https://www.hi.no/hi/nyheter/2019/februar/svalbard-oppvarming-pa-4-grader-i-lopet-av-de-siste-50-arene" target="_blank" rel="noopener">hi.no/hi/nyheter/2019/februar/svalbard-oppvarming-pa-4-grader-i-lopet-av-de-siste-50-arene</a></li>
 <li>Miljødirektoratet (2025): Utslipp av klimagasser ble redusert i 2024. <a href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2025/november-2025/utslipp-av-klimagasser-ble-redusert-i-2024/" target="_blank" rel="noopener">miljodirektoratet.no/aktuelt/fagmeldinger/2025/november-2025/utslipp-av-klimagasser-ble-redusert-i-2024/</a></li>
+<li>Miljødirektoratet (2024): Utslipp av klimagasser fra norsk forbruk (eksporterte utslipp). <a href="https://www.miljodirektoratet.no/aktuelt/fagmeldinger/2024/januar-2024/utslipp-av-klimagasser-fra-norsk-forbruk-er-beregnet/" target="_blank" rel="noopener">miljodirektoratet.no/aktuelt/fagmeldinger/2024/januar-2024/…</a></li>
+<li>Meteorologisk institutt / IPCC (2026): Hva er AMOC og hva betyr det at den kan kollapse? <a href="https://www.met.no/nyhetsarkiv/hva-er-amoc-og-hva-betyr-det-at-den-kan-kollapse" target="_blank" rel="noopener">met.no/nyhetsarkiv/hva-er-amoc-og-hva-betyr-det-at-den-kan-kollapse</a></li>
+<li>Kartverket (2026): Framtidig havnivå langs norskekysten. <a href="https://www.kartverket.no/en/at-sea/se-havniva/sea-level/future-sea-level-along-the-norwegian-coast" target="_blank" rel="noopener">kartverket.no/…/future-sea-level-along-the-norwegian-coast</a></li>
+<li>Finansdepartementet (2019): Tar oppstrømsselskaper ut av Statens pensjonsfond utland. <a href="https://www.regjeringen.no/no/aktuelt/reduksjon-av-oljeprisrisikoen-i-statens-formue/id2631707/" target="_blank" rel="noopener">regjeringen.no/no/aktuelt/reduksjon-av-oljeprisrisikoen-i-statens-formue/id2631707/</a></li>
+</ul>
+<h3>Helse</h3>
+<ul>
+<li>Ballester m.fl. (2023): Heat-related mortality in Europe, summer 2022. Nature Medicine. <a href="https://www.nature.com/articles/s41591-023-02419-z" target="_blank" rel="noopener">nature.com/articles/s41591-023-02419-z</a></li>
+<li>Lancet Countdown / WHO (2025): Climate inaction is claiming millions of lives every year. <a href="https://www.who.int/news/item/29-10-2025-climate-inaction-is-claiming-millions-of-lives-every-year--warns-new-lancet-countdown-report" target="_blank" rel="noopener">who.int/news/item/29-10-2025-climate-inaction…</a></li>
+<li>Folkehelseinstituttet (2026): Klimaendringer og helse (Folkehelserapporten). <a href="https://www.fhi.no/he/fr/folkehelserapporten/miljo/klima-og-helse/" target="_blank" rel="noopener">fhi.no/he/fr/folkehelserapporten/miljo/klima-og-helse/</a></li>
+<li>NAAF (2026): Varmere klima kan gi lengre og kraftigere pollensesong. <a href="https://www.naaf.no/allergi/pollenallergi/varmere-klima-kan-gi-lengre-og-kraftigere-pollensesong" target="_blank" rel="noopener">naaf.no/allergi/pollenallergi/varmere-klima-kan-gi-lengre-og-kraftigere-pollensesong</a></li>
+<li>IPCC (2022): AR6 WG2, kapittel 5 (mat og avlinger). <a href="https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/" target="_blank" rel="noopener">ipcc.ch/report/ar6/wg2/chapter/chapter-5/</a></li>
+</ul>
+<h3>Omstilling og løsninger</h3>
+<ul>
+<li>IRENA (2025): Renewable Power Generation Costs in 2024. <a href="https://www.irena.org/Publications/2025/Jun/Renewable-Power-Generation-Costs-in-2024" target="_blank" rel="noopener">irena.org/Publications/2025/Jun/Renewable-Power-Generation-Costs-in-2024</a></li>
+<li>OFV, Opplysningsrådet for Veitrafikken (2026): Bilsalget. <a href="https://www.ofv.no/bilsalget" target="_blank" rel="noopener">ofv.no/bilsalget</a></li>
+<li>IEA (2025): World Energy Investment 2025. <a href="https://www.iea.org/reports/world-energy-investment-2025/executive-summary" target="_blank" rel="noopener">iea.org/reports/world-energy-investment-2025</a></li>
+<li>Swiss Re Institute (2021): The economics of climate change. <a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/expertise-publication-economics-of-climate-change.html" target="_blank" rel="noopener">swissre.com/institute/research/…/economics-of-climate-change</a></li>
 </ul>
 <h3>Næringsliv og verdsettelse</h3>
 <ul>
@@ -774,23 +886,23 @@ function countUp(node){
   Array.prototype.forEach.call(els,function(x){io.observe(x);});
 })();
 
-/* ---- kostnads-sammenligning (P5) ---- */
+/* ---- søyle-sammenligninger (P5 + eksport/kapital/BNP) ---- */
 (function(){
-  var cc=q('costCompare');if(!cc)return;
-  function fill(){
+  function fill(cc){
     Array.prototype.forEach.call(cc.querySelectorAll('.cc-fill'),function(f){
       var w=f.getAttribute('data-w')+'%';
       if(reduce){f.style.width=w;}else{f.style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.width=w;});});}
     });
-    Array.prototype.forEach.call(cc.querySelectorAll('.cc-val'),function(v){
+    Array.prototype.forEach.call(cc.querySelectorAll('.cc-val[data-cc]'),function(v){
       var to=parseFloat(v.getAttribute('data-cc')),d=parseInt(v.getAttribute('data-dec')||'1',10);
       if(reduce){v.textContent=nb(to,d)+' mrd';return;}
       var s=null;function fr(ts){if(s===null)s=ts;var p=Math.min((ts-s)/1200,1),k=1-Math.pow(1-p,3);v.textContent=nb(to*k,d)+' mrd';if(p<1)requestAnimationFrame(fr);}requestAnimationFrame(fr);
     });
   }
-  if(!hasIO()){fill();return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fill();io.unobserve(e.target);}});},{threshold:0.4});
-  io.observe(cc);
+  var figs=document.querySelectorAll('.cost-compare');
+  if(!hasIO()){Array.prototype.forEach.call(figs,fill);return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fill(e.target);io.unobserve(e.target);}});},{threshold:0.4});
+  Array.prototype.forEach.call(figs,function(f){io.observe(f);});
 })();
 
 /* ---- warming stripes (P1) ---- */
@@ -842,6 +954,28 @@ var _rt;window.addEventListener('resize',function(){clearTimeout(_rt);_rt=setTim
   [320,360,400].forEach(function(p){var yy=Y(p);g.appendChild(el('line',{x1:x0,y1:yy,x2:x1,y2:yy,'class':'grid-ln'}));var t=el('text',{x:x0-5,y:yy+3,'class':'axis-lbl','text-anchor':'end'});t.textContent=p;ax.appendChild(t);});
   [1960,1980,2000,2020].forEach(function(yr){var t=el('text',{x:X(yr),y:y1+17,'class':'axis-lbl','text-anchor':'middle'});t.textContent=yr;ax.appendChild(t);});
 })();
+
+/* ---- havvarme + solkraft-kurver (ekte, kildeført) ---- */
+/* NOAA NCEI, havets varmeinnhold øvre 700 m (ZJ vs 1955–2006) */
+var OHC700=[[1955,-32.0],[1956,-26.1],[1957,-46.1],[1958,-15.3],[1959,-21.9],[1960,-14.4],[1961,-21.2],[1962,-10.8],[1963,-22.7],[1964,-31.2],[1965,-30.6],[1966,-39.4],[1967,-43.6],[1968,-57.3],[1969,-44.8],[1970,-53.0],[1971,-37.7],[1972,-52.4],[1973,-35.2],[1974,-27.8],[1975,-15.5],[1976,-26.0],[1977,0.3],[1978,0.5],[1979,-9.6],[1980,10.9],[1981,1.2],[1982,-23.1],[1983,-27.6],[1984,-4.6],[1985,1.1],[1986,-10.4],[1987,-8.9],[1988,10.9],[1989,9.0],[1990,1.8],[1991,26.5],[1992,5.7],[1993,6.8],[1994,15.1],[1995,22.6],[1996,45.4],[1997,32.5],[1998,43.0],[1999,59.4],[2000,56.7],[2001,41.2],[2002,67.9],[2003,99.5],[2004,102.4],[2005,84.1],[2006,104.3],[2007,94.8],[2008,100.5],[2009,101.3],[2010,103.7],[2011,108.7],[2012,109.4],[2013,126.0],[2014,132.6],[2015,151.2],[2016,139.7],[2017,158.8],[2018,167.2],[2019,177.3],[2020,175.2],[2021,187.4],[2022,196.9],[2023,207.3],[2024,214.7],[2025,228.5]];
+/* IRENA (via Our World in Data), solkraft-LCOE (USD/kWh) */
+var SOLAR_LCOE=[[2010,0.417],[2011,0.350],[2012,0.260],[2013,0.200],[2014,0.183],[2015,0.135],[2016,0.118],[2017,0.093],[2018,0.079],[2019,0.069],[2020,0.061],[2021,0.055],[2022,0.051],[2023,0.042],[2024,0.043]];
+function drawSimpleLine(cfg){
+  var line=q(cfg.line);if(!line)return;
+  var data=cfg.data,x0=48,x1=622,y0=24,y1=196;
+  var xs=data.map(function(d){return d[0];});
+  var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs);
+  var ymin=cfg.ymin,ymax=cfg.ymax;
+  function X(x){return x0+(x-xmin)/(xmax-xmin)*(x1-x0);}
+  function Y(y){return y1-(y-ymin)/(ymax-ymin)*(y1-y0);}
+  line.setAttribute('d',pathD(data.map(function(d){return [X(d[0]),Y(d[1])];})));
+  line.style.setProperty('--len',line.getTotalLength());
+  var g=q(cfg.grid),ax=q(cfg.ax);
+  if(g&&cfg.gy){cfg.gy.forEach(function(gv){var yy=Y(gv[0]);g.appendChild(el('line',{x1:x0,y1:yy,x2:x1,y2:yy,'class':'grid-ln'}));var t=el('text',{x:x0-5,y:yy+3,'class':'axis-lbl','text-anchor':'end'});t.textContent=gv[1];ax.appendChild(t);});}
+  if(ax&&cfg.xt){cfg.xt.forEach(function(xr){var t=el('text',{x:X(xr),y:y1+17,'class':'axis-lbl','text-anchor':'middle'});t.textContent=xr;ax.appendChild(t);});}
+}
+drawSimpleLine({line:'ohcLine',grid:'ohcGrid',ax:'ohcAx',data:OHC700,ymin:-60,ymax:240,gy:[[0,'0'],[100,'100'],[200,'200']],xt:[1960,1980,2000,2020]});
+drawSimpleLine({line:'solarLine',grid:'solarGrid',ax:'solarAx',data:SOLAR_LCOE,ymin:0,ymax:0.45,gy:[[0.1,'0,10'],[0.3,'0,30']],xt:[2010,2015,2020,2024]});
 
 /* ---- myte-mini-grafer ---- */
 function zscore(data){var b=data.filter(function(d){return d[0]<=1960;}).map(function(d){return d[1];});var m=avg(b),s=sd(b)||1;return data.map(function(d){return [d[0],(d[1]-m)/s];});}
