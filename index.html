@@ -613,7 +613,7 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <div class="fact-flip r" data-delay="0" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">⚔️</div><h4 data-i="ff1t"></h4><p data-i="ff1d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/prinsvaliant.jpg" alt="Prins Valiant" loading="lazy"></div></div></div>
 <div class="fact-flip r" data-delay="100" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">🏊</div><h4 data-i="ff2t"></h4><p data-i="ff2d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/triatlon.jpg" alt="Triatlon" loading="lazy"></div></div></div>
 <div class="fact-flip r" data-delay="200" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">🇧🇪</div><h4 data-i="ff3t"></h4><p data-i="ff3d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/belgia.jpg" alt="Belgiske røtter" loading="lazy"></div></div></div>
-<div class="fact-card" data-delay="300" id="mapToggle" style="cursor:pointer"><div class="fact-emoji">🌍</div><h4 data-i="ff4t"></h4><p data-i="ff4d"></p><span class="flip-hint" data-i="mapHint"></span></div>
+<div class="fact-card" data-delay="300" id="mapToggle" role="button" tabindex="0" aria-expanded="false" style="cursor:pointer"><div class="fact-emoji">🌍</div><h4 data-i="ff4t"></h4><p data-i="ff4d"></p><span class="flip-hint" data-i="mapHint"></span></div>
 </div>
 <div id="travelMapWrap" style="max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.22,1,.36,1),opacity .6s ease;opacity:0;margin-top:0">
 <div id="travelMap" style="margin-top:1.5rem"></div>
@@ -1244,6 +1244,11 @@ if(!mapInitialized){mapInitialized=true;loadLeaflet().then(function(){setTimeout
 wrap.style.maxHeight='0';wrap.style.opacity='0';wrap.style.marginTop='0';
 }
 mapOpen=!mapOpen;
+this.setAttribute('aria-expanded',mapOpen?'true':'false');
+});
+// Keyboard a11y: #mapToggle is a div acting as a button, so mirror native button key behavior
+document.getElementById('mapToggle').addEventListener('keydown',function(e){
+if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();this.click();}
 });
 function initMap(){
 var map=L.map('travelMap',{scrollWheelZoom:false}).setView([45,15],3);

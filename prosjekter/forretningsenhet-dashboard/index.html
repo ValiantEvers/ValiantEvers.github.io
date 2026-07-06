@@ -265,6 +265,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 </div>
 </nav>
 
+<main>
 <header class="page-hero">
 <span class="section-label">Project · finance business partnering</span>
 <h1 class="page-h1">Business Unit Performance Dashboard</h1>
@@ -278,7 +279,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="kpiSection">
 <div class="report-header">
 <div>
-<div class="report-title">Headline KPIs</div>
+<h2 class="report-title">Headline KPIs</h2>
 <div class="report-meta" id="kpiMeta">—</div>
 </div>
 <div class="period-row" id="periodRow">
@@ -296,18 +297,18 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="waterfallSection">
 <div class="report-header">
 <div>
-<div class="report-title">NII variance — YTD Actual vs Budget</div>
+<h2 class="report-title">NII variance — YTD Actual vs Budget</h2>
 <div class="report-meta">Decomposition: volume · customer margin · FTP · other</div>
 </div>
 </div>
 <div class="split">
 <div class="chart-card">
-<div class="chart-card-title">FTP-aware NII bridge</div>
+<h3 class="chart-card-title">FTP-aware NII bridge</h3>
 <div class="chart-card-sub">Budget NII &rarr; effects &rarr; Actual NII (NOK millions)</div>
-<div class="chart-host"><canvas id="waterfallChart"></canvas></div>
+<div class="chart-host"><canvas id="waterfallChart" role="img" aria-label="Fossefallsdiagram: NII-avvik hittil i år brutt ned fra budsjett-NII via volum-, kundemargin-, FTP- og øvrige effekter til faktisk NII, i millioner kroner."></canvas></div>
 </div>
 <div class="commentary-card">
-<div class="commentary-title">Three things leadership should know</div>
+<h3 class="commentary-title">Three things leadership should know</h3>
 <div class="commentary-sub">Auto-generated from the YTD variance data</div>
 <ol class="commentary-list" id="commentaryList"></ol>
 </div>
@@ -320,12 +321,12 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="trendSection">
 <div class="report-header">
 <div>
-<div class="report-title" data-i="trendTitle">Monthly trend — last 24 months</div>
+<h2 class="report-title" data-i="trendTitle">Monthly trend — last 24 months</h2>
 <div class="report-meta" data-i="trendSub">Solid lines: actuals through Apr 2026. Dashed: forecast through Dec 2026.</div>
 </div>
 </div>
 <div class="chart-card trend-card">
-<div class="chart-host"><canvas id="trendChart"></canvas></div>
+<div class="chart-host"><canvas id="trendChart" role="img" aria-label="Linjediagram: månedlig utvikling i totalinntekt og resultat før skatt de siste 24 månedene, med heltrukne linjer for faktiske tall og stiplede linjer for prognose, i millioner kroner."></canvas></div>
 </div>
 </section>
 
@@ -335,7 +336,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="perLineSection">
 <div class="report-header">
 <div>
-<div class="report-title">Per product line — YTD performance</div>
+<h2 class="report-title">Per product line — YTD performance</h2>
 <div class="report-meta">Actual vs Budget · annualised ROAC</div>
 </div>
 </div>
@@ -364,12 +365,12 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="roacSection">
 <div class="report-header">
 <div>
-<div class="report-title">ROAC vs hurdle rate</div>
+<h2 class="report-title">ROAC vs hurdle rate</h2>
 <div class="report-meta">Hurdle = 11.0% &middot; annualised YTD return on allocated capital</div>
 </div>
 </div>
 <div class="roac-card">
-<div class="chart-host"><canvas id="roacChart"></canvas></div>
+<div class="chart-host"><canvas id="roacChart" role="img" aria-label="Stolpediagram: avkastning på allokert kapital (ROAC) per produktlinje sammenlignet med hurdle-raten på 11 prosent."></canvas></div>
 </div>
 </section>
 
@@ -379,7 +380,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="sensSection">
 <div class="report-header">
 <div>
-<div class="report-title">Sensitivity — interest-bearing book</div>
+<h2 class="report-title">Sensitivity — interest-bearing book</h2>
 <div class="report-meta">Move volume growth, customer spread, and FTP rate to see live NII and division ROAC impact</div>
 </div>
 </div>
@@ -449,7 +450,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <section class="report" id="pipelineSection">
 <div class="report-header">
 <div>
-<div class="report-title">How it's built</div>
+<h2 class="report-title">How it's built</h2>
 <div class="report-meta">Pipeline lives at <code>prosjekter/forretningsenhet-dashboard/pipeline/</code></div>
 </div>
 </div>
@@ -464,6 +465,7 @@ A pandas script generates 24 months of synthetic Actual / Budget / Forecast figu
 </div>
 </div>
 </section>
+</main>
 
 <div class="back-row">
 <a href="/prosjekter/" class="back-link" data-i="backProj">← Back to projects</a>
