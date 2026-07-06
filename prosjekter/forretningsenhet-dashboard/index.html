@@ -253,7 +253,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 </ul>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
 <div class="lang-switch">
-<button class="lang-btn" id="langBtn">EN</button>
+<button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu">EN</button>
 <div class="lang-menu" id="langMenu">
 <button class="lang-opt" data-lang="no">🇳🇴 Norsk</button>
 <button class="lang-opt active" data-lang="en">🇬🇧 English</button>
@@ -305,7 +305,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 <div class="chart-card">
 <h3 class="chart-card-title">FTP-aware NII bridge</h3>
 <div class="chart-card-sub">Budget NII &rarr; effects &rarr; Actual NII (NOK millions)</div>
-<div class="chart-host"><canvas id="waterfallChart" role="img" aria-label="Fossefallsdiagram: NII-avvik hittil i år brutt ned fra budsjett-NII via volum-, kundemargin-, FTP- og øvrige effekter til faktisk NII, i millioner kroner."></canvas></div>
+<div class="chart-host"><canvas id="waterfallChart" role="img" data-i-aria="ariaWaterfall" aria-label="Waterfall chart: year-to-date NII variance, broken down from budget NII through volume, customer-margin, FTP, and other effects to actual NII, in millions of kroner."></canvas></div>
 </div>
 <div class="commentary-card">
 <h3 class="commentary-title">Three things leadership should know</h3>
@@ -326,7 +326,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 </div>
 </div>
 <div class="chart-card trend-card">
-<div class="chart-host"><canvas id="trendChart" role="img" aria-label="Linjediagram: månedlig utvikling i totalinntekt og resultat før skatt de siste 24 månedene, med heltrukne linjer for faktiske tall og stiplede linjer for prognose, i millioner kroner."></canvas></div>
+<div class="chart-host"><canvas id="trendChart" role="img" data-i-aria="ariaTrend" aria-label="Line chart: monthly trend in total income and profit before tax over the last 24 months, with solid lines for actuals and dashed lines for forecast, in millions of kroner."></canvas></div>
 </div>
 </section>
 
@@ -370,7 +370,7 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.15)}
 </div>
 </div>
 <div class="roac-card">
-<div class="chart-host"><canvas id="roacChart" role="img" aria-label="Stolpediagram: avkastning på allokert kapital (ROAC) per produktlinje sammenlignet med hurdle-raten på 11 prosent."></canvas></div>
+<div class="chart-host"><canvas id="roacChart" role="img" data-i-aria="ariaRoac" aria-label="Bar chart: return on allocated capital (ROAC) per product line compared with the 11 percent hurdle rate."></canvas></div>
 </div>
 </section>
 
@@ -478,12 +478,12 @@ A pandas script generates 24 months of synthetic Actual / Budget / Forecast figu
 (function(){
   /* -------------- i18n (chrome only) ----------------------------- */
   var T={
-    no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",backProj:"← Tilbake til prosjekter",trendTitle:"Månedlig trend — siste 24 måneder",trendSub:"Heltrukket: faktiske tall t.o.m. apr 2026. Stiplet: prognose t.o.m. des 2026."},
-    en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",backProj:"← Back to projects",trendTitle:"Monthly trend — last 24 months",trendSub:"Solid lines: actuals through Apr 2026. Dashed: forecast through Dec 2026."},
-    fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",backProj:"← Retour aux projets",trendTitle:"Tendance mensuelle — 24 derniers mois",trendSub:"Lignes pleines : réel jusqu'à avr. 2026. Pointillés : prévision jusqu'à déc. 2026."},
-    de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",backProj:"← Zurück zu den Projekten",trendTitle:"Monatlicher Trend — letzte 24 Monate",trendSub:"Durchgezogen: Ist bis April 2026. Gestrichelt: Prognose bis Dezember 2026."},
-    ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",backProj:"← プロジェクトへ戻る",trendTitle:"月次トレンド — 直近24か月",trendSub:"実線: 2026年4月までの実績。点線: 2026年12月までの予測。"},
-    medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",backProj:"← Vend tilbake til verkene",trendTitle:"Måneds-krønike — de siste fire og tyve måner",trendSub:"Hele streker: sannferdige tall t.o.m. den fjerde måned 2026. Stiplede: spådommer t.o.m. den tolvte måned 2026."}
+    no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",backProj:"← Tilbake til prosjekter",trendTitle:"Månedlig trend — siste 24 måneder",trendSub:"Heltrukket: faktiske tall t.o.m. apr 2026. Stiplet: prognose t.o.m. des 2026.",ariaWaterfall:"Fossefallsdiagram: NII-avvik hittil i år brutt ned fra budsjett-NII via volum-, kundemargin-, FTP- og øvrige effekter til faktisk NII, i millioner kroner.",ariaTrend:"Linjediagram: månedlig utvikling i totalinntekt og resultat før skatt de siste 24 månedene, med heltrukne linjer for faktiske tall og stiplede linjer for prognose, i millioner kroner.",ariaRoac:"Stolpediagram: avkastning på allokert kapital (ROAC) per produktlinje sammenlignet med hurdle-raten på 11 prosent."},
+    en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",backProj:"← Back to projects",trendTitle:"Monthly trend — last 24 months",trendSub:"Solid lines: actuals through Apr 2026. Dashed: forecast through Dec 2026.",ariaWaterfall:"Waterfall chart: year-to-date NII variance, broken down from budget NII through volume, customer-margin, FTP, and other effects to actual NII, in millions of kroner.",ariaTrend:"Line chart: monthly trend in total income and profit before tax over the last 24 months, with solid lines for actuals and dashed lines for forecast, in millions of kroner.",ariaRoac:"Bar chart: return on allocated capital (ROAC) per product line compared with the 11 percent hurdle rate."},
+    fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",backProj:"← Retour aux projets",trendTitle:"Tendance mensuelle — 24 derniers mois",trendSub:"Lignes pleines : réel jusqu'à avr. 2026. Pointillés : prévision jusqu'à déc. 2026.",ariaWaterfall:"Diagramme en cascade : écart de marge nette d'intérêts (MNI) cumulé depuis le début de l'année, décomposé de la MNI budgétée en effets volume, marge client, FTP et autres jusqu'à la MNI réelle, en millions de couronnes.",ariaTrend:"Graphique linéaire : évolution mensuelle du produit net total et du résultat avant impôt sur les 24 derniers mois, avec des lignes pleines pour le réel et des lignes pointillées pour la prévision, en millions de couronnes.",ariaRoac:"Diagramme en barres : rendement des fonds propres alloués (ROAC) par ligne de produits comparé au taux plancher de 11 pour cent."},
+    de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",backProj:"← Zurück zu den Projekten",trendTitle:"Monatlicher Trend — letzte 24 Monate",trendSub:"Durchgezogen: Ist bis April 2026. Gestrichelt: Prognose bis Dezember 2026.",ariaWaterfall:"Wasserfalldiagramm: Zinsüberschuss-Abweichung im Jahresverlauf, aufgeschlüsselt vom Budget-Zinsüberschuss über Volumen-, Kundenmarge-, FTP- und sonstige Effekte bis zum tatsächlichen Zinsüberschuss, in Millionen Kronen.",ariaTrend:"Liniendiagramm: monatliche Entwicklung von Gesamtertrag und Ergebnis vor Steuern über die letzten 24 Monate, mit durchgezogenen Linien für Ist-Werte und gestrichelten Linien für die Prognose, in Millionen Kronen.",ariaRoac:"Balkendiagramm: Rendite auf das allokierte Kapital (ROAC) je Produktlinie im Vergleich zur Mindestrendite von 11 Prozent."},
+    ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",backProj:"← プロジェクトへ戻る",trendTitle:"月次トレンド — 直近24か月",trendSub:"実線: 2026年4月までの実績。点線: 2026年12月までの予測。",ariaWaterfall:"ウォーターフォール図: 年初来の純金利収益（NII）差異を、予算NIIから数量・顧客マージン・FTP・その他の効果を経て実績NIIまで分解、単位は百万クローネ。",ariaTrend:"折れ線グラフ: 直近24か月の総収益と税引前利益の月次推移。実線は実績、点線は予測、単位は百万クローネ。",ariaRoac:"棒グラフ: 製品ライン別の配賦資本利益率（ROAC）を11パーセントのハードルレートと比較。"},
+    medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",backProj:"← Vend tilbake til verkene",trendTitle:"Måneds-krønike — de siste fire og tyve måner",trendSub:"Hele streker: sannferdige tall t.o.m. den fjerde måned 2026. Stiplede: spådommer t.o.m. den tolvte måned 2026.",ariaWaterfall:"Fossefalls-tavle: rentegevinstens avvik dette år, sundret fra det budsjetterte via mengde, kundemargin, indre renteførsel og annet slikt frem til den sanne rentegevinst, i millioner kroner.",ariaTrend:"Streke-tavle: månedlig ferd i samlet inntekt og vinning før skatt de siste fire og tyve måner, med hele streker for sannferdige tall og stiplede for spådommer, i millioner kroner.",ariaRoac:"Stolpe-tavle: avkastning på henlagt kapital (ROAC) for hver handelslinje, veid mot terskelen på elleve hundredeler."}
   };
   function setLang(l){
     document.documentElement.lang=l;
@@ -492,12 +492,18 @@ A pandas script generates 24 months of synthetic Actual / Budget / Forecast figu
       var k=el.getAttribute('data-i');
       if(d[k]!==undefined) el.textContent=d[k];
     });
+    /* i18n for attributes: aria-label (used on the chart canvases) */
+    document.querySelectorAll('[data-i-aria]').forEach(function(el){
+      var k=el.getAttribute('data-i-aria');
+      if(d[k]!==undefined) el.setAttribute('aria-label',d[k]);
+    });
     var btn=document.getElementById('langBtn');
     if(btn) btn.textContent=(l==='medieval'?'NO':l).toUpperCase();
     document.querySelectorAll('.lang-opt').forEach(function(o){
       o.classList.toggle('active',o.getAttribute('data-lang')===l);
     });
     var menu=document.getElementById('langMenu'); if(menu) menu.classList.remove('open');
+    var lbtn=document.getElementById('langBtn'); if(lbtn) lbtn.setAttribute('aria-expanded','false');
     try{localStorage.setItem('ve-lang',l)}catch(e){}
   }
   window.setLang=setLang;
@@ -526,12 +532,25 @@ A pandas script generates 24 months of synthetic Actual / Budget / Forecast figu
   });
 
   /* -------------- lang menu --------------------------------------- */
+  function syncLangExpanded(){
+    var m=document.getElementById('langMenu'), b=document.getElementById('langBtn');
+    if(m&&b) b.setAttribute('aria-expanded', m.classList.contains('open')?'true':'false');
+  }
   document.getElementById('langBtn').addEventListener('click',function(e){
-    e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open');
+    e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open'); syncLangExpanded();
   });
   document.addEventListener('click',function(e){
     var m=document.getElementById('langMenu');
-    if(m && !m.contains(e.target) && e.target.id!=='langBtn') m.classList.remove('open');
+    if(m && !m.contains(e.target) && e.target.id!=='langBtn'){ m.classList.remove('open'); syncLangExpanded(); }
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'||e.key==='Esc'){
+      var m=document.getElementById('langMenu');
+      if(m && m.classList.contains('open')){
+        m.classList.remove('open'); syncLangExpanded();
+        var b=document.getElementById('langBtn'); if(b) b.focus();
+      }
+    }
   });
   document.querySelectorAll('.lang-opt').forEach(function(o){
     o.addEventListener('click',function(){ setLang(o.getAttribute('data-lang')); });

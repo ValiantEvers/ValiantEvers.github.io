@@ -156,7 +156,7 @@
       </div>
     </div>
 
-    <div id="chartWrap">
+    <div id="chartWrap" role="tabpanel" aria-labelledby="lblStrategy" tabindex="0">
       <div id="chart"></div>
       <div class="legend" id="legend"></div>
     </div>
@@ -236,7 +236,7 @@
     var tabs = document.getElementById("strategyTabs");
     d.strategy.forEach(function(s){
       var b = document.createElement("button");
-      b.type = "button"; b.setAttribute("role","tab"); b.dataset.v = s;
+      b.type = "button"; b.setAttribute("role","tab"); b.setAttribute("aria-controls","chartWrap"); b.dataset.v = s;
       b.textContent = (DATA.strategy_meta[s] && DATA.strategy_meta[s].label_no) || s;
       b.addEventListener("click", function(){ sel.strategy = s; syncTabs(); render(); });
       b.addEventListener("keydown", function(e){ arrowNav(e, tabs, s); });
