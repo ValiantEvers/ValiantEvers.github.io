@@ -30,6 +30,7 @@ import re
 import sys
 import time
 from datetime import datetime, timezone
+from html import unescape as _unescape
 
 import requests
 from cryptography.hazmat.primitives import hashes
@@ -49,6 +50,9 @@ ENABLE_NORDEA = True    # Nordea SuccessFactors RSS (requests)
 ENABLE_DNB = True       # DNB SuccessFactors RSS (requests)
 ENABLE_FORMUE = True    # Formue Teamtailor JSON (requests)
 ENABLE_NBIM = True      # NBIM vacancies (Playwright)
+ENABLE_STOREBRAND = True  # Storebrand Workday CXS JSON (requests POST)
+ENABLE_ARCTIC = True      # Arctic Securities open-positions (requests+regex, Playwright-fallback)
+ENABLE_PARETO = True      # Pareto Securities Teamtailor JSON (requests, som Formue)
 
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
@@ -657,6 +661,17 @@ FINANCE_TERMS = [kw for kw, _ in PROFILE["titleKeywords"]] + [
     "client advisor", "relationship manager", "wealth advisor",
 ]
 
+# «Målbedrift-rolle»-nett: front-office-NÆRE titler som WM/PB-vokabularet over
+# IKKE fanger (analyst/associate/asset servicing/portfolio). Teller som eligible
+# KUN når arbeidsgiveren allerede er en målbedrift — dvs. de direkte employer-
+# kildene (nbim/nordea/dnb/formue), eller NAV gated på is_priority_company.
+# Ellers ville hele Oslos analyst-/associate-marked slippe gjennom. Påvirker IKKE
+# scoring → ingen parity-krav mot strategi.html (samme som FINANCE_TERMS).
+EMPLOYER_ROLE_NET = [
+    "analyst", "analytiker", "associate", "asset servic",
+    "portfolio", "portefølje", "investment", "capital markets",
+]
+
 
 def matches_oslo_belt(location: str) -> bool:
     """Speiler matchesOsloBelt() i strategi.html — Oslo + pendlerbelte."""
@@ -671,12 +686,14 @@ def keep_job(job: dict, source: str) -> bool:
     loc = (job.get("location") or "").strip()
     finance = any(t in role for t in FINANCE_TERMS)
     grad = any(g in role for g in GRADUATE_NET)
+    emp_role = any(t in role for t in EMPLOYER_ROLE_NET)
     neg = any(n in role for n in PROFILE["negativeKeywords"])
     oslo_ok = (not loc) or matches_oslo_belt(loc)  # lenient på ukjent location
     if source == "nav":
-        eligible = finance or (grad and is_priority_company(company))
+        # NAV = hele markedet → grad-/employer-nettet gjelder KUN målbedrifter
+        eligible = finance or ((grad or emp_role) and is_priority_company(company))
     else:  # nbim/nordea/dnb/formue er allerede én målbedrift
-        eligible = finance or grad
+        eligible = finance or grad or emp_role
     return oslo_ok and eligible and not (neg and not finance)
 
 
@@ -895,6 +912,70 @@ def fetch_teamtailor(url: str, source: str) -> list:
 
 
 # ─────────────────────────────────────────────────────────────────────────
+# Workday CXS jobs-API — requests POST, gjenbrukbar på tvers av Workday-tenants
+# (Storebrand først). GET på /jobs gir HTTP 400 (POST-only, bekreftet live).
+# Body {"appliedFacets":{},"limit":20,"offset":0,"searchText":""}; tomt
+# searchText gir ALLE jobber (mye irrelevant: forsikring/skade/IT) — keep_job
+# snevrer inn. Svar: {"total": int, "jobPostings": [...]}. Per posting: title,
+# externalPath, locationsText, postedOn («Posted 3 Days Ago» — IKKE ren dato →
+# posted=None). Apply-URL = base_url + externalPath (locale-segment i base_url).
+# ─────────────────────────────────────────────────────────────────────────
+
+WORKDAY_LIMIT = 20
+WORKDAY_MAX_PAGES = 15  # sikkerhetstak ~300 jobber/kjøring (runaway-vern)
+
+
+def fetch_workday(api_url: str, base_url: str, source: str) -> list:
+    """Workday CXS jobs-API (POST, paginert). base_url = locale-prefikset
+    apply-base som externalPath henges på, f.eks.
+    'https://storebrand.wd3.myworkdayjobs.com/en-US/Storebrand_Careers'."""
+    jobs = []
+    seen = set()
+    try:
+        offset = 0
+        for _ in range(WORKDAY_MAX_PAGES):
+            body = {"appliedFacets": {}, "limit": WORKDAY_LIMIT,
+                    "offset": offset, "searchText": ""}
+            r = requests.post(
+                api_url, json=body,
+                headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+                timeout=30,
+            )
+            r.raise_for_status()
+            data = r.json()
+            postings = data.get("jobPostings") or []
+            if not postings:
+                break
+            for p in postings:
+                path = (p.get("externalPath") or "").strip()
+                title = (p.get("title") or "").strip()
+                if not path or not title:
+                    continue
+                url = base_url.rstrip("/") + path  # externalPath begynner med "/"
+                if url in seen:
+                    continue
+                seen.add(url)
+                jobs.append({
+                    "role": title,
+                    "company": source.capitalize(),      # "storebrand" → "Storebrand"
+                    "location": (p.get("locationsText") or "").strip(),
+                    "url": url,
+                    "posted": None,   # postedOn er menneskelesbar, ikke ren dato
+                    "query": f"{source}-ats",
+                })
+            offset += WORKDAY_LIMIT
+            total = data.get("total") or 0
+            if total and offset >= total:
+                break
+            time.sleep(0.5)   # throttle mellom paginerte kall
+    except Exception as e:
+        print(f"  {source}: Workday-henting feilet: {e}", file=sys.stderr)
+        return []
+    time.sleep(1.0)
+    return jobs
+
+
+# ─────────────────────────────────────────────────────────────────────────
 # NBIM (Norges Bank Investment Management) — Webcruiter-basert, ingen JSON →
 # Playwright DOM (lazy import). På nbim.no (IKKE .com — .com 301-redirecter).
 # Eneste kilde uten aggregator-fallback (ikke på finn ELLER NAV). Vacancies-
@@ -946,6 +1027,116 @@ def scrape_nbim() -> list:
     return jobs
 
 
+def _strip_tags(s: str) -> str:
+    """HTML → ren tekst: dropp tagger, decode entities (&amp;/&nbsp;), kollaps whitespace."""
+    return re.sub(r"\s+", " ", _unescape(re.sub(r"<[^>]+>", " ", s or ""))).strip()
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Arctic Securities — server-rendret HTML, INGEN JSON-API funnet (juli 2026).
+# Stillingene ligger i rå HTML: <a href="/career/open-position/<år>/<slug>">.
+# Primær: requests.get + re (raskt, ingen browser). Fallback: Playwright samme
+# DOM-selektor hvis rå-HTML ikke har ankrene (JS-hydrering). Company =
+# «Arctic Securities», Oslo-HQ → location default «Oslo» når kortet mangler by.
+# Absolutte URL-er (https://www.arctic.com). Liste-URL er FLERTALL
+# (/open-positions), detalj ENTALL m/skråstrek (/open-position/…) → regex/
+# selektor med etterfølgende «/» matcher aldri liste-selvlenken.
+# ─────────────────────────────────────────────────────────────────────────
+
+ARCTIC_POSITIONS = "https://www.arctic.com/career/open-positions"
+ARCTIC_BASE = "https://www.arctic.com"
+ARCTIC_HREF_RE = re.compile(
+    r'<a[^>]+href="(/career/open-position/[^"#?]+)"[^>]*>(.*?)</a>', re.I | re.S
+)
+ARCTIC_CITY_RE = re.compile(
+    r"\b(Oslo|Lysaker|Fornebu|Sandvika|Bærum|Asker|Stavanger|Bergen|Trondheim|"
+    r"London|Stockholm|Copenhagen|København|Frankfurt)\b", re.I
+)
+
+
+def _arctic_parse_html(html: str) -> list:
+    jobs, seen = [], set()
+    for m in ARCTIC_HREF_RE.finditer(html):
+        path, inner = m.group(1), m.group(2)
+        title = _strip_tags(inner)
+        if not title:
+            continue
+        url = ARCTIC_BASE + path.split("#")[0].split("?")[0]
+        if url in seen:
+            continue
+        seen.add(url)
+        # By fra tittelen, ellers ~300-tegns vindu etter ankeret; ellers Oslo (HQ).
+        cm = ARCTIC_CITY_RE.search(title) or ARCTIC_CITY_RE.search(html[m.end():m.end() + 300])
+        jobs.append({
+            "role": title,
+            "company": "Arctic Securities",
+            "location": cm.group(1) if cm else "Oslo",
+            "url": url,
+            "posted": None,
+            "query": "arctic",
+        })
+    return jobs
+
+
+def scrape_arctic() -> list:
+    # 1) requests + regex (primær)
+    try:
+        r = requests.get(ARCTIC_POSITIONS, headers={"User-Agent": BROWSER_UA}, timeout=30)
+        r.raise_for_status()
+        jobs = _arctic_parse_html(r.text)
+        if jobs:
+            time.sleep(1.0)
+            return jobs
+        print("  arctic: 0 ankere i rå HTML — faller tilbake til Playwright", file=sys.stderr)
+    except Exception as e:
+        print(f"  arctic: requests feilet ({e}) — prøver Playwright", file=sys.stderr)
+
+    # 2) Playwright-fallback (speiler scrape_nbim)
+    try:
+        from playwright.sync_api import sync_playwright
+        jobs, seen = [], set()
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent=USER_AGENT, viewport={"width": 1280, "height": 800})
+            page = context.new_page()
+            try:
+                page.goto(ARCTIC_POSITIONS, wait_until="networkidle", timeout=30000)
+                page.wait_for_timeout(1500)
+                for a in page.query_selector_all("a[href*='/career/open-position/']"):
+                    href = (a.get_attribute("href") or "").strip()
+                    title = _strip_tags(a.text_content() or "")
+                    if not href or not title:
+                        continue
+                    if not href.startswith("http"):
+                        href = ARCTIC_BASE + href
+                    href = href.split("#")[0].split("?")[0]
+                    if href in seen:
+                        continue
+                    seen.add(href)
+                    jobs.append({
+                        "role": title, "company": "Arctic Securities",
+                        "location": "Oslo", "url": href,
+                        "posted": None, "query": "arctic",
+                    })
+            finally:
+                browser.close()
+        time.sleep(1.5)   # Playwright-throttle
+        return jobs
+    except Exception as e:
+        print(f"  arctic: Playwright-fallback feilet: {e}", file=sys.stderr)
+        return []
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Pareto Securities — kjører Teamtailor (samme ATS som Formue). Selve
+# paretosec.com/updates/vacant-positions er flaky å skrape (href veksler
+# relativ/absolutt mellom kall); Teamtailor-feeden er strukturert JSON og
+# gjenbruker fetch_teamtailor direkte (se employer-loopen i main), så ingen
+# egen Pareto-kode trengs. Feed: https://paretosecurities.teamtailor.com/jobs.json
+# ─────────────────────────────────────────────────────────────────────────
+
+
 # ─────────────────────────────────────────────────────────────────────────
 # Cross-source dedup — fingerprint (selskap+tittel+by) på toppen av URL-dedup,
 # så samme jobb fra finn/NAV/ATS ikke vises 2–3×. Kilde-preferanse: direkte
@@ -954,6 +1145,7 @@ def scrape_nbim() -> list:
 
 SOURCE_PREF = {
     "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
+    "storebrand": 0, "arctic": 0, "pareto": 0,      # direkte arbeidsgiver (nye, juli 2026)
     "nav": 1, "finn": 2, "jobindex": 3,
 }
 
@@ -1085,6 +1277,13 @@ def main():
         (ENABLE_DNB, "dnb", lambda: fetch_successfactors("https://jobb.dnb.no/sitemal.xml", "dnb")),
         (ENABLE_FORMUE, "formue", lambda: fetch_teamtailor("https://career.formue.no/jobs.json", "formue")),
         (ENABLE_NBIM, "nbim", scrape_nbim),
+        (ENABLE_STOREBRAND, "storebrand", lambda: fetch_workday(
+            "https://storebrand.wd3.myworkdayjobs.com/wday/cxs/storebrand/Storebrand_Careers/jobs",
+            "https://storebrand.wd3.myworkdayjobs.com/en-US/Storebrand_Careers",
+            "storebrand")),
+        (ENABLE_ARCTIC, "arctic", scrape_arctic),
+        (ENABLE_PARETO, "pareto", lambda: fetch_teamtailor(
+            "https://paretosecurities.teamtailor.com/jobs.json", "pareto")),
     ):
         if not enabled:
             continue
