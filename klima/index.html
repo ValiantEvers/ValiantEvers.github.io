@@ -184,9 +184,117 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
   html{scroll-behavior:auto}
 }
 </style>
+<style>
+/* ===== INTERAKTIV OPPGRADERING (P1–P7) — additiv, bruker eksisterende tokens ===== */
+
+/* P4: lese-progresjon */
+.read-progress{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:101;pointer-events:none}
+
+/* P4: seksjons-rail (scrollspy), desktop only */
+.sec-rail{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);z-index:99;
+  display:flex;flex-direction:column;gap:.7rem;align-items:flex-end}
+.sec-rail a{--d:6px;width:var(--d);height:var(--d);border-radius:50%;background:var(--subtle);
+  transition:background .3s,width .3s,height .3s;position:relative}
+.sec-rail a::after{content:attr(data-lbl);position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.02em;color:var(--muted);
+  white-space:nowrap;opacity:0;transition:opacity .25s;pointer-events:none}
+.sec-rail a:hover::after{opacity:1}
+.sec-rail a.active{background:var(--accent);width:9px;height:9px}
+@media(max-width:1180px){.sec-rail{display:none}}
+@media(hover:none){.sec-rail{display:none}}
+
+/* Reveal + wipe (IntersectionObserver-drevet, degraderer til synlig) */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+.js .rv.in{opacity:1;transform:none}
+.js .wp{clip-path:inset(0 100% 0 0);transition:clip-path .8s var(--ease-out)}
+.js .wp.in{clip-path:inset(0 0 0 0)}
+.stagger>*{transition-delay:calc(var(--i,0)*70ms)}
+
+/* Count-up: stabile siffer */
+.stat-big,.cost-amt{font-variant-numeric:tabular-nums}
+
+/* P1: warming stripes */
+.stripes-fig{margin:0 0 1.8rem}
+.stripes-row{position:relative}
+.stripes-fig canvas{display:block;width:100%;height:76px;border-radius:10px;box-shadow:var(--card-shadow);
+  border:1px solid var(--hair);cursor:crosshair}
+.stripes-fig canvas+ .s-lab{margin-top:.35rem}
+.s-lab{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem;
+  font-family:var(--font-mono);font-size:.64rem;color:var(--muted);letter-spacing:.02em;margin-bottom:.9rem}
+.s-lab .src{font-size:.62rem}
+.stripe-tip{position:absolute;pointer-events:none;opacity:0;transform:translate(-50%,-130%);
+  background:var(--text);color:var(--bg);font-family:var(--font-mono);font-size:.66rem;
+  padding:.25rem .45rem;border-radius:5px;white-space:nowrap;transition:opacity .12s;z-index:5}
+.stripes-intro{font-size:.9rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+
+/* Charts (SVG line) */
+.chart-fig{margin:1.4rem 0 0;background:var(--card-bg);border:1px solid var(--hair);border-radius:16px;
+  box-shadow:var(--card-shadow);padding:1.3rem 1.4rem 1.1rem}
+.chart-fig .c-title{font-family:var(--font-sans);font-weight:600;font-size:.95rem;margin-bottom:.2rem}
+.chart-fig .c-sub{font-size:.82rem;color:var(--muted);line-height:1.5;margin-bottom:.9rem}
+.chart-fig svg{width:100%;height:auto;display:block;overflow:visible}
+.chart-legend{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:.7rem;
+  font-family:var(--font-mono);font-size:.66rem;color:var(--muted)}
+.chart-legend span{display:inline-flex;gap:.4rem;align-items:center}
+.chart-legend i{width:14px;height:3px;border-radius:2px;flex-shrink:0}
+.chart-cap{font-family:var(--font-mono);font-size:.62rem;color:var(--subtle);margin-top:.6rem}
+.drawline{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.6s var(--ease-out)}
+.drawline.in{stroke-dashoffset:0}
+.grid-ln{stroke:var(--hair);stroke-width:1}
+.axis-lbl{font-family:var(--font-mono);font-size:10px;fill:var(--muted)}
+
+/* P3: animert trekkspill (grid-rows) — JS-styrt d.open */
+.myte .m-reveal{display:grid;grid-template-rows:0fr;transition:grid-template-rows .36s var(--ease-out)}
+.myte[open] .m-reveal{grid-template-rows:1fr}
+.myte .m-reveal>.m-body{overflow:hidden}
+
+/* P3: myte-mini-graf */
+.myte-fig{margin-top:1rem;border-top:1px solid var(--hair);padding-top:1rem}
+.myte-fig svg{width:100%;height:auto;display:block;overflow:visible}
+.myte-take{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);margin-top:.5rem;line-height:1.4}
+.myte-take b{color:var(--text)}
+
+/* P3: vulkan-søyler */
+.vbars{display:flex;flex-direction:column;gap:.7rem;margin-top:.4rem}
+.vbar-row{display:grid;grid-template-columns:6.5rem 1fr;gap:.7rem;align-items:center}
+.vbar-lab{font-size:.78rem;color:var(--muted)}
+.vbar-lab b{display:block;color:var(--text);font-family:var(--font-serif);font-size:1.05rem}
+.vbar-track{background:var(--hair);border-radius:5px;height:22px;overflow:hidden}
+.vbar-fill{height:100%;border-radius:5px;width:0;transition:width 1.1s var(--ease-out)}
+
+/* P5: kostnads-sammenligning (samme metrikk, to år) */
+.cost-compare{background:var(--card-bg);border:1px solid var(--hair);border-radius:16px;
+  box-shadow:var(--card-shadow);padding:1.3rem 1.4rem;margin-bottom:1.6rem}
+.cost-compare .cc-title{font-family:var(--font-sans);font-weight:600;font-size:.95rem;margin-bottom:1rem}
+.cc-row{display:grid;grid-template-columns:3.5rem 1fr auto;gap:.8rem;align-items:center;margin-bottom:.7rem}
+.cc-row .cc-yr{font-family:var(--font-mono);font-size:.8rem;color:var(--muted)}
+.cc-track{background:var(--hair);border-radius:6px;height:28px;overflow:hidden}
+.cc-fill{height:100%;border-radius:6px;width:0;transition:width 1.2s var(--ease-out);
+  background:linear-gradient(90deg,var(--accent),var(--accent4))}
+.cc-val{font-family:var(--font-serif);font-size:1.05rem;font-weight:600;font-variant-numeric:tabular-nums;min-width:5.5rem;text-align:right}
+.cc-note{font-size:.78rem;color:var(--muted);margin-top:.4rem;line-height:1.5}
+
+@media(prefers-reduced-motion:reduce){
+  .js .rv{opacity:1 !important;transform:none !important}
+  .js .wp{clip-path:none !important}
+  .drawline{stroke-dashoffset:0 !important}
+}
+</style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js');</script>
 <div class="cursor-dot" id="cursorDot"></div>
+<div class="read-progress" id="readProgress" aria-hidden="true"></div>
+<nav class="sec-rail" id="secRail" aria-label="Seksjoner">
+<a href="#globalt" data-lbl="Globalt"></a>
+<a href="#norge-kostnader" data-lbl="Kostnader"></a>
+<a href="#norge-natur" data-lbl="Natur"></a>
+<a href="#fremtid" data-lbl="Fremtid"></a>
+<a href="#naeringsliv" data-lbl="Næringsliv"></a>
+<a href="#myter" data-lbl="Myter"></a>
+<a href="#migrasjon" data-lbl="Migrasjon"></a>
+</nav>
 
 <nav id="mainNav">
 <a href="/" class="nav-logo">V.</a>
@@ -211,22 +319,32 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="globalt" aria-labelledby="h-globalt">
 <div class="sub-header">
-<h2 class="sub-title" id="h-globalt">Hvor vi står globalt</h2>
+<h2 class="sub-title wp" id="h-globalt">Hvor vi står globalt</h2>
 <span class="sub-note">Målt, ikke ment</span>
 </div>
+<figure class="stripes-fig rv">
+<p class="stripes-intro">Hvert felt er ett år, fra kaldere (blått) til varmere (rødt) enn snittet. Ingen akser, ingen tall, bare temperaturen selv. Før musepekeren over for å hente året tilbake.</p>
+<div class="stripes-row">
+<canvas id="stripesGlobal" role="img" aria-label="Global temperaturanomali fra 1880 til 2025 vist som fargede striper, fra blått for kaldere til rødt for varmere enn snittet"></canvas>
+<div class="s-lab"><span>Global, 1880 til 2025</span><a class="src" href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">NASA GISTEMP v4</a></div>
+<canvas id="stripesNorge" role="img" aria-label="Norsk temperaturanomali fra 1901 til 2020 vist som fargede striper"></canvas>
+<div class="s-lab"><span>Norge, 1901 til 2020</span><a class="src" href="https://berkeleyearth.org/data/" target="_blank" rel="noopener">Berkeley Earth</a></div>
+<div class="stripe-tip" id="stripeTip"></div>
+</div>
+</figure>
 <div class="statgrid">
 <div class="stat">
-<div class="stat-big">1,47&nbsp;°C</div>
+<div class="stat-big" data-cnt data-to="1.47" data-dec="2" data-suf="&nbsp;°C">1,47&nbsp;°C</div>
 <div class="stat-lbl">over førindustriell tid (1850 til 1900) i 2025, det nest eller tredje varmeste året som er målt</div>
 <a class="src" href="https://climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record" target="_blank" rel="noopener">Copernicus, 2026</a>
 </div>
 <div class="stat">
-<div class="stat-big">432&nbsp;ppm</div>
+<div class="stat-big" data-cnt data-to="432" data-dec="0" data-suf="&nbsp;ppm">432&nbsp;ppm</div>
 <div class="stat-lbl">CO₂ i atmosfæren, målt ved Mauna Loa i mai 2026. Omtrent 50&nbsp;% over førindustrielt nivå, som aldri var over 280&nbsp;ppm</div>
 <a class="src" href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener">NOAA, 2026</a>
 </div>
 <div class="stat">
-<div class="stat-big">38,1&nbsp;Gt</div>
+<div class="stat-big" data-cnt data-to="38.1" data-dec="1" data-suf="&nbsp;Gt">38,1&nbsp;Gt</div>
 <div class="stat-lbl">fossile CO₂-utslipp i 2025, ny rekord og 1,1&nbsp;% mer enn året før. Arealbruksendringer kom i tillegg med 4,1&nbsp;Gt</div>
 <a class="src" href="https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/" target="_blank" rel="noopener">Global Carbon Project, 2025</a>
 </div>
@@ -236,6 +354,16 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <a class="src" href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">WMO, 2025</a>
 </div>
 </div>
+<figure class="chart-fig rv" id="co2Fig">
+<div class="c-title">CO₂ i atmosfæren, 1959 til 2025</div>
+<div class="c-sub">Streken som bare går én vei: fra 316 til 427&nbsp;ppm på under 70 år. Den lille sagtann-svingningen er årstidene; den store trenden er oss.</div>
+<svg viewBox="0 0 640 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Kurve som viser CO₂-konsentrasjonen ved Mauna Loa stige fra 316 ppm i 1959 til 427 ppm i 2025">
+<g id="co2Grid"></g>
+<path id="co2Line" class="drawline" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="co2Ax"></g>
+</svg>
+<div class="chart-cap">Kilde: <a class="src" href="https://gml.noaa.gov/ccgg/trends/" target="_blank" rel="noopener">NOAA GML, Mauna Loa</a></div>
+</figure>
 <div class="prose">
 <p>2024 er det varmeste enkeltåret som er målt, med 1,60&nbsp;°C over førindustrielt nivå. Den langsiktige, menneskeskapte oppvarmingen ligger på omtrent 1,4&nbsp;°C <a class="src" href="https://climate.copernicus.eu/copernicus-2025-was-third-hottest-year-record" target="_blank" rel="noopener">Copernicus, 2026</a>. Treårsperioden 2023 til 2025 er den første med et snitt over 1,5&nbsp;°C <a class="src" href="https://wmo.int/news/media-centre/earths-climate-swings-increasingly-out-of-balance" target="_blank" rel="noopener">WMO, 2025</a>.</p>
 <p>Skal oppvarmingen begrenses til 1,5&nbsp;°C, gjenstår et karbonbudsjett på 170&nbsp;Gt CO₂ fra 2026. Med dagens utslippsnivå tilsvarer det omtrent fire år, og budsjettet er brukt opp før 2030 hvis tempoet fortsetter <a class="src" href="https://globalcarbonbudget.org/fossil-fuel-co2-emissions-hit-record-high-in-2025/" target="_blank" rel="noopener">Global Carbon Project, 2025</a>. Med dagens politikk ligger kloden an til rundt 2,6&nbsp;°C oppvarming i 2100. Innfris alle avgitte løfter, blir det rundt 2,2&nbsp;°C, og nås alle netto null-mål, 1,9&nbsp;°C <a class="src" href="https://climateactiontracker.org/global/temperatures/" target="_blank" rel="noopener">Climate Action Tracker, 2025</a>.</p>
@@ -246,15 +374,21 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="norge-kostnader" aria-labelledby="h-kostnader">
 <div class="sub-header">
-<h2 class="sub-title" id="h-kostnader">Hva det koster Norge</h2>
+<h2 class="sub-title wp" id="h-kostnader">Hva det koster Norge</h2>
 <span class="sub-note">Lommebok og økonomi</span>
 </div>
 <div class="prose">
 <p>Klimaendringer er ikke bare et spørsmål om isbjørner og fjerne øystater. De vises allerede i norske forsikringsoppgjør, landbruksstøtte og kommunebudsjetter.</p>
 </div>
+<figure class="cost-compare rv" id="costCompare">
+<div class="cc-title">Vær- og naturskadeerstatninger: 2022 mot rekordåret 2023</div>
+<div class="cc-row"><span class="cc-yr">2022</span><div class="cc-track"><div class="cc-fill" data-w="37.8"></div></div><span class="cc-val" data-cc="2.8" data-dec="1">2,8 mrd</span></div>
+<div class="cc-row"><span class="cc-yr">2023</span><div class="cc-track"><div class="cc-fill" data-w="100"></div></div><span class="cc-val" data-cc="7.4" data-dec="1">7,4 mrd</span></div>
+<div class="cc-note">Samme måltall, to år: fra 2,8 til 7,4 mrd. kr. Det høyeste nivået siden målingene startet i 1980. <a class="src" href="https://www.finansnorge.no/artikler/2024/03/var--og-naturskader-for-35-milliarder-kroner/" target="_blank" rel="noopener">Finans Norge, 2024</a></div>
+</figure>
 <ul class="costlist">
 <li>
-<span class="cost-amt">42,3 mrd. kr</span>
+<span class="cost-amt" data-cnt data-to="42.3" data-dec="1" data-suf=" mrd. kr">42,3 mrd. kr</span>
 <span class="cost-txt">i vær- og naturskadeerstatninger for bygning og innbo de siste ti årene (2016 til 2025). De tre siste årene har vært klart dyrest, omtrent 100 forsikringskunder rammes hver dag, og styrtregn i tettbygde strøk står for rundt halvparten av skadene.<a class="src" href="https://www.finansnorge.no/artikler/2026/03/var--og-naturskader-for-423-milliarder/" target="_blank" rel="noopener">Finans Norge, 2026</a></span>
 </li>
 <li>
@@ -278,7 +412,7 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="norge-natur" aria-labelledby="h-natur">
 <div class="sub-header">
-<h2 class="sub-title" id="h-natur">Natur, friluftsliv og vær i Norge</h2>
+<h2 class="sub-title wp" id="h-natur">Natur, friluftsliv og vær i Norge</h2>
 <span class="sub-note">Det vi merker der vi bor</span>
 </div>
 <div class="prose">
@@ -291,7 +425,7 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="fremtid" aria-labelledby="h-fremtid">
 <div class="sub-header">
-<h2 class="sub-title" id="h-fremtid">Fremtid og generasjoner</h2>
+<h2 class="sub-title wp" id="h-fremtid">Fremtid og generasjoner</h2>
 <span class="sub-note">Norge mot 2100</span>
 </div>
 <div class="prose">
@@ -303,7 +437,7 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="naeringsliv" aria-labelledby="h-naeringsliv">
 <div class="sub-header">
-<h2 class="sub-title" id="h-naeringsliv">Næringsliv og verdsettelse</h2>
+<h2 class="sub-title wp" id="h-naeringsliv">Næringsliv og verdsettelse</h2>
 <span class="sub-note">Hva klima gjør med verdien av bedrifter</span>
 </div>
 <div class="prose">
@@ -329,7 +463,7 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="myter" aria-labelledby="h-myter">
 <div class="sub-header">
-<h2 class="sub-title" id="h-myter">Myter og fakta</h2>
+<h2 class="sub-title wp" id="h-myter">Myter og fakta</h2>
 <span class="sub-note">Ni vanlige innvendinger, etterprøvd</span>
 </div>
 <details class="myte">
@@ -342,6 +476,16 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <summary><span class="m-tag">Myte</span><h3>«Det er sola»</h3><span class="chev" aria-hidden="true">›</span></summary>
 <div class="m-body">
 <p>Satellitter har målt solinnstrålingen siden 1978: det er ingen økende trend. Energien fra sola har vært konstant eller svakt synkende siden 1750, samtidig som temperaturen på bakken stiger. I tillegg kjøles stratosfæren mens de nedre luftlagene varmes opp. Det er det motsatte av hva en varmere sol ville gitt, men akkurat det drivhusgasser gir <a class="src" href="https://science.nasa.gov/climate-change/faq/is-the-sun-causing-global-warming/" target="_blank" rel="noopener">NASA, 2026</a>.</p>
+<div class="myte-fig" id="figSol">
+<svg viewBox="0 0 560 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Graf: global temperatur stiger fra 1880 til 2025 mens solinnstrålingen holder seg flat">
+<line class="grid-ln" x1="42" y1="170" x2="548" y2="170"></line>
+<path id="solSun" class="drawline" fill="none" stroke="#e0a020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path id="solTemp" class="drawline" fill="none" stroke="#e5484d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<g id="solAx"></g>
+</svg>
+<div class="chart-legend"><span><i style="background:#e5484d"></i> Temperatur (stiger)</span><span><i style="background:#e0a020"></i> Solinnstråling (flat)</span></div>
+<div class="myte-take"><b>Sola har flatet ut. Temperaturen har ikke.</b> Data: <a class="src" href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">GISTEMP</a>, <a class="src" href="https://www.ncei.noaa.gov/products/climate-data-records/total-solar-irradiance" target="_blank" rel="noopener">NOAA TSI</a></div>
+</div>
 </div>
 </details>
 <details class="myte">
@@ -366,12 +510,33 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <summary><span class="m-tag">Myte</span><h3>«Det var varmere i middelalderen»</h3><span class="chev" aria-hidden="true">›</span></summary>
 <div class="m-body">
 <p>Middelaldervarmen var regional, konsentrert rundt Nord-Atlanteren, ikke global. En stor rekonstruksjon av de siste 2000 årene (Neukom med flere, Nature 2019) finner ingen globalt sammenfallende varmeepoke i førindustriell tid. 1900-tallets oppvarming dekker derimot over 98&nbsp;% av kloden, og det er uten sidestykke <a class="src" href="https://skepticalscience.com/medieval-warm-period.htm" target="_blank" rel="noopener">Neukom m.fl., 2019</a>.</p>
+<div class="myte-fig" id="figHockey">
+<svg viewBox="0 0 560 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Graf: global temperatur de siste 2000 årene, med en beskjeden middelaldervarme og en kraftig moderne stigning som langt overgår den">
+<line class="grid-ln" x1="42" y1="150" x2="548" y2="150"></line>
+<line id="hockeyRef" stroke="#e0a020" stroke-width="1.2" stroke-dasharray="4 4"></line>
+<path id="hockeyLine" class="drawline" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<g id="hockeyAx"></g>
+</svg>
+<div class="chart-legend"><span><i style="background:#e0a020"></i> Middelaldertopp</span><span><i style="background:var(--accent)"></i> Rekonstruert temperatur</span></div>
+<div class="myte-take"><b>Middelaldervarmen var regional og beskjeden. Dagens oppvarming er global, og langt varmere.</b> Data: <a class="src" href="https://www.ncei.noaa.gov/access/paleo-search/study/26872" target="_blank" rel="noopener">PAGES 2k (2019)</a> + <a class="src" href="https://www.metoffice.gov.uk/hadobs/hadcrut5/" target="_blank" rel="noopener">HadCRUT5</a></div>
+</div>
 </div>
 </details>
 <details class="myte">
 <summary><span class="m-tag">Myte</span><h3>«Oppvarmingen stoppet i 1998»</h3><span class="chev" aria-hidden="true">›</span></summary>
 <div class="m-body">
 <p>2024 er det varmeste året i NOAAs 175 år lange måleserie, som starter i 1850, og de ti varmeste årene i serien er alle fra 2015 til 2024. Siden 1975 har oppvarmingen gått i en takt på 0,20&nbsp;°C per tiår <a class="src" href="https://www.climate.gov/news-features/understanding-climate/climate-change-global-temperature" target="_blank" rel="noopener">NOAA, 2026</a>. Året 2005, som en gang var rekordår, er nå nummer 13 på listen.</p>
+<div class="myte-fig" id="fig1998">
+<svg viewBox="0 0 560 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Graf: global temperatur fra 1970 til 2025 der kortsiktige flate perioder skjuler den langsiktige stigende trenden">
+<line class="grid-ln" x1="42" y1="170" x2="548" y2="170"></line>
+<g id="escSteps"></g>
+<g id="escDots"></g>
+<path id="escTrend" class="drawline" fill="none" stroke="#e5484d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<g id="escAx"></g>
+</svg>
+<div class="chart-legend"><span><i style="background:#8aa0b8"></i> Utvalgte «pauser»</span><span><i style="background:#e5484d"></i> Langsiktig trend</span></div>
+<div class="myte-take"><b>Kortsiktige «pauser» forsvinner i den langsiktige trenden.</b> Data: <a class="src" href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">GISTEMP</a></div>
+</div>
 </div>
 </details>
 <details class="myte">
@@ -384,13 +549,20 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 <summary><span class="m-tag">Myte</span><h3>«Det er vulkanene»</h3><span class="chev" aria-hidden="true">›</span></summary>
 <div class="m-body">
 <p>Alle verdens vulkaner slipper til sammen ut mellom 0,13 og 0,44 milliarder tonn CO₂ i året. Menneskeheten slipper ut omtrent 35 milliarder tonn, altså 80 til 270 ganger mer. Sagt på en annen måte: menneskehetens utslipp tilsvarer et Mount St. Helens-utbrudd (10 millioner tonn) hver 2,5 time <a class="src" href="https://www.usgs.gov/programs/VHP/volcanoes-can-affect-climate" target="_blank" rel="noopener">USGS, 2026</a>.</p>
+<div class="myte-fig" id="figVulkan">
+<div class="vbars">
+<div class="vbar-row"><div class="vbar-lab">Mennesker<b>≈35 Gt</b></div><div class="vbar-track"><div class="vbar-fill" data-w="100" style="background:linear-gradient(90deg,#e5484d,#7a0f14)"></div></div></div>
+<div class="vbar-row"><div class="vbar-lab">Vulkaner<b>0,13 til 0,44 Gt</b></div><div class="vbar-track"><div class="vbar-fill" data-w="1.2" style="background:var(--accent)"></div></div></div>
+</div>
+<div class="myte-take"><b>80 til 270 ganger mer.</b> Menneskehetens årlige utslipp tilsvarer et Mount St. Helens hver 2,5. time.</div>
+</div>
 </div>
 </details>
 </section>
 
 <section id="migrasjon" aria-labelledby="h-migrasjon">
 <div class="sub-header">
-<h2 class="sub-title" id="h-migrasjon">Klima og migrasjon</h2>
+<h2 class="sub-title wp" id="h-migrasjon">Klima og migrasjon</h2>
 <span class="sub-note">Hva som faktisk er belagt</span>
 </div>
 <div class="prose">
@@ -402,7 +574,7 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 <section id="kilder" aria-labelledby="h-kilder" class="kilder">
 <div class="sub-header">
-<h2 class="sub-title" id="h-kilder">Kilder</h2>
+<h2 class="sub-title wp" id="h-kilder">Kilder</h2>
 <span class="sub-note">Komplett liste, samme rekkefølge som på siden</span>
 </div>
 <h3>Globalt</h3>
@@ -527,6 +699,229 @@ if(cursorDot){
     el.addEventListener('mouseleave',function(){cursorDot.classList.remove('hover');});
   });
 }
+})();
+</script>
+<script>
+/* ===== Interaktiv oppgradering (P1–P7). Alle dataserier er ekte og kildeført. ===== */
+(function(){
+"use strict";
+var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+var SVGNS='http://www.w3.org/2000/svg';
+
+/* ---- Data (ekte, kildeført) ---- */
+/* NASA GISTEMP v4, global årsanomali (°C vs 1951–1980) */
+var GISTEMP=[[1880,-0.18],[1881,-0.09],[1882,-0.11],[1883,-0.18],[1884,-0.29],[1885,-0.34],[1886,-0.32],[1887,-0.36],[1888,-0.18],[1889,-0.11],[1890,-0.36],[1891,-0.23],[1892,-0.28],[1893,-0.31],[1894,-0.31],[1895,-0.23],[1896,-0.12],[1897,-0.11],[1898,-0.28],[1899,-0.18],[1900,-0.09],[1901,-0.16],[1902,-0.28],[1903,-0.37],[1904,-0.48],[1905,-0.26],[1906,-0.22],[1907,-0.39],[1908,-0.43],[1909,-0.49],[1910,-0.44],[1911,-0.45],[1912,-0.37],[1913,-0.35],[1914,-0.16],[1915,-0.15],[1916,-0.37],[1917,-0.46],[1918,-0.30],[1919,-0.28],[1920,-0.28],[1921,-0.19],[1922,-0.28],[1923,-0.27],[1924,-0.27],[1925,-0.22],[1926,-0.11],[1927,-0.22],[1928,-0.20],[1929,-0.36],[1930,-0.16],[1931,-0.09],[1932,-0.16],[1933,-0.29],[1934,-0.13],[1935,-0.20],[1936,-0.15],[1937,-0.03],[1938,0.00],[1939,-0.02],[1940,0.12],[1941,0.18],[1942,0.06],[1943,0.09],[1944,0.20],[1945,0.09],[1946,-0.07],[1947,-0.03],[1948,-0.11],[1949,-0.11],[1950,-0.17],[1951,-0.07],[1952,0.01],[1953,0.08],[1954,-0.13],[1955,-0.14],[1956,-0.19],[1957,0.05],[1958,0.06],[1959,0.03],[1960,-0.03],[1961,0.06],[1962,0.03],[1963,0.05],[1964,-0.20],[1965,-0.11],[1966,-0.06],[1967,-0.02],[1968,-0.08],[1969,0.05],[1970,0.03],[1971,-0.08],[1972,0.01],[1973,0.16],[1974,-0.07],[1975,-0.01],[1976,-0.10],[1977,0.18],[1978,0.07],[1979,0.16],[1980,0.26],[1981,0.32],[1982,0.14],[1983,0.31],[1984,0.16],[1985,0.12],[1986,0.18],[1987,0.32],[1988,0.39],[1989,0.27],[1990,0.45],[1991,0.41],[1992,0.22],[1993,0.23],[1994,0.32],[1995,0.45],[1996,0.33],[1997,0.47],[1998,0.61],[1999,0.38],[2000,0.39],[2001,0.53],[2002,0.63],[2003,0.62],[2004,0.53],[2005,0.68],[2006,0.64],[2007,0.67],[2008,0.54],[2009,0.66],[2010,0.73],[2011,0.61],[2012,0.65],[2013,0.68],[2014,0.75],[2015,0.90],[2016,1.01],[2017,0.92],[2018,0.85],[2019,0.98],[2020,1.01],[2021,0.85],[2022,0.89],[2023,1.17],[2024,1.28],[2025,1.19]];
+/* Berkeley Earth, Norge årsanomali (°C vs 1951–1980) */
+var NORWAY=[[1901,0.14],[1902,-1.44],[1903,-0.06],[1904,-0.48],[1905,-0.17],[1906,0.12],[1907,0.11],[1908,-0.07],[1909,-0.75],[1910,0.21],[1911,0.37],[1912,-0.65],[1913,0.28],[1914,0.36],[1915,-1.70],[1916,-0.49],[1917,-1.36],[1918,-0.02],[1919,-0.96],[1920,0.95],[1921,0.10],[1922,-0.22],[1923,-0.47],[1924,0.24],[1925,0.13],[1926,-0.23],[1927,-0.48],[1928,-0.29],[1929,-0.29],[1930,1.32],[1931,-0.13],[1932,0.59],[1933,0.83],[1934,1.71],[1935,0.39],[1936,0.56],[1937,1.02],[1938,1.83],[1939,0.43],[1940,-0.70],[1941,-0.97],[1942,-1.01],[1943,0.71],[1944,0.62],[1945,0.53],[1946,0.60],[1947,-0.15],[1948,0.36],[1949,0.98],[1950,0.78],[1951,-0.11],[1952,-0.60],[1953,1.43],[1954,0.63],[1955,-0.70],[1956,-0.25],[1957,0.52],[1958,-0.28],[1959,1.12],[1960,0.34],[1961,0.92],[1962,-0.79],[1963,-0.43],[1964,0.36],[1965,-0.60],[1966,-1.28],[1967,0.17],[1968,-1.01],[1969,-0.39],[1970,-0.47],[1971,-0.04],[1972,1.21],[1973,0.24],[1974,1.42],[1975,0.81],[1976,-0.01],[1977,-0.29],[1978,-0.70],[1979,-0.76],[1980,-0.42],[1981,-0.89],[1982,0.29],[1983,0.42],[1984,1.09],[1985,-0.81],[1986,-0.29],[1987,-0.68],[1988,0.06],[1989,1.33],[1990,1.84],[1991,0.94],[1992,1.07],[1993,0.21],[1994,0.29],[1995,0.33],[1996,0.07],[1997,0.84],[1998,0.29],[1999,1.12],[2000,1.66],[2001,0.53],[2002,1.20],[2003,1.08],[2004,1.32],[2005,1.60],[2006,1.97],[2007,1.48],[2008,1.37],[2009,1.09],[2010,-0.54],[2011,1.85],[2012,0.86],[2013,1.17],[2014,2.20],[2015,1.92],[2016,2.06],[2017,1.33],[2018,1.71],[2019,1.15],[2020,2.13]];
+/* NOAA GML Mauna Loa, årsmiddel CO2 (ppm) */
+var CO2=[[1959,315.98],[1960,316.91],[1961,317.64],[1962,318.45],[1963,318.99],[1964,319.62],[1965,320.04],[1966,321.37],[1967,322.18],[1968,323.05],[1969,324.62],[1970,325.68],[1971,326.32],[1972,327.46],[1973,329.68],[1974,330.19],[1975,331.13],[1976,332.03],[1977,333.84],[1978,335.41],[1979,336.84],[1980,338.76],[1981,340.12],[1982,341.48],[1983,343.15],[1984,344.87],[1985,346.35],[1986,347.61],[1987,349.31],[1988,351.69],[1989,353.20],[1990,354.45],[1991,355.70],[1992,356.54],[1993,357.21],[1994,358.96],[1995,360.97],[1996,362.74],[1997,363.88],[1998,366.84],[1999,368.54],[2000,369.71],[2001,371.32],[2002,373.45],[2003,375.98],[2004,377.70],[2005,379.98],[2006,382.09],[2007,384.02],[2008,385.83],[2009,387.64],[2010,390.10],[2011,391.85],[2012,394.06],[2013,396.74],[2014,398.81],[2015,401.01],[2016,404.41],[2017,406.76],[2018,408.72],[2019,411.65],[2020,414.21],[2021,416.41],[2022,418.53],[2023,421.08],[2024,424.61],[2025,427.35]];
+/* NOAA CDR (NRLTSI), total solinnstråling (W/m²) */
+var TSI=[[1880,1361.494],[1881,1361.749],[1882,1361.717],[1883,1361.673],[1884,1361.736],[1885,1361.637],[1886,1361.379],[1887,1361.267],[1888,1361.206],[1889,1361.201],[1890,1361.209],[1891,1361.507],[1892,1361.823],[1893,1361.900],[1894,1361.891],[1895,1361.756],[1896,1361.594],[1897,1361.339],[1898,1361.396],[1899,1361.269],[1900,1361.249],[1901,1361.150],[1902,1361.178],[1903,1361.385],[1904,1361.642],[1905,1361.623],[1906,1361.712],[1907,1361.674],[1908,1361.648],[1909,1361.548],[1910,1361.344],[1911,1361.195],[1912,1361.177],[1913,1361.156],[1914,1361.240],[1915,1361.647],[1916,1361.791],[1917,1362.173],[1918,1362.041],[1919,1361.735],[1920,1361.472],[1921,1361.377],[1922,1361.240],[1923,1361.208],[1924,1361.293],[1925,1361.505],[1926,1361.692],[1927,1361.863],[1928,1361.832],[1929,1361.646],[1930,1361.567],[1931,1361.402],[1932,1361.298],[1933,1361.236],[1934,1361.289],[1935,1361.537],[1936,1362.052],[1937,1362.207],[1938,1362.118],[1939,1361.994],[1940,1361.845],[1941,1361.723],[1942,1361.513],[1943,1361.331],[1944,1361.318],[1945,1361.619],[1946,1361.938],[1947,1362.190],[1948,1362.306],[1949,1362.164],[1950,1361.871],[1951,1361.653],[1952,1361.471],[1953,1361.347],[1954,1361.275],[1955,1361.434],[1956,1361.977],[1957,1362.433],[1958,1362.404],[1959,1362.096],[1960,1361.943],[1961,1361.557],[1962,1361.375],[1963,1361.316],[1964,1361.297],[1965,1361.331],[1966,1361.527],[1967,1361.735],[1968,1361.791],[1969,1361.858],[1970,1361.850],[1971,1361.559],[1972,1361.641],[1973,1361.415],[1974,1361.339],[1975,1361.278],[1976,1361.256],[1977,1361.429],[1978,1361.812],[1979,1362.175],[1980,1362.201],[1981,1362.249],[1982,1361.807],[1983,1361.810],[1984,1361.402],[1985,1361.256],[1986,1361.262],[1987,1361.396],[1988,1361.703],[1989,1362.201],[1990,1362.120],[1991,1362.012],[1992,1361.881],[1993,1361.614],[1994,1361.396],[1995,1361.311],[1996,1361.235],[1997,1361.357],[1998,1361.703],[1999,1361.973],[2000,1362.254],[2001,1362.081],[2002,1362.191],[2003,1361.691],[2004,1361.471],[2005,1361.262],[2006,1361.236],[2007,1361.169],[2008,1361.197],[2009,1361.191],[2010,1361.340],[2011,1361.606],[2012,1361.768],[2013,1361.813],[2014,1361.889],[2015,1361.949],[2016,1361.465],[2017,1361.291],[2018,1361.262],[2019,1361.255],[2020,1361.323],[2021,1361.489],[2022,1361.981],[2023,1362.448],[2024,1362.565],[2025,1362.416]];
+/* PAGES 2k (2019) ensemble-median + instrumentell (°C vs 1961–1990), siste 2000 år */
+var RECON2K=[[25,-0.23],[75,-0.18],[125,-0.20],[175,-0.22],[225,-0.17],[275,-0.19],[325,-0.18],[375,-0.24],[425,-0.15],[475,-0.18],[525,-0.23],[575,-0.20],[625,-0.21],[675,-0.23],[725,-0.19],[775,-0.17],[825,-0.21],[875,-0.21],[925,-0.19],[975,-0.20],[1025,-0.22],[1075,-0.22],[1125,-0.34],[1175,-0.26],[1225,-0.30],[1275,-0.36],[1325,-0.33],[1375,-0.36],[1425,-0.32],[1475,-0.48],[1525,-0.39],[1575,-0.38],[1625,-0.48],[1675,-0.44],[1725,-0.43],[1775,-0.37],[1825,-0.45],[1855,-0.35],[1865,-0.40],[1875,-0.29],[1885,-0.38],[1895,-0.37],[1905,-0.39],[1915,-0.38],[1925,-0.24],[1935,-0.10],[1945,-0.01],[1955,-0.05],[1965,-0.06],[1975,-0.07],[1985,0.10],[1995,0.27],[2005,0.49],[2015,0.64],[2024,1.18]];
+
+/* ---- helpers ---- */
+function nb(v,d){return new Intl.NumberFormat('nb-NO',{minimumFractionDigits:d,maximumFractionDigits:d}).format(v);}
+function el(name,attrs){var e=document.createElementNS(SVGNS,name);for(var k in attrs){e.setAttribute(k,attrs[k]);}return e;}
+function q(id){return document.getElementById(id);}
+function avg(a){var s=0,i;for(i=0;i<a.length;i++)s+=a[i];return a.length?s/a.length:0;}
+function sd(a){var m=avg(a),s=0,i;for(i=0;i<a.length;i++)s+=(a[i]-m)*(a[i]-m);return a.length?Math.sqrt(s/a.length):1;}
+function smooth(data,win){var out=[],h=Math.floor(win/2),i,j,s,c;for(i=0;i<data.length;i++){s=0;c=0;for(j=Math.max(0,i-h);j<=Math.min(data.length-1,i+h);j++){s+=data[j][1];c++;}out.push([data[i][0],s/c]);}return out;}
+function pathD(pts){var d='',i;for(i=0;i<pts.length;i++){d+=(i?'L':'M')+pts[i][0].toFixed(1)+','+pts[i][1].toFixed(1)+' ';}return d.replace(/\s+$/,'');}
+function linreg(data){var n=data.length,sx=0,sy=0,sxx=0,sxy=0,i,x,y;for(i=0;i<n;i++){x=data[i][0];y=data[i][1];sx+=x;sy+=y;sxx+=x*x;sxy+=x*y;}var b=(n*sxy-sx*sy)/(n*sxx-sx*sx);return {a:(sy-b*sx)/n,b:b};}
+function animDraw(p){if(!p)return;var len=p.getTotalLength();p.style.setProperty('--len',len);if(reduce){p.classList.add('in');}else{requestAnimationFrame(function(){requestAnimationFrame(function(){p.classList.add('in');});});}}
+function hasIO(){return 'IntersectionObserver' in window;}
+
+/* ---- reveal + wipe (P4/P6) ---- */
+function revealNow(t){t.classList.add('in');if(t.querySelectorAll){var ps=t.querySelectorAll('.drawline'),i;for(i=0;i<ps.length;i++)ps[i].classList.add('in');}}
+(function(){
+  var els=document.querySelectorAll('.rv,.wp');
+  if(!hasIO()){Array.prototype.forEach.call(els,revealNow);return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){revealNow(e.target);io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+  Array.prototype.forEach.call(els,function(x){io.observe(x);});
+})();
+
+/* ---- lese-progresjon + scrollspy (P4) ---- */
+(function(){
+  var rp=q('readProgress');
+  var links=Array.prototype.slice.call(document.querySelectorAll('.sec-rail a'));
+  var secs=links.map(function(a){return q(a.getAttribute('href').slice(1));});
+  var ticking=false;
+  function upd(){
+    if(rp){var h=document.documentElement.scrollHeight-window.innerHeight;rp.style.transform='scaleX('+(h>0?Math.min(window.pageYOffset/h,1):0)+')';}
+    var mid=window.pageYOffset+window.innerHeight*0.4,act=0,i;
+    for(i=0;i<secs.length;i++){if(secs[i]&&secs[i].offsetTop<=mid)act=i;}
+    for(i=0;i<links.length;i++){if(i===act)links[i].classList.add('active');else links[i].classList.remove('active');}
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
+  window.addEventListener('resize',function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}});
+  upd();
+})();
+
+/* ---- count-up (P2) ---- */
+function countUp(node){
+  var to=parseFloat(node.getAttribute('data-to')),d=parseInt(node.getAttribute('data-dec')||'0',10),suf=node.getAttribute('data-suf')||'';
+  if(reduce){node.innerHTML=nb(to,d)+suf;return;}
+  var start=null,dur=1500;
+  function fr(ts){if(start===null)start=ts;var p=Math.min((ts-start)/dur,1),k=1-Math.pow(1-p,3);node.innerHTML=nb(to*k,d)+suf;if(p<1)requestAnimationFrame(fr);}
+  requestAnimationFrame(fr);
+}
+(function(){
+  var els=document.querySelectorAll('[data-cnt]');
+  if(!hasIO()){return;} /* uten IO: HTML viser allerede sluttverdien */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io.unobserve(e.target);}});},{threshold:0.6});
+  Array.prototype.forEach.call(els,function(x){io.observe(x);});
+})();
+
+/* ---- kostnads-sammenligning (P5) ---- */
+(function(){
+  var cc=q('costCompare');if(!cc)return;
+  function fill(){
+    Array.prototype.forEach.call(cc.querySelectorAll('.cc-fill'),function(f){
+      var w=f.getAttribute('data-w')+'%';
+      if(reduce){f.style.width=w;}else{f.style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.width=w;});});}
+    });
+    Array.prototype.forEach.call(cc.querySelectorAll('.cc-val'),function(v){
+      var to=parseFloat(v.getAttribute('data-cc')),d=parseInt(v.getAttribute('data-dec')||'1',10);
+      if(reduce){v.textContent=nb(to,d)+' mrd';return;}
+      var s=null;function fr(ts){if(s===null)s=ts;var p=Math.min((ts-s)/1200,1),k=1-Math.pow(1-p,3);v.textContent=nb(to*k,d)+' mrd';if(p<1)requestAnimationFrame(fr);}requestAnimationFrame(fr);
+    });
+  }
+  if(!hasIO()){fill();return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fill();io.unobserve(e.target);}});},{threshold:0.4});
+  io.observe(cc);
+})();
+
+/* ---- warming stripes (P1) ---- */
+var BANDS=['#08306b','#08519c','#2171b5','#4292c6','#6baed6','#9ecae1','#c6dbef','#deebf7','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d'];
+function scaleFor(data){
+  var mid=data.filter(function(d){return d[0]>=1961&&d[0]<=1990;}).map(function(d){return d[1];});
+  var c=mid.length?avg(mid):avg(data.map(function(d){return d[1];}));
+  var vv=data.filter(function(d){return d[0]>=1901&&d[0]<=1980;}).map(function(d){return d[1];});
+  if(vv.length<10)vv=data.map(function(d){return d[1];});
+  var hr=2.6*sd(vv);
+  return {lo:c-hr,hi:c+hr};
+}
+function stripeColor(a,lo,hi){var i=Math.floor((a-lo)/(hi-lo)*16);if(i<0)i=0;if(i>15)i=15;return BANDS[i];}
+function drawStripes(id,data){
+  var cv=q(id);if(!cv)return;
+  var r=cv.getBoundingClientRect(),w=Math.round(r.width),h=Math.round(r.height);
+  if(w<10){requestAnimationFrame(function(){drawStripes(id,data);});return;}
+  var dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);
+  var ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
+  var sc=scaleFor(data),n=data.length,bw=w/n,i;
+  ctx.clearRect(0,0,w,h);
+  for(i=0;i<n;i++){ctx.fillStyle=stripeColor(data[i][1],sc.lo,sc.hi);ctx.fillRect(i*bw,0,bw+1,h);}
+}
+function wireTip(id,data){
+  var cv=q(id),tip=q('stripeTip');if(!cv||!tip)return;
+  cv.addEventListener('mousemove',function(ev){
+    var r=cv.getBoundingClientRect(),idx=Math.floor((ev.clientX-r.left)/(r.width/data.length));
+    if(idx<0)idx=0;if(idx>=data.length)idx=data.length-1;var d=data[idx];
+    tip.textContent=d[0]+': '+(d[1]>=0?'+':'')+nb(d[1],2)+' °C';
+    var host=tip.parentElement.getBoundingClientRect();
+    tip.style.left=(ev.clientX-host.left)+'px';tip.style.top=(ev.clientY-host.top)+'px';tip.style.opacity='1';
+  });
+  cv.addEventListener('mouseleave',function(){tip.style.opacity='0';});
+}
+drawStripes('stripesGlobal',GISTEMP);drawStripes('stripesNorge',NORWAY);
+wireTip('stripesGlobal',GISTEMP);wireTip('stripesNorge',NORWAY);
+var _rt;window.addEventListener('resize',function(){clearTimeout(_rt);_rt=setTimeout(function(){drawStripes('stripesGlobal',GISTEMP);drawStripes('stripesNorge',NORWAY);},150);});
+
+/* ---- CO2-kurve (P6) ---- */
+(function(){
+  var line=q('co2Line');if(!line)return;
+  var x0=48,x1=622,y0=28,y1=198,yr0=CO2[0][0],yr1=CO2[CO2.length-1][0],pmin=310,pmax=430;
+  function X(yr){return x0+(yr-yr0)/(yr1-yr0)*(x1-x0);}
+  function Y(p){return y1-(p-pmin)/(pmax-pmin)*(y1-y0);}
+  line.setAttribute('d',pathD(CO2.map(function(pt){return [X(pt[0]),Y(pt[1])];})));
+  line.style.setProperty('--len',line.getTotalLength());
+  var g=q('co2Grid'),ax=q('co2Ax');
+  [320,360,400].forEach(function(p){var yy=Y(p);g.appendChild(el('line',{x1:x0,y1:yy,x2:x1,y2:yy,'class':'grid-ln'}));var t=el('text',{x:x0-5,y:yy+3,'class':'axis-lbl','text-anchor':'end'});t.textContent=p;ax.appendChild(t);});
+  [1960,1980,2000,2020].forEach(function(yr){var t=el('text',{x:X(yr),y:y1+17,'class':'axis-lbl','text-anchor':'middle'});t.textContent=yr;ax.appendChild(t);});
+})();
+
+/* ---- myte-mini-grafer ---- */
+function zscore(data){var b=data.filter(function(d){return d[0]<=1960;}).map(function(d){return d[1];});var m=avg(b),s=sd(b)||1;return data.map(function(d){return [d[0],(d[1]-m)/s];});}
+var drawn={};
+function drawSol(){
+  var tp=q('solTemp'),sp=q('solSun');if(!tp)return;
+  var x0=46,x1=548,y0=18,y1=158,yr0=1880,yr1=2025,zmin=-2.5,zmax=7.5;
+  function X(yr){return x0+(yr-yr0)/(yr1-yr0)*(x1-x0);}
+  function Y(z){var zz=z<zmin?zmin:(z>zmax?zmax:z);return y1-(zz-zmin)/(zmax-zmin)*(y1-y0);}
+  var tz=smooth(zscore(GISTEMP),5),sz=smooth(zscore(TSI),5);
+  tp.setAttribute('d',pathD(tz.map(function(d){return [X(d[0]),Y(d[1])];})));
+  sp.setAttribute('d',pathD(sz.map(function(d){return [X(d[0]),Y(d[1])];})));
+  var ax=q('solAx');[1900,1950,2000].forEach(function(yr){var t=el('text',{x:X(yr),y:y1+16,'class':'axis-lbl','text-anchor':'middle'});t.textContent=yr;ax.appendChild(t);});
+  animDraw(sp);animDraw(tp);
+}
+function drawEsc(){
+  var trend=q('escTrend');if(!trend)return;
+  var x0=46,x1=548,y0=18,y1=158,yr0=1970,yr1=2025,amin=-0.15,amax=1.35;
+  var data=GISTEMP.filter(function(d){return d[0]>=yr0;});
+  function X(yr){return x0+(yr-yr0)/(yr1-yr0)*(x1-x0);}
+  function Y(a){return y1-(a-amin)/(amax-amin)*(y1-y0);}
+  var dots=q('escDots'),steps=q('escSteps');
+  data.forEach(function(d){dots.appendChild(el('circle',{cx:X(d[0]),cy:Y(d[1]),r:2.1,fill:'#9fb2c4'}));});
+  [[1970,1979],[1979,1988],[1988,1998],[1998,2012],[2012,2025]].forEach(function(iv){
+    var seg=data.filter(function(d){return d[0]>=iv[0]&&d[0]<=iv[1];}),m=avg(seg.map(function(d){return d[1];}));
+    steps.appendChild(el('line',{x1:X(iv[0]),y1:Y(m),x2:X(iv[1]),y2:Y(m),stroke:'#8aa0b8','stroke-width':4,'stroke-linecap':'round'}));
+  });
+  var reg=linreg(data);
+  trend.setAttribute('d',pathD([[X(yr0),Y(reg.a+reg.b*yr0)],[X(yr1),Y(reg.a+reg.b*yr1)]]));
+  var ax=q('escAx');[1980,2000,2020].forEach(function(yr){var t=el('text',{x:X(yr),y:y1+16,'class':'axis-lbl','text-anchor':'middle'});t.textContent=yr;ax.appendChild(t);});
+  animDraw(trend);
+}
+function drawHockey(){
+  var line=q('hockeyLine');if(!line)return;
+  var x0=46,x1=548,y0=18,y1=140,yr0=0,yr1=2025,amin=-0.75,amax=1.35;
+  function X(yr){return x0+(yr-yr0)/(yr1-yr0)*(x1-x0);}
+  function Y(a){return y1-(a-amin)/(amax-amin)*(y1-y0);}
+  line.setAttribute('d',pathD(RECON2K.map(function(d){return [X(d[0]),Y(d[1])];})));
+  var med=RECON2K.filter(function(d){return d[0]>=900&&d[0]<=1200;}).map(function(d){return d[1];});
+  var mp=Math.max.apply(null,med),ref=q('hockeyRef');
+  ref.setAttribute('x1',x0);ref.setAttribute('x2',x1);ref.setAttribute('y1',Y(mp));ref.setAttribute('y2',Y(mp));
+  var ax=q('hockeyAx');
+  [[500,'år 500'],[1000,'1000'],[1500,'1500'],[2000,'2000']].forEach(function(p){var t=el('text',{x:X(p[0]),y:y1+16,'class':'axis-lbl','text-anchor':'middle'});t.textContent=p[1];ax.appendChild(t);});
+  var lt=el('text',{x:x1,y:Y(mp)-4,'class':'axis-lbl','text-anchor':'end'});lt.textContent='middelaldertopp';ax.appendChild(lt);
+  animDraw(line);
+}
+function drawVulkan(){
+  Array.prototype.forEach.call(document.querySelectorAll('#figVulkan .vbar-fill'),function(f){
+    var w=f.getAttribute('data-w')+'%';
+    if(reduce){f.style.width=w;}else{f.style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.width=w;});});}
+  });
+}
+function drawMyte(d){
+  var fig=d.querySelector('.myte-fig');if(!fig)return;var id=fig.id;if(drawn[id])return;drawn[id]=true;
+  if(id==='figSol')drawSol();else if(id==='fig1998')drawEsc();else if(id==='figHockey')drawHockey();else if(id==='figVulkan')drawVulkan();
+}
+
+/* ---- animert trekkspill (P3) ---- */
+Array.prototype.forEach.call(document.querySelectorAll('details.myte'),function(d){
+  var body=d.querySelector('.m-body');if(!body)return;
+  var wrap=document.createElement('div');wrap.className='m-reveal';
+  body.parentNode.insertBefore(wrap,body);wrap.appendChild(body);
+  var sum=d.querySelector('summary');
+  wrap.setAttribute('data-exp','0');
+  function openIt(){
+    wrap.setAttribute('data-exp','1');d.open=true;wrap.style.gridTemplateRows='0fr';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){if(wrap.getAttribute('data-exp')==='1')wrap.style.gridTemplateRows='1fr';});});
+  }
+  function closeIt(){
+    wrap.setAttribute('data-exp','0');wrap.style.gridTemplateRows='0fr';
+    setTimeout(function(){if(wrap.getAttribute('data-exp')==='0'){d.open=false;wrap.style.gridTemplateRows='';}},380);
+  }
+  if(!reduce&&sum){
+    sum.addEventListener('click',function(e){
+      e.preventDefault();
+      if(wrap.getAttribute('data-exp')==='1')closeIt();else openIt();
+    });
+  }
+  d.addEventListener('toggle',function(){if(d.open)drawMyte(d);});
+});
 })();
 </script>
 </body>
