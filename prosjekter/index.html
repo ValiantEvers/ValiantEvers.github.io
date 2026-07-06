@@ -53,7 +53,7 @@ h1,h2,h3{text-wrap:balance}
 [data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('../medieval/cursor-sword.png') 2 30, pointer;}
 [data-theme="medieval"] body{font-family:'MedievalSharp',sans-serif}
 [data-theme="medieval"] .sub-title,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cert-card h3,[data-theme="medieval"] .vp-title,[data-theme="medieval"] .page-h1{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
-[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .cert-issuer,[data-theme="medieval"] .sub-count,[data-theme="medieval"] .back-link{font-family:'MedievalSharp',sans-serif}
+[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .mobile-menu a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .cert-issuer,[data-theme="medieval"] .sub-count,[data-theme="medieval"] .back-link{font-family:'MedievalSharp',sans-serif}
 [data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
 [data-theme="medieval"] .theme-toggle,[data-theme="medieval"] .lang-btn{border-color:rgba(232,213,181,.2)}
 [data-theme="medieval"] body::after{opacity:.04}
@@ -97,11 +97,25 @@ nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturat
 .lang-switch{position:relative}
 .lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
 .lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out);min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
-.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out),visibility 250ms ease;min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
+.lang-menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
 .lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
 .lang-opt:hover{background:rgba(0,112,237,.06)}
 .lang-opt.active{color:var(--accent);font-weight:700}
+
+/* MOBILE MENU (hamburger + overlay) — mirrors main site, using prosjekter design tokens */
+.nav-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:36px;height:36px;padding:0;background:none;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color 200ms ease}
+.nav-toggle:hover{border-color:var(--accent)}
+.nav-toggle span{display:block;width:18px;height:2px;border-radius:2px;background:var(--text);transition:transform .3s var(--ease-out),opacity .2s ease}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.3rem;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity .35s var(--ease-out),transform .35s var(--ease-out),visibility .35s var(--ease-out)}
+.mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.mobile-menu a{font-family:var(--font-sans);font-size:1.6rem;font-weight:600;letter-spacing:-.02em;color:var(--text);text-decoration:none;padding:.4rem 1rem;transition:color .2s ease}
+.mobile-menu a:hover,.mobile-menu a:active{color:var(--accent)}
+.mobile-menu a.active{color:var(--accent)}
+body.menu-open{overflow:hidden}
 
 /* Press states */
 .theme-toggle:active,.lang-btn:active,.back-link:active{transform:scale(0.97)}
@@ -176,6 +190,7 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 @media (max-width:768px){
   nav{padding:.9rem 1.2rem}
   .nav-links{display:none}
+  .nav-toggle{display:flex}
   .page-hero{padding:6.5rem 1.2rem 1rem}
   .proj-controls{padding:1.5rem 1.2rem 0}
   .valueprops{padding:2rem 1.2rem 0}
@@ -210,16 +225,18 @@ a.cert-link{text-decoration:none;color:inherit;display:block}
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
 <div class="lang-switch">
 <button class="lang-btn" id="langBtn" aria-label="Velg språk" aria-haspopup="true" aria-controls="langMenu" aria-expanded="false">NO</button>
-<div class="lang-menu" id="langMenu">
-<button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
-<button class="lang-opt" data-lang="en">🇬🇧 English</button>
-<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
-<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
-<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
+<div class="lang-menu" id="langMenu" role="menu">
+<button class="lang-opt active" data-lang="no" role="menuitem">🇳🇴 Norsk</button>
+<button class="lang-opt" data-lang="en" role="menuitem">🇬🇧 English</button>
+<button class="lang-opt" data-lang="fr" role="menuitem">🇫🇷 Français</button>
+<button class="lang-opt" data-lang="de" role="menuitem">🇩🇪 Deutsch</button>
+<button class="lang-opt" data-lang="ja" role="menuitem">🇯🇵 日本語</button>
 </div>
 </div>
+<button class="nav-toggle" id="navToggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
 </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu"><a href="/#om" data-i="nav1">Om meg</a><a href="/#erfaring" data-i="nav2">Erfaring</a><a href="/#cv" data-i="nav3">CV</a><a href="/#sertifiseringer" data-i="nav4">Sertifiseringer</a><a href="/#forskning" data-i="nav5">Forskning</a><a href="/prosjekter/" class="active" data-i="nav7">Prosjekter</a><a href="/#kontakt" data-i="nav6">Kontakt</a></div>
 
 <header class="page-hero">
 <span class="section-label" data-i="projLabel">Prosjekter</span>
@@ -368,6 +385,21 @@ document.addEventListener('keydown',function(e){
 document.querySelectorAll('.lang-opt').forEach(function(o){
   o.addEventListener('click',function(){setLang(o.getAttribute('data-lang'));});
 });
+
+// Mobile menu toggle (mirrors main site's nav-toggle pattern)
+(function(){
+  var toggle=document.getElementById('navToggle'),menu=document.getElementById('mobileMenu');
+  if(!toggle||!menu)return;
+  function setOpen(open){
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+    toggle.setAttribute('aria-label',open?'Lukk meny':'Åpne meny');
+    menu.classList.toggle('open',open);
+    document.body.classList.toggle('menu-open',open);
+  }
+  toggle.addEventListener('click',function(e){e.stopPropagation();setOpen(toggle.getAttribute('aria-expanded')!=='true');});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true')setOpen(false);});
+})();
 
 // Nav scroll style
 window.addEventListener('scroll',function(){
