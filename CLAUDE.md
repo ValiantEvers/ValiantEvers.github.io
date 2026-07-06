@@ -36,10 +36,23 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - Email is JS-rendered from character codes after page load. The HTML source must contain only an empty `<a>` element with an empty `<span>` inside — no plain mailto: href and no visible email text. This pattern bypasses Cloudflare email obfuscation entirely. Apply to every page that exposes the email.
 
 ## Easter eggs (DO NOT BREAK)
-- Type "prins" anywhere → Prins Valiant medieval mode (CSS theme switch + APNG transitions)
-- Triple-click profile photo → same medieval mode
-- Type "run", "waffle", "thesis", "viking", "mjød" → respective effects
-- These are personality features, not bugs. If a refactor risks breaking them, ASK before proceeding.
+Desktop keyboard triggers (ALL gated behind a touch-device check — deliberately do not fire on mobile):
+- Type "prins"/"prince" (or "prins valiant"/"prince valiant") → Prins Valiant medieval mode (CSS theme switch + GIF/APNG transitions, name + language swap). "prince" spelling added 2026-07-06 so the clue works in en/fr.
+- Type "run", "waffle" (or "vaffel"), "thesis", "viking", "mjod"/"mjød" → ride-across-screen + emoji-rain effects
+- Type "penger" → money-emoji rain
+- Type "tangen" → opens ft.com (Nicolai Tangen nod)
+- Type "jobb" → opens /strategi.html — PRIVATE tracker (noindex). Deliberately UNHINTED; never advertise or add a clue for this one.
+- Konami code (up up down down left right left right b a) → confetti + 360-degree spin + hue-rotate
+Click trigger (works on mobile too):
+- Triple-click profile photo (#heroImg) → same medieval mode
+
+Discoverability clues (intentional, keep subtle — added 2026-07-06):
+- Prins clue is baked into the fact-card copy (data-i="ff1d") in no/en/fr — points at typing his "title"
+- Waffle clue is in the Belgia fact-card copy (data-i="ff3d") in no/en
+- Console greeting (inline <script> right after #pageFlash) nudges toward a few triggers
+- viking/mjød/penger/tangen/konami are left unhinted on purpose — rewards for the persistent
+
+These are personality features, not bugs. If a refactor risks breaking them, ASK before proceeding.
 
 ## Live integrations
 - Strava + Letterboxd via GitHub Actions (separate workflow files)
