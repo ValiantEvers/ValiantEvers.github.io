@@ -490,9 +490,27 @@ function App() {
     }
   }, [tweaksOpen, tweaks]);
 
-  if (screen === 'hero') return <Hero onStart={goStart} />;
-  if (screen === 'final') return <Final onRestart={restart} />;
-  return <StepView step={step} onNext={goNext} onBack={goBack} />;
+  // Screen for the current app state
+  const screenEl =
+    screen === 'hero'  ? <Hero onStart={goStart} /> :
+    screen === 'final' ? <Final onRestart={restart} /> :
+    <StepView step={step} onNext={goNext} onBack={goBack} />;
+
+  return (
+    <React.Fragment>
+      {/* Page-level H1. On the hero screen the visible hero title already is the
+          <h1>; on the step/summary screens (where Hero is unmounted) expose a
+          visually-hidden <h1> so the page always has exactly one proper heading. */}
+      {screen !== 'hero' && (
+        <h1 style={{
+          position: 'absolute', width: '1px', height: '1px',
+          padding: 0, margin: '-1px', overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', border: 0,
+        }}>Fra null til investor</h1>
+      )}
+      {screenEl}
+    </React.Fragment>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:alt" content="Valiant Evers — MSc Finance, BI Norwegian Business School">
-<meta property="og:url" content="https://www.evers.no">
+<meta property="og:url" content="https://www.evers.no/">
 <meta property="og:site_name" content="Valiant Evers">
 <meta property="og:locale" content="nb_NO">
 <meta property="profile:first_name" content="Valiant">
@@ -91,7 +91,7 @@ h1,h2,h3{text-wrap:balance}
 [data-theme="dark"] .quote-text{color:rgba(225,231,255,.6)}
 [data-theme="dark"] .quote-role{color:rgba(225,231,255,.35)}
 [data-theme="dark"] .fact-card p,[data-theme="dark"] .fact-flip .fact-front p{color:rgba(225,231,255,.7)}
-[data-theme="dark"] .fact-flip .fact-front h4,[data-theme="dark"] .fact-card h4{color:var(--text)}
+[data-theme="dark"] .fact-flip .fact-front h4,[data-theme="dark"] .fact-flip .fact-front h3,[data-theme="dark"] .fact-card h4,[data-theme="dark"] .fact-card h3{color:var(--text)}
 [data-theme="dark"] .footer{color:rgba(225,231,255,.2)}
 [data-theme="dark"] #contactSub{color:rgba(225,231,255,.45) !important}
 [data-theme="dark"] .btn-secondary{border-color:rgba(225,231,255,.28)}
@@ -125,7 +125,7 @@ h1,h2,h3{text-wrap:balance}
 [data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);cursor:url('medieval/cursor-sword.png') 2 30, auto;}
 [data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('medieval/cursor-sword.png') 2 30, pointer;}
 [data-theme="medieval"] body{font-family:'MedievalSharp','Outfit',sans-serif}
-[data-theme="medieval"] .hero h1,[data-theme="medieval"] .section-title,[data-theme="medieval"] .about-card h3,[data-theme="medieval"] .timeline-item h3,[data-theme="medieval"] .fact-card h4,[data-theme="medieval"] .fact-flip .fact-front h4,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cv-body h3,[data-theme="medieval"] .cert-card h4,[data-theme="medieval"] .thesis-body h3,[data-theme="medieval"] .quote-author,[data-theme="medieval"] .btn{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .hero h1,[data-theme="medieval"] .section-title,[data-theme="medieval"] .about-card h3,[data-theme="medieval"] .timeline-item h3,[data-theme="medieval"] .fact-card h4,[data-theme="medieval"] .fact-card h3,[data-theme="medieval"] .fact-flip .fact-front h4,[data-theme="medieval"] .fact-flip .fact-front h3,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cv-body h3,[data-theme="medieval"] .cert-card h4,[data-theme="medieval"] .cert-card h3,[data-theme="medieval"] .thesis-body h3,[data-theme="medieval"] .quote-author,[data-theme="medieval"] .btn{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
 [data-theme="medieval"] .nav-links a,[data-theme="medieval"] .mobile-menu a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .timeline-date,[data-theme="medieval"] .ticker-item,[data-theme="medieval"] .cv-lang,[data-theme="medieval"] .thesis-sub,[data-theme="medieval"] .cert-issuer{font-family:'MedievalSharp','Outfit',sans-serif}
 [data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
 [data-theme="medieval"] .about-card,[data-theme="medieval"] .timeline-item,[data-theme="medieval"] .quote-section{border-color:rgba(196,132,29,.1)}
@@ -169,7 +169,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;o
 [data-theme="dark"] body::after{opacity:.04}
 
 /* FT: serif-overskrifter (Newsreader). body-prefiks løfter spesifisiteten over basereglene; medieval-temaet er mer spesifikt og vinner fortsatt. */
-body .hero h1,body .section-title,body .about-card h3,body .timeline-item h3,body .fact-card h4,body .fact-flip .fact-front h4,body .cv-body h3,body .cert-card h4,body .thesis-body h3,body .quote-author,body .nav-logo{font-family:var(--font-serif);font-optical-sizing:auto}
+body .hero h1,body .section-title,body .about-card h3,body .timeline-item h3,body .fact-card h4,body .fact-card h3,body .fact-flip .fact-front h4,body .fact-flip .fact-front h3,body .cv-body h3,body .cert-card h4,body .cert-card h3,body .thesis-body h3,body .quote-author,body .nav-logo{font-family:var(--font-serif);font-optical-sizing:auto}
 /* Japansk: Noto Sans JP ligger i --font-sans (per-glyf-fallback); regelen er nå redundant men beholdt eksplisitt. */
 html[lang="ja"] body{font-family:var(--font-sans)}
 #progress-bar{position:absolute;left:0;bottom:0;height:3px;width:0%;background:var(--accent);z-index:1;transition:width .05s linear;border-radius:0 3px 3px 0}
@@ -275,7 +275,7 @@ a.quote-link{text-decoration:none;color:inherit;display:block}
 .fact-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);text-align:center;opacity:0;transform:translateY(40px) scale(.95);transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out),box-shadow 160ms ease}
 .fact-card.visible{opacity:1;transform:translateY(0) scale(1)}
 .fact-emoji{font-size:2.2rem;margin-bottom:.8rem}
-.fact-card h4{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1rem;margin-bottom:.4rem}
+.fact-card h4,.fact-card h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1rem;margin-bottom:.4rem}
 .fact-card p,.fact-flip .fact-front p{font-size:.88rem;color:rgba(0,18,51,.7);line-height:1.6}
 .cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 .cv-grid-single{grid-template-columns:1fr;max-width:480px;margin:0 auto}
@@ -287,7 +287,7 @@ a.quote-link{text-decoration:none;color:inherit;display:block}
 .cv-body h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1.05rem;margin-bottom:.4rem}.cv-body p{font-size:.85rem;color:rgba(0,18,51,.5);line-height:1.5}
 .cv-body .open-hint{display:inline-block;margin-top:.5rem;font-size:.72rem;font-weight:600;color:var(--accent);opacity:0;transition:opacity .3s}.cv-card:hover .open-hint{opacity:1}
 .certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.2rem}
-.cert-icon{font-size:2rem;margin-bottom:.7rem}.cert-card h4{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.88rem;margin-bottom:.3rem;line-height:1.3}
+.cert-icon{font-size:2rem;margin-bottom:.7rem}.cert-card h4,.cert-card h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.88rem;margin-bottom:.3rem;line-height:1.3}
 .cert-card .cert-issuer{font-family:var(--font-mono);font-size:.7rem;letter-spacing:0;color:rgba(0,18,51,.45)}
 a.cert-link,a.thesis-link{text-decoration:none;color:inherit;display:block}
 .cert-card .open-hint,.thesis-card .open-hint{display:inline-block;margin-top:.5rem;font-size:.72rem;font-weight:600;color:var(--accent);opacity:0;transition:opacity .3s}
@@ -540,7 +540,7 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <div class="lb-sep lb-hide-mobile"></div>
 <a href="https://www.finansavisen.no/aksjer?marketplaces=39890,33187,82836,33762&order=desc&orderby=diff1dprc" target="_blank" rel="noopener noreferrer" class="lb-link lb-winners lb-hide-mobile" data-i="lbWinners">Vinnere ↑</a>
 <a href="https://www.finansavisen.no/aksjer?marketplaces=39890,33187,82836,33762&order=asc&orderby=diff1dprc" target="_blank" rel="noopener noreferrer" class="lb-link lb-losers lb-hide-mobile" data-i="lbLosers">Tapere ↓</a>
-<a href="https://evers.no/osebx" target="_blank" rel="noopener noreferrer" class="lb-link lb-hide-mobile" style="background:rgba(105,150,255,.22)">OSEBX →</a>
+<a href="https://www.evers.no/osebx/" target="_blank" rel="noopener noreferrer" class="lb-link lb-hide-mobile" style="background:rgba(105,150,255,.22)">OSEBX →</a>
 </div>
 <div class="bg-morph" id="bgMorph"></div>
 <div class="cursor-dot" id="cursorDot"></div>
@@ -585,11 +585,11 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 
 <section id="sertifiseringer"><div class="section-header"><span class="section-label anim-label" data-i="s4label"></span><h2 class="section-title split-title" data-i="s4title"></h2></div>
 <div class="certs-grid">
-<a href="docs/Transcript%20from%20Aarhus%20Summer%20School.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="0"><div class="cert-icon">🐍</div><h4>Python for ML</h4><p class="cert-issuer">Aarhus Universitet, A</p><span class="open-hint" data-i="certOpen"></span></div></a>
-<a href="docs/BMC_certificate_of_completion.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="80"><div class="cert-icon">📈</div><h4>Bloomberg BMC</h4><p class="cert-issuer">Bloomberg for Education</p><span class="open-hint" data-i="certOpen"></span></div></a>
-<a href="docs/ESG_certificate_of_completion.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="160"><div class="cert-icon">🌱</div><h4>ESG</h4><p class="cert-issuer">Bloomberg for Education</p><span class="open-hint" data-i="certOpen"></span></div></a>
-<a href="docs/Bloomberg_BFF_Certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="240"><div class="cert-icon">💰</div><h4>Finance Fundamentals</h4><p class="cert-issuer">Bloomberg for Education</p><span class="open-hint" data-i="certOpen"></span></div></a>
-<a href="https://www.coursera.org/verify/N34MYKCQ5UJZ" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="320"><div class="cert-icon">🧠</div><h4>Intro to Psychology</h4><p class="cert-issuer">Yale / Coursera</p><span class="open-hint" data-i="certOpen"></span></div></a>
+<a href="docs/Transcript%20from%20Aarhus%20Summer%20School.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="0"><div class="cert-icon">🐍</div><h3>Python for ML</h3><p class="cert-issuer">Aarhus Universitet, A</p><span class="open-hint" data-i="certOpen"></span></div></a>
+<a href="docs/BMC_certificate_of_completion.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="80"><div class="cert-icon">📈</div><h3>Bloomberg BMC</h3><p class="cert-issuer">Bloomberg for Education</p><span class="open-hint" data-i="certOpen"></span></div></a>
+<a href="docs/ESG_certificate_of_completion.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="160"><div class="cert-icon">🌱</div><h3>ESG</h3><p class="cert-issuer">Bloomberg for Education</p><span class="open-hint" data-i="certOpen"></span></div></a>
+<a href="docs/Bloomberg_BFF_Certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="240"><div class="cert-icon">💰</div><h3>Finance Fundamentals</h3><p class="cert-issuer">Bloomberg for Education</p><span class="open-hint" data-i="certOpen"></span></div></a>
+<a href="https://www.coursera.org/verify/N34MYKCQ5UJZ" target="_blank" rel="noopener noreferrer" class="cert-link"><div class="cert-card" data-delay="320"><div class="cert-icon">🧠</div><h3>Intro to Psychology</h3><p class="cert-issuer">Yale / Coursera</p><span class="open-hint" data-i="certOpen"></span></div></a>
 </div></section>
 
 
@@ -600,20 +600,20 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 
 <section id="prosjekter"><div class="section-header"><span class="section-label anim-label" data-i="projLabel"></span><h2 class="section-title split-title" data-i="projTitle"></h2></div>
 <div class="certs-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1100px;margin:0 auto">
-<a href="https://www.evers.no/personligokonomi/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="0"><div class="cert-icon">💰</div><h4 data-i="proj1bTitle">Personlig Økonomi</h4><p class="cert-issuer" data-i="proj1bDesc">Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.</p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="https://www.evers.no/aksjeskatt/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="120"><div class="cert-icon">🧮</div><h4 data-i="proj4bTitle">Aksjeskatt på tvers av kontotyper</h4><p class="cert-issuer" data-i="proj4bDesc">Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap.</p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="https://www.evers.no/osebx/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="240"><div class="cert-icon">📊</div><h4 data-i="proj2bTitle">OSEBX Dashboard</h4><p class="cert-issuer" data-i="proj2bDesc">Ukentlig autonom analyse av Oslo Børs. Sektorrotasjon, breddemål, LLM-narrativ.</p><span class="open-hint" data-i="projOpen"></span></div></a>
-<a href="https://www.evers.no/examprep/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="360"><div class="cert-icon">🎓</div><h4 data-i="proj3bTitle">GRA6546 — Exam Prep</h4><p class="cert-issuer" data-i="proj3bDesc">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="https://www.evers.no/personligokonomi/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="0"><div class="cert-icon">💰</div><h3 data-i="proj1bTitle">Personlig Økonomi</h3><p class="cert-issuer" data-i="proj1bDesc">Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.</p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="https://www.evers.no/aksjeskatt/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="120"><div class="cert-icon">🧮</div><h3 data-i="proj4bTitle">Aksjeskatt på tvers av kontotyper</h3><p class="cert-issuer" data-i="proj4bDesc">Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap.</p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="https://www.evers.no/osebx/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="240"><div class="cert-icon">📊</div><h3 data-i="proj2bTitle">OSEBX Dashboard</h3><p class="cert-issuer" data-i="proj2bDesc">Ukentlig autonom analyse av Oslo Børs. Sektorrotasjon, breddemål, LLM-narrativ.</p><span class="open-hint" data-i="projOpen"></span></div></a>
+<a href="https://www.evers.no/examprep/" target="_blank" rel="noopener" class="cert-link"><div class="cert-card" data-delay="360"><div class="cert-icon">🎓</div><h3 data-i="proj3bTitle">GRA6546 — Exam Prep</h3><p class="cert-issuer" data-i="proj3bDesc">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p><span class="open-hint" data-i="projOpen"></span></div></a>
 </div>
 <div style="text-align:center;margin-top:2.8rem"><a href="/prosjekter/" class="all-projects-link" data-i="allProjects"></a></div>
 </section>
 
 <section id="funfacts"><div class="section-header"><span class="section-label anim-label" data-i="ffLabel"></span><h2 class="section-title split-title" data-i="ffTitle"></h2></div>
 <div class="facts-grid">
-<div class="fact-flip r" data-delay="0" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">⚔️</div><h4 data-i="ff1t"></h4><p data-i="ff1d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/prinsvaliant.jpg" alt="Prins Valiant" loading="lazy"></div></div></div>
-<div class="fact-flip r" data-delay="100" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">🏊</div><h4 data-i="ff2t"></h4><p data-i="ff2d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/triatlon.jpg" alt="Triatlon" loading="lazy"></div></div></div>
-<div class="fact-flip r" data-delay="200" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">🇧🇪</div><h4 data-i="ff3t"></h4><p data-i="ff3d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/belgia.jpg" alt="Belgiske røtter" loading="lazy"></div></div></div>
-<div class="fact-card" data-delay="300" id="mapToggle" role="button" tabindex="0" aria-expanded="false" style="cursor:pointer"><div class="fact-emoji">🌍</div><h4 data-i="ff4t"></h4><p data-i="ff4d"></p><span class="flip-hint" data-i="mapHint"></span></div>
+<div class="fact-flip r" data-delay="0" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">⚔️</div><h3 data-i="ff1t"></h3><p data-i="ff1d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/prinsvaliant.jpg" alt="Prins Valiant" loading="lazy"></div></div></div>
+<div class="fact-flip r" data-delay="100" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">🏊</div><h3 data-i="ff2t"></h3><p data-i="ff2d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/triatlon.jpg" alt="Triatlon" loading="lazy"></div></div></div>
+<div class="fact-flip r" data-delay="200" onclick="this.classList.toggle('touched')"><div class="fact-inner"><div class="fact-front"><div class="fact-emoji">🇧🇪</div><h3 data-i="ff3t"></h3><p data-i="ff3d"></p><span class="flip-hint" data-i="flipHint"></span></div><div class="fact-back"><img src="travel/belgia.jpg" alt="Belgiske røtter" loading="lazy"></div></div></div>
+<div class="fact-card" data-delay="300" id="mapToggle" role="button" tabindex="0" aria-expanded="false" style="cursor:pointer"><div class="fact-emoji">🌍</div><h3 data-i="ff4t"></h3><p data-i="ff4d"></p><span class="flip-hint" data-i="mapHint"></span></div>
 </div>
 <div id="travelMapWrap" style="max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.22,1,.36,1),opacity .6s ease;opacity:0;margin-top:0">
 <div id="travelMap" style="margin-top:1.5rem"></div>
@@ -660,10 +660,10 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <div style="max-width:1000px;margin:0 auto;padding:0 2rem 3rem;position:relative;z-index:1">
 <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap">
 <a href="https://www.youtube.com/watch?v=PHe0bXAIuk0" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
-<div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/PHe0bXAIuk0/hqdefault.jpg" alt="Ray Dalio" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
+<div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/PHe0bXAIuk0/hqdefault.jpg" alt="Ray Dalio" loading="lazy" decoding="async" width="280" height="158" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
 <div style="padding:1rem"><p style="font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.82rem;line-height:1.4;margin-bottom:.3rem" data-i="yt1title"></p><p style="font-size:.72rem;color:rgba(0,18,51,.4)">Ray Dalio</p></div></a>
 <a href="https://www.youtube.com/watch?v=WEDIj9JBTC8" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
-<div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/WEDIj9JBTC8/hqdefault.jpg" alt="Bill Ackman" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
+<div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/WEDIj9JBTC8/hqdefault.jpg" alt="Bill Ackman" loading="lazy" decoding="async" width="280" height="158" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
 <div style="padding:1rem"><p style="font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.82rem;line-height:1.4;margin-bottom:.3rem" data-i="yt2title"></p><p style="font-size:.72rem;color:rgba(0,18,51,.4)">William Ackman / Big Think</p></div></a>
 </div>
 <p style="text-align:center;font-size:.72rem;color:rgba(0,18,51,.3);margin-top:1.2rem" data-i="ytSub"></p>
@@ -1227,9 +1227,11 @@ if(leafletLoading)return leafletLoading;
 leafletLoading=new Promise(function(resolve){
 var css=document.createElement('link');
 css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+css.integrity='sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H';css.crossOrigin='anonymous';
 document.head.appendChild(css);
 var s=document.createElement('script');
 s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+s.integrity='sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH';s.crossOrigin='anonymous';
 s.onload=resolve;
 document.head.appendChild(s);
 });

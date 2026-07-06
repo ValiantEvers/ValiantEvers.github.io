@@ -1102,7 +1102,7 @@ tr:last-child td{border-bottom:none;}
 <div id="logg" class="section fade-in">
   <h2 class="section-title">Alle løpeturer</h2>
   <div class="run-controls">
-    <input type="text" class="search-input" id="searchInput" placeholder="Søk sted eller navn…">
+    <input type="text" class="search-input" id="searchInput" aria-label="Søk sted eller navn" placeholder="Søk sted eller navn…">
     <button class="filter-btn active" data-filter="all">Alle</button>
     <button class="filter-btn" data-filter="2024">2024</button>
     <button class="filter-btn" data-filter="2025">2025</button>
@@ -2040,13 +2040,30 @@ function renderTable(){
     </tr>
   `).join('');
   window._tableData=data;
+  updateSortIndicators();
 }
 
+function sortByCol(col){
+  if(sortCol===col) sortDir*=-1; else{sortCol=col;sortDir=-1;}
+  renderTable();
+}
+// Reflect current sort state for assistive tech. renderTable's comparator
+// treats sortDir=-1 as ascending (smaller first), +1 as descending.
+function updateSortIndicators(){
+  document.querySelectorAll('#runTable th[data-sort]').forEach(th=>{
+    th.setAttribute('aria-sort', th.dataset.sort===sortCol ? (sortDir===-1?'ascending':'descending') : 'none');
+  });
+}
 document.querySelectorAll('[data-sort]').forEach(th=>{
-  th.addEventListener('click',()=>{
-    const col=th.dataset.sort;
-    if(sortCol===col) sortDir*=-1; else{sortCol=col;sortDir=-1;}
-    renderTable();
+  // Make mouse-only sortable headers keyboard-operable (button semantics)
+  th.tabIndex=0;
+  th.setAttribute('role','button');
+  th.addEventListener('click',()=>sortByCol(th.dataset.sort));
+  th.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){
+      e.preventDefault();
+      sortByCol(th.dataset.sort);
+    }
   });
 });
 document.querySelectorAll('.filter-btn').forEach(btn=>{
