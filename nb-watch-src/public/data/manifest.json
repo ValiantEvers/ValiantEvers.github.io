@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T09:20:50.694367Z",
+  "lastUpdated": "2026-07-08T08:05:27.867263Z",
   "sources": [
     {
       "name": "Norges Bank",
@@ -8,16 +8,6 @@
         "styringsrente",
         "nibor",
         "valuta"
-      ]
-    },
-    {
-      "name": "SSB",
-      "url": "https://data.ssb.no/api/v0/no/",
-      "series": [
-        "kpi",
-        "kpi_jae",
-        "boligpris",
-        "lonnsvekst"
       ]
     },
     {
@@ -32,40 +22,36 @@
     "norges_bank": {
       "styringsrente": {
         "status": "ok",
-        "rows": 1888,
+        "rows": 1889,
         "key": "IR/B.KPRA.SD.R"
       },
       "nibor": {
         "status": "ok",
-        "rows": 1577,
+        "rows": 1578,
         "key": "SHORT_RATES/B.NOWA_AVERAGE.3M.R"
       },
       "valuta": {
         "status": "ok",
-        "rows": 1638,
+        "rows": 1639,
         "key": "EXR/B.{CCY}.NOK.SP"
       }
     },
     "ssb": {
       "kpi": {
-        "status": "ok",
-        "rows": 120,
-        "source": "SSB tabell 03013"
+        "status": "error",
+        "message": "400 Client Error: Bad Request for url: https://data.ssb.no/api/v0/no/table/03013/"
       },
       "kpi_jae": {
-        "status": "ok",
-        "rows": 120,
-        "source": "SSB tabell 05327"
+        "status": "error",
+        "message": "400 Client Error: Bad Request for url: https://data.ssb.no/api/v0/no/table/05327/"
       },
       "boligpris": {
-        "status": "ok",
-        "rows": 41,
-        "source": "SSB tabell 07221"
+        "status": "error",
+        "message": "400 Client Error: Bad Request for url: https://data.ssb.no/api/v0/no/table/07221/"
       },
       "lonnsvekst": {
-        "status": "ok",
-        "rows": 10,
-        "source": "SSB tabell 11418"
+        "status": "error",
+        "message": "400 Client Error: Bad Request for url: https://data.ssb.no/api/v0/no/table/11418/"
       }
     },
     "rentebane": {
