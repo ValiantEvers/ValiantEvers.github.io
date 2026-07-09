@@ -2,7 +2,7 @@ name: Fetch Strava Activity
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Runs every 6 hours
+    - cron: '0 5 * * *'  # Daily 05:00 UTC (07:00 norsk sommertid) — nedjustert fra hver 6. time 2026-07-10
   workflow_dispatch:        # Manual trigger
 
 jobs:
