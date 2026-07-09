@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-08T08:05:27.867263Z",
+  "lastUpdated": "2026-07-09T09:24:18.174031Z",
   "sources": [
     {
       "name": "Norges Bank",
@@ -22,24 +22,24 @@
     "norges_bank": {
       "styringsrente": {
         "status": "ok",
-        "rows": 1889,
+        "rows": 1890,
         "key": "IR/B.KPRA.SD.R"
       },
       "nibor": {
         "status": "ok",
-        "rows": 1578,
+        "rows": 1579,
         "key": "SHORT_RATES/B.NOWA_AVERAGE.3M.R"
       },
       "valuta": {
         "status": "ok",
-        "rows": 1639,
+        "rows": 1640,
         "key": "EXR/B.{CCY}.NOK.SP"
       }
     },
     "ssb": {
       "kpi": {
         "status": "error",
-        "message": "400 Client Error: Bad Request for url: https://data.ssb.no/api/v0/no/table/03013/"
+        "message": "HTTPSConnectionPool(host='data.ssb.no', port=443): Read timed out. (read timeout=30)"
       },
       "kpi_jae": {
         "status": "error",
@@ -51,7 +51,7 @@
       },
       "lonnsvekst": {
         "status": "error",
-        "message": "400 Client Error: Bad Request for url: https://data.ssb.no/api/v0/no/table/11418/"
+        "message": "HTTPSConnectionPool(host='data.ssb.no', port=443): Read timed out. (read timeout=30)"
       }
     },
     "rentebane": {
