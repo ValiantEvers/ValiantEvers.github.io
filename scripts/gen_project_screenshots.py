@@ -7,9 +7,8 @@ Chrome — no chromium download) and exports cropped, retina (2x) WebP at
 
 Why live URLs: osebx/ and wc2026/ are separate GitHub Pages repos (not in this
 repo) but served under evers.no; capturing live also matches the deployed look.
-The three "Finansielle maler" cards capture the themed finansielle-maler page at
-their section anchors (the actual link target) — far more legible and lighter
-than the raw dense Excel-grid PNGs under finansielle-maler/screenshots/.
+(Unlisted projects — finansielle-maler, nb-watch, forretningsenhet-dashboard —
+were removed from TARGETS 2026-07-09; their old .webp files are kept on disk.)
 
 Regenerate:
     python3 -m venv /tmp/shotenv && /tmp/shotenv/bin/pip install playwright pillow
@@ -34,16 +33,11 @@ TARGETS = [
     {"slug": "osebx",                      "url": "https://www.evers.no/osebx/",                                            "scroll": 0,   "wait_ms": 6500},
     {"slug": "pensjonskalkulator",         "url": "https://www.evers.no/pensjonskalkulator/",                               "scroll": 0,   "wait_ms": 4000},
     {"slug": "personligokonomi",           "url": "https://www.evers.no/personligokonomi/",                                 "scroll": 820, "wait_ms": 4000},
-    {"slug": "forretningsenhet-dashboard", "url": "https://www.evers.no/prosjekter/forretningsenhet-dashboard/",            "scroll": 0,   "wait_ms": 4000},
-    {"slug": "nb-watch",                   "url": "https://www.evers.no/nb-watch/",                                         "scroll": 0,   "wait_ms": 4000},
     {"slug": "leie-eller-eie",             "url": "https://www.evers.no/leie-eller-eie/",                                   "scroll": 0,   "wait_ms": 3500},
     {"slug": "masteroppgave",              "url": "https://www.evers.no/prosjekter/masteroppgave/",                         "scroll": 980, "wait_ms": 3500},
     {"slug": "wc2026",                     "url": "https://www.evers.no/wc2026/",                                           "scroll": 0,   "wait_ms": 4000},
     {"slug": "klima",                      "url": "https://www.evers.no/klima/",                                            "scroll": 0,   "wait_ms": 3500},
     {"slug": "examprep",                   "url": "https://www.evers.no/examprep/",                                         "scroll": 0,   "wait_ms": 3500, "q": 69},
-    {"slug": "regnskapsoppstillinger",     "url": "https://www.evers.no/prosjekter/finansielle-maler/#grunnleggende",       "scroll": 0,   "wait_ms": 2500, "q": 72},
-    {"slug": "integrert-modellering",      "url": "https://www.evers.no/prosjekter/finansielle-maler/#integrert",           "scroll": 0,   "wait_ms": 2500, "q": 72},
-    {"slug": "verdsettelse",               "url": "https://www.evers.no/prosjekter/finansielle-maler/#verdsettelse",        "scroll": 0,   "wait_ms": 2500, "q": 72},
 ]
 
 

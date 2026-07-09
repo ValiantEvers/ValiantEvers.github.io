@@ -62,7 +62,7 @@
   ],
   "opprettet": "",
   "sist_oppdatert": "",
-  "synlig": true
+  "synlig": false
  },
  {
   "slug": "masteroppgave",
@@ -187,7 +187,7 @@
   ],
   "opprettet": "",
   "sist_oppdatert": "",
-  "synlig": true
+  "synlig": false
  },
  {
   "slug": "wc2026",
@@ -226,7 +226,7 @@
   ],
   "opprettet": "",
   "sist_oppdatert": "",
-  "synlig": true,
+  "synlig": false,
   "maler": [
    {
     "tittel_no": "Resultatregnskap",
@@ -270,7 +270,7 @@
   ],
   "opprettet": "",
   "sist_oppdatert": "",
-  "synlig": true,
+  "synlig": false,
   "maler": [
    {
     "tittel_no": "Tre-rapport-modell",
@@ -315,7 +315,7 @@
   ],
   "opprettet": "",
   "sist_oppdatert": "",
-  "synlig": true,
+  "synlig": false,
   "maler": [
    {
     "tittel_no": "DCF-modell",
