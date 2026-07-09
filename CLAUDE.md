@@ -10,12 +10,12 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `cv.html` — CV page (single file at root, not a directory)
 - `rekrutterer/index.html` — landing page for recruiters in Wealth Management / Private Banking / Fund Sales (public, indexed)
 - `strategi.html` — private internal job-search strategy tracker (noindex, nofollow — not for public)
-- `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`) with subpages `masteroppgave/` (scrollytelling thesis presentation), `finansielle-maler/`, `forretningsenhet-dashboard/`
+- `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`) with subpage `masteroppgave/` (scrollytelling thesis presentation). Subpages `finansielle-maler/` and `forretningsenhet-dashboard/` are UNLISTED as of 2026-07-09: live at their URLs but noindex, no gallery cards (`synlig:false` in projects.json), no links, not in sitemap — flip `synlig` back and re-add sitemap/section to relaunch
 - `aksjeskatt/` — after-tax return comparison depot vs ASK vs holdingselskap; reads pre-computed `aksjeskatt_grid.json` (deterministic tax engine runs offline, not in the browser)
 - `klima/` — climate status/myths page, every number with a source reference
 - `leie-eller-eie/` — rent-vs-buy interactive calculator (Chart.js from CDN)
-- `nb-watch/` — Norges Bank Watch macro dashboard, built output + `data/*.json` refreshed by the autonomous pipeline (ikke rediger direkte)
-- `nb-watch-src/` — source for nb-watch (Vite + React + Tailwind; crawl-blocked in robots.txt)
+- `nb-watch/` — Norges Bank Watch macro dashboard. DISCONTINUED 2026-07-09: the auto-refresh pipeline (`.github/workflows/refresh-nb-watch-data.yml`) was deleted (restore from git history if ever revived); last data is frozen static. Page is unlisted (noindex, out of sitemap) but stays live at its URL
+- `nb-watch-src/` — frozen source for nb-watch (Vite + React + Tailwind; crawl-blocked in robots.txt)
 - `osebx/` og `wc2026/` — IKKE mapper i dette repoet: egne prosjekt-repoer (ValiantEvers/osebx, ValiantEvers/wc2026) servert under evers.no-stiene via GitHub Pages prosjektside-ruting
 - `personligokonomi/` — separate sub-app (built from personligokonomi repo)
 - `pensjonskalkulator/` — bygd output for pensjonskalkulator (generert av GitHub Actions, ikke rediger direkte)
