@@ -12,6 +12,7 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `strategi.html` — private internal job-search strategy tracker (noindex, nofollow — not for public)
 - `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`) with subpage `masteroppgave/` (scrollytelling thesis presentation). Subpages `finansielle-maler/` and `forretningsenhet-dashboard/` are UNLISTED as of 2026-07-09: live at their URLs but noindex, no gallery cards (`synlig:false` in projects.json), no links, not in sitemap — flip `synlig` back and re-add sitemap/section to relaunch
 - `aksjeskatt/` — after-tax return comparison depot vs ASK vs holdingselskap; reads pre-computed `aksjeskatt_grid.json` (deterministic tax engine runs offline, not in the browser)
+- `formuessamtalen/` — interaktiv rådgivningsdemo (wealth-management-samtalen: egnethet → kontovalg → møtereferat); reads pre-computed `samtale_grid.json` (same offline skatt-optimizer engine pattern as `aksjeskatt/`, tax math never in the browser). Cream-skin, norsk-only, medieval «prins»-easter-egg
 - `klima/` — climate status/myths page, every number with a source reference
 - `leie-eller-eie/` — rent-vs-buy interactive calculator (Chart.js from CDN)
 - `nb-watch/` — Norges Bank Watch macro dashboard. DISCONTINUED 2026-07-09: the auto-refresh pipeline (`.github/workflows/refresh-nb-watch-data.yml`) was deleted (restore from git history if ever revived); last data is frozen static. Page is unlisted (noindex, out of sitemap) but stays live at its URL
