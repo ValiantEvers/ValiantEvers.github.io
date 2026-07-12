@@ -1,5 +1,26 @@
 [
  {
+  "slug": "formuessamtalen",
+  "tittel": "Formuessamtalen",
+  "beskrivelse": "Sett deg på kundesiden av bordet: en interaktiv demo av rådgivningssamtalen i wealth management. Egnethetskartlegging, åpen allokeringsmatrise, kontovalg (depot, ASK, eget AS) beregnet av skatt-optimizer-motoren for din profil, kalibreringstest fra masteroppgaven, og et møtereferat du kan ta med i banken.",
+  "kategori": "Verktøy",
+  "status": "live",
+  "url": "/formuessamtalen/",
+  "bilde": "screenshots/formuessamtalen.webp",
+  "ikon": "🪑",
+  "tags": [
+   "wealth-management",
+   "rådgivning",
+   "skatt",
+   "ASK",
+   "atferd",
+   "personlig-økonomi"
+  ],
+  "opprettet": "2026-07-12",
+  "sist_oppdatert": "2026-07-12",
+  "synlig": true
+ },
+ {
   "slug": "aksjeskatt",
   "tittel": "Aksjeskatt på tvers av kontotyper",
   "beskrivelse": "Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap. Velg strategi, kapital, utbytte og sivilstand — se kurvene krysse, skattesplitten (gevinst/utbytte/formue/uttak) og hvordan rangeringen etter skatt kan snu rangeringen før skatt. Alle tall beregnet av en deterministisk skattemotor; ingen skatteregning i nettleseren, ingen data lastes opp.",

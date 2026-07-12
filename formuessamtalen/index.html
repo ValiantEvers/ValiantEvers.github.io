@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formuessamtalen · Valiant Evers</title>
+<meta name="description" content="Sett deg på kundesiden av bordet. En interaktiv demo av rådgivningssamtalen i wealth management: egnethet, kontovalg med ekte skattemotor, og et ærlig blikk på din egen kalibrering.">
+<meta name="author" content="Valiant Evers">
+<meta name="theme-color" content="#FAF6EF">
+<meta name="robots" content="index, follow">
+<!-- Open Graph / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Formuessamtalen · Valiant Evers">
+<meta property="og:description" content="Hva ville en god rådgiver faktisk spurt deg om? Svar på samtalen, se resonnementet, få referatet.">
+<meta property="og:image" content="https://www.evers.no/formuessamtalen/og-formuessamtalen.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="Formuessamtalen, en interaktiv demo av rådgivningssamtalen, evers.no">
+<meta property="og:url" content="https://www.evers.no/formuessamtalen/">
+<meta property="og:site_name" content="Valiant Evers">
+<meta property="og:locale" content="nb_NO">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Formuessamtalen · Valiant Evers">
+<meta name="twitter:description" content="Hva ville en god rådgiver faktisk spurt deg om? Svar på samtalen, se resonnementet, få referatet.">
+<meta name="twitter:image" content="https://www.evers.no/formuessamtalen/og-formuessamtalen.png">
+<meta name="twitter:image:alt" content="Formuessamtalen, en interaktiv demo av rådgivningssamtalen, evers.no">
+<link rel="canonical" href="https://www.evers.no/formuessamtalen/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* ── Fonter (self-hostet, /fonts — se fonts/README.md) ─────────────────────────── */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/fraunces-latin-full-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/fraunces-latin-ext-full-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/manrope-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/manrope-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jetbrains-mono-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'MedievalSharp';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/MedievalSharp-Latin.woff2') format('woff2')}
+@font-face{font-family:'UnifrakturMaguntia';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/UnifrakturMaguntia-Latin.woff2') format('woff2')}
+h1,h2,h3{text-wrap:balance}
+</style>
+<style>
+/* ── Tokens: cream-familien (personligokonomi/pensjonskalkulator-slekt) ─────────
+   Lys: varm kremhvit + blekk + korall. #FF5436 er DISPLAY-aksent (store flater,
+   markører); tekst/lenker bruker --accent-ink som holder AA på både --bg og
+   --card-bg. Mørk: varm mørk. Medieval: klima-verdiene uendret. */
+:root{
+  --font-display:"Fraunces","Noto Serif",Georgia,"Times New Roman",serif;
+  --font-sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --bg:#FAF6EF; --text:#1A1A1A; --muted:#645E53;
+  --accent:#FF5436; --accent-ink:#B03418; --accent-soft:rgba(255,84,54,.08);
+  --good:#1E7A4F; --card-bg:#FFFFFF; --card-shadow:0 1px 2px rgba(26,22,15,.05),0 8px 28px rgba(26,22,15,.05);
+  --border:rgba(26,26,26,.10); --hair:rgba(26,26,26,.07); --subtle:rgba(26,26,26,.38);
+  --w-pretax:#9A917F; --w-taxable:#B0731F; --w-ask:#1E7A4F; --w-holding:#3E5FA3;
+  --cursor-size:18px;
+  --ease-out:cubic-bezier(0.23,1,0.32,1); --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+}
+[data-theme="dark"]{
+  --bg:#171310; --text:#F1EBE0; --muted:#A89F90;
+  --accent:#FF7A5E; --accent-ink:#FFA184; --accent-soft:rgba(255,122,94,.10);
+  --good:#5FCF96; --card-bg:#211C17; --card-shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3);
+  --border:rgba(241,235,224,.12); --hair:rgba(241,235,224,.08); --subtle:rgba(241,235,224,.4);
+  --w-pretax:#8D8676; --w-taxable:#D69A45; --w-ask:#5FCF96; --w-holding:#8FA9E8;
+}
+[data-theme="dark"] nav.scrolled{background:rgba(23,19,16,.72);border-bottom-color:rgba(241,235,224,.06)}
+[data-theme="medieval"]{
+  --bg:#2a1a0e; --text:#e8d5b5; --muted:rgba(232,213,181,.55);
+  --accent:#c4841d; --accent-ink:#d4a54a; --accent-soft:rgba(196,132,29,.12);
+  --good:#9ab86a; --card-bg:#1e1208; --card-shadow:0 4px 30px rgba(0,0,0,.4);
+  --border:rgba(232,213,181,.12); --hair:rgba(232,213,181,.08); --subtle:rgba(232,213,181,.35);
+  --w-pretax:#8a7a5e; --w-taxable:#c4841d; --w-ask:#9ab86a; --w-holding:#7d9bc4;
+  cursor:url('../medieval/cursor-sword.png') 2 30, auto;
+}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"],
+[data-theme="medieval"] label,[data-theme="medieval"] summary{cursor:url('../medieval/cursor-sword.png') 2 30, pointer}
+[data-theme="medieval"] body{font-family:'MedievalSharp',sans-serif}
+[data-theme="medieval"] .page-h1,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .sub-title,
+[data-theme="medieval"] .step-title,[data-theme="medieval"] .res-title,[data-theme="medieval"] .np-title,
+[data-theme="medieval"] .rank-final,[data-theme="medieval"] .ref-head{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .chart-svg text{font-family:'MedievalSharp',sans-serif}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip;width:100%}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);width:100%;position:relative;line-height:1.65;-webkit-text-size-adjust:100%;font-size:16.5px}
+img,svg,canvas{max-width:100%}
+
+/* GRAIN (site-konsistent) */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+[data-theme="dark"] body::after{opacity:.04}
+
+/* CURSOR DOT (fine pointer) */
+.cursor-dot{position:fixed;top:0;left:0;width:var(--cursor-size);height:var(--cursor-size);border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;opacity:0}
+@media(pointer:fine){.cursor-dot{opacity:.55}}
+
+/* SKIP-LINK */
+.skip-link{position:absolute;left:-999px;top:0;z-index:1000;background:var(--card-bg);color:var(--text);padding:8px 16px;border-radius:0 0 6px 0;text-decoration:none}
+.skip-link:focus{left:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
+nav.scrolled{background:rgba(250,246,239,.78);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 1px 0 var(--hair);padding:.75rem 2rem}
+[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.75)}
+.nav-logo{font-family:var(--font-display);font-weight:640;font-size:1.35rem;color:var(--accent-ink);text-decoration:none;letter-spacing:-.02em}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-crumb{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.05rem;transition:border-color .3s,transform .15s;color:var(--text)}
+.theme-toggle:hover{border-color:var(--accent-ink)}
+.theme-toggle:active{transform:scale(.95)}
+
+/* HERO */
+.page-hero{max-width:1140px;margin:0 auto;padding:7.2rem 2rem .6rem;position:relative;z-index:1}
+.page-eyebrow{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.24em;font-weight:700;color:var(--accent-ink);margin-bottom:1rem}
+.page-h1{font-family:var(--font-display);font-weight:560;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:1.1rem;font-variation-settings:"opsz" 72}
+.page-lede{font-size:1.06rem;max-width:640px;color:var(--muted);line-height:1.75}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.6rem 0 .4rem}
+.btn{font-family:inherit;font-size:.92rem;font-weight:700;border-radius:12px;padding:.85rem 1.5rem;cursor:pointer;transition:transform .15s var(--ease-out),box-shadow .2s,border-color .2s;border:1.5px solid transparent;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(255,84,54,.28)}
+.btn-primary:hover{box-shadow:0 8px 26px rgba(255,84,54,.36)}
+[data-theme="medieval"] .btn-primary{color:#1e1208;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--border)}
+.btn-ghost:hover{border-color:var(--accent-ink);color:var(--accent-ink)}
+.hero-fine{font-size:.8rem;color:var(--subtle);margin-top:.4rem}
+.demo-note{display:none;max-width:640px;margin-top:1rem;background:var(--accent-soft);border:1px solid rgba(255,84,54,.25);border-radius:12px;padding:.75rem 1rem;font-size:.88rem}
+.demo-note.on{display:block}
+
+/* LAYOUT: samtale + notatblokk */
+.layout{max-width:1140px;margin:0 auto;padding:1.6rem 2rem 0;display:grid;grid-template-columns:minmax(0,1fr);gap:2.2rem;position:relative;z-index:1}
+@media(min-width:1020px){.layout{grid-template-columns:minmax(0,1fr) 300px}}
+.flow{min-width:0}
+
+/* INTRO-STRIPE */
+.intro-strip{border-left:3px solid var(--accent);padding:.2rem 0 .2rem 1.1rem;margin:1.4rem 0 2.4rem;max-width:620px}
+.intro-strip p{font-size:.95rem;color:var(--muted)}
+
+/* STEG */
+.step{margin:0 0 2.6rem;scroll-margin-top:5.5rem}
+.step-kicker{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+.step-title{font-family:var(--font-display);font-weight:580;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.02em;margin:.25rem 0 .5rem;font-variation-settings:"opsz" 40}
+.step-ingress{color:var(--muted);max-width:600px;margin-bottom:1.2rem;font-size:.98rem}
+fieldset{border:0;margin:0 0 1.2rem;padding:0;min-width:0}
+legend{font-weight:700;font-size:.98rem;margin-bottom:.7rem;padding:0}
+.opts{display:flex;flex-wrap:wrap;gap:.55rem}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt label{display:inline-block;background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:.7rem 1.05rem;font-size:.92rem;cursor:pointer;transition:border-color .2s,background .2s,transform .12s var(--ease-out);box-shadow:var(--card-shadow);line-height:1.4}
+.opt label:hover{border-color:var(--accent-ink)}
+.opt label:active{transform:scale(.98)}
+.opt input:checked+label{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.opt input:focus-visible+label{outline:2.5px solid var(--accent-ink);outline-offset:2px}
+.opts-col{flex-direction:column;align-items:flex-start}
+.opts-col .opt label{display:block}
+.hint{font-size:.8rem;color:var(--subtle);margin-top:.5rem;max-width:560px}
+
+/* HVORFOR (details) */
+details.why{margin:.4rem 0 0;max-width:620px}
+details.why summary{list-style:none;display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;font-size:.86rem;font-weight:700;color:var(--accent-ink);padding:.3rem 0}
+details.why summary::-webkit-details-marker{display:none}
+details.why summary .chev{transition:transform .25s var(--ease-out);display:inline-block;font-family:var(--font-mono)}
+details.why[open] summary .chev{transform:rotate(90deg)}
+details.why summary:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:2px;border-radius:4px}
+.why-reveal{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s var(--ease-out)}
+details.why[open] .why-reveal{grid-template-rows:1fr}
+.why-reveal>div{overflow:hidden}
+.why-reveal p{font-size:.9rem;color:var(--muted);padding:.5rem .9rem .3rem;border-left:2px solid var(--hair);margin:.2rem 0 .2rem .2rem}
+
+/* NOTATBLOKK */
+.notepad{position:relative}
+@media(min-width:1020px){.notepad-inner{position:sticky;top:5.2rem}}
+.np-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.2rem 1.25rem;background-image:repeating-linear-gradient(transparent,transparent 27px,var(--hair) 27px,var(--hair) 28px)}
+.np-title{font-family:var(--font-display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.np-title .np-pen{font-size:.9rem}
+.np-empty{font-size:.85rem;color:var(--subtle);font-style:italic}
+.np-list{list-style:none;font-size:.86rem}
+.np-list li{display:none;padding:.32rem 0;border-bottom:1px dashed var(--hair);align-items:baseline;gap:.5rem}
+.np-list li.on{display:flex}
+.np-list .k{font-family:var(--font-mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--subtle);flex:0 0 5.4em}
+.np-list .v{flex:1;font-weight:600}
+.np-list .edit{font-size:.72rem;color:var(--accent-ink);text-decoration:none;border-bottom:1px dotted var(--accent-ink)}
+.np-list .edit:hover{border-bottom-style:solid}
+.np-status{margin-top:.7rem;font-size:.78rem;color:var(--muted);min-height:1.2em}
+.np-toggle{display:none;width:100%;margin:0 0 .8rem;background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:.6rem 1rem;font-family:inherit;font-size:.86rem;font-weight:700;color:var(--text);cursor:pointer}
+@media(max-width:1019px){
+  .notepad{order:-1}
+  .np-toggle{display:block}
+  .np-body{display:none}
+  .np-body.open{display:block}
+}
+
+/* KALIBRERING */
+.ct-q{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.15rem 1.25rem;margin-bottom:.9rem}
+.ct-q .q-text{font-weight:700;font-size:.95rem;margin-bottom:.7rem;max-width:620px}
+.ct-conf{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;padding-top:.7rem;border-top:1px dashed var(--hair)}
+.ct-conf .conf-lbl{font-size:.8rem;color:var(--muted);margin-right:.2rem}
+.ct-facit{display:none;margin-top:.8rem;font-size:.88rem;color:var(--muted);border-left:3px solid var(--good);padding:.35rem 0 .35rem .85rem}
+.ct-q.done .ct-facit{display:block}
+.ct-q.done .opt label{cursor:default;opacity:.75}
+.ct-q.done .opt input:checked+label{opacity:1}
+.ct-q.done .opt.correct label{border-color:var(--good);background:rgba(30,122,79,.09);opacity:1;font-weight:700}
+[data-theme="dark"] .ct-q.done .opt.correct label{background:rgba(95,207,150,.12)}
+.ct-q.done .opt.wrong input:checked+label{border-color:var(--accent);text-decoration:line-through}
+.ct-result{display:none;background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.2rem 1.3rem;margin-top:1rem;max-width:520px}
+.ct-result.on{display:block}
+.ct-row{display:flex;justify-content:space-between;font-size:.92rem;padding:.3rem 0;border-bottom:1px dashed var(--hair)}
+.ct-row b{font-family:var(--font-mono);font-weight:600}
+.ct-verdict{margin-top:.8rem;font-weight:700;font-size:.95rem}
+.ct-tie{margin-top:.6rem;font-size:.85rem;color:var(--muted)}
+.ct-link{font-size:.85rem}
+
+/* RESULTAT */
+.result{max-width:1140px;margin:0 auto;padding:2.5rem 2rem 0;position:relative;z-index:1;scroll-margin-top:4.5rem}
+.res-sep{border:0;border-top:1px solid var(--border);margin:2.8rem auto 2.6rem;max-width:1076px}
+.res-kicker{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+.res-title{font-family:var(--font-display);font-weight:580;font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-.02em;margin:.25rem 0 .6rem;font-variation-settings:"opsz" 56}
+.res-title:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:4px;border-radius:4px}
+.res-ingress{color:var(--muted);max-width:640px;margin-bottom:1.6rem}
+.res-pending{background:var(--card-bg);border:1.5px dashed var(--border);border-radius:16px;padding:1.4rem 1.5rem;color:var(--muted);font-size:.94rem;max-width:640px}
+.res-body{display:none}
+.res-body.on{display:block}
+.res-block{margin-bottom:2.6rem}
+.sub-title{font-family:var(--font-display);font-weight:600;font-size:1.35rem;letter-spacing:-.015em;margin-bottom:.5rem}
+.sub-note{font-size:.82rem;color:var(--muted);max-width:620px;margin-bottom:1rem}
+
+/* profilkort */
+.profile-card{background:linear-gradient(135deg,var(--accent-soft),transparent 60%),var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:16px;box-shadow:var(--card-shadow);padding:1.3rem 1.5rem;max-width:680px;font-size:1rem;line-height:1.7}
+.gate-note{background:var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--w-taxable);border-radius:14px;padding:1rem 1.25rem;margin-top:1rem;max-width:680px;font-size:.92rem}
+
+/* matrise */
+.matrix-wrap{overflow-x:auto;max-width:680px}
+table.matrix{border-collapse:collapse;font-size:.9rem;min-width:430px}
+.matrix th,.matrix td{padding:.55rem .9rem;text-align:center;border:1px solid var(--hair)}
+.matrix thead th{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;background:var(--card-bg)}
+.matrix tbody th{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);font-weight:600;text-align:right;background:var(--card-bg)}
+.matrix td{font-family:var(--font-mono);background:var(--card-bg)}
+.matrix td.me{background:var(--accent);color:#fff;font-weight:700;position:relative;box-shadow:0 4px 14px rgba(255,84,54,.35)}
+[data-theme="medieval"] .matrix td.me{color:#1e1208}
+.matrix-foot{font-size:.8rem;color:var(--subtle);margin-top:.7rem;max-width:620px}
+
+/* kontovalg */
+.wrap-toggle{display:flex;gap:.55rem;flex-wrap:wrap;margin:.4rem 0 1.2rem}
+.rank-grid{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));max-width:900px;margin-bottom:.6rem}
+.rank-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.05rem 1.2rem;position:relative}
+.rank-card.win{border-color:var(--good);border-width:1.5px}
+.rank-card .rk{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.rank-card .rk .medal{font-size:.85rem}
+.rank-final{font-family:var(--font-display);font-size:1.45rem;font-weight:620;letter-spacing:-.01em;margin:.25rem 0 .1rem;font-variant-numeric:tabular-nums}
+.rank-card .sub{font-size:.78rem;color:var(--muted)}
+.pretax-line{font-size:.84rem;color:var(--muted);margin:.4rem 0 1.4rem}
+.pretax-line b{font-family:var(--font-mono);font-weight:600}
+
+/* graf */
+.chart-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.1rem 1.2rem .8rem;max-width:900px;margin-bottom:.4rem}
+.chart-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem}
+.chart-title{font-weight:700;font-size:.92rem}
+.chart-sub{font-size:.76rem;color:var(--subtle)}
+.chart-svg{width:100%;height:auto;display:block}
+.chart-svg text{font-family:var(--font-mono);font-size:10.5px;fill:var(--muted)}
+.chart-legend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:var(--muted);margin-top:.4rem}
+.chart-legend .sw{display:inline-block;width:16px;height:3px;border-radius:2px;vertical-align:middle;margin-right:.4rem}
+.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* skattesplitt */
+.taxsplit-wrap{overflow-x:auto;max-width:900px;margin-top:1.2rem}
+table.taxsplit{border-collapse:collapse;font-size:.88rem;width:100%;min-width:560px}
+.taxsplit th,.taxsplit td{padding:.55rem .8rem;text-align:right;border-bottom:1px solid var(--hair)}
+.taxsplit th:first-child,.taxsplit td:first-child{text-align:left}
+.taxsplit thead th{font-family:var(--font-mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.taxsplit td{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.taxsplit td:first-child{font-family:var(--font-sans);font-weight:600}
+
+/* hvorfor-prosa + notiser */
+.why-prose{max-width:660px;font-size:.95rem;margin-top:1.4rem}
+.why-prose p{margin-bottom:.9rem}
+.why-prose .num{font-family:var(--font-mono);font-weight:600;font-variant-numeric:tabular-nums}
+.notice{border-radius:12px;padding:.8rem 1rem;font-size:.82rem;margin:.6rem 0;border:1px solid var(--border);background:var(--card-bg);color:var(--muted);max-width:660px}
+.notice b{color:var(--text)}
+
+/* rentedel + speil + ærlighet */
+.plain-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.2rem 1.4rem;max-width:680px;font-size:.95rem}
+.plain-card p{margin-bottom:.7rem}
+.plain-card p:last-child{margin-bottom:0}
+.mirror-card{border-left:4px solid var(--w-holding)}
+
+/* referat */
+.ref-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.5rem 1.7rem;max-width:680px;font-family:var(--font-mono);font-size:.82rem;line-height:1.75;white-space:pre-wrap;font-variant-numeric:tabular-nums}
+.ref-head{font-family:var(--font-display);font-size:1.15rem;font-weight:620;letter-spacing:-.01em}
+.ref-actions{display:flex;gap:.7rem;margin-top:1rem;flex-wrap:wrap}
+
+/* kilder */
+.kilder{max-width:1140px;margin:0 auto;padding:1rem 2rem 0;position:relative;z-index:1}
+.kilder ul{list-style:none;max-width:680px}
+.kilder li{font-size:.88rem;color:var(--muted);padding:.45rem 0;border-bottom:1px dashed var(--hair)}
+.kilder li a{color:var(--accent-ink)}
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+a:hover{color:var(--accent)}
+a.src{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);letter-spacing:0;white-space:nowrap;text-decoration:none;border-bottom:1px dotted var(--subtle);padding-bottom:1px}
+a.src:hover{color:var(--accent-ink);border-bottom-color:var(--accent-ink)}
+
+/* why-siden-notis + footer */
+.about-note{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:1.2rem 1.4rem;max-width:680px;font-size:.9rem;color:var(--muted)}
+.about-note b{color:var(--text)}
+.back-row{max-width:1140px;margin:2.4rem auto 0;padding:0 2rem}
+.back-link{font-size:.9rem;font-weight:700;text-decoration:none;color:var(--accent-ink)}
+.back-link:hover{color:var(--accent)}
+.footer{max-width:1140px;margin:.8rem auto 0;padding:1rem 2rem 2.6rem;font-size:.8rem;color:var(--subtle)}
+
+/* feilboks */
+.errbox{display:none;background:var(--card-bg);border:1.5px solid var(--accent);border-radius:14px;padding:1rem 1.2rem;max-width:640px;font-size:.9rem;margin:1rem 0}
+.errbox.on{display:block}
+
+/* fokus */
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:2px}
+
+/* reveal-animasjon (.js-gated) */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+.js .rv.in{opacity:1;transform:none}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1 !important;transform:none !important}
+}
+
+/* PRINT: to tilstander. Uten referat: normal side minus pynt. Med referat
+   (html.referat-ready): KUN referatet. Tving lys/hvit uansett tema. */
+@media print{
+  body{background:#fff !important;color:#000 !important;font-size:11pt}
+  body::after,.cursor-dot,nav,.skip-link,.hero-cta,.demo-note,.np-toggle,.theme-toggle,.errbox{display:none !important}
+  .np-card{background-image:none}
+  .rv{opacity:1 !important;transform:none !important}
+  a{color:#000 !important}
+  .referat-ready body *{visibility:hidden}
+  .referat-ready #referat,.referat-ready #referat *{visibility:visible}
+  .referat-ready #referat{position:absolute;left:0;top:0;width:100%;padding:1cm}
+  .referat-ready #referat .ref-actions{display:none !important}
+  .ref-card{border:1px solid #ccc;box-shadow:none}
+}
+@media(max-width:640px){
+  .page-hero{padding:5.6rem 1.2rem .6rem}
+  .layout,.result,.kilder,.back-row,.footer{padding-left:1.2rem;padding-right:1.2rem}
+  nav{padding:.9rem 1.2rem}
+  nav.scrolled{padding:.7rem 1.2rem}
+  body{font-size:15.5px}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+<a href="#main" class="skip-link">Hopp til innhold</a>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<nav id="nav" aria-label="Hovednavigasjon">
+  <a href="/" class="nav-logo">VE</a>
+  <div class="nav-right">
+    <span class="nav-crumb">Formuessamtalen</span>
+    <button class="theme-toggle" id="themeToggle" aria-label="Bytt fargetema">☀️</button>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+<header class="page-hero">
+  <span class="page-eyebrow">Interaktiv demo</span>
+  <h1 class="page-h1">Formuessamtalen</h1>
+  <p class="page-lede">Sett deg på kundesiden av bordet. Dette er samtalen en god rådgiver ville
+  hatt med deg før det ble snakket om produkter: hva du vil, når du trenger pengene, hva du
+  tåler, og hva du faktisk vet. Svar underveis, så bygger notatblokken seg opp. Til slutt får du
+  se hele resonnementet, med skattetall fra en ekte beregningsmotor, og et referat du kan ta med
+  deg.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#steg1" id="startBtn">Start samtalen</a>
+    <button class="btn btn-ghost" id="demoBtn" type="button">Vis et eksempel</button>
+  </div>
+  <p class="hero-fine">Fem minutter. Ingenting lagres, ingenting sendes. Alt skjer i nettleseren din.</p>
+  <div class="demo-note" id="demoNote" role="note">Du ser et eksempel: 1 million kroner, 15 års
+  horisont, balansert risiko. Endre hva som helst under, så oppdateres alt.</div>
+  <noscript><p class="hero-fine" style="max-width:640px;margin-top:1rem"><b>Denne siden er
+  interaktiv og trenger JavaScript.</b> Teksten under forklarer hva samtalen inneholder, men
+  uten svarene dine kan resonnementet ikke bygges.</p></noscript>
+</header>
+
+<div class="layout">
+<div class="flow">
+
+  <div class="intro-strip rv">
+    <p>I regulert rådgivning heter dette en egnethetsvurdering. MiFID-reglene krever at
+    rådgiveren kartlegger mål, økonomi, kunnskap og risikotoleranse før noe anbefales. De fleste
+    møter den som et skjema. Den fortjener bedre. Spørsmålene er nemlig gode, hvis noen
+    forklarer hvorfor de stilles.</p>
+  </div>
+
+  <div class="errbox" id="errBox" role="alert">Kunne ikke laste scenariodataene. Last siden på
+  nytt, så prøver vi igjen.</div>
+
+  <!-- ── STEG 1 ── -->
+  <section class="step rv" id="steg1" aria-labelledby="h-steg1">
+    <span class="step-kicker">Steg 1 av 5</span>
+    <h2 class="step-title" id="h-steg1">Grunnmuren</h2>
+    <p class="step-ingress">Før pengene kan jobbe langsiktig, må hverdagen tåle en trøkk.
+    Derfor starter samtalen her, ikke med fond.</p>
+
+    <fieldset id="f-buffer">
+      <legend>Har du en buffer for uforutsette utgifter?</legend>
+      <div class="opts">
+        <span class="opt"><input type="radio" name="buffer" id="buffer0" value="0"><label for="buffer0">Nei, ikke ennå</label></span>
+        <span class="opt"><input type="radio" name="buffer" id="buffer1" value="1"><label for="buffer1">Noe, men under tre månedslønner</label></span>
+        <span class="opt"><input type="radio" name="buffer" id="buffer2" value="2"><label for="buffer2">Ja, tre til seks månedslønner står trygt</label></span>
+      </div>
+    </fieldset>
+
+    <fieldset id="f-gjeld">
+      <legend>Har du dyr gjeld, som forbrukslån eller kredittkort som rullerer?</legend>
+      <div class="opts">
+        <span class="opt"><input type="radio" name="gjeld" id="gjeld1" value="1"><label for="gjeld1">Ja</label></span>
+        <span class="opt"><input type="radio" name="gjeld" id="gjeld0" value="0"><label for="gjeld0">Nei</label></span>
+      </div>
+    </fieldset>
+
+    <details class="why">
+      <summary><span class="chev" aria-hidden="true">›</span> Hvorfor spør rådgiveren om dette?</summary>
+      <div class="why-reveal"><div>
+        <p>Uten buffer blir aksjer solgt på verst tenkelige tidspunkt: når bilen ryker samtidig
+        som markedet er ned tjue prosent. Og ingen portefølje slår renta på et forbrukslån.
+        En rådgiver som hopper over dette punktet, selger deg noe. En som stopper her,
+        hjelper deg.</p>
+      </div></div>
+    </details>
+  </section>
+
+  <!-- ── STEG 2 ── -->
+  <section class="step rv" id="steg2" aria-labelledby="h-steg2">
+    <span class="step-kicker">Steg 2 av 5</span>
+    <h2 class="step-title" id="h-steg2">Målet</h2>
+    <p class="step-ingress">Penger er ikke målet. Penger er verktøyet. Hva skal de gjøre for deg?</p>
+
+    <fieldset id="f-maal">
+      <legend>Hva sparer du til?</legend>
+      <div class="opts">
+        <span class="opt"><input type="radio" name="maal" id="maal0" value="bolig"><label for="maal0">Bolig eller noe annet stort om noen år</label></span>
+        <span class="opt"><input type="radio" name="maal" id="maal1" value="barna"><label for="maal1">Barnas fremtid</label></span>
+        <span class="opt"><input type="radio" name="maal" id="maal2" value="frihet"><label for="maal2">Frihet og pensjon</label></span>
+        <span class="opt"><input type="radio" name="maal" id="maal3" value="formue"><label for="maal3">Å bygge formue, uten en bestemt dato</label></span>
+      </div>
+    </fieldset>
+
+    <fieldset id="f-horisont">
+      <legend>Når trenger du pengene?</legend>
+      <div class="opts">
+        <span class="opt"><input type="radio" name="horisont" id="hor3" value="3"><label for="hor3">Om rundt 3&nbsp;år</label></span>
+        <span class="opt"><input type="radio" name="horisont" id="hor5" value="5"><label for="hor5">Om rundt 5&nbsp;år</label></span>
+        <span class="opt"><input type="radio" name="horisont" id="hor10" value="10"><label for="hor10">Om rundt 10&nbsp;år</label></span>
+        <span class="opt"><input type="radio" name="horisont" id="hor15" value="15"><label for="hor15">Om rundt 15&nbsp;år</label></span>
+        <span class="opt"><input type="radio" name="horisont" id="hor20" value="20"><label for="hor20">Om rundt 20&nbsp;år</label></span>
+        <span class="opt"><input type="radio" name="horisont" id="hor30" value="30"><label for="hor30">Om 30&nbsp;år eller mer</label></span>
+      </div>
+    </fieldset>
+
+    <details class="why">
+      <summary><span class="chev" aria-hidden="true">›</span> Hvorfor betyr horisonten mest?</summary>
+      <div class="why-reveal"><div>
+        <p>Tid er den eneste risikodemperen som er gratis. Et bredt aksjemarked har historisk
+        brukt noen år på å hente inn selv store fall, men «noen år» hjelper lite hvis pengene
+        skal ut neste sommer. Derfor er horisonten det første tallet en rådgiver noterer, og
+        det som styrer mest i matrisen du får se til slutt.</p>
+      </div></div>
+    </details>
+  </section>
+
+  <!-- ── STEG 3 ── -->
+  <section class="step rv" id="steg3" aria-labelledby="h-steg3">
+    <span class="step-kicker">Steg 3 av 5</span>
+    <h2 class="step-title" id="h-steg3">Beløpet</h2>
+    <p class="step-ingress">Beløpet endrer ikke logikken, men det endrer skatten. Formuesskatten
+    har terskler, og på feil side av dem blir regnestykket et annet.</p>
+
+    <fieldset id="f-belop">
+      <legend>Hvor mye skal plasseres?</legend>
+      <div class="opts">
+        <span class="opt"><input type="radio" name="belop" id="bel0" value="100000"><label for="bel0">100&nbsp;000&nbsp;kr</label></span>
+        <span class="opt"><input type="radio" name="belop" id="bel1" value="250000"><label for="bel1">250&nbsp;000&nbsp;kr</label></span>
+        <span class="opt"><input type="radio" name="belop" id="bel2" value="500000"><label for="bel2">500&nbsp;000&nbsp;kr</label></span>
+        <span class="opt"><input type="radio" name="belop" id="bel3" value="1000000"><label for="bel3">1&nbsp;million&nbsp;kr</label></span>
+        <span class="opt"><input type="radio" name="belop" id="bel4" value="2000000"><label for="bel4">2&nbsp;millioner&nbsp;kr</label></span>
+        <span class="opt"><input type="radio" name="belop" id="bel5" value="5000000"><label for="bel5">5&nbsp;millioner&nbsp;kr</label></span>
+      </div>
+      <p class="hint">Velg det nærmeste. Tallene beregnes for faste trinn, ikke glidende skala,
+      fordi formuesskattens terskler gjør mellomrommene ulineære.</p>
+    </fieldset>
+
+    <fieldset id="f-status">
+      <legend>Deler du økonomi med ektefelle?</legend>
+      <div class="opts">
+        <span class="opt"><input type="radio" name="status" id="st0" value="enslig"><label for="st0">Nei, jeg regnes som enslig</label></span>
+        <span class="opt"><input type="radio" name="status" id="st1" value="ektefeller"><label for="st1">Ja, vi skattlegges sammen</label></span>
+      </div>
+    </fieldset>
+
+    <details class="why">
+      <summary><span class="chev" aria-hidden="true">›</span> Hvorfor spør rådgiveren om sivilstand?</summary>
+      <div class="why-reveal"><div>
+        <p id="whySivilstand">Ektefeller får formuen fastsatt under ett, med doble terskler i
+        formuesskatten. Det avgjør om formuesskatten i det hele tatt slår inn på beløpet ditt,
+        og dermed hvor mye kontovalget betyr.</p>
+      </div></div>
+    </details>
+  </section>
+
+  <!-- ── STEG 4 ── -->
+  <section class="step rv" id="steg4" aria-labelledby="h-steg4">
+    <span class="step-kicker">Steg 4 av 5</span>
+    <h2 class="step-title" id="h-steg4">Stormen</h2>
+    <p class="step-ingress">Alle tåler risiko i oppgang. Spørsmålet er hva du gjør i nedgang,
+    for det er der avkastningen avgjøres.</p>
+
+    <fieldset id="f-r1">
+      <legend>Mars 2020, eller høsten 2008. Porteføljen din er ned 25&nbsp;prosent på noen uker.
+      Hva kjenner du deg igjen i?</legend>
+      <div class="opts opts-col">
+        <span class="opt"><input type="radio" name="r1" id="r1a" value="0"><label for="r1a">Jeg hadde solgt. Nattesøvnen er verdt mer enn prognosene</label></span>
+        <span class="opt"><input type="radio" name="r1" id="r1b" value="1"><label for="r1b">Jeg hadde sittet stille, men sjekket kursene oftere enn jeg liker å innrømme</label></span>
+        <span class="opt"><input type="radio" name="r1" id="r1c" value="2"><label for="r1c">Jeg hadde kjøpt mer. Billigsalg er billigsalg</label></span>
+      </div>
+    </fieldset>
+
+    <fieldset id="f-r2">
+      <legend>To tenkte fond, samme forventede sluttverdi. Hvilket velger du?</legend>
+      <div class="opts opts-col">
+        <span class="opt"><input type="radio" name="r2" id="r2a" value="0"><label for="r2a">Det som svinger lite, selv om toppene blir lavere</label></span>
+        <span class="opt"><input type="radio" name="r2" id="r2b" value="1"><label for="r2b">Litt av begge</label></span>
+        <span class="opt"><input type="radio" name="r2" id="r2c" value="2"><label for="r2c">Det som svinger mye, fordi jeg ikke skal bruke pengene på lenge</label></span>
+      </div>
+    </fieldset>
+
+    <details class="why">
+      <summary><span class="chev" aria-hidden="true">›</span> Hvorfor to nesten like spørsmål?</summary>
+      <div class="why-reveal"><div>
+        <p>Det første måler hva du gjør, det andre hva du foretrekker. De spriker oftere enn
+        folk tror, og en god rådgiver leter etter nettopp spriket. Den som «tåler alt» i
+        teorien, men solgte i praksis sist det smalt, skal ha en roligere portefølje enn
+        selvbildet bestiller.</p>
+      </div></div>
+    </details>
+  </section>
+
+  <!-- ── STEG 5 ── -->
+  <section class="step rv" id="steg5" aria-labelledby="h-steg5">
+    <span class="step-kicker">Steg 5 av 5</span>
+    <h2 class="step-title" id="h-steg5">Kalibreringen</h2>
+    <p class="step-ingress">Til slutt: ikke hva du eier, men hva du vet, og hvor godt du vet hva
+    du vet. Masteroppgaven min målte akkurat dette hos 750 norske investorer. Det sterkeste
+    funnet var ikke hvem som visste mest, men at de som kunne mer, bommet mindre på seg selv.
+    Nå er det din tur: tre spørsmål, og for hvert av dem sier du hvor sikker du var.</p>
+
+    <div class="ct-q" data-q="0" data-correct="2">
+      <fieldset>
+        <legend class="q-text">To fond følger samme marked i 30 år og gir 7&nbsp;prosent årlig
+        avkastning før kostnader. Fond A koster 0,2&nbsp;prosent i året, fond B koster
+        2,0&nbsp;prosent. Du setter inn 100&nbsp;000 kroner. Omtrent hvor mye mer sitter du
+        igjen med i fond A?</legend>
+        <div class="opts">
+          <span class="opt"><input type="radio" name="q0" id="q0a" value="0"><label for="q0a">Rundt 30&nbsp;000 kroner mer</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0b" value="1"><label for="q0b">Rundt 90&nbsp;000 kroner mer</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0c" value="2"><label for="q0c">Rundt 290&nbsp;000 kroner mer</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0d" value="3"><label for="q0d">Kostnadene utligner hverandre over tid</label></span>
+        </div>
+      </fieldset>
+      <fieldset class="ct-conf">
+        <legend class="visually-hidden">Hvor sikker var du på svaret om kostnader?</legend>
+        <span class="conf-lbl" aria-hidden="true">Hvor sikker var du?</span>
+        <span class="opt"><input type="radio" name="c0" id="c0a" value="20"><label for="c0a">Gjettet</label></span>
+        <span class="opt"><input type="radio" name="c0" id="c0b" value="60"><label for="c0b">Ganske sikker</label></span>
+        <span class="opt"><input type="radio" name="c0" id="c0c" value="100"><label for="c0c">Sikker</label></span>
+      </fieldset>
+      <p class="ct-facit" id="facit0"></p>
+    </div>
+
+    <div class="ct-q" data-q="1" data-correct="0">
+      <fieldset>
+        <legend class="q-text">Hva er det diversifisering, altså å spre pengene på mange
+        selskaper, faktisk fjerner?</legend>
+        <div class="opts">
+          <span class="opt"><input type="radio" name="q1" id="q1a" value="0"><label for="q1a">Det meste av risikoen knyttet til enkeltselskaper</label></span>
+          <span class="opt"><input type="radio" name="q1" id="q1b" value="1"><label for="q1b">All risiko, også markedsfall</label></span>
+          <span class="opt"><input type="radio" name="q1" id="q1c" value="2"><label for="q1c">Avkastning; spredning er prisen for trygghet</label></span>
+          <span class="opt"><input type="radio" name="q1" id="q1d" value="3"><label for="q1d">Skatten på utbytte</label></span>
+        </div>
+      </fieldset>
+      <fieldset class="ct-conf">
+        <legend class="visually-hidden">Hvor sikker var du på svaret om diversifisering?</legend>
+        <span class="conf-lbl" aria-hidden="true">Hvor sikker var du?</span>
+        <span class="opt"><input type="radio" name="c1" id="c1a" value="20"><label for="c1a">Gjettet</label></span>
+        <span class="opt"><input type="radio" name="c1" id="c1b" value="60"><label for="c1b">Ganske sikker</label></span>
+        <span class="opt"><input type="radio" name="c1" id="c1c" value="100"><label for="c1c">Sikker</label></span>
+      </fieldset>
+      <p class="ct-facit">Spredning fjerner selskapsrisikoen: skandalen, konkursen, den
+      mislykkede lanseringen. Markedsrisikoen, at alt faller sammen i dårlige tider, består.
+      Den er prisen for aksjepremien, og den skal du få betalt for å bære.</p>
+    </div>
+
+    <div class="ct-q" data-q="2" data-correct="2">
+      <fieldset>
+        <legend class="q-text">To identiske investeringer på 100&nbsp;000 kroner vokser
+        7&nbsp;prosent i året i 30 år. I den ene skattlegges gevinsten hvert år, i den andre
+        først når alt selges til slutt. Samme skattesats. Hva utgjør utsettelsen?</legend>
+        <div class="opts">
+          <span class="opt"><input type="radio" name="q2" id="q2a" value="0"><label for="q2a">Ingenting; samme sats gir samme skatt</label></span>
+          <span class="opt"><input type="radio" name="q2" id="q2b" value="1"><label for="q2b">Noen tusenlapper</label></span>
+          <span class="opt"><input type="radio" name="q2" id="q2c" value="2"><label for="q2c">Rundt 150&nbsp;000 kroner</label></span>
+        </div>
+      </fieldset>
+      <fieldset class="ct-conf">
+        <legend class="visually-hidden">Hvor sikker var du på svaret om skatteutsettelse?</legend>
+        <span class="conf-lbl" aria-hidden="true">Hvor sikker var du?</span>
+        <span class="opt"><input type="radio" name="c2" id="c2a" value="20"><label for="c2a">Gjettet</label></span>
+        <span class="opt"><input type="radio" name="c2" id="c2b" value="60"><label for="c2b">Ganske sikker</label></span>
+        <span class="opt"><input type="radio" name="c2" id="c2c" value="100"><label for="c2c">Sikker</label></span>
+      </fieldset>
+      <p class="ct-facit" id="facit2"></p>
+    </div>
+
+    <button class="btn btn-primary" id="ctGo" type="button" disabled>Vis kalibreringen min</button>
+
+    <div class="ct-result" id="ctResult" aria-labelledby="h-steg5">
+      <div class="ct-row"><span>Riktige svar</span><b id="ctScore"></b></div>
+      <div class="ct-row"><span>Snittsikkerhet</span><b id="ctConf"></b></div>
+      <div class="ct-row"><span>Gap</span><b id="ctGap"></b></div>
+      <p class="ct-verdict" id="ctVerdict"></p>
+      <p class="ct-tie">I studien krympet gapet med kunnskap. Effekten gikk gjennom
+      selvtilliten: kunnskap bygget trygghet, og tryggheten bar risikoen. Rundt 57&nbsp;prosent
+      av sammenhengen gikk den veien. <a href="/prosjekter/masteroppgave/" class="ct-link">Les
+      hele historien om studien</a>.</p>
+    </div>
+  </section>
+
+</div><!-- /flow -->
+
+<aside class="notepad" aria-label="Rådgiverens notatblokk">
+  <div class="notepad-inner">
+    <button class="np-toggle" id="npToggle" type="button" aria-expanded="false" aria-controls="npBody">Vis notatblokken</button>
+    <div class="np-card np-body" id="npBody">
+      <div class="np-title"><span class="np-pen" aria-hidden="true">✎</span> Rådgiverens notatblokk</div>
+      <p class="np-empty" id="npEmpty">Fylles ut mens du svarer.</p>
+      <ul class="np-list" id="npList">
+        <li data-f="grunnmur"><span class="k">Grunnmur</span><span class="v"></span><a href="#steg1" class="edit">endre</a></li>
+        <li data-f="maal"><span class="k">Mål</span><span class="v"></span><a href="#steg2" class="edit">endre</a></li>
+        <li data-f="horisont"><span class="k">Horisont</span><span class="v"></span><a href="#steg2" class="edit">endre</a></li>
+        <li data-f="belop"><span class="k">Beløp</span><span class="v"></span><a href="#steg3" class="edit">endre</a></li>
+        <li data-f="status"><span class="k">Sivilstand</span><span class="v"></span><a href="#steg3" class="edit">endre</a></li>
+        <li data-f="risiko"><span class="k">Risiko</span><span class="v"></span><a href="#steg4" class="edit">endre</a></li>
+        <li data-f="kalib"><span class="k">Kalibrering</span><span class="v"></span><a href="#steg5" class="edit">endre</a></li>
+      </ul>
+      <p class="np-status" id="npStatus" aria-live="polite"></p>
+    </div>
+  </div>
+</aside>
+
+</div><!-- /layout -->
+<hr class="res-sep" aria-hidden="true">
+
+<!-- ── RESULTAT ── -->
+<section class="result" id="resultat" aria-labelledby="h-resultat">
+  <span class="res-kicker">Resonnementet</span>
+  <h2 class="res-title" id="h-resultat" tabindex="-1">Rådgiverens resonnement</h2>
+  <p class="res-ingress" id="resIngress">Her er hvordan svarene dine henger sammen. Ingenting
+  av dette er råd om hva du skal kjøpe. Det er noe bedre: logikken du kan ettergå.</p>
+
+  <div class="res-pending" id="resPending">Resonnementet bygges når samtalen er ferdig.
+  Gjenstår: <span id="pendingList"></span>.</div>
+
+  <div class="res-body" id="resBody">
+
+    <div class="res-block" id="blk-profil">
+      <h3 class="sub-title">Slik leser rådgiveren deg</h3>
+      <div class="profile-card" id="profileCard"></div>
+      <div class="gate-note" id="gateNote" hidden></div>
+    </div>
+
+    <div class="res-block" id="blk-matrise">
+      <h3 class="sub-title">Fra profil til aksjeandel</h3>
+      <p class="sub-note">Dette er en vanlig tommelfingermatrise, i klartekst. Poenget er ikke
+      at tallene er fasit. Poenget er at logikken er synlig, sånn at du kan være uenig med den
+      på riktig sted.</p>
+      <div class="matrix-wrap">
+        <table class="matrix" id="matrixTable">
+          <caption class="visually-hidden">Allokeringsmatrise: horisont mot risikoprofil, med
+          anbefalt aksjeandel i prosent. Din kombinasjon er markert.</caption>
+          <thead><tr><th scope="col">Horisont</th><th scope="col">Forsiktig</th><th scope="col">Balansert</th><th scope="col">Offensiv</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="matrix-foot">Under fem år anbefales ikke aksjer i det hele tatt for forsiktige
+      og balanserte profiler. Ikke fordi aksjer er farlige, men fordi tre dårlige år på rad
+      ikke er uvanlig, og planen din skal tåle det vanlige.</p>
+    </div>
+
+    <div class="res-block" id="blk-null" hidden>
+      <h3 class="sub-title">Det ærligste rådet i bransjen</h3>
+      <div class="plain-card" id="nullCard"></div>
+    </div>
+
+    <div class="res-block" id="blk-konto" hidden>
+      <h3 class="sub-title">Kontovalget for aksjedelen</h3>
+      <p class="sub-note" id="kontoIntro"></p>
+
+      <div class="wrap-toggle" role="group" aria-label="Omløpsprofil for aksjedelen">
+        <span class="opt"><input type="radio" name="profil" id="prof-aktiv" value="aktiv" checked><label for="prof-aktiv">Porteføljen vedlikeholdes underveis (vanlig)</label></span>
+        <span class="opt"><input type="radio" name="profil" id="prof-passiv" value="passiv"><label for="prof-passiv">Kjøp og hold, aldri rør den</label></span>
+      </div>
+
+      <div class="rank-grid" id="rankGrid"></div>
+      <p class="pretax-line" id="pretaxLine"></p>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <span class="chart-title">Verdiutvikling før salg og uttak</span>
+          <span class="chart-sub">Markørene viser sluttverdien etter skatt ved ditt uttaksår.</span>
+        </div>
+        <div id="chartHost"></div>
+        <div class="chart-legend" id="chartLegend"></div>
+        <div class="visually-hidden"><table id="chartTable">
+          <caption>Verdiutvikling per kontotype, årlige verdier i kroner, før salg og uttak.</caption>
+          <thead></thead><tbody></tbody>
+        </table></div>
+      </div>
+
+      <div class="taxsplit-wrap">
+        <table class="taxsplit">
+          <caption class="visually-hidden">Skatt betalt per kontotype over hele løpet, fordelt
+          på gevinst, utbytte, formuesskatt og uttak.</caption>
+          <thead><tr><th scope="col">Konto</th><th scope="col">Gevinst</th><th scope="col">Utbytte</th><th scope="col">Formuesskatt (husholdning)</th><th scope="col">Uttak</th><th scope="col">Sum skatt</th></tr></thead>
+          <tbody id="taxBody"></tbody>
+        </table>
+      </div>
+
+      <div class="why-prose" id="whyProse"></div>
+      <div class="notice" role="note" id="noticeIllustrativ"></div>
+      <div class="notice" role="note" id="noticeLikvid"></div>
+      <div class="notice" role="note" id="noticeSkjerm" hidden></div>
+    </div>
+
+    <div class="res-block" id="blk-rente" hidden>
+      <h3 class="sub-title">Og resten av beløpet</h3>
+      <div class="plain-card" id="renteCard"></div>
+    </div>
+
+    <div class="res-block" id="blk-speil">
+      <h3 class="sub-title">Det speilet viser</h3>
+      <p class="sub-note">Tallene over er den enkle delen. Studien min pekte på noe viktigere:
+      sammenhengen mellom hva folk kan, hva de tror de kan, og risikoen de faktisk tar.</p>
+      <div class="plain-card mirror-card" id="mirrorCard"></div>
+    </div>
+
+    <div class="res-block" id="blk-aerlig">
+      <h3 class="sub-title">Hva en ekte rådgiver gjør som denne siden ikke kan</h3>
+      <div class="plain-card"><p>Denne demoen resonnerer over seks svar. En god rådgiver ser
+      hele bildet: gjelden og boligen, pensjonsordningen gjennom jobb, forsikringene som
+      mangler, IPS-avveiningen mot bundet kapital, arv og ektepakt, skatt på tvers av år og
+      uttak i riktig rekkefølge den dagen formuen skal brukes. Og viktigst: en rådgiver er der
+      i mars det året alt faller, når planen fra i dag møter følelsene fra i morgen.</p>
+      <p>Verktøy som dette kan gjøre samtalen bedre. De kan ikke erstatte den.</p></div>
+    </div>
+
+    <div class="res-block" id="referat">
+      <h3 class="sub-title">Referat fra samtalen</h3>
+      <p class="sub-note">Slik ser det ut når samtalen blir dokument. Ta det med til banken din
+      og se om rådgiveren der kan stå inne for noe lignende.</p>
+      <div class="ref-card" id="refCard"></div>
+      <div class="ref-actions">
+        <button class="btn btn-ghost" id="copyRef" type="button">Kopier referatet</button>
+        <button class="btn btn-ghost" id="printRef" type="button">Skriv ut</button>
+      </div>
+    </div>
+
+  </div><!-- /res-body -->
+</section>
+
+<!-- ── KILDER & METODE ── -->
+<section class="kilder" id="kilder" aria-labelledby="h-kilder">
+  <hr class="res-sep" aria-hidden="true">
+  <h2 class="sub-title" id="h-kilder">Kilder og metode</h2>
+  <p class="sub-note" style="max-width:680px">Alle etter-skatt-tall beregnes på forhånd av
+  <b>skatt-optimizer</b>, en deterministisk Python-motor som også driver
+  <a href="/aksjeskatt/">aksjeskatt-siden</a> her. Skattereglene er implementert eksakt med
+  paragrafhenvisning; avkastningsbanen er én stilisert forutsetning, valgt for å vise de
+  relative forskjellene mellom kontotyper. Nettleseren regner aldri skatt selv, den viser
+  ferdigberegnede scenarier. Én kjent forenkling er dokumentert i motoren: ubenyttet skjerming
+  reduserer ikke gevinsten ved salg i depot, slik loven ellers tillater. Depot-tallene i
+  kjøp-og-hold-profilen er dermed marginalt for lave, og nær-pariteten du ser der er reell,
+  om noe undervurdert.</p>
+  <ul>
+    <li>Skatteloven §10-12 (skjermingsfradrag), §10-21 (aksjesparekonto), §10-31 (gevinst og tap),
+    §2-38 (fritaksmetoden), §4-12 og §4-19 (verdsetting og gjeld)
+    <a href="https://lovdata.no/dokument/NL/lov/1999-03-26-14" target="_blank" rel="noopener">lovdata.no</a></li>
+    <li>Stortingsvedtak om skatt for inntektsåret 2026: satser og formuesskattens terskler
+    <a href="https://lovdata.no/dokument/STV/forskrift/2025-12-18-2747" target="_blank" rel="noopener">lovdata.no</a></li>
+    <li>Regjeringen: skattesatser 2026, inkludert doble innslagspunkt for ektefeller
+    <a href="https://www.regjeringen.no/no/tema/okonomi-og-budsjett/skatter-og-avgifter/skatte-og-avgiftssatser/skattesatser-2026/id3121978/" target="_blank" rel="noopener">regjeringen.no</a></li>
+    <li>Skatteetaten: oppjusteringsfaktor for aksjegevinst og utbytte, og skjermingsrente
+    <a href="https://www.skatteetaten.no/en/rates/factor-for-upward-adjustment-of-gainloss-or-dividend-on-shares/" target="_blank" rel="noopener">skatteetaten.no</a></li>
+    <li>Masteroppgaven (N&nbsp;=&nbsp;750): finansiell kunnskap, selvtillit og risikotaking hos
+    norske investorer <a href="/prosjekter/masteroppgave/">interaktiv gjennomgang</a></li>
+  </ul>
+  <div class="notice" role="note" id="noticeTax" style="margin-top:1rem"></div>
+  <div class="notice" role="note" id="noticeProv" hidden></div>
+  <p class="sub-note" style="margin-top:1rem">Ingen sporing, ingen informasjonskapsler, ingen
+  data lastes opp. Svarene dine finnes bare i denne fanen, og forsvinner når du lukker den.</p>
+</section>
+
+<!-- ── HVORFOR-NOTIS + FOOTER ── -->
+<section class="kilder" aria-labelledby="h-om">
+  <h2 class="visually-hidden" id="h-om">Om denne siden</h2>
+  <div class="about-note">
+    <b>Hvorfor finnes denne siden?</b> Jeg søker meg mot wealth management og private banking,
+    og mener at den beste søknaden er å vise håndverket i stedet for å beskrive det.
+    Skattemotoren bak tallene, backtesting-rammeverket bak metodikken og studien bak
+    atferdsdelen er bygget av meg. Mer på <a href="/prosjekter/">prosjektsiden</a> og
+    <a href="/rekrutterer/">siden for rekrutterere</a>.
+  </div>
+</section>
+
+<div class="back-row">
+  <a href="/" class="back-link">← Tilbake til forsiden</a>
+</div>
+<div class="footer">© 2026 Valiant Evers, Oslo · Bygget uten sporing.</div>
+
+</main>
+<script>
+"use strict";
+(function(){
+
+/* ═══ TEMA (ve-theme, delt konvensjon på tvers av evers.no) ═══ */
+var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
+if(savedTheme==='dark'||savedTheme==='medieval'){
+  document.documentElement.setAttribute('data-theme',savedTheme);
+}else if(!savedTheme&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches){
+  document.documentElement.setAttribute('data-theme','dark');
+}
+function updateThemeIcon(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var btn=document.getElementById('themeToggle');
+  if(!btn)return;
+  btn.textContent=(t==='dark')?'🌙':(t==='medieval'?'⚔️':'☀️');
+}
+function onThemeChanged(){
+  updateThemeIcon();
+  if(READY){renderChart();}
+}
+document.getElementById('themeToggle').addEventListener('click',function(){
+  var t=document.documentElement.getAttribute('data-theme');
+  var next=(t==='dark')?null:'dark';
+  if(next){document.documentElement.setAttribute('data-theme',next);}
+  else{document.documentElement.removeAttribute('data-theme');}
+  try{localStorage.setItem('ve-theme',next||'light')}catch(e){}
+  onThemeChanged();
+});
+updateThemeIcon();
+
+/* ═══ «PRINS»-EASTER EGG (medieval, samme mønster som resten av siten) ═══ */
+(function(){
+  var isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+  if(isTouch)return;
+  var buf='';
+  document.addEventListener('keydown',function(e){
+    if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+    if(!e.key||e.key.length!==1)return;
+    buf=(buf+e.key.toLowerCase()).slice(-14);
+    if(buf.indexOf('prins')!==-1||buf.indexOf('prince')!==-1){
+      buf='';
+      var cur=document.documentElement.getAttribute('data-theme');
+      var next=(cur==='medieval')?null:'medieval';
+      if(next){document.documentElement.setAttribute('data-theme',next);}
+      else{document.documentElement.removeAttribute('data-theme');}
+      try{localStorage.setItem('ve-theme',next||'light')}catch(err){}
+      onThemeChanged();
+    }
+  });
+})();
+
+/* ═══ CURSOR-DOT + NAV + REVEAL ═══ */
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+(function(){
+  var dot=document.querySelector('.cursor-dot');
+  if(!dot||!window.matchMedia||!window.matchMedia('(pointer:fine)').matches)return;
+  var x=-100,y=-100,cx=-100,cy=-100,raf=null;
+  document.addEventListener('mousemove',function(e){
+    x=e.clientX;y=e.clientY;
+    if(!raf)raf=requestAnimationFrame(step);
+  });
+  function step(){
+    cx+=(x-cx)*0.22;cy+=(y-cy)*0.22;
+    dot.style.transform='translate('+(cx-9)+'px,'+(cy-9)+'px)';
+    if(Math.abs(x-cx)+Math.abs(y-cy)>0.4){raf=requestAnimationFrame(step);}else{raf=null;}
+  }
+})();
+(function(){
+  var nav=document.getElementById('nav');
+  function onScroll(){if(window.scrollY>50){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');}}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(reduce||!('IntersectionObserver' in window)){
+    for(var i=0;i<els.length;i++){els[i].classList.add('in');}
+    return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:0.12});
+  for(var j=0;j<els.length;j++){io.observe(els[j]);}
+})();
+
+/* ═══ FORMATERING (nb-NO: komma-desimal, hardspace-gruppering) ═══ */
+function nb(v,d){return new Intl.NumberFormat('nb-NO',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}).format(v);}
+function fmtKr(v){return nb(Math.round(v))+' kr';}
+function fmtKrCompact(v){
+  var a=Math.abs(v);
+  if(a>=1e9)return nb(v/1e9,2)+' mrd. kr';
+  if(a>=1e6)return nb(v/1e6,2)+' mill. kr';
+  return fmtKr(v);
+}
+function fmtCapital(n){
+  if(n>=1e6)return nb(n/1e6,0)+' mill. kr';
+  return nb(n)+' kr';
+}
+function fmtPct(frac,d){return nb(frac*100,(d==null)?1:d)+' %';}
+
+/* ═══ STATE ═══ */
+var DATA=null,READY=false,wasComplete=false;
+var S={buffer:null,gjeld:null,maal:null,horisont:null,belop:null,status:null,r1:null,r2:null,
+       quiz:null,profil:'aktiv',demo:false};
+var MAAL_LABEL={bolig:'Bolig om noen år',barna:'Barnas fremtid',frihet:'Frihet og pensjon',formue:'Formuesbygging'};
+var MAAL_REF={bolig:'Boligsparing',barna:'Sparing til barna',frihet:'Frihets- og pensjonssparing',formue:'Formuesbygging'};
+var MATRIX={3:[0,0,0],5:[0,30,50],10:[30,50,70],15:[50,70,100],20:[50,70,100],30:[70,100,100]};
+var HORIZON_ROWS=[3,5,10,15,20,30];
+var KLASSE=['forsiktig','balansert','offensiv'];
+var WRAP_LABEL={pretax:'Før skatt',taxable:'Vanlig depot',ASK:'Aksjesparekonto',holding_AS:'Eget AS'};
+var WRAP_ORDER=['taxable','ASK','holding_AS'];
+
+function riskClass(){
+  if(S.r1==null||S.r2==null)return null;
+  var sum=S.r1+S.r2;
+  return sum<=1?0:(sum<=2?1:2);
+}
+function riskSprik(){return S.r1!=null&&S.r2!=null&&Math.abs(S.r1-S.r2)>=2;}
+function andel(){
+  var rc=riskClass();
+  if(S.horisont==null||rc==null)return null;
+  return MATRIX[S.horisont][rc];
+}
+function quizVerdictKey(){
+  if(!S.quiz)return null;
+  var g=S.quiz.gap;
+  return g>12?'over':(g<-12?'under':'kal');
+}
+var VERDICT_TEXT={
+  over:'Troen løper foran kunnskapen. Det er ikke en fornærmelse, det er normalen: de fleste i studien lå her.',
+  kal:'Troen treffer kunnskapen. Det er sjeldnere enn det høres ut som.',
+  under:'Du kan mer enn du tror. Det er en bedre feil enn den motsatte, men den har også en kostnad: for lite risiko over lang tid.'
+};
+var VERDICT_SHORT={over:'overmodig',kal:'kalibrert',under:'beskjeden'};
+
+/* ═══ NOTATBLOKK + STATUS ═══ */
+var FIELD_LABEL={grunnmur:'grunnmuren',maal:'målet',horisont:'horisonten',belop:'beløpet',
+                 status:'sivilstanden',risiko:'risikoprofilen',kalib:'kalibreringen'};
+function fieldValues(){
+  var v={};
+  if(S.buffer!=null&&S.gjeld!=null){
+    var parts=[];
+    parts.push(S.buffer===2?'buffer ok':(S.buffer===1?'tynn buffer':'buffer mangler'));
+    if(S.gjeld===1)parts.push('dyr gjeld');
+    v.grunnmur=parts.join(' + ');
+  }
+  if(S.maal)v.maal=MAAL_LABEL[S.maal];
+  if(S.horisont!=null)v.horisont=S.horisont+' år';
+  if(S.belop!=null)v.belop=fmtCapital(S.belop);
+  if(S.status)v.status=S.status==='enslig'?'Enslig':'Ektefeller';
+  var rc=riskClass();
+  if(rc!=null)v.risiko=KLASSE[rc]+(riskSprik()?' (sprik)':'');
+  if(S.quiz)v.kalib=(S.quiz.demo?'eksempel: ':'gap '+(S.quiz.gap>0?'+':'')+S.quiz.gap+', ')+VERDICT_SHORT[quizVerdictKey()];
+  return v;
+}
+function missingFields(){
+  var v=fieldValues(),out=[];
+  var order=['grunnmur','maal','horisont','belop','status','risiko','kalib'];
+  for(var i=0;i<order.length;i++){if(!v[order[i]])out.push(order[i]);}
+  return out;
+}
+function renderNotepad(lastField){
+  var v=fieldValues();
+  var items=document.querySelectorAll('#npList li');
+  var any=false;
+  for(var i=0;i<items.length;i++){
+    var f=items[i].getAttribute('data-f');
+    if(v[f]){items[i].classList.add('on');items[i].querySelector('.v').textContent=v[f];any=true;}
+    else{items[i].classList.remove('on');}
+  }
+  document.getElementById('npEmpty').style.display=any?'none':'';
+  var miss=missingFields();
+  var st=document.getElementById('npStatus');
+  if(miss.length===0){st.textContent='Alt notert. Resonnementet er klart lenger ned.';}
+  else if(lastField){st.textContent='Notert: '+FIELD_LABEL[lastField]+'. '+miss.length+' av 7 igjen.';}
+  else{st.textContent='';}
+}
+document.getElementById('npToggle').addEventListener('click',function(){
+  var body=document.getElementById('npBody');
+  var open=body.classList.toggle('open');
+  this.setAttribute('aria-expanded',open?'true':'false');
+  this.textContent=open?'Skjul notatblokken':'Vis notatblokken';
+});
+
+/* ═══ RADIO-LYTTERE (samtalesteg) ═══ */
+function bindRadios(name,fn){
+  var els=document.querySelectorAll('input[name="'+name+'"]');
+  for(var i=0;i<els.length;i++){
+    els[i].addEventListener('change',function(e){fn(e.target.value);});
+  }
+}
+bindRadios('buffer',function(v){S.buffer=parseInt(v,10);answered('grunnmur');});
+bindRadios('gjeld',function(v){S.gjeld=parseInt(v,10);answered('grunnmur');});
+bindRadios('maal',function(v){S.maal=v;answered('maal');});
+bindRadios('horisont',function(v){S.horisont=parseInt(v,10);answered('horisont');});
+bindRadios('belop',function(v){S.belop=parseInt(v,10);answered('belop');});
+bindRadios('status',function(v){S.status=v;answered('status');});
+bindRadios('r1',function(v){S.r1=parseInt(v,10);answered('risiko');});
+bindRadios('r2',function(v){S.r2=parseInt(v,10);answered('risiko');});
+bindRadios('profil',function(v){S.profil=v;if(READY)renderKonto();});
+function answered(field){
+  if(S.demo){S.demo=false;document.getElementById('demoNote').classList.remove('on');}
+  renderNotepad(field);
+  maybeRender();
+}
+
+/* ═══ KALIBRERINGSTEST ═══ */
+var qState=[{opt:null,conf:null},{opt:null,conf:null},{opt:null,conf:null}];
+function quizCheck(){
+  var ok=true;
+  for(var i=0;i<3;i++){if(qState[i].opt==null||qState[i].conf==null)ok=false;}
+  document.getElementById('ctGo').disabled=!ok||(S.quiz&&!S.quiz.demo);
+}
+for(var qi=0;qi<3;qi++){
+  (function(qi){
+    bindRadios('q'+qi,function(v){if(S.quiz&&!S.quiz.demo)return;qState[qi].opt=parseInt(v,10);quizCheck();});
+    bindRadios('c'+qi,function(v){if(S.quiz&&!S.quiz.demo)return;qState[qi].conf=parseInt(v,10);quizCheck();});
+  })(qi);
+}
+document.getElementById('ctGo').addEventListener('click',function(){
+  var qs=document.querySelectorAll('.ct-q');
+  var correct=0,confSum=0;
+  for(var i=0;i<qs.length;i++){
+    var cor=parseInt(qs[i].getAttribute('data-correct'),10);
+    qs[i].classList.add('done');
+    var opts=qs[i].querySelectorAll('.opt');
+    /* de fire første .opt er svaralternativer, de tre siste er confidence */
+    var answerOpts=qs[i].querySelectorAll('input[name="q'+i+'"]');
+    for(var k=0;k<answerOpts.length;k++){
+      var wrap=answerOpts[k].parentNode;
+      if(k===cor)wrap.classList.add('correct');
+      else if(qState[i].opt===k)wrap.classList.add('wrong');
+      answerOpts[k].disabled=true;
+    }
+    var confOpts=qs[i].querySelectorAll('input[name="c'+i+'"]');
+    for(var m=0;m<confOpts.length;m++){confOpts[m].disabled=true;}
+    if(qState[i].opt===cor)correct++;
+    confSum+=qState[i].conf;
+  }
+  var actual=Math.round(correct/3*100);
+  var conf=Math.round(confSum/3);
+  var gap=conf-actual;
+  S.quiz={demo:false,correct:correct,conf:conf,gap:gap};
+  document.getElementById('ctScore').textContent=correct+' / 3';
+  document.getElementById('ctConf').textContent=conf+' %';
+  document.getElementById('ctGap').textContent=(gap>0?'+':'')+gap;
+  document.getElementById('ctVerdict').textContent=VERDICT_TEXT[quizVerdictKey()];
+  document.getElementById('ctResult').classList.add('on');
+  this.disabled=true;
+  if(S.demo){S.demo=false;document.getElementById('demoNote').classList.remove('on');}
+  renderNotepad('kalib');
+  maybeRender();
+});
+
+/* ═══ DEMO-KNAPP ═══ */
+document.getElementById('demoBtn').addEventListener('click',function(){
+  var set=function(id){var el=document.getElementById(id);if(el){el.checked=true;}};
+  set('buffer2');set('gjeld0');set('maal2');set('hor15');set('bel3');set('st0');set('r1b');set('r2b');
+  S.buffer=2;S.gjeld=0;S.maal='frihet';S.horisont=15;S.belop=1000000;S.status='enslig';S.r1=1;S.r2=1;
+  S.quiz={demo:true,correct:2,conf:60,gap:-7};
+  S.demo=true;
+  document.getElementById('demoNote').classList.add('on');
+  renderNotepad(null);
+  maybeRender(true);
+});
+
+/* ═══ RESULTAT ═══ */
+function maybeRender(scrollTo){
+  var miss=missingFields();
+  var pend=document.getElementById('resPending');
+  var body=document.getElementById('resBody');
+  if(miss.length>0){
+    var names=[];
+    for(var i=0;i<miss.length;i++)names.push(FIELD_LABEL[miss[i]]);
+    document.getElementById('pendingList').textContent=names.join(', ');
+    pend.style.display='';body.classList.remove('on');
+    document.documentElement.classList.remove('referat-ready');
+    READY=false;wasComplete=false;
+    return;
+  }
+  pend.style.display='none';body.classList.add('on');
+  READY=true;
+  renderResult();
+  document.documentElement.classList.add('referat-ready');
+  if(!wasComplete){
+    wasComplete=true;
+    var h=document.getElementById('h-resultat');
+    if(scrollTo!==false){h.focus();}
+  }
+}
+
+function renderResult(){
+  renderProfile();
+  renderMatrix();
+  var a=andel();
+  var nullBlk=document.getElementById('blk-null');
+  var kontoBlk=document.getElementById('blk-konto');
+  var renteBlk=document.getElementById('blk-rente');
+  if(a===0){
+    nullBlk.hidden=false;kontoBlk.hidden=true;renteBlk.hidden=true;
+    renderNull();
+  }else{
+    nullBlk.hidden=true;
+    kontoBlk.hidden=!DATA;
+    if(DATA)renderKonto();
+    renderRente();
+  }
+  renderMirror();
+  renderReferat();
+}
+
+function renderProfile(){
+  var rc=riskClass();
+  var txt=MAAL_REF[S.maal]+' med '+S.horisont+' års horisont. '+fmtCapital(S.belop)+
+    ' å plassere, '+(S.status==='enslig'?'enslig ligning':'felles ligning som ektefeller')+
+    '. Risikoprofil '+KLASSE[rc]+(riskSprik()?', med et notert sprik mellom atferd og preferanse':'')+
+    '. Kalibrering: '+VERDICT_SHORT[quizVerdictKey()]+
+    (S.quiz.demo?' (eksempelverdi).':' (gap '+(S.quiz.gap>0?'+':'')+S.quiz.gap+').');
+  document.getElementById('profileCard').textContent=txt;
+
+  var gate=document.getElementById('gateNote');
+  if(S.buffer<2||S.gjeld===1){
+    var deler=[];
+    if(S.buffer<2)deler.push('sett av tre til seks månedslønner på en bufferkonto med høyrente');
+    if(S.gjeld===1)deler.push('kvitt deg med den dyre gjelden; renta der slår det meste markedet kan love');
+    gate.hidden=false;
+    gate.textContent='Det første rådet er gratis og kjedelig: '+deler.join(', og ')+
+      '. Resten av resonnementet gjelder fra den dagen grunnmuren står.';
+  }else{gate.hidden=true;}
+}
+
+function renderMatrix(){
+  var tb=document.querySelector('#matrixTable tbody');
+  tb.innerHTML='';
+  var rc=riskClass();
+  for(var i=0;i<HORIZON_ROWS.length;i++){
+    var h=HORIZON_ROWS[i];
+    var tr=document.createElement('tr');
+    var th=document.createElement('th');th.scope='row';
+    th.textContent=(h===30?'30 år+':h+' år');
+    tr.appendChild(th);
+    for(var c=0;c<3;c++){
+      var td=document.createElement('td');
+      td.textContent=MATRIX[h][c]+' %';
+      if(h===S.horisont&&c===rc){
+        td.className='me';
+        td.setAttribute('aria-label','Din kombinasjon: '+MATRIX[h][c]+' prosent aksjer');
+      }
+      tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  }
+}
+
+function renderNull(){
+  var extra=(S.horisont===5)?' og din risikoprofil':'';
+  document.getElementById('nullCard').innerHTML=
+    '<p>Med '+(S.horisont===3?'under fem års horisont':'fem års horisont')+extra+
+    ' er rådet det kjedeligste i bransjen: ikke aksjer. Bufferkonto med god rente eller et '+
+    'rentefond gjør jobben. Ikke fordi aksjer er dårlige, men fordi sannsynligheten for å '+
+    'måtte selge på et dårlig tidspunkt er for høy når datoen er nær.</p>'+
+    '<p>Kontovalg-seksjonen er derfor droppet hos deg; den finnes for profiler med aksjeandel. '+
+    'Vil du se den likevel, kan du velge en lengre horisont over og komme tilbake.</p>';
+}
+
+/* ── Kontovalget ── */
+function cellKey(){return S.belop+'|'+andel()+'|'+S.status+'|'+S.profil;}
+function currentCell(){return DATA?DATA.cells[cellKey()]:null;}
+function gridHorizon(){return String(S.horisont);}
+
+function renderKonto(){
+  var cell=currentCell();
+  if(!cell)return;
+  var hd=cell.horizons[gridHorizon()];
+  var eq=parseFloat(cell.equity0);
+
+  document.getElementById('kontoIntro').textContent=
+    fmtKrCompact(eq)+' av beløpet ditt havner i aksjefond etter matrisen. Da er neste '+
+    'spørsmål hvor de skal stå: vanlig depot, aksjesparekonto eller eget AS. Samme fond, '+
+    'samme marked, tre skatteregimer. Tallene under er beregnet av skatt-optimizer-motoren '+
+    'for akkurat din kombinasjon, med alt solgt og tatt ut ved horisonten på '+S.horisont+' år.';
+
+  /* rangeringskort */
+  var grid=document.getElementById('rankGrid');grid.innerHTML='';
+  var medal=['🥇','🥈','🥉'];
+  for(var i=0;i<hd.rank_after_tax.length;i++){
+    var w=hd.rank_after_tax[i];
+    var b=hd.wrappers[w];
+    var div=document.createElement('div');
+    div.className='rank-card'+(i===0?' win':'');
+    div.innerHTML='<div class="rk"><span class="medal" aria-hidden="true">'+medal[i]+'</span> '+
+      (i+1)+'. '+WRAP_LABEL[w]+'</div>'+
+      '<div class="rank-final">'+fmtKrCompact(parseFloat(b.final))+'</div>'+
+      '<div class="sub">etter skatt ved år '+S.horisont+' · CAGR '+fmtPct(b.cagr)+'</div>';
+    grid.appendChild(div);
+  }
+  document.getElementById('pretaxLine').innerHTML='Før skatt: <b>'+
+    fmtKrCompact(parseFloat(hd.pretax.final))+'</b>. Skatt er forskjellen du ser over.';
+
+  renderChart();
+  renderTaxTable(hd);
+  renderWhy(cell,hd);
+}
+
+function renderTaxTable(hd){
+  var body=document.getElementById('taxBody');body.innerHTML='';
+  for(var i=0;i<WRAP_ORDER.length;i++){
+    var w=WRAP_ORDER[i];
+    var b=hd.wrappers[w];
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+WRAP_LABEL[w]+'</td>'+
+      '<td>'+fmtKr(parseFloat(b.tax_paid.gevinst||'0'))+'</td>'+
+      '<td>'+fmtKr(parseFloat(b.tax_paid.utbytte||'0'))+'</td>'+
+      '<td>'+fmtKr(parseFloat(b.tax_paid.formue||'0'))+'</td>'+
+      '<td>'+fmtKr(parseFloat(b.tax_paid.extraction||'0'))+'</td>'+
+      '<td>'+fmtKr(parseFloat(b.total_tax))+'</td>';
+    body.appendChild(tr);
+  }
+}
+
+/* ── SVG-graf (kun tegning; all skatt er prekomputert) ── */
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function niceMax(v){
+  var mag=Math.pow(10,Math.floor(Math.log(v)/Math.LN10));
+  var n=v/mag;
+  var step=n<=1?1:(n<=2?2:(n<=2.5?2.5:(n<=5?5:(n<=7.5?7.5:10))));
+  return step*mag;
+}
+function renderChart(){
+  var cell=currentCell();
+  if(!cell)return;
+  var curves=cell.curves;
+  var hd=cell.horizons[gridHorizon()];
+  var years=DATA.assumptions.max_years;
+  /* ASK tegnes SIST så den ligger øverst der utsatt-skatt-kurvene overlapper */
+  var series=['pretax','taxable','holding_AS','ASK'];
+  var colors={pretax:cssVar('--w-pretax'),taxable:cssVar('--w-taxable'),ASK:cssVar('--w-ask'),holding_AS:cssVar('--w-holding')};
+  var W=760,H=340,padL=86,padR=16,padT=14,padB=30;
+  var maxV=0;
+  for(var s=0;s<series.length;s++){
+    var arr=curves[series[s]];
+    for(var i=0;i<arr.length;i++){if(arr[i]>maxV)maxV=arr[i];}
+  }
+  var yMax=niceMax(maxV*1.04);
+  /* velg antall gridlinjer så tick-verdiene lander på rene trinn (2,5 / 5 / 7,5 ...) */
+  var divisions=4;
+  var cands=[4,3,5,2];
+  for(var ci=0;ci<cands.length;ci++){
+    var stepV=yMax/cands[ci];
+    var mag2=Math.pow(10,Math.floor(Math.log(stepV)/Math.LN10));
+    var norm=stepV/mag2;
+    if([1,1.25,2,2.5,5,7.5].some(function(x){return Math.abs(norm-x)<1e-9;})){divisions=cands[ci];break;}
+  }
+  function X(yr){return padL+(W-padL-padR)*yr/years;}
+  function Y(v){return padT+(H-padT-padB)*(1-v/yMax);}
+  var svg='<svg class="chart-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Linjegraf: '+
+    'verdiutvikling over '+years+' år for før skatt, vanlig depot, aksjesparekonto og eget AS. '+
+    'Detaljerte tall i tabellen under.">';
+  /* y-akse */
+  for(var t=0;t<=divisions;t++){
+    var v=yMax*t/divisions,y=Y(v);
+    svg+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="'+cssVar('--hair')+'" stroke-width="1"/>';
+    svg+='<text x="'+(padL-8)+'" y="'+(y+3.5)+'" text-anchor="end">'+fmtKrCompact(v).replace(' kr','')+'</text>';
+  }
+  /* x-akse: hvert 5. år */
+  for(var yr=0;yr<=years;yr+=5){
+    svg+='<text x="'+X(yr)+'" y="'+(H-8)+'" text-anchor="middle">'+(2026+yr)+'</text>';
+  }
+  /* horisont-guide + etikett */
+  svg+='<line x1="'+X(S.horisont)+'" y1="'+padT+'" x2="'+X(S.horisont)+'" y2="'+(H-padB)+'" stroke="'+cssVar('--subtle')+'" stroke-width="1" stroke-dasharray="3 4"/>';
+  var lblAnchor=(S.horisont>years*0.72)?'end':'start';
+  var lblX=X(S.horisont)+((lblAnchor==='start')?7:-7);
+  svg+='<text x="'+lblX+'" y="'+(padT+12)+'" text-anchor="'+lblAnchor+'">uttak år '+S.horisont+'</text>';
+  /* kurver */
+  for(var s2=0;s2<series.length;s2++){
+    var key=series[s2],arr2=curves[key],d='';
+    for(var i2=0;i2<arr2.length;i2++){
+      d+=(i2===0?'M':'L')+X(i2).toFixed(1)+' '+Y(arr2[i2]).toFixed(1)+' ';
+    }
+    svg+='<path d="'+d+'" fill="none" stroke="'+colors[key]+'" stroke-width="'+(key==='pretax'?1.6:2.4)+'"'+
+      (key==='pretax'?' stroke-dasharray="5 5" opacity=".75"':'')+' stroke-linejoin="round"/>';
+  }
+  /* uttaksmarkører ved valgt horisont (ASK sist = øverst) */
+  var markerOrder=['taxable','holding_AS','ASK'];
+  for(var s3=0;s3<markerOrder.length;s3++){
+    var wk=markerOrder[s3];
+    var val=parseFloat(hd.wrappers[wk].final);
+    svg+='<circle cx="'+X(S.horisont)+'" cy="'+Y(val)+'" r="4.5" fill="'+colors[wk]+'" stroke="'+cssVar('--card-bg')+'" stroke-width="1.5"/>';
+  }
+  svg+='</svg>';
+  document.getElementById('chartHost').innerHTML=svg;
+
+  /* legend */
+  var leg=document.getElementById('chartLegend');leg.innerHTML='';
+  for(var s4=0;s4<series.length;s4++){
+    var sp=document.createElement('span');
+    sp.innerHTML='<span class="sw" style="background:'+colors[series[s4]]+'"></span>'+WRAP_LABEL[series[s4]];
+    leg.appendChild(sp);
+  }
+  /* skjermleser-tabell (hvert 5. år) */
+  var thead=document.querySelector('#chartTable thead');
+  var tbody=document.querySelector('#chartTable tbody');
+  var hrow='<tr><th scope="col">År</th>';
+  for(var s5=0;s5<series.length;s5++){hrow+='<th scope="col">'+WRAP_LABEL[series[s5]]+'</th>';}
+  thead.innerHTML=hrow+'</tr>';
+  var rows='';
+  for(var yr2=0;yr2<=years;yr2+=5){
+    rows+='<tr><th scope="row">'+(2026+yr2)+'</th>';
+    for(var s6=0;s6<series.length;s6++){rows+='<td>'+fmtKr(curves[series[s6]][yr2])+'</td>';}
+    rows+='</tr>';
+  }
+  tbody.innerHTML=rows;
+}
+
+/* ── Hvorfor-prosa ── */
+function renderWhy(cell,hd){
+  var R=DATA.rates;
+  var ps=[];
+  var askF=parseFloat(hd.wrappers.ASK.final);
+  var depF=parseFloat(hd.wrappers.taxable.final);
+  var effPct=nb(parseFloat(R.effektiv_aksjesats)*100,2);
+  if(S.profil==='aktiv'){
+    ps.push('Aksjesparekontoen vinner hos deg av én grunn: utsettelse. Hvert fondsbytte i '+
+      'depot utløser <span class="num">'+effPct+' %</span> skatt på gevinsten der og da. '+
+      'På ASK skjer byttene skattefritt, og skatten venter til du tar pengene ut. Med '+
+      '<span class="num">'+DATA.assumptions.aktiv_turnover_pct+' %</span> årlig omløp i '+
+      S.horisont+' år blir den ventingen verdt <span class="num">'+fmtKr(askF-depF)+
+      '</span> for deg.');
+  }else{
+    ps.push('Rører du aldri porteføljen, krymper fordelen til nesten ingenting'+
+      (depF>askF?', og i dette scenariet kniper depotet så vidt forbi':'')+
+      '. Da gjør skjermingsfradraget mye av jobben i depotet også. ASK-fordelen er i praksis '+
+      'en pris på fleksibilitet: retten til å ombestemme deg uten skatteregning. Forskjellen '+
+      'hos deg: <span class="num">'+fmtKr(Math.abs(askF-depF))+'</span> i '+
+      (askF>=depF?'ASKs':'depotets')+' favør.');
+  }
+  ps.push('Skjermingsfradraget er statens kompensasjon for at du kunne satt pengene '+
+    'risikofritt i stedet: <span class="num">'+nb(parseFloat(R.skjermingsrente)*100,1)+
+    ' %</span> av innskuddet skjermes fra skatt hvert år, og ubrukt skjerming rulles videre.');
+  var bunn=(S.status==='ektefeller')?parseFloat(R.bunnfradrag_ektefeller):parseFloat(R.bunnfradrag_enslig);
+  if(hd.formuesskatt_paid){
+    var cy=cell.formue_crossing_year;
+    var fBel=parseFloat(hd.wrappers[hd.best_wrapper].tax_paid.formue||'0');
+    ps.push('Husholdningen din ligger over bunnfradraget på <span class="num">'+fmtKr(bunn)+
+      '</span> '+(cy===0?'fra start':'fra rundt år '+cy)+', så formuesskatten løper uansett '+
+      'konto. Den utgjør <span class="num">'+fmtKr(fBel)+'</span> over løpet i dette '+
+      'scenariet. Kontovalget endrer den ikke; aksjer verdsettes til <span class="num">'+
+      nb(parseFloat(R.verdsetting_aksjer)*100,0)+' %</span> uansett innpakning.');
+  }else{
+    ps.push('Formuesskatten når deg ikke i dette scenariet: husholdningen holder seg under '+
+      'bunnfradraget på <span class="num">'+fmtKr(bunn)+'</span> hele veien. Da står valget '+
+      'kun om gevinst- og utbyttebehandlingen.');
+  }
+  ps.push('Eget AS taper knepent hos deg, og det er verdt å forstå hvorfor: fritaksmetoden '+
+    'gjør byttene inne i selskapet nesten skattefrie, men utbyttene får en løpende '+
+    'sjablongskatt, og alt du tar ut til deg selv skattlegges til slutt. På personlige beløp '+
+    'uten særlige behov er det et ekstra ledd uten ekstra belønning. Regnestykket ser '+
+    'annerledes ut for den som allerede har et selskap, eller aldri skal ta pengene ut privat.');
+  var html='';
+  for(var i=0;i<ps.length;i++)html+='<p>'+ps[i]+'</p>';
+  document.getElementById('whyProse').innerHTML=html;
+}
+
+function renderRente(){
+  var blk=document.getElementById('blk-rente');
+  var a=andel();
+  if(a===0||a===100||a==null){blk.hidden=true;return;}
+  blk.hidden=false;
+  var other=S.belop*(100-a)/100;
+  document.getElementById('renteCard').innerHTML=
+    '<p>'+fmtKrCompact(other)+' står utenfor aksjemarkedet etter matrisen. Der er oppskriften '+
+    'kortere: bufferkonto eller bankkonto med god rente for det du kan trenge raskt, rentefond '+
+    'hvis horisonten er noen år. Renter skattlegges løpende med 22 prosent, uten aksjenes '+
+    'oppjustering, og hører derfor ikke hjemme på aksjesparekontoen, som uansett bare rommer '+
+    'aksjer og aksjefond.</p>'+
+    '<p>I modellen over står denne delen stille; i virkeligheten skal den selvsagt i arbeid den også.</p>';
+}
+
+/* ── Atferdsspeilet (risiko × kalibrering, 9 varianter) ── */
+var MIRROR={
+  '0over':'Du valgte forsiktig, men testen antyder at kartet ditt er tryggere enn terrenget. Det er en god kombinasjon å være ærlig om: planen din tåler at du tar feil, og det gjør den robust. Vær bare oppmerksom på motsatt felle, at overdreven tro på egne vurderinger en dag frister deg til å «vite bedre» enn planen.',
+  '0kal':'Forsiktig og godt kalibrert er en undervurdert kombinasjon. Du vet hva du ikke vet, og du har valgt en plan som ikke krever helteinnsats. Din største risiko er ikke markedet, det er at forsiktigheten koster mer enn du ser: over {H} år er prisen for lav aksjeandel målbar. Matrisen over viser hva ett hakk opp ville betydd.',
+  '0under':'Du kan mer enn du tror, og tar mindre risiko enn du sannsynligvis tåler. Det er studiens stille funn i praksis: kunnskap som ikke har bygget selvtillit ennå, bærer ikke risiko. Løsningen er ikke å hoppe, men å gå: en litt høyere aksjeandel med automatisk månedlig kjøp lar erfaringen bygge tryggheten i riktig tempo.',
+  '1over':'Balansert portefølje, men troen ligger foran kunnskapen. Det vanligste utfallet i studien, og det minst dramatiske, helt til det blir dramatisk: overmot viser seg sjelden i planen, det viser seg i avvikene fra den. Ett konkret grep: ta vare på referatet under, og krev av deg selv at hvert fremtidige avvik begrunnes skriftlig mot det.',
+  '1kal':'Profilen og selvinnsikten stemmer overens, og da er det lite en rådgiver skal flikke på. Jobben din fremover er kjedelig med vilje: hold planen, rebalanser når andelene driver, og la være å forveksle nyheter med informasjon.',
+  '1under':'Planen er fornuftig, og du undervurderer deg selv. Det er ufarlig akkurat nå, men pass på hvem du lar fylle tomrommet: beskjedne investorer er overrepresentert blant dem som betaler dyrt for selvtillit de kunne bygget selv. Fortsett å lære; testen antyder at grunnlaget allerede er der.',
+  '2over':'Høy aksjeandel og et gap mellom tro og treff er den ene kombinasjonen her som fortjener et gult kort. Studien fant at selvtillit, ikke kunnskap, er det som faktisk bærer risikotaking. Hos deg bærer den mye nå. Test deg selv: hvis porteføljen hadde falt 25 prosent i forrige måned, hva i planen din hadde stoppet deg fra å improvisere? Har du ikke et godt svar, er svaret referatet under.',
+  '2kal':'Offensiv med dekning for det: horisonten er lang, kunnskapen treffer selvbildet, og planen henger sammen. Da er rådet nesten provoserende enkelt: automatiser mest mulig, og beskytt planen mot fremtidige versjoner av deg selv med bedre historier.',
+  '2under':'Du tar høy risiko og undervurderer samtidig egen kunnskap. Det er en uvanlig kombinasjon, og den er verdt å stoppe ved: hvis risikoen ikke hviler på trygghet du selv har bygget, hviler den på noe andre har sagt. Sjekk at du kan forklare hver del av porteføljen med egne ord. Det du ikke kan forklare, eier deg mer enn du eier det.'
+};
+function renderMirror(){
+  var key=String(riskClass())+quizVerdictKey();
+  var txt=(MIRROR[key]||'').replace('{H}',S.horisont);
+  document.getElementById('mirrorCard').innerHTML='<p>'+txt+'</p>'+
+    (S.quiz.demo?'<p style="font-size:.82rem;color:var(--muted)">Kalibreringen er en eksempelverdi. Ta testen i steg 5 for ditt eget speil.</p>':'');
+}
+
+/* ── Referatet ── */
+function renderReferat(){
+  var rc=riskClass();
+  var a=andel();
+  var d=new Date();
+  var dato=d.toLocaleDateString('nb-NO',{day:'numeric',month:'long',year:'numeric'});
+  var lines=[];
+  lines.push('REFERAT · FORMUESSAMTALEN');
+  lines.push('evers.no/formuessamtalen · '+dato);
+  lines.push('');
+  lines.push('Profil');
+  lines.push(MAAL_REF[S.maal]+', horisont '+S.horisont+' år. '+fmtCapital(S.belop)+
+    ' til plassering, '+(S.status==='enslig'?'enslig':'ektefeller')+'.');
+  var grunn='på plass';
+  if(S.buffer<2&&S.gjeld===1)grunn='buffer mangler og dyr gjeld må bort';
+  else if(S.buffer<2)grunn=(S.buffer===1?'buffer er tynn':'buffer mangler');
+  else if(S.gjeld===1)grunn='dyr gjeld må bort';
+  lines.push('Grunnmur: '+grunn+'.');
+  lines.push('Risikoprofil '+KLASSE[rc]+(riskSprik()?' (sprik mellom atferd og preferanse notert)':'')+'.');
+  lines.push('Kalibrering: '+(S.quiz.demo?'eksempelverdi ('+VERDICT_SHORT[quizVerdictKey()]+')':
+    S.quiz.correct+'/3 riktige, snittsikkerhet '+S.quiz.conf+' %, gap '+(S.quiz.gap>0?'+':'')+S.quiz.gap+
+    ' ('+VERDICT_SHORT[quizVerdictKey()]+')')+'.');
+  lines.push('');
+  lines.push('Vurdering');
+  if(a===0){
+    lines.push('Aksjeandel etter matrisen: 0 %. Horisonten er for kort for aksjer;');
+    lines.push('bufferkonto med god rente eller rentefond anbefales for hele beløpet.');
+  }else{
+    lines.push('Aksjeandel etter matrisen: '+a+' % ('+fmtCapital(S.belop*a/100)+').');
+    var cell=currentCell();
+    if(cell){
+      var hd=cell.horizons[gridHorizon()];
+      var best=hd.rank_after_tax[0],second=hd.rank_after_tax[1];
+      var diff=parseFloat(hd.wrappers[best].final)-parseFloat(hd.wrappers[second].final);
+      lines.push('Kontovalg: '+WRAP_LABEL[best]+' foretrekkes for aksjedelen; forventet forskjell');
+      lines.push('mot '+WRAP_LABEL[second]+' ca. '+fmtKr(diff)+' etter skatt ved uttak år '+
+        S.horisont+' i det stiliserte scenariet.');
+    }
+    if(a<100){lines.push('Rentedel: '+fmtCapital(S.belop*(100-a)/100)+' holdes utenfor aksjemarkedet.');}
+  }
+  if(S.buffer<2||S.gjeld===1){
+    lines.push('Forutsetning: grunnmuren etableres først (se profil).');
+  }
+  lines.push('');
+  lines.push('Forbehold');
+  lines.push('Stiliserte forutsetninger, ikke prognoser. Skattesatser '+(DATA?DATA.rates.aar:2026)+'.');
+  lines.push('Beslutningsstøtte, ikke skatteråd eller investeringsråd.');
+  lines.push('Ingen personopplysninger er lagret eller sendt.');
+  document.getElementById('refCard').textContent=lines.join('\n');
+}
+document.getElementById('copyRef').addEventListener('click',function(){
+  var txt=document.getElementById('refCard').textContent;
+  var btn=this;
+  function done(){btn.textContent='Kopiert';setTimeout(function(){btn.textContent='Kopier referatet';},1600);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,function(){fallback();});
+  }else{fallback();}
+  function fallback(){
+    var ta=document.createElement('textarea');
+    ta.value=txt;ta.setAttribute('readonly','');ta.style.position='absolute';ta.style.left='-9999px';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');done();}catch(e){}
+    document.body.removeChild(ta);
+  }
+});
+document.getElementById('printRef').addEventListener('click',function(){window.print();});
+
+/* ═══ GRID-LASTING + OPPSTART ═══ */
+function fillPedagogy(){
+  var p=DATA.pedagogy;
+  document.getElementById('facit0').textContent=
+    nb(parseFloat(p.cost.final_low_fee))+' mot '+nb(parseFloat(p.cost.final_high_fee))+
+    ' kroner. Differansen er '+nb(parseFloat(p.cost.difference))+' kroner, nesten tre ganger '+
+    'innskuddet. Kostnader oppfører seg som renters rente med motsatt fortegn, og er den '+
+    'eneste delen av avkastningen som er garantert.';
+  document.getElementById('facit2').textContent=
+    nb(parseFloat(p.defer.final_taxed_at_end))+' mot '+nb(parseFloat(p.defer.final_taxed_yearly))+
+    ' kroner, en forskjell på omtrent '+nb(parseFloat(p.defer.advantage))+' kroner. Penger som '+
+    'ikke er trukket i skatt ennå, fortsetter å forrente seg. Det er hele ideen bak '+
+    'aksjesparekontoen, og du ser den igjen i resonnementet under. Regnestykket er forenklet '+
+    'og ser bort fra skjermingsfradraget.';
+  document.getElementById('whySivilstand').textContent=
+    'Ektefeller får formuen fastsatt under ett, med doble terskler i formuesskatten. '+
+    'Bunnfradraget går fra '+fmtKr(parseFloat(DATA.rates.bunnfradrag_enslig))+' til '+
+    fmtKr(parseFloat(DATA.rates.bunnfradrag_ektefeller))+'. Det avgjør om formuesskatten i '+
+    'det hele tatt slår inn på beløpet ditt, og dermed hvor mye kontovalget betyr.';
+  document.getElementById('noticeTax').innerHTML='⚠ '+DATA.notice.not_tax_advice_no;
+  document.getElementById('noticeIllustrativ').innerHTML='ℹ '+DATA.notice.illustrative_no+' '+DATA.notice.household_no;
+  document.getElementById('noticeLikvid').innerHTML='ℹ '+DATA.notice.liquidation_no;
+  if(DATA.notice.skjermingsrente_provisional_no){
+    var np=document.getElementById('noticeProv');
+    np.hidden=false;np.innerHTML='ℹ '+DATA.notice.skjermingsrente_provisional_no;
+  }
+}
+fetch('./samtale_grid.json',{cache:'no-cache'})
+  .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
+  .then(function(d){
+    DATA=d;
+    fillPedagogy();
+    if(READY)renderResult();
+  })
+  .catch(function(){
+    document.getElementById('errBox').classList.add('on');
+    document.getElementById('facit0').textContent='Fasit-tallene lastes med scenariodataene; de er utilgjengelige akkurat nå.';
+    document.getElementById('facit2').textContent='Fasit-tallene lastes med scenariodataene; de er utilgjengelige akkurat nå.';
+  });
+
+renderNotepad(null);
+maybeRender(false);
+
+})();
+</script>
+</body>
+</html>
