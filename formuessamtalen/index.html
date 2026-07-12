@@ -607,8 +607,10 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
     <div class="ct-q" data-q="2" data-correct="2">
       <fieldset>
         <legend class="q-text">To identiske investeringer på 100&nbsp;000 kroner vokser
-        7&nbsp;prosent i året i 30 år. I den ene skattlegges gevinsten hvert år, i den andre
-        først når alt selges til slutt. Samme skattesats. Hva utgjør utsettelsen?</legend>
+        7&nbsp;prosent i året i 30 år. I den ene skattlegges hvert års avkastning løpende, i den
+        andre skattlegges hele gevinsten først når alt selges til slutt. Samme skattesats i
+        begge: <span id="q2rate">37,84</span>&nbsp;prosent, som for aksjegevinst. Hva utgjør
+        utsettelsen?</legend>
         <div class="opts">
           <span class="opt"><input type="radio" name="q2" id="q2a" value="0"><label for="q2a">Ingenting; samme sats gir samme skatt</label></span>
           <span class="opt"><input type="radio" name="q2" id="q2b" value="1"><label for="q2b">Noen tusenlapper</label></span>
@@ -1509,6 +1511,8 @@ function fillPedagogy(){
     'ikke er trukket i skatt ennå, fortsetter å forrente seg. Det er hele ideen bak '+
     'aksjesparekontoen, og du ser den igjen i resonnementet under. Regnestykket er forenklet '+
     'og ser bort fra skjermingsfradraget.';
+  var q2r=document.getElementById('q2rate');
+  if(q2r){q2r.textContent=nb(parseFloat(DATA.rates.effektiv_aksjesats)*100,2);}
   document.getElementById('whySivilstand').textContent=
     'Ektefeller får formuen fastsatt under ett, med doble terskler i formuesskatten. '+
     'Bunnfradraget går fra '+fmtKr(parseFloat(DATA.rates.bunnfradrag_enslig))+' til '+
