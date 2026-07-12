@@ -29,6 +29,21 @@ det innholds-subsettede subsetet under (regenererings-advarselen nedenfor gjelde
 Medieval-easter-egget beholder en inert `'Inter'`-**navne**fallback i font-stacken (ingen
 `@font-face` lastes for den lenger → faller til system-sans); easter-egget er ellers urørt.
 
+## Cream-familien (kalkulator-cream-hud)
+
+Et SEPARAT type-system for de cream-hudede sidene (varm off-white bakgrunn, ikke Inter-kjernen):
+`personligokonomi/`, `pensjonskalkulator(-src)/`, `fra-null-til-investor{,2,3}/` og
+`formuessamtalen/` (ny 2026-07-12). Hver side deklarerer sine egne `@font-face` mot disse filene:
+
+- **Serif (overskrifter):** `Fraunces` — `fraunces-latin[-ext]-full-normal.woff2` (variabel; opsz + wght).
+- **Sans (brødtekst / UI):** `Manrope` — `manrope-latin[-ext]-wght-normal.woff2` (variabel).
+- **Mono:** `JetBrains Mono` (delt med Inter-kjernen).
+
+`formuessamtalen/` laster i tillegg de to fraktur-fontene for medieval-«prins»-easter-egget:
+`UnifrakturMaguntia-Latin.woff2` (overskrifter) + `MedievalSharp-Latin.woff2`. (Merk: hovedsitens
+eget medieval-easter-egg bruker en inert `'Inter'`-navnefallback og laster ingen fraktur-`@font-face`
+— formuessamtalen er den som faktisk shipper fraktur-filene.)
+
 ## ⚠️ `noto-sans-jp-subset.woff2` is content-subsetted — regenerate if the Japanese UI text changes
 
 `noto-sans-jp-subset.woff2` contains **only the glyphs used by the current Japanese (`ja`)

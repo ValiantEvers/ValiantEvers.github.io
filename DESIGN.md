@@ -91,6 +91,7 @@ Noto Sans JP (400, 700) — Japanese variant only
 - Inter at `-0.02em` letter-spacing on headings gives the geometric character without the startup-template feel.
 - Don't introduce new display fonts. Inter does almost everything.
 - JetBrains Mono is for short technical metadata only. Never for body or headings.
+- **Two coexisting families (deliberate — not drift).** The editorial core above (Inter/blue, light + dark) is the default. Cream-skinned sub-pages — `personligokonomi/`, `pensjonskalkulator(-src)/`, `fra-null-til-investor{,2,3}/` and `formuessamtalen/` (2026-07-12) — deliberately run a warmer **calculator-cream** family instead: Fraunces (serif headings) + Manrope (sans) on `#FAF6EF`, accent `#FF5436`, text-accent `#B03418`. Each such page carries its own self-hosted `@font-face` (see `fonts/README.md`) and a self-contained cream token set. When building or editing one of these pages, match the cream family — don't force the Inter core onto it, and don't back-port cream tokens into the editorial core.
 
 ---
 
