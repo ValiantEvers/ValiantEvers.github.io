@@ -582,19 +582,17 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 
     <div class="ct-q" data-q="0" data-correct="2">
       <fieldset>
-        <legend class="q-text">To fond følger samme marked i 30 år og gir 7&nbsp;prosent årlig
-        avkastning før kostnader. Fond A koster 0,2&nbsp;prosent i året, fond B koster
-        2,0&nbsp;prosent. Velger du det dyre fondet: omtrent hvor stor del av sluttbeløpet
-        ditt går tapt til kostnadene? Du trenger ikke regne, størrelsesorden holder.</legend>
+        <legend class="q-text">Du setter inn 100&nbsp;kroner på en sparekonto med 6&nbsp;prosent
+        rente i året, og lar pengene stå urørt. Hvor mye står på kontoen etter to år?</legend>
         <div class="opts">
-          <span class="opt"><input type="radio" name="q0" id="q0a" value="0"><label for="q0a">Nesten ingenting, under 5&nbsp;prosent</label></span>
-          <span class="opt"><input type="radio" name="q0" id="q0b" value="1"><label for="q0b">Rundt 15&nbsp;prosent</label></span>
-          <span class="opt"><input type="radio" name="q0" id="q0c" value="2"><label for="q0c">Rundt 40&nbsp;prosent</label></span>
-          <span class="opt"><input type="radio" name="q0" id="q0d" value="3"><label for="q0d">Ingenting; kostnader påvirker ikke sluttbeløpet</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0a" value="0"><label for="q0a">106&nbsp;kr</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0b" value="1"><label for="q0b">112&nbsp;kr</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0c" value="2"><label for="q0c">112,36&nbsp;kr</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0d" value="3"><label for="q0d">130&nbsp;kr</label></span>
         </div>
       </fieldset>
       <fieldset class="ct-conf">
-        <legend class="visually-hidden">Hvor sikker var du på svaret om kostnader?</legend>
+        <legend class="visually-hidden">Hvor sikker var du på svaret om renters rente?</legend>
         <span class="conf-lbl" aria-hidden="true">Hvor sikker var du?</span>
         <span class="opt"><input type="radio" name="c0" id="c0a" value="20"><label for="c0a">Gjettet</label></span>
         <span class="opt"><input type="radio" name="c0" id="c0b" value="60"><label for="c0b">Ganske sikker</label></span>
@@ -1594,11 +1592,13 @@ function fillPedagogy(){
   var p=DATA.pedagogy;
   var costShare=parseFloat(p.cost.difference)/parseFloat(p.cost.final_low_fee)*100;
   document.getElementById('facit0').textContent=
-    'Fond A ender på '+nb(parseFloat(p.cost.final_low_fee))+' kroner, fond B på '+
-    nb(parseFloat(p.cost.final_high_fee))+'. Differansen, '+nb(parseFloat(p.cost.difference))+
-    ' kroner, er rundt '+nb(costShare,0)+' prosent av sluttbeløpet i det billige fondet. '+
-    'Kostnader oppfører seg som renters rente med motsatt fortegn, og er den eneste delen '+
-    'av avkastningen som er garantert.';
+    'Først 106 kroner, deretter 6 prosent av 106, ikke av 100: 112,36. De 36 ørene er '+
+    'renters rente i miniatyr, og de vokser med tiden. Samme mekanikk med motsatt fortegn: '+
+    'et fond som koster '+nb(parseFloat(p.cost.fee_high)*100,1)+' prosent i året i stedet '+
+    'for '+nb(parseFloat(p.cost.fee_low)*100,1)+', etterlater deg med rundt '+
+    nb(costShare,0)+' prosent mindre etter '+p.cost.years+' år. I motorens eksempel: '+
+    nb(parseFloat(p.cost.difference))+' kroner mindre av '+nb(parseFloat(p.cost.start))+
+    ' innskutte kroner.';
   document.getElementById('facit2').textContent=
     'Utsatt skatt virker som et rentefritt lån fra staten: penger som ellers var trukket '+
     'hvert år, blir stående i markedet og vokse. Med '+nb(parseFloat(p.defer.start))+
