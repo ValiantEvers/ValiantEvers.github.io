@@ -157,6 +157,11 @@ legend{font-weight:700;font-size:.98rem;margin-bottom:.7rem;padding:0}
 .opts-col{flex-direction:column;align-items:flex-start}
 .opts-col .opt label{display:block}
 .hint{font-size:.8rem;color:var(--subtle);margin-top:.5rem;max-width:560px}
+.custom-row{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-top:.7rem}
+.custom-row label{font-size:.86rem;color:var(--muted)}
+.custom-row input{width:8.5rem;padding:.55rem .65rem;border:1.5px solid var(--border);border-radius:10px;background:var(--card-bg);color:var(--text);font-family:var(--font-mono);font-size:.92rem;font-weight:600;box-shadow:var(--card-shadow)}
+.custom-row input:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:2px;border-color:var(--accent)}
+.snap-note{font-size:.82rem;font-weight:600;color:var(--accent-ink);max-width:24em}
 
 /* HVORFOR (details) */
 details.why{margin:.4rem 0 0;max-width:620px}
@@ -173,12 +178,12 @@ details.why[open] .why-reveal{grid-template-rows:1fr}
 /* NOTATBLOKK */
 .notepad{position:relative}
 @media(min-width:1020px){.notepad-inner{position:sticky;top:5.2rem}}
-.np-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.2rem 1.25rem;background-image:repeating-linear-gradient(transparent,transparent 27px,var(--hair) 27px,var(--hair) 28px)}
+.np-card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;box-shadow:var(--card-shadow);padding:1.2rem 1.25rem}
 .np-title{font-family:var(--font-display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em;display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
 .np-title .np-pen{font-size:.9rem}
 .np-empty{font-size:.85rem;color:var(--subtle);font-style:italic}
 .np-list{list-style:none;font-size:.86rem}
-.np-list li{display:none;padding:.32rem 0;border-bottom:1px dashed var(--hair);align-items:baseline;gap:.5rem}
+.np-list li{display:none;padding:.34rem 0;align-items:baseline;gap:.5rem}
 .np-list li.on{display:flex}
 .np-list .k{font-family:var(--font-mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--subtle);flex:0 0 5.4em}
 .np-list .v{flex:1;font-weight:600}
@@ -329,18 +334,22 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 }
 
 /* PRINT: to tilstander. Uten referat: normal side minus pynt. Med referat
-   (html.referat-ready): KUN referatet. Tving lys/hvit uansett tema. */
+   (html.referat-ready): KUN referatet, via display:none på alt annet slik at
+   layouten KOLLAPSER (visibility:hidden ga N blanke sider i PDF-en). */
 @media print{
   body{background:#fff !important;color:#000 !important;font-size:11pt}
   body::after,.cursor-dot,nav,.skip-link,.hero-cta,.demo-note,.np-toggle,.theme-toggle,.errbox{display:none !important}
-  .np-card{background-image:none}
   .rv{opacity:1 !important;transform:none !important}
   a{color:#000 !important}
-  .referat-ready body *{visibility:hidden}
-  .referat-ready #referat,.referat-ready #referat *{visibility:visible}
-  .referat-ready #referat{position:absolute;left:0;top:0;width:100%;padding:1cm}
-  .referat-ready #referat .ref-actions{display:none !important}
-  .ref-card{border:1px solid #ccc;box-shadow:none}
+  .referat-ready body>:not(main){display:none !important}
+  .referat-ready main>:not(.result){display:none !important}
+  .referat-ready .result>:not(.res-body){display:none !important}
+  .referat-ready .res-body>:not(#referat){display:none !important}
+  .referat-ready #referat>:not(.sub-title):not(.ref-card){display:none !important}
+  .referat-ready .result{padding:0;margin:0;max-width:100%}
+  .referat-ready #referat{margin:0;break-inside:avoid}
+  .referat-ready .ref-card{max-width:100%}
+  .ref-card{border:1px solid #ccc;box-shadow:none;background:#fff !important;color:#000 !important}
 }
 @media(max-width:640px){
   .page-hero{padding:5.6rem 1.2rem .6rem}
@@ -460,6 +469,13 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
         <span class="opt"><input type="radio" name="horisont" id="hor20" value="20"><label for="hor20">Om rundt 20&nbsp;år</label></span>
         <span class="opt"><input type="radio" name="horisont" id="hor30" value="30"><label for="hor30">Om 30&nbsp;år eller mer</label></span>
       </div>
+      <div class="custom-row">
+        <label for="horEgen">Eller skriv antall år selv:</label>
+        <input type="number" id="horEgen" min="1" max="60" step="1" inputmode="numeric" aria-describedby="horSnap">
+        <span class="snap-note" id="horSnap"></span>
+      </div>
+      <p class="hint">Skriver du et eget tall, brukes det nærmeste av trinnene over i
+      beregningen, og det sies tydelig fra om det.</p>
     </fieldset>
 
     <details class="why">
@@ -490,8 +506,14 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
         <span class="opt"><input type="radio" name="belop" id="bel4" value="2000000"><label for="bel4">2&nbsp;millioner&nbsp;kr</label></span>
         <span class="opt"><input type="radio" name="belop" id="bel5" value="5000000"><label for="bel5">5&nbsp;millioner&nbsp;kr</label></span>
       </div>
-      <p class="hint">Velg det nærmeste. Tallene beregnes for faste trinn, ikke glidende skala,
-      fordi formuesskattens terskler gjør mellomrommene ulineære.</p>
+      <div class="custom-row">
+        <label for="belEgen">Eller skriv beløpet selv, i kroner:</label>
+        <input type="number" id="belEgen" min="0" step="1000" inputmode="numeric" aria-describedby="belSnap">
+        <span class="snap-note" id="belSnap"></span>
+      </div>
+      <p class="hint">Tallene beregnes for faste trinn, ikke glidende skala, fordi
+      formuesskattens terskler gjør mellomrommene ulineære. Skriver du et eget beløp,
+      brukes derfor det nærmeste trinnet, og det sies tydelig fra om det.</p>
     </fieldset>
 
     <fieldset id="f-status">
@@ -562,13 +584,13 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
       <fieldset>
         <legend class="q-text">To fond følger samme marked i 30 år og gir 7&nbsp;prosent årlig
         avkastning før kostnader. Fond A koster 0,2&nbsp;prosent i året, fond B koster
-        2,0&nbsp;prosent. Du setter inn 100&nbsp;000 kroner. Omtrent hvor mye mer sitter du
-        igjen med i fond A?</legend>
+        2,0&nbsp;prosent. Velger du det dyre fondet: omtrent hvor stor del av sluttbeløpet
+        ditt går tapt til kostnadene? Du trenger ikke regne, størrelsesorden holder.</legend>
         <div class="opts">
-          <span class="opt"><input type="radio" name="q0" id="q0a" value="0"><label for="q0a">Rundt 30&nbsp;000 kroner mer</label></span>
-          <span class="opt"><input type="radio" name="q0" id="q0b" value="1"><label for="q0b">Rundt 90&nbsp;000 kroner mer</label></span>
-          <span class="opt"><input type="radio" name="q0" id="q0c" value="2"><label for="q0c">Rundt 290&nbsp;000 kroner mer</label></span>
-          <span class="opt"><input type="radio" name="q0" id="q0d" value="3"><label for="q0d">Kostnadene utligner hverandre over tid</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0a" value="0"><label for="q0a">Nesten ingenting, under 5&nbsp;prosent</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0b" value="1"><label for="q0b">Rundt 15&nbsp;prosent</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0c" value="2"><label for="q0c">Rundt 40&nbsp;prosent</label></span>
+          <span class="opt"><input type="radio" name="q0" id="q0d" value="3"><label for="q0d">Ingenting; kostnader påvirker ikke sluttbeløpet</label></span>
         </div>
       </fieldset>
       <fieldset class="ct-conf">
@@ -604,17 +626,17 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
       Den er prisen for aksjepremien, og den skal du få betalt for å bære.</p>
     </div>
 
-    <div class="ct-q" data-q="2" data-correct="2">
+    <div class="ct-q" data-q="2" data-correct="1">
       <fieldset>
-        <legend class="q-text">To identiske investeringer på 100&nbsp;000 kroner vokser
-        7&nbsp;prosent i året i 30 år. I den ene skattlegges hvert års avkastning løpende, i den
-        andre skattlegges hele gevinsten først når alt selges til slutt. Samme skattesats i
-        begge: <span id="q2rate">37,84</span>&nbsp;prosent, som for aksjegevinst. Hva utgjør
-        utsettelsen?</legend>
-        <div class="opts">
-          <span class="opt"><input type="radio" name="q2" id="q2a" value="0"><label for="q2a">Ingenting; samme sats gir samme skatt</label></span>
-          <span class="opt"><input type="radio" name="q2" id="q2b" value="1"><label for="q2b">Noen tusenlapper</label></span>
-          <span class="opt"><input type="radio" name="q2" id="q2c" value="2"><label for="q2c">Rundt 150&nbsp;000 kroner</label></span>
+        <legend class="q-text">Skatten på en aksjesparekonto kommer først når du tar pengene
+        ut, ikke løpende hvert år. Satsen er den samme uansett:
+        <span id="q2rate">37,84</span>&nbsp;prosent, som for aksjegevinst. Hva er det som gjør
+        utsettelsen verdt noe?</legend>
+        <div class="opts opts-col">
+          <span class="opt"><input type="radio" name="q2" id="q2a" value="0"><label for="q2a">At satsen blir lavere av å vente</label></span>
+          <span class="opt"><input type="radio" name="q2" id="q2b" value="1"><label for="q2b">At penger som ellers var betalt i skatt, blir stående i markedet og vokse</label></span>
+          <span class="opt"><input type="radio" name="q2" id="q2c" value="2"><label for="q2c">Ingenting; samme sats gir samme sluttresultat</label></span>
+          <span class="opt"><input type="radio" name="q2" id="q2d" value="3"><label for="q2d">At utbyttet blir skattefritt</label></span>
         </div>
       </fieldset>
       <fieldset class="ct-conf">
@@ -939,11 +961,31 @@ function fmtPct(frac,d){return nb(frac*100,(d==null)?1:d)+' %';}
 /* ═══ STATE ═══ */
 var DATA=null,READY=false,wasComplete=false;
 var S={buffer:null,gjeld:null,maal:null,horisont:null,belop:null,status:null,r1:null,r2:null,
-       quiz:null,profil:'aktiv',demo:false};
+       quiz:null,profil:'aktiv',demo:false,rawHorisont:null,rawBelop:null};
 var MAAL_LABEL={bolig:'Bolig om noen år',barna:'Barnas fremtid',frihet:'Frihet og pensjon',formue:'Formuesbygging'};
 var MAAL_REF={bolig:'Boligsparing',barna:'Sparing til barna',frihet:'Frihets- og pensjonssparing',formue:'Formuesbygging'};
 var MATRIX={3:[0,0,0],5:[0,30,50],10:[30,50,70],15:[50,70,100],20:[50,70,100],30:[70,100,100]};
 var HORIZON_ROWS=[3,5,10,15,20,30];
+var BEL_STEPS=[100000,250000,500000,1000000,2000000,5000000];
+var HOR_ID={3:'hor3',5:'hor5',10:'hor10',15:'hor15',20:'hor20',30:'hor30'};
+var BEL_ID={100000:'bel0',250000:'bel1',500000:'bel2',1000000:'bel3',2000000:'bel4',5000000:'bel5'};
+/* Nærmeste prekomputerte trinn; ved eksakt midtpunkt velges det lavere (forsiktigere).
+   Dette er valg av VISNINGSCELLE, ikke skatteberegning: alle tall er fortsatt gridets. */
+function snapTo(steps,v){
+  var best=steps[0];
+  for(var i=1;i<steps.length;i++){if(Math.abs(steps[i]-v)<Math.abs(best-v))best=steps[i];}
+  return best;
+}
+function horTxt(){
+  return (S.rawHorisont!=null&&S.rawHorisont!==S.horisont)
+    ? S.rawHorisont+' år (beregnet for nærmeste trinn, '+S.horisont+' år)'
+    : S.horisont+' år';
+}
+function belTxt(){
+  return (S.rawBelop!=null&&S.rawBelop!==S.belop)
+    ? fmtKr(S.rawBelop)+' (beregnet for nærmeste trinn, '+fmtCapital(S.belop)+')'
+    : fmtCapital(S.belop);
+}
 var KLASSE=['forsiktig','balansert','offensiv'];
 var WRAP_LABEL={pretax:'Før skatt',taxable:'Vanlig depot',ASK:'Aksjesparekonto',holding_AS:'Eget AS'};
 var WRAP_ORDER=['taxable','ASK','holding_AS'];
@@ -983,8 +1025,10 @@ function fieldValues(){
     v.grunnmur=parts.join(' + ');
   }
   if(S.maal)v.maal=MAAL_LABEL[S.maal];
-  if(S.horisont!=null)v.horisont=S.horisont+' år';
-  if(S.belop!=null)v.belop=fmtCapital(S.belop);
+  if(S.horisont!=null)v.horisont=(S.rawHorisont!=null&&S.rawHorisont!==S.horisont)
+    ? S.rawHorisont+' år (trinn: '+S.horisont+' år)':S.horisont+' år';
+  if(S.belop!=null)v.belop=(S.rawBelop!=null&&S.rawBelop!==S.belop)
+    ? fmtKr(S.rawBelop)+' (trinn: '+fmtCapital(S.belop)+')':fmtCapital(S.belop);
   if(S.status)v.status=S.status==='enslig'?'Enslig':'Ektefeller';
   var rc=riskClass();
   if(rc!=null)v.risiko=KLASSE[rc]+(riskSprik()?' (sprik)':'');
@@ -1030,8 +1074,8 @@ function bindRadios(name,fn){
 bindRadios('buffer',function(v){S.buffer=parseInt(v,10);answered('grunnmur');});
 bindRadios('gjeld',function(v){S.gjeld=parseInt(v,10);answered('grunnmur');});
 bindRadios('maal',function(v){S.maal=v;answered('maal');});
-bindRadios('horisont',function(v){S.horisont=parseInt(v,10);answered('horisont');});
-bindRadios('belop',function(v){S.belop=parseInt(v,10);answered('belop');});
+bindRadios('horisont',function(v){S.horisont=parseInt(v,10);egenClear('hor');answered('horisont');});
+bindRadios('belop',function(v){S.belop=parseInt(v,10);egenClear('bel');answered('belop');});
 bindRadios('status',function(v){S.status=v;answered('status');});
 bindRadios('r1',function(v){S.r1=parseInt(v,10);answered('risiko');});
 bindRadios('r2',function(v){S.r2=parseInt(v,10);answered('risiko');});
@@ -1041,6 +1085,50 @@ function answered(field){
   renderNotepad(field);
   maybeRender();
 }
+
+/* ═══ EGNE TALL (snap til nærmeste grid-trinn) ═══ */
+function egenClear(which){
+  if(which==='hor'){S.rawHorisont=null;}else{S.rawBelop=null;}
+  var inp=document.getElementById(which+'Egen'),note=document.getElementById(which+'Snap');
+  if(inp)inp.value='';
+  if(note)note.textContent='';
+}
+(function(){
+  var hi=document.getElementById('horEgen'),bi=document.getElementById('belEgen');
+  if(hi)hi.addEventListener('input',function(){
+    var note=document.getElementById('horSnap');
+    var v=Math.round(this.valueAsNumber);
+    if(this.value===''||isNaN(v)||v<1){S.rawHorisont=null;note.textContent='';renderNotepad();return;}
+    if(v>60){v=60;this.value='60';}
+    var s=snapTo(HORIZON_ROWS,v);
+    S.rawHorisont=v;S.horisont=s;
+    var r=document.getElementById(HOR_ID[s]);if(r)r.checked=true;
+    note.textContent=(v===s)?'':'Beregnes for nærmeste trinn: '+s+' år.';
+    answered('horisont');
+  });
+  if(bi)bi.addEventListener('input',function(){
+    var note=document.getElementById('belSnap');
+    var v=Math.round(this.valueAsNumber);
+    if(this.value===''||isNaN(v)||v<1){S.rawBelop=null;note.textContent='';renderNotepad();return;}
+    var s=snapTo(BEL_STEPS,v);
+    S.rawBelop=v;S.belop=s;
+    var r=document.getElementById(BEL_ID[s]);if(r)r.checked=true;
+    note.textContent=(v===s)?'':'Beregnes for nærmeste trinn: '+fmtCapital(s)+'.';
+    answered('belop');
+  });
+  /* Klikk på en allerede valgt radio skal også nullstille eget tall */
+  function bindClear(name,which){
+    var els=document.querySelectorAll('input[name="'+name+'"]');
+    for(var i=0;i<els.length;i++){
+      els[i].addEventListener('click',function(){
+        var raw=(which==='hor')?S.rawHorisont:S.rawBelop;
+        if(raw!=null){egenClear(which);renderNotepad(which==='hor'?'horisont':'belop');maybeRender();}
+      });
+    }
+  }
+  bindClear('horisont','hor');
+  bindClear('belop','bel');
+})();
 
 /* ═══ KALIBRERINGSTEST ═══ */
 var qState=[{opt:null,conf:null},{opt:null,conf:null},{opt:null,conf:null}];
@@ -1094,6 +1182,7 @@ document.getElementById('ctGo').addEventListener('click',function(){
 document.getElementById('demoBtn').addEventListener('click',function(){
   var set=function(id){var el=document.getElementById(id);if(el){el.checked=true;}};
   set('buffer2');set('gjeld0');set('maal2');set('hor15');set('bel3');set('st0');set('r1b');set('r2b');
+  egenClear('hor');egenClear('bel');
   S.buffer=2;S.gjeld=0;S.maal='frihet';S.horisont=15;S.belop=1000000;S.status='enslig';S.r1=1;S.r2=1;
   S.quiz={demo:true,correct:2,conf:60,gap:-7};
   S.demo=true;
@@ -1149,7 +1238,7 @@ function renderResult(){
 
 function renderProfile(){
   var rc=riskClass();
-  var txt=MAAL_REF[S.maal]+' med '+S.horisont+' års horisont. '+fmtCapital(S.belop)+
+  var txt=MAAL_REF[S.maal]+' med horisont '+horTxt()+'. '+belTxt()+
     ' å plassere, '+(S.status==='enslig'?'enslig ligning':'felles ligning som ektefeller')+
     '. Risikoprofil '+KLASSE[rc]+(riskSprik()?', med et notert sprik mellom atferd og preferanse':'')+
     '. Kalibrering: '+VERDICT_SHORT[quizVerdictKey()]+
@@ -1444,7 +1533,7 @@ function renderReferat(){
   lines.push('evers.no/formuessamtalen · '+dato);
   lines.push('');
   lines.push('Profil');
-  lines.push(MAAL_REF[S.maal]+', horisont '+S.horisont+' år. '+fmtCapital(S.belop)+
+  lines.push(MAAL_REF[S.maal]+', horisont '+horTxt()+'. '+belTxt()+
     ' til plassering, '+(S.status==='enslig'?'enslig':'ektefeller')+'.');
   var grunn='på plass';
   if(S.buffer<2&&S.gjeld===1)grunn='buffer mangler og dyr gjeld må bort';
@@ -1503,17 +1592,21 @@ document.getElementById('printRef').addEventListener('click',function(){window.p
 /* ═══ GRID-LASTING + OPPSTART ═══ */
 function fillPedagogy(){
   var p=DATA.pedagogy;
+  var costShare=parseFloat(p.cost.difference)/parseFloat(p.cost.final_low_fee)*100;
   document.getElementById('facit0').textContent=
-    nb(parseFloat(p.cost.final_low_fee))+' mot '+nb(parseFloat(p.cost.final_high_fee))+
-    ' kroner. Differansen er '+nb(parseFloat(p.cost.difference))+' kroner, nesten tre ganger '+
-    'innskuddet. Kostnader oppfører seg som renters rente med motsatt fortegn, og er den '+
-    'eneste delen av avkastningen som er garantert.';
+    'Fond A ender på '+nb(parseFloat(p.cost.final_low_fee))+' kroner, fond B på '+
+    nb(parseFloat(p.cost.final_high_fee))+'. Differansen, '+nb(parseFloat(p.cost.difference))+
+    ' kroner, er rundt '+nb(costShare,0)+' prosent av sluttbeløpet i det billige fondet. '+
+    'Kostnader oppfører seg som renters rente med motsatt fortegn, og er den eneste delen '+
+    'av avkastningen som er garantert.';
   document.getElementById('facit2').textContent=
+    'Utsatt skatt virker som et rentefritt lån fra staten: penger som ellers var trukket '+
+    'hvert år, blir stående i markedet og vokse. Med '+nb(parseFloat(p.defer.start))+
+    ' kroner, '+nb(parseFloat(p.defer.gross)*100,0)+' prosent og '+p.defer.years+' år: '+
     nb(parseFloat(p.defer.final_taxed_at_end))+' mot '+nb(parseFloat(p.defer.final_taxed_yearly))+
-    ' kroner, en forskjell på omtrent '+nb(parseFloat(p.defer.advantage))+' kroner. Penger som '+
-    'ikke er trukket i skatt ennå, fortsetter å forrente seg. Det er hele ideen bak '+
-    'aksjesparekontoen, og du ser den igjen i resonnementet under. Regnestykket er forenklet '+
-    'og ser bort fra skjermingsfradraget.';
+    ' kroner etter skatt, en forskjell på '+nb(parseFloat(p.defer.advantage))+
+    ' kroner med helt lik sats. Det er hele ideen bak aksjesparekontoen, og du ser den igjen '+
+    'i resonnementet under. Regnestykket er forenklet og ser bort fra skjermingsfradraget.';
   var q2r=document.getElementById('q2rate');
   if(q2r){q2r.textContent=nb(parseFloat(DATA.rates.effektiv_aksjesats)*100,2);}
   document.getElementById('whySivilstand').textContent=
