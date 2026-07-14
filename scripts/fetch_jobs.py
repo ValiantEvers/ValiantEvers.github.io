@@ -53,6 +53,7 @@ ENABLE_NBIM = True      # NBIM vacancies (Playwright)
 ENABLE_STOREBRAND = True  # Storebrand Workday CXS JSON (requests POST)
 ENABLE_ARCTIC = True      # Arctic Securities open-positions (requests+regex, Playwright-fallback)
 ENABLE_PARETO = True      # Pareto Securities Teamtailor JSON (requests, som Formue)
+ENABLE_KLP = True         # KLP SuccessFactors RSS (requests, som Nordea/DNB) — juli 2026
 
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
@@ -823,9 +824,10 @@ def fetch_nav(cursor):
 # ─────────────────────────────────────────────────────────────────────────
 # Arbeidsgiver-ATS — requests, ingen Playwright.
 #
-# SAP SuccessFactors RSS (Nordea, DNB): RSS 2.0 + xmlns:g. Per <item>: title,
-# link (deep-link), g:id, g:location (ren by, f.eks. «Oslo, Norge, 0191»),
-# g:employer, g:expiration_date, g:job_function (kun DNB). Felles parser.
+# SAP SuccessFactors RSS (Nordea, DNB, KLP fra juli 2026): RSS 2.0 + xmlns:g.
+# Per <item>: title, link (deep-link), g:id, g:location (ren by, f.eks.
+# «Oslo, Norge, 0191» / KLP: «Bergen, NO»), g:employer, g:expiration_date,
+# g:job_function (kun DNB). Felles parser.
 #
 # Teamtailor JSON Feed (Formue): location ligger i _jobposting (schema.org
 # JobPosting → jobLocation), ev. tittel-parentes. Realistisk browser-UA brukes
@@ -1248,6 +1250,7 @@ def scrape_arctic() -> list:
 SOURCE_PREF = {
     "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
     "storebrand": 0, "arctic": 0, "pareto": 0,      # direkte arbeidsgiver (nye, juli 2026)
+    "klp": 0,                                        # direkte arbeidsgiver (juli 2026)
     "nav": 1, "finn": 2, "jobindex": 3,
 }
 
@@ -1399,6 +1402,7 @@ def main():
         ("nordea", ENABLE_NORDEA), ("dnb", ENABLE_DNB), ("formue", ENABLE_FORMUE),
         ("nbim", ENABLE_NBIM), ("storebrand", ENABLE_STOREBRAND),
         ("arctic", ENABLE_ARCTIC), ("pareto", ENABLE_PARETO),
+        ("klp", ENABLE_KLP),
     ):
         if enabled:
             scrape_stats[src] = {"found": 0, "kept": 0, "new": 0}
@@ -1468,6 +1472,7 @@ def main():
         (ENABLE_ARCTIC, "arctic", scrape_arctic),
         (ENABLE_PARETO, "pareto", lambda: fetch_teamtailor(
             "https://paretosecurities.teamtailor.com/jobs.json", "pareto")),
+        (ENABLE_KLP, "klp", lambda: fetch_successfactors("https://jobb.klp.no/sitemal.xml", "klp")),
     ):
         if not enabled:
             continue
