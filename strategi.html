@@ -377,6 +377,10 @@ select.inp{color-scheme:dark;appearance:auto}
 .score-pop .pop-rule .pts.pos{color:var(--green)}
 .score-pop .pop-rule .pts.neg{color:var(--red)}
 .score-pop .pop-foot{margin-top:8px;padding-top:6px;border-top:1px solid var(--border);font-size:.74rem;color:var(--faint);display:flex;justify-content:space-between}
+/* ── Kilde-helse i meta-linja (juli 2026): klikkbar «sist scrape» + popover ── */
+.scrape-health{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}
+.scrape-health:hover{color:var(--text)}
+.scrape-health.stale{color:var(--yellow);font-weight:600}
 
 .shortcut-hint{display:inline-block;font-family:'SFMono-Regular',Consolas,monospace;font-size:.7rem;background:rgba(225,231,255,.07);border:1px solid var(--border);border-radius:4px;padding:1px 6px;color:var(--dim);margin-right:5px}
 [data-theme="light"] .shortcut-hint{background:rgba(0,18,51,.05)}
@@ -705,6 +709,7 @@ select.inp{color-scheme:dark;appearance:auto}
 
 <!-- ═══ SCORE POPOVER ═══ -->
 <div class="score-pop" id="scorePop" role="dialog"></div>
+<div class="score-pop" id="scrapePop" role="dialog"></div>
 
 <!-- ═══ IMPORT MODAL (paste markdown → parse → save) ═══ -->
 <div class="modal-overlay full-mobile" id="importModal">
@@ -1041,10 +1046,10 @@ var SOURCES = [
   {id:"linkedin",name:"LinkedIn Jobs",url:"https://www.linkedin.com/jobs/search/?keywords=wealth+management+private+banking&location=Oslo",p:"høy",f:"2-3x/uke"},
   {id:"karrierestart",name:"Karrierestart",url:"https://karrierestart.no/ledig-stilling?q=finans",p:"høy",f:"1x/uke"},
   {id:"bi",name:"BI Karriereportal",url:"https://bi.jobteaser.com/",p:"høy",f:"1x/uke"},
-  {id:"dnb",name:"DNB Karriere",url:"https://jobb.dnb.no/viewalljobs/",p:"høy",f:"1x/uke"},
-  {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers/open-jobs",p:"høy",f:"1x/uke"},
+  {id:"dnb",name:"DNB Karriere",url:"https://jobb.dnb.no/viewalljobs/",p:"høy",f:"daglig (auto)"},
+  {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers/open-jobs",p:"høy",f:"daglig (auto)"},
   {id:"storebrand",name:"Storebrand Karriere",url:"https://storebrand.wd3.myworkdayjobs.com/Storebrand_Careers",p:"høy",f:"daglig (auto)"},
-  {id:"formue",name:"Formue",url:"https://career.formue.no/jobs",p:"høy",f:"1x/uke"},
+  {id:"formue",name:"Formue",url:"https://career.formue.no/jobs",p:"høy",f:"daglig (auto)"},
   {id:"nbim",name:"NBIM (Oljefondet)",url:"https://www.nbim.no/en/about-us/career/vacancies/",p:"høy",f:"daglig (auto)"},
   {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/no/om-oss/jobb-hos-oss/ledige-stillinger",p:"mid",f:"1x/uke"},
   {id:"danskebank",name:"Danske Bank",url:"https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001/jobs",p:"mid",f:"1x/uke"},
@@ -2509,10 +2514,23 @@ function renderJobs(){
   var meta_date = meta_ts ? fmtDate(meta_ts) : "?";
   var meta_html = jobs.length + " av " + countInStatusScope() + " jobber · " + total + " totalt · " + meta_label + " " + meta_date;
   if(STATE.payload.lastScrape && STATE.payload.lastScrape.at){
-    meta_html += " · sist scrape " + fmtDate(STATE.payload.lastScrape.at);
-    if(STATE.payload.lastScrape.count > 0) meta_html += " (+" + STATE.payload.lastScrape.count + " nye)";
+    var ls = STATE.payload.lastScrape;
+    // ⚠ når siste scrape er >48 t gammel — cron er daglig; to døgn uten kjøring = noe er galt
+    var staleScrape = (Date.now() - new Date(ls.at).getTime()) > 48*36e5;
+    var scrapeTxt = (staleScrape ? "⚠ " : "") + "sist scrape " + fmtDate(ls.at);
+    if(ls.count > 0) scrapeTxt += " (+" + ls.count + " nye)";
+    meta_html += ' · <span id="scrapeHealthLink" class="scrape-health' + (staleScrape ? ' stale' : '') +
+      '" title="Klikk for kilde-helse" role="button" tabindex="0">' + scrapeTxt + '</span>';
   }
   meta.innerHTML = meta_html;
+  var shl = document.getElementById("scrapeHealthLink");
+  if(shl){
+    shl.addEventListener("click", function(e){ e.stopPropagation(); toggleScrapeHealthPopover(shl); });
+    shl.addEventListener("keydown", function(e){
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); e.stopPropagation(); toggleScrapeHealthPopover(shl); }
+    });
+  }
+  if(SCRAPE_POP_OPEN) hideScrapeHealthPopover(); // re-render → lukk (data kan ha endret seg)
 
   // Drop popover if its job is no longer rendered
   if(STATE.scorePopoverFor){
@@ -2907,6 +2925,74 @@ function hideScorePopover(){
 }
 
 // ════════════════════════════════════════════════════════════════
+//  KILDE-HELSE-POPOVER (juli 2026) — klikkbar «sist scrape» i meta-linja.
+//  Leser lastScrape.sources {found,kept,new} + sourceHealth
+//  {consecutiveZeroFound,lastOkAt} skrevet av scripts/fetch_jobs.py.
+//  Null-guardet: eldre payloads mangler begge feltene. IKKE paritetsbundet.
+// ════════════════════════════════════════════════════════════════
+var SCRAPE_POP_OPEN = false;
+// Speiler FAIL_LOUD_AFTER i scripts/fetch_jobs.py (kun visning, default 5)
+var HEALTH_RED_AFTER = {finn:1, nordea:2, dnb:2};
+
+function buildScrapeHealthRows(){
+  var ls = STATE.payload.lastScrape || {};
+  var srcs = ls.sources;
+  var health = STATE.payload.sourceHealth || {};
+  if(!srcs){
+    return '<div class="pop-rule"><span style="color:var(--faint)">Per-kilde-telemetri kommer etter neste scrape (eldre payload)</span></div>';
+  }
+  var keys = Object.keys(srcs);
+  Object.keys(health).forEach(function(k){ if(keys.indexOf(k) === -1) keys.push(k); });
+  return keys.map(function(k){
+    var st = srcs[k] || {found:0, kept:0, "new":0};
+    var h = health[k] || {};
+    var cz = h.consecutiveZeroFound || 0;
+    var red = cz >= (HEALTH_RED_AFTER[k] || 5);
+    var nums = (st.found||0) + " funnet";
+    if(typeof st.kept === "number" && st.kept !== st.found) nums += " · " + st.kept + " keep";
+    nums += " · " + (st["new"]||0) + " nye";
+    var warn = cz > 0 ? ' <span class="pts ' + (red ? "neg" : "") + '" title="kjøringer på rad med 0 funnet">0×' + cz + '</span>' : "";
+    return '<div class="pop-rule"' + (red ? ' style="color:var(--red)"' : '') + '><span>' + esc(k) + '</span><span>' + nums + warn + '</span></div>';
+  }).join("");
+}
+
+function toggleScrapeHealthPopover(anchorEl){
+  if(SCRAPE_POP_OPEN){ hideScrapeHealthPopover(); return; }
+  var pop = document.getElementById("scrapePop");
+  var ls = STATE.payload.lastScrape || {};
+  pop.innerHTML = '<div class="pop-h">Kilde-helse<button class="x" onclick="hideScrapeHealthPopover()" title="Lukk (Esc)">×</button></div>' +
+    buildScrapeHealthRows() +
+    '<div class="pop-foot"><span>sist scrape: ' + (ls.at ? esc(fmtTime(ls.at)) : "aldri") + '</span><span>rød = alarm-terskel nådd</span></div>';
+  // Posisjonering — samme mønster som showScorePopover (fixed + clamp)
+  pop.style.position = "fixed";
+  pop.style.visibility = "hidden";
+  pop.classList.add("show");
+  var rect = anchorEl.getBoundingClientRect();
+  var popRect = pop.getBoundingClientRect();
+  var margin = 8;
+  var left = rect.left;
+  if(left + popRect.width > window.innerWidth - margin) left = window.innerWidth - popRect.width - margin;
+  if(left < margin) left = margin;
+  var top = rect.bottom + 6;
+  if(top + popRect.height > window.innerHeight - margin) top = rect.top - popRect.height - 6;
+  if(top < margin) top = margin;
+  pop.style.left = left + "px";
+  pop.style.top = top + "px";
+  pop.style.visibility = "visible";
+  SCRAPE_POP_OPEN = true;
+  registerOverlay("scrapePop");
+}
+
+function hideScrapeHealthPopover(){
+  var pop = document.getElementById("scrapePop");
+  pop.classList.remove("show");
+  if(SCRAPE_POP_OPEN){
+    SCRAPE_POP_OPEN = false;
+    unregisterOverlay("scrapePop");
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
 //  HELP OVERLAY
 // ════════════════════════════════════════════════════════════════
 function helpOverlayKeyHandler(e){
@@ -3007,6 +3093,7 @@ function bindKeyboardShortcuts(){
         // Close topmost overlay
         var top = STATE.openOverlays[STATE.openOverlays.length - 1];
         if(top === "scorePopover") hideScorePopover();
+        else if(top === "scrapePop") hideScrapeHealthPopover();
         else if(top === "helpOverlay") hideHelpOverlay();
         else if(top === "nbPrompt") closeNbPrompt(null);
         else if(top === "setupModal") closeSetupModal();
@@ -3058,10 +3145,15 @@ function bindKeyboardShortcuts(){
       var pop = document.getElementById("scorePop");
       if(!pop.contains(e.target) && !e.target.classList.contains("score")) hideScorePopover();
     }
+    if(SCRAPE_POP_OPEN){
+      var spop = document.getElementById("scrapePop");
+      if(!spop.contains(e.target) && e.target.id !== "scrapeHealthLink") hideScrapeHealthPopover();
+    }
   });
   // Close popover on scroll (it's position:fixed so it would drift away from anchor)
   window.addEventListener("scroll", function(){
     if(STATE.scorePopoverFor) hideScorePopover();
+    if(SCRAPE_POP_OPEN) hideScrapeHealthPopover();
   }, {passive: true});
 }
 
