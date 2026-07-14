@@ -1592,6 +1592,74 @@ def enrich_deadlines(jobs):
 
 
 # ─────────────────────────────────────────────────────────────────────────
+# Boutique-vakt (juli 2026) — endringsdetektor for firmakart-halen uten
+# strukturert kilde: hent siden, dropp script/style-innhold, strip tags,
+# SHA1, sammenlign payload.watchHashes[navn]. Endret → telemetri-linje +
+# lastScrape.watchChanged (egen seksjon i morgenmailen: «sjekk manuelt») +
+# oppdater hash. Første kjøring seeder uten varsel. Feil ved henting →
+# behold gammel hash, ingen varsel (logg). Falske positive aksepteres —
+# mailen ber bare om et blikk, den påstår ingenting. Region-regexen (mot rå
+# HTML, før strip) kan snevre inn per side ved behov; alle fem sidene var
+# hash-stabile på hel side ved verifisering 2026-07-15, så None holder nå.
+#
+# SB1 Markets ble vurdert som strukturert mini-kilde og FORKASTET (verifisert
+# 2026-07-15): hr-manager-API-et (api.hr-manager.net/jobportal.svc/…/
+# positionlist) gir 500 for alle alias-varianter, og candidate.hr-manager.net
+# /vacancies/list.aspx?customer=Sparebank1 server-rendrer en feilside uten JS
+# → uegnet både som kilde og som vakt. Forblir manuell sjekk i strategi.html
+# SOURCES (NB: verifiser at SOURCES-lenka fortsatt virker i nettleser).
+# ─────────────────────────────────────────────────────────────────────────
+
+WATCH_PAGES = [
+    # (navn, url, region_regex eller None) — navn er nøkkel i payload.watchHashes
+    ("FIRST Fondene", "https://firstfondene.no/om-oss/", None),
+    ("Fondsfinans", "https://www.fondsfinans.no/om-oss/", None),
+    ("ODIN Forvaltning", "https://odinfond.no/om-odin/", None),
+    ("Holberg Fondene", "https://www.holberg.no/om", None),
+    ("Alfred Berg", "https://www.alfredberg.no/karriere/", None),
+]
+
+
+def _watch_page_text(html: str) -> str:
+    """Synlig tekst for hashing: script/style-innhold droppes FØR tag-strip
+    (inline JS kan bære per-request-tokens/build-hasher → falske positive)."""
+    t = re.sub(r"<script[^>]*>.*?</script>", " ", html or "", flags=re.S | re.I)
+    t = re.sub(r"<style[^>]*>.*?</style>", " ", t, flags=re.S | re.I)
+    return _strip_tags(t)
+
+
+def check_watch_pages(prev_hashes):
+    """→ (new_hashes, changed) der changed = [{name, url}]. Muterer ikke
+    prev_hashes; kilder som feiler beholder gammel hash og varsler aldri."""
+    new_hashes = dict(prev_hashes or {})
+    changed = []
+    for name, url, region_re in WATCH_PAGES:
+        try:
+            r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
+            r.raise_for_status()
+            html = r.text
+            if region_re:
+                m = re.search(region_re, html, re.S | re.I)
+                if m:
+                    html = m.group(0)
+            h = hashlib.sha1(_watch_page_text(html).encode("utf-8")).hexdigest()
+        except Exception as e:
+            print(f"  boutique-vakt: {name} feilet ({type(e).__name__}: {e}) — "
+                  f"beholder gammel hash", file=sys.stderr)
+            time.sleep(1.0)
+            continue
+        prev = (prev_hashes or {}).get(name)
+        if prev is None:
+            print(f"  boutique-vakt: seeder hash for {name}")
+        elif prev != h:
+            changed.append({"name": name, "url": url})
+            print(f"  boutique-vakt: ENDRET — {name} ({url})")
+        new_hashes[name] = h
+        time.sleep(1.0)
+    return new_hashes, changed
+
+
+# ─────────────────────────────────────────────────────────────────────────
 # Cross-source dedup — fingerprint (selskap+tittel+by) på toppen av URL-dedup,
 # så samme jobb fra finn/NAV/ATS ikke vises 2–3×. Kilde-preferanse: direkte
 # arbeidsgiver > nav > finn > arkiv. Konjunktiv match = streng → få falske positiver.
@@ -1786,6 +1854,8 @@ def main():
     # sourceHealth fra START-payloaden (nettleseren skriver aldri feltet, så
     # start = fersk for helse-formål); oppdatert versjon graftes på fersk payload.
     prev_health = payload.get("sourceHealth") or {}
+    # watchHashes samme mønster (kun fetch_jobs skriver feltet).
+    prev_watch = payload.get("watchHashes") or {}
 
     all_scraped = []
     seen_in_scrape = set()
@@ -1919,6 +1989,10 @@ def main():
         if src in scrape_stats:
             scrape_stats[src]["enriched"] = f"{es['got']}/{es['tried']}"
 
+    # Boutique-vakt — hash-sjekk av firmakart-halens karrieresider.
+    print("Boutique-vakt: sjekker karrieresider…")
+    watch_hashes, watch_changed = check_watch_pages(prev_watch)
+
     all_queries = QUERIES + DK_QUERIES
     now_iso = now_utc.isoformat()
 
@@ -1980,6 +2054,7 @@ def main():
     if pd_changed:
         print(f"  probablyDown-vedlikehold: {pd_changed} jobber oppdatert "
               f"({len(live_urls)} autoritative kilder med data)")
+    payload["watchHashes"] = watch_hashes
 
     # Telemetri: 'new' settes om til FINALE tall (etter fingerprint-dedup og
     # clobber-guard) så sources-feltet aldri lyver om hva som faktisk kom inn.
@@ -2029,7 +2104,7 @@ def main():
             health_alarm(pushed=False)
             return
         payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": all_queries,
-                                 "sources": scrape_stats}
+                                 "sources": scrape_stats, "watchChanged": watch_changed}
         payload["sourceHealth"] = source_health
         payload["updatedAt"] = now_iso  # defensiv: bump så cross-device bootstrap adopterer lastScrape også når 0 nye jobber
         new_blob = encrypt_payload(password, payload)
@@ -2041,7 +2116,7 @@ def main():
     payload["jobs"] = new_jobs + payload.get("jobs", [])
     payload["updatedAt"] = now_iso
     payload["lastScrape"] = {"at": now_iso, "count": len(new_jobs), "queries": all_queries,
-                             "sources": scrape_stats}
+                             "sources": scrape_stats, "watchChanged": watch_changed}
     payload["sourceHealth"] = source_health
 
     print("Encrypting and pushing…")

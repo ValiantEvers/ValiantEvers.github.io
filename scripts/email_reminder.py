@@ -174,20 +174,33 @@ def find_followups(payload):
     return jobs_part + sorted(apps, key=lambda x: -x["days"])
 
 
+def find_watch_changes(payload):
+    """Boutique-vaktens funn fra siste scrape: [{name, url}] når en overvåket
+    karriereside endret seg (fetch_jobs skriver lastScrape.watchChanged; feltet
+    overskrives hver kjøring → selvutløpende, ingen state her). Null-guardet."""
+    return (payload.get("lastScrape") or {}).get("watchChanged") or []
+
+
 def esc(s):
     """HTML-escape (attributt-trygg: escaper òg " og ') for trygg
     interpolering av jobbfelt i HTML-e-posten."""
     return html.escape(str(s), quote=True)
 
 
-def build_email_body(urgent, warnings=None, followups=None):
+def build_email_body(urgent, warnings=None, followups=None, watch=None):
     """Returnerer (plain_text, html) tuple. warnings = ⚠-linjer fra
     health_warnings() som legges øverst når scrape-helsa er rød;
-    followups = purre-linjer fra find_followups()."""
+    followups = purre-linjer fra find_followups(); watch = endrede
+    karrieresider fra find_watch_changes()."""
     count = len(urgent)
     plain_lines = []
     if warnings:
         plain_lines.extend(["⚠ Kilde-helse: " + "; ".join(warnings), ""])
+    if watch:
+        for w in watch:
+            plain_lines.append(f"🔎 Karriereside endret: {w.get('name', '?')} — "
+                               f"sjekk manuelt: {w.get('url', '')}")
+        plain_lines.append("")
     if urgent:
         plain_lines.extend([
             f"{count} {'jobb' if count == 1 else 'jobber'} med "
@@ -285,6 +298,18 @@ def build_email_body(urgent, warnings=None, followups=None):
             + esc("; ".join(warnings)) + "</div>"
         )
 
+    watch_html = ""
+    if watch:
+        watch_html = (
+            '<div style="background: #eef4fd; border: 1px solid #a9c7ee; '
+            'border-radius: 6px; padding: 10px 12px; margin: 0 0 16px; '
+            'color: #1d4e89; font-size: 0.9em;">🔎 Karriereside endret — sjekk manuelt:<br>'
+            + "<br>".join(
+                f'<a href="{esc(w.get("url", "#"))}" style="color: #0070ed;">'
+                f'{esc(w.get("name", "?"))}</a>' for w in watch)
+            + "</div>"
+        )
+
     urgent_html = ""
     if urgent:
         urgent_html = (
@@ -298,6 +323,7 @@ def build_email_body(urgent, warnings=None, followups=None):
     html = f"""
     <html><body style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; margin: 0; padding: 20px; color: #1a1a1a;">
       {warn_html}
+      {watch_html}
       {urgent_html}
       {followup_html}
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
@@ -337,15 +363,17 @@ def main():
     payload = decrypt_blob(password, blob)
     urgent = find_urgent_jobs(payload)
     followups = find_followups(payload)
+    watch = find_watch_changes(payload)
     warnings = health_warnings(payload)
 
     print(f"Total jobs: {len(payload.get('jobs', []))}")
     print(f"Urgent (new/starred + deadline ≤ {REMINDER_WINDOW_DAYS} days): {len(urgent)}")
     print(f"Purre-kandidater (applied > {FOLLOWUP_AFTER_DAYS} dager): {len(followups)}")
+    print(f"Karrieresider endret (boutique-vakt): {len(watch)}")
     for w in warnings:
         print(f"⚠ Kilde-helse: {w}")
 
-    if not urgent and not followups:
+    if not urgent and not followups and not watch:
         print("Ingen e-post sendt — ingen jobber matcher kriteriene")
         return
 
@@ -355,8 +383,10 @@ def main():
         parts.append(f"{count} {'jobb' if count == 1 else 'jobber'} med frist innen {REMINDER_WINDOW_DAYS} dager")
     if followups:
         parts.append(f"{len(followups)} å purre på")
+    if watch:
+        parts.append(f"{len(watch)} karriereside{'r' if len(watch) != 1 else ''} endret")
     subject = " · ".join(parts)
-    plain, html = build_email_body(urgent, warnings, followups)
+    plain, html = build_email_body(urgent, warnings, followups, watch)
 
     print(f"Sender e-post: {subject}")
     send_email(subject, plain, html)
