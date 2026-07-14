@@ -1,11 +1,35 @@
-"""Daily finn.no scraper for strategi.html.
+"""Daglig jobb-scraper for strategi.html — 13 kilder (juli 2026).
 
-Decrypts the encrypted payload from the private Gist, scrapes finn.no via
-Playwright headless Chromium for full client-side-rendered results,
-dedupes against existing entries, scores each new job with the same
+Decrypts the encrypted payload from the private Gist, henter kandidater fra
+alle kildene, dedupes against existing entries (URL mot alt; fingerprint kun
+mot nylige/aktive — repost-vern), scores each new job with the same
 PROFILE/algorithm used in strategi.html, re-encrypts the payload and
 pushes it back to the Gist. strategi.html picks up the new jobs on next
 unlock via its existing bootstrapSync flow.
+
+Kilder (se ENABLE_-flaggene under):
+  finn        Playwright deep-scrape, 27 queries (query-forhåndsfiltrert,
+              går UTENOM keep_job)
+  nav         pam-stilling-feed (requests, cursor i payload.sourceCursors.nav).
+              NB: feeden inneholder i praksis IKKE finans/WM-annonser
+              (verifisert juli 2026: 18 320 ACTIVE på 16 dager → 6
+              finans-treff) — beholdes som billig kanari + off-market-fangst.
+  nordea/dnb/klp   SuccessFactors RSS (felles parser)
+  formue/pareto/garantum   Teamtailor JSON Feed (felles parser +
+              detaljside-lokasjonsberikelse)
+  storebrand  Workday CXS JSON (POST, paginert)
+  seb         Lever postings-API (api.eu.lever.co)
+  danske      Oracle HCM CE REST (findReqs-finder, limit=200)
+  nbim        requests+regex på vacancies-siden, Playwright-fallback
+  arctic      requests+regex, Playwright-fallback
+Alle unntatt finn går gjennom keep_job (finans/grad/employer-nett + Oslo-gate).
+
+Telemetri (juli 2026): payload.lastScrape.sources = {kilde: {found, kept,
+new}} der found = RÅTT volum før keep, og payload.sourceHealth = {kilde:
+{consecutiveZeroFound, lastOkAt}}. Fail-loud ETTER push: exit 1 når en
+kilde har vært 0-found FAIL_LOUD_AFTER dager på rad (finn: 1, RSS: 2,
+småfeeds: 5) → GitHub failure-mail. strategi.html viser det samme i
+meta-linjas kilde-helse-popover; email_reminder.py legger ⚠-linje i mailen.
 
 Run locally:
     STRATEGI_PASSWORD=... GIST_PAT=... GIST_ID=... \
@@ -130,7 +154,8 @@ QUERIES = [
     "kapitalforvaltning",
     "asset management",
     "finansanalytiker",
-    "aksjeanalytiker",
+    # "aksjeanalytiker" droppet juli 2026 — 0 SSR-treff siden mai (verifisert
+    # i Actions-logger 18. mai → 14. juli). Gjeninnfør ved behov.
     "kunderådgiver bank",
     "relasjonsleder",
     "graduate finans",
