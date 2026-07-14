@@ -599,8 +599,13 @@ def scrape_jobindex(query: str, max_jobs: int = 100, max_pages: int = 6) -> list
 # ─────────────────────────────────────────────────────────────────────────
 
 def detect_seniority(title: str) -> str:
+    # Junior-alternasjonen er bøyningstolerant (juli 2026): graduates?/interns?/
+    # internships?/associates?/trainees? + nyutdannet|nyutdannede — «Summer
+    # Interns»/«Graduates 2027»-titler ga mid og mistet selskapspoeng via
+    # A1-gaten. \b etter interns? holder fortsatt «internasjonal» ute.
+    # KEEP IN SYNC med strategi.html detectSeniority (tegn-for-tegn).
     t = (title or "").lower()
-    if re.search(r"\b(graduate|trainee|junior|associate|nyutdannet|første\s*år|entry|internship|intern)\b", t):
+    if re.search(r"\b(graduates?|trainees?|junior|associates?|nyutdannet|nyutdannede|første\s*år|entry|internships?|interns?)\b", t):
         return "junior"
     if re.search(r"\b(senior|lead|principal|director|head\s+of|vp|chief)\b", t):
         return "senior"
