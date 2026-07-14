@@ -1051,6 +1051,7 @@ var SOURCES = [
   {id:"storebrand",name:"Storebrand Karriere",url:"https://storebrand.wd3.myworkdayjobs.com/Storebrand_Careers",p:"høy",f:"daglig (auto)"},
   {id:"formue",name:"Formue",url:"https://career.formue.no/jobs",p:"høy",f:"daglig (auto)"},
   {id:"nbim",name:"NBIM (Oljefondet)",url:"https://www.nbim.no/en/about-us/career/vacancies/",p:"høy",f:"daglig (auto)"},
+  {id:"seb",name:"SEB Norge",url:"https://jobs.eu.lever.co/seb",p:"høy",f:"daglig (auto)"},
   {id:"klp",name:"KLP",url:"https://jobb.klp.no",p:"mid",f:"daglig (auto)"},
   {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/no/om-oss/jobb-hos-oss/ledige-stillinger",p:"mid",f:"1x/uke"},
   {id:"danskebank",name:"Danske Bank",url:"https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001/jobs",p:"mid",f:"1x/uke"},
@@ -1597,7 +1598,7 @@ var IMPORT_FIELD_ALIASES = {
   url:      ["URL","Lenke","Link"],
   deadline: ["Frist","Søknadsfrist","Deadline","Apply by"]
 };
-var IMPORT_SOURCES = ["linkedin","manual","finn","jobindex","jobslu","nav","nbim","nordea","dnb","formue","storebrand","arctic","pareto","klp","annet"];
+var IMPORT_SOURCES = ["linkedin","manual","finn","jobindex","jobslu","nav","nbim","nordea","dnb","formue","storebrand","arctic","pareto","klp","seb","annet"];
 var IMPORT_ALL_FIELD_LABELS = (function(){
   var all = [];
   Object.keys(IMPORT_FIELD_ALIASES).forEach(function(k){ all = all.concat(IMPORT_FIELD_ALIASES[k]); });

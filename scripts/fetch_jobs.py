@@ -54,6 +54,7 @@ ENABLE_STOREBRAND = True  # Storebrand Workday CXS JSON (requests POST)
 ENABLE_ARCTIC = True      # Arctic Securities open-positions (requests+regex, Playwright-fallback)
 ENABLE_PARETO = True      # Pareto Securities Teamtailor JSON (requests, som Formue)
 ENABLE_KLP = True         # KLP SuccessFactors RSS (requests, som Nordea/DNB) — juli 2026
+ENABLE_SEB = True         # SEB Lever postings-API (requests) — juli 2026
 
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
@@ -962,6 +963,50 @@ def fetch_teamtailor(url: str, source: str) -> list:
 
 
 # ─────────────────────────────────────────────────────────────────────────
+# Lever postings-API (SEB fra juli 2026) — offentlig JSON, requests.
+# EU-tenant: api.eu.lever.co (us-endepunktet api.lever.co gir 404 for seb).
+# Per posting: text (tittel), hostedUrl (deep-link), categories.location
+# (ren by), createdAt (ms-epoch). Hele SEB-gruppen kommer i ett kall
+# (~100 postings, Vilnius/Riga/Stockholm-tungt) — keep_job's Oslo-gate +
+# finans/grad/employer-nettene snevrer inn til Oslo-rollene.
+# ─────────────────────────────────────────────────────────────────────────
+
+
+def fetch_lever(api_url: str, source: str, company: str) -> list:
+    jobs = []
+    try:
+        r = requests.get(
+            api_url,
+            headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+            timeout=30,
+        )
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        print(f"  {source}: Lever-henting feilet: {e}", file=sys.stderr)
+        return []
+    for p in data if isinstance(data, list) else []:
+        title = (p.get("text") or "").strip()
+        link = p.get("hostedUrl") or ""
+        if not title or not link:
+            continue
+        posted = None
+        ts = p.get("createdAt")
+        if isinstance(ts, (int, float)) and ts > 0:
+            posted = datetime.fromtimestamp(ts / 1000, tz=timezone.utc).strftime("%Y-%m-%d")
+        jobs.append({
+            "role": title,
+            "company": company,
+            "location": ((p.get("categories") or {}).get("location") or "").strip(),
+            "url": link,
+            "posted": posted,
+            "query": f"{source}-ats",
+        })
+    time.sleep(1.0)
+    return jobs
+
+
+# ─────────────────────────────────────────────────────────────────────────
 # Workday CXS jobs-API — requests POST, gjenbrukbar på tvers av Workday-tenants
 # (Storebrand først). GET på /jobs gir HTTP 400 (POST-only, bekreftet live).
 # Body {"appliedFacets":{},"limit":20,"offset":0,"searchText":""}; tomt
@@ -1250,7 +1295,7 @@ def scrape_arctic() -> list:
 SOURCE_PREF = {
     "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
     "storebrand": 0, "arctic": 0, "pareto": 0,      # direkte arbeidsgiver (nye, juli 2026)
-    "klp": 0,                                        # direkte arbeidsgiver (juli 2026)
+    "klp": 0, "seb": 0,                              # direkte arbeidsgiver (juli 2026)
     "nav": 1, "finn": 2, "jobindex": 3,
 }
 
@@ -1402,7 +1447,7 @@ def main():
         ("nordea", ENABLE_NORDEA), ("dnb", ENABLE_DNB), ("formue", ENABLE_FORMUE),
         ("nbim", ENABLE_NBIM), ("storebrand", ENABLE_STOREBRAND),
         ("arctic", ENABLE_ARCTIC), ("pareto", ENABLE_PARETO),
-        ("klp", ENABLE_KLP),
+        ("klp", ENABLE_KLP), ("seb", ENABLE_SEB),
     ):
         if enabled:
             scrape_stats[src] = {"found": 0, "kept": 0, "new": 0}
@@ -1473,6 +1518,8 @@ def main():
         (ENABLE_PARETO, "pareto", lambda: fetch_teamtailor(
             "https://paretosecurities.teamtailor.com/jobs.json", "pareto")),
         (ENABLE_KLP, "klp", lambda: fetch_successfactors("https://jobb.klp.no/sitemal.xml", "klp")),
+        (ENABLE_SEB, "seb", lambda: fetch_lever(
+            "https://api.eu.lever.co/v0/postings/seb?mode=json", "seb", "SEB")),
     ):
         if not enabled:
             continue
