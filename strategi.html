@@ -111,6 +111,8 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .b-sen-junior{background:var(--green-bg);color:var(--green);border:1px solid var(--green-b)}
 .b-sen-mid{background:var(--accent-g);color:var(--accent2);border:1px solid var(--border-h)}
 .b-sen-senior{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-b)}
+/* «Trolig nedtatt»-badge (juli 2026) — settes av fetch_jobs' probablyDown-flagg */
+.b-down{font-size:.68rem;font-weight:500;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-b)}
 .job-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
 .score{font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--accent-g);color:var(--accent);border:1px solid var(--border-h);cursor:help;font-family:'Syne',sans-serif}
 .score.s-hi{background:var(--green-bg);color:var(--green);border-color:var(--green-b)}
@@ -2453,6 +2455,8 @@ function jobCardHtml(j, focusedId){
   var scoreClass = j.score >= 60 ? "s-hi" : (j.score < 25 ? "s-lo" : "");
   var senBadge = j.seniority ? '<span class="b-sen b-sen-'+j.seniority+'">'+j.seniority+'</span>' : '';
   var prio = j.priority ? '<span class="star" title="Prioritert selskap fra scrape">★</span>' : '';
+  // probablyDown settes av fetch_jobs (autoritative kilder, borte 3+ kjøringer) — null-guardet for eldre payloads
+  var downBadge = j.probablyDown ? '<span class="b-down" title="Ikke sett i kildens stillingsliste på '+(j.missingDays||3)+' kjøringer på rad — trolig tatt ned. Verifiser via lenken.">trolig nedtatt</span>' : '';
   var starredCls = j.starred ? " on" : "";
   var starredIcon = j.starred ? "★" : "☆";
   var focusedCls = (j.id === focusedId) ? " focused" : "";
@@ -2466,6 +2470,7 @@ function jobCardHtml(j, focusedId){
           (j.location && j.location!==j.company ? '<span class="dot">·</span><span>'+esc(j.location)+'</span>' : '')+
           (j.source ? '<span class="dot">·</span><span>'+esc(j.source)+'</span>' : '')+
           (senBadge ? '<span class="dot">·</span>'+senBadge : '')+
+          (downBadge ? '<span class="dot">·</span>'+downBadge : '')+
           (prio ? '<span class="dot">·</span>'+prio : '')+
         '</div>'+
       '</div>'+
