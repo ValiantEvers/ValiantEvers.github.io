@@ -896,8 +896,33 @@ def _teamtailor_location(item: dict) -> str:
     return m.group(1).strip() if m else ""
 
 
+# Lokasjonsberikelse (juli 2026): enkelte TT-items mangler jobLocation i feeden
+# (Pareto «Summer Internship 2027», enkelte Formue-roller) og fikk dermed
+# nonOsloPenalty −60 i scoring. Detaljsidens JSON-LD er OGSÅ tom for disse
+# (verifisert), men TT-headeren over <h1> viser «Avdeling · By» som uppercase-
+# spans med byen sist. Vi henter detaljsiden KUN for items uten lokasjon
+# (1–2 stk/dag) og parser den span-lista — beriker fremfor å anta Oslo.
+_TT_REMOTE_WORDS = {"hybrid", "remote", "fully remote"}
+
+
+def _teamtailor_detail_location(url: str, source: str) -> str:
+    try:
+        r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
+        r.raise_for_status()
+    except Exception as e:
+        print(f"  {source}: detaljside-henting feilet ({url}): {e}", file=sys.stderr)
+        return ""
+    m = re.search(r"<div[^>]*uppercase[^>]*>(.*?)</div>\s*<h1", r.text, re.S | re.I)
+    if not m:
+        return ""
+    parts = [_strip_tags(s) for s in re.findall(r"<span[^>]*>(.*?)</span>", m.group(1), re.S)]
+    parts = [p for p in parts
+             if p and p not in {"·", "•", "-"} and p.lower() not in _TT_REMOTE_WORDS]
+    return parts[-1] if parts else ""
+
+
 def fetch_teamtailor(url: str, source: str) -> list:
-    """Teamtailor JSON Feed (Formue)."""
+    """Teamtailor JSON Feed (Formue, Pareto)."""
     jobs = []
     try:
         r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
@@ -915,10 +940,17 @@ def fetch_teamtailor(url: str, source: str) -> list:
         m = re.match(r"(\d{4})-(\d{2})-(\d{2})", it.get("date_published") or "")
         if m:
             posted = m.group(0)
+        location = _teamtailor_location(it)
+        if not location:
+            location = _teamtailor_detail_location(link, source)
+            if location:
+                print(f"  {source}: beriket lokasjon fra detaljside: "
+                      f"{title!r} → {location}")
+            time.sleep(0.5)  # throttle — kun for de få uten lokasjon
         jobs.append({
             "role": title,
             "company": source.capitalize(),
-            "location": _teamtailor_location(it),
+            "location": location,
             "url": link,
             "posted": posted,
             "query": f"{source}-ats",
