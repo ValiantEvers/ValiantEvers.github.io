@@ -896,12 +896,15 @@ async function encryptCurrent(){
 //  PROFILE  (samme i scripts/migrate-jobs.html — referanse for tooltip)
 // ════════════════════════════════════════════════════════════════
 var PROFILE = {
+  // Fase 4-utvidelse juli 2026 — KEEP IN SYNC med scripts/fetch_jobs.py
+  // (samme strenger/rekkefølge): seb+skandinaviska enskilda 25; sparebank 1
+  // forvaltning/alfred berg/klp/garantum 20; first fondene/fondsfinans 15.
   priorityCompanies: [
     {match:["formue","formuesforvaltning","nbim","norges bank investment management"], points:30},
-    {match:["dnb","nordea","storebrand","handelsbanken","danske bank"], points:25},
-    {match:["pareto","arctic","abg","sparebank 1 markets"], points:20},
+    {match:["dnb","nordea","storebrand","handelsbanken","danske bank","seb","skandinaviska enskilda"], points:25},
+    {match:["pareto","arctic","abg","sparebank 1 markets","sparebank 1 forvaltning","alfred berg","klp","garantum"], points:20},
     {match:["bnp paribas","societe generale","société générale"], points:20},
-    {match:["holberg","odin","skagen"], points:15}
+    {match:["holberg","odin","skagen","first fondene","fondsfinans"], points:15}
   ],
   titleKeywords: [
     {kw:"wealth management",points:30},{kw:"private banking",points:30},{kw:"private banker",points:25},{kw:"fund sales",points:25},

@@ -88,12 +88,19 @@ ENABLE_GARANTUM = True    # Garantum Teamtailor JSON (requests, som Formue/Paret
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
 # ─────────────────────────────────────────────────────────────────────────
 PROFILE = {
+    # Fase 4-utvidelse juli 2026 (Valiant godkjente tier-plassering 2026-07-14):
+    # seb 25; alfred berg/klp/garantum 20; first fondene/fondsfinans 15;
+    # + «sparebank 1 forvaltning» (dagens streng dekket kun Markets).
+    # «seb» er kort substring (jf. «abg»-presedens) — A1-gaten (krever
+    # tittel-/seniority-treff) begrenser støyen; «skandinaviska enskilda»
+    # dekker NAVs formelle navn. FIRST matches som «first fondene» — bare
+    # «first» ville truffet First Hotels/First House osv.
     "priorityCompanies": [
         {"match": ["formue", "formuesforvaltning", "nbim", "norges bank investment management"], "points": 30},
-        {"match": ["dnb", "nordea", "storebrand", "handelsbanken", "danske bank"], "points": 25},
-        {"match": ["pareto", "arctic", "abg", "sparebank 1 markets"], "points": 20},
+        {"match": ["dnb", "nordea", "storebrand", "handelsbanken", "danske bank", "seb", "skandinaviska enskilda"], "points": 25},
+        {"match": ["pareto", "arctic", "abg", "sparebank 1 markets", "sparebank 1 forvaltning", "alfred berg", "klp", "garantum"], "points": 20},
         {"match": ["bnp paribas", "societe generale", "société générale"], "points": 20},
-        {"match": ["holberg", "odin", "skagen"], "points": 15},
+        {"match": ["holberg", "odin", "skagen", "first fondene", "fondsfinans"], "points": 15},
     ],
     "titleKeywords": [
         ("wealth management", 30),
