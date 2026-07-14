@@ -31,6 +31,13 @@ kilde har vært 0-found FAIL_LOUD_AFTER dager på rad (finn: 1, RSS: 2,
 småfeeds: 5) → GitHub failure-mail. strategi.html viser det samme i
 meta-linjas kilde-helse-popover; email_reminder.py legger ⚠-linje i mailen.
 
+Frist-berikelse (juli 2026): dagens NYE jobber (etter cross-source-dedup,
+før scoring/push) berikes med søknadsfrist fra kildens detaljside/-API der
+lista ikke leverer den (teamtailor/finn/danske/storebrand/nav — se
+enrich_deadlines). Best-effort: feil logges og gir deadline=None, aldri
+kastet kjøring. Telemetri: sources[kilde].enriched = "X/Y" (X fikk frist
+av Y forsøkt).
+
 Run locally:
     STRATEGI_PASSWORD=... GIST_PAT=... GIST_ID=... \
         python scripts/fetch_jobs.py
@@ -952,15 +959,30 @@ def _teamtailor_location(item: dict) -> str:
 # (1–2 stk/dag) og parser den span-lista — beriker fremfor å anta Oslo.
 _TT_REMOTE_WORDS = {"hybrid", "remote", "fully remote"}
 
+# Detaljside-HTML deles mellom lokasjonsberikelsen (fetch-tid) og frist-
+# berikelsen (enrich_deadlines) — cachen gir ETT HTTP-kall per TT-jobb selv
+# når begge trenger siden. Feilede hentinger caches ikke (kan lykkes senere).
+_TT_DETAIL_CACHE = {}
 
-def _teamtailor_detail_location(url: str, source: str) -> str:
+
+def _tt_detail_html(url: str, source: str):
+    if url in _TT_DETAIL_CACHE:
+        return _TT_DETAIL_CACHE[url]
     try:
         r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
         r.raise_for_status()
     except Exception as e:
         print(f"  {source}: detaljside-henting feilet ({url}): {e}", file=sys.stderr)
+        return None
+    _TT_DETAIL_CACHE[url] = r.text
+    return r.text
+
+
+def _teamtailor_detail_location(url: str, source: str) -> str:
+    html = _tt_detail_html(url, source)
+    if not html:
         return ""
-    m = re.search(r"<div[^>]*uppercase[^>]*>(.*?)</div>\s*<h1", r.text, re.S | re.I)
+    m = re.search(r"<div[^>]*uppercase[^>]*>(.*?)</div>\s*<h1", html, re.S | re.I)
     if not m:
         return ""
     parts = [_strip_tags(s) for s in re.findall(r"<span[^>]*>(.*?)</span>", m.group(1), re.S)]
@@ -1057,11 +1079,15 @@ def fetch_lever(api_url: str, source: str, company: str) -> list:
 # gir hele lista (175 jobber) i ETT kall (verifisert live — ingen paginering
 # nødvendig; varsler hvis TotalJobsCount vokser forbi limit). Per requisition:
 # Id, Title, PrimaryLocation («Oslo, Norway»), PostedDate, PostingEndDate
-# (→ deadline). Deep-link: {ui_base}/job/{Id}. keep_job's Oslo-gate
-# filtrerer bort Vilnius/København-massen.
+# (→ deadline; i praksis None i lista — detaljens ExternalPostedEndDate
+# hentes av frist-berikelsen). Deep-link: {ui_base}/job/{Id}. keep_job's
+# Oslo-gate filtrerer bort Vilnius/København-massen.
 # ─────────────────────────────────────────────────────────────────────────
 
 ORACLE_LIMIT = 200
+DANSKE_REST_BASE = "https://ejqi.fa.ocs.oraclecloud.eu/hcmRestApi/resources/latest"
+DANSKE_UI_BASE = "https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001"
+DANSKE_SITE = "CX_1001"
 
 
 def fetch_oracle_hcm(rest_base: str, ui_base: str, site: str, source: str, company: str) -> list:
@@ -1131,6 +1157,8 @@ def fetch_oracle_hcm(rest_base: str, ui_base: str, site: str, source: str, compa
 
 WORKDAY_LIMIT = 20
 WORKDAY_MAX_PAGES = 15  # sikkerhetstak ~300 jobber/kjøring (runaway-vern)
+STOREBRAND_CXS_JOBS_API = "https://storebrand.wd3.myworkdayjobs.com/wday/cxs/storebrand/Storebrand_Careers/jobs"
+STOREBRAND_APPLY_BASE = "https://storebrand.wd3.myworkdayjobs.com/en-US/Storebrand_Careers"
 
 
 def fetch_workday(api_url: str, base_url: str, source: str) -> list:
@@ -1400,6 +1428,170 @@ def scrape_arctic() -> list:
 
 
 # ─────────────────────────────────────────────────────────────────────────
+# Frist-berikelse (juli 2026) — kjøres KUN for dagens NYE jobber (etter
+# cross-source-dedup, før scoring/push): typisk 0–25/dag → høflig mot kildene.
+# Best-effort per jobb: enhver feil logges og lar deadline stå tom — berikelsen
+# skal aldri koste kjøringen. Mekanismer verifisert live 2026-07-14/15:
+#   teamtailor   detaljsidens JSON-LD JobPosting.validThrough («2026-08-09
+#                23:59:59 +0200»; null når arbeidsgiver ikke satte frist,
+#                enkelte eldre annonser mangler JSON-LD helt). Deler HTML med
+#                lokasjonsberikelsen via _TT_DETAIL_CACHE → ETT kall per jobb.
+#   finn         annonsesiden er SSR: «Søknadsfrist<!-- --> <span class="…
+#                font-bold">2.8.2026</span>»; «Snarest» → ingen dato. Cap
+#                ENRICH_FINN_CAP oppslag/kjøring + throttle. IKKE Playwright.
+#   danske       requisition-detalj m/ fields=ExternalPostedEndDate (lista har
+#                PostingEndDate=None for samtlige — verifisert).
+#   storebrand   CXS-detalj {api_base}{externalPath} → jobPostingInfo.endDate.
+#   nav          feedentry/{uuid} → ad_content.expires. Innenfor ToS-notatet
+#                over fetch_nav (offisiell feed m/ publicToken); kalles kun
+#                for keepede jobber — i praksis ~0/dag (NAV er kanari).
+#   seb (Lever)  har INGEN strukturert frist (verifisert: ingen close/end/
+#                expir-felter i posting-JSON; fristen står kun i fritekst-
+#                HTML, f.eks. «no later than August 9, 2026») → forblir tom.
+#   nbim + SF (nordea/dnb/klp) leverer frist fra lista fra før — uendret.
+# ─────────────────────────────────────────────────────────────────────────
+
+ENRICH_FINN_CAP = 25     # maks finn-detaljoppslag per kjøring
+ENRICH_THROTTLE_S = 0.5  # pause mellom berikelses-oppslag
+
+FINN_DEADLINE_RE = re.compile(
+    r"Søknadsfrist(?:<!--\s*-->)?\s*<span[^>]*>([^<]+)</span>", re.I
+)
+
+
+def _iso_date(s):
+    """«2026-08-14T21:55:00+00:00» / «2026-08-09 23:59:59 +0200» → «YYYY-MM-DD»."""
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", str(s or ""))
+    return m.group(0) if m else None
+
+
+def _jobposting_valid_through(html: str):
+    """JSON-LD JobPosting.validThrough fra en detaljside (None når fraværende)."""
+    for m in re.finditer(
+        r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>',
+        html or "", re.S | re.I,
+    ):
+        try:
+            data = json.loads(m.group(1).strip())
+        except ValueError:
+            continue
+        for block in data if isinstance(data, list) else [data]:
+            if isinstance(block, dict) and block.get("@type") == "JobPosting":
+                return _iso_date(block.get("validThrough"))
+    return None
+
+
+def _finn_deadline_from_html(html: str):
+    """SSR-annonsesidens «Søknadsfrist»-celle → ISO-dato («Snarest» o.l. → None)."""
+    m = FINN_DEADLINE_RE.search(html or "")
+    if not m:
+        return None
+    d = re.match(r"(\d{1,2})\.(\d{1,2})\.(\d{4})", m.group(1).strip())
+    if not d:
+        return None
+    return f"{d.group(3)}-{int(d.group(2)):02d}-{int(d.group(1)):02d}"
+
+
+def _oracle_requisition_end_date(rid: str):
+    """Danske-requisitionens ExternalPostedEndDate fra detalj-API-et (minimalt
+    svar via fields=; ~400 bytes)."""
+    url = (
+        f"{DANSKE_REST_BASE}/recruitingCEJobRequisitionDetails?onlyData=true"
+        f"&fields=ExternalPostedEndDate"
+        f"&finder=ById%3BId%3D%22{rid}%22%2CsiteNumber%3D{DANSKE_SITE}"
+    )
+    r = requests.get(
+        url, headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+        timeout=30,
+    )
+    r.raise_for_status()
+    items = r.json().get("items") or []
+    return _iso_date(items[0].get("ExternalPostedEndDate")) if items else None
+
+
+def _workday_end_date(job_url: str):
+    """Storebrand CXS-detalj → jobPostingInfo.endDate. externalPath gjenvinnes
+    fra apply-URL-en (fetch_workday bygde den som APPLY_BASE + externalPath)."""
+    if not job_url.startswith(STOREBRAND_APPLY_BASE):
+        return None
+    detail = STOREBRAND_CXS_JOBS_API.rsplit("/jobs", 1)[0] + job_url[len(STOREBRAND_APPLY_BASE):]
+    r = requests.get(
+        detail, headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+        timeout=30,
+    )
+    r.raise_for_status()
+    return _iso_date((r.json().get("jobPostingInfo") or {}).get("endDate"))
+
+
+def _nav_ad_expires(uuid: str):
+    """NAV feedentry/{uuid} → ad_content.expires (ISO)."""
+    token = _nav_token()
+    r = requests.get(
+        f"{NAV_BASE}/api/v1/feedentry/{uuid}",
+        headers={"Authorization": f"Bearer {token}", "Accept": "application/json",
+                 "User-Agent": USER_AGENT},
+        timeout=30,
+    )
+    r.raise_for_status()
+    return _iso_date((r.json().get("ad_content") or {}).get("expires"))
+
+
+def enrich_deadlines(jobs):
+    """Berik dagens nye jobber (post-dedup) med søknadsfrist der lista ikke
+    leverer den. Muterer jobs in-place; returnerer telemetri
+    {kilde: {"tried": n, "got": n}}. Kaster aldri."""
+    stats = {}
+    finn_used = 0
+    finn_capped = 0
+    for j in jobs:
+        if j.get("deadline"):
+            continue
+        src = j.get("source")
+        url = j.get("url") or ""
+        deadline = None
+        try:
+            if src in ("formue", "pareto", "garantum"):
+                html = _tt_detail_html(url, src)
+                deadline = _jobposting_valid_through(html) if html else None
+            elif src == "finn":
+                if finn_used >= ENRICH_FINN_CAP:
+                    finn_capped += 1
+                    continue
+                finn_used += 1
+                r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
+                r.raise_for_status()
+                deadline = _finn_deadline_from_html(r.text)
+            elif src == "danske":
+                m = re.search(r"/job/(\d+)$", url)
+                deadline = _oracle_requisition_end_date(m.group(1)) if m else None
+            elif src == "storebrand":
+                deadline = _workday_end_date(url)
+            elif src == "nav":
+                m = re.search(r"/stilling/([0-9a-f-]{36})$", url)
+                deadline = _nav_ad_expires(m.group(1)) if m else None
+            else:
+                # seb: ingen strukturert frist (se blokkommentaren);
+                # nbim/nordea/dnb/klp: frist kommer fra lista; øvrige: ukjent.
+                continue
+        except Exception as e:
+            print(f"  frist-berikelse: {src} feilet ({url}): "
+                  f"{type(e).__name__}: {e}", file=sys.stderr)
+            stats.setdefault(src, {"tried": 0, "got": 0})["tried"] += 1
+            time.sleep(ENRICH_THROTTLE_S)
+            continue
+        st = stats.setdefault(src, {"tried": 0, "got": 0})
+        st["tried"] += 1
+        if deadline:
+            st["got"] += 1
+            j["deadline"] = deadline
+        time.sleep(ENRICH_THROTTLE_S)
+    if finn_capped:
+        print(f"  frist-berikelse: finn-cap {ENRICH_FINN_CAP} nådd — "
+              f"{finn_capped} annonser ikke slått opp")
+    return stats
+
+
+# ─────────────────────────────────────────────────────────────────────────
 # Cross-source dedup — fingerprint (selskap+tittel+by) på toppen av URL-dedup,
 # så samme jobb fra finn/NAV/ATS ikke vises 2–3×. Kilde-preferanse: direkte
 # arbeidsgiver > nav > finn > arkiv. Konjunktiv match = streng → få falske positiver.
@@ -1625,9 +1817,7 @@ def main():
         (ENABLE_FORMUE, "formue", lambda: fetch_teamtailor("https://career.formue.no/jobs.json", "formue")),
         (ENABLE_NBIM, "nbim", scrape_nbim),
         (ENABLE_STOREBRAND, "storebrand", lambda: fetch_workday(
-            "https://storebrand.wd3.myworkdayjobs.com/wday/cxs/storebrand/Storebrand_Careers/jobs",
-            "https://storebrand.wd3.myworkdayjobs.com/en-US/Storebrand_Careers",
-            "storebrand")),
+            STOREBRAND_CXS_JOBS_API, STOREBRAND_APPLY_BASE, "storebrand")),
         (ENABLE_ARCTIC, "arctic", scrape_arctic),
         (ENABLE_PARETO, "pareto", lambda: fetch_teamtailor(
             "https://paretosecurities.teamtailor.com/jobs.json", "pareto")),
@@ -1635,9 +1825,7 @@ def main():
         (ENABLE_SEB, "seb", lambda: fetch_lever(
             "https://api.eu.lever.co/v0/postings/seb?mode=json", "seb", "SEB")),
         (ENABLE_DANSKE, "danske", lambda: fetch_oracle_hcm(
-            "https://ejqi.fa.ocs.oraclecloud.eu/hcmRestApi/resources/latest",
-            "https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001",
-            "CX_1001", "danske", "Danske Bank")),
+            DANSKE_REST_BASE, DANSKE_UI_BASE, DANSKE_SITE, "danske", "Danske Bank")),
         (ENABLE_GARANTUM, "garantum", lambda: fetch_teamtailor(
             "https://karriar.garantum.se/jobs.json", "garantum")),
     ):
@@ -1669,6 +1857,14 @@ def main():
     all_scraped = deduped
 
     print(f"Nye unike jobber totalt: {len(all_scraped)}")
+
+    # Frist-berikelse — kun dagens nye jobber (etter dedup, før scoring/push).
+    # Telemetri per kilde inn i scrape_stats som "X/Y" (X fikk frist av Y forsøkt).
+    enrich_stats = enrich_deadlines(all_scraped)
+    for src, es in sorted(enrich_stats.items()):
+        print(f"  frist-berikelse: {src} enriched {es['got']}/{es['tried']}")
+        if src in scrape_stats:
+            scrape_stats[src]["enriched"] = f"{es['got']}/{es['tried']}"
 
     all_queries = QUERIES + DK_QUERIES
     now_iso = now_utc.isoformat()
