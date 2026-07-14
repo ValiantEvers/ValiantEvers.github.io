@@ -2,7 +2,11 @@
 Daily deadline reminder. Decrypts Gist, finds jobs with deadline
 ≤ 5 days away — status "new", plus starred jobs in any status except
 applied/rejected/removed — and sends email summary to GMAIL_USER.
-Idempotent: no state stored, just queries current payload.
+Also nudges about stale applications («Purr på disse»): jobs/apps with
+status "applied" untouched for > 14 days.
+Idempotent: no state stored, just queries current payload — «daglig
+briefing»-filosofien (mai 2026) står: samme innslag gjentas til status
+endres, bevisst ingen per-jobb sendt-tracking.
 """
 
 import os, json, sys, base64, html
@@ -18,6 +22,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 USER_AGENT = "ValiantEvers-strategi-reminder/1.0"
 GIST_API = "https://api.github.com"
 REMINDER_WINDOW_DAYS = 5
+FOLLOWUP_AFTER_DAYS = 14
 STRATEGI_URL = "https://evers.no/strategi.html"
 
 # Kilde-helse (juli 2026): speiler FAIL_LOUD_AFTER i fetch_jobs.py (kun visning).
@@ -125,24 +130,70 @@ def find_urgent_jobs(payload):
     return results
 
 
+def parse_ts(s):
+    """Tolerant ISO-timestamp → date (None ved manglende/ugyldig verdi)."""
+    if not s:
+        return None
+    try:
+        return datetime.fromisoformat(str(s).replace("Z", "+00:00")).date()
+    except ValueError:
+        return None
+
+
+def find_followups(payload):
+    """«Purr på disse» (juli 2026): jobber og apps med status='applied' der
+    siste bevegelse (statusUpdated/updated, fallback added/created) er eldre
+    enn FOLLOWUP_AFTER_DAYS dager. probablyDown-jobber ekskluderes — nedtatte
+    annonser skal ikke gi mail-støy. Jobs først, deretter apps; eldste øverst."""
+    today = date.today()
+    out = []
+    for j in payload.get("jobs", []):
+        if (j.get("status") or "new") != "applied" or j.get("probablyDown"):
+            continue
+        moved = parse_ts(j.get("statusUpdated")) or parse_ts(j.get("added"))
+        if moved is None:
+            continue
+        days = (today - moved).days
+        if days > FOLLOWUP_AFTER_DAYS:
+            out.append({"kind": "jobb", "company": j.get("company", "?"),
+                        "role": j.get("role", "?"), "url": j.get("url", ""),
+                        "days": days})
+    jobs_part = sorted(out, key=lambda x: -x["days"])
+    apps = []
+    for a in payload.get("apps", []):
+        if a.get("status") != "applied":
+            continue
+        moved = parse_ts(a.get("updated")) or parse_ts(a.get("created"))
+        if moved is None:
+            continue
+        days = (today - moved).days
+        if days > FOLLOWUP_AFTER_DAYS:
+            apps.append({"kind": "søknad", "company": a.get("company", "?"),
+                         "role": a.get("role", "?"), "url": a.get("url", ""),
+                         "days": days})
+    return jobs_part + sorted(apps, key=lambda x: -x["days"])
+
+
 def esc(s):
     """HTML-escape (attributt-trygg: escaper òg " og ') for trygg
     interpolering av jobbfelt i HTML-e-posten."""
     return html.escape(str(s), quote=True)
 
 
-def build_email_body(urgent, warnings=None):
+def build_email_body(urgent, warnings=None, followups=None):
     """Returnerer (plain_text, html) tuple. warnings = ⚠-linjer fra
-    health_warnings() som legges øverst når scrape-helsa er rød."""
+    health_warnings() som legges øverst når scrape-helsa er rød;
+    followups = purre-linjer fra find_followups()."""
     count = len(urgent)
     plain_lines = []
     if warnings:
         plain_lines.extend(["⚠ Kilde-helse: " + "; ".join(warnings), ""])
-    plain_lines.extend([
-        f"{count} {'jobb' if count == 1 else 'jobber'} med "
-        f"søknadsfrist innen {REMINDER_WINDOW_DAYS} dager.",
-        ""
-    ])
+    if urgent:
+        plain_lines.extend([
+            f"{count} {'jobb' if count == 1 else 'jobber'} med "
+            f"søknadsfrist innen {REMINDER_WINDOW_DAYS} dager.",
+            ""
+        ])
     html_items = []
 
     for i, item in enumerate(urgent, 1):
@@ -186,6 +237,39 @@ def build_email_body(urgent, warnings=None):
           </li>
         """)
 
+    # «Purr på disse» — søkt for >FOLLOWUP_AFTER_DAYS dager siden uten bevegelse
+    followup_html = ""
+    if followups:
+        plain_lines.extend([
+            f"Purr på disse ({len(followups)} søkt for >{FOLLOWUP_AFTER_DAYS} "
+            f"dager siden uten bevegelse):",
+            ""
+        ])
+        fu_items = []
+        for f in followups:
+            plain_lines.extend([
+                f"• {f['role']} — {f['company']} ({f['days']} dager siden søknad, {f['kind']})",
+                f"  {f['url']}" if f["url"] else "  (ingen lenke)",
+                ""
+            ])
+            link = (f'<a href="{esc(f["url"])}" style="color: #0070ed; text-decoration: none;">'
+                    f'{esc(f["role"])}</a>') if f["url"] else esc(f["role"])
+            fu_items.append(
+                f'<li style="margin-bottom: 10px;">'
+                f'<div style="font-weight: 600;">{link}</div>'
+                f'<div style="color: #555; font-size: 0.9em;">'
+                f'{esc(f["company"])} · {f["days"]} dager siden søknad ({f["kind"]})</div>'
+                f'</li>'
+            )
+        followup_html = (
+            '<h2 style="font-weight: 500; margin: 24px 0 12px;">'
+            f'Purr på disse ({len(followups)})</h2>'
+            '<p style="color: #888; font-size: 0.85em; margin: 0 0 12px;">'
+            f'Søkt for over {FOLLOWUP_AFTER_DAYS} dager siden uten registrert bevegelse.</p>'
+            '<ul style="padding-left: 20px; margin: 0; list-style: none;">'
+            + "".join(fu_items) + "</ul>"
+        )
+
     plain_lines.extend([
         "—",
         f"Åpne strategi.html for å oppdatere status: {STRATEGI_URL}"
@@ -201,15 +285,21 @@ def build_email_body(urgent, warnings=None):
             + esc("; ".join(warnings)) + "</div>"
         )
 
+    urgent_html = ""
+    if urgent:
+        urgent_html = (
+            '<h2 style="font-weight: 500; margin: 0 0 16px;">'
+            f"{count} {'jobb' if count == 1 else 'jobber'} med søknadsfrist innen {REMINDER_WINDOW_DAYS} dager"
+            '</h2>'
+            '<ol style="padding-left: 20px; margin: 0;">'
+            + "".join(html_items) + "</ol>"
+        )
+
     html = f"""
     <html><body style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; margin: 0; padding: 20px; color: #1a1a1a;">
       {warn_html}
-      <h2 style="font-weight: 500; margin: 0 0 16px;">
-        {count} {'jobb' if count == 1 else 'jobber'} med søknadsfrist innen {REMINDER_WINDOW_DAYS} dager
-      </h2>
-      <ol style="padding-left: 20px; margin: 0;">
-        {''.join(html_items)}
-      </ol>
+      {urgent_html}
+      {followup_html}
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="color: #888; font-size: 0.85em;">
         <a href="{STRATEGI_URL}" style="color: #0070ed;">Åpne strategi.html for å oppdatere status</a>
@@ -246,20 +336,27 @@ def main():
     blob = gist_get(pat, gist_id)
     payload = decrypt_blob(password, blob)
     urgent = find_urgent_jobs(payload)
+    followups = find_followups(payload)
     warnings = health_warnings(payload)
 
     print(f"Total jobs: {len(payload.get('jobs', []))}")
     print(f"Urgent (new/starred + deadline ≤ {REMINDER_WINDOW_DAYS} days): {len(urgent)}")
+    print(f"Purre-kandidater (applied > {FOLLOWUP_AFTER_DAYS} dager): {len(followups)}")
     for w in warnings:
         print(f"⚠ Kilde-helse: {w}")
 
-    if not urgent:
+    if not urgent and not followups:
         print("Ingen e-post sendt — ingen jobber matcher kriteriene")
         return
 
     count = len(urgent)
-    subject = f"{count} {'jobb' if count == 1 else 'jobber'} med frist innen {REMINDER_WINDOW_DAYS} dager"
-    plain, html = build_email_body(urgent, warnings)
+    parts = []
+    if urgent:
+        parts.append(f"{count} {'jobb' if count == 1 else 'jobber'} med frist innen {REMINDER_WINDOW_DAYS} dager")
+    if followups:
+        parts.append(f"{len(followups)} å purre på")
+    subject = " · ".join(parts)
+    plain, html = build_email_body(urgent, warnings, followups)
 
     print(f"Sender e-post: {subject}")
     send_email(subject, plain, html)
