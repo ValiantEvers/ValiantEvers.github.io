@@ -19,6 +19,35 @@ GIST_API = "https://api.github.com"
 REMINDER_WINDOW_DAYS = 5
 STRATEGI_URL = "https://evers.no/strategi.html"
 
+# Kilde-helse (juli 2026): speiler FAIL_LOUD_AFTER i fetch_jobs.py (kun visning).
+# Leser lastScrape/sourceHealth fra payloaden og legger én ⚠-linje øverst i
+# mailen når noe er rødt. Null-guardet — eldre payloads mangler feltene.
+HEALTH_RED_AFTER = {"finn": 1, "nordea": 2, "dnb": 2}
+HEALTH_DEFAULT_AFTER = 5
+STALE_SCRAPE_HOURS = 48
+
+
+def health_warnings(payload):
+    """⚠-linjer når scrape-helsa er rød: stale lastScrape (>48 t) eller kilder
+    over fail-loud-terskelen. Tom liste = alt friskt."""
+    warns = []
+    at = (payload.get("lastScrape") or {}).get("at")
+    if at:
+        try:
+            dt = datetime.fromisoformat(str(at).replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            age_h = (datetime.now(timezone.utc) - dt).total_seconds() / 3600
+            if age_h > STALE_SCRAPE_HOURS:
+                warns.append(f"siste scrape er {age_h / 24:.1f} døgn gammel")
+        except ValueError:
+            pass
+    for src, h in sorted((payload.get("sourceHealth") or {}).items()):
+        cz = int(h.get("consecutiveZeroFound") or 0)
+        if cz >= HEALTH_RED_AFTER.get(src, HEALTH_DEFAULT_AFTER):
+            warns.append(f"{src}: 0 funnet {cz} kjøringer på rad")
+    return warns
+
 
 # Crypto + Gist — duplicate of fetch_jobs.py (KEEP IN SYNC)
 def derive_key(password, salt):
@@ -90,14 +119,18 @@ def esc(s):
     return html.escape(str(s), quote=True)
 
 
-def build_email_body(urgent):
-    """Returnerer (plain_text, html) tuple."""
+def build_email_body(urgent, warnings=None):
+    """Returnerer (plain_text, html) tuple. warnings = ⚠-linjer fra
+    health_warnings() som legges øverst når scrape-helsa er rød."""
     count = len(urgent)
-    plain_lines = [
+    plain_lines = []
+    if warnings:
+        plain_lines.extend(["⚠ Kilde-helse: " + "; ".join(warnings), ""])
+    plain_lines.extend([
         f"{count} {'jobb' if count == 1 else 'jobber'} med "
         f"søknadsfrist innen {REMINDER_WINDOW_DAYS} dager.",
         ""
-    ]
+    ])
     html_items = []
 
     for i, item in enumerate(urgent, 1):
@@ -146,8 +179,18 @@ def build_email_body(urgent):
     ])
     plain = "\n".join(plain_lines)
 
+    warn_html = ""
+    if warnings:
+        warn_html = (
+            '<div style="background: #fdf3d7; border: 1px solid #e5c55a; '
+            'border-radius: 6px; padding: 10px 12px; margin: 0 0 16px; '
+            'color: #7a5d00; font-size: 0.9em;">⚠ Kilde-helse: '
+            + esc("; ".join(warnings)) + "</div>"
+        )
+
     html = f"""
     <html><body style="font-family: -apple-system, system-ui, sans-serif; max-width: 600px; margin: 0; padding: 20px; color: #1a1a1a;">
+      {warn_html}
       <h2 style="font-weight: 500; margin: 0 0 16px;">
         {count} {'jobb' if count == 1 else 'jobber'} med søknadsfrist innen {REMINDER_WINDOW_DAYS} dager
       </h2>
@@ -190,9 +233,12 @@ def main():
     blob = gist_get(pat, gist_id)
     payload = decrypt_blob(password, blob)
     urgent = find_urgent_jobs(payload)
+    warnings = health_warnings(payload)
 
     print(f"Total jobs: {len(payload.get('jobs', []))}")
     print(f"Urgent (new + deadline ≤ {REMINDER_WINDOW_DAYS} days): {len(urgent)}")
+    for w in warnings:
+        print(f"⚠ Kilde-helse: {w}")
 
     if not urgent:
         print("Ingen e-post sendt — ingen jobber matcher kriteriene")
@@ -200,7 +246,7 @@ def main():
 
     count = len(urgent)
     subject = f"{count} {'jobb' if count == 1 else 'jobber'} med frist innen {REMINDER_WINDOW_DAYS} dager"
-    plain, html = build_email_body(urgent)
+    plain, html = build_email_body(urgent, warnings)
 
     print(f"Sender e-post: {subject}")
     send_email(subject, plain, html)
