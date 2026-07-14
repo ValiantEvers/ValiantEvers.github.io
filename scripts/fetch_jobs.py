@@ -734,9 +734,13 @@ def _nav_token() -> str:
 
 
 def fetch_nav(cursor):
-    """NAV-feed → (jobs, new_cursor). cursor = siste konsumerte side-id eller None.
+    """NAV-feed → (jobs, new_cursor, stats). cursor = siste konsumerte side-id eller None.
     Filtrerer ACTIVE + keep_job på liste-feltene (NAV er hele markedet → må filtreres
-    her), bygger jobb-dict med arbeidsplassen-deep-link, følger next_url til tuppen."""
+    her), bygger jobb-dict med arbeidsplassen-deep-link, følger next_url til tuppen.
+    stats teller RÅTT volum (telemetri): pages, items (alle events), active
+    (ACTIVE-events = reelle kandidater FØR keep-filteret) — keep_job skjer her inne,
+    så uten disse tallene er «0 kandidater» i loggen blind for om feeden i det hele
+    tatt leverer events (jf. stille-død-analysen juli 2026)."""
     token = _nav_token()
     sess = requests.Session()
     sess.headers.update({
@@ -748,6 +752,7 @@ def fetch_nav(cursor):
     url = f"{NAV_BASE}/api/v1/feed/{cursor}" if cursor else f"{NAV_BASE}/api/v1/feed?last=true"
     jobs = []
     new_cursor = cursor
+    stats = {"pages": 0, "items": 0, "active": 0}
     pages = 0
     while url and pages < NAV_MAX_PAGES:
         full = url if url.startswith("http") else NAV_BASE + url
@@ -763,9 +768,11 @@ def fetch_nav(cursor):
         if data.get("id"):
             new_cursor = data["id"]
         for it in data.get("items", []):
+            stats["items"] += 1
             fe = it.get("_feed_entry") or {}
             if fe.get("status") != "ACTIVE":
                 continue
+            stats["active"] += 1
             uuid = fe.get("uuid") or it.get("id")
             if not uuid:
                 continue
@@ -801,7 +808,8 @@ def fetch_nav(cursor):
             f"neste kjøring (cursor lagret)",
             file=sys.stderr,
         )
-    return jobs, new_cursor
+    stats["pages"] = pages
+    return jobs, new_cursor, stats
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -1149,6 +1157,15 @@ SOURCE_PREF = {
     "nav": 1, "finn": 2, "jobindex": 3,
 }
 
+# Fail-loud-terskler (juli 2026): kjøringer på rad med found==0 før exit 1
+# (etter at Gist-payloaden er pushet — alarmen skal aldri koste data).
+# finn: 28 queries sortert PUBLISHED_DESC gir organisk aldri 0 totalt → alarm
+# samme dag (betyr blokk/DOM-brudd/Playwright-havari). Nordea/DNB-RSS har alltid
+# innhold → 2. Småfeeds (formue/pareto/nbim/arctic/storebrand/nav) kan ha
+# organiske 0-dager → default 5.
+FAIL_LOUD_AFTER = {"finn": 1, "nordea": 2, "dnb": 2}
+FAIL_LOUD_DEFAULT = 5
+
 
 def _canon_company(company: str) -> str:
     """Kanonisk selskaps-token så «DNB», «DNB Bank ASA» osv. kollapser til ett.
@@ -1232,30 +1249,59 @@ def main():
     print(f"  Eksisterende jobber: {len(existing_urls)}")
     nav_cursor = (payload.get("sourceCursors") or {}).get("nav")
     new_nav_cursor = None  # settes av NAV-blokka; graftes på fersk payload før push
+    # sourceHealth fra START-payloaden (nettleseren skriver aldri feltet, så
+    # start = fersk for helse-formål); oppdatert versjon graftes på fersk payload.
+    prev_health = payload.get("sourceHealth") or {}
 
     all_scraped = []
     seen_in_scrape = set()
 
+    # Per-kilde-telemetri: found = RÅTT volum før keep-filteret (for NAV: ACTIVE-
+    # events), kept = etter keep_job, new = etter dedup (settes om til FINALE tall
+    # etter fingerprint-dedup + clobber-guard). Kun aktiverte kilder får entry —
+    # en kilde som kaster exception blir stående på 0 (teller som zero-found).
+    scrape_stats = {}
+    for src, enabled in (
+        ("finn", True), ("jobindex", ENABLE_JOBINDEX), ("nav", ENABLE_NAV),
+        ("nordea", ENABLE_NORDEA), ("dnb", ENABLE_DNB), ("formue", ENABLE_FORMUE),
+        ("nbim", ENABLE_NBIM), ("storebrand", ENABLE_STOREBRAND),
+        ("arctic", ENABLE_ARCTIC), ("pareto", ENABLE_PARETO),
+    ):
+        if enabled:
+            scrape_stats[src] = {"found": 0, "kept": 0, "new": 0}
+
+    def record(source, found, kept, new):
+        st = scrape_stats.setdefault(source, {"found": 0, "kept": 0, "new": 0})
+        st["found"] += found
+        st["kept"] += kept
+        st["new"] += new
+
     def ingest(jobs, source, apply_keep):
-        """URL-dedup + (valgfritt) keep-filter; tagger source og samler opp."""
+        """URL-dedup + (valgfritt) keep-filter; tagger source og samler opp.
+        Returnerer (kept, new): kept = passerte keep-filteret, new = også nye
+        etter URL-dedup."""
         kept = 0
+        new = 0
         for j in jobs:
             if apply_keep and not keep_job(j, source):
                 continue
+            kept += 1
             norm = normalize_url(j.get("url", ""))
             if not norm or norm in existing_urls or norm in seen_in_scrape:
                 continue
             seen_in_scrape.add(norm)
             j["source"] = source
             all_scraped.append(j)
-            kept += 1
-        return kept
+            new += 1
+        return kept, new
 
     def collect(queries, scraper, source):
         for q in queries:
             print(f"Scraping {source} query: {q!r}")
             scraped = scraper(q)
-            print(f"  {len(scraped)} jobber, {ingest(scraped, source, False)} nye etter dedup")
+            _, new = ingest(scraped, source, False)
+            record(source, len(scraped), len(scraped), new)
+            print(f"  {len(scraped)} jobber, {new} nye etter dedup")
 
     # finn er query-forhåndsfiltrert → ingen keep_job. Nye kilder → keep_job.
     collect(QUERIES, scrape_finn, "finn")
@@ -1267,9 +1313,14 @@ def main():
     if ENABLE_NAV:
         print("Henter NAV-feed…")
         try:
-            nav_jobs, new_nav_cursor = fetch_nav(nav_cursor)
+            nav_jobs, new_nav_cursor, nav_stats = fetch_nav(nav_cursor)
             payload.setdefault("sourceCursors", {})["nav"] = new_nav_cursor
-            print(f"  nav: {len(nav_jobs)} kandidater, {ingest(nav_jobs, 'nav', True)} nye etter dedup")
+            # keep_job er alt anvendt inne i fetch_nav → apply_keep=False her.
+            _, nav_new = ingest(nav_jobs, "nav", False)
+            record("nav", nav_stats["active"], len(nav_jobs), nav_new)
+            print(f"  nav: {nav_stats['pages']} sider / {nav_stats['items']} events "
+                  f"({nav_stats['active']} ACTIVE), {len(nav_jobs)} etter keep, "
+                  f"{nav_new} nye etter dedup")
         except Exception as e:
             print(f"  nav: FEILET ({type(e).__name__}: {e}) — hopper over", file=sys.stderr)
     for enabled, label, fn in (
@@ -1290,7 +1341,9 @@ def main():
         print(f"Henter {label}…")
         try:
             found = fn()
-            print(f"  {label}: {len(found)} kandidater, {ingest(found, label, True)} nye etter dedup")
+            kept, new = ingest(found, label, True)
+            record(label, len(found), kept, new)
+            print(f"  {label}: {len(found)} kandidater, {kept} etter keep, {new} nye etter dedup")
         except Exception as e:
             print(f"  {label}: FEILET ({type(e).__name__}: {e}) — hopper over", file=sys.stderr)
 
@@ -1365,25 +1418,74 @@ def main():
     if new_nav_cursor is not None:
         payload.setdefault("sourceCursors", {})["nav"] = new_nav_cursor
 
+    # Telemetri: 'new' settes om til FINALE tall (etter fingerprint-dedup og
+    # clobber-guard) så sources-feltet aldri lyver om hva som faktisk kom inn.
+    for st in scrape_stats.values():
+        st["new"] = 0
+    for j in new_jobs:
+        if j["source"] in scrape_stats:
+            scrape_stats[j["source"]]["new"] += 1
+
+    # sourceHealth: consecutiveZeroFound = kjøringer på rad med found==0 (en
+    # kilde som kastet exception står på 0 found og teller). lastOkAt = siste
+    # kjøring med found > 0. Kun aktiverte kilder vedlikeholdes — deaktiverte
+    # faller ut (portalen null-guarder).
+    source_health = {}
+    for src, st in scrape_stats.items():
+        prev = prev_health.get(src) or {}
+        if st["found"] > 0:
+            source_health[src] = {"consecutiveZeroFound": 0, "lastOkAt": now_iso}
+        else:
+            source_health[src] = {
+                "consecutiveZeroFound": int(prev.get("consecutiveZeroFound") or 0) + 1,
+                "lastOkAt": prev.get("lastOkAt"),
+            }
+
+    def health_alarm(pushed):
+        """Fail-loud ETTER push — alarmen skal aldri koste payload-data.
+        ::warning:: per kilde med 0 funnet i dag (synlig i run-oversikten);
+        exit 1 når terskelen er nådd → GitHub sender failure-mail gratis."""
+        for src in sorted(scrape_stats):
+            if scrape_stats[src]["found"] == 0:
+                print(f"::warning::{src}: 0 kandidater funnet "
+                      f"({source_health[src]['consecutiveZeroFound']} kjøringer på rad)")
+        alarms = [
+            f"{src}: 0 funnet {source_health[src]['consecutiveZeroFound']} kjøringer på rad "
+            f"(terskel {FAIL_LOUD_AFTER.get(src, FAIL_LOUD_DEFAULT)})"
+            for src in sorted(scrape_stats)
+            if source_health[src]["consecutiveZeroFound"] >= FAIL_LOUD_AFTER.get(src, FAIL_LOUD_DEFAULT)
+        ]
+        if alarms:
+            print(f"KILDE-ALARM ({'payload pushet' if pushed else 'payload IKKE pushet'}): "
+                  + "; ".join(alarms), file=sys.stderr)
+            sys.exit(1)
+
     if not new_jobs:
         if remote_changed:
             print("0 nye jobber og Gist endret eksternt under scraping — hopper over push")
+            health_alarm(pushed=False)
             return
-        payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": all_queries}
+        payload["lastScrape"] = {"at": now_iso, "count": 0, "queries": all_queries,
+                                 "sources": scrape_stats}
+        payload["sourceHealth"] = source_health
         payload["updatedAt"] = now_iso  # defensiv: bump så cross-device bootstrap adopterer lastScrape også når 0 nye jobber
         new_blob = encrypt_payload(password, payload)
         gist_patch(pat, gist_id, new_blob)
         print("Pushed lastScrape-update (0 nye jobber)")
+        health_alarm(pushed=True)
         return
 
     payload["jobs"] = new_jobs + payload.get("jobs", [])
     payload["updatedAt"] = now_iso
-    payload["lastScrape"] = {"at": now_iso, "count": len(new_jobs), "queries": all_queries}
+    payload["lastScrape"] = {"at": now_iso, "count": len(new_jobs), "queries": all_queries,
+                             "sources": scrape_stats}
+    payload["sourceHealth"] = source_health
 
     print("Encrypting and pushing…")
     new_blob = encrypt_payload(password, payload)
     gist_patch(pat, gist_id, new_blob)
     print(f"✓ Pushed {len(new_jobs)} new jobs to Gist")
+    health_alarm(pushed=True)
 
 
 if __name__ == "__main__":
