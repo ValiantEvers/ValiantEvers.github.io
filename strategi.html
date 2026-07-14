@@ -425,6 +425,9 @@ select.inp{color-scheme:dark;appearance:auto}
 .import-paste-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
 .import-status{font-size:.78rem;color:var(--dim);min-height:1.4em}
 .import-status.ok{color:var(--green)}
+/* Bookmarklet-lenke (juli 2026) — dras til bokmerkelinjen, href settes i bindImportControls */
+.bookmarklet{display:inline-block;padding:6px 12px;border:1px dashed var(--accent);border-radius:6px;color:var(--accent);font-size:.78rem;text-decoration:none;cursor:grab}
+.bookmarklet:hover{background:var(--accent-g)}
 .import-status.warn{color:var(--yellow)}
 .import-list-section{margin-top:10px}
 .import-list-h{font-size:.78rem;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px}
@@ -753,6 +756,12 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
       </div>
 
       <div class="import-section import-list-section" id="importListSection"></div>
+
+      <div class="import-section">
+        <h3>LinkedIn-bookmarklet</h3>
+        <p class="modal-sub" style="margin-bottom:8px">Dra lenken til bokmerkelinjen. Klikk den på en LinkedIn-jobbside — jobben åpnes her, ferdig utfylt via samme parser som paste-import.</p>
+        <a class="bookmarklet" id="bookmarkletLink" href="#">➕ Til strategien</a>
+      </div>
 
     </div>
 
@@ -1784,6 +1793,68 @@ function closeImportModal(force){
 }
 
 // ════════════════════════════════════════════════════════════════
+//  #import=-FRAGMENT + LINKEDIN-BOOKMARKLET (juli 2026)
+//  Bookmarkleten (dras til bokmerkelinjen fra import-modalen) leser
+//  JobPosting JSON-LD på en LinkedIn-jobbside (DOM-fallback: h1 +
+//  toppkort; siste fallback: url + document.title), base64-koder
+//  {role, company, location, url, posted?} og åpner
+//  strategi.html#import=<b64>. URL-fragment sendes aldri til server →
+//  privat OK. Fragmentet leses og FJERNES umiddelbart ved load (før
+//  unlock) så refresh aldri re-importerer; payloaden parkeres i minnet
+//  og sendes inn i den eksisterende paste-import-flyten etter unlock
+//  (samme parser/dedup/scoring, source "linkedin"). Brukerinitiert på
+//  siden brukeren selv ser — ingen crawling mot LinkedIn.
+// ════════════════════════════════════════════════════════════════
+var PENDING_IMPORT_FRAGMENT = null;
+(function(){
+  var m = (location.hash || "").match(/^#import=(.+)$/);
+  if(!m) return;
+  try{
+    // base64url-tolerant + UTF-8 (speiler bookmarkletens btoa(unescape(encodeURIComponent(...))))
+    var b64 = m[1].replace(/-/g, "+").replace(/_/g, "/");
+    PENDING_IMPORT_FRAGMENT = JSON.parse(decodeURIComponent(escape(atob(b64))));
+  }catch(err){
+    console.warn("#import=-fragment kunne ikke dekodes:", err);
+  }
+  history.replaceState(null, "", location.pathname + location.search);
+})();
+
+// Minifisert kilde for bookmarkleten — href settes i bindImportControls.
+// Lesbar versjon i kommentarform: se parseJobBlock-flyten; bookmarkleten
+// leser document.scripts (unngår attributt-selektor-quoting), plukker
+// JobPosting-JSON-LD, faller tilbake til h1/toppkort, og åpner #import=.
+var BOOKMARKLET_SRC = "javascript:(function(){function t(s){return(s||'').replace(/\\s+/g,' ').trim()}var d=null,ss=document.scripts;for(var i=0;i<ss.length&&!d;i++){if(ss[i].type!=='application/ld+json')continue;try{var j=JSON.parse(ss[i].textContent),a=Array.isArray(j)?j:[j];for(var k=0;k<a.length;k++){if(a[k]&&a[k]['@type']==='JobPosting'){d=a[k];break}}}catch(e){}}var o={url:location.href.split('?')[0]};if(d){o.role=t(d.title);o.company=t((d.hiringOrganization||{}).name);var jl=Array.isArray(d.jobLocation)?d.jobLocation[0]:d.jobLocation;var ad=(jl||{}).address||{};o.location=t(ad.addressLocality||ad.addressRegion);if(d.datePosted)o.posted=String(d.datePosted).slice(0,10)}if(!o.role){var h=document.querySelector('h1');o.role=t(h?h.textContent:'');var c=document.querySelector('.job-details-jobs-unified-top-card__company-name a,.job-details-jobs-unified-top-card__company-name,.topcard__org-name-link,.topcard__org-name');if(c&&!o.company)o.company=t(c.textContent)}if(!o.role)o.role=t(document.title);window.open('https://www.evers.no/strategi.html#import='+btoa(unescape(encodeURIComponent(JSON.stringify(o)))),'_blank')})();";
+
+function fragmentToMarkdown(f){
+  // Bygger samme markdown som manuell paste → gjenbruker parseren 1:1.
+  var clean = function(s){ return String(s || "").replace(/\s+/g, " ").trim(); };
+  var lines = ["## " + (clean(f.role) || "Ukjent tittel")];
+  if(f.company)  lines.push("**Firma:** " + clean(f.company));
+  if(f.location) lines.push("**Lokasjon:** " + clean(f.location));
+  if(f.url)      lines.push("**URL:** " + clean(f.url));
+  if(f.posted)   lines.push("", "Publisert: " + clean(f.posted));
+  return lines.join("\n");
+}
+
+function runFragmentImport(f){
+  if(!f || typeof f !== "object") return;
+  openImportModal();
+  document.getElementById("importPaste").value = fragmentToMarkdown(f);
+  runImportParse();
+  toast("Importert fra bookmarklet — sjekk feltene og lagre");
+}
+
+// Venter til bootstrapSync er ferdig før importen kjøres — ellers kan en
+// rask lagring bli klobbret når remote-payload adopteres (STATE.payload byttes).
+function runFragmentImportWhenReady(f, tries){
+  if(STATE.bootstrapping && (tries || 0) < 100){
+    setTimeout(function(){ runFragmentImportWhenReady(f, (tries || 0) + 1); }, 200);
+    return;
+  }
+  runFragmentImport(f);
+}
+
+// ════════════════════════════════════════════════════════════════
 //  ETAPPE 8 — COVER-LETTER (copy-paste mot cover-letter-valiant-skill)
 // ════════════════════════════════════════════════════════════════
 function fmtDateDMY(iso){
@@ -2229,6 +2300,14 @@ function bindImportControls(){
     if(IMPORT.parseDebounce) clearTimeout(IMPORT.parseDebounce);
     IMPORT.parseDebounce = setTimeout(runImportParse, 300);
   });
+  // Bookmarklet: href for dra-til-bokmerkelinjen; klikk HER er meningsløst
+  // (ingen LinkedIn-side) → forklar i stedet for å kjøre den.
+  var bml = document.getElementById("bookmarkletLink");
+  bml.setAttribute("href", BOOKMARKLET_SRC);
+  bml.addEventListener("click", function(e){
+    e.preventDefault();
+    toast("Dra lenken til bokmerkelinjen — og klikk den når du står på en LinkedIn-jobbside");
+  });
 }
 
 // Hook into existing global Esc handler — needs to handle importModal
@@ -2439,6 +2518,14 @@ function initUI(payload){
     bootstrapSync();
   } else {
     updateSyncIndicator("noconfig");
+  }
+
+  // Bookmarklet-import: #import=-fragment parkert ved load kjøres nå
+  // (etter unlock; venter på bootstrapSync så lagring ikke klobbres).
+  if(PENDING_IMPORT_FRAGMENT){
+    var frag = PENDING_IMPORT_FRAGMENT;
+    PENDING_IMPORT_FRAGMENT = null;
+    runFragmentImportWhenReady(frag, 0);
   }
 }
 
