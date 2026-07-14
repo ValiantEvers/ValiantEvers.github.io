@@ -1,6 +1,7 @@
 """
-Daily deadline reminder. Decrypts Gist, finds new jobs with
-deadline ≤ 5 days away, sends email summary to GMAIL_USER.
+Daily deadline reminder. Decrypts Gist, finds jobs with deadline
+≤ 5 days away — status "new", plus starred jobs in any status except
+applied/rejected/removed — and sends email summary to GMAIL_USER.
 Idempotent: no state stored, just queries current payload.
 """
 
@@ -88,13 +89,22 @@ def parse_deadline(s):
         return None
 
 
+# Starred-utvidelse (juli 2026): en stjernemerket jobb skal ikke falle ut av
+# varslingen i det øyeblikket den er sett (status "seen") — jf. SEB PWM-
+# internshipet (frist 31.07). applied/rejected/removed er ferdigbehandlet.
+STARRED_EXCLUDED_STATUSES = {"applied", "rejected", "removed"}
+
+
 def find_urgent_jobs(payload):
-    """Filtrerer ut jobber med status='new' + deadline innen
-    REMINDER_WINDOW_DAYS dager. Sortert deadline asc."""
+    """Filtrerer ut jobber med deadline innen REMINDER_WINDOW_DAYS dager:
+    status='new', ELLER starred med status utenfor STARRED_EXCLUDED_STATUSES.
+    Sortert deadline asc."""
     today = date.today()
     results = []
     for j in payload.get("jobs", []):
-        if j.get("status") != "new":
+        status = j.get("status") or "new"
+        starred_ok = j.get("starred") and status not in STARRED_EXCLUDED_STATUSES
+        if status != "new" and not starred_ok:
             continue
         dl = parse_deadline(j.get("deadline"))
         if dl is None:
@@ -143,9 +153,10 @@ def build_email_body(urgent, warnings=None):
             f"{days} dager"
         )
         score = j.get("score", 0)
+        star = "★ " if j.get("starred") else ""
 
         plain_lines.extend([
-            f"{i}. {j.get('role', '?')} — {j.get('company', '?')}",
+            f"{i}. {star}{j.get('role', '?')} — {j.get('company', '?')}",
             f"   Frist: {dl_str} ({days_label})",
             f"   Score: {score} · {j.get('location', '')}",
             f"   {j.get('url', '')}",
@@ -160,7 +171,7 @@ def build_email_body(urgent, warnings=None):
         html_items.append(f"""
           <li style="margin-bottom: 14px;">
             <div style="font-weight: 600;">
-              <a href="{url_e}" style="color: #0070ed; text-decoration: none;">
+              {star}<a href="{url_e}" style="color: #0070ed; text-decoration: none;">
                 {role_e}
               </a>
             </div>
@@ -236,7 +247,7 @@ def main():
     warnings = health_warnings(payload)
 
     print(f"Total jobs: {len(payload.get('jobs', []))}")
-    print(f"Urgent (new + deadline ≤ {REMINDER_WINDOW_DAYS} days): {len(urgent)}")
+    print(f"Urgent (new/starred + deadline ≤ {REMINDER_WINDOW_DAYS} days): {len(urgent)}")
     for w in warnings:
         print(f"⚠ Kilde-helse: {w}")
 
