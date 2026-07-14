@@ -659,6 +659,14 @@ FINANCE_TERMS = [kw for kw, _ in PROFILE["titleKeywords"]] + [
     "fondsrådgiv", "fondsselg", "finansrådgiv", "finansanalytiker",
     "aksjeanalytiker", "premium banking", "relasjonsleder",
     "client advisor", "relationship manager", "wealth advisor",
+    # Juli 2026 — tettet verifisert hull: «Kunderådgiver Sparing og Investering»
+    # (DNB) traff ingen nett («investerings» m/ s matcher ikke «investering» —
+    # gjaldt BÅDE NAV og DNB-RSS). «sparing» har kjent lavscore-støy
+    # (innsparing/energisparing) — akseptert; stram til «sparing og» hvis den
+    # blir plagsom. IKKE legg inn bare «megler»: da blir finance=True for
+    # «Eiendomsmegler» og not-(neg and not finance)-vernet slutter å virke
+    # for hele megler-familien.
+    "investering", "sparing", "aksjemegler", "verdipapir",
 ]
 
 # «Målbedrift-rolle»-nett: front-office-NÆRE titler som WM/PB-vokabularet over
