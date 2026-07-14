@@ -1647,6 +1647,54 @@ def fingerprint(job: dict) -> str:
     return f"{_canon_company(job.get('company'))}|{role}|{_canon_city(job.get('location'))}"
 
 
+# ─────────────────────────────────────────────────────────────────────────
+# «Trolig nedtatt»-flagg (juli 2026) — for kilder med AUTORITATIV feed (hele
+# stillingslista i ett svar) kan fravær tolkes: en payload-jobb hvis URL ikke
+# lenger er blant kildens rå kandidater er trolig tatt ned. finn/nav er IKKE
+# med (søkeresultat-vinduer, ikke autoritative lister — skjørheten som drepte
+# auto-utløp i mai). Mekanikk: missingDays teller kjøringer på rad borte fra
+# feeden; >= PROBABLY_DOWN_AFTER → probablyDown=true (badge i strategi.html,
+# ekskludert fra mail-seksjonene). Dukker jobben opp igjen → 0/false. ALDRI
+# auto-remove, aldri rør status. Kilde som feilet/0-found den dagen hoppes
+# over (ellers flagges alt når en feed er nede). Jobber i {applied,
+# interview, removed} røres ikke (pipeline/ferdigbehandlet).
+# ─────────────────────────────────────────────────────────────────────────
+
+AUTHORITATIVE_SOURCES = {
+    "seb", "danske", "klp", "nordea", "dnb", "formue", "pareto",
+    "garantum", "storebrand", "arctic", "nbim",
+}
+PROBABLY_DOWN_AFTER = 3
+PROBABLY_DOWN_SKIP_STATUSES = {"applied", "interview", "removed"}
+
+
+def update_probably_down(jobs, live_urls):
+    """Oppdater missingDays/probablyDown på payload-jobber fra autoritative
+    kilder. live_urls = {kilde: set(normaliserte URL-er fra dagens RÅ
+    kandidater — FØR keep, en jobb kan være live men filtrert)}; kilder som
+    feilet/ga 0 kandidater skal IKKE ha nøkkel. Returnerer antall endrede."""
+    changed = 0
+    for j in jobs:
+        src = j.get("source")
+        if src not in AUTHORITATIVE_SOURCES or src not in live_urls:
+            continue
+        if (j.get("status") or "new") in PROBABLY_DOWN_SKIP_STATUSES:
+            continue
+        if normalize_url(j.get("url", "")) in live_urls[src]:
+            if j.get("missingDays") or j.get("probablyDown"):
+                j["missingDays"] = 0
+                j["probablyDown"] = False
+                changed += 1
+            continue
+        j["missingDays"] = int(j.get("missingDays") or 0) + 1
+        if j["missingDays"] >= PROBABLY_DOWN_AFTER and not j.get("probablyDown"):
+            j["probablyDown"] = True
+            print(f"  trolig nedtatt: [{src}] {j.get('role')!r} — borte "
+                  f"{j['missingDays']} kjøringer på rad ({j.get('url')})")
+        changed += 1
+    return changed
+
+
 # Repost-vern (juli 2026): fingerprint-dedup skal IKKE sammenligne mot hele
 # payload-historikken. En stilling som re-utlyses med ny FINN-kode/URL har
 # identisk fingerprint (selskap|tittel|by) og ble tidligere slukt for alltid —
@@ -1741,6 +1789,9 @@ def main():
 
     all_scraped = []
     seen_in_scrape = set()
+    # Rå kandidat-URL-er per autoritativ kilde (FØR keep) — grunnlag for
+    # probablyDown-vedlikeholdet. Kilder som feiler/gir 0 får ingen nøkkel.
+    live_urls = {}
 
     # Per-kilde-telemetri: found = RÅTT volum før keep-filteret (for NAV: ACTIVE-
     # events), kept = etter keep_job, new = etter dedup (settes om til FINALE tall
@@ -1834,6 +1885,8 @@ def main():
         print(f"Henter {label}…")
         try:
             found = fn()
+            if found and label in AUTHORITATIVE_SOURCES:
+                live_urls[label] = {normalize_url(j.get("url", "")) for j in found}
             kept, new = ingest(found, label, True)
             record(label, len(found), kept, new)
             print(f"  {label}: {len(found)} kandidater, {kept} etter keep, {new} nye etter dedup")
@@ -1920,6 +1973,13 @@ def main():
     payload = fresh_payload
     if new_nav_cursor is not None:
         payload.setdefault("sourceCursors", {})["nav"] = new_nav_cursor
+
+    # probablyDown-vedlikehold — på FERSK payload (etter clobber-guard) så
+    # flaggene aldri skrives tilbake fra den stale kopien lest ved start.
+    pd_changed = update_probably_down(payload.get("jobs", []), live_urls)
+    if pd_changed:
+        print(f"  probablyDown-vedlikehold: {pd_changed} jobber oppdatert "
+              f"({len(live_urls)} autoritative kilder med data)")
 
     # Telemetri: 'new' settes om til FINALE tall (etter fingerprint-dedup og
     # clobber-guard) så sources-feltet aldri lyver om hva som faktisk kom inn.

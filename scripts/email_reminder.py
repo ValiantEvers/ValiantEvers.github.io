@@ -106,6 +106,8 @@ def find_urgent_jobs(payload):
         starred_ok = j.get("starred") and status not in STARRED_EXCLUDED_STATUSES
         if status != "new" and not starred_ok:
             continue
+        if j.get("probablyDown"):
+            continue  # trolig nedtatt (fetch_jobs' feed-fravær-flagg) — ikke mas om døde annonser
         dl = parse_deadline(j.get("deadline"))
         if dl is None:
             continue
