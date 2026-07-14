@@ -1646,8 +1646,10 @@ function parseImportDate(s){
   return null;
 }
 function detectSeniority(title){
+  // Bøyningstolerant junior-alternasjon (juli 2026) — KEEP IN SYNC med
+  // scripts/fetch_jobs.py detect_seniority (tegn-for-tegn).
   var t = (title||"").toLowerCase();
-  if(/\b(graduate|trainee|junior|associate|nyutdannet|første\s*år|entry|internship|intern)\b/.test(t)) return "junior";
+  if(/\b(graduates?|trainees?|junior|associates?|nyutdannet|nyutdannede|første\s*år|entry|internships?|interns?)\b/.test(t)) return "junior";
   if(/\b(senior|lead|principal|director|head\s+of|vp|chief)\b/.test(t)) return "senior";
   return "mid";
 }
