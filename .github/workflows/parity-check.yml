@@ -1,0 +1,32 @@
+# CI-paritetsvakt (juli 2026): strukturell diff av paritetsbundet kode i
+# strategi.html (JS) vs scripts/fetch_jobs.py (Python) — PROFILE,
+# detectSeniority-regexene og matchesOsloBelt-referansen. Uten secrets.
+# Selve scriptet: scripts/check_parity.py. Case-harnesset ligger bevisst
+# utenfor repoet (_tools/strategi) — dette er strukturvakta.
+name: Parity check
+
+on:
+  push:
+    paths:
+      - strategi.html
+      - scripts/fetch_jobs.py
+      - scripts/check_parity.py
+      - .github/workflows/parity-check.yml
+  pull_request:
+    paths:
+      - strategi.html
+      - scripts/fetch_jobs.py
+      - scripts/check_parity.py
+      - .github/workflows/parity-check.yml
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      # node er forhåndsinstallert på ubuntu-latest (brukes til å evaluere JS-PROFILE)
+      - run: python scripts/check_parity.py
