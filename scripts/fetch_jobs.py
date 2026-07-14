@@ -1024,55 +1024,109 @@ def fetch_workday(api_url: str, base_url: str, source: str) -> list:
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# NBIM (Norges Bank Investment Management) — Webcruiter-basert, ingen JSON →
-# Playwright DOM (lazy import). På nbim.no (IKKE .com — .com 301-redirecter).
-# Eneste kilde uten aggregator-fallback (ikke på finn ELLER NAV). Vacancies-
-# siden lenker Webcruiter-annonser (tenant 398280). Sesong-landingssider for
-# Graduate Programme / Summer Internship legges i NBIM_SEASONAL når de er live.
-# NBIM HQ er Oslo (Bankplassen) → location default «Oslo».
+# NBIM (Norges Bank Investment Management) — Webcruiter-basert. På nbim.no
+# (IKKE .com — .com 301-redirecter). Eneste kilde uten aggregator-fallback
+# (ikke på finn ELLER NAV). Vacancies-siden lenker Webcruiter-annonser
+# (tenant 398280) og SERVER-RENDRER dem (verifisert juli 2026) → requests +
+# regex er primær (Arctic-mønsteret), Playwright kun fallback hvis siden
+# skulle bli JS-hydrert igjen. Kort-ankeret har to spans: tittel + italic
+# «Location: <by> Closing Date: <dd.mm.yyyy>» — parses til role/location/
+# deadline (Location mangler av og til → default «Oslo», NBIM HQ).
+# Sesong-landingssider for Graduate Programme / Summer Internship legges i
+# NBIM_SEASONAL når de er live.
 # ─────────────────────────────────────────────────────────────────────────
 
 NBIM_VACANCIES = "https://www.nbim.no/en/about-us/career/vacancies/"
 NBIM_SEASONAL = []  # f.eks. graduate-/internship-landingssider (sesong)
+NBIM_HREF_RE = re.compile(
+    r'<a[^>]+href="(https?://[^"]*webcruiter[^"]*recruit/public[^"]*)"[^>]*>(.*?)</a>',
+    re.I | re.S,
+)
+
+
+def _nbim_split(text: str):
+    """«Tittel Location: X Closing Date: dd.mm.yyyy» → (tittel, by, ISO-deadline).
+    Begge metafelter er valgfrie; by-default «Oslo» (HQ) når Location mangler."""
+    t = re.sub(r"\s+", " ", text or "").strip()
+    deadline = None
+    m = re.search(r"Closing Date:\s*(\d{2})\.(\d{2})\.(\d{4})", t, re.I)
+    if m:
+        deadline = f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+        t = t[:m.start()].strip()
+    location = ""
+    m = re.search(r"Location:\s*(.+)$", t, re.I)
+    if m:
+        location = m.group(1).strip()
+        t = t[:m.start()].strip()
+    return t, (location or "Oslo"), deadline
+
+
+def _nbim_job(href: str, anchor_text: str, seen: set):
+    title, location, deadline = _nbim_split(anchor_text)
+    if not title or href in seen:
+        return None
+    seen.add(href)
+    return {
+        "role": title,
+        "company": "NBIM",
+        "location": location,
+        "url": href,
+        "posted": None,
+        "deadline": deadline,
+        "query": "nbim",
+    }
 
 
 def scrape_nbim() -> list:
-    from playwright.sync_api import sync_playwright
-    jobs = []
-    seen = set()
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent=USER_AGENT, viewport={"width": 1280, "height": 800}
-        )
-        page = context.new_page()
+    # 1) requests + regex (primær)
+    jobs, seen = [], set()
+    try:
         for u in [NBIM_VACANCIES] + NBIM_SEASONAL:
+            r = requests.get(u, headers={"User-Agent": BROWSER_UA}, timeout=30)
+            r.raise_for_status()
+            for m in NBIM_HREF_RE.finditer(r.text):
+                job = _nbim_job(_unescape(m.group(1)).strip(), _strip_tags(m.group(2)), seen)
+                if job:
+                    jobs.append(job)
+        if jobs:
+            time.sleep(1.0)
+            return jobs
+        print("  nbim: 0 webcruiter-ankere i rå HTML — faller tilbake til Playwright", file=sys.stderr)
+    except Exception as e:
+        print(f"  nbim: requests feilet ({e}) — prøver Playwright", file=sys.stderr)
+
+    # 2) Playwright-fallback (speiler scrape_arctic; samme parsing via _nbim_job)
+    try:
+        from playwright.sync_api import sync_playwright
+        jobs, seen = [], set()
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent=USER_AGENT, viewport={"width": 1280, "height": 800}
+            )
+            page = context.new_page()
             try:
-                page.goto(u, wait_until="networkidle", timeout=30000)
-            except Exception as e:
-                print(f"  nbim: goto feilet {u}: {e}", file=sys.stderr)
-                continue
-            page.wait_for_timeout(1500)
-            for a in page.query_selector_all("a[href*='webcruiter']"):
-                try:
-                    href = (a.get_attribute("href") or "").strip()
-                    title = re.sub(r"\s+", " ", a.text_content() or "").strip()
-                    if "recruit/public" not in href or not title or href in seen:
+                for u in [NBIM_VACANCIES] + NBIM_SEASONAL:
+                    try:
+                        page.goto(u, wait_until="networkidle", timeout=30000)
+                    except Exception as e:
+                        print(f"  nbim: goto feilet {u}: {e}", file=sys.stderr)
                         continue
-                    seen.add(href)
-                    jobs.append({
-                        "role": title,
-                        "company": "NBIM",
-                        "location": "Oslo",
-                        "url": href,
-                        "posted": None,
-                        "query": "nbim",
-                    })
-                except Exception as e:
-                    print(f"  nbim: extract feilet: {e}", file=sys.stderr)
-        browser.close()
-    time.sleep(1.0)
-    return jobs
+                    page.wait_for_timeout(1500)
+                    for a in page.query_selector_all("a[href*='webcruiter']"):
+                        href = (a.get_attribute("href") or "").strip()
+                        if "recruit/public" not in href:
+                            continue
+                        job = _nbim_job(href, a.text_content() or "", seen)
+                        if job:
+                            jobs.append(job)
+            finally:
+                browser.close()
+        time.sleep(1.5)  # Playwright-throttle
+        return jobs
+    except Exception as e:
+        print(f"  nbim: Playwright-fallback feilet: {e}", file=sys.stderr)
+        return []
 
 
 def _strip_tags(s: str) -> str:
