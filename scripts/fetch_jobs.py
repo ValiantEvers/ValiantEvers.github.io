@@ -55,6 +55,7 @@ ENABLE_ARCTIC = True      # Arctic Securities open-positions (requests+regex, Pl
 ENABLE_PARETO = True      # Pareto Securities Teamtailor JSON (requests, som Formue)
 ENABLE_KLP = True         # KLP SuccessFactors RSS (requests, som Nordea/DNB) — juli 2026
 ENABLE_SEB = True         # SEB Lever postings-API (requests) — juli 2026
+ENABLE_DANSKE = True      # Danske Bank Oracle HCM CE REST (requests) — juli 2026
 
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
@@ -1007,6 +1008,74 @@ def fetch_lever(api_url: str, source: str, company: str) -> list:
 
 
 # ─────────────────────────────────────────────────────────────────────────
+# Oracle HCM (Fusion) CandidateExperience REST (Danske Bank fra juli 2026).
+# Offentlig GET recruitingCEJobRequisitions med findReqs-finder; limit=200
+# gir hele lista (175 jobber) i ETT kall (verifisert live — ingen paginering
+# nødvendig; varsler hvis TotalJobsCount vokser forbi limit). Per requisition:
+# Id, Title, PrimaryLocation («Oslo, Norway»), PostedDate, PostingEndDate
+# (→ deadline). Deep-link: {ui_base}/job/{Id}. keep_job's Oslo-gate
+# filtrerer bort Vilnius/København-massen.
+# ─────────────────────────────────────────────────────────────────────────
+
+ORACLE_LIMIT = 200
+
+
+def fetch_oracle_hcm(rest_base: str, ui_base: str, site: str, source: str, company: str) -> list:
+    # expand=requisitionList.… er OBLIGATORISK — uten den kommer items[]
+    # tilbake uten requisitionList overhodet (verifisert live juli 2026).
+    url = (
+        f"{rest_base}/recruitingCEJobRequisitions?onlyData=true"
+        f"&expand=requisitionList.secondaryLocations"
+        f"&finder=findReqs%3BsiteNumber%3D{site}"
+        f"%2Climit%3D{ORACLE_LIMIT}%2CsortBy%3DPOSTING_DATES_DESC"
+    )
+    try:
+        r = requests.get(
+            url,
+            headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+            timeout=40,
+        )
+        r.raise_for_status()
+        items = r.json().get("items") or []
+    except Exception as e:
+        print(f"  {source}: Oracle-henting feilet: {e}", file=sys.stderr)
+        return []
+    reqs = (items[0].get("requisitionList") or []) if items else []
+    total = items[0].get("TotalJobsCount") if items else None
+    if total and total > len(reqs):
+        print(
+            f"  {source}: TotalJobsCount {total} > {len(reqs)} hentet — "
+            f"øk ORACLE_LIMIT eller innfør offset-paginering",
+            file=sys.stderr,
+        )
+    jobs = []
+    for q in reqs:
+        title = (q.get("Title") or "").strip()
+        rid = q.get("Id")
+        if not title or not rid:
+            continue
+        posted = None
+        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", str(q.get("PostedDate") or ""))
+        if m:
+            posted = m.group(0)
+        deadline = None
+        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", str(q.get("PostingEndDate") or ""))
+        if m:
+            deadline = m.group(0)
+        jobs.append({
+            "role": title,
+            "company": company,
+            "location": (q.get("PrimaryLocation") or "").strip(),
+            "url": f"{ui_base}/job/{rid}",
+            "posted": posted,
+            "deadline": deadline,
+            "query": f"{source}-ats",
+        })
+    time.sleep(1.0)
+    return jobs
+
+
+# ─────────────────────────────────────────────────────────────────────────
 # Workday CXS jobs-API — requests POST, gjenbrukbar på tvers av Workday-tenants
 # (Storebrand først). GET på /jobs gir HTTP 400 (POST-only, bekreftet live).
 # Body {"appliedFacets":{},"limit":20,"offset":0,"searchText":""}; tomt
@@ -1295,7 +1364,7 @@ def scrape_arctic() -> list:
 SOURCE_PREF = {
     "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
     "storebrand": 0, "arctic": 0, "pareto": 0,      # direkte arbeidsgiver (nye, juli 2026)
-    "klp": 0, "seb": 0,                              # direkte arbeidsgiver (juli 2026)
+    "klp": 0, "seb": 0, "danske": 0,                 # direkte arbeidsgiver (juli 2026)
     "nav": 1, "finn": 2, "jobindex": 3,
 }
 
@@ -1447,7 +1516,7 @@ def main():
         ("nordea", ENABLE_NORDEA), ("dnb", ENABLE_DNB), ("formue", ENABLE_FORMUE),
         ("nbim", ENABLE_NBIM), ("storebrand", ENABLE_STOREBRAND),
         ("arctic", ENABLE_ARCTIC), ("pareto", ENABLE_PARETO),
-        ("klp", ENABLE_KLP), ("seb", ENABLE_SEB),
+        ("klp", ENABLE_KLP), ("seb", ENABLE_SEB), ("danske", ENABLE_DANSKE),
     ):
         if enabled:
             scrape_stats[src] = {"found": 0, "kept": 0, "new": 0}
@@ -1520,6 +1589,10 @@ def main():
         (ENABLE_KLP, "klp", lambda: fetch_successfactors("https://jobb.klp.no/sitemal.xml", "klp")),
         (ENABLE_SEB, "seb", lambda: fetch_lever(
             "https://api.eu.lever.co/v0/postings/seb?mode=json", "seb", "SEB")),
+        (ENABLE_DANSKE, "danske", lambda: fetch_oracle_hcm(
+            "https://ejqi.fa.ocs.oraclecloud.eu/hcmRestApi/resources/latest",
+            "https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001",
+            "CX_1001", "danske", "Danske Bank")),
     ):
         if not enabled:
             continue
