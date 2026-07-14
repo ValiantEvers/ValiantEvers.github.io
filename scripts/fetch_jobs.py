@@ -56,6 +56,9 @@ ENABLE_PARETO = True      # Pareto Securities Teamtailor JSON (requests, som For
 ENABLE_KLP = True         # KLP SuccessFactors RSS (requests, som Nordea/DNB) — juli 2026
 ENABLE_SEB = True         # SEB Lever postings-API (requests) — juli 2026
 ENABLE_DANSKE = True      # Danske Bank Oracle HCM CE REST (requests) — juli 2026
+ENABLE_GARANTUM = True    # Garantum Teamtailor JSON (requests, som Formue/Pareto) — juli 2026.
+                          # I dag 0 Norge-roller (Sverige-kontorer) — poenget er å FANGE
+                          # en fremtidig Oslo-rolle (tier 1, åpen søknad-spor).
 
 # ─────────────────────────────────────────────────────────────────────────
 # PROFILE — KEEP IN SYNC WITH strategi.html PROFILE-konstant.
@@ -1368,7 +1371,7 @@ def scrape_arctic() -> list:
 SOURCE_PREF = {
     "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
     "storebrand": 0, "arctic": 0, "pareto": 0,      # direkte arbeidsgiver (nye, juli 2026)
-    "klp": 0, "seb": 0, "danske": 0,                 # direkte arbeidsgiver (juli 2026)
+    "klp": 0, "seb": 0, "danske": 0, "garantum": 0,  # direkte arbeidsgiver (juli 2026)
     "nav": 1, "finn": 2, "jobindex": 3,
 }
 
@@ -1521,6 +1524,7 @@ def main():
         ("nbim", ENABLE_NBIM), ("storebrand", ENABLE_STOREBRAND),
         ("arctic", ENABLE_ARCTIC), ("pareto", ENABLE_PARETO),
         ("klp", ENABLE_KLP), ("seb", ENABLE_SEB), ("danske", ENABLE_DANSKE),
+        ("garantum", ENABLE_GARANTUM),
     ):
         if enabled:
             scrape_stats[src] = {"found": 0, "kept": 0, "new": 0}
@@ -1597,6 +1601,8 @@ def main():
             "https://ejqi.fa.ocs.oraclecloud.eu/hcmRestApi/resources/latest",
             "https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001",
             "CX_1001", "danske", "Danske Bank")),
+        (ENABLE_GARANTUM, "garantum", lambda: fetch_teamtailor(
+            "https://karriar.garantum.se/jobs.json", "garantum")),
     ):
         if not enabled:
             continue
