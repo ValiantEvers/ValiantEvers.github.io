@@ -8,7 +8,9 @@ on:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # 30 min (juli 2026): runtime er 7–8 min, men 13 kilder spiser margin —
+    # en timeout midt i kjøringen mister alt før push.
+    timeout-minutes: 30
     permissions:
       contents: read
     steps:
