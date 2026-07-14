@@ -29,7 +29,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html import unescape as _unescape
 
 import requests
@@ -1200,6 +1200,45 @@ def fingerprint(job: dict) -> str:
     return f"{_canon_company(job.get('company'))}|{role}|{_canon_city(job.get('location'))}"
 
 
+# Repost-vern (juli 2026): fingerprint-dedup skal IKKE sammenligne mot hele
+# payload-historikken. En stilling som re-utlyses med ny FINN-kode/URL har
+# identisk fingerprint (selskap|tittel|by) og ble tidligere slukt for alltid —
+# både i hoved-dedupen og clobber-guarden. Fingerprints dedupes nå kun mot
+# «nylige/aktive» jobber: added siste RECENT_FP_DAYS dager ELLER status i
+# aktiv pipeline. URL-dedup beholdes mot ALT (samme URL = samme annonse).
+# Konsekvens (ønsket): en genuin re-utlysning dukker opp som ny jobb.
+RECENT_FP_DAYS = 60
+ACTIVE_PIPELINE_STATUSES = {"applied", "interview"}
+
+
+def _parse_added(added):
+    """Tolerant ISO-parse av jobs[].added (kan mangle eller ha Z-suffiks)."""
+    if not added:
+        return None
+    try:
+        dt = datetime.fromisoformat(str(added).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
+def recent_fingerprints(jobs, now_utc):
+    """Fingerprints for jobber som fortsatt skal blokkere re-import: nylig
+    lagt til ELLER i aktiv pipeline. Felles for hoved-dedup og clobber-guard."""
+    cutoff = now_utc - timedelta(days=RECENT_FP_DAYS)
+    fps = set()
+    for j in jobs:
+        if j.get("status") in ACTIVE_PIPELINE_STATUSES:
+            fps.add(fingerprint(j))
+            continue
+        added = _parse_added(j.get("added"))
+        if added is not None and added >= cutoff:
+            fps.add(fingerprint(j))
+    return fps
+
+
 def normalize_url(u: str) -> str:
     if not u: return ""
     # Strip kun hash-fragment, IKKE query (?Id=N er identifier på
@@ -1348,8 +1387,9 @@ def main():
             print(f"  {label}: FEILET ({type(e).__name__}: {e}) — hopper over", file=sys.stderr)
 
     # Cross-source fingerprint-dedup (selskap+tittel+by): behold høyest-preferanse
-    # kilde innen kjøringen, dropp mot eksisterende payload. Muter aldri eksisterende.
-    existing_fps = {fingerprint(j) for j in payload.get("jobs", [])}
+    # kilde innen kjøringen, dropp mot NYLIGE/AKTIVE i payload (repost-vern —
+    # se recent_fingerprints). Muter aldri eksisterende.
+    existing_fps = recent_fingerprints(payload.get("jobs", []), now_utc)
     all_scraped.sort(key=lambda j: SOURCE_PREF.get(j.get("source"), 9))
     deduped, seen_fps = [], set()
     for j in all_scraped:
@@ -1407,7 +1447,8 @@ def main():
         print(f"  Gist endret under scraping (updatedAt {start_updated_at!r} → "
               f"{fresh_payload.get('updatedAt')!r}) — grafter på fersk payload")
     fresh_urls = {normalize_url(j.get("url", "")) for j in fresh_payload.get("jobs", [])}
-    fresh_fps = {fingerprint(j) for j in fresh_payload.get("jobs", [])}
+    # Samme repost-vern som hoved-dedupen: fingerprints kun mot nylige/aktive.
+    fresh_fps = recent_fingerprints(fresh_payload.get("jobs", []), now_utc)
     pre_guard = len(new_jobs)
     new_jobs = [j for j in new_jobs
                 if normalize_url(j.get("url", "")) not in fresh_urls
