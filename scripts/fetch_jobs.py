@@ -651,6 +651,10 @@ def is_priority_company(company: str) -> bool:
 GRADUATE_NET = [
     "graduate", "trainee", "nyutdannet", "internship",
     "sommerjobb", "sommerinternship", "junior",
+    # «summer intern» (juli 2026): fanger «Summer Interns …»-titler (Danske
+    # Bank Equity Research) som «internship» bommer på. Toordskombinasjonen
+    # er trygg mot «internasjonal»-fella som holder bare «intern» ute.
+    "summer intern",
 ]
 
 # Finans-vokabular for keep-filteret — bevisst BREDERE enn PROFILE.titleKeywords
