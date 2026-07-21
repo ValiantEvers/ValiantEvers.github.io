@@ -1831,7 +1831,7 @@ var BOOKMARKLET_SRC = "javascript:(function(){function t(s){return(s||'').replac
 // base64-kodes i URL-fragmentet (når aldri serveren), og jobblogg oppretter
 // en ferdig utfylt prosess i research-status (deduplisert på annonse-URL).
 // Sett URL-en etter CF-deployen av jobblogg — tom streng = knappen skjules.
-var JOBBLOGG_URL = "";
+var JOBBLOGG_URL = "https://jobblogg.valiantevers1809.workers.dev";
 function sendToJobblogg(id){
   var j = STATE.payload.jobs.find(function(x){ return x.id === id; });
   if(!j || !JOBBLOGG_URL) return;
