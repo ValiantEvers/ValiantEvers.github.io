@@ -1825,6 +1825,22 @@ var PENDING_IMPORT_FRAGMENT = null;
 // JobPosting-JSON-LD, faller tilbake til h1/toppkort, og åpner #import=.
 var BOOKMARKLET_SRC = "javascript:(function(){function t(s){return(s||'').replace(/\\s+/g,' ').trim()}var d=null,ss=document.scripts;for(var i=0;i<ss.length&&!d;i++){if(ss[i].type!=='application/ld+json')continue;try{var j=JSON.parse(ss[i].textContent),a=Array.isArray(j)?j:[j];for(var k=0;k<a.length;k++){if(a[k]&&a[k]['@type']==='JobPosting'){d=a[k];break}}}catch(e){}}var o={url:location.href.split('?')[0]};if(d){o.role=t(d.title);o.company=t((d.hiringOrganization||{}).name);var jl=Array.isArray(d.jobLocation)?d.jobLocation[0]:d.jobLocation;var ad=(jl||{}).address||{};o.location=t(ad.addressLocality||ad.addressRegion);if(d.datePosted)o.posted=String(d.datePosted).slice(0,10)}if(!o.role){var h=document.querySelector('h1');o.role=t(h?h.textContent:'');var c=document.querySelector('.job-details-jobs-unified-top-card__company-name a,.job-details-jobs-unified-top-card__company-name,.topcard__org-name-link,.topcard__org-name');if(c&&!o.company)o.company=t(c.textContent)}if(!o.role)o.role=t(document.title);window.open('https://www.evers.no/strategi.html#import='+btoa(unescape(encodeURIComponent(JSON.stringify(o)))),'_blank')})();";
 
+
+// ── «→ jobblogg»-broen (juli 2026): sender én jobb til jobbsøk-trackeren ──
+// Samme fragment-mekanikk som bookmarkleten over, motsatt vei: payloaden
+// base64-kodes i URL-fragmentet (når aldri serveren), og jobblogg oppretter
+// en ferdig utfylt prosess i research-status (deduplisert på annonse-URL).
+// Sett URL-en etter CF-deployen av jobblogg — tom streng = knappen skjules.
+var JOBBLOGG_URL = "";
+function sendToJobblogg(id){
+  var j = STATE.payload.jobs.find(function(x){ return x.id === id; });
+  if(!j || !JOBBLOGG_URL) return;
+  var o = { company: j.company, role: j.role, source: "strategi" };
+  if(j.url) o.url = j.url;
+  if(j.location) o.location = j.location;
+  if(j.deadline) o.deadline = String(j.deadline).slice(0,10);
+  window.open(JOBBLOGG_URL.replace(/\/+$/,"") + "/#import=" + btoa(unescape(encodeURIComponent(JSON.stringify(o)))), "_blank");
+}
 function fragmentToMarkdown(f){
   // Bygger samme markdown som manuell paste → gjenbruker parseren 1:1.
   var clean = function(s){ return String(s || "").replace(/\s+/g, " ").trim(); };
@@ -2577,6 +2593,7 @@ function jobCardHtml(j, focusedId){
         '<div class="notes-actions-l">'+
           '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
           '<button class="letter-btn" onclick="openLetterModal(\''+j.id+'\')" title="Generer søknadsbrev-prompt">✉ Søknadsbrev</button>'+
+          (JOBBLOGG_URL ? '<button class="letter-btn" onclick="sendToJobblogg(\''+j.id+'\')" title="Send til jobblogg — åpner trackeren med ferdig utfylt prosess (dedupliseres på URL)">⇢ jobblogg</button>' : '')+
         '</div>'+
         (((j.status||"new")==="removed")
           ? '<button class="restore-btn" onclick="restoreJob(\''+j.id+'\')" title="Gjenopprett til forrige status">↺ Gjenopprett</button>'
