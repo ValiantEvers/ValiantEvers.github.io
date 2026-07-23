@@ -66,32 +66,36 @@ Defined as CSS custom properties on `:root` and `[data-theme="dark"]`. Always re
 
 ## Typography
 
-Loaded from Google Fonts:
+**Self-hosted, no third-party font calls** (no `fonts.googleapis.com` / `fonts.gstatic.com`). Each page declares its `@font-face` blocks inline, pointing at `/fonts/*.woff2`, driven by three `:root` variables shared across the editorial core (`index.html`, `cv.html`, `prosjekter/index.html`, `prosjekter/finansielle-maler/`, `prosjekter/forretningsenhet-dashboard/`, `rekrutterer/`):
 
 ```
-Inter (400, 500, 600, 700, 800)
-JetBrains Mono (400, 500)
-MedievalSharp        — medieval theme only
-UnifrakturMaguntia   — medieval theme only
-Noto Sans JP (400, 700) — Japanese variant only
+--font-serif : Newsreader     (variable opsz+wght; font-optical-sizing:auto)  -> headings
+--font-sans  : Hanken Grotesk (variable wght)                                 -> body / UI
+--font-mono  : JetBrains Mono  (variable)                                     -> metadata labels
+Noto Sans JP (content-subset) -- inside BOTH text vars (per-glyph JP fallback)
+MedievalSharp / UnifrakturMaguntia -- medieval theme only
 ```
+
+This is an **FT-style editorial system** — serif headlines over a grotesque body. It replaced the former Inter-everywhere core (see changelog 2026-07-23).
 
 ### Usage
 
 | Element | Family | Weight | Notes |
 | --- | --- | --- | --- |
-| Body text | `Inter, system-ui, -apple-system, sans-serif` | 400 | `line-height: 1.6` |
-| Headings (`h1`, `h2`, `.section-title`) | `Inter, system-ui, sans-serif` | 700–800 | `letter-spacing: -0.02em` |
-| Small metadata labels (`.cv-lang`, `.thesis-sub`, `.cert-issuer`, `.lb-label`, `.section-label`) | `JetBrains Mono, ui-monospace, monospace` | 400–500 | `font-size: .7–.75rem`, `letter-spacing: 0` |
+| Headings (`.hero h1`, `.section-title`, card `h3/h4`, `.nav-logo`, `.quote-mark`) | `var(--font-serif)` — Newsreader | 600–800 | serif; set via one high-specificity `body …` selector, `font-optical-sizing:auto` |
+| Body / UI / nav links | `var(--font-sans)` — Hanken Grotesk | 400–600 | `line-height: 1.6` |
+| Small metadata labels (`.cv-lang`, `.thesis-sub`, `.cert-issuer`, `.lb-label`, `.section-label`) | `var(--font-mono)` — JetBrains Mono | 400–500 | `font-size: .7–.75rem`, `letter-spacing: 0` |
 | Medieval theme headings | `UnifrakturMaguntia, MedievalSharp, cursive` | — | Scoped to `[data-theme="medieval"]` |
-| Japanese mode body | `Noto Sans JP, Inter, sans-serif` | — | Scoped to `html[lang="ja"]` |
+| Japanese mode | Noto Sans JP (inside the text vars) | — | no separate rule needed (per-glyph fallback) |
 
 ### Rules
 
-- Inter at `-0.02em` letter-spacing on headings gives the geometric character without the startup-template feel.
-- Don't introduce new display fonts. Inter does almost everything.
+- **Headings are serif (Newsreader); body/UI is sans (Hanken Grotesk).** This split is the editorial identity — don't flatten it back to one family.
+- Reference `--font-serif` / `--font-sans` / `--font-mono`; never hardcode a family outside the `@font-face` / `:root` declarations.
+- All fonts are **self-hosted** — never add a `fonts.googleapis.com` link. New weights/subsets go through `@fontsource*` woff2 in `/fonts/` (see `fonts/README.md`).
 - JetBrains Mono is for short technical metadata only. Never for body or headings.
-- **Two coexisting families (deliberate — not drift).** The editorial core above (Inter/blue, light + dark) is the default. Cream-skinned sub-pages — `personligokonomi/`, `pensjonskalkulator(-src)/`, `fra-null-til-investor{,2,3}/` and `formuessamtalen/` (2026-07-12) — deliberately run a warmer **calculator-cream** family instead: Fraunces (serif headings) + Manrope (sans) on `#FAF6EF`, accent `#FF5436`, text-accent `#B03418`. Each such page carries its own self-hosted `@font-face` (see `fonts/README.md`) and a self-contained cream token set. When building or editing one of these pages, match the cream family — don't force the Inter core onto it, and don't back-port cream tokens into the editorial core.
+- Heads-up: several heading rules still carry a redundant `font-family:var(--font-sans)` that the higher-specificity `body …{font-family:var(--font-serif)}` rule overrides — harmless dead declarations, safe to delete on next touch.
+- **Two coexisting systems (deliberate — not drift).** The editorial core above (Newsreader/Hanken + blue, light + dark) is the default. Cream-skinned sub-pages — `personligokonomi/`, `pensjonskalkulator(-src)/`, `fra-null-til-investor{,2,3}/` and `formuessamtalen/` — deliberately run a warmer **calculator-cream** family instead: Fraunces (serif headings) + Manrope (sans) on `#FAF6EF`, accent `#FF5436`, text-accent `#B03418`. Each such page carries its own self-hosted `@font-face` (see `fonts/README.md`) and a self-contained cream token set. When building or editing one of these pages, match the cream family — don't force the editorial core onto it, and don't back-port cream tokens into the core.
 
 ---
 
@@ -240,11 +244,11 @@ Large emoji or icon centered in a colored panel, with a small text block beside 
 - Brand-blue banner (CV-read, "open me" feel): `linear-gradient(135deg, var(--accent), var(--accent4))`
 - Academic / research banner: `linear-gradient(135deg, #001233, #002f6c)`
 
-Banner emoji is `font-size: 2.5–4rem`, centered with flex. The text block uses small uppercase JetBrains Mono label + Inter heading + Inter body.
+Banner emoji is `font-size: 2.5–4rem`, centered with flex. The text block uses small uppercase JetBrains Mono label + Newsreader (serif) heading + Hanken Grotesk (sans) body.
 
 ### Nav
 
-Fixed top bar. Logo "V." in Inter weight 800 in `var(--accent)`. Right side: link list (Inter weight 500, `.9rem`), then theme toggle (sun/moon), then language switcher button.
+Fixed top bar. Logo "V." in `var(--font-serif)` (Newsreader) weight 800 in `var(--accent)`. Right side: link list (`var(--font-sans)`, weight 500, `.9rem`), then theme toggle (sun/moon), then language switcher button.
 
 Background appears on scroll via `nav.scrolled` rule: `rgba(225,231,255,.72)` with `backdrop-filter: blur(24px) saturate(1.4)`. Sub-pages inherit the same nav verbatim.
 
@@ -305,7 +309,7 @@ When you (or Claude Code) extend the site, work through this in order:
 1. **Read this file.** Treat it as the source of truth.
 2. **Inherit the nav and the live ticker bar** from `index.html`. Copy verbatim, including the language switcher and theme toggle wiring.
 3. **Use the tokens.** Reference `var(--accent)`, never hardcode hex except in dark-mode-specific or medieval-theme overrides.
-4. **Use Inter + JetBrains Mono.** Don't introduce a new heading font.
+4. **Use the `--font-serif` / `--font-sans` / `--font-mono` vars** (Newsreader / Hanken Grotesk / JetBrains Mono). Don't introduce a new family.
 5. **Buttons get `:active` press states.** No exceptions.
 6. **Hover transforms get `@media (hover:hover)` gating.** No exceptions.
 7. **Transitions stay under 300 ms** and reference `var(--ease-out)` or `var(--ease-in-out)` tokens.
@@ -331,3 +335,5 @@ That single instruction should be enough for the agent to stay coherent with the
 
 - **2026-05-23** — Initial design system documented after the refined-minimal pass (replaced Outfit + Syne with Inter + JetBrains Mono, introduced easing tokens, tightened durations under 300 ms, added `:active` press states, gated hover transforms, removed decoration-without-purpose).
 - **2026-05-26** — Sub-pages aligned. `cv.html` og `prosjekter/index.html` brakt i samsvar med designsystemet etter forsiden-redesignet: Outfit+Syne erstattet med Inter+JetBrains Mono, gamle lyseblå tokens (`--bg:#e1e7ff`) erstattet med varm off-white (`--bg:#fafaf9`), nav byttet til fixed med scrolled-state, cursor dot og medieval theme lagt til, springy easing og floating blobs fjernet fra `/prosjekter`. Ticker droppet på begge sub-pages — DESIGN.md-prinsippet om at den er valgfri og bør droppes hvis den konkurrerer om oppmerksomheten, gjelder begge. Cursor-dot, grain og medieval-tema arvet site-wide.
+
+- **2026-07-23** — Doc re-synced with the live site + small additions. **Correction:** the core type system is no longer Inter — it is self-hosted **Newsreader (serif headings) + Hanken Grotesk (sans body)** (the FT-emulation shipped ~2026-07; this file had lagged). **Added (vanilla, no build):** cross-document **View Transitions** (`@view-transition{navigation:auto}` + a 240 ms root cross-fade, reduced-motion-guarded) for native page-to-page continuity; `text-wrap: pretty` on `p,li,figcaption`; and a themed `::selection` via `color-mix()`.
