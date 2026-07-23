@@ -63,7 +63,12 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/jetbrains-mono-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 /* Noto Sans JP er subsettet til dagens japanske i18n-tekst. Endres ja-strengene, MÅ fila regenereres — se fonts/README.md (ellers tofu). */
 @font-face{font-family:'Noto Sans JP';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/noto-sans-jp-subset.woff2') format('woff2')}
-h1,h2,h3{text-wrap:balance}
+h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
+::selection{background:color-mix(in oklab,var(--accent) 20%,transparent)}
+/* Cross-document View Transitions: sammenhengende sidenavigasjon. Native, ingen JS/build. */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:240ms;animation-timing-function:var(--ease-out,cubic-bezier(0.23,1,0.32,1))}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:1ms}}
 .skip-link{position:absolute;left:-999px;top:0;z-index:1000;background:#fff;color:#000;padding:8px 16px;border-radius:0 0 6px 0}
 .skip-link:focus{left:0}
 </style>
