@@ -541,7 +541,7 @@ details .course-list li::before{content:''}
 </section>
 
 <footer class="cv-footer">
-  <span><span data-i="lastUpdated">Sist oppdatert</span>: April 2026</span>
+  <span><span data-i="lastUpdated">Sist oppdatert</span>: <span id="cvUpdated">April 2026</span></span>
   <a href="/" data-i="backToSite">← evers.no</a>
 </footer>
 
@@ -1094,5 +1094,6 @@ window.addEventListener('load',function(){setTimeout(setEmail,500)});
   var rT; window.addEventListener('resize', function(){ clearTimeout(rT); rT=setTimeout(redraw,150); }, { passive: true });
 })();
 </script>
+<script>(function(){var el=document.getElementById("cvUpdated");if(!el)return;var d=new Date(document.lastModified);if(isNaN(d.getTime())||d.getFullYear()<2020)return;var m={no:"nb-NO",nb:"nb-NO",en:"en-GB",fr:"fr-FR",de:"de-DE",ja:"ja-JP"};var loc=m[(document.documentElement.getAttribute("lang")||"no")]||"nb-NO";try{el.textContent=d.toLocaleDateString(loc,{month:"long",year:"numeric"});}catch(e){}})();</script>
 </body>
 </html>
