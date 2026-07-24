@@ -1,16 +1,16 @@
 {
-  "name": "Voksenkollen -> Maja med Elias🏃",
+  "name": "Evening Run",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 18.01,
-  "moving_time": 6717,
-  "elapsed_time": 9992,
-  "total_elevation_gain": 177.0,
-  "start_date": "2026-07-22T09:50:58Z",
-  "average_speed": 9.65,
-  "max_speed": 19.01,
-  "average_heartrate": 164.6,
-  "max_heartrate": 192.0,
-  "suffer_score": 225.0,
-  "id": 19415657121
+  "distance": 5.22,
+  "moving_time": 2165,
+  "elapsed_time": 2257,
+  "total_elevation_gain": 67.0,
+  "start_date": "2026-07-23T18:27:05Z",
+  "average_speed": 8.69,
+  "max_speed": 14.18,
+  "average_heartrate": 151.1,
+  "max_heartrate": 176.0,
+  "suffer_score": 38.0,
+  "id": 19434753936
 }
