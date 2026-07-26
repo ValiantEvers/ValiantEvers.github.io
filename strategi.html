@@ -933,7 +933,18 @@ var PROFILE = {
   // Oslo + pendlerbelte. «oslo» dekker hele Oslo kommune; beltet legger til Bærum/Asker-
   // kommuner som «oslo» ikke fanger. Danske byer/utland avviklet juni 2026. KEEP IN SYNC
   // med scripts/fetch_jobs.py PROFILE.locations (samme nøkler + poeng).
-  locations: [{kw:"oslo",points:10},{kw:"lysaker",points:8},{kw:"fornebu",points:8},{kw:"sandvika",points:8},{kw:"bærum",points:8},{kw:"asker",points:5}],
+  locations: [{kw:"oslo",points:10},{kw:"lysaker",points:8},{kw:"fornebu",points:8},{kw:"sandvika",points:8},{kw:"bærum",points:8},{kw:"asker",points:5},
+    // Oslo-bydeler og -strøk (juli 2026): annonser som oppgir KUN strøket, ikke «Oslo», falt tidligere
+    // utenfor både filteret og scoringen (fikk -60 i nonOsloPenalty). points:0 er bevisst — de skal
+    // telle som Oslo-treff uten å dobbeltscore når lokasjonsstrengen også inneholder «oslo».
+    {kw:"aker brygge",points:0},{kw:"bjørvika",points:0},{kw:"skøyen",points:0},{kw:"nydalen",points:0},
+    {kw:"majorstu",points:0},{kw:"grünerløkka",points:0},{kw:"tjuvholmen",points:0},{kw:"helsfyr",points:0},
+    {kw:"økern",points:0},{kw:"frogner",points:0},
+    // «vika» treffer også «sandvika». Bevisst beholdt: Sandvika scorer alt 8 på sitt eget
+    // nøkkelord, og vika-treffet legger til 0. Vika er Oslos finansstrøk og må være med.
+    {kw:"vika",points:0},
+    // Ytre pendlerbelte mot øst, direkte tog fra Oslo S:
+    {kw:"lørenskog",points:5},{kw:"lillestrøm",points:5}],
   seniorityBoost:{junior:20,mid:5,senior:-10},
   // Danske staveformer til slutt MÅ holdes i sync med scripts/fetch_jobs.py negativeKeywords (samme strenger/rekkefølge).
   negativeKeywords: ["forsikring","eiendomsmegl","eiendomsrådgiver","regnskap","lønn","gjeldsrådgiver","kundeservice","kundesenter","sykepleier","renhold","lærling","developer","utvikler","ingeniør","it-rådgiver","controller","comptable","lawyer","ejendomsmægler","regnskab","gældsrådgiver","kundecenter","sygeplejerske","rengøring","udvikler","pædagog"],
@@ -1063,7 +1074,7 @@ var OUT_STATUSES = [
 
 var SOURCES = [
   {id:"linkedin",name:"LinkedIn Jobs",url:"https://www.linkedin.com/jobs/search/?keywords=wealth+management+private+banking&location=Oslo",p:"høy",f:"2-3x/uke"},
-  {id:"karrierestart",name:"Karrierestart",url:"https://karrierestart.no/ledig-stilling?q=finans",p:"høy",f:"1x/uke"},
+  {id:"karrierestart",name:"Karrierestart",url:"https://karrierestart.no/jobb/",p:"høy",f:"1x/uke"},
   {id:"bi",name:"BI Karriereportal",url:"https://bi.jobteaser.com/",p:"høy",f:"1x/uke"},
   {id:"dnb",name:"DNB Karriere",url:"https://jobb.dnb.no/viewalljobs/",p:"høy",f:"daglig (auto)"},
   {id:"nordea",name:"Nordea Jobs",url:"https://www.nordea.com/en/careers/open-jobs",p:"høy",f:"daglig (auto)"},
@@ -1073,18 +1084,18 @@ var SOURCES = [
   {id:"seb",name:"SEB Norge",url:"https://jobs.eu.lever.co/seb",p:"høy",f:"daglig (auto)"},
   {id:"klp",name:"KLP",url:"https://jobb.klp.no",p:"mid",f:"daglig (auto)"},
   {id:"garantum",name:"Garantum",url:"https://karriar.garantum.se/jobs",p:"mid",f:"daglig (auto)"},
-  {id:"handelsbanken",name:"Handelsbanken",url:"https://www.handelsbanken.no/no/om-oss/jobb-hos-oss/ledige-stillinger",p:"mid",f:"1x/uke"},
+  {id:"handelsbanken",name:"Handelsbanken (Jobylon)",url:"https://www.handelsbanken.no/no/om-oss/jobb-hos-oss/ledige-stillinger",p:"høy",f:"1x/uke"},
   {id:"danskebank",name:"Danske Bank",url:"https://ejqi.fa.ocs.oraclecloud.eu/hcmUI/CandidateExperience/en/sites/CX_1001/jobs",p:"mid",f:"daglig (auto)"},
   {id:"pareto",name:"Pareto Securities",url:"https://paretosec.com/our-firm/career",p:"mid",f:"daglig (auto)"},
   {id:"arctic",name:"Arctic Securities",url:"https://www.arctic.com/career/open-positions",p:"mid",f:"daglig (auto)"},
   {id:"abg",name:"ABG Sundal Collier",url:"https://www.abgsc.com/working-at-abgsc/",p:"mid",f:"2x/mnd"},
-  {id:"sb1",name:"SpareBank 1 Markets",url:"https://candidate.hr-manager.net/vacancies/list.aspx?customer=Sparebank1&MediaID=5",p:"mid",f:"2x/mnd"},
+  {id:"sb1",name:"SpareBank 1 Markets",url:"https://www.sb1markets.no/karriere/",p:"mid",f:"2x/mnd"},
   {id:"finn",name:"FINN.no Jobb",url:"https://www.finn.no/job/fulltime/search.html?q=wealth+management+finans",p:"mid",f:"1x/uke"},
   {id:"jobindex",name:"Jobindex (DK)",url:"https://www.jobindex.dk/jobsoegning?q=private+banking",p:"mid",f:"1x/uke"},
   {id:"nav",name:"NAV Arbeidsplassen",url:"https://arbeidsplassen.nav.no/",p:"høy",f:"daglig (auto)"},
-  {id:"holberg",name:"Holberg Fondene",url:"https://holbergfondene.no/om-oss",p:"lav",f:"1x/mnd"},
-  {id:"odin",name:"ODIN Forvaltning",url:"https://odinfond.no/om-odin",p:"lav",f:"1x/mnd"},
-  {id:"skagen",name:"SKAGEN Fondene",url:"https://www.skagenfondene.no/om-oss/karriere/",p:"lav",f:"1x/mnd"}];
+  {id:"holberg",name:"Holberg Fondene",url:"https://www.holberg.no/om",p:"lav",f:"1x/mnd"},
+  {id:"odin",name:"ODIN Forvaltning",url:"https://odinfond.no/om-odin/karriere/",p:"lav",f:"1x/mnd"},
+  {id:"skagen",name:"SKAGEN Fondene",url:"https://www.skagenfondene.no/jobb-hos-oss/",p:"lav",f:"1x/mnd"}];
 
 // ════════════════════════════════════════════════════════════════
 //  UTILITIES
@@ -1563,7 +1574,11 @@ function isOverlayOpen(){ return STATE.openOverlays.length > 0; }
 // ════════════════════════════════════════════════════════════════
 // #1a: Oslo + pendlerbelte-filter. Gjenbruker PROFILE.locations-nøklene (parity m/ scoring).
 function matchesOsloBelt(j){
-  var loc = (j.location||"").toLowerCase();
+  var loc = (j.location||"").trim().toLowerCase();
+  // Ukjent lokasjon skal IKKE skjules. Å gjemme en Oslo-jobb er verre enn å vise en som
+  // ikke er det: det første er usynlig, det andre avviser du på ett blikk. (Fikset juli 2026
+  // etter at Pareto Summer Internship 2027 forsvant ut av visningen med tomt stedsfelt.)
+  if(!loc) return true;
   return PROFILE.locations.some(function(l){ return loc.indexOf(l.kw) !== -1; });
 }
 function getFilteredJobs(){
