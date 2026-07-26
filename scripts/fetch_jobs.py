@@ -133,6 +133,16 @@ PROFILE = {
         # Pendlerbelte (Bærum/Asker-korridoren, direkte tog fra Oslo S):
         ("lysaker", 8), ("fornebu", 8), ("sandvika", 8), ("bærum", 8),
         ("asker", 5),  # ytre belte ~20 min tog
+        # Oslo-bydeler og -strøk (juli 2026). Annonser som oppgir KUN strøket traff ikke «oslo»
+        # og fikk nonOsloPenalty. points 0 = teller som Oslo-treff uten å dobbeltscore når
+        # strengen også inneholder «oslo». KEEP IN SYNC med strategi.html PROFILE.locations.
+        ("aker brygge", 0), ("bjørvika", 0), ("skøyen", 0), ("nydalen", 0),
+        ("majorstu", 0), ("grünerløkka", 0), ("tjuvholmen", 0), ("helsfyr", 0),
+        ("økern", 0), ("frogner", 0),
+        # «vika» treffer også «sandvika» — bevisst: sandvika scorer 8 på eget nøkkelord,
+        # vika legger til 0. Vika er Oslos finansstrøk.
+        ("vika", 0),
+        ("lørenskog", 5), ("lillestrøm", 5),  # ytre belte mot øst, direkte tog fra Oslo S
         # Avviklet juni 2026 — gjenopprett sammen med ENABLE_JOBINDEX hvis utland tas inn igjen:
         # ("paris", 8), ("london", 5), ("luxembourg", 5), ("stockholm", 3),
         # ("københavn", 7), ("copenhagen", 7), ("aarhus", 4), ("århus", 4),
@@ -737,7 +747,9 @@ EMPLOYER_ROLE_NET = [
 
 def matches_oslo_belt(location: str) -> bool:
     """Speiler matchesOsloBelt() i strategi.html — Oslo + pendlerbelte."""
-    loc = (location or "").lower()
+    loc = (location or "").strip().lower()
+    if not loc:
+        return True  # ukjent lokasjon skjules ikke — se kommentar i strategi.html
     return any(kw in loc for kw, _ in PROFILE["locations"])
 
 
