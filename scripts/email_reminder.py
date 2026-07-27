@@ -71,15 +71,18 @@ def decrypt_blob(password, blob):
 
 
 def gist_get(pat, gist_id):
+    # timeout=30 som i de tre andre scriptene — uten den kan en hengende
+    # connection blokkere til Actions' jobbtimeout.
     r = requests.get(f"{GIST_API}/gists/{gist_id}",
         headers={"Authorization": f"Bearer {pat}",
                  "Accept": "application/vnd.github+json",
-                 "User-Agent": USER_AGENT})
+                 "User-Agent": USER_AGENT},
+        timeout=30)
     r.raise_for_status()
     data = r.json()
     file_obj = data["files"]["strategi.enc.json"]
     if file_obj.get("truncated"):
-        raw = requests.get(file_obj["raw_url"])
+        raw = requests.get(file_obj["raw_url"], timeout=30)
         raw.raise_for_status()
         return json.loads(raw.text)
     return json.loads(file_obj["content"])
@@ -140,13 +143,27 @@ def parse_ts(s):
         return None
 
 
+def _dedup_key(company, role, url):
+    """Nøkkel for kryss-dedup jobb↔søknad. URL når den finnes (normalisert),
+    ellers firma+rolle. Den tilsiktede arbeidsflyten PRODUSERER begge postene
+    (addApp lager en apps-rad for en jobb som alt står som applied), så uten
+    dette ga samme søknad to identiske linjer i «Purr på disse»."""
+    u = (url or "").split("?")[0].split("#")[0].rstrip("/").lower()
+    if u:
+        return "u:" + u
+    return "cr:" + (company or "").strip().lower() + "|" + (role or "").strip().lower()
+
+
 def find_followups(payload):
     """«Purr på disse» (juli 2026): jobber og apps med status='applied' der
     siste bevegelse (statusUpdated/updated, fallback added/created) er eldre
     enn FOLLOWUP_AFTER_DAYS dager. probablyDown-jobber ekskluderes — nedtatte
-    annonser skal ikke gi mail-støy. Jobs først, deretter apps; eldste øverst."""
+    annonser skal ikke gi mail-støy. Jobs først, deretter apps; eldste øverst.
+    Kryss-deduplisert på URL (fallback firma+rolle) — jobben vinner over
+    apps-raden, siden den har scrape-metadata."""
     today = date.today()
     out = []
+    seen = set()
     for j in payload.get("jobs", []):
         if (j.get("status") or "new") != "applied" or j.get("probablyDown"):
             continue
@@ -155,14 +172,19 @@ def find_followups(payload):
             continue
         days = (today - moved).days
         if days > FOLLOWUP_AFTER_DAYS:
+            seen.add(_dedup_key(j.get("company"), j.get("role"), j.get("url")))
             out.append({"kind": "jobb", "company": j.get("company", "?"),
                         "role": j.get("role", "?"), "url": j.get("url", ""),
                         "days": days})
     jobs_part = sorted(out, key=lambda x: -x["days"])
     apps = []
     for a in payload.get("apps", []):
-        if a.get("status") != "applied":
+        if a.get("status") != "applied" or a.get("deleted"):
             continue
+        key = _dedup_key(a.get("company"), a.get("role"), a.get("url"))
+        if key in seen:
+            continue          # samme søknad står alt som jobb — ikke purr dobbelt
+        seen.add(key)
         moved = parse_ts(a.get("updated")) or parse_ts(a.get("created"))
         if moved is None:
             continue
@@ -172,6 +194,57 @@ def find_followups(payload):
                          "role": a.get("role", "?"), "url": a.get("url", ""),
                          "days": days})
     return jobs_part + sorted(apps, key=lambda x: -x["days"])
+
+
+# ── Outreach (2026-07-27) ────────────────────────────────────────────────────
+# payload["outreach"] ble ikke lest av dette scriptet i det hele tatt, selv om
+# Valiants egen strategitekst kaller nettverkssporet hovedsporet. Statusene
+# finnes alt (planned/sent/replied/meeting/done/no_reply) — de aggregeres bare
+# aldri. Idempotent på samme måte som resten: ingen state lagres, samme innslag
+# gjentas til feltene endres.
+OUTREACH_DONE_STATUSES = {"done", "no_reply"}
+
+
+def find_outreach_due(payload):
+    """Kontakter med et forfalt eller nært forestående «neste steg»
+    (nextDate ≤ i dag + REMINDER_WINDOW_DAYS). Forfalte først."""
+    today = date.today()
+    out = []
+    for o in payload.get("outreach", []):
+        if o.get("deleted") or o.get("status") in OUTREACH_DONE_STATUSES:
+            continue
+        nd = parse_deadline(o.get("nextDate"))
+        if nd is None:
+            continue
+        days_left = (nd - today).days
+        if days_left > REMINDER_WINDOW_DAYS:
+            continue
+        out.append({"o": o, "date": nd, "days_left": days_left,
+                    "action": o.get("nextAction") or "følg opp"})
+    out.sort(key=lambda x: x["date"])
+    return out
+
+
+def find_outreach_stale(payload):
+    """Kontakter i status 'sent' uten bevegelse i mer enn FOLLOWUP_AFTER_DAYS
+    dager. lastContact settes av setOutStatus når status blir sent/replied/
+    meeting; updated/created er fallback for eldre poster."""
+    today = date.today()
+    out = []
+    for o in payload.get("outreach", []):
+        if o.get("deleted") or o.get("status") != "sent":
+            continue
+        if parse_deadline(o.get("nextDate")):
+            continue          # har et konkret neste steg → dekkes av find_outreach_due
+        moved = (parse_ts(o.get("lastContact")) or parse_ts(o.get("updated"))
+                 or parse_ts(o.get("created")))
+        if moved is None:
+            continue
+        days = (today - moved).days
+        if days > FOLLOWUP_AFTER_DAYS:
+            out.append({"o": o, "days": days})
+    out.sort(key=lambda x: -x["days"])
+    return out
 
 
 def find_watch_changes(payload):
@@ -187,11 +260,13 @@ def esc(s):
     return html.escape(str(s), quote=True)
 
 
-def build_email_body(urgent, warnings=None, followups=None, watch=None):
+def build_email_body(urgent, warnings=None, followups=None, watch=None,
+                     out_due=None, out_stale=None):
     """Returnerer (plain_text, html) tuple. warnings = ⚠-linjer fra
     health_warnings() som legges øverst når scrape-helsa er rød;
     followups = purre-linjer fra find_followups(); watch = endrede
-    karrieresider fra find_watch_changes()."""
+    karrieresider fra find_watch_changes(); out_due/out_stale = outreach fra
+    find_outreach_due()/find_outreach_stale() (nettverkssporet)."""
     count = len(urgent)
     plain_lines = []
     if warnings:
@@ -283,6 +358,74 @@ def build_email_body(urgent, warnings=None, followups=None, watch=None):
             + "".join(fu_items) + "</ul>"
         )
 
+    # ── Outreach: neste steg forfalt/nært, og kontakter som er blitt stille ──
+    # Dette er sporet Valiants strategi kaller hovedsporet. Det er også det
+    # eneste innslaget i mailen som setter et NAVN foran ham om morgenen.
+    outreach_html = ""
+    out_due = out_due or []
+    out_stale = out_stale or []
+    if out_due or out_stale:
+        oi = []
+        if out_due:
+            plain_lines.append(f"Outreach — neste steg ({len(out_due)}):")
+            for d in out_due:
+                o = d["o"]
+                when = ("FORFALT " + d["date"].strftime("%d.%m")
+                        if d["days_left"] < 0 else
+                        "i dag" if d["days_left"] == 0 else
+                        "i morgen" if d["days_left"] == 1 else
+                        d["date"].strftime("%d.%m"))
+                who = f"{o.get('name', '?')} ({o.get('company', '?')})"
+                chan = o.get("email") or o.get("phone") or o.get("linkedin") or ""
+                plain_lines.append(f"• {who} — {d['action']} — {when}"
+                                   + (f" — {chan}" if chan else ""))
+                col = "#c0392b" if d["days_left"] < 0 else "#d4a017"
+                chan_html = ""
+                if o.get("email"):
+                    chan_html = (f'<a href="mailto:{esc(o["email"])}" '
+                                 f'style="color:#0070ed;text-decoration:none">'
+                                 f'{esc(o["email"])}</a>')
+                elif o.get("phone"):
+                    chan_html = esc(o["phone"])
+                elif o.get("linkedin"):
+                    chan_html = (f'<a href="{esc(o["linkedin"])}" '
+                                 f'style="color:#0070ed;text-decoration:none">LinkedIn</a>')
+                oi.append(
+                    f'<li style="margin-bottom:10px;">'
+                    f'<div style="font-weight:600;">{esc(o.get("name", "?"))}'
+                    f'<span style="color:#555;font-weight:400;"> — '
+                    f'{esc(o.get("title") or "")}{" · " if o.get("title") else ""}'
+                    f'{esc(o.get("company", "?"))}</span></div>'
+                    f'<div style="color:{col};font-size:0.9em;margin-top:2px;">'
+                    f'{esc(d["action"])} — {esc(when)}</div>'
+                    + (f'<div style="font-size:0.9em;">{chan_html}</div>' if chan_html else "")
+                    + f'</li>'
+                )
+            plain_lines.append("")
+        if out_stale:
+            plain_lines.append(f"Outreach — stille etter sendt ({len(out_stale)}):")
+            for s in out_stale:
+                o = s["o"]
+                plain_lines.append(f"• {o.get('name', '?')} ({o.get('company', '?')}) "
+                                   f"— {s['days']} dager siden kontakt")
+                oi.append(
+                    f'<li style="margin-bottom:10px;">'
+                    f'<div style="font-weight:600;">{esc(o.get("name", "?"))}'
+                    f'<span style="color:#555;font-weight:400;"> — '
+                    f'{esc(o.get("company", "?"))}</span></div>'
+                    f'<div style="color:#555;font-size:0.9em;">'
+                    f'{s["days"]} dager siden kontakt, ingen svar registrert</div></li>'
+                )
+            plain_lines.append("")
+        outreach_html = (
+            '<h2 style="font-weight: 500; margin: 24px 0 12px;">'
+            f'Outreach ({len(out_due) + len(out_stale)})</h2>'
+            '<p style="color: #888; font-size: 0.85em; margin: 0 0 12px;">'
+            'Nettverkssporet — forfalte neste steg og kontakter som er blitt stille.</p>'
+            '<ul style="padding-left: 20px; margin: 0; list-style: none;">'
+            + "".join(oi) + "</ul>"
+        )
+
     plain_lines.extend([
         "—",
         f"Åpne strategi.html for å oppdatere status: {STRATEGI_URL}"
@@ -325,6 +468,7 @@ def build_email_body(urgent, warnings=None, followups=None, watch=None):
       {warn_html}
       {watch_html}
       {urgent_html}
+      {outreach_html}
       {followup_html}
       <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
       <p style="color: #888; font-size: 0.85em;">
@@ -365,28 +509,36 @@ def main():
     followups = find_followups(payload)
     watch = find_watch_changes(payload)
     warnings = health_warnings(payload)
+    out_due = find_outreach_due(payload)
+    out_stale = find_outreach_stale(payload)
 
     print(f"Total jobs: {len(payload.get('jobs', []))}")
     print(f"Urgent (new/starred + deadline ≤ {REMINDER_WINDOW_DAYS} days): {len(urgent)}")
     print(f"Purre-kandidater (applied > {FOLLOWUP_AFTER_DAYS} dager): {len(followups)}")
     print(f"Karrieresider endret (boutique-vakt): {len(watch)}")
+    print(f"Outreach med neste steg innen {REMINDER_WINDOW_DAYS} dager: {len(out_due)}")
+    print(f"Outreach stille etter sendt (> {FOLLOWUP_AFTER_DAYS} dager): {len(out_stale)}")
     for w in warnings:
         print(f"⚠ Kilde-helse: {w}")
 
-    if not urgent and not followups and not watch:
-        print("Ingen e-post sendt — ingen jobber matcher kriteriene")
+    if not urgent and not followups and not watch and not out_due and not out_stale:
+        print("Ingen e-post sendt — ingenting matcher kriteriene")
         return
 
     count = len(urgent)
     parts = []
     if urgent:
         parts.append(f"{count} {'jobb' if count == 1 else 'jobber'} med frist innen {REMINDER_WINDOW_DAYS} dager")
+    if out_due:
+        parts.append(f"{len(out_due)} outreach forfaller")
     if followups:
         parts.append(f"{len(followups)} å purre på")
+    if out_stale:
+        parts.append(f"{len(out_stale)} stille kontakt{'er' if len(out_stale) != 1 else ''}")
     if watch:
         parts.append(f"{len(watch)} karriereside{'r' if len(watch) != 1 else ''} endret")
     subject = " · ".join(parts)
-    plain, html = build_email_body(urgent, warnings, followups, watch)
+    plain, html = build_email_body(urgent, warnings, followups, watch, out_due, out_stale)
 
     print(f"Sender e-post: {subject}")
     send_email(subject, plain, html)

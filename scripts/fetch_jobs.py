@@ -620,11 +620,20 @@ def detect_seniority(title: str) -> str:
     # internships?/associates?/trainees? + nyutdannet|nyutdannede — «Summer
     # Interns»/«Graduates 2027»-titler ga mid og mistet selskapspoeng via
     # A1-gaten. \b etter interns? holder fortsatt «internasjonal» ute.
-    # KEEP IN SYNC med strategi.html detectSeniority (tegn-for-tegn).
+    #
+    # KEEP IN SYNC med strategi.html detectSeniority. MERK: tegn-for-tegn like
+    # regexer var IKKE nok. Pythons \b er unicode-bevisst (ø/å/æ er ordtegn),
+    # JS' \b bruker \w = [A-Za-z0-9_] så ø/å/æ lager en ordgrense. Målt divergens
+    # (2026-07-27): «Seniorøkonom» ga JS=senior/PY=mid, «Juniorøkonom» og
+    # «Traineeår» ga JS=junior/PY=mid — 4 av 6 testtitler.
+    # re.ASCII gjør Pythons \b/\w ASCII-basert, altså identisk med JS.
+    # Nøkkelordene er rene ASCII-ord, så flagget endrer ikke hva som matches —
+    # bare hvor grensene ligger. Paritets-harnesset i _tools/strategi/ har nå
+    # ø/å/æ-caser som fanger dette.
     t = (title or "").lower()
-    if re.search(r"\b(graduates?|trainees?|junior|associates?|nyutdannet|nyutdannede|første\s*år|entry|internships?|interns?)\b", t):
+    if re.search(r"\b(graduates?|trainees?|junior|associates?|nyutdannet|nyutdannede|første\s*år|entry|internships?|interns?)\b", t, re.ASCII):
         return "junior"
-    if re.search(r"\b(senior|lead|principal|director|head\s+of|vp|chief)\b", t):
+    if re.search(r"\b(senior|lead|principal|director|head\s+of|vp|chief)\b", t, re.ASCII):
         return "senior"
     return "mid"
 
@@ -947,8 +956,52 @@ def fetch_successfactors(url: str, source: str) -> list:
     return jobs
 
 
+def _looks_like_place(text: str) -> bool:
+    """Er dette plausibelt et sted, eller bare en tittel-parentes?
+
+    Tittel-parenteser hos Teamtailor er like ofte «(vikariat)», «(2 stillinger)»
+    eller «(Hybrid)» som «(Oslo)». Ble alt godtatt som lokasjon, ga det en
+    location som IKKE matcher Oslo+belte → keep_job (fetch_jobs.py) forkastet
+    jobben STILLE, og lokasjonsberikelsen fra detaljsiden ble aldri forsøkt
+    (den kjører kun når location er tom). Rammet Formue/Pareto/Garantum.
+    """
+    t = (text or "").strip().lower()
+    if not t or len(t) > 40:
+        return False
+    if t in _TT_REMOTE_WORDS:
+        return False
+    # VIKTIG: ikke-sted-ordene sjekkes FØRST. PROFILE["locations"] matcher på
+    # substring, og «vika» (Aker Brygge/Vika) treffer inni «vikariat» — samme
+    # kollisjonsklasse som «bryn»/Bryne og «ski»/Skien, som er bevisst utelatt
+    # fra nøkkelordlista. Rekkefølgen er derfor ikke kosmetisk.
+    if any(w in t for w in _TT_NON_PLACE_WORDS):
+        return False
+    if any(ch.isdigit() for ch in t):
+        return False
+    # Alt som er igjen er et ord uten tall og uten stillingsvokabular — godta det
+    # som sted. Det gjelder både kjente Oslo+belte-navn og ekte ikke-Oslo-byer
+    # («(Bergen)»), som da havner riktig utenfor Oslo-filteret i stedet for å bli
+    # behandlet som ukjent lokasjon.
+    return True
+
+
+# Ord som gjør en tittel-parentes til noe annet enn et sted.
+_TT_NON_PLACE_WORDS = (
+    "vikar", "fast", "midlertid", "stilling", "engasjement", "deltid", "heltid",
+    "permisjon", "cover", "maternity", "parental", "temporary", "contract",
+    "intern", "trainee", "graduate", "summer", "sommer", "nyoppr", "nytt",
+    "prosjekt", "project", "part-time", "full-time", "freelance", "konsulent",
+    "%", "år", "mnd", "måned",
+)
+
+
 def _teamtailor_location(item: dict) -> str:
-    """By fra _jobposting (schema.org jobLocation), ellers tittel-parentes."""
+    """By fra _jobposting (schema.org jobLocation), ellers tittel-parentes.
+
+    Parentes-fallbacken valideres nå med _looks_like_place — en parentes som
+    ikke er et sted gir tom streng, slik at detaljside-berikelsen får kjøre og
+    keep_job behandler jobben lempelig i stedet for å forkaste den.
+    """
     jp = item.get("_jobposting") or {}
     jl = jp.get("jobLocation")
     if isinstance(jl, list):
@@ -960,7 +1013,13 @@ def _teamtailor_location(item: dict) -> str:
             if city:
                 return str(city).strip()
     m = re.search(r"\(([^)]+)\)\s*$", item.get("title") or "")
-    return m.group(1).strip() if m else ""
+    if m:
+        cand = m.group(1).strip()
+        if _looks_like_place(cand):
+            return cand
+        print(f"  teamtailor: ignorerer tittel-parentes «{cand}» "
+              f"(ikke et sted) — prøver detaljside i stedet")
+    return ""
 
 
 # Lokasjonsberikelse (juli 2026): enkelte TT-items mangler jobLocation i feeden
@@ -1417,8 +1476,14 @@ def scrape_arctic() -> list:
                         continue
                     seen.add(href)
                     jobs.append({
+                        # Tom lokasjon, IKKE hardkodet "Oslo". Primærveien
+                        # ekstraherer byen fra siden; denne fallbacken fyrer
+                        # nettopp når regex-veien ga 0 — altså når siden har
+                        # endret seg og antakelsen er minst til å stole på.
+                        # Tom location behandles lempelig av keep_job og
+                        # matches_oslo_belt, så jobben blir synlig uansett.
                         "role": title, "company": "Arctic Securities",
-                        "location": "Oslo", "url": href,
+                        "location": "", "url": href,
                         "posted": None, "query": "arctic",
                     })
             finally:
@@ -1917,9 +1982,21 @@ def main():
         return kept, new
 
     def collect(queries, scraper, source):
+        # Per-query try/except. Uten den drepte ÉN feil hele kjøringen: collect()
+        # kjøres først (finn, linje under), og Playwright-import/launch ligger
+        # utenfor den interne try-en i scrape_finn — en manglende browser-binary
+        # ga FATAL før NAV og alle 12 ATS-kildene var forsøkt. Det er stikk
+        # motsatt av isolasjonsprinsippet kommentaren under beskriver.
         for q in queries:
             print(f"Scraping {source} query: {q!r}")
-            scraped = scraper(q)
+            try:
+                scraped = scraper(q)
+            except Exception as e:
+                print(f"  {source}: query {q!r} FEILET "
+                      f"({type(e).__name__}: {e}) — hopper over",
+                      file=sys.stderr)
+                record(source, 0, 0, 0)
+                continue
             _, new = ingest(scraped, source, False)
             record(source, len(scraped), len(scraped), new)
             print(f"  {len(scraped)} jobber, {new} nye etter dedup")
