@@ -118,6 +118,11 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .b-sen-senior{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-b)}
 /* «Trolig nedtatt»-badge (juli 2026) — settes av fetch_jobs' probablyDown-flagg */
 .b-down{font-size:.68rem;font-weight:500;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-b)}
+/* Søknadsfrist på jobbkortet — nøytral, snart, utløpt */
+.b-dl-wrap{font-size:.68rem;font-weight:500;padding:2px 7px;border-radius:4px;letter-spacing:.2px;white-space:nowrap}
+.b-dl{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-b)}
+.b-dl-soon{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-b);font-weight:600}
+.b-dl-past{background:var(--red-bg);color:var(--red);border:1px solid var(--red-b);text-decoration:line-through}
 .job-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}
 .score{font-size:.74rem;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--accent-g);color:var(--accent);border:1px solid var(--border-h);cursor:help;font-family:'Syne',sans-serif}
 .score.s-hi{background:var(--green-bg);color:var(--green);border-color:var(--green-b)}
@@ -277,6 +282,12 @@ select.inp{color-scheme:dark;appearance:auto}
 .card-t{font-weight:600;font-size:.94rem}
 .card-s{font-size:.82rem;color:var(--accent2);margin-top:1px}
 .card-m{display:flex;flex-wrap:wrap;gap:10px;font-size:.76rem;color:var(--faint);margin-top:5px}
+/* Outreach: «neste steg» redigerbart direkte på kortet — feltet fristvarselet leser */
+.out-next{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.out-next label{font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.4px}
+.out-next input{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-family:inherit;font-size:.78rem;color:var(--text);outline:none}
+.out-next input[type=text]{flex:1;min-width:140px}
+.out-next input:focus{border-color:var(--accent)}
 .empty{text-align:center;padding:40px 20px;color:var(--faint)}
 .empty .ico{font-size:1.8rem;margin-bottom:6px}
 .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
@@ -874,7 +885,9 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
 // ════════════════════════════════════════════════════════════════
 //  CRYPTO  (samme i scripts/migrate-jobs.html — duplicat OK)
 // ════════════════════════════════════════════════════════════════
-function b64(u8){var s="";for(var i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s)}
+// Chunket i 32 kB-blokker. Den gamle per-byte-loopen målte 136 ms på 1,4 MB
+// payload; denne 31 ms, byte-identisk output. Kalles ved HVER mutate().
+function b64(u8){var s="",C=0x8000;for(var i=0;i<u8.length;i+=C)s+=String.fromCharCode.apply(null,u8.subarray(i,i+C));return btoa(s)}
 function ub64(s){var bin=atob(s);var u8=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);return u8}
 
 async function deriveKey(pw, salt){
@@ -1006,6 +1019,11 @@ var STATE = {
   cryptoSalt: null,        // Uint8Array — stable for the session (from initially-loaded blob)
   cryptoKey: null,         // CryptoKey — cached AES-GCM key for fast re-encryption
   initialUpdatedAt: null,  // payload.updatedAt at decrypt time — baseline for sync conflict detection
+  lastSyncedRemoteTs: null,// payload.updatedAt vi sist SÅ i Gist'en (settes av bootstrapSync + doPush)
+  // remoteVerified: false til bootstrapSync har lest OG dekryptert fersk Gist.
+  // Gate for ALL push (doPush). Uten den kan en offline-start pushe en ubekreftet
+  // lokal cache over nyere cron-/enhets-data — se online-handleren nederst.
+  remoteVerified: false,
   bootstrapping: false,    // true while bootstrapSync runs; locks UI
   syncState: "noconfig",   // synced | saving | offline | noconfig | patinvalid | pwmismatch | bootstrap | local
   pushTimer: null,         // setTimeout handle for debounced Gist PATCH
@@ -1042,6 +1060,10 @@ var DEFAULT_UI_PREFS = {
 };
 // #6: døde kilder kollapses under én "Arkiv"-chip i kilde-filteret (beholdes for historikk).
 var ARCHIVE_SOURCES = ["jobindex","jobslu"];
+
+// Frist-vinduet på jobbkortet. KEEP IN SYNC med REMINDER_WINDOW_DAYS i
+// scripts/email_reminder.py — det som er gult i huben skal være det som varsles.
+var URGENT_DEADLINE_DAYS = 5;
 
 var UI_PREFS_KEY = "ve-strategi-ui";
 
@@ -1134,7 +1156,15 @@ function updateSyncIndicator(state, ts){
 // ════════════════════════════════════════════════════════════════
 var CACHE_KEY = "ve-strategi-cache";
 var BANNER_SNOOZE_KEY = "ve-banner-snooze";
-async function saveToCache(){
+// Serialisert: to samtidige saveToCache() kan ellers fullføre i omvendt rekkefølge
+// og etterlate den ELDRE bloben i cachen (encryptCurrent er async).
+var CACHE_CHAIN = Promise.resolve();
+var CACHE_QUOTA_WARNED = false;
+function saveToCache(){
+  CACHE_CHAIN = CACHE_CHAIN.then(saveToCacheNow, saveToCacheNow);
+  return CACHE_CHAIN;
+}
+async function saveToCacheNow(){
   if(!STATE.cryptoKey) return;
   try{
     var blob = await encryptCurrent();
@@ -1148,8 +1178,14 @@ async function saveToCache(){
     };
     localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
   }catch(e){
-    // Quota / serialisation issues — swallow; Gist push is the durable layer
+    // Gist push er det durable laget — men en full localStorage betyr at
+    // offline-kopien stille slutter å oppdateres. Si det én gang per sesjon.
     console.warn("saveToCache failed:", e);
+    var quota = e && (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED" || e.code === 22);
+    if(quota && !CACHE_QUOTA_WARNED){
+      CACHE_QUOTA_WARNED = true;
+      toast("Lokal cache er full — offline-kopien oppdateres ikke lenger. Gist-synk går som normalt.", 9000);
+    }
   }
 }
 function readCache(){
@@ -1245,11 +1281,98 @@ function schedulePush(){
     doPush().catch(scheduleRetry);
   }, 2000);
 }
+// ── Clobber-guard, speiler fetch_jobs.py:2036–2058 ──────────────────────────
+// Cron re-henter Gist'en før push. Nettleseren gjorde det ikke, så en fane som
+// står åpen over natten pushet gårsdagens payload over cron-kjøringen.
+//
+// Eierskap:
+//   • scraper-eide TOPPNIVÅ-felter → remote vinner alltid (nettleseren har ingen
+//     autoritet på dem)
+//   • scraper-eide JOBB-felter (score, frist, probablyDown …) → remote vinner
+//   • bruker-eide jobb-felter (status, notater, stjerne, intervju-prep) → lokal vinner
+//   • notatbok / søknader / outreach → per-id-merge på tidsstempel (tombstone-aware)
+var SCRAPER_OWNED_KEYS = ["lastScrape", "sourceHealth", "sourceCursors", "watchHashes"];
+var USER_OWNED_JOB_KEYS = ["status", "prevStatus", "statusUpdated", "starred", "notes", "interviewPrep"];
+
+function mergeJobs(localJobs, remoteJobs){
+  var localById = {};
+  (localJobs || []).forEach(function(j){ if(j && j.id) localById[j.id] = j; });
+  var out = [], taken = {};
+  (remoteJobs || []).forEach(function(rj){
+    if(!rj || !rj.id) return;
+    taken[rj.id] = true;
+    var lj = localById[rj.id];
+    if(!lj){ out.push(rj); return; }
+    var merged = Object.assign({}, rj);          // remote = scraper-sannhet
+    USER_OWNED_JOB_KEYS.forEach(function(k){
+      if(lj[k] !== undefined) merged[k] = lj[k]; // lokale beslutninger overlever
+    });
+    out.push(merged);
+  });
+  // Jobber som bare finnes lokalt (paste-import som ikke er pushet ennå)
+  (localJobs || []).forEach(function(lj){ if(lj && lj.id && !taken[lj.id]) out.push(lj); });
+  return out;
+}
+
+// Per-id-merge for apps/outreach. Samme modell som mergeNotebook: nyeste
+// tidsstempel vinner, og en tombstone (deleted) slår en eldre levende post.
+function mergeColl(localArr, remoteArr){
+  function ts(o){ return o ? (o.deletedAt || o.updated || o.created || "") : ""; }
+  var byId = {}, order = [];
+  function take(o){
+    if(!o || !o.id) return;
+    var cur = byId[o.id];
+    if(!cur){ byId[o.id] = o; order.push(o.id); return; }
+    if(ts(o) > ts(cur)) byId[o.id] = o;
+  }
+  (localArr || []).forEach(take);
+  (remoteArr || []).forEach(take);
+  return order.map(function(id){ return byId[id]; });
+}
+
 async function doPush(){
   if(!STATE.payload.gist){ updateSyncIndicator("local"); return; }
+  // KRITISK: aldri push før bootstrapSync har bekreftet remote-state. Uten denne
+  // gaten kan en offline-start (eller online-eventet) skrive ubekreftet cache over
+  // nyere cron-/enhets-data. Jf. kommentaren i bootstrapSync-timeouten.
+  if(!STATE.remoteVerified){
+    updateSyncIndicator("offline");
+    return;
+  }
+  // Clobber-guard: re-hent før PATCH og flett inn det som er endret remote.
+  try{
+    var freshBlob = await gistGet(STATE.payload.gist.pat, STATE.payload.gist.id);
+    var fresh = await decryptBlob(STATE.password, freshBlob);
+    var freshTs = fresh.updatedAt || fresh.migratedAt || null;
+    if(freshTs && freshTs !== STATE.lastSyncedRemoteTs){
+      console.info("doPush: Gist endret remote (" + freshTs + ") — fletter inn før push");
+      STATE.payload.jobs     = mergeJobs(STATE.payload.jobs, fresh.jobs);
+      HAY.clear();   // remote kan ha endret role/location/description
+      STATE.payload.notebook = mergeNotebook(STATE.payload.notebook, fresh.notebook);
+      STATE.payload.apps     = mergeColl(STATE.payload.apps, fresh.apps);
+      STATE.payload.outreach = mergeColl(STATE.payload.outreach, fresh.outreach);
+      SCRAPER_OWNED_KEYS.forEach(function(k){
+        if(fresh[k] !== undefined) STATE.payload[k] = fresh[k];
+      });
+      // checks: ta uker vi ikke har lokalt (resetWeek på denne enheten skal stå)
+      if(fresh.checks){
+        STATE.payload.checks = STATE.payload.checks || {};
+        Object.keys(fresh.checks).forEach(function(w){
+          if(STATE.payload.checks[w] === undefined) STATE.payload.checks[w] = fresh.checks[w];
+        });
+      }
+      STATE.payload.updatedAt = new Date().toISOString();
+      renderAllFromPayload();
+    }
+  }catch(e){
+    // Kunne ikke verifisere remote → ikke push blindt. Retry håndterer det.
+    console.warn("doPush: clobber-guard feilet, avbryter push:", e);
+    throw e;
+  }
   var blob = await encryptCurrent();
   await gistPatch(STATE.payload.gist.pat, STATE.payload.gist.id, blob);
   STATE.retryAttempt = 0;
+  STATE.lastSyncedRemoteTs = STATE.payload.updatedAt || null;
   var nowIso = new Date().toISOString();
   updateSyncIndicator("synced", nowIso);
   // Update cache's gistSyncedAt
@@ -1283,9 +1406,17 @@ function scheduleRetry(err){
 // ════════════════════════════════════════════════════════════════
 //  MUTATE — called by every state-mutation site
 // ════════════════════════════════════════════════════════════════
+// saveToCache krypterer HELE payloaden (~1,4 MB) og skriver den til localStorage.
+// Ukjent for de fem tekstfeltene som kaller mutate() per tastetrykk: 500 tegn =
+// 500 krypteringer. Debounces 400 ms; flushes i beforeunload og flushNotebook.
+var CACHE_DEBOUNCE = null;
+function flushCache(){
+  if(CACHE_DEBOUNCE){ clearTimeout(CACHE_DEBOUNCE); CACHE_DEBOUNCE = null; saveToCache(); }
+}
 function mutate(){
   STATE.payload.updatedAt = new Date().toISOString();
-  saveToCache();
+  if(CACHE_DEBOUNCE) clearTimeout(CACHE_DEBOUNCE);
+  CACHE_DEBOUNCE = setTimeout(function(){ CACHE_DEBOUNCE = null; saveToCache(); }, 400);
   schedulePush();
 }
 
@@ -1316,6 +1447,23 @@ function isDecryptError(err){
 // ════════════════════════════════════════════════════════════════
 //  BOOTSTRAP SYNC — fetch fresh Gist, reconcile, unlock UI
 // ════════════════════════════════════════════════════════════════
+// Re-render aktiv fane + tellere etter at payload er byttet/flettet utenfor
+// den vanlige mutasjonsveien (bootstrap-adopsjon, clobber-guard-merge).
+function renderAllFromPayload(){
+  var activeTab = document.querySelector(".tab.on");
+  var tab = activeTab ? activeTab.dataset.tab : "jobs";
+  if(tab==="jobs") renderJobs();
+  else if(tab==="weekly") renderWeekly();
+  else if(tab==="apps") renderApps();
+  else if(tab==="outreach") renderOutreach();
+  else if(tab==="timeline") renderTimeline();
+  else if(tab==="pipeline") renderPipeline();
+  else if(tab==="notes") renderNotes();
+  document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
+  document.getElementById("cntApps").textContent = countLive(STATE.payload.apps);
+  document.getElementById("cntOut").textContent = countLive(STATE.payload.outreach);
+}
+
 async function bootstrapSync(){
   STATE.bootstrapping = true;
   document.querySelectorAll("section").forEach(function(s){ s.classList.add("sync-lock"); });
@@ -1337,36 +1485,43 @@ async function bootstrapSync(){
 
     var remoteTs = remotePayload.updatedAt || remotePayload.migratedAt;
     var localTs = STATE.payload.updatedAt || STATE.payload.migratedAt;
+    // Remote er lest OG dekryptert → push er trygt fra nå. Se doPush-gaten.
+    STATE.remoteVerified = true;
+    STATE.lastSyncedRemoteTs = remoteTs || null;
     if(remoteTs && (!localTs || new Date(remoteTs) >= new Date(localTs))){
-      // Gist newer → adopt. Men notebook merges per-notat (C1) så upushede
-      // lokale notat-endringer ikke klobbres av full-payload-adopsjonen.
+      // Gist newer → adopt. Men notebook/apps/outreach merges per-id (C1) så
+      // upushede lokale endringer ikke klobbres av full-payload-adopsjonen.
       var localNb = STATE.payload.notebook;
+      var localApps = STATE.payload.apps;
+      var localOut = STATE.payload.outreach;
       STATE.payload = remotePayload;
       if(typeof STATE.payload.scratchpad !== "string") STATE.payload.scratchpad = "";
       ensureNotebook(STATE.payload);
       STATE.payload.notebook = mergeNotebook(localNb, STATE.payload.notebook);
+      STATE.payload.apps = mergeColl(localApps, STATE.payload.apps);
+      STATE.payload.outreach = mergeColl(localOut, STATE.payload.outreach);
       STATE.initialUpdatedAt = remoteTs;
+      HAY.clear();
       saveToCache();
-      // Re-render visible tab
-      var activeTab = document.querySelector(".tab.on");
-      var tab = activeTab ? activeTab.dataset.tab : "jobs";
-      if(tab==="jobs") renderJobs();
-      else if(tab==="weekly") renderWeekly();
-      else if(tab==="apps") renderApps();
-      else if(tab==="outreach") renderOutreach();
-      else if(tab==="timeline") renderTimeline();
-      else if(tab==="pipeline") renderPipeline();
-      else if(tab==="notes") renderNotes();
-      // Counts
-      document.getElementById("cntJobs").textContent = countActive(STATE.payload.jobs);
-      document.getElementById("cntApps").textContent = STATE.payload.apps.length;
-      document.getElementById("cntOut").textContent = STATE.payload.outreach.length;
+      renderAllFromPayload();
       updateSyncIndicator("synced", remoteTs);
     } else {
-      // Local >= Gist → keep, push if dirty (local has changes not yet on Gist)
+      // Local >= Gist → behold lokal payload, men flett inn per-id-samlingene
+      // uansett: uten dette forsvinner notater/søknader/kontakter laget på en
+      // annen enhet, fordi lokal payload pushes hel og holden.
+      var beforeNb = JSON.stringify(STATE.payload.notebook || null);
+      var beforeApps = JSON.stringify(STATE.payload.apps || null);
+      var beforeOut = JSON.stringify(STATE.payload.outreach || null);
+      STATE.payload.notebook = mergeNotebook(STATE.payload.notebook, remotePayload.notebook);
+      STATE.payload.apps = mergeColl(STATE.payload.apps, remotePayload.apps);
+      STATE.payload.outreach = mergeColl(STATE.payload.outreach, remotePayload.outreach);
+      var merged = JSON.stringify(STATE.payload.notebook || null) !== beforeNb ||
+                   JSON.stringify(STATE.payload.apps || null) !== beforeApps ||
+                   JSON.stringify(STATE.payload.outreach || null) !== beforeOut;
+      if(merged){ saveToCache(); renderAllFromPayload(); }
       updateSyncIndicator("synced", new Date().toISOString());
-      if(localTs && (!remoteTs || new Date(localTs) > new Date(remoteTs))){
-        // Local newer — push so Gist catches up
+      if(merged || (localTs && (!remoteTs || new Date(localTs) > new Date(remoteTs)))){
+        // Local newer (eller nettopp flettet) — push så Gist tar igjen
         schedulePush();
       }
     }
@@ -1401,6 +1556,7 @@ async function bootstrapSync(){
 // ════════════════════════════════════════════════════════════════
 function openSetupModal(){
   document.getElementById("patInput").value = "";
+  document.getElementById("btnSetupGo").disabled = false;
   setSetupStatus("", "");
   document.getElementById("setupModal").classList.add("open");
   registerOverlay("setupModal");
@@ -1439,6 +1595,9 @@ async function doSetup(){
     var finalBlob = await encryptCurrent();
     await gistPatch(pat, gistRes.id, finalBlob);
 
+    // Vi opprettet gisten selv og har nettopp skrevet den → remote er bekreftet.
+    STATE.remoteVerified = true;
+    STATE.lastSyncedRemoteTs = STATE.payload.updatedAt;
     saveToCache();
     setSetupStatus("Synk aktivert", "ok");
     updateSyncIndicator("synced", STATE.payload.updatedAt);
@@ -1453,7 +1612,9 @@ async function doSetup(){
     setSetupStatus("Feilet: " + e.message, "err");
     btn.disabled = false;
   }
-  btn.disabled = false;
+  // MERK: btn.disabled settes IKKE tilbake på suksess-stien. Modalen står åpen
+  // i 600 ms til, og to klikk i det vinduet ville laget to gists (den første
+  // blir en orphan med PAT-en i seg). openSetupModal re-enabler ved neste åpning.
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -1543,6 +1704,7 @@ function uiPrefsIsDefault(){
   if(f.search) return false;
   if(f.scoreMin !== d.scoreMin || f.scoreMax !== d.scoreMax) return false;
   if(f.starred) return false;
+  if(f.locationOslo !== d.locationOslo) return false;   // manglet → Reset-knappen ble skjult feilaktig
   if(STATE.uiPrefs.sort !== DEFAULT_UI_PREFS.sort) return false;
   // status: same set?
   if(f.status.length !== d.status.length) return false;
@@ -1581,6 +1743,19 @@ function matchesOsloBelt(j){
   if(!loc) return true;
   return PROFILE.locations.some(function(l){ return loc.indexOf(l.kw) !== -1; });
 }
+// Søke-haystack memoiseres per jobb-id. VIKTIG: i et Map utenfor payloaden —
+// som felt på job-objektet ville den havnet i JSON.stringify og doblet Gist-bloben.
+// Bygging av ~1,4 MB strenger + toLowerCase() skjedde tidligere ved HVER passering.
+var HAY = new Map();
+function hayFor(j){
+  var h = HAY.get(j.id);
+  if(h === undefined){
+    h = ((j.role||"") + " " + (j.company||"") + " " + (j.location||"") + " " +
+         (j.notes||"") + " " + (j.description||"")).toLowerCase();
+    HAY.set(j.id, h);
+  }
+  return h;
+}
 function getFilteredJobs(){
   var jobs = STATE.payload.jobs;
   var f = STATE.uiPrefs.filters;
@@ -1596,10 +1771,7 @@ function getFilteredJobs(){
     if(srcSet && !srcSet.has(j.source || "")) return false;
     var s = j.score || 0;
     if(s < min || s > max) return false;
-    if(q){
-      var hay = ((j.role||"") + " " + (j.company||"") + " " + (j.location||"") + " " + (j.notes||"") + " " + (j.description||"")).toLowerCase();
-      if(hay.indexOf(q) === -1) return false;
-    }
+    if(q && hayFor(j).indexOf(q) === -1) return false;
     return true;
   });
 
@@ -2120,12 +2292,16 @@ function onImportFieldChange(idx, field, value){
   if(!it) return;
   it[field] = value;
   if(field === "url"){
+    var wasDup = !!it._isDuplicate;
     var dup = findImportDuplicate(value);
     it._isDuplicate = !!dup;
     it._dupExistingId = dup ? dup.id : null;
     if(it._isDuplicate && !it._dupAction) it._dupAction = "skip";
     if(!it._isDuplicate) it._dupAction = null;
-    renderImportList(); // re-render to move card between sections
+    // Re-render KUN når kortet faktisk skal bytte seksjon. Tidligere kjørte den
+    // per tastetrykk, og siden renderImportList setter innerHTML ble <input>-et
+    // brukeren skrev i byttet ut — fokus forsvant etter første tegn.
+    if(wasDup !== it._isDuplicate) renderImportList();
     updateImportSaveButton();
     return;
   }
@@ -2353,15 +2529,19 @@ function bindImportControls(){
 //  BEFOREUNLOAD — only warn if pushTimer is pending (debounce-window)
 // ════════════════════════════════════════════════════════════════
 window.addEventListener("beforeunload", function(e){
+  flushCache();   // debouncet cache-skriving må ikke gå tapt ved lukking
   if(STATE.pushTimer){ e.preventDefault(); e.returnValue = ""; return ""; }
 });
 
 // On network back: if we were offline, kick a retry immediately (don't wait for backoff)
 window.addEventListener("online", function(){
-  if(STATE.syncState === "offline" && STATE.payload && STATE.payload.gist){
-    if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
-    doPush().catch(scheduleRetry);
-  }
+  if(!STATE.payload || !STATE.payload.gist) return;
+  if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
+  // Har vi ALDRI bekreftet remote (bootstrap feilet/timet ut), er en push her
+  // det farligste vi kan gjøre — den skriver ubekreftet cache over Gist'en.
+  // Kjør bootstrap i stedet, som leser remote først.
+  if(!STATE.remoteVerified){ bootstrapSync(); return; }
+  if(STATE.syncState === "offline") doPush().catch(scheduleRetry);
 });
 
 // ════════════════════════════════════════════════════════════════
@@ -2484,8 +2664,8 @@ function initUI(payload){
 
   // Counts
   document.getElementById("cntJobs").textContent = countActive(payload.jobs);
-  document.getElementById("cntApps").textContent = payload.apps.length;
-  document.getElementById("cntOut").textContent = payload.outreach.length;
+  document.getElementById("cntApps").textContent = countLive(payload.apps);
+  document.getElementById("cntOut").textContent = countLive(payload.outreach);
 
   // Snapshot button
   document.getElementById("btnSnapshot").addEventListener("click", snapshotToRepo);
@@ -2576,10 +2756,21 @@ var JOBS_PAGE = 60;
 function jobCardHtml(j, focusedId){
   var st = JOB_STATUSES.find(function(s){return s.v===j.status}) || JOB_STATUSES[0];
   var scoreClass = j.score >= 60 ? "s-hi" : (j.score < 25 ? "s-lo" : "");
-  var senBadge = j.seniority ? '<span class="b-sen b-sen-'+j.seniority+'">'+j.seniority+'</span>' : '';
+  var senBadge = j.seniority ? '<span class="b-sen b-sen-'+esc(j.seniority)+'">'+esc(j.seniority)+'</span>' : '';
   var prio = j.priority ? '<span class="star" title="Prioritert selskap fra scrape">★</span>' : '';
   // probablyDown settes av fetch_jobs (autoritative kilder, borte 3+ kjøringer) — null-guardet for eldre payloads
   var downBadge = j.probablyDown ? '<span class="b-down" title="Ikke sett i kildens stillingsliste på '+(j.missingDays||3)+' kjøringer på rad — trolig tatt ned. Verifiser via lenken.">trolig nedtatt</span>' : '';
+  // Frist på kortet. Uten den sorterte «Frist (nærmest først)» på data du ikke
+  // kunne se, og en passert frist var usynlig overalt i Jobber-fanen.
+  var dlBadge = "";
+  if(j.deadline){
+    var dl = daysUntil(j.deadline);
+    var dlCls = dl < 0 ? "b-dl-past" : (dl <= URGENT_DEADLINE_DAYS ? "b-dl-soon" : "b-dl");
+    var dlTxt = dl < 0 ? "frist utløpt " + fmtDate(j.deadline)
+              : (dl === 0 ? "frist i dag"
+              : (dl === 1 ? "frist i morgen" : "frist " + fmtDate(j.deadline) + " (" + dl + " d)"));
+    dlBadge = '<span class="b-dl-wrap '+dlCls+'" title="Søknadsfrist '+esc(j.deadline)+'">'+dlTxt+'</span>';
+  }
   var starredCls = j.starred ? " on" : "";
   var starredIcon = j.starred ? "★" : "☆";
   var focusedCls = (j.id === focusedId) ? " focused" : "";
@@ -2593,6 +2784,7 @@ function jobCardHtml(j, focusedId){
           (j.location && j.location!==j.company ? '<span class="dot">·</span><span>'+esc(j.location)+'</span>' : '')+
           (j.source ? '<span class="dot">·</span><span>'+esc(j.source)+'</span>' : '')+
           (senBadge ? '<span class="dot">·</span>'+senBadge : '')+
+          (dlBadge ? '<span class="dot">·</span>'+dlBadge : '')+
           (downBadge ? '<span class="dot">·</span>'+downBadge : '')+
           (prio ? '<span class="dot">·</span>'+prio : '')+
         '</div>'+
@@ -2634,6 +2826,7 @@ function appendNextPage(){
   var sentinel = document.getElementById("jobsSentinel");
   if(sentinel) sentinel.insertAdjacentHTML("beforebegin", html);
   v.rendered += slice.length;
+  restoreOpenNotes();   // gjenåpne notatfelt som var åpne før re-render
   if(v.rendered >= v.list.length && v.io){ v.io.disconnect(); v.io = null; }
   return true;
 }
@@ -2642,14 +2835,16 @@ function ensureRenderedUpTo(idx){
 }
 
 function renderJobs(){
-  renderFilterBar();
+  // ÉN filter+sort per render — resultatet deles med renderFilterBar og meta-linja.
   var jobs = getFilteredJobs();
+  var scope = countInStatusScope();
+  renderFilterBar(jobs, scope);
   var total = STATE.payload.jobs.length;
   var meta = document.getElementById("jobsMeta");
   var meta_ts = STATE.payload.updatedAt || STATE.payload.migratedAt;
   var meta_label = STATE.payload.updatedAt ? "oppdatert" : "migrert";
   var meta_date = meta_ts ? fmtDate(meta_ts) : "?";
-  var meta_html = jobs.length + " av " + countInStatusScope() + " jobber · " + total + " totalt · " + meta_label + " " + meta_date;
+  var meta_html = jobs.length + " av " + scope + " jobber · " + total + " totalt · " + meta_label + " " + meta_date;
   if(STATE.payload.lastScrape && STATE.payload.lastScrape.at){
     var ls = STATE.payload.lastScrape;
     // ⚠ når siste scrape er >48 t gammel — cron er daglig; to døgn uten kjøring = noe er galt
@@ -2746,6 +2941,10 @@ function toggleStarred(id){
 function countActive(arr){
   return (arr||[]).filter(function(j){return (j.status||"new")!=="removed";}).length;
 }
+// Tombstone-filter for apps/outreach (soft delete, jf. notatboken). Poster med
+// deleted=true beholdes i payloaden så en merge ikke gjenoppliver dem.
+function liveOnly(arr){ return (arr||[]).filter(function(o){ return !o.deleted; }); }
+function countLive(arr){ return liveOnly(arr).length; }
 // #3: nevner = jobber i valgt status-scope, så "Viser X av Y" alltid har X ≤ Y (også når Fjernet vises).
 function countInStatusScope(){
   var ss = STATE.uiPrefs.filters.status;
@@ -2804,7 +3003,10 @@ function restoreJob(id){
 // ════════════════════════════════════════════════════════════════
 //  FILTER BAR RENDER + WIRING
 // ════════════════════════════════════════════════════════════════
-function renderFilterBar(){
+// preFiltered/preScope sendes inn av renderJobs, som allerede har regnet dem ut.
+// Tidligere gjorde renderJobs + renderFilterBar til sammen 5 O(n)-passeringer og
+// 2 sorteringer per render (verste tilfelle 7 + 4 via setFocusedStatus).
+function renderFilterBar(preFiltered, preScope){
   var jobs = STATE.payload.jobs;
   var f = STATE.uiPrefs.filters;
 
@@ -2819,6 +3021,8 @@ function renderFilterBar(){
   var starredCount = 0;
   var osloBeltCount = 0;
   var sourceCounts = {};
+  var statusScope = 0;
+  var scopeSet = new Set(f.status);
   jobs.forEach(function(j){
     var s = j.status || "new";
     if(counts[s] !== undefined) counts[s]++;
@@ -2826,7 +3030,9 @@ function renderFilterBar(){
     if(s !== "removed" && matchesOsloBelt(j)) osloBeltCount++;
     var src = j.source || "(ukjent)";
     sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+    if(scopeSet.has(s)) statusScope++;   // slått sammen med countInStatusScope()
   });
+  if(preScope !== undefined) statusScope = preScope;
   var allOn = (f.status.length === JOB_STATUSES.length);
   var statusHtml = '<button class="chip chip-all'+(allOn?" on":"")+'" data-status="__all__">Alle</button>';
   JOB_STATUSES.forEach(function(s){
@@ -2877,8 +3083,8 @@ function renderFilterBar(){
   document.getElementById("resetBtn").classList.toggle("hidden", uiPrefsIsDefault());
 
   // Bulk: count + bulk-mark-seen button visibility
-  var filtered = getFilteredJobs();
-  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + countInStatusScope();
+  var filtered = preFiltered || getFilteredJobs();
+  document.getElementById("bulkCount").textContent = "Viser " + filtered.length + " av " + statusScope;
   var onlyNew = f.status.length === 1 && f.status[0] === "new";
   document.getElementById("bulkMarkSeenBtn").classList.toggle("hidden", !onlyNew || filtered.length === 0);
 
@@ -2984,22 +3190,37 @@ function bindFilterControls(){
 function bulkMarkSeen(){
   var filtered = getFilteredJobs();
   if(!filtered.length) return;
-  if(!confirm("Markere alle " + filtered.length + " jobber i filteret som «Sett»?")) return;
+  // Jobber med frist innenfor varselsvinduet holdes på "new". email_reminder.py
+  // varsler bare om status "new" (eller stjernemerket), så ett klikk her slo
+  // tidligere av fristvarslingen for alt i filteret — også det som forfaller i morgen.
+  var keep = filtered.filter(function(j){
+    if(!j.deadline) return false;
+    var d = daysUntil(j.deadline);
+    return d >= 0 && d <= URGENT_DEADLINE_DAYS;
+  });
+  var change = filtered.filter(function(j){ return keep.indexOf(j) === -1; });
+  if(!change.length){
+    toast("Alle " + filtered.length + " har frist innen " + URGENT_DEADLINE_DAYS + " dager — beholdt som Ny så varslingen består.");
+    return;
+  }
+  var q = "Markere " + change.length + " jobber i filteret som «Sett»?";
+  if(keep.length) q += "\n\n" + keep.length + " med frist innen " + URGENT_DEADLINE_DAYS + " dager beholdes som «Ny» så fristvarselet består.";
+  if(!confirm(q)) return;
   var nowIso = new Date().toISOString();
-  filtered.forEach(function(j){
+  change.forEach(function(j){
     var job = STATE.payload.jobs.find(function(x){return x.id===j.id});
     if(job){ job.status = "seen"; job.statusUpdated = nowIso; }
   });
   // Switch status filter to "seen" so user sees what changed; start fresh — clear focus
   // and scroll to top of filter-bar so user sees the new filter highlight + list head.
-  STATE.uiPrefs.filters.status = ["seen"];
+  STATE.uiPrefs.filters.status = keep.length ? ["new","seen"] : ["seen"];
   STATE.uiPrefs.focusedJobId = null;
   saveUiPrefs();
   mutate();
   renderJobs();
   var fb = document.getElementById("filterBar");
   if(fb) fb.scrollIntoView({behavior:"smooth", block:"start"});
-  toast("Merket " + filtered.length + " jobber som Sett.");
+  toast("Merket " + change.length + " som Sett." + (keep.length ? " " + keep.length + " med nær frist står fortsatt som Ny." : ""));
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -3191,7 +3412,9 @@ function setFocusedStatus(v){
   if(!job) return;
   // Capture position in filtered list BEFORE mutation so we can move focus to
   // the job that "takes over" the slot if the current one is filtered away.
-  var beforeList = getFilteredJobs();
+  // JOBS_VIEW.list ER forrige renders getFilteredJobs()-resultat, samme rekkefølge
+  // — gjenbruk det i stedet for å regne filter+sort på nytt (jf. focusStep).
+  var beforeList = JOBS_VIEW.list && JOBS_VIEW.list.length ? JOBS_VIEW.list : getFilteredJobs();
   var prevIdx = beforeList.findIndex(function(j){return j.id===id});
   job.status = v;
   job.statusUpdated = new Date().toISOString();
@@ -3313,21 +3536,37 @@ function setJobStatus(id, v){
   mutate();
   renderJobs();
 }
-function toggleNotes(id){
+// Åpne notatfelt er per-sesjon UI-state (samme mønster som PREP_COLLAPSED).
+// Uten dette rev renderJobs() (jobsList.innerHTML = …) et åpent notatfelt hver
+// gang du trykket statusbadgen — feltet lukket seg og fokus forsvant.
+var NOTES_OPEN = {};
+function buildNotesArea(id){
   var area = document.getElementById("notes-"+id);
+  if(!area || area.firstChild) return area;
+  var job = STATE.payload.jobs.find(function(j){return j.id===id});
+  var ta0 = document.createElement("textarea");
+  ta0.setAttribute("data-jid", id);
+  ta0.placeholder = "Notater for denne jobben…";
+  ta0.value = job ? (job.notes||"") : "";
+  ta0.addEventListener("input", function(){ onJobNoteInput(this); });
+  area.appendChild(ta0);
+  return area;
+}
+// Kalles av appendNextPage for kort som var åpne før re-render.
+function restoreOpenNotes(){
+  Object.keys(NOTES_OPEN).forEach(function(id){
+    if(!NOTES_OPEN[id]) return;
+    var area = buildNotesArea(id);
+    if(area) area.classList.add("open");
+  });
+}
+function toggleNotes(id){
+  var area = buildNotesArea(id);
   if(!area) return;
-  // #4 fase C: bygg textarea ved første åpning (lazy); verdien leses fra payload.
-  if(!area.firstChild){
-    var job = STATE.payload.jobs.find(function(j){return j.id===id});
-    var ta0 = document.createElement("textarea");
-    ta0.setAttribute("data-jid", id);
-    ta0.placeholder = "Notater for denne jobben…";
-    ta0.value = job ? (job.notes||"") : "";
-    ta0.addEventListener("input", function(){ onJobNoteInput(this); });
-    area.appendChild(ta0);
-  }
   area.classList.toggle("open");
-  if(area.classList.contains("open")){
+  var open = area.classList.contains("open");
+  if(open) NOTES_OPEN[id] = true; else delete NOTES_OPEN[id];
+  if(open){
     var ta = area.querySelector("textarea");
     if(ta) ta.focus();
   }
@@ -3338,6 +3577,7 @@ function onJobNoteInput(el){
   if(!job) return;
   if(job.notes !== el.value){
     job.notes = el.value;
+    HAY.delete(id);            // notater er del av søke-haystacken
     mutate();
   }
 }
@@ -3523,13 +3763,26 @@ function renderNotes(){
   renderNoteEditor();
 }
 
+// stripNoteHtml kjører full DOMPurify.sanitize() per notat. Uten cache betød
+// notat-søket 1 parsing per notat PER TASTETRYKK. Invalideres når body endres.
+var NOTE_TEXT = new Map();
+function noteTextFor(n){
+  var key = n.id + "|" + (n.updatedAt || "");
+  var t = NOTE_TEXT.get(key);
+  if(t === undefined){
+    t = stripNoteHtml(n.body);
+    if(NOTE_TEXT.size > 400) NOTE_TEXT.clear();   // enkel takgrense
+    NOTE_TEXT.set(key, t);
+  }
+  return t;
+}
 function renderNoteTree(){
   var s = nbState(), q = (s.search||"").toLowerCase();
   var notes = nbNotes().filter(function(n){return !n.deleted;});   // skjul tombstones
   var folders = nbFoldersSorted();
   var activeFolderIds = {};
   folders.forEach(function(f){ activeFolderIds[f.id] = true; });
-  function matches(n){ if(!q) return true; return (n.title+" "+stripNoteHtml(n.body)).toLowerCase().indexOf(q)!==-1; }
+  function matches(n){ if(!q) return true; return (n.title+" "+noteTextFor(n)).toLowerCase().indexOf(q)!==-1; }
   function noteRow(n){
     return '<div class="nb-note'+(n.id===s.noteId?" on":"")+'" onclick="selectNote(\''+n.id+'\')">'+
       '<button class="nb-pin'+(n.pinned?" on":"")+'" title="'+(n.pinned?"Løsne":"Fest øverst")+'" onclick="event.stopPropagation();togglePin(\''+n.id+'\')">'+(n.pinned?"★":"☆")+'</button>'+
@@ -3631,7 +3884,10 @@ function createFolder(){
   uiPrompt("Ny mappe", "Navn på mappe", "").then(function(name){
     name = (name||"").trim(); if(!name) return;
     var order = nbFolders().reduce(function(m,f){return Math.max(m, f.order||0)}, -1) + 1;
-    STATE.payload.notebook.folders.push({id:genId(), name:name, order:order, createdAt:new Date().toISOString()});
+    // updatedAt fra start: mergeNotebook.ts() rangerer på deletedAt||updatedAt||createdAt,
+    // og uten feltet faller sammenligningen tilbake på en createdAt som kan være måneder gammel.
+    var nowIso = new Date().toISOString();
+    STATE.payload.notebook.folders.push({id:genId(), name:name, order:order, createdAt:nowIso, updatedAt:nowIso});
     mutate(); renderNoteTree(); renderNoteEditor();
   });
 }
@@ -3639,7 +3895,7 @@ function renameFolder(id){
   var f = nbFolders().find(function(x){return x.id===id}); if(!f) return;
   uiPrompt("Omdøp mappe", "Nytt mappenavn", f.name).then(function(name){
     name = (name||"").trim(); if(!name) return;
-    f.name = name; mutate(); renderNotes();
+    f.name = name; f.updatedAt = new Date().toISOString(); mutate(); renderNotes();
   });
 }
 // Soft-delete: tombstone mappen. Notater beholder folderId og blir orphans
@@ -3651,7 +3907,10 @@ function deleteFolder(id){
   mutate(); renderNotes();
   toast("Mappe «"+f.name+"» slettet."+(count?" "+count+" notat(er) → «Uten mappe».":""), {
     actionText:"Angre", ms:8000, action:function(){
-      delete f.deleted; delete f.deletedAt; mutate(); renderNotes();
+      // updatedAt MÅ settes — ellers vinner en annen enhets tombstone over
+      // den gjenopprettede mappen ved neste merge.
+      delete f.deleted; delete f.deletedAt; f.updatedAt = new Date().toISOString();
+      mutate(); renderNotes();
     }
   });
 }
@@ -3661,7 +3920,14 @@ function togglePin(id){
   mutate(); renderNoteTree();
 }
 function setNoteSort(v){ nbState().sort = v || "updated"; renderNoteTree(); }
-function onNoteSearch(v){ nbState().search = v||""; renderNoteTree(); }
+// Debounce 200 ms — samme som jobbsøket (bindFilterControls). Uten den kjørte
+// hvert tastetrykk et fullt tre-render med sanitering av alle notater.
+var NB_SEARCH_TIMER = null;
+function onNoteSearch(v){
+  nbState().search = v||"";
+  if(NB_SEARCH_TIMER) clearTimeout(NB_SEARCH_TIMER);
+  NB_SEARCH_TIMER = setTimeout(function(){ NB_SEARCH_TIMER = null; renderNoteTree(); }, 200);
+}
 
 // ── Styled prompt (erstatter window.prompt for mappe-CRUD) ──
 var nbPromptResolver = null;
@@ -3699,6 +3965,7 @@ function saveNoteBodyFromDom(){
 function flushNotebook(){
   nbCancelDebounce();                 // kanseller pending debounce -> ingen tapt data
   saveNoteBodyFromDom();              // lagre siste tilstand synkront (kaller mutate() KUN hvis innhold faktisk endret seg)
+  flushCache();                       // debouncet cache-skriving skrives nå
   // Push KUN hvis det var en pending push fra mutate. Ellers risikerer vi å overskrive nyere remote-data med stale lokal payload.
   var hadPending = !!STATE.pushTimer;
   if(STATE.pushTimer){ clearTimeout(STATE.pushTimer); STATE.pushTimer = null; }
@@ -3821,7 +4088,7 @@ function openUnchecked(){
 //  APPLICATIONS TAB
 // ════════════════════════════════════════════════════════════════
 function renderApps(){
-  var apps = STATE.payload.apps;
+  var apps = liveOnly(STATE.payload.apps);
   var counts = {all: apps.length};
   APP_STATUSES.forEach(function(s){counts[s.v] = apps.filter(function(a){return a.status===s.v}).length});
   var ch = '<button class="chip'+(STATE.appFilter==="all"?" on":"")+'" onclick="STATE.appFilter=\'all\';renderApps()">Alle ('+counts.all+')</button>';
@@ -3882,12 +4149,26 @@ function addApp(){
     status: "interested", created: new Date().toISOString(), updated: new Date().toISOString()
   });
   STATE.showAppForm = false;
-  document.getElementById("cntApps").textContent = STATE.payload.apps.length;
+  document.getElementById("cntApps").textContent = countLive(STATE.payload.apps);
   mutate(); renderApps();
 }
 function toggleAppStatus(id,e){if(e)e.stopPropagation();var el=document.getElementById("sp-"+id);document.querySelectorAll(".sp-menu.open").forEach(function(m){if(m!==el)m.classList.remove("open")});el.classList.toggle("open")}
 function setAppStatus(id,v){STATE.payload.apps = STATE.payload.apps.map(function(a){return a.id===id?Object.assign({},a,{status:v,updated:new Date().toISOString()}):a});mutate();renderApps()}
-function delApp(id){if(!confirm("Slette denne søknaden?"))return;STATE.payload.apps = STATE.payload.apps.filter(function(a){return a.id!==id});document.getElementById("cntApps").textContent = STATE.payload.apps.length;mutate();renderApps()}
+// Soft delete + undo-toast, samme mønster som hideJob og deleteCurrentNote.
+// Hard delete gjorde sletting reversibel av synk: en annen enhet med eldre
+// payload men nyere updatedAt kunne gjenopplive posten.
+function delApp(id){
+  var a = STATE.payload.apps.find(function(x){return x.id===id;});
+  if(!a || a.deleted) return;
+  a.deleted = true; a.deletedAt = new Date().toISOString(); a.updated = a.deletedAt;
+  document.getElementById("cntApps").textContent = countLive(STATE.payload.apps);
+  mutate(); renderApps();
+  toast("Søknad slettet: " + (a.company||"?"), {actionText:"Angre", ms:8000, action:function(){
+    delete a.deleted; delete a.deletedAt; a.updated = new Date().toISOString();
+    document.getElementById("cntApps").textContent = countLive(STATE.payload.apps);
+    mutate(); renderApps();
+  }});
+}
 
 // ════════════════════════════════════════════════════════════════
 //  OUTREACH TAB
@@ -3902,16 +4183,25 @@ function renderOutreach(){
       '<input class="inp" id="oCompany" placeholder="Selskap *">'+
       '<input class="inp" id="oLinkedin" placeholder="LinkedIn-profil URL">'+
       '</div>'+
-      '<input class="inp" id="oNotes" placeholder="Kontekst: hvorfor denne personen? Hva vil du snakke om?" style="margin-bottom:10px">'+
+      '<div class="grid2" style="margin-bottom:8px">'+
+      '<input class="inp" id="oEmail" placeholder="E-post (kanalen du faktisk bruker)">'+
+      '<input class="inp" id="oPhone" placeholder="Telefon">'+
+      '</div>'+
+      '<input class="inp" id="oNotes" placeholder="Kontekst: hvorfor denne personen? Hva vil du snakke om?" style="margin-bottom:8px">'+
+      '<div class="grid2" style="margin-bottom:10px">'+
+      '<input class="inp" id="oNextAction" placeholder="Neste steg (f.eks. «ring hvis stille»)">'+
+      '<input class="inp" type="date" id="oNextDate" aria-label="Dato for neste steg">'+
+      '</div>'+
       '<div style="display:flex;gap:8px"><button class="btn btn-p" onclick="addOut()">Lagre</button>'+
       '<button class="btn btn-s" onclick="STATE.showOutForm=false;renderOutreach()">Avbryt</button></div></div>';
   } else {
     document.getElementById("outFormArea").innerHTML = '<button class="btn-ghost" onclick="STATE.showOutForm=true;renderOutreach()" style="margin-bottom:14px">+ Ny kontakt / outreach</button>';
   }
 
-  var list = STATE.outFilter==="all" ? STATE.payload.outreach : STATE.payload.outreach.filter(function(o){return o.status===STATE.outFilter});
-  var counts = {all: STATE.payload.outreach.length};
-  OUT_STATUSES.forEach(function(s){counts[s.v] = STATE.payload.outreach.filter(function(o){return o.status===s.v}).length});
+  var all = liveOnly(STATE.payload.outreach);
+  var list = STATE.outFilter==="all" ? all : all.filter(function(o){return o.status===STATE.outFilter});
+  var counts = {all: all.length};
+  OUT_STATUSES.forEach(function(s){counts[s.v] = all.filter(function(o){return o.status===s.v}).length});
   var chipArea = '<div class="chips" style="margin-bottom:14px">';
   chipArea += '<button class="chip'+(STATE.outFilter==="all"?" on":"")+'" onclick="STATE.outFilter=\'all\';renderOutreach()">Alle ('+counts.all+')</button>';
   OUT_STATUSES.forEach(function(s){
@@ -3927,12 +4217,39 @@ function renderOutreach(){
   var html = chipArea;
   list.forEach(function(o){
     var st = OUT_STATUSES.find(function(s){return s.v===o.status}) || OUT_STATUSES[0];
+    // «Dager siden siste kontakt» — umulig før lastContact/updated fantes.
+    var since = "";
+    var ref = o.lastContact || o.updated || null;
+    if(ref){
+      var d = Math.max(0, Math.floor((Date.now() - new Date(ref).getTime())/864e5));
+      var cls = d >= OUTREACH_STALE_DAYS ? ' style="color:var(--yellow);font-weight:600"' : '';
+      since = '<span'+cls+'>'+(d===0?"rørt i dag":(d===1?"1 dag siden":d+" dager siden"))+'</span>';
+    }
+    // Neste steg — forfalt vises rødt. Dette er feltet email_reminder.py leser.
+    var nx = "";
+    if(o.nextDate){
+      var nd = daysUntil(o.nextDate);
+      var ncls = nd < 0 ? 'color:var(--red);font-weight:600' : (nd <= 1 ? 'color:var(--yellow);font-weight:600' : 'color:var(--dim)');
+      nx = '<span style="'+ncls+'">→ '+(o.nextAction?esc(o.nextAction)+" ":"")+fmtDate(o.nextDate)+(nd<0?" (forfalt)":"")+'</span>';
+    } else if(o.nextAction){
+      nx = '<span style="color:var(--dim)">→ '+esc(o.nextAction)+'</span>';
+    }
+    var contactLinks = [];
+    if(o.linkedin) contactLinks.push('<a href="'+esc(o.linkedin)+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">LinkedIn ↗</a>');
+    if(o.email) contactLinks.push('<a href="mailto:'+esc(o.email)+'" onclick="event.stopPropagation()">'+esc(o.email)+'</a>');
+    if(o.phone) contactLinks.push('<span>'+esc(o.phone)+'</span>');
     html += '<div class="card"><div class="card-h"><div style="flex:1">'+
       '<div class="card-t">'+esc(o.name)+'</div>'+
       '<div class="card-s">'+esc(o.title?o.title+" · ":"")+esc(o.company)+'</div>'+
-      '<div class="card-m">'+(o.linkedin?'<a href="'+esc(o.linkedin)+'" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">LinkedIn ↗</a>':'')+
-      '<span>Lagt til '+fmtDate(o.created)+'</span></div>'+
+      '<div class="card-m">'+contactLinks.join('<span class="dot">·</span>')+
+      (contactLinks.length?'<span class="dot">·</span>':'')+
+      '<span>Lagt til '+fmtDate(o.created)+'</span>'+(since?'<span class="dot">·</span>'+since:'')+'</div>'+
+      (nx?'<div class="card-m" style="margin-top:4px">'+nx+'</div>':'')+
       (o.notes?'<div style="font-size:.8rem;color:var(--faint);margin-top:6px;font-style:italic">'+esc(o.notes)+'</div>':'')+
+      '<div class="out-next"><label>Neste steg</label>'+
+      '<input type="text" data-oid="'+o.id+'" data-of="nextAction" value="'+esc(o.nextAction||"")+'" placeholder="hva skal skje">'+
+      '<input type="date" data-oid="'+o.id+'" data-of="nextDate" value="'+esc(o.nextDate||"")+'" aria-label="Dato for neste steg">'+
+      '</div>'+
       '</div><div style="display:flex;align-items:center;gap:6px">'+
       '<div class="sp"><span class="badge '+st.cls+'" onclick="toggleOutStatus(\''+o.id+'\',event)">'+st.l+'</span>'+
       '<div class="sp-menu" id="osp-'+o.id+'">'+
@@ -3941,26 +4258,67 @@ function renderOutreach(){
       '<button class="del-btn" onclick="delOut(\''+o.id+'\')" title="Slett">×</button></div></div></div>';
   });
   document.getElementById("outList").innerHTML = html;
+  document.querySelectorAll("#outList .out-next input").forEach(function(el){
+    el.addEventListener("change", function(){ onOutFieldChange(this.dataset.oid, this.dataset.of, this.value); });
+  });
+}
+// Endring på nextAction/nextDate skal IKKE nullstille lastContact — dette er
+// planlegging, ikke kontakt. Derfor eget felt-oppdateringsspor.
+function onOutFieldChange(id, field, value){
+  var o = STATE.payload.outreach.find(function(x){return x.id===id;});
+  if(!o) return;
+  var v = (value||"").trim();
+  if((o[field]||"") === v) return;
+  if(v) o[field] = v; else delete o[field];
+  o.updated = new Date().toISOString();
+  mutate(); renderOutreach();
 }
 function addOut(){
   var n = document.getElementById("oName").value.trim();
   var c = document.getElementById("oCompany").value.trim();
   if(!n||!c) return;
-  STATE.payload.outreach.unshift({
-    id: genId(), name: n,
-    title: document.getElementById("oTitle").value.trim(),
-    company: c,
-    linkedin: document.getElementById("oLinkedin").value.trim(),
-    notes: document.getElementById("oNotes").value.trim(),
-    status: "planned", created: new Date().toISOString()
+  var nowIso = new Date().toISOString();
+  var o = { id: genId(), name: n, company: c, status: "planned", created: nowIso, updated: nowIso };
+  // Valgfrie felter legges bare på når de har innhold — holder payloaden ren.
+  [["title","oTitle"],["linkedin","oLinkedin"],["email","oEmail"],["phone","oPhone"],
+   ["notes","oNotes"],["nextAction","oNextAction"],["nextDate","oNextDate"]].forEach(function(p){
+    var el = document.getElementById(p[1]);
+    var v = el ? (el.value||"").trim() : "";
+    if(v) o[p[0]] = v;
   });
+  STATE.payload.outreach.unshift(o);
   STATE.showOutForm = false;
-  document.getElementById("cntOut").textContent = STATE.payload.outreach.length;
+  document.getElementById("cntOut").textContent = countLive(STATE.payload.outreach);
   mutate(); renderOutreach();
 }
 function toggleOutStatus(id,e){if(e)e.stopPropagation();var el=document.getElementById("osp-"+id);document.querySelectorAll(".sp-menu.open").forEach(function(m){if(m!==el)m.classList.remove("open")});el.classList.toggle("open")}
-function setOutStatus(id,v){STATE.payload.outreach = STATE.payload.outreach.map(function(o){return o.id===id?Object.assign({},o,{status:v}):o});mutate();renderOutreach()}
-function delOut(id){if(!confirm("Slette denne kontakten?"))return;STATE.payload.outreach = STATE.payload.outreach.filter(function(o){return o.id!==id});document.getElementById("cntOut").textContent = STATE.payload.outreach.length;mutate();renderOutreach()}
+// setAppStatus skrev alltid `updated`; setOutStatus skrev ingenting, så det
+// fantes ikke noe spor av NÅR en kontakt sist ble rørt. lastContact settes i
+// tillegg når statusen betyr faktisk kontakt — det er den email_reminder.py purrer på.
+var OUTREACH_CONTACT_STATUSES = ["sent", "replied", "meeting"];
+var OUTREACH_STALE_DAYS = 14;   // KEEP IN SYNC med FOLLOWUP_AFTER_DAYS i email_reminder.py
+function setOutStatus(id,v){
+  var nowIso = new Date().toISOString();
+  STATE.payload.outreach = STATE.payload.outreach.map(function(o){
+    if(o.id !== id) return o;
+    var next = Object.assign({}, o, {status: v, updated: nowIso});
+    if(OUTREACH_CONTACT_STATUSES.indexOf(v) !== -1) next.lastContact = nowIso;
+    return next;
+  });
+  mutate(); renderOutreach();
+}
+function delOut(id){
+  var o = STATE.payload.outreach.find(function(x){return x.id===id;});
+  if(!o || o.deleted) return;
+  o.deleted = true; o.deletedAt = new Date().toISOString(); o.updated = o.deletedAt;
+  document.getElementById("cntOut").textContent = countLive(STATE.payload.outreach);
+  mutate(); renderOutreach();
+  toast("Kontakt slettet: " + (o.name||"?"), {actionText:"Angre", ms:8000, action:function(){
+    delete o.deleted; delete o.deletedAt; o.updated = new Date().toISOString();
+    document.getElementById("cntOut").textContent = countLive(STATE.payload.outreach);
+    mutate(); renderOutreach();
+  }});
+}
 
 // ════════════════════════════════════════════════════════════════
 //  TIMELINE TAB
@@ -4091,7 +4449,7 @@ function renderPipeline(){
 //  SNAPSHOT TIL REPO — frivillig nedlasting (seed for nye enheter)
 // ════════════════════════════════════════════════════════════════
 async function snapshotToRepo(){
-  if(!STATE.payload || !STATE.cryptoKey){ alert("Ingen payload lastet."); return; }
+  if(!STATE.payload || !STATE.cryptoKey){ toast("Ingen payload lastet."); return; }
   var btn = document.getElementById("btnSnapshot");
   var oldTxt = btn.textContent;
   btn.disabled = true; btn.textContent = "Krypterer…";
@@ -4105,15 +4463,20 @@ async function snapshotToRepo(){
     var dataStr = JSON.stringify(blob);
     var url = URL.createObjectURL(new Blob([dataStr], {type:"application/json"}));
     var a = document.createElement("a");
-    a.href = url; a.download = "strategi.enc.json"; a.click();
-    URL.revokeObjectURL(url);
+    // Ankeret må i DOM og URL-en må leve litt etter click() — synkron revoke
+    // avbryter nedlastingen av ~1,9 MB i Firefox/Safari.
+    a.href = url; a.download = "strategi.enc.json";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 2000);
     btn.textContent = "✓ Lastet ned";
     toast("Snapshot lastet ned. Flytt til repo-root og commit for å oppdatere seed på nye enheter.");
     setTimeout(function(){ btn.textContent = oldTxt; btn.disabled = false; }, 1800);
   }catch(e){
     btn.textContent = oldTxt;
     btn.disabled = false;
-    alert("Snapshot feilet: "+e.message);
+    toast("Snapshot feilet: "+e.message, 7000);
   }
 }
 </script>
