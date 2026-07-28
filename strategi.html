@@ -719,10 +719,15 @@ select.inp{color-scheme:dark;appearance:auto}
     <h2 id="setupTitle">Oppsett</h2>
 
     <div class="setup-sec-h">Gist-synk</div>
-    <p class="modal-sub">
+    <p class="modal-sub" id="gistSetupNew">
       Du trenger en fine-grained Personal Access Token med <strong>Gists: Read and write</strong>-tilgang.
       Lag en på <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> ↗.
       Lim inn token under. PAT lagres kryptert sammen med resten av payload.
+    </p>
+    <p class="modal-sub" id="gistSetupCfg" style="display:none">
+      Synk er allerede satt opp mot gist <strong id="gistIdShown">—</strong>. Her kan du kun
+      <strong>bytte PAT</strong> — typisk når den gamle utløper. Det opprettes ingen ny gist:
+      det ville pekt hubben mot et tomt arkiv og gjort den gamle foreldreløs med alle jobbene i seg.
     </p>
     <input type="password" class="inp" id="patInput" placeholder="github_pat_…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text" style="margin-bottom:6px">
     <div class="modal-status" id="setupStatus">—</div>
@@ -1631,14 +1636,42 @@ async function bootstrapSync(){
 // ════════════════════════════════════════════════════════════════
 //  SETUP MODAL
 // ════════════════════════════════════════════════════════════════
-function openSetupModal(){
+// Sant når synk allerede er satt opp. Da er Gist-seksjonen i «bytt PAT»-modus
+// og opprettelse er utilgjengelig — se doSetup.
+function gistConfigured(){
+  return !!(STATE.payload && STATE.payload.gist && STATE.payload.gist.id);
+}
+
+// Gist-seksjonen har to tilstander. Fram til Dokumenter-fanen kom kunne modalen
+// bare åpnes uten konfigurert gist (noconfig/patinvalid), så førstegangs-
+// oppsettet var eneste mulighet. Nå kan den åpnes med en gist på plass, og da
+// MÅ «opprett» være borte: doSetup ville pekt payload.gist.id om til en fersk,
+// tom gist og gjort den gamle foreldreløs med alle jobbene i seg.
+function renderGistSetupSection(){
+  var on = gistConfigured();
+  document.getElementById("gistSetupNew").style.display = on ? "none" : "block";
+  document.getElementById("gistSetupCfg").style.display = on ? "block" : "none";
+  document.getElementById("btnSetupGo").textContent = on ? "Test og lagre PAT" : "Test og opprett Gist";
+  if(on) document.getElementById("gistIdShown").textContent = String(STATE.payload.gist.id).slice(0, 8) + "…";
+}
+
+// focus: "supabase" setter fokus i dokumentarkiv-feltene i stedet for PAT-feltet.
+// MERK: funksjonen brukes også direkte som event-listener (bannerSetup), så
+// første argument kan være et Event — derfor typesjekken.
+function openSetupModal(focus){
+  var want = (typeof focus === "string") ? focus : "";
   document.getElementById("patInput").value = "";
   document.getElementById("btnSetupGo").disabled = false;
   setSetupStatus("", "");
+  renderGistSetupSection();
   sbFillSetupFields();
   document.getElementById("setupModal").classList.add("open");
   registerOverlay("setupModal");
-  setTimeout(function(){ document.getElementById("patInput").focus(); }, 50);
+  var focusId = (want === "supabase") ? "sbUrlInput" : "patInput";
+  setTimeout(function(){
+    var el = document.getElementById(focusId);
+    if(el) el.focus();
+  }, 50);
 }
 function closeSetupModal(){
   document.getElementById("setupModal").classList.remove("open");
@@ -1654,10 +1687,43 @@ async function doSetup(){
   if(!pat){ setSetupStatus("Lim inn en PAT først.", "err"); return; }
   var btn = document.getElementById("btnSetupGo");
   btn.disabled = true;
+
+  // Fanges FØR noe skrives, siden opprettelsesstien under overskriver
+  // STATE.payload.gist og dermed sletter id-en vi må sjekke mot.
+  var existingId = (STATE.payload && STATE.payload.gist) ? STATE.payload.gist.id : null;
+
+  // ── Gist finnes → bytt PAT, opprett aldri en ny ────────────────────────────
+  if(existingId){
+    try{
+      setSetupStatus("Tester PAT…");
+      var okRot = await gistTestPat(pat);
+      if(!okRot){ setSetupStatus("Ugyldig PAT (401). Sjekk scope og expiration.", "err"); btn.disabled = false; return; }
+      STATE.payload.gist.pat = pat;
+      mutate();
+      setSetupStatus("PAT byttet — kobler til på nytt…", "ok");
+      closeSetupModal();
+      // Re-verifiser remote med den nye tokenen. Uten dette blir en økt som
+      // stod i patinvalid stående der: doPush er gated på remoteVerified, som
+      // kun bootstrapSync setter.
+      await bootstrapSync();
+      toast("PAT oppdatert.");
+    }catch(e){
+      setSetupStatus("Feilet: " + e.message, "err");
+      btn.disabled = false;
+    }
+    return;
+  }
+
   try{
     setSetupStatus("Tester PAT…");
     var ok = await gistTestPat(pat);
     if(!ok){ setSetupStatus("Ugyldig PAT (401). Sjekk scope og expiration.", "err"); btn.disabled = false; return; }
+
+    // Hard guard: gistCreate skal ALDRI nås med en eksisterende gist.id.
+    // Grenen over fanger det normalt; denne står igjen som andre forsvarslinje
+    // hvis noen senere fjerner den. Å opprette her ville pekt payloaden mot en
+    // fersk gist og etterlatt den gamle foreldreløs — med PAT-en i seg.
+    if(existingId) throw new Error("Gist finnes allerede (" + existingId + ") — opprettelse avbrutt.");
 
     setSetupStatus("Oppretter Gist…");
     // First add the gist field provisionally so the initial Gist body contains the PAT (consistent state)
@@ -4866,7 +4932,7 @@ async function renderDocs(){
   if(!sbCfg()){
     el.innerHTML = '<div class="empty">Dokumentarkivet er ikke satt opp ennå.<br>' +
       'Legg inn Supabase-legitimasjonen i oppsettet — samme prosjekt og bruker som jobbloggen.' +
-      '<div style="margin-top:16px"><button class="btn btn-p" onclick="openSetupModal()">Åpne oppsett</button></div></div>';
+      '<div style="margin-top:16px"><button class="btn btn-p" onclick="openSetupModal(\'supabase\')">Åpne oppsett</button></div></div>';
     return;
   }
   var gen = ++DOCS_GEN;
