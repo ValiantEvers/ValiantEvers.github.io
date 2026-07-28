@@ -332,13 +332,18 @@ select.inp{color-scheme:dark;appearance:auto}
 .setup-sec-h{font-size:.78rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .setup-div{border-top:1px solid var(--border);margin:20px 0 18px}
 
-/* Dokumentarkivet — hver rad er en ekte lenke (se DOKUMENTER-blokka i JS) */
-.doc-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;color:var(--text);font-family:inherit;font-size:.9rem;cursor:pointer;transition:border-color .2s}
+/* Dokumentarkivet — åpne-flaten er en ekte lenke (se DOKUMENTER-blokka i JS),
+   slettknappen ligger UTENFOR den så et trykk på søpla ikke navigerer. */
+.doc-row{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;transition:border-color .2s}
 .doc-row:hover{border-color:var(--border-h)}
+.doc-open-tgt{display:flex;align-items:center;gap:12px;flex:1;min-width:0;padding:14px 6px 14px 16px;background:none;border:none;text-align:left;color:var(--text);font-family:inherit;font-size:.9rem;cursor:pointer}
 .doc-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
 .doc-meta{font-size:.76rem;color:var(--faint);white-space:nowrap}
 .doc-open{font-size:.8rem;color:var(--faint)}
+.doc-del{background:none;border:none;color:var(--faint);font-size:1.05rem;line-height:1;cursor:pointer;padding:12px 14px;margin-right:4px;border-radius:8px;transition:color .15s}
+.doc-del:hover{color:var(--red)}
 .doc-note{font-size:.76rem;color:var(--faint);line-height:1.55;margin-top:14px;text-align:center}
+.btn-d{background:var(--red);color:#fff}
 
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:10px 16px;font-size:.85rem;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;z-index:9500;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
@@ -754,6 +759,24 @@ select.inp{color-scheme:dark;appearance:auto}
     <div class="setup-div"></div>
     <div class="modal-actions">
       <button class="btn btn-s" id="btnSetupClose">Lukk uten å lagre</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLETT DOKUMENT — bekreftelse ═══
+     Sletting fra mobil er bevisst gated bak en bekreftelse: en feilplassert
+     tommel skal ikke kunne fjerne et vitnemål fra det eneste arkivet. -->
+<div class="modal-overlay" id="docDelModal">
+  <div class="modal" role="dialog" aria-labelledby="docDelTitle">
+    <h2 id="docDelTitle">Slette dokument?</h2>
+    <p class="modal-sub">
+      <strong id="docDelName">—</strong> fjernes fra arkivet — også i jobbloggen, det er samme lager.
+      Dette kan ikke angres.
+    </p>
+    <div class="modal-status" id="docDelStatus">—</div>
+    <div class="modal-actions">
+      <button class="btn btn-d" id="btnDocDelGo">Slett</button>
+      <button class="btn btn-s" id="btnDocDelCancel">Avbryt</button>
     </div>
   </div>
 </div>
@@ -2899,6 +2922,13 @@ function initUI(payload){
     renderDocs();
   });
 
+  // Slett-bekreftelsen (Esc lukker via den globale handleren, som resten)
+  document.getElementById("btnDocDelGo").addEventListener("click", confirmDeleteDoc);
+  document.getElementById("btnDocDelCancel").addEventListener("click", closeDocDelModal);
+  document.getElementById("docDelModal").addEventListener("click", function(e){
+    if(e.target.id === "docDelModal") closeDocDelModal();
+  });
+
   // Dokumentopplasting — FileList må kopieres før value nullstilles, ellers
   // er den tom. Nullstillingen gjør at samme fil kan velges på nytt.
   document.getElementById("docsFile").addEventListener("change", function(){
@@ -3698,6 +3728,7 @@ function bindKeyboardShortcuts(){
         else if(top === "helpOverlay") hideHelpOverlay();
         else if(top === "nbPrompt") closeNbPrompt(null);
         else if(top === "setupModal") closeSetupModal();
+        else if(top === "docDelModal") closeDocDelModal();
         else if(top === "importModal") closeImportModal(false);
         else if(top === "letterModal"){
           // Esc lukker ikke når fokus er i lim-inn-feltet (unngå å miste limt brev)
@@ -4888,6 +4919,63 @@ async function sbUpload(file){
   if(!r.ok) throw await sbErrFrom(r);
 }
 
+// ── Sletting ─────────────────────────────────────────────────────
+// Opphever den opprinnelige «taus om sletting»-beslutningen (2026-07-28):
+// mobiltesten etterlot en testfil, og å måtte innom jobbloggen for å fjerne
+// den er reell friksjon. Tommel-begrunnelsen står — bekreftelsesmodalen er
+// svaret på den, ikke fraværet av knappen.
+var DOCS_DEL_IDX = null;
+
+function setDocDelStatus(msg, cls){
+  var el = document.getElementById("docDelStatus");
+  el.textContent = msg || "—";
+  el.className = "modal-status" + (cls?" "+cls:"");
+}
+function askDeleteDoc(i){
+  var d = STATE.docs && STATE.docs[i];
+  if(!d) return;
+  DOCS_DEL_IDX = i;
+  document.getElementById("docDelName").textContent = d.name;
+  setDocDelStatus("", "");
+  document.getElementById("btnDocDelGo").disabled = false;
+  document.getElementById("docDelModal").classList.add("open");
+  registerOverlay("docDelModal");
+}
+function closeDocDelModal(){
+  document.getElementById("docDelModal").classList.remove("open");
+  unregisterOverlay("docDelModal");
+  DOCS_DEL_IDX = null;
+}
+
+// DELETE /object/<bucket> med {prefixes:[…]} — samme form som storage-js sin
+// remove(). RLS-delete-policyen på storage.objects begrenser til egen mappe.
+async function sbDelete(p){
+  var r = await sbFetch("/object/" + SB_BUCKET, {
+    method: "DELETE",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({prefixes: [p]})
+  });
+  if(!r.ok) throw await sbErrFrom(r);
+}
+
+async function confirmDeleteDoc(){
+  var d = STATE.docs && STATE.docs[DOCS_DEL_IDX];
+  if(!d) return;
+  var btn = document.getElementById("btnDocDelGo");
+  btn.disabled = true;
+  try{
+    setDocDelStatus("Sletter…");
+    await sbDelete(d.path);
+    closeDocDelModal();
+    STATE.docs = null;      // tving fersk listing — raden skal faktisk forsvinne
+    await renderDocs();
+    toast("«" + d.name + "» er slettet.");
+  }catch(e){
+    setDocDelStatus("Feilet: " + e.message, "err");
+    btn.disabled = false;
+  }
+}
+
 function docsPickFiles(){
   var inp = document.getElementById("docsFile");
   if(inp) inp.click();
@@ -4943,15 +5031,25 @@ async function openDocFallback(i){
   }
 }
 
+// esc() serialiserer &, < og > — men IKKE ", fordi tekstinnhold ikke trenger
+// det. I attributtverdier gjør det det: et filnavn fra Storage kan i prinsippet
+// inneholde et anførselstegn (sanitizeFilename hindrer det for filer lastet opp
+// via appene, men ikke for noe lagt inn via Supabase-dashbordet).
+function escAttr(s){ return esc(s).replace(/"/g, "&quot;"); }
+
 function docsRowHtml(d, i){
   var meta = [docsBytes(d.size), d.updatedAt ? fmtDateDMY(d.updatedAt) : ""].filter(Boolean).join(" · ");
   var inner = '<span class="doc-name">' + esc(d.name) + '</span>' +
               '<span class="doc-meta">' + esc(meta) + '</span>' +
               '<span class="doc-open">↗</span>';
-  if(d.url){
-    return '<a class="doc-row" href="' + esc(d.url) + '" target="_blank" rel="noreferrer">' + inner + '</a>';
-  }
-  return '<button class="doc-row" onclick="openDocFallback(' + i + ')">' + inner + '</button>';
+  // Slettknappen må ligge UTENFOR åpne-flaten — ellers ville et trykk på den
+  // også fulgt lenken.
+  var open = d.url
+    ? '<a class="doc-open-tgt" href="' + escAttr(d.url) + '" target="_blank" rel="noreferrer">' + inner + '</a>'
+    : '<button class="doc-open-tgt" onclick="openDocFallback(' + i + ')">' + inner + '</button>';
+  return '<div class="doc-row">' + open +
+         '<button class="doc-del" onclick="askDeleteDoc(' + i + ')" title="Slett" ' +
+         'aria-label="Slett ' + escAttr(d.name) + '">×</button></div>';
 }
 
 async function renderDocs(){
