@@ -1801,6 +1801,18 @@ async function sbSaveSetup(){
     setSbSetupStatus("Lagret. Dokumenter-fanen er klar.", "ok");
     var pwEl = document.getElementById("sbPwInput");
     pwEl.value = ""; pwEl.placeholder = "uendret";
+
+    // Man kommer typisk hit fra Dokumenter-fanens «Åpne oppsett», og den fanen
+    // står da på oppsett-tilstanden. Uten denne oppdateringen blir meldingen
+    // over en direkte løgn: lagringen gikk fint, men visningen henger igjen i
+    // «ikke satt opp ennå». Rendringen startes med én gang (den henter over
+    // nett) og modalen lukkes etterpå, som i doSetup.
+    var docsSec = document.getElementById("p-docs");
+    if(docsSec && docsSec.style.display !== "none") renderDocs();
+    setTimeout(function(){
+      closeSetupModal();
+      toast("Dokumentarkivet er koblet til.");
+    }, 600);
   }catch(e){
     setSbSetupStatus("Feilet: " + e.message, "err");
   }finally{
