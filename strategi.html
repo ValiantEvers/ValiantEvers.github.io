@@ -1362,6 +1362,27 @@ function mergeColl(localArr, remoteArr){
   return order.map(function(id){ return byId[id]; });
 }
 
+// supabase er et SINGLETON konfigfelt, ikke en per-id-samling — det finnes
+// ingen tidsstempler å flette på. Regel: adopter kildens felt kun når målet
+// mangler det; ellers vinner målet (et nyoppsett på DENNE enheten skal aldri
+// tapes til en eldre remote).
+//
+// Må kalles fra ALLE tre forsoningsveiene, ellers slettes legitimasjonen
+// stille fra Gist-en:
+//   • bootstrapSync, adopsjonsgrenen  — lokal legitimasjon overlever at hele
+//     remote-payloaden adopteres (enhet lagret creds, push feilet, cron gjorde
+//     remote nyere)
+//   • bootstrapSync, behold-lokal-grenen — remote sin adopteres før lokal
+//     payload pushes hel og holden
+//   • doPush sin clobber-guard — samme, rett før PATCH
+// Returnerer true hvis feltet faktisk ble adoptert.
+function adoptSupabase(target, source){
+  if(!target || !source || !source.supabase) return false;
+  if(target.supabase) return false;
+  target.supabase = source.supabase;
+  return true;
+}
+
 async function doPush(){
   if(!STATE.payload.gist){ updateSyncIndicator("local"); return; }
   // KRITISK: aldri push før bootstrapSync har bekreftet remote-state. Uten denne
@@ -1393,6 +1414,7 @@ async function doPush(){
           if(STATE.payload.checks[w] === undefined) STATE.payload.checks[w] = fresh.checks[w];
         });
       }
+      adoptSupabase(STATE.payload, fresh);
       STATE.payload.updatedAt = new Date().toISOString();
       renderAllFromPayload();
     }
@@ -1526,12 +1548,14 @@ async function bootstrapSync(){
       var localNb = STATE.payload.notebook;
       var localApps = STATE.payload.apps;
       var localOut = STATE.payload.outreach;
+      var localSb = STATE.payload.supabase;   // singleton — se adoptSupabase
       STATE.payload = remotePayload;
       if(typeof STATE.payload.scratchpad !== "string") STATE.payload.scratchpad = "";
       ensureNotebook(STATE.payload);
       STATE.payload.notebook = mergeNotebook(localNb, STATE.payload.notebook);
       STATE.payload.apps = mergeColl(localApps, STATE.payload.apps);
       STATE.payload.outreach = mergeColl(localOut, STATE.payload.outreach);
+      adoptSupabase(STATE.payload, {supabase: localSb});
       STATE.initialUpdatedAt = remoteTs;
       HAY.clear();
       saveToCache();
@@ -1547,10 +1571,15 @@ async function bootstrapSync(){
       STATE.payload.notebook = mergeNotebook(STATE.payload.notebook, remotePayload.notebook);
       STATE.payload.apps = mergeColl(STATE.payload.apps, remotePayload.apps);
       STATE.payload.outreach = mergeColl(STATE.payload.outreach, remotePayload.outreach);
+      // Uten denne pushes lokal payload uten legitimasjon over Gist-en under.
+      var adoptedSb = adoptSupabase(STATE.payload, remotePayload);
       var merged = JSON.stringify(STATE.payload.notebook || null) !== beforeNb ||
                    JSON.stringify(STATE.payload.apps || null) !== beforeApps ||
                    JSON.stringify(STATE.payload.outreach || null) !== beforeOut;
-      if(merged){ saveToCache(); renderAllFromPayload(); }
+      // Adopsjonen skal i cachen, men trigger ingen re-render (ingen synlig data
+      // endret) og ingen push for egen del — remote har den allerede.
+      if(merged || adoptedSb) saveToCache();
+      if(merged) renderAllFromPayload();
       updateSyncIndicator("synced", new Date().toISOString());
       if(merged || (localTs && (!remoteTs || new Date(localTs) > new Date(remoteTs)))){
         // Local newer (eller nettopp flettet) — push så Gist tar igjen
