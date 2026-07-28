@@ -329,6 +329,8 @@ select.inp{color-scheme:dark;appearance:auto}
 .modal-status{font-size:.82rem;color:var(--dim);min-height:1.4em;margin-top:10px}
 .modal-status.ok{color:var(--green)}
 .modal-status.err{color:var(--red)}
+.setup-sec-h{font-size:.78rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.setup-div{border-top:1px solid var(--border);margin:20px 0 18px}
 
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:10px 16px;font-size:.85rem;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;z-index:9500;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
@@ -699,7 +701,9 @@ select.inp{color-scheme:dark;appearance:auto}
 <!-- ═══ SETUP MODAL ═══ -->
 <div class="modal-overlay" id="setupModal">
   <div class="modal" role="dialog" aria-labelledby="setupTitle">
-    <h2 id="setupTitle">Sett opp Gist-synk</h2>
+    <h2 id="setupTitle">Oppsett</h2>
+
+    <div class="setup-sec-h">Gist-synk</div>
     <p class="modal-sub">
       Du trenger en fine-grained Personal Access Token med <strong>Gists: Read and write</strong>-tilgang.
       Lag en på <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a> ↗.
@@ -709,6 +713,26 @@ select.inp{color-scheme:dark;appearance:auto}
     <div class="modal-status" id="setupStatus">—</div>
     <div class="modal-actions">
       <button class="btn btn-p" id="btnSetupGo">Test og opprett Gist</button>
+    </div>
+
+    <div class="setup-div"></div>
+
+    <div class="setup-sec-h">Dokumentarkiv (Supabase)</div>
+    <p class="modal-sub">
+      Samme prosjekt og bruker som jobbloggen. Alle fire verdiene lagres kryptert i payloaden —
+      ingenting av dette havner i repoet. Innlogging skjer først når du åpner Dokumenter-fanen.
+    </p>
+    <input type="text" class="inp" id="sbUrlInput" placeholder="https://….supabase.co" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url" style="margin-bottom:6px">
+    <input type="password" class="inp" id="sbKeyInput" placeholder="anon public-nøkkel" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="margin-bottom:6px">
+    <input type="text" class="inp" id="sbEmailInput" placeholder="e-post" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="email" style="margin-bottom:6px">
+    <input type="password" class="inp" id="sbPwInput" placeholder="passord" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="margin-bottom:6px">
+    <div class="modal-status" id="sbSetupStatus">—</div>
+    <div class="modal-actions">
+      <button class="btn btn-p" id="btnSbSave">Test og lagre</button>
+    </div>
+
+    <div class="setup-div"></div>
+    <div class="modal-actions">
       <button class="btn btn-s" id="btnSetupClose">Lukk uten å lagre</button>
     </div>
   </div>
@@ -1038,7 +1062,10 @@ var STATE = {
   uiPrefs: null,           // loaded from localStorage "ve-strategi-ui"
   searchDebounce: null,    // setTimeout handle for search input
   scorePopoverFor: null,   // jobId currently shown in score popover (or null)
-  letterModalJobId: null   // jobId the cover-letter modal currently refers to (or null)
+  letterModalJobId: null,  // jobId the cover-letter modal currently refers to (or null)
+  // Supabase-sesjon for dokumentarkivet — {url, key, token, uid, exp}.
+  // KUN i minnet: aldri localStorage, aldri payload. Se SUPABASE-blokka.
+  sb: null
 };
 
 var SORT_OPTIONS = [
@@ -1558,6 +1585,7 @@ function openSetupModal(){
   document.getElementById("patInput").value = "";
   document.getElementById("btnSetupGo").disabled = false;
   setSetupStatus("", "");
+  sbFillSetupFields();
   document.getElementById("setupModal").classList.add("open");
   registerOverlay("setupModal");
   setTimeout(function(){ document.getElementById("patInput").focus(); }, 50);
@@ -1615,6 +1643,53 @@ async function doSetup(){
   // MERK: btn.disabled settes IKKE tilbake på suksess-stien. Modalen står åpen
   // i 600 ms til, og to klikk i det vinduet ville laget to gists (den første
   // blir en orphan med PAT-en i seg). openSetupModal re-enabler ved neste åpning.
+}
+
+// ── Dokumentarkiv-seksjonen i samme modal ────────────────────────
+function setSbSetupStatus(msg, cls){
+  var el = document.getElementById("sbSetupStatus");
+  el.textContent = msg || "—";
+  el.className = "modal-status" + (cls?" "+cls:"");
+}
+function sbFillSetupFields(){
+  var c = (STATE.payload && STATE.payload.supabase) || {};
+  document.getElementById("sbUrlInput").value = c.url || "";
+  document.getElementById("sbKeyInput").value = c.anonKey || "";
+  document.getElementById("sbEmailInput").value = c.email || "";
+  var pw = document.getElementById("sbPwInput");
+  // Passordet fylles aldri tilbake i feltet. Tomt felt = behold det lagrede.
+  pw.value = "";
+  pw.placeholder = c.password ? "uendret" : "passord";
+  document.getElementById("btnSbSave").disabled = false;
+  setSbSetupStatus("", "");
+}
+async function sbSaveSetup(){
+  if(!STATE.payload){ setSbSetupStatus("Ingen payload lastet.", "err"); return; }
+  var url   = document.getElementById("sbUrlInput").value.trim().replace(/\/+$/, "");
+  var key   = document.getElementById("sbKeyInput").value.trim();
+  var email = document.getElementById("sbEmailInput").value.trim();
+  var pw    = document.getElementById("sbPwInput").value;
+  var stored = STATE.payload.supabase;
+  if(!pw && stored && stored.password) pw = stored.password;
+  if(!url || !key || !email || !pw){ setSbSetupStatus("Fyll ut alle fire feltene.", "err"); return; }
+  if(!/^https:\/\/[^\/\s]+$/.test(url)){ setSbSetupStatus("URL-en skal se ut som https://<prosjekt>.supabase.co", "err"); return; }
+  var btn = document.getElementById("btnSbSave");
+  btn.disabled = true;
+  try{
+    setSbSetupStatus("Tester innlogging…");
+    // Lagrer kun ved bekreftet 200 — samme mønster som gistTestPat.
+    var sess = await sbSignIn({url:url, anonKey:key, email:email, password:pw});
+    STATE.payload.supabase = {url:url, anonKey:key, email:email, password:pw};
+    STATE.sb = sess;   // gjenbruk sesjonen vi nettopp fikk, ingen ekstra innlogging
+    mutate();          // ekte payload-endring → skal til Gist-en
+    setSbSetupStatus("Lagret. Dokumenter-fanen er klar.", "ok");
+    var pwEl = document.getElementById("sbPwInput");
+    pwEl.value = ""; pwEl.placeholder = "uendret";
+  }catch(e){
+    setSbSetupStatus("Feilet: " + e.message, "err");
+  }finally{
+    btn.disabled = false;
+  }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -2685,6 +2760,7 @@ function initUI(payload){
 
   // Setup modal wiring (Esc closes via global handler)
   document.getElementById("btnSetupGo").addEventListener("click", doSetup);
+  document.getElementById("btnSbSave").addEventListener("click", sbSaveSetup);
   document.getElementById("btnSetupClose").addEventListener("click", closeSetupModal);
   document.getElementById("setupModal").addEventListener("click", function(e){
     if(e.target.id === "setupModal") closeSetupModal();
@@ -4443,6 +4519,58 @@ function renderPipeline(){
   html += '</tbody></table></div>';
 
   document.getElementById("pipelineContent").innerHTML = html;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  SUPABASE — LEGITIMASJON OG SESJON (dokumentarkivet)
+//
+//  Legitimasjonen bor i den krypterte payloaden (payload.supabase), som
+//  GitHub-PAT-en. Refresh-tokenet lagres BEVISST ikke: Supabase roterer
+//  det ved hver fornyelse, så to enheter ville invalidert hverandres
+//  token, og hver fornyelse måtte skrives tilbake til Gist-en — å åpne
+//  et dokument ville blitt en skriveoperasjon på jobbdataene. I stedet
+//  gjør vi en fersk grant_type=password-innlogging per økt. Sesjonen
+//  lever kun i STATE.sb: aldri i localStorage, aldri i payloaden.
+//
+//  Innlogging er lat — den skjer først når Dokumenter-fanen åpnes, ikke
+//  ved unlock. Ingen andre deler av hubben skal blokkeres av Supabase.
+// ════════════════════════════════════════════════════════════════
+var SB_BUCKET = "jobb-dokumenter";
+
+// Returnerer ferdig validert konfig, eller null når feltet mangler/er ufullstendig
+// (eldre payloads har det ikke — da skal Dokumenter-fanen vise oppsett-tilstanden).
+function sbCfg(){
+  var c = STATE.payload && STATE.payload.supabase;
+  if(!c || !c.url || !c.anonKey || !c.email || !c.password) return null;
+  return c;
+}
+
+// Feilmelding uten å lekke token eller passord til UI/konsoll.
+function sbErrMsg(status, j){
+  var d = j && (j.error_description || j.msg || j.message || j.error);
+  if(status === 400 || status === 401) return "Innlogging avvist ("+status+"). " + (d || "Sjekk e-post, passord og anon-nøkkel.");
+  if(status === 403) return "Ingen tilgang (403) — sjekk RLS-reglene på bucketen.";
+  return "Supabase svarte " + status + (d ? ": " + d : "");
+}
+
+// Fersk innlogging mot GoTrue. Returnerer sesjonsobjekt, kaster ved feil.
+async function sbSignIn(cfg){
+  var base = String(cfg.url).replace(/\/+$/, "");
+  var r = await fetch(base + "/auth/v1/token?grant_type=password", {
+    method: "POST",
+    headers: { "apikey": cfg.anonKey, "Content-Type": "application/json" },
+    body: JSON.stringify({ email: cfg.email, password: cfg.password })
+  });
+  var j = await r.json().catch(function(){ return null; });
+  if(!r.ok || !j || !j.access_token) throw new Error(sbErrMsg(r.status, j));
+  return {
+    url: base,
+    key: cfg.anonKey,
+    token: j.access_token,
+    uid: j.user && j.user.id,
+    // 60 s margin så vi aldri sender et token som utløper midt i kallet.
+    exp: Date.now() + Math.max(0, (j.expires_in || 3600) - 60) * 1000
+  };
 }
 
 // ════════════════════════════════════════════════════════════════
