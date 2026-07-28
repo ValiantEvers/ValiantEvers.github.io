@@ -1257,6 +1257,25 @@ function readCache(){
 var GIST_API = "https://api.github.com";
 var GIST_FILENAME = "strategi.enc.json";
 
+// ── Hva «synk er satt opp» betyr — to ULIKE spørsmål ──────────────────────
+//   gistConfigured() — vi vet HVILKEN gist (id). Da skal oppsettsmodalen aldri
+//     tilby opprettelse; se doSetup.
+//   gistUsable()     — vi kan faktisk SNAKKE med den (id OG pat). Alt som gjør
+//     et nettverkskall eller lover synk må bruke denne.
+//
+// Forskjellen er ikke akademisk: repo-seedet bærer `id` men ikke `pat` (den
+// strippes i snapshotToRepo), så en ny enhet lander nettopp i mellomtilstanden
+// «vet hvilken gist, mangler nøkkelen». Den skal gi banner + «Bytt PAT» — ikke
+// en falsk «synk er oppe»-tilstand som fyrer kall med Bearer undefined.
+function gistConfigured(){
+  var g = STATE.payload && STATE.payload.gist;
+  return !!(g && g.id);
+}
+function gistUsable(){
+  var g = STATE.payload && STATE.payload.gist;
+  return !!(g && g.id && g.pat);
+}
+
 async function gistTestPat(pat){
   var r = await fetch(GIST_API + "/user", {
     headers: { Authorization: "Bearer " + pat, Accept: "application/vnd.github+json" }
@@ -1324,7 +1343,7 @@ function schedulePush(){
     // Don't schedule pushes while UI is locked — bootstrap will handle once done
     return;
   }
-  if(!STATE.payload.gist){
+  if(!gistUsable()){
     updateSyncIndicator("local");
     return;
   }
@@ -1405,7 +1424,7 @@ function adoptSupabase(target, source){
 }
 
 async function doPush(){
-  if(!STATE.payload.gist){ updateSyncIndicator("local"); return; }
+  if(!gistUsable()){ updateSyncIndicator("local"); return; }
   // KRITISK: aldri push før bootstrapSync har bekreftet remote-state. Uten denne
   // gaten kan en offline-start (eller online-eventet) skrive ubekreftet cache over
   // nyere cron-/enhets-data. Jf. kommentaren i bootstrapSync-timeouten.
@@ -1636,12 +1655,6 @@ async function bootstrapSync(){
 // ════════════════════════════════════════════════════════════════
 //  SETUP MODAL
 // ════════════════════════════════════════════════════════════════
-// Sant når synk allerede er satt opp. Da er Gist-seksjonen i «bytt PAT»-modus
-// og opprettelse er utilgjengelig — se doSetup.
-function gistConfigured(){
-  return !!(STATE.payload && STATE.payload.gist && STATE.payload.gist.id);
-}
-
 // Gist-seksjonen har to tilstander. Fram til Dokumenter-fanen kom kunne modalen
 // bare åpnes uten konfigurert gist (noconfig/patinvalid), så førstegangs-
 // oppsettet var eneste mulighet. Nå kan den åpnes med en gist på plass, og da
@@ -1701,6 +1714,9 @@ async function doSetup(){
       STATE.payload.gist.pat = pat;
       mutate();
       setSetupStatus("PAT byttet — kobler til på nytt…", "ok");
+      // Banneret vises nå også når vi har id men mangler pat (ny enhet fra
+      // strippet seed). Det evalueres kun ved init, så det må skjules her.
+      hideBanner();
       closeSetupModal();
       // Re-verifiser remote med den nye tokenen. Uten dette blir en økt som
       // stod i patinvalid stående der: doPush er gated på remoteVerified, som
@@ -1824,7 +1840,7 @@ async function sbSaveSetup(){
 //  BANNER (no-sync nudge)
 // ════════════════════════════════════════════════════════════════
 function bannerShouldShow(){
-  if(STATE.payload && STATE.payload.gist) return false;
+  if(gistUsable()) return false;
   try{
     var snooze = localStorage.getItem(BANNER_SNOOZE_KEY);
     if(snooze && new Date(snooze) > new Date()) return false;
@@ -2738,7 +2754,7 @@ window.addEventListener("beforeunload", function(e){
 
 // On network back: if we were offline, kick a retry immediately (don't wait for backoff)
 window.addEventListener("online", function(){
-  if(!STATE.payload || !STATE.payload.gist) return;
+  if(!gistUsable()) return;
   if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
   // Har vi ALDRI bekreftet remote (bootstrap feilet/timet ut), er en push her
   // det farligste vi kan gjøre — den skriver ubekreftet cache over Gist'en.
@@ -2954,7 +2970,7 @@ function initUI(payload){
   if(bannerShouldShow()) showBanner();
 
   // Initial sync indicator + bootstrap
-  if(payload.gist && payload.gist.id && payload.gist.pat){
+  if(gistUsable()){
     // Has config → kick off bootstrap (renders current state, locks UI, fetches Gist)
     bootstrapSync();
   } else {
@@ -4194,7 +4210,7 @@ function flushNotebook(){
   // Push KUN hvis det var en pending push fra mutate. Ellers risikerer vi å overskrive nyere remote-data med stale lokal payload.
   var hadPending = !!STATE.pushTimer;
   if(STATE.pushTimer){ clearTimeout(STATE.pushTimer); STATE.pushTimer = null; }
-  if(hadPending && STATE.payload && STATE.payload.gist) doPush().catch(scheduleRetry);
+  if(hadPending && gistUsable()) doPush().catch(scheduleRetry);
 }
 function onNoteSourceInput(v){
   var n = currentNote(); if(!n) return;
