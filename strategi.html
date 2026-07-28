@@ -332,6 +332,14 @@ select.inp{color-scheme:dark;appearance:auto}
 .setup-sec-h{font-size:.78rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .setup-div{border-top:1px solid var(--border);margin:20px 0 18px}
 
+/* Dokumentarkivet — hver rad er en ekte lenke (se DOKUMENTER-blokka i JS) */
+.doc-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;color:var(--text);font-family:inherit;font-size:.9rem;cursor:pointer;transition:border-color .2s}
+.doc-row:hover{border-color:var(--border-h)}
+.doc-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.doc-meta{font-size:.76rem;color:var(--faint);white-space:nowrap}
+.doc-open{font-size:.8rem;color:var(--faint)}
+.doc-note{font-size:.76rem;color:var(--faint);line-height:1.55;margin-top:14px;text-align:center}
+
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:10px 16px;font-size:.85rem;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;z-index:9500;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 
@@ -575,6 +583,7 @@ select.inp{color-scheme:dark;appearance:auto}
   <button class="tab" data-tab="timeline">Tidsplan</button>
   <button class="tab" data-tab="pipeline">Pipeline</button>
   <button class="tab" data-tab="notes">Notater</button>
+  <button class="tab" data-tab="docs">Dokumenter</button>
 </div>
 
 <div class="banner hidden" id="syncBanner">
@@ -694,6 +703,10 @@ select.inp{color-scheme:dark;appearance:auto}
       </div>
     </div>
   </div>
+</section>
+
+<section id="p-docs" style="display:none">
+  <div id="docsContent"></div>
 </section>
 
 </div>
@@ -1070,7 +1083,8 @@ var STATE = {
   letterModalJobId: null,  // jobId the cover-letter modal currently refers to (or null)
   // Supabase-sesjon for dokumentarkivet — {url, key, token, uid, exp}.
   // KUN i minnet: aldri localStorage, aldri payload. Se SUPABASE-blokka.
-  sb: null
+  sb: null,
+  docs: null               // siste listing fra Storage, kun for render (aldri payload-data)
 };
 
 var SORT_OPTIONS = [
@@ -2758,7 +2772,7 @@ function initUI(payload){
       document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
       this.classList.add("on");
       var tab = this.dataset.tab;
-      ["jobs","weekly","apps","outreach","timeline","pipeline","notes"].forEach(function(p){
+      ["jobs","weekly","apps","outreach","timeline","pipeline","notes","docs"].forEach(function(p){
         document.getElementById("p-"+p).style.display = (p===tab) ? "block" : "none";
       });
       if(tab==="jobs") renderJobs();
@@ -2768,6 +2782,7 @@ function initUI(payload){
       if(tab==="timeline") renderTimeline();
       if(tab==="pipeline") renderPipeline();
       if(tab==="notes") renderNotes();
+      if(tab==="docs") renderDocs();
     });
   });
 
@@ -2775,6 +2790,18 @@ function initUI(payload){
   document.getElementById("cntJobs").textContent = countActive(payload.jobs);
   document.getElementById("cntApps").textContent = countLive(payload.apps);
   document.getElementById("cntOut").textContent = countLive(payload.outreach);
+
+  // Signerte dokumentlenker er ferskvare (1 t). Mobilen låses typisk i en
+  // pause og lenkene er døde når den låses opp — forny lista når fanen blir
+  // synlig igjen. Kun når Dokumenter faktisk er den aktive fanen; en skjult
+  // fane skal aldri koste et nettverkskall.
+  document.addEventListener("visibilitychange", function(){
+    if(document.visibilityState !== "visible") return;
+    var sec = document.getElementById("p-docs");
+    if(!sec || sec.style.display === "none") return;
+    if(!sbCfg()) return;
+    renderDocs();
+  });
 
   // Snapshot button
   document.getElementById("btnSnapshot").addEventListener("click", snapshotToRepo);
@@ -4605,6 +4632,181 @@ async function sbSignIn(cfg){
     // 60 s margin så vi aldri sender et token som utløper midt i kallet.
     exp: Date.now() + Math.max(0, (j.expires_in || 3600) - 60) * 1000
   };
+}
+
+// Gyldig sesjon, eller fersk innlogging. Kaster hvis oppsettet mangler.
+async function sbSession(){
+  if(STATE.sb && STATE.sb.token && STATE.sb.exp > Date.now()) return STATE.sb;
+  var cfg = sbCfg();
+  if(!cfg) throw new Error("Dokumentarkivet er ikke satt opp.");
+  STATE.sb = await sbSignIn(cfg);
+  return STATE.sb;
+}
+
+// Felles Storage-kall. Access-tokenet varer ~1 t; ved 401 midt i økten gjør vi
+// ETT stille re-innloggingsforsøk og lar deretter feilen bli synlig. Ingen
+// retry-løkke — en død legitimasjon skal ikke hamre mot API-et.
+async function sbFetch(pathname, opts, retried){
+  var s = await sbSession();
+  var o = opts || {};
+  var r = await fetch(s.url + "/storage/v1" + pathname, Object.assign({}, o, {
+    headers: Object.assign({}, o.headers || {}, { apikey: s.key, Authorization: "Bearer " + s.token })
+  }));
+  if(r.status === 401 && !retried){
+    STATE.sb = null;                       // tving fersk innlogging
+    return sbFetch(pathname, opts, true);
+  }
+  return r;
+}
+
+async function sbErrFrom(r){
+  var j = await r.json().catch(function(){ return null; });
+  return new Error(sbErrMsg(r.status, j));
+}
+
+// Storage-stier er ikke URL-kodet av supabase-js, men sanitizeFilename
+// garanterer kun [A-Za-z0-9._-]. Vi koder likevel per segment, slik at
+// eventuelle eldre filer med mellomrom også lar seg signere.
+function sbEncPath(p){
+  return String(p).split("/").map(encodeURIComponent).join("/");
+}
+
+// ════════════════════════════════════════════════════════════════
+//  DOKUMENTER — listing, signerte lenker, render
+//
+//  Sletting finnes bevisst ikke her: den krever at du sitter i
+//  jobbloggen. En feilplassert tommel på mobil skal ikke kunne
+//  fjerne et vitnemål fra det eneste arkivet.
+// ════════════════════════════════════════════════════════════════
+var DOCS_TTL = 3600;   // signerte URL-er lever 1 time
+var DOCS_GEN = 0;      // generasjonsteller: et tregt svar skal ikke overskrive et nyere
+
+async function sbList(){
+  var s = await sbSession();
+  var r = await sbFetch("/object/list/" + SB_BUCKET, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({prefix: s.uid + "/", limit: 200, offset: 0, sortBy: {column:"name", order:"asc"}})
+  });
+  if(!r.ok) throw await sbErrFrom(r);
+  var rows = await r.json();
+  // Supabase legger igjen .emptyFolderPlaceholder i tomme mapper.
+  return (rows || []).filter(function(f){ return f && f.name && f.name.charAt(0) !== "."; })
+    .map(function(f){
+      return {
+        name: f.name,
+        path: s.uid + "/" + f.name,
+        size: f.metadata ? f.metadata.size : undefined,
+        updatedAt: f.updated_at || null
+      };
+    });
+}
+
+// Batch-signerer ALLE stiene i ETT kall og fester URL-ene på oppføringene.
+// Dette er ikke en optimalisering, det er en mobilfiks: async window.open etter
+// et await regnes ikke lenger som brukerklikk i iOS Safari og blokkeres stille.
+// Radene må derfor være ekte <a href> før brukeren trykker. Samme lærdom som
+// jobblogg/src/lib/documents.ts (se kommentaren over DocEntry.url der).
+//
+// signedURL er RELATIV (/object/sign/…?token=…) — full URL er
+// $SB_URL + "/storage/v1" + signedURL. Glemmer du prefikset får du en lenke
+// som peker på evers.no og en 404 som ser ut som et rettighetsproblem.
+// Batch-svaret har error per element; de radene får ingen lenke og faller
+// tilbake på enkelt-signering ved klikk.
+async function sbSignAll(entries){
+  if(!entries.length) return entries;
+  var s = await sbSession();
+  var r = await sbFetch("/object/sign/" + SB_BUCKET, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({expiresIn: DOCS_TTL, paths: entries.map(function(e){ return e.path; })})
+  });
+  if(!r.ok) return entries;   // uten lenker faller alle radene tilbake på klikk-signering
+  var signed = await r.json().catch(function(){ return null; });
+  var byPath = {};
+  (signed || []).forEach(function(x){
+    if(x && x.path && x.signedURL && !x.error) byPath[x.path] = encodeURI(s.url + "/storage/v1" + x.signedURL);
+  });
+  return entries.map(function(e){ e.url = byPath[e.path] || null; return e; });
+}
+
+async function sbSignOne(p){
+  var s = await sbSession();
+  var r = await sbFetch("/object/sign/" + SB_BUCKET + "/" + sbEncPath(p), {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({expiresIn: DOCS_TTL})
+  });
+  if(!r.ok) throw await sbErrFrom(r);
+  var j = await r.json().catch(function(){ return null; });
+  if(!j || !j.signedURL) throw new Error("Fikk ingen signert lenke.");
+  return encodeURI(s.url + "/storage/v1" + j.signedURL);
+}
+
+function docsBytes(n){
+  if(n === undefined || n === null) return "";
+  if(n < 1024) return n + " B";
+  if(n < 1024*1024) return Math.round(n/1024) + " kB";
+  return (n/(1024*1024)).toFixed(1).replace(".", ",") + " MB";
+}
+
+// Fallback når en rad mangler lenke (feil i batchen, eller URL-en er utløpt
+// fordi fanen har stått åpen): enkelt-signer og NAVIGER. Navigering blokkeres
+// aldri av popup-vern, i motsetning til window.open.
+async function openDocFallback(i){
+  var d = STATE.docs && STATE.docs[i];
+  if(!d) return;
+  try{
+    location.href = await sbSignOne(d.path);
+  }catch(e){
+    toast("Kunne ikke åpne dokumentet: " + e.message, 7000);
+  }
+}
+
+function docsRowHtml(d, i){
+  var meta = [docsBytes(d.size), d.updatedAt ? fmtDateDMY(d.updatedAt) : ""].filter(Boolean).join(" · ");
+  var inner = '<span class="doc-name">' + esc(d.name) + '</span>' +
+              '<span class="doc-meta">' + esc(meta) + '</span>' +
+              '<span class="doc-open">↗</span>';
+  if(d.url){
+    return '<a class="doc-row" href="' + esc(d.url) + '" target="_blank" rel="noreferrer">' + inner + '</a>';
+  }
+  return '<button class="doc-row" onclick="openDocFallback(' + i + ')">' + inner + '</button>';
+}
+
+async function renderDocs(){
+  var el = document.getElementById("docsContent");
+  if(!el) return;
+  if(!sbCfg()){
+    el.innerHTML = '<div class="empty">Dokumentarkivet er ikke satt opp ennå.<br>' +
+      'Legg inn Supabase-legitimasjonen i oppsettet — samme prosjekt og bruker som jobbloggen.' +
+      '<div style="margin-top:16px"><button class="btn btn-p" onclick="openSetupModal()">Åpne oppsett</button></div></div>';
+    return;
+  }
+  var gen = ++DOCS_GEN;
+  if(!STATE.docs){
+    var connected = STATE.sb && STATE.sb.exp > Date.now();
+    el.innerHTML = '<div class="empty">' + (connected ? "Henter dokumenter …" : "Kobler til arkivet …") + '</div>';
+  }
+  try{
+    var entries = await sbSignAll(await sbList());
+    if(gen !== DOCS_GEN) return;   // et nyere kall har overtatt
+    STATE.docs = entries;
+    if(!entries.length){
+      el.innerHTML = '<div class="empty">Arkivet er tomt.<br>Last opp CV, vitnemål og attester fra jobbloggen, ' +
+        'så ligger de her når du trenger dem.</div>';
+      return;
+    }
+    el.innerHTML = entries.map(docsRowHtml).join("") +
+      '<p class="doc-note">Privat bucket med radsikkerhet — kun din bruker ser filene. ' +
+      'Lenkene er signert og lever 1 time; lista fornyes når fanen blir synlig igjen.</p>';
+  }catch(e){
+    if(gen !== DOCS_GEN) return;
+    STATE.docs = null;
+    el.innerHTML = '<div class="empty">Fikk ikke kontakt med arkivet.<br>' + esc(e.message) +
+      '<div style="margin-top:16px"><button class="btn btn-s" onclick="renderDocs()">Prøv igjen</button></div>' +
+      '<p class="doc-note">Arkivet krever nett. Resten av hubben fungerer som før.</p></div>';
+  }
 }
 
 // ════════════════════════════════════════════════════════════════
