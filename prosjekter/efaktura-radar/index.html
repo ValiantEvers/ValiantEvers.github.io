@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-fakturaradar — Valiant Evers</title>
+<meta name="description" content="Åpent verktøy som sjekker hvilke norske virksomheter som kan motta EHF-faktura, mot Peppol SML og SMP. Med to funn: 82 % er allerede registrert, og ELMA er ikke hele Peppol.">
+<meta name="author" content="Valiant Evers">
+<meta name="theme-color" content="#004eaa">
+<meta property="og:type" content="website">
+<meta property="og:title" content="E-fakturaradar">
+<meta property="og:description" content="Hvem kan motta EHF-faktura? Åpent verktøy mot Peppol SML og SMP — og to funn som endret hva jeg trodde om e-fakturaplikten.">
+<meta property="og:image" content="https://www.evers.no/og-image.png">
+<meta property="og:url" content="https://www.evers.no/prosjekter/efaktura-radar/">
+<meta property="og:site_name" content="Valiant Evers">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.evers.no/prosjekter/efaktura-radar/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/newsreader-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/newsreader-latin-standard-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/newsreader-latin-ext-standard-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/hanken-grotesk-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'MedievalSharp';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/MedievalSharp-Latin.woff2') format('woff2')}
+@font-face{font-family:'UnifrakturMaguntia';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/UnifrakturMaguntia-Latin.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/jetbrains-mono-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Noto Sans JP';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/noto-sans-jp-subset.woff2') format('woff2')}
+h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
+::selection{background:color-mix(in oklab,var(--accent) 20%,transparent)}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:240ms;animation-timing-function:var(--ease-out,cubic-bezier(0.23,1,0.32,1))}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:1ms}}
+</style>
+<style>
+:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.58);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06);--pos:#15803d;--pos-bg:rgba(21,128,61,.08);--neg:#b91c1c;--neg-bg:rgba(185,28,28,.08);--neutral:#737373;--neutral-bg:rgba(115,115,115,.08)}
+[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.48);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07);--pos:#4ade80;--pos-bg:rgba(74,222,128,.12);--neg:#f87171;--neg-bg:rgba(248,113,113,.12);--neutral:#a3a3a3;--neutral-bg:rgba(163,163,163,.10)}
+[data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
+
+[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);--pos:#7fb069;--pos-bg:rgba(127,176,105,.12);--neg:#c75c5c;--neg-bg:rgba(199,92,92,.12);--neutral:rgba(232,213,181,.55);--neutral-bg:rgba(232,213,181,.10);cursor:url('../../medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('../../medieval/cursor-sword.png') 2 30, pointer;}
+[data-theme="medieval"] body{font-family:'MedievalSharp',sans-serif}
+[data-theme="medieval"] .page-h1,[data-theme="medieval"] .nav-logo{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
+[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .back-link{font-family:'MedievalSharp',sans-serif}
+[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
+[data-theme="medieval"] .theme-toggle,[data-theme="medieval"] .lang-btn{border-color:rgba(232,213,181,.2)}
+[data-theme="medieval"] body::after{opacity:.04}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);overflow-x:hidden;width:100%;position:relative;line-height:1.6;-webkit-text-size-adjust:100%}
+img,video,svg{max-width:100%}
+body .page-h1,body .nav-logo,body .sec-title,body .card-title,body .hero-num{font-family:var(--font-serif);font-optical-sizing:auto}
+html[lang="ja"] body{font-family:var(--font-sans)}
+
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+[data-theme="dark"] body::after{opacity:.04}
+
+.cursor-dot{position:fixed;width:var(--cursor-size);height:var(--cursor-size);border-radius:50%;background:var(--accent);opacity:.35;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
+.cursor-dot.hover{width:44px;height:44px;opacity:.18}
+@media(max-width:768px){.cursor-dot{display:none}}
+@media(hover:none){.cursor-dot{display:none}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
+nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
+.nav-logo{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none}
+.nav-logo:hover{opacity:.8}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:500;font-size:.9rem;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--accent)}
+.nav-links a.active::after{width:100%}
+[data-theme="medieval"] .nav-links a{color:var(--text)}
+@media(max-width:900px){.nav-links{display:none}}
+
+.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
+.theme-toggle:hover{border-color:var(--accent)}
+.lang-switch{position:relative}
+.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out);min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
+.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}
+.lang-opt:hover{background:rgba(0,112,237,.06)}
+.lang-opt.active{color:var(--accent);font-weight:700}
+.theme-toggle:active,.lang-btn:active,.back-link:active,.btn:active{transform:scale(0.97)}
+
+/* HERO */
+main{max-width:880px;margin:0 auto;padding:0 2rem}
+.page-hero{padding:7rem 0 0;position:relative;z-index:1}
+.section-label{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:3px;font-weight:600;margin-bottom:.7rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:var(--font-mono)}
+.page-h1{font-weight:800;font-size:clamp(2.1rem,4.4vw,3.2rem);line-height:1.05;letter-spacing:-0.02em;color:var(--text);margin-bottom:.9rem}
+.page-sub{font-size:1.05rem;color:var(--muted);line-height:1.65;max-width:66ch}
+
+/* META STRIP */
+.meta-strip{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.meta-item{font-family:var(--font-mono);font-size:.7rem;letter-spacing:0;padding:.35rem .75rem;border-radius:50px;background:var(--neutral-bg);color:var(--muted);border:1px solid var(--border)}
+.meta-item.live{background:rgba(0,112,237,.08);border-color:rgba(0,112,237,.2);color:var(--accent);font-weight:600}
+
+/* SECTIONS */
+section.sec{padding:3.2rem 0 0;position:relative;z-index:1}
+.sec-title{font-weight:700;font-size:1.5rem;letter-spacing:-0.01em;margin-bottom:.9rem;color:var(--text)}
+.sec p{margin-bottom:1rem;max-width:66ch}
+.sec p:last-child{margin-bottom:0}
+.sec a:not(.btn){color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,112,237,.25);transition:border-color 160ms ease}
+.sec a:not(.btn):hover{border-bottom-color:var(--accent)}
+.lede{font-size:1.05rem}
+.muted{color:var(--muted)}
+
+/* QUOTE */
+blockquote{margin:1.3rem 0;padding:.9rem 0 .9rem 1.3rem;border-left:3px solid var(--accent3);font-size:.97rem;color:var(--text);max-width:66ch}
+blockquote cite{display:block;margin-top:.55rem;font-family:var(--font-mono);font-size:.7rem;font-style:normal;color:var(--muted);letter-spacing:0}
+
+/* CARD */
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.5rem;box-shadow:var(--card-shadow);margin:1.4rem 0}
+.card-title{font-weight:700;font-size:1.05rem;margin-bottom:.5rem}
+.card p{margin-bottom:.7rem;font-size:.95rem}
+.card p:last-child{margin-bottom:0}
+
+/* HERO NUMBER + PROPORTION */
+.figure{margin:1.6rem 0}
+.hero-num{font-weight:800;font-size:clamp(3.2rem,9vw,4.6rem);line-height:1;letter-spacing:-0.03em;color:var(--text);font-variant-numeric:tabular-nums}
+.hero-num-sub{font-size:.95rem;color:var(--muted);margin-top:.3rem;max-width:52ch}
+.prop-bar{display:flex;gap:2px;height:34px;margin-top:1.2rem;border-radius:6px;overflow:hidden}
+.prop-seg{display:flex;align-items:center;padding:0 .7rem;font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:0;white-space:nowrap;overflow:hidden}
+.prop-seg.can{background:var(--pos-bg);color:var(--pos);flex:82;border-radius:6px 0 0 6px}
+.prop-seg.cannot{background:var(--neg-bg);color:var(--neg);flex:18;border-radius:0 6px 6px 0;justify-content:flex-end}
+.prop-legend{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:.7rem;font-size:.8rem;color:var(--muted)}
+.prop-key{display:inline-flex;align-items:center;gap:.45rem}
+.prop-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.prop-swatch.can{background:var(--pos)}
+.prop-swatch.cannot{background:var(--neg)}
+figcaption{font-family:var(--font-mono);font-size:.7rem;color:var(--muted);letter-spacing:0;margin-top:.9rem;line-height:1.55;max-width:66ch}
+
+/* TERMINAL */
+.term{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;overflow-x:auto;box-shadow:var(--card-shadow);margin:1.3rem 0}
+.term pre{font-family:var(--font-mono);font-size:.76rem;line-height:1.7;color:var(--text);letter-spacing:0;white-space:pre}
+.term .c{color:var(--muted)}
+.term .ok{color:var(--pos)}
+
+/* STEPS */
+.steps{list-style:none;counter-reset:s;margin:1.2rem 0;max-width:66ch}
+.steps li{counter-increment:s;position:relative;padding-left:2.3rem;margin-bottom:.75rem;font-size:.95rem}
+.steps li::before{content:counter(s);position:absolute;left:0;top:.05rem;width:1.6rem;height:1.6rem;border-radius:50%;background:rgba(0,112,237,.08);border:1.5px solid rgba(0,112,237,.2);color:var(--accent);font-family:var(--font-mono);font-size:.72rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+
+/* CALLOUT */
+.callout{border:1px dashed var(--border);border-radius:12px;background:var(--neutral-bg);padding:1rem 1.2rem;margin:1.4rem 0;font-size:.9rem;color:var(--muted);max-width:66ch}
+.callout strong{color:var(--text);font-weight:600}
+
+/* BUTTONS */
+.btn-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.6rem;border-radius:50px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;text-decoration:none;font-family:inherit;transition:transform 160ms var(--ease-out),box-shadow 160ms var(--ease-out),background-color 160ms ease,color 160ms ease,border-color 160ms ease}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent4));color:#fff}
+[data-theme="dark"] .btn-primary{color:#fff}
+.btn-secondary{background:transparent;color:var(--text);border:2px solid rgba(0,18,51,.15)}
+[data-theme="dark"] .btn-secondary{border-color:rgba(250,250,249,.18)}
+@media(hover:hover) and (pointer:fine){
+  .btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 30px rgba(0,112,237,.35)}
+  .btn-secondary:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-3px)}
+}
+
+/* BACK LINK + FOOTER */
+.back-link{display:inline-block;margin:3.5rem 0 0;font-family:var(--font-mono);font-size:.78rem;color:var(--muted);text-decoration:none;letter-spacing:0;transition:color 200ms ease}
+.back-link:hover{color:var(--accent)}
+footer{max-width:880px;margin:0 auto;padding:2rem 2rem 4rem;font-family:var(--font-mono);font-size:.68rem;color:var(--muted);letter-spacing:0;line-height:1.7;position:relative;z-index:1}
+footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+footer a:hover{color:var(--accent)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(8px);transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn,.back-link,.theme-toggle,.lang-btn,.cursor-dot{transition:none}
+}
+@media(max-width:640px){
+  main,footer{padding-left:1.3rem;padding-right:1.3rem}
+  .prop-seg{font-size:.66rem;padding:0 .5rem}
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav id="mainNav">
+<a href="/" class="nav-logo">V.</a>
+<div class="nav-right">
+<ul class="nav-links">
+<li><a href="/#om" data-i="nav1">Om meg</a></li>
+<li><a href="/#erfaring" data-i="nav2">Erfaring</a></li>
+<li><a href="/#cv" data-i="nav3">CV</a></li>
+<li><a href="/#sertifiseringer" data-i="nav4">Sertifiseringer</a></li>
+<li><a href="/#forskning" data-i="nav5">Forskning</a></li>
+<li><a href="/prosjekter/" class="active" data-i="nav7">Prosjekter</a></li>
+<li><a href="/#kontakt" data-i="nav6">Kontakt</a></li>
+</ul>
+<button class="theme-toggle" id="themeToggle" aria-label="Bytt mellom lyst og mørkt tema">☀️</button>
+<div class="lang-switch">
+<button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu">NO</button>
+<div class="lang-menu" id="langMenu">
+<button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
+<button class="lang-opt" data-lang="en">🇬🇧 English</button>
+<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
+<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
+<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
+</div>
+</div>
+</div>
+</nav>
+
+<main>
+
+<header class="page-hero">
+<span class="section-label">Prosjekt · regulatorisk verktøy</span>
+<h1 class="page-h1">E-fakturaradar</h1>
+<p class="page-sub">Et åpent verktøy som svarer på ett spørsmål: hvilke norske virksomheter kan faktisk motta EHF-faktura? Bygget mot Peppol-infrastrukturen i forkant av e-fakturaplikten i bokføringsloven. Underveis dukket det opp to funn som endret hva jeg trodde om regelen.</p>
+<div class="meta-strip">
+<span class="meta-item live">Åpen kildekode · gratis</span>
+<span class="meta-item">Python</span>
+<span class="meta-item">Peppol SML/SMP</span>
+<span class="meta-item">Enhetsregisteret</span>
+<span class="meta-item">Målt 2026-07-27</span>
+</div>
+</header>
+
+<section class="sec reveal">
+<h2 class="sec-title">Regelen</h2>
+<p class="lede">Stortinget vedtok 1. juni 2026 en ny plikt i bokføringsloven. Loven ble sanksjonert 19. juni som lov nr. 39.</p>
+<blockquote>
+Dokumentasjon for salg av varer og tjenester til andre bokføringspliktige skal utstedes i elektronisk fakturaformat. Dokumentasjon for kjøp av varer og tjenester fra andre bokføringspliktige skal tilsvarende mottas i elektronisk fakturaformat.
+<cite>Bokføringsloven § 10 annet ledd</cite>
+</blockquote>
+<p>Sendeplikten er varslet fra 1. januar 2027, mottaksplikten fra 2030. To ting er verdt å merke seg. For det første overlater lovteksten selv ikrafttredelsen til Kongen, så datoene ligger i en resolusjon, ikke i loven. For det andre nevner lovteksten verken Peppol eller ELMA — avgrensningen om at plikten bare gjelder overfor mottakere som står i Elektronisk mottakerregister står i <em>forarbeidene</em>, ikke i paragrafen.</p>
+<p>Det siste er ikke en teknisk detalj. Det er grunnen til at det i det hele tatt er interessant å vite hvem som står hvor.</p>
+</section>
+
+<section class="sec reveal">
+<h2 class="sec-title">Hva verktøyet gjør</h2>
+<p>Peppol har ingen sentral oppslagstjeneste. Svaret ligger i DNS, og det er gratis, uten API-nøkkel og uten avtale med noen. Kjeden er fem steg:</p>
+<ol class="steps">
+<li>Valider organisasjonsnummeret med mod11 — et ugyldig nummer skal ikke koste et DNS-oppslag.</li>
+<li>Bygg deltakeridentifikatoren <code>iso6523-actorid-upis::0192:NNNNNNNNN</code>.</li>
+<li>Hash verdidelen med SHA-256, Base32-kod den, og slå opp U-NAPTR-posten i Peppols DNS-sone.</li>
+<li>Svaret peker på virksomhetens SMP. Hent listen over dokumenttyper derfra.</li>
+<li>Finnes EHF-fakturatypen i listen, kan de motta faktura.</li>
+</ol>
+<div class="term">
+<pre>$ efaktura-radar sjekk 986252932 --vis-utgatt
+<span class="c">Organisasjonsnummer :</span> 986252932
+<span class="c">Deltaker-ID         :</span> iso6523-actorid-upis::0192:986252932
+<span class="c">NAPTR-vertsnavn     :</span> JGPA45E5TP5QNMA3C3XUXV6V4ZE4LHDYW6AL2HZYU3NRLUFX3D3A
+                      .iso6523-actorid-upis.participant.sml.prod.tech.peppol.org
+<span class="c">Utgått (CNAME)      :</span> B-af698985e2b17102e6a02222b52f9ba9
+                      .iso6523-actorid-upis.edelivery.tech.ec.europa.eu
+                      (slutter å svare 2026-08-31)
+<span class="c">Status              :</span> <span class="ok">kan_motta</span>
+<span class="c">SMP                 :</span> https://smp.elma-smp.no/
+<span class="c">På ELMA             :</span> ja</pre>
+</div>
+<p class="muted">Verktøyet tar også en hel kundeliste som CSV, og kan kjøre som en cron-jobb som logger endringer over tid.</p>
+</section>
+
+<section class="sec reveal">
+<h2 class="sec-title">Funn 1: de fleste er allerede registrert</h2>
+<figure class="figure">
+<div class="hero-num">82 %</div>
+<div class="hero-num-sub">av tilfeldig utvalgte Oslo-selskaper med 5–50 ansatte var allerede registrert i Peppol.</div>
+<div class="prop-bar" role="img" aria-label="82 prosent kan motta EHF-faktura, 18 prosent kan ikke.">
+<div class="prop-seg can">82 % kan motta</div>
+<div class="prop-seg cannot">18 %</div>
+</div>
+<div class="prop-legend">
+<span class="prop-key"><span class="prop-swatch can"></span>Kan motta EHF — 31 av 38</span>
+<span class="prop-key"><span class="prop-swatch cannot"></span>Kan ikke — 7 av 38</span>
+</div>
+<figcaption>Metode: 38 aksjeselskaper i Oslo med 5–50 ansatte, hentet fra Enhetsregisteret og slått opp live mot Peppol SML 27. juli 2026. Lite utvalg — det er en stikkprøve, ikke statistikk.</figcaption>
+</figure>
+<p>Dette endret hvordan jeg leste regelen. Finansdepartementets egen konsekvensutredning oppgir at 32 % av virksomhetene som leverte skattemelding i 2023 var registrert i ELMA — men det tallet dekker <em>alle</em> virksomheter, inkludert de 68 % som ikke har en eneste ansatt. Blant aksjeselskaper med ansatte er dekningen langt høyere, og den samme utredningen fant «over 80 %» for AS med mer enn 5 mill. i omsetning allerede i 2023-tall.</p>
+<p>Med andre ord: dette er ikke en bølge som er på vei. Det er et platå som har ligget der i årevis. Spørsmålet «hvem av kundene mine kan ta imot EHF?» har stort sett svaret ja.</p>
+</section>
+
+<section class="sec reveal">
+<h2 class="sec-title">Funn 2: ELMA er ikke hele Peppol</h2>
+<p>Ett av de 31 registrerte selskapene lå ikke på ELMA, men på en kommersiell SMP. Det er ikke en kuriositet, og Digdir sier det rett ut i sin egen dokumentasjon:</p>
+<blockquote>
+Previously, ELMA was the only PEPPOL SMP where norwegian organizations were registered. This is no longer the case. […] These datasets must not be used to check if a given norwegian organization is registered in PEPPOL or what documents an organization can receive.
+<cite>docs.digdir.no — ELMA open data</cite>
+</blockquote>
+<p>Men forarbeidene til bokføringsloven navngir <strong>ELMA spesifikt</strong> som avgrensningen for sendeplikten. En virksomhet som er fullt nåbar via en annen SMP faller dermed utenfor ordlyden i forarbeidene, samtidig som den i praksis kan motta faktura helt fint.</p>
+<div class="callout">
+<strong>Uavklart.</strong> Lovteksten nevner ingen av delene, forskriften er ikke skrevet, og Digdir la ned sitt eget ELMA-søk i februar 2025. Verktøyet skiller derfor mellom «registrert i Peppol» og «registrert på ELMA» i alle utdata — det er den distinksjonen ingen andre svarer på i dag.
+</div>
+</section>
+
+<section class="sec reveal">
+<h2 class="sec-title">Hvorfor dette ikke ble et produkt</h2>
+<p class="lede">Jeg begynte å bygge dette som en mulig abonnementstjeneste for regnskapsbyråer. Det ble det ikke, og grunnene er verdt å skrive ned.</p>
+<div class="card">
+<div class="card-title">Selve oppslaget er gratis, og alle gir det bort</div>
+<p>OpenPeppol, DFØ, Fiken og flere til tilbyr enkeltoppslag kostnadsfritt. I Belgia, der en tilsvarende plikt trådte i kraft i januar 2026, kom bulk-skanneren gratis innen få måneder — som markedsføring inn i en fakturaplattform.</p>
+</div>
+<div class="card">
+<div class="card-title">Verdien ligger hos den som frakter fakturaen</div>
+<p>Pagero ble kjøpt for 6,4 mrd. SEK, ecosio for opptil 180 mill. dollar. Begge frakter dokumenter. Det finnes ikke ett eneste oppkjøp av et produkt som bare slår opp i registeret.</p>
+</div>
+<div class="card">
+<div class="card-title">Og mottaksplikten kommer først i 2030</div>
+<p>En virksomhet som lar være å registrere seg kan lovlig fortsette å motta PDF ut 2029. Uten den tvangen finnes ikke hastverket som skulle drevet et salg.</p>
+</div>
+<p>Så verktøyet ligger her gratis i stedet. Regelen kommer uansett, og da er det like greit at oppslaget finnes.</p>
+<div class="btn-row">
+<a class="btn btn-primary" href="https://github.com/ValiantEvers/efaktura-radar" rel="noopener">Se koden på GitHub</a>
+<a class="btn btn-secondary" href="/prosjekter/">Andre prosjekter</a>
+</div>
+</section>
+
+<section class="sec reveal">
+<h2 class="sec-title">Teknisk</h2>
+<p>Python, ingen avhengigheter utover DNS- og HTTP-klient. Begge hash-algoritmene er verifisert mot OpenPeppols egen testvektor, og det ligger 102 tester i repoet.</p>
+<p>Den delen jeg er mest fornøyd med er en sikkerhetsventil. Peppol byttet DNS-sone i 2026, og hvis den migrasjonen svikter vil <em>hvert eneste</em> oppslag returnere «ikke funnet». Et naivt overvåkingssystem ville da meldt at samtlige kunder hadde mistet fakturatilgangen. Derfor forkastes hele kjøringen hvis en uforholdsmessig andel faller samtidig — ingenting skrives, og det går ut ett varsel om at systemet selv er i stykker. Å miste en dags observasjoner er billig; å sende to hundre falske alarmer er ikke.</p>
+</section>
+
+<a class="back-link" href="/prosjekter/" data-i="backProj">← Tilbake til prosjekter</a>
+
+</main>
+
+<footer>
+<p>Kilder: bokføringsloven § 10 (lov 19. juni 2026 nr. 39) · Prop. 44 L (2025–2026) · <a href="https://docs.peppol.eu/edelivery/" rel="noopener">OpenPeppol-spesifikasjonene</a> · <a href="https://docs.digdir.no/docs/ELMA/elma_open_data" rel="noopener">Digdir om ELMA</a> · Vista Analyse rapport 2025/21.</p>
+<p>Navn og registeropplysninger hentes fra Enhetsregisteret: inneholder data under norsk lisens for offentlige data (NLOD) tilgjengeliggjort av Brønnøysundregistrene.</p>
+<p>Verktøyet er et hjelpemiddel, ikke juridisk rådgivning. Datoer og regelverk er kontrollert per 28. juli 2026 — forskriften til bestemmelsen er ennå ikke gitt.</p>
+</footer>
+
+<script>
+(function(){
+  /* -------------- i18n (kun nav-chrome; innholdet er norsk) ------- */
+  var T={
+    no:{nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",backProj:"← Tilbake til prosjekter"},
+    en:{nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",backProj:"← Back to projects"},
+    fr:{nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",backProj:"← Retour aux projets"},
+    de:{nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",backProj:"← Zurück zu den Projekten"},
+    ja:{nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",backProj:"← プロジェクトへ戻る"},
+    medieval:{nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",backProj:"← Vend tilbake til verkene"}
+  };
+  function setLang(l){
+    document.documentElement.lang=(l==='medieval'?'no':l);
+    var d=T[l]||T.no;
+    document.querySelectorAll('[data-i]').forEach(function(el){
+      var k=el.getAttribute('data-i');
+      if(d[k]!==undefined) el.textContent=d[k];
+    });
+    var btn=document.getElementById('langBtn');
+    if(btn) btn.textContent=(l==='medieval'?'NO':l).toUpperCase();
+    document.querySelectorAll('.lang-opt').forEach(function(o){
+      o.classList.toggle('active',o.getAttribute('data-lang')===l);
+    });
+    var menu=document.getElementById('langMenu'); if(menu) menu.classList.remove('open');
+    var lbtn=document.getElementById('langBtn'); if(lbtn) lbtn.setAttribute('aria-expanded','false');
+    try{localStorage.setItem('ve-lang',l)}catch(e){}
+  }
+  window.setLang=setLang;
+  var sv; try{sv=localStorage.getItem('ve-lang')}catch(e){}
+  setLang(sv && T[sv] ? sv : 'no');
+
+  /* -------------- theme ------------------------------------------- */
+  var savedTheme; try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
+  if(savedTheme==='dark'||savedTheme==='medieval'){
+    document.documentElement.setAttribute('data-theme',savedTheme);
+  }
+  function updateThemeIcon(){
+    var t=document.documentElement.getAttribute('data-theme');
+    var btn=document.getElementById('themeToggle'); if(!btn) return;
+    btn.textContent=(t==='dark')?'🌙':(t==='medieval'?'⚔️':'☀️');
+  }
+  updateThemeIcon();
+  document.getElementById('themeToggle').addEventListener('click',function(){
+    var t=document.documentElement.getAttribute('data-theme');
+    var next=(t==='dark')?null:'dark';
+    if(next) document.documentElement.setAttribute('data-theme',next);
+    else document.documentElement.removeAttribute('data-theme');
+    try{localStorage.setItem('ve-theme',next||'')}catch(e){}
+    updateThemeIcon();
+  });
+
+  /* -------------- lang menu --------------------------------------- */
+  function syncLangExpanded(){
+    var m=document.getElementById('langMenu'), b=document.getElementById('langBtn');
+    if(m&&b) b.setAttribute('aria-expanded', m.classList.contains('open')?'true':'false');
+  }
+  document.getElementById('langBtn').addEventListener('click',function(e){
+    e.stopPropagation(); document.getElementById('langMenu').classList.toggle('open'); syncLangExpanded();
+  });
+  document.addEventListener('click',function(e){
+    var m=document.getElementById('langMenu');
+    if(m && !m.contains(e.target) && e.target.id!=='langBtn'){ m.classList.remove('open'); syncLangExpanded(); }
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'||e.key==='Esc'){
+      var m=document.getElementById('langMenu');
+      if(m && m.classList.contains('open')){
+        m.classList.remove('open'); syncLangExpanded();
+        var b=document.getElementById('langBtn'); if(b) b.focus();
+      }
+    }
+  });
+  document.querySelectorAll('.lang-opt').forEach(function(o){
+    o.addEventListener('click',function(){ setLang(o.getAttribute('data-lang')); });
+  });
+
+  /* -------------- nav scroll -------------------------------------- */
+  window.addEventListener('scroll',function(){
+    var nav=document.getElementById('mainNav');
+    if(window.scrollY>50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+  });
+
+  /* -------------- "prins" easter egg ------------------------------ */
+  var typed='';
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+    typed=(typed+e.key.toLowerCase()).slice(-10);
+    if(typed.indexOf('prins')!==-1){
+      document.documentElement.setAttribute('data-theme','medieval');
+      try{localStorage.setItem('ve-theme','medieval')}catch(e){}
+      setLang('medieval'); updateThemeIcon();
+      typed='';
+    }
+  });
+
+  /* -------------- cursor dot -------------------------------------- */
+  (function(){
+    var dot=document.getElementById('cursorDot'); if(!dot) return;
+    var mx=0,my=0,dx=0,dy=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.opacity='';});
+    document.addEventListener('mouseleave',function(){dot.style.opacity='0';});
+    document.addEventListener('mouseenter',function(){dot.style.opacity='';});
+    (function loop(){dx+=(mx-dx)*.15;dy+=(my-dy)*.15;dot.style.left=dx+'px';dot.style.top=dy+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,.card,.term,.back-link').forEach(function(el){
+      el.addEventListener('mouseenter',function(){dot.classList.add('hover');});
+      el.addEventListener('mouseleave',function(){dot.classList.remove('hover');});
+    });
+  })();
+
+  /* -------------- reveal on scroll -------------------------------- */
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){el.classList.add('in');}); return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    },{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){io.observe(el);});
+  })();
+
+})();
+</script>
+</body>
+</html>

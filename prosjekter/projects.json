@@ -1,5 +1,25 @@
 [
  {
+  "slug": "efaktura-radar",
+  "tittel": "E-fakturaradar",
+  "beskrivelse": "Åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta EHF-faktura, mot Peppol SML og SMP — uten API-nøkkel. Bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og ELMA er ikke hele Peppol.",
+  "kategori": "Verktøy",
+  "status": "live",
+  "url": "/prosjekter/efaktura-radar/",
+  "bilde": "screenshots/efaktura-radar.webp",
+  "ikon": "🧾",
+  "tags": [
+   "regelverk",
+   "e-faktura",
+   "peppol",
+   "python",
+   "åpen-kildekode"
+  ],
+  "opprettet": "2026-07-28",
+  "sist_oppdatert": "2026-07-28",
+  "synlig": true
+ },
+ {
   "slug": "formuessamtalen",
   "tittel": "Formuessamtalen",
   "beskrivelse": "Sett deg på kundesiden av bordet: en interaktiv demo av rådgivningssamtalen i wealth management. Egnethetskartlegging, åpen allokeringsmatrise, kontovalg (depot, ASK, eget AS) beregnet av skatt-optimizer-motoren for din profil, kalibreringstest fra masteroppgaven, og et møtereferat du kan ta med i banken.",
