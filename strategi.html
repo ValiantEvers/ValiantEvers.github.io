@@ -707,6 +707,8 @@ select.inp{color-scheme:dark;appearance:auto}
 
 <section id="p-docs" style="display:none">
   <div id="docsContent"></div>
+  <input type="file" id="docsFile" multiple style="display:none"
+         accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,application/pdf,image/*">
 </section>
 
 </div>
@@ -2803,6 +2805,14 @@ function initUI(payload){
     renderDocs();
   });
 
+  // Dokumentopplasting — FileList må kopieres før value nullstilles, ellers
+  // er den tom. Nullstillingen gjør at samme fil kan velges på nytt.
+  document.getElementById("docsFile").addEventListener("change", function(){
+    var picked = Array.prototype.slice.call(this.files || []);
+    this.value = "";
+    docsUpload(picked);
+  });
+
   // Snapshot button
   document.getElementById("btnSnapshot").addEventListener("click", snapshotToRepo);
 
@@ -4680,6 +4690,30 @@ function sbEncPath(p){
 // ════════════════════════════════════════════════════════════════
 var DOCS_TTL = 3600;   // signerte URL-er lever 1 time
 var DOCS_GEN = 0;      // generasjonsteller: et tregt svar skal ikke overskrive et nyere
+var DOCS_MAX_BYTES = 26214400;   // bucketens file_size_limit, jf. supabase/schema.sql i jobblogg
+
+// ⚠ PARITETSBUNDET med jobblogg/src/lib/documents.ts (sanitizeFilename).
+// Storage-nøkkelen utledes av filnavnet, så de to appene MÅ produsere samme
+// nøkkel for samme fil. Avviker de, får «Vitnemål.pdf» lastet opp herfra en
+// annen nøkkel enn fra jobbloggen, og arkivet ender med to filer der du tror
+// det er én. Endres den ene, må den andre endres i samme slengen — samme
+// kontrakt som PROFILE/detectSeniority har mot scripts/fetch_jobs.py.
+//
+// Merk rekkefølgen: -+$ fjerner kun bindestreker helt til slutt i strengen,
+// så «Attest Fratredelse .pdf» blir «Attest-Fratredelse-.pdf» med bindestrek
+// før punktumet. Det er tilsiktet oppførsel i jobbloggen, ikke en feil å rydde.
+function sanitizeFilename(name){
+  var map = {"æ":"ae","ø":"oe","å":"aa","Æ":"Ae","Ø":"Oe","Å":"Aa"};
+  var cleaned = String(name)
+    .replace(/[æøåÆØÅ]/g, function(c){ return map[c]; })
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9._-]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^[-.]+/, "")
+    .replace(/-+$/, "");
+  return cleaned || "dokument";
+}
 
 async function sbList(){
   var s = await sbSession();
@@ -4743,6 +4777,58 @@ async function sbSignOne(p){
   return encodeURI(s.url + "/storage/v1" + j.signedURL);
 }
 
+// Opplasting. x-upsert: true → samme filnavn overskriver, som i jobbloggen.
+// FormData-feltnavnene er ikke valgfrie: supabase-js sender "cacheControl" og
+// deretter fila under det TOMME feltnavnet. Content-Type settes bevisst ikke —
+// nettleseren må få sette multipart-grensen selv.
+async function sbUpload(file){
+  var s = await sbSession();
+  var fd = new FormData();
+  fd.append("cacheControl", "60");
+  fd.append("", file);
+  var r = await sbFetch("/object/" + SB_BUCKET + "/" + sbEncPath(s.uid + "/" + sanitizeFilename(file.name)), {
+    method: "POST",
+    headers: {"x-upsert": "true"},
+    body: fd
+  });
+  if(!r.ok) throw await sbErrFrom(r);
+}
+
+function docsPickFiles(){
+  var inp = document.getElementById("docsFile");
+  if(inp) inp.click();
+}
+
+// Sekvensielt, ikke parallelt: stopp ved første feil og vis den. Størrelsen
+// sjekkes lokalt — 413 fra Storage er kryptisk, og en 25 MB-opplasting som
+// dør halvveis på mobilnett er verre enn en beskjed før den starter.
+async function docsUpload(files){
+  var list = Array.prototype.slice.call(files || []);
+  if(!list.length) return;
+  var btn = document.getElementById("btnDocsUpload");
+  var oldTxt = btn ? btn.textContent : "";
+  if(btn) btn.disabled = true;
+  var failed = null;
+  for(var i = 0; i < list.length; i++){
+    var f = list[i];
+    if(f.size > DOCS_MAX_BYTES){
+      failed = "«" + f.name + "» er " + docsBytes(f.size) + " — arkivet tar maks 25 MB per fil.";
+      break;
+    }
+    if(btn) btn.textContent = "Laster opp " + (i+1) + " av " + list.length + " …";
+    try{
+      await sbUpload(f);
+    }catch(e){
+      failed = "Opplasting av «" + f.name + "» feilet: " + e.message;
+      break;
+    }
+  }
+  if(btn){ btn.textContent = oldTxt; btn.disabled = false; }
+  STATE.docs = null;          // tving fersk listing med nye signerte lenker
+  await renderDocs();
+  if(failed) toast(failed, 8000);
+}
+
 function docsBytes(n){
   if(n === undefined || n === null) return "";
   if(n < 1024) return n + " B";
@@ -4792,12 +4878,14 @@ async function renderDocs(){
     var entries = await sbSignAll(await sbList());
     if(gen !== DOCS_GEN) return;   // et nyere kall har overtatt
     STATE.docs = entries;
+    var upload = '<button class="btn-ghost" id="btnDocsUpload" onclick="docsPickFiles()" style="margin-bottom:12px">' +
+                 '+ Last opp dokument</button>';
     if(!entries.length){
-      el.innerHTML = '<div class="empty">Arkivet er tomt.<br>Last opp CV, vitnemål og attester fra jobbloggen, ' +
-        'så ligger de her når du trenger dem.</div>';
+      el.innerHTML = upload + '<div class="empty">Arkivet er tomt.<br>Last opp CV, vitnemål og attester — ' +
+        'PDF, bilde eller Word, inntil 25 MB.</div>';
       return;
     }
-    el.innerHTML = entries.map(docsRowHtml).join("") +
+    el.innerHTML = upload + entries.map(docsRowHtml).join("") +
       '<p class="doc-note">Privat bucket med radsikkerhet — kun din bruker ser filene. ' +
       'Lenkene er signert og lever 1 time; lista fornyes når fanen blir synlig igjen.</p>';
   }catch(e){
