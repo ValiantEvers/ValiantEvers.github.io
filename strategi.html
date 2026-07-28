@@ -936,13 +936,18 @@ async function decryptAndCache(pw, blob){
   STATE.cryptoSalt = saltU8;
   return JSON.parse(new TextDecoder().decode(pt));
 }
-// Encrypt current payload with cached key — fast (no PBKDF2), rotates IV
-async function encryptCurrent(){
+// Encrypt an arbitrary object with the cached key — fast (no PBKDF2), rotates IV.
+// snapshotToRepo bruker denne direkte for å kryptere en strippet klone.
+async function encryptWithKey(obj){
   if(!STATE.cryptoKey || !STATE.cryptoSalt) throw new Error("No cached key");
   var iv = crypto.getRandomValues(new Uint8Array(12));
-  var pt = new TextEncoder().encode(JSON.stringify(STATE.payload));
+  var pt = new TextEncoder().encode(JSON.stringify(obj));
   var ct = await crypto.subtle.encrypt({name:"AES-GCM", iv:iv}, STATE.cryptoKey, pt);
   return {v:1, salt:b64(STATE.cryptoSalt), iv:b64(iv), ct:b64(new Uint8Array(ct))};
+}
+// Encrypt current payload with cached key — fast (no PBKDF2), rotates IV
+async function encryptCurrent(){
+  return encryptWithKey(STATE.payload);
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -4587,7 +4592,13 @@ async function snapshotToRepo(){
     // No mutate() here — per spec lastSnapshotAt is cosmetic and shouldn't push.
     // Save to cache so a refresh sees the new field; next real mutation will pick it up to Gist.
     saveToCache();
-    var blob = await encryptCurrent();
+    // Supabase-legitimasjonen skal IKKE inn i det offentlige repoet. Seedets
+    // jobb er å bootstrappe jobbdataene på en ny enhet; legitimasjonen kommer
+    // uansett inn ved første bootstrapSync fra Gist-en rett etter unlock.
+    // Grunn klone holder — supabase er et toppnivåfelt uten nøstede referanser.
+    var clone = Object.assign({}, STATE.payload);
+    delete clone.supabase;
+    var blob = await encryptWithKey(clone);
     var dataStr = JSON.stringify(blob);
     var url = URL.createObjectURL(new Blob([dataStr], {type:"application/json"}));
     var a = document.createElement("a");
