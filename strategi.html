@@ -5005,12 +5005,25 @@ async function snapshotToRepo(){
     // No mutate() here — per spec lastSnapshotAt is cosmetic and shouldn't push.
     // Save to cache so a refresh sees the new field; next real mutation will pick it up to Gist.
     saveToCache();
-    // Supabase-legitimasjonen skal IKKE inn i det offentlige repoet. Seedets
-    // jobb er å bootstrappe jobbdataene på en ny enhet; legitimasjonen kommer
-    // uansett inn ved første bootstrapSync fra Gist-en rett etter unlock.
-    // Grunn klone holder — supabase er et toppnivåfelt uten nøstede referanser.
+    // Legitimasjon skal IKKE inn i det offentlige repoet. Seedets jobb er å
+    // bootstrappe jobbdataene på en ny enhet — nøklene kommer inn via Gist-en
+    // (supabase) eller ved å lime inn en PAT (gist.pat).
+    //
+    // ⚠ Object.assign er GRUNN. `supabase` er et toppnivåfelt, så delete på
+    // klonen rører ikke originalen. `gist.pat` er NØSTET: clone.gist peker på
+    // SAMME objekt som STATE.payload.gist, og en delete rett på den ville
+    // fjernet PAT-en fra den kjørende økta — og fra localStorage ved neste
+    // mutate(). Derfor egen kopi av gist-objektet først.
+    //
+    // gist.id blir BEVISST værende: da ser doSetup en existingId på en ny
+    // enhet og tar «Bytt PAT»-grenen, som kobler seg til den eksisterende
+    // gisten i stedet for å opprette en ny.
     var clone = Object.assign({}, STATE.payload);
     delete clone.supabase;
+    if(clone.gist){
+      clone.gist = Object.assign({}, clone.gist);
+      delete clone.gist.pat;
+    }
     var blob = await encryptWithKey(clone);
     var dataStr = JSON.stringify(blob);
     var url = URL.createObjectURL(new Blob([dataStr], {type:"application/json"}));
