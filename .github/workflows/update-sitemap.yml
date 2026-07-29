@@ -1,0 +1,47 @@
+name: Update sitemap lastmod
+
+# Holder <lastmod> i sitemap.xml i synk med git-historikken, så datoene aldri
+# må oppdateres for hånd. Kjører ved push av HTML-endringer til main; scriptet
+# mapper hver sitemap-URL til filene sine og henter siste commit-dato (%cs).
+# Committer kun ved faktisk endring — egen commit rører bare sitemap.xml og
+# gir dermed ingen ny kjøring med diff (terminerer alltid). Kun stdlib.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0  # scriptet trenger full historikk for per-fil-datoer
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Update lastmod from git history
+        run: python scripts/update_sitemap.py
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Oppdater sitemap lastmod fra git-historikk"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then exit 0; fi
+            echo "Push attempt $attempt rejected — retrying..."
+            sleep 2
+          done
+          echo "Push failed after 3 attempts"
+          exit 1
