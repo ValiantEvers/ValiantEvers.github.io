@@ -1,16 +1,16 @@
 {
-  "name": "Østerås mini-sightseeing",
+  "name": "Evening Run",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 4.2,
-  "moving_time": 1552,
-  "elapsed_time": 2630,
-  "total_elevation_gain": 95.0,
-  "start_date": "2026-07-27T13:59:31Z",
-  "average_speed": 9.75,
-  "max_speed": 14.26,
-  "average_heartrate": 158.1,
-  "max_heartrate": 182.0,
-  "suffer_score": 41.0,
-  "id": 19484946494
+  "distance": 9.56,
+  "moving_time": 4189,
+  "elapsed_time": 5826,
+  "total_elevation_gain": 201.0,
+  "start_date": "2026-07-28T18:21:04Z",
+  "average_speed": 8.22,
+  "max_speed": 13.39,
+  "average_heartrate": 146.3,
+  "max_heartrate": 174.0,
+  "suffer_score": 58.0,
+  "id": 19503964887
 }
