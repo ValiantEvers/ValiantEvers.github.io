@@ -28,6 +28,7 @@ URLMAP = {
     "/aksjeskatt/": ["aksjeskatt"],
     "/klima/": ["klima"],
     "/osebx/": None,
+    "/renteriket/": None,
     "/wc2026/": None,
     "/examprep/": ["examprep"],
     "/fra-null-til-investor/": ["fra-null-til-investor"],

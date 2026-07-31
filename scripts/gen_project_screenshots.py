@@ -38,6 +38,7 @@ TARGETS = [
     {"slug": "wc2026",                     "url": "https://www.evers.no/wc2026/",                                           "scroll": 0,   "wait_ms": 4000},
     {"slug": "klima",                      "url": "https://www.evers.no/klima/",                                            "scroll": 0,   "wait_ms": 3500},
     {"slug": "examprep",                   "url": "https://www.evers.no/examprep/",                                         "scroll": 0,   "wait_ms": 3500, "q": 69},
+    {"slug": "renteriket",                 "url": "https://www.evers.no/renteriket/",                                       "scroll": 0,   "wait_ms": 3000},
     {"slug": "efaktura-radar",             "url": "https://www.evers.no/prosjekter/efaktura-radar/",                        "scroll": 1180, "wait_ms": 2500},
 ]
 

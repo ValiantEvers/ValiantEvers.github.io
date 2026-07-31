@@ -1,5 +1,27 @@
 [
  {
+  "slug": "renteriket",
+  "tittel": "Renteriket",
+  "beskrivelse": "Et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill — budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år — pluss førti kunnskapskort gjemt i en by. Alle norske satser ligger i én kildeforankret blokk med årstall, og 778 automatiserte sjekker regner fasiten på nytt med andre formler enn spillet bruker. Testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til.",
+  "kategori": "Verktøy",
+  "status": "live",
+  "url": "/renteriket/",
+  "bilde": "screenshots/renteriket.webp",
+  "ikon": "🏙️",
+  "tags": [
+   "personlig-økonomi",
+   "investering",
+   "skatt",
+   "atferd",
+   "pensjon",
+   "bolig",
+   "spill"
+  ],
+  "opprettet": "2026-07-31",
+  "sist_oppdatert": "2026-07-31",
+  "synlig": false
+ },
+ {
   "slug": "efaktura-radar",
   "tittel": "E-fakturaradar",
   "beskrivelse": "Åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta EHF-faktura, mot Peppol SML og SMP — uten API-nøkkel. Bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og ELMA er ikke hele Peppol.",
