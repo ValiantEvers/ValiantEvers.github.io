@@ -1,16 +1,16 @@
 {
-  "name": "Speed sightseeing in the ghetto🤠",
+  "name": "Sommer i Oslo❤️",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 3.6,
-  "moving_time": 1057,
-  "elapsed_time": 1082,
-  "total_elevation_gain": 48.0,
-  "start_date": "2026-08-05T18:31:30Z",
-  "average_speed": 12.25,
-  "max_speed": 18.43,
-  "average_heartrate": 175.7,
-  "max_heartrate": 200.0,
-  "suffer_score": 53.0,
-  "id": 19615367614
+  "distance": 10.01,
+  "moving_time": 3289,
+  "elapsed_time": 4627,
+  "total_elevation_gain": 136.0,
+  "start_date": "2026-08-06T14:14:03Z",
+  "average_speed": 10.95,
+  "max_speed": 22.9,
+  "average_heartrate": 174.8,
+  "max_heartrate": 194.0,
+  "suffer_score": 167.0,
+  "id": 19627236657
 }
