@@ -1,16 +1,16 @@
 {
-  "name": "Sommer i Oslo❤️",
+  "name": "🏃",
   "type": "Run",
   "sport_type": "Run",
-  "distance": 10.01,
-  "moving_time": 3289,
-  "elapsed_time": 4627,
-  "total_elevation_gain": 136.0,
-  "start_date": "2026-08-06T14:14:03Z",
-  "average_speed": 10.95,
-  "max_speed": 22.9,
-  "average_heartrate": 174.8,
-  "max_heartrate": 194.0,
-  "suffer_score": 167.0,
-  "id": 19627236657
+  "distance": 16.72,
+  "moving_time": 6129,
+  "elapsed_time": 8455,
+  "total_elevation_gain": 214.0,
+  "start_date": "2026-08-11T10:26:20Z",
+  "average_speed": 9.82,
+  "max_speed": 22.39,
+  "average_heartrate": 166.5,
+  "max_heartrate": 186.0,
+  "suffer_score": 221.0,
+  "id": 19694281601
 }
