@@ -26,13 +26,16 @@
 ## Verdt å gjøre (prioritert, alle i DESIGN.md-ånden)
 
 1. **To nye «spells» (designspells-inspirert), begge bittesmå:**
-   - **Dynamisk `theme-color`:** metaen er statisk `#004eaa` i dag, så
-     adresselinjen på mobil forblir blå i dark mode. Én liten JS-oppdatering
-     ved temabytte (og ved `prefers-color-scheme`-init) så mobilrammen
-     følger `--bg`. Frekvens: passiv, ingen animasjon. Innsats: minimal.
-   - **Dark-mode-aware favicon:** `favicon.svg` kan få en
-     `prefers-color-scheme: dark`-regel inni selve SVG-en, slik at
-     e.-ikonet ikke drukner i mørke faner. Innsats: minimal.
+   - ✅ **Dynamisk `theme-color`. Gjort 2026-08-13 (`1704b49`):**
+     MutationObserver på `data-theme` speiler bakgrunnen inn i
+     `meta[name=theme-color]` på forside, CV og prosjekter – lys beholder
+     `#004eaa`, dark `#0a0a0a`, medieval `#2a1a0e`. Frekvens: passiv,
+     ingen animasjon.
+   - ✅ **Dark-mode-aware favicon – viste seg allerede gjort.** Oppdaget
+     ved implementering samme kveld: `favicon.svg` har allerede
+     `prefers-color-scheme: dark`-regel innebygd (`.pl`/`.ink`/`.acc`
+     bytter til mørk plate + lys e). Rapportens funn var stale; ingen
+     endring nødvendig.
    - (Dagens waffle-avsløring er forresten ren designspells-materie:
      Easter Egg-taggen der er full av nettopp slike detaljer. Siten står
      seg godt i det selskapet: konami, prins, mjød, run, thesis, viking,
