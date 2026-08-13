@@ -637,5 +637,23 @@ bindCursorHover(document.querySelectorAll('a,button,.back-link'));
 })();
 })();
 </script>
+<script>
+/* Spell (designspells-runden 2026-08-13): adresselinjen paa mobil foelger temaet.
+   Observerer data-theme og speiler bakgrunnen inn i meta[name=theme-color]:
+   lys beholder merkevarefargen, dark/medieval faar sine egne bakgrunner. */
+(function(){
+var meta=document.querySelector('meta[name="theme-color"]');
+if(!meta||!window.MutationObserver)return;
+var COLORS={dark:'#0a0a0a',medieval:'#2a1a0e'};
+function sync(){
+var t=document.documentElement.getAttribute('data-theme')||(document.body&&document.body.getAttribute('data-theme'));
+meta.setAttribute('content',COLORS[t]||'#004eaa');
+}
+var obs=new MutationObserver(sync);
+obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+if(document.body)obs.observe(document.body,{attributes:true,attributeFilter:['data-theme']});
+sync();
+})();
+</script>
 </body>
 </html>
