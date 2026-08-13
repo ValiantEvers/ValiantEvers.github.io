@@ -133,9 +133,18 @@ else:
 
 py_sen_body = slice_between(PY_SRC, "def detect_seniority", 'return "mid"',
                             "detect_seniority (py)")
-py_pats = re.findall(r're\.search\(r"([^"]+)", t\)', py_sen_body)
+# re.ASCII-flagget kom 2026-07-27 (unicode-\b-divergensen, se fetch_jobs.py)
+# — ekstraktoren godtar det som valgfritt tredje argument, og krever under at
+# det faktisk står der. (Vakta var blind for flagget 15.07–13.08 og feilet
+# på første trigger etter at det kom inn.)
+py_calls = re.findall(r're\.search\(r"([^"]+)", t(, re\.ASCII)?\)', py_sen_body)
+py_pats = [pat for pat, _flag in py_calls]
 if len(py_pats) != 2:
     hard_fail(f"forventet 2 regexer i detect_seniority (py), fant {len(py_pats)}")
+if any(not flag for _pat, flag in py_calls):
+    fail("detect_seniority (py): re.ASCII mangler på minst én regex — Pythons "
+         "unicode-\\b divergerer da fra JS (ø/å/æ-titler, jf. 2026-07-27-"
+         "kommentaren i fetch_jobs.py)")
 
 js_sen_body = slice_between(HTML, "function detectSeniority(title){", "\n}",
                             "detectSeniority (js)")
