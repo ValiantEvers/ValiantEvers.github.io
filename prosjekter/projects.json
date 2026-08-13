@@ -2,7 +2,7 @@
   {
     "slug": "renteriket",
     "tittel": "Renteriket",
-    "beskrivelse": "Et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill — budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år — pluss førti kunnskapskort gjemt i en by. Alle norske satser ligger i én kildeforankret blokk med årstall, og 838 automatiserte sjekker regner fasiten på nytt med andre formler enn spillet bruker. Testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til.",
+    "beskrivelse": "Et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill – budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år – pluss førti kunnskapskort gjemt i en by. Alle norske satser ligger i én kildeforankret blokk med årstall, og 838 automatiserte sjekker regner fasiten på nytt med andre formler enn spillet bruker. Testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til.",
     "kategori": "Verktøy",
     "status": "live",
     "url": "/renteriket/",
@@ -24,7 +24,7 @@
   {
     "slug": "efaktura-radar",
     "tittel": "E-fakturaradar",
-    "beskrivelse": "Åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta EHF-faktura, mot Peppol SML og SMP — uten API-nøkkel. Bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og ELMA er ikke hele Peppol.",
+    "beskrivelse": "Åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta EHF-faktura, mot Peppol SML og SMP – uten API-nøkkel. Bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og ELMA er ikke hele Peppol.",
     "kategori": "Verktøy",
     "status": "live",
     "url": "/prosjekter/efaktura-radar/",
@@ -65,7 +65,7 @@
   {
     "slug": "aksjeskatt",
     "tittel": "Aksjeskatt på tvers av kontotyper",
-    "beskrivelse": "Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap. Velg strategi, kapital, utbytte og sivilstand — se kurvene krysse, skattesplitten (gevinst/utbytte/formue/uttak) og hvordan rangeringen etter skatt kan snu rangeringen før skatt. Alle tall beregnet av en deterministisk skattemotor; ingen skatteregning i nettleseren, ingen data lastes opp.",
+    "beskrivelse": "Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap. Velg strategi, kapital, utbytte og sivilstand – se kurvene krysse, skattesplitten (gevinst/utbytte/formue/uttak) og hvordan rangeringen etter skatt kan snu rangeringen før skatt. Alle tall beregnet av en deterministisk skattemotor; ingen skatteregning i nettleseren, ingen data lastes opp.",
     "kategori": "Verktøy",
     "status": "live",
     "url": "/aksjeskatt/",
@@ -85,7 +85,7 @@
   {
     "slug": "skatt-mcp",
     "tittel": "skatt-mcp",
-    "beskrivelse": "Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall — aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod.",
+    "beskrivelse": "Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod.",
     "i18n": {
       "title": "skattTitle",
       "desc": "skattDesc"
@@ -108,7 +108,7 @@
   {
     "slug": "masteroppgave",
     "tittel": "Masteroppgaven, forklart",
-    "beskrivelse": "Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit — uten fagsjargong.",
+    "beskrivelse": "Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong.",
     "i18n": {
       "title": "mastTitle",
       "desc": "mastDesc"
@@ -147,7 +147,7 @@
   {
     "slug": "personligokonomi",
     "tittel": "Personlig Økonomi",
-    "beskrivelse": "Interaktivt verktøy om renters rente, opportunity cost og inflasjon — for vanlige nordmenn.",
+    "beskrivelse": "Interaktivt verktøy om renters rente, opportunity cost og inflasjon – for vanlige nordmenn.",
     "kategori": "Verktøy",
     "status": "live",
     "url": "/personligokonomi/",
@@ -180,7 +180,7 @@
   },
   {
     "slug": "examprep",
-    "tittel": "GRA6546 — Exam Prep",
+    "tittel": "GRA6546 – Exam Prep",
     "beskrivelse": "Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.",
     "kategori": "Verktøy",
     "status": "live",
@@ -198,7 +198,7 @@
   {
     "slug": "pensjonskalkulator",
     "tittel": "Pensjonskalkulator",
-    "beskrivelse": "Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet — brutto og estimert netto.",
+    "beskrivelse": "Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet – brutto og estimert netto.",
     "kategori": "Verktøy",
     "status": "live",
     "url": "/pensjonskalkulator/",
@@ -233,7 +233,7 @@
   {
     "slug": "wc2026",
     "tittel": "World Cup 2026 Simulator",
-    "beskrivelse": "Interaktiv VM 2026-simulator — alle 48 lag drevet av Elo. Spill én turnering med live avspilling og 2D mål-replay, eller kjør Monte Carlo for sannsynligheter.",
+    "beskrivelse": "Interaktiv VM 2026-simulator – alle 48 lag drevet av Elo. Spill én turnering med live avspilling og 2D mål-replay, eller kjør Monte Carlo for sannsynligheter.",
     "kategori": "Verktøy",
     "status": "live",
     "url": "/wc2026/",
@@ -250,7 +250,7 @@
   {
     "slug": "regnskapsoppstillinger",
     "tittel": "Regnskapsoppstillinger",
-    "beskrivelse": "Resultatregnskap, balanse og kontantstrøm — tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",
+    "beskrivelse": "Resultatregnskap, balanse og kontantstrøm – tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",
     "i18n": {
       "title": "finmStatTitle",
       "desc": "finmStatDesc"
