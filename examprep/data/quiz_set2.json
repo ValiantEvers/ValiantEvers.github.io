@@ -13,7 +13,7 @@
       "They default only when idiosyncratic risk in the underlying pool is extreme, not when aggregate conditions deteriorate."
     ],
     "answerIndex": 0,
-    "explanation": "Coval, Jurek & Stafford (2009), 'The Economics of Structured Finance' (JEP). Tranching does NOT diversify systematic risk — it CONCENTRATES it in the senior tranche. A senior tranche only takes losses once equity and mezzanine are exhausted, which by construction occurs in the worst aggregate states. The conditional payoff therefore resembles a catastrophe bond: same unconditional default probability as a AAA corporate, but losses occur precisely when marginal utility of wealth is highest. Pricing as a single-name AAA mispriced the systematic-risk component."
+    "explanation": "Coval, Jurek & Stafford (2009), 'The Economics of Structured Finance' (JEP). Tranching does NOT diversify systematic risk – it CONCENTRATES it in the senior tranche. A senior tranche only takes losses once equity and mezzanine are exhausted, which by construction occurs in the worst aggregate states. The conditional payoff therefore resembles a catastrophe bond: same unconditional default probability as a AAA corporate, but losses occur precisely when marginal utility of wealth is highest. Pricing as a single-name AAA mispriced the systematic-risk component."
   },
   {
     "id": "tf-tranching-systematic-risk",
@@ -22,7 +22,7 @@
     "topic": "securitisation",
     "prompt": "Pooling and tranching of correlated credit assets diversifies away the systematic component of credit risk in the senior tranche.",
     "answer": "false",
-    "explanation": "Coval, Jurek & Stafford (2009) and Gibson (2004) on Credit Derivatives. Pooling reduces idiosyncratic risk; it does not eliminate systematic risk. Tranching then ALLOCATES systematic risk: equity absorbs idiosyncratic and a slice of systematic, while the senior tranche absorbs the remaining systematic risk in the tail. The senior tranche's losses are therefore disproportionately concentrated in bad aggregate states — the opposite of diversification."
+    "explanation": "Coval, Jurek & Stafford (2009) and Gibson (2004) on Credit Derivatives. Pooling reduces idiosyncratic risk; it does not eliminate systematic risk. Tranching then ALLOCATES systematic risk: equity absorbs idiosyncratic and a slice of systematic, while the senior tranche absorbs the remaining systematic risk in the tail. The senior tranche's losses are therefore disproportionately concentrated in bad aggregate states – the opposite of diversification."
   },
   {
     "id": "mc-senior-tranche-default-state",
@@ -38,7 +38,7 @@
       "Whenever any mezzanine tranche misses a coupon."
     ],
     "answerIndex": 1,
-    "explanation": "Gibson (2004) and Davi (2008) tranche notes. A senior tranche is protected by 'attachment-point' subordination: realised pool losses must climb through equity and mezzanine before any principal write-down hits senior. Coupon misses, downgrades and individual defaults do not by themselves produce senior losses — only cumulative pool losses exceeding the attachment point do."
+    "explanation": "Gibson (2004) and Davi (2008) tranche notes. A senior tranche is protected by 'attachment-point' subordination: realised pool losses must climb through equity and mezzanine before any principal write-down hits senior. Coupon misses, downgrades and individual defaults do not by themselves produce senior losses – only cumulative pool losses exceeding the attachment point do."
   },
   {
     "id": "tf-super-senior-no-rating",
@@ -47,7 +47,7 @@
     "topic": "securitisation",
     "prompt": "A 'super-senior' tranche of a CDO typically sat above the AAA tranche and was often left unrated because it was perceived as even safer than AAA.",
     "answer": "true",
-    "explanation": "Gibson (2004) and the RAM Synthetic CDOs primer. The super-senior tranche absorbed losses only after the AAA tranche was exhausted; it was therefore considered 'safer than AAA' and was frequently retained unrated by the originator or sold to monolines/AIG. Because it was thought essentially riskless, it was held in size with very thin capital — a key reason why monoline insurers and AIG Financial Products built up the exposures that imploded in 2008."
+    "explanation": "Gibson (2004) and the RAM Synthetic CDOs primer. The super-senior tranche absorbed losses only after the AAA tranche was exhausted; it was therefore considered 'safer than AAA' and was frequently retained unrated by the originator or sold to monolines/AIG. Because it was thought essentially riskless, it was held in size with very thin capital – a key reason why monoline insurers and AIG Financial Products built up the exposures that imploded in 2008."
   },
   {
     "id": "mc-equity-tranche-position",
@@ -59,11 +59,11 @@
       "A leveraged short position on the credit risk of the reference portfolio.",
       "A leveraged long position on the credit risk of the reference portfolio.",
       "A position equivalent to holding the senior tranche minus the mezzanine.",
-      "A position with no exposure to the underlying pool — only to the SPV's funding spread.",
+      "A position with no exposure to the underlying pool – only to the SPV's funding spread.",
       "An unleveraged long position on each individual obligor."
     ],
     "answerIndex": 1,
-    "explanation": "RAM Synthetic CDOs primer and Gibson (2004). The equity-tranche holder receives high running yield in exchange for absorbing the first dollar of losses on the reference portfolio. Because the tranche is thin relative to the notional pool it protects, the holder is implicitly highly LEVERED long credit risk — small pool losses can wipe out the equity stake. Symmetric to the protection seller in a tranche CDS."
+    "explanation": "RAM Synthetic CDOs primer and Gibson (2004). The equity-tranche holder receives high running yield in exchange for absorbing the first dollar of losses on the reference portfolio. Because the tranche is thin relative to the notional pool it protects, the holder is implicitly highly LEVERED long credit risk – small pool losses can wipe out the equity stake. Symmetric to the protection seller in a tranche CDS."
   },
   {
     "id": "tf-true-sale-credit-risk",
@@ -72,7 +72,7 @@
     "topic": "securitisation",
     "prompt": "In a true-sale (traditional) securitisation, the originator retains the credit risk of the loans transferred to the SPV.",
     "answer": "false",
-    "explanation": "Lecture 10 on Securitisation. In a true-sale, loans are LEGALLY SOLD to the SPV — they leave the originator's balance sheet, the originator gets cash, and credit risk passes to the SPV's tranche investors. The originator retains credit risk only on any tranches it holds back (e.g. a 5% retention slice under post-crisis 'skin-in-the-game' rules). Contrast with synthetic securitisation, where the loans stay on balance sheet and only the credit risk is transferred via CDS."
+    "explanation": "Lecture 10 on Securitisation. In a true-sale, loans are LEGALLY SOLD to the SPV – they leave the originator's balance sheet, the originator gets cash, and credit risk passes to the SPV's tranche investors. The originator retains credit risk only on any tranches it holds back (e.g. a 5% retention slice under post-crisis 'skin-in-the-game' rules). Contrast with synthetic securitisation, where the loans stay on balance sheet and only the credit risk is transferred via CDS."
   },
   {
     "id": "tf-siv-funded-by-bonds",
@@ -81,7 +81,7 @@
     "topic": "securitisation",
     "prompt": "Structured Investment Vehicles (SIVs) funded their long-dated MBS and CDO holdings primarily by issuing long-term bonds.",
     "answer": "false",
-    "explanation": "Elmer (1999) on conduits and Lecture 10. SIVs and ABCP conduits funded long-dated structured assets primarily with SHORT-TERM asset-backed commercial paper (ABCP) — a maturity-mismatched shadow-banking model that monetised the term spread. When the ABCP market froze on 9 August 2007 (BNP Paribas), SIVs could no longer roll funding and sponsor banks had to bring the assets back onto their balance sheets."
+    "explanation": "Elmer (1999) on conduits and Lecture 10. SIVs and ABCP conduits funded long-dated structured assets primarily with SHORT-TERM asset-backed commercial paper (ABCP) – a maturity-mismatched shadow-banking model that monetised the term spread. When the ABCP market froze on 9 August 2007 (BNP Paribas), SIVs could no longer roll funding and sponsor banks had to bring the assets back onto their balance sheets."
   },
   {
     "id": "mc-abcp-freeze-cause",
@@ -97,7 +97,7 @@
       "Rating agencies upgraded ABCP from A1+ to AAA, which paradoxically halved demand."
     ],
     "answerIndex": 1,
-    "explanation": "Krishnamurthy (2010) and Elmer (1999); Turner Review. BNP Paribas's redemption suspension is widely regarded as the start of the GFC. ABCP investors lost confidence in their ability to value the underlying collateral, refused to roll, and the sponsor banks had to honour back-stop liquidity lines or repurchase assets — bringing previously off-balance-sheet exposures back onto the regulated bank's books, exactly when capital and liquidity were tight."
+    "explanation": "Krishnamurthy (2010) and Elmer (1999); Turner Review. BNP Paribas's redemption suspension is widely regarded as the start of the GFC. ABCP investors lost confidence in their ability to value the underlying collateral, refused to roll, and the sponsor banks had to honour back-stop liquidity lines or repurchase assets – bringing previously off-balance-sheet exposures back onto the regulated bank's books, exactly when capital and liquidity were tight."
   },
   {
     "id": "tf-cln-funded-derivative",
@@ -131,7 +131,7 @@
     "topic": "securitisation",
     "prompt": "Gorton & Metrick documented that during 2007–2008, repo haircuts on structured-product collateral FELL from approximately 50% to approximately 0%.",
     "answer": "false",
-    "explanation": "Krishnamurthy (2010); Gorton & Metrick's 'run on repo'. The direction is reversed: haircuts ROSE from roughly 0% pre-crisis to roughly 45–50% on structured-product collateral in 2008. This is the classic procyclical liquidity dynamic — collateral prices fell, measured volatility rose, haircuts widened, leveraged holders were forced to sell, prices fell further. The same channel is the empirical basis of Brunnermeier & Pedersen's 'margin spiral.'"
+    "explanation": "Krishnamurthy (2010); Gorton & Metrick's 'run on repo'. The direction is reversed: haircuts ROSE from roughly 0% pre-crisis to roughly 45–50% on structured-product collateral in 2008. This is the classic procyclical liquidity dynamic – collateral prices fell, measured volatility rose, haircuts widened, leveraged holders were forced to sell, prices fell further. The same channel is the empirical basis of Brunnermeier & Pedersen's 'margin spiral.'"
   },
   {
     "id": "mc-monoline-role",
@@ -147,7 +147,7 @@
       "They retained the equity tranche of synthetic CDOs."
     ],
     "answerIndex": 1,
-    "explanation": "Lecture 10 and Turner Review. Monolines sold financial guarantees on senior tranches of municipal and structured-finance debt; the wrap effectively borrowed the monoline's own AAA rating. When subprime losses cut into senior structured tranches, monolines absorbed losses and were themselves downgraded — which retroactively wiped out the AAA wrap on huge volumes of securities and forced mark-to-market write-downs across the system."
+    "explanation": "Lecture 10 and Turner Review. Monolines sold financial guarantees on senior tranches of municipal and structured-finance debt; the wrap effectively borrowed the monoline's own AAA rating. When subprime losses cut into senior structured tranches, monolines absorbed losses and were themselves downgraded – which retroactively wiped out the AAA wrap on huge volumes of securities and forced mark-to-market write-downs across the system."
   },
   {
     "id": "tf-cdo-squared-amplification",
@@ -156,7 +156,7 @@
     "topic": "securitisation",
     "prompt": "A CDO-squared amplifies loss propagation because small shocks to the underlying mortgage-loss distribution translate into large, non-linear losses on the inner BBB tranches that form its collateral pool.",
     "answer": "true",
-    "explanation": "Coval, Jurek & Stafford (2009) and Lecture 10. CDO² takes the BBB mezzanine slices of underlying CDOs and re-tranches them. Mezzanine tranches are 'thin and fragile' — once attachment-point losses are reached, losses are nearly total. Pooling many such tranches then re-tranching does not undo this thinness; it concentrates correlated, threshold-driven losses into a pool that is itself re-tranched into 'AAA' on top. A small move in the underlying default rate causes a non-linear cascade. This was a primary mechanism of the 2007–08 AAA write-downs."
+    "explanation": "Coval, Jurek & Stafford (2009) and Lecture 10. CDO² takes the BBB mezzanine slices of underlying CDOs and re-tranches them. Mezzanine tranches are 'thin and fragile' – once attachment-point losses are reached, losses are nearly total. Pooling many such tranches then re-tranching does not undo this thinness; it concentrates correlated, threshold-driven losses into a pool that is itself re-tranched into 'AAA' on top. A small move in the underlying default rate causes a non-linear cascade. This was a primary mechanism of the 2007–08 AAA write-downs."
   },
   {
     "id": "mc-synthetic-vs-true-sale-effects",
@@ -181,7 +181,7 @@
     "topic": "derivatives-fx",
     "prompt": "A persistently NEGATIVE EUR/USD cross-currency basis (EURIBOR paid against USD LIBOR MINUS the basis) implies that non-US banks face a premium when they synthetically borrow USD via FX swaps relative to direct USD funding.",
     "answer": "true",
-    "explanation": "Coffey, Kos & Verdelhan (2009) and Baba, Packer & Nagano (2009). A negative basis on the non-USD leg means non-US counterparties have to give up extra yield to obtain USD via FX swaps — i.e. CIP fails on the cheap side for the dollar. Mechanically, dollar scarcity bids up the implied USD rate from the swap, which shows up as a more negative basis. Signature of the 2008 dollar shortage; re-emerged in 2011 and March 2020."
+    "explanation": "Coffey, Kos & Verdelhan (2009) and Baba, Packer & Nagano (2009). A negative basis on the non-USD leg means non-US counterparties have to give up extra yield to obtain USD via FX swaps – i.e. CIP fails on the cheap side for the dollar. Mechanically, dollar scarcity bids up the implied USD rate from the swap, which shows up as a more negative basis. Signature of the 2008 dollar shortage; re-emerged in 2011 and March 2020."
   },
   {
     "id": "mc-dollar-shortage-2008",
@@ -197,7 +197,7 @@
       "Norges Bank withdrawing dollar swap lines to Norwegian banks."
     ],
     "answerIndex": 0,
-    "explanation": "Baba, Packer & Nagano (2009) and Coffey, Kos & Verdelhan (2009). European banks had built USD asset books (US securitised products, US corporate lending) and funded them via short-term USD wholesale (CP, repo, FX swaps from EUR). When US prime MMFs cut exposure to non-US bank paper after Lehman, this funding evaporated. The Fed's response was reciprocal swap lines with the ECB/SNB/BoJ etc. — which Hui, Genberg & Chung (2011) and Ando (2012) document as the binding global liquidity backstop."
+    "explanation": "Baba, Packer & Nagano (2009) and Coffey, Kos & Verdelhan (2009). European banks had built USD asset books (US securitised products, US corporate lending) and funded them via short-term USD wholesale (CP, repo, FX swaps from EUR). When US prime MMFs cut exposure to non-US bank paper after Lehman, this funding evaporated. The Fed's response was reciprocal swap lines with the ECB/SNB/BoJ etc. – which Hui, Genberg & Chung (2011) and Ando (2012) document as the binding global liquidity backstop."
   },
   {
     "id": "tf-fx-swap-no-fx-risk",
@@ -231,7 +231,7 @@
     "topic": "derivatives-fx",
     "prompt": "A widening LIBOR–OIS spread reflects a rising premium on UNSECURED interbank credit and liquidity risk relative to the expected average overnight rate.",
     "answer": "true",
-    "explanation": "Ando (2012), 'Recent developments in US dollar funding costs through FX swaps' (Bank of Japan Review) — supplementary reading on the FX-swaps topic. Ando decomposes the FX-swap-implied dollar rate as USD OIS + (USD LIBOR − USD OIS) + (EUR LIBOR − EUR OIS) + α, and states explicitly that the LIBOR-OIS spread measures 'stress in the unsecured markets' / 'concern over counterparty risk', noting that if LIBOR-OIS spreads were zero the FX-swap-implied dollar rate would coincide with the no-arbitrage range. OIS approximates expected risk-free overnight policy rates over the tenor; LIBOR is unsecured term interbank lending; the spread thus isolates the unsecured-bank credit/liquidity premium and is a textbook stress indicator. Note: the GFC-period peak (~365 bp, Oct 2008) is from the wider GFC literature, not Ando's paper. (Lecture decks themselves do not cover LIBOR-OIS — this question is grounded in Ando 2012, not the lecture material.)"
+    "explanation": "Ando (2012), 'Recent developments in US dollar funding costs through FX swaps' (Bank of Japan Review) – supplementary reading on the FX-swaps topic. Ando decomposes the FX-swap-implied dollar rate as USD OIS + (USD LIBOR − USD OIS) + (EUR LIBOR − EUR OIS) + α, and states explicitly that the LIBOR-OIS spread measures 'stress in the unsecured markets' / 'concern over counterparty risk', noting that if LIBOR-OIS spreads were zero the FX-swap-implied dollar rate would coincide with the no-arbitrage range. OIS approximates expected risk-free overnight policy rates over the tenor; LIBOR is unsecured term interbank lending; the spread thus isolates the unsecured-bank credit/liquidity premium and is a textbook stress indicator. Note: the GFC-period peak (~365 bp, Oct 2008) is from the wider GFC literature, not Ando's paper. (Lecture decks themselves do not cover LIBOR-OIS – this question is grounded in Ando 2012, not the lecture material.)"
   },
   {
     "id": "mc-march-2020-channels",
@@ -247,7 +247,7 @@
       "(a) Capital outflows from retail investors; (b) Sovereign wealth fund repatriation."
     ],
     "answerIndex": 0,
-    "explanation": "Alstadheim/Norges Bank staff memos and Lecture 9. (a) Margining: NOK depreciation creates negative MtM on FX derivatives; daily VM calls force NBFIs to raise NOK cash by selling Norwegian bonds → bond risk premiums spiked to 75/225/250 bp on 5y covered/senior/property. (b) Rebalancing: foreign equities falling ~30% leaves the FX hedge larger than the underlying exposure; correcting the over-hedge requires buying USD/EUR and selling NOK in spot — Norwegian NBFIs sold ~25 bn NOK net during the crisis weeks."
+    "explanation": "Alstadheim/Norges Bank staff memos and Lecture 9. (a) Margining: NOK depreciation creates negative MtM on FX derivatives; daily VM calls force NBFIs to raise NOK cash by selling Norwegian bonds → bond risk premiums spiked to 75/225/250 bp on 5y covered/senior/property. (b) Rebalancing: foreign equities falling ~30% leaves the FX hedge larger than the underlying exposure; correcting the over-hedge requires buying USD/EUR and selling NOK in spot – Norwegian NBFIs sold ~25 bn NOK net during the crisis weeks."
   },
   {
     "id": "tf-vm-vs-im-purpose",
@@ -272,7 +272,7 @@
       "Coordination failures between central-bank monetary policies."
     ],
     "answerIndex": 1,
-    "explanation": "Coffey, Kos & Verdelhan (2009); Lefeuvre (2009). Pre-2008, dealers arbitraged any cross-currency basis to roughly zero. Post-Lehman, balance-sheet capacity, scarce USD funding, counterparty exposure limits and (later) leverage-ratio costs made the arbitrage costly. The basis can therefore deviate persistently from zero: it is not a free arbitrage — it requires balance sheet that is itself in short supply during stress."
+    "explanation": "Coffey, Kos & Verdelhan (2009); Lefeuvre (2009). Pre-2008, dealers arbitraged any cross-currency basis to roughly zero. Post-Lehman, balance-sheet capacity, scarce USD funding, counterparty exposure limits and (later) leverage-ratio costs made the arbitrage costly. The basis can therefore deviate persistently from zero: it is not a free arbitrage – it requires balance sheet that is itself in short supply during stress."
   },
   {
     "id": "tf-ccbs-basis-zero-theory",
@@ -297,7 +297,7 @@
       "Derivatives held to maturity by any counterparty."
     ],
     "answerIndex": 2,
-    "explanation": "Lecture 9 (EMIR Reg (EU) 648/2012). The clearing obligation applies only to derivative classes ESMA has declared subject to mandatory clearing — predominantly standardised IRS in major currencies (incl. NOK) and certain CDS indices. Bespoke or illiquid trades remain bilateral but are subject to BCBS-IOSCO bilateral margining (VM mandatory; IM phased in 2016–2022 by counterparty size)."
+    "explanation": "Lecture 9 (EMIR Reg (EU) 648/2012). The clearing obligation applies only to derivative classes ESMA has declared subject to mandatory clearing – predominantly standardised IRS in major currencies (incl. NOK) and certain CDS indices. Bespoke or illiquid trades remain bilateral but are subject to BCBS-IOSCO bilateral margining (VM mandatory; IM phased in 2016–2022 by counterparty size)."
   },
   {
     "id": "tf-ccbs-principal-spot",
@@ -322,7 +322,7 @@
       "The cooling-off period before margin disputes can be referred to the regulator."
     ],
     "answerIndex": 1,
-    "explanation": "Lecture 9 and the BCBS-IOSCO bilateral-margin framework. MPOR is the assumed close-out window — typically 10 business days for non-cleared OTC, 5 days for cleared trades at a CCP. IM must cover the worst-case adverse move over the MPOR at a high confidence level, so that the surviving counterparty can liquidate the defaulter's positions without loss. Longer for illiquid products."
+    "explanation": "Lecture 9 and the BCBS-IOSCO bilateral-margin framework. MPOR is the assumed close-out window – typically 10 business days for non-cleared OTC, 5 days for cleared trades at a CCP. IM must cover the worst-case adverse move over the MPOR at a high confidence level, so that the surviving counterparty can liquidate the defaulter's positions without loss. Longer for illiquid products."
   },
   {
     "id": "tf-eur-bond-nok-residual",
@@ -347,7 +347,7 @@
       "The central bank stands ready as Lender of Last Resort against good collateral."
     ],
     "answerIndex": 0,
-    "explanation": "Diamond & Dybvig (1983). Pure suspension works as a run-stopper only when the share of early-types is KNOWN and constant: the bank can pre-commit to honour exactly that fraction and then close the window, so patient depositors gain nothing by joining a run. With aggregate uncertainty about how many depositors are genuinely impatient, suspension can leave true early-types unserved (welfare cost) and fails to fully select the no-run equilibrium. That uncertainty is precisely why deposit insurance — which guarantees payouts regardless of order of arrival — became the dominant equilibrium-selection device. (Glossary: 'suspension-convertibility'.)"
+    "explanation": "Diamond & Dybvig (1983). Pure suspension works as a run-stopper only when the share of early-types is KNOWN and constant: the bank can pre-commit to honour exactly that fraction and then close the window, so patient depositors gain nothing by joining a run. With aggregate uncertainty about how many depositors are genuinely impatient, suspension can leave true early-types unserved (welfare cost) and fails to fully select the no-run equilibrium. That uncertainty is precisely why deposit insurance – which guarantees payouts regardless of order of arrival – became the dominant equilibrium-selection device. (Glossary: 'suspension-convertibility'.)"
   },
   {
     "id": "tf-stiglitz-weiss-monotonic",
@@ -365,7 +365,7 @@
     "topic": "deposit-insurance",
     "prompt": "Merton (1977) implies that a flat-rate deposit-insurance premium (the same percentage of deposits for every bank) systematically underprices risky and highly-levered banks.",
     "answer": "true",
-    "explanation": "Merton (1977). Modelling deposit insurance as a put option on the bank's assets struck at insured deposits, the premium should rise with asset volatility σ and with leverage D/A. A flat premium ignores both, so high-σ / high-leverage banks pay too little — equivalent to a subsidy from safe banks (and ultimately the insurance fund / taxpayers) to risky ones. This is the analytical foundation for risk-based premiums and a direct channel by which the 1980s S&L crisis was incubated."
+    "explanation": "Merton (1977). Modelling deposit insurance as a put option on the bank's assets struck at insured deposits, the premium should rise with asset volatility σ and with leverage D/A. A flat premium ignores both, so high-σ / high-leverage banks pay too little – equivalent to a subsidy from safe banks (and ultimately the insurance fund / taxpayers) to risky ones. This is the analytical foundation for risk-based premiums and a direct channel by which the 1980s S&L crisis was incubated."
   },
   {
     "id": "mc-marcus-charter-value",
@@ -397,7 +397,7 @@
       "Norway converted all senior bonds to equity in 1991."
     ],
     "answerIndex": 1,
-    "explanation": "Norges Bank — The Norwegian Banking Crisis. Christiania Bank, Fokus Bank and DnB required state recapitalisation; the government took full ownership and pre-existing shareholders were wiped out completely before public capital went in. Banks were later returned to private hands. The decisive shareholder-loss principle is often cited as why the resolution was relatively swift and ultimately profitable for the state — and as a Nordic template that informed the later BRRD bail-in design."
+    "explanation": "Norges Bank – The Norwegian Banking Crisis. Christiania Bank, Fokus Bank and DnB required state recapitalisation; the government took full ownership and pre-existing shareholders were wiped out completely before public capital went in. Banks were later returned to private hands. The decisive shareholder-loss principle is often cited as why the resolution was relatively swift and ultimately profitable for the state – and as a Nordic template that informed the later BRRD bail-in design."
   },
   {
     "id": "tf-mrel-recap-component",
@@ -440,7 +440,7 @@
     "topic": "deposit-insurance",
     "prompt": "Under EU and Norwegian law, deposits covered by the deposit-guarantee scheme sit at the very TOP of the creditor hierarchy in resolution.",
     "answer": "true",
-    "explanation": "Lecture 11; DGSD; Norwegian Banks' Guarantee Fund. Covered deposits enjoy 'super-preference' — they are paid first in resolution/liquidation, ahead of all other unsecured claims. The fund pays out depositors and then steps into their top-priority position to recover from the estate. This protects the fund's ex-ante balance and reduces the risk that taxpayers backstop the scheme. Final 2023 Q2 examined the consequences if super-preference were removed."
+    "explanation": "Lecture 11; DGSD; Norwegian Banks' Guarantee Fund. Covered deposits enjoy 'super-preference' – they are paid first in resolution/liquidation, ahead of all other unsecured claims. The fund pays out depositors and then steps into their top-priority position to recover from the estate. This protects the fund's ex-ante balance and reduces the risk that taxpayers backstop the scheme. Final 2023 Q2 examined the consequences if super-preference were removed."
   },
   {
     "id": "mc-ccyb-purpose",
@@ -456,7 +456,7 @@
       "To match deposit-insurance fund contributions."
     ],
     "answerIndex": 1,
-    "explanation": "Basel III / CRR; Lecture on Bank Regulation. The CCyB is set by national authorities (in Norway, Norges Bank advises Finanstilsynet) and rises in credit-boom phases — typically 0–2.5% of RWA — and is RELEASED in a downturn so that banks can absorb losses without tightening credit. It is a direct response to the 2008-era observation that risk weights and provisions were procyclical."
+    "explanation": "Basel III / CRR; Lecture on Bank Regulation. The CCyB is set by national authorities (in Norway, Norges Bank advises Finanstilsynet) and rises in credit-boom phases – typically 0–2.5% of RWA – and is RELEASED in a downturn so that banks can absorb losses without tightening credit. It is a direct response to the 2008-era observation that risk weights and provisions were procyclical."
   },
   {
     "id": "tf-risk-based-premium-rationale",
@@ -475,7 +475,7 @@
     "prompt": "Per History of the Eighties (FDIC), which combination most cleanly explains why the 1980s US Savings & Loan crisis was so costly?",
     "options": [
       "High capital ratios at S&Ls that prevented effective lending.",
-      "Deregulation (Garn-St. Germain 1982) broadened S&L asset powers; flat-rate FDIC/FSLIC premiums failed to reflect the higher risk; regulatory accounting (RAP, in lieu of GAAP / mark-to-market) let economically insolvent thrifts stay open via forbearance; charter values had been compressed by interest-rate-driven disintermediation — all combining to allow zombie thrifts to gamble for resurrection.",
+      "Deregulation (Garn-St. Germain 1982) broadened S&L asset powers; flat-rate FDIC/FSLIC premiums failed to reflect the higher risk; regulatory accounting (RAP, in lieu of GAAP / mark-to-market) let economically insolvent thrifts stay open via forbearance; charter values had been compressed by interest-rate-driven disintermediation – all combining to allow zombie thrifts to gamble for resurrection.",
       "Excessive central-clearing requirements on S&L derivatives books.",
       "Tight monetary policy alone, with no role for risk-shifting incentives.",
       "Premature adoption of Basel III liquidity rules."
@@ -488,7 +488,7 @@
     "type": "tf",
     "set": 2,
     "topic": "bank-models",
-    "prompt": "According to the Bank of England's 'Money creation in the modern economy' (2014), commercial-bank loans CREATE deposits — the textbook fractional-reserve story (deposits → loans) reverses the actual sequence.",
+    "prompt": "According to the Bank of England's 'Money creation in the modern economy' (2014), commercial-bank loans CREATE deposits – the textbook fractional-reserve story (deposits → loans) reverses the actual sequence.",
     "answer": "true",
     "explanation": "Bank of England (McLeay, Radia & Thomas 2014), 'Money creation in the modern economy.' When a commercial bank extends a loan, it credits the borrower's account: a new asset (loan) and a new liability (deposit) appear simultaneously on its balance sheet. Banks are not simple intermediaries that re-lend pre-existing deposits and they are not constrained ex-ante by reserves. Constraints come from capital, liquidity rules, profitability of marginal lending and ultimately central-bank policy rates. This is the operational view of inside-money creation."
   },
@@ -499,7 +499,7 @@
     "topic": "bank-models",
     "prompt": "Inside money is created by central banks (e.g. reserves, banknotes), while outside money is created by commercial banks (e.g. deposits).",
     "answer": "false",
-    "explanation": "Lecture money note; BoE money creation note. The labels are REVERSED. OUTSIDE money is a claim on an entity outside the private sector — central-bank reserves and banknotes. INSIDE money is a claim on a private entity — commercial-bank deposits. Inside money nets to zero across the private sector; outside money does not. Bank lending creates inside money (a new deposit liability); only the central bank creates outside money."
+    "explanation": "Lecture money note; BoE money creation note. The labels are REVERSED. OUTSIDE money is a claim on an entity outside the private sector – central-bank reserves and banknotes. INSIDE money is a claim on a private entity – commercial-bank deposits. Inside money nets to zero across the private sector; outside money does not. Bank lending creates inside money (a new deposit liability); only the central bank creates outside money."
   },
   {
     "id": "mc-bp-margin-vs-loss-spiral",
@@ -534,7 +534,7 @@
     "prompt": "Abreu & Brunnermeier (2003) argue that rational arbitrageurs may RIDE a bubble rather than attack it because:",
     "options": [
       "They are irrational and confuse fundamentals with trends.",
-      "Synchronisation among arbitrageurs is impossible: each individual is profitable as long as the bubble continues, and acts only when convinced others will too — creating a delay-and-ride equilibrium.",
+      "Synchronisation among arbitrageurs is impossible: each individual is profitable as long as the bubble continues, and acts only when convinced others will too – creating a delay-and-ride equilibrium.",
       "Short-selling is universally banned in bubble episodes.",
       "Central banks contractually compensate arbitrageurs who ride bubbles.",
       "Bubbles do not exist in equilibrium models with rational agents."
@@ -574,7 +574,7 @@
     "topic": "asymmetric-info",
     "prompt": "In Akerlof's (1970) lemons model, the equilibrium outcome under pooled pricing and no signalling is that high-quality goods and low-quality goods both trade at the same pooled price.",
     "answer": "false",
-    "explanation": "Akerlof (1970), 'The Market for Lemons.' At the pooled price, high-quality sellers refuse to sell (the price is below their reservation value) and EXIT. Buyers update — pooled price falls — middle quality exits — only the lemons trade. The unravelling drives high quality OUT of the market; it does not pool everyone together. Solutions include warranties (Spence-style non-dissipative signal), reputation, certification and guarantees."
+    "explanation": "Akerlof (1970), 'The Market for Lemons.' At the pooled price, high-quality sellers refuse to sell (the price is below their reservation value) and EXIT. Buyers update – pooled price falls – middle quality exits – only the lemons trade. The unravelling drives high quality OUT of the market; it does not pool everyone together. Solutions include warranties (Spence-style non-dissipative signal), reputation, certification and guarantees."
   },
   {
     "id": "tf-stiglitz-weiss-rationing",
@@ -599,7 +599,7 @@
       "Excessive use of NEGATIVE central-bank policy rates in the years before 2007."
     ],
     "answerIndex": 4,
-    "explanation": "Turner Review (FSA, 2009). The Review's six causes are: macro imbalances; financial innovation / shadow banking; misplaced reliance on maths; procyclicality / interconnectedness; transparency failures; and weaknesses in regulation, supervision and resolution. Negative central-bank policy rates are not on the list — they were a post-2014 phenomenon, not a pre-2008 cause. Memorise the six in their grading-guide order."
+    "explanation": "Turner Review (FSA, 2009). The Review's six causes are: macro imbalances; financial innovation / shadow banking; misplaced reliance on maths; procyclicality / interconnectedness; transparency failures; and weaknesses in regulation, supervision and resolution. Negative central-bank policy rates are not on the list – they were a post-2014 phenomenon, not a pre-2008 cause. Memorise the six in their grading-guide order."
   },
   {
     "id": "mc-northern-rock",
@@ -609,13 +609,13 @@
     "prompt": "What was distinctive about the Northern Rock failure (September 2007) relative to other 2007–08 bank distress episodes?",
     "options": [
       "It was the first FDIC failure of 2007.",
-      "It featured the first visible UK retail bank-run queues since the 19th century — depositors queued AFTER the Bank of England's emergency LOLR support became public, despite formal deposit-insurance coverage.",
+      "It featured the first visible UK retail bank-run queues since the 19th century – depositors queued AFTER the Bank of England's emergency LOLR support became public, despite formal deposit-insurance coverage.",
       "It was resolved cleanly under BRRD bail-in.",
       "It was the first bank to fail because of a CDO² downgrade.",
       "It was rescued through a Fed swap-line operation."
     ],
     "answerIndex": 1,
-    "explanation": "Lecture 5 on Liquidity Risk; Turner Review. Northern Rock was ~75% wholesale-funded and reliant on securitisation; ABCP/securitisation freeze meant it could not roll funding. BoE emergency support made the LOLR draw public and triggered a visible retail run — first in the UK since Overend & Gurney (1866). The episode is the textbook illustration that deposit insurance alone does not eliminate run risk when its limits and operational mechanics are not fully credible to depositors."
+    "explanation": "Lecture 5 on Liquidity Risk; Turner Review. Northern Rock was ~75% wholesale-funded and reliant on securitisation; ABCP/securitisation freeze meant it could not roll funding. BoE emergency support made the LOLR draw public and triggered a visible retail run – first in the UK since Overend & Gurney (1866). The episode is the textbook illustration that deposit insurance alone does not eliminate run risk when its limits and operational mechanics are not fully credible to depositors."
   },
   {
     "id": "tf-norway-2008-mortgages",
@@ -624,7 +624,7 @@
     "topic": "bank-crises",
     "prompt": "In Norway's October-2008 'Bytteordning', banks swapped their MORTGAGE LOANS directly for Norwegian government Treasury bills.",
     "answer": "false",
-    "explanation": "Norges Bank — The Norwegian Banking Crisis / Bytteordning explainer. Banks swapped COVERED BONDS (OMF) backed by mortgages — not the mortgage loans themselves — for government T-bills, on a temporary basis (peak ≈ NOK 230 bn, ≈ 20% of GDP). The covered-bond structure provided high-quality collateral. The arrangement was a swap (not a loan) so the central-bank balance sheet did not expand, and banks fully repaid as the crisis subsided."
+    "explanation": "Norges Bank – The Norwegian Banking Crisis / Bytteordning explainer. Banks swapped COVERED BONDS (OMF) backed by mortgages – not the mortgage loans themselves – for government T-bills, on a temporary basis (peak ≈ NOK 230 bn, ≈ 20% of GDP). The covered-bond structure provided high-quality collateral. The arrangement was a swap (not a loan) so the central-bank balance sheet did not expand, and banks fully repaid as the crisis subsided."
   },
   {
     "id": "mc-credit-suisse-at1",
@@ -634,13 +634,13 @@
     "prompt": "What was structurally controversial about the March 2023 Credit Suisse / UBS resolution, and why does it matter for the global AT1 market?",
     "options": [
       "Senior unsecured bondholders were fully bailed in before subordinated creditors.",
-      "Roughly CHF 16 bn of AT1 hybrid instruments were written down to zero while equity holders received UBS shares — reversing the usual creditor hierarchy and forcing global AT1 spreads sharply wider.",
+      "Roughly CHF 16 bn of AT1 hybrid instruments were written down to zero while equity holders received UBS shares – reversing the usual creditor hierarchy and forcing global AT1 spreads sharply wider.",
       "Equity holders were wiped out before AT1 was touched, fully consistent with EU BRRD.",
       "The Swiss authorities applied BRRD bail-in directly under EU law.",
       "Covered deposits were bailed in for the first time."
     ],
     "answerIndex": 1,
-    "explanation": "Lecture 11 and Norges Bank/FSB post-mortems. Under the contractual terms of the specific Swiss AT1 instruments, FINMA was permitted to write them down without a parallel wipe-out of equity. The result — equity > AT1 in the loss-absorption order — was legal but commercially shocking. Investors had previously assumed AT1 would behave like junior equity in stress; the precedent led to a sharp repricing of AT1 spreads globally and prompted EU regulators to reaffirm the standard CET1-first principle for EU banks."
+    "explanation": "Lecture 11 and Norges Bank/FSB post-mortems. Under the contractual terms of the specific Swiss AT1 instruments, FINMA was permitted to write them down without a parallel wipe-out of equity. The result – equity > AT1 in the loss-absorption order – was legal but commercially shocking. Investors had previously assumed AT1 would behave like junior equity in stress; the precedent led to a sharp repricing of AT1 spreads globally and prompted EU regulators to reaffirm the standard CET1-first principle for EU banks."
   },
   {
     "id": "mc-svb-uniqueness",
@@ -656,7 +656,7 @@
       "Its failure was caused by a CDO²-driven mark-down, like in 2008."
     ],
     "answerIndex": 1,
-    "explanation": "Lecture 11; FDIC and Fed post-mortems. SVB combined an unusually concentrated deposit base (uninsured tech-startup operating accounts), large unrealised losses on a long-duration HTM book that had not been hit through P&L or regulatory capital, and a digitally-amplified run. The result was a textbook liquidity-then-solvency cascade compressed into 48 hours — distinguishing it from the slow, branch-queue runs of earlier eras. FDIC invoked the systemic-risk exception to guarantee uninsured deposits."
+    "explanation": "Lecture 11; FDIC and Fed post-mortems. SVB combined an unusually concentrated deposit base (uninsured tech-startup operating accounts), large unrealised losses on a long-duration HTM book that had not been hit through P&L or regulatory capital, and a digitally-amplified run. The result was a textbook liquidity-then-solvency cascade compressed into 48 hours – distinguishing it from the slow, branch-queue runs of earlier eras. FDIC invoked the systemic-risk exception to guarantee uninsured deposits."
   },
   {
     "id": "mc-folf-public-interest",
@@ -667,12 +667,12 @@
     "options": [
       "The bank's own request to be resolved.",
       "The size of its trading book.",
-      "Whether resolution serves the public interest — i.e. preserving critical functions, financial stability, or avoiding contagion is required.",
+      "Whether resolution serves the public interest – i.e. preserving critical functions, financial stability, or avoiding contagion is required.",
       "Whether the bank is profitable in the current quarter.",
       "Whether the bank has issued AT1 instruments."
     ],
     "answerIndex": 2,
-    "explanation": "BRRD; Lecture 11. Two cumulative conditions: (1) FOLF (any of the four limbs); (2) PUBLIC INTEREST in resolution — protecting critical functions, financial stability, depositors above the guarantee, etc. If public interest is not satisfied, the bank goes into ordinary insolvency proceedings. May 2025 Q6b examined this distinction directly."
+    "explanation": "BRRD; Lecture 11. Two cumulative conditions: (1) FOLF (any of the four limbs); (2) PUBLIC INTEREST in resolution – protecting critical functions, financial stability, depositors above the guarantee, etc. If public interest is not satisfied, the bank goes into ordinary insolvency proceedings. May 2025 Q6b examined this distinction directly."
   },
   {
     "id": "tf-hqla-mbs-liquid",
@@ -690,7 +690,7 @@
     "topic": "asymmetric-info",
     "prompt": "Per Stiglitz & Weiss (1981), raising the loan rate beyond the bank-optimal r* worsens bank profitability through TWO distinct channels. What are they?",
     "options": [
-      "(i) Adverse selection — only riskier types accept; (ii) Moral hazard — borrowers shift toward higher-variance projects.",
+      "(i) Adverse selection – only riskier types accept; (ii) Moral hazard – borrowers shift toward higher-variance projects.",
       "(i) Tax distortions; (ii) Inflation expectations.",
       "(i) Legal-costs increase; (ii) Currency mismatch.",
       "(i) Capital-requirement tightening; (ii) Liquidity-coverage tightening.",
@@ -704,7 +704,7 @@
     "type": "tf",
     "set": 2,
     "topic": "deposit-insurance",
-    "prompt": "Diamond & Dybvig (1983) treat deposit insurance and the central-bank lender-of-last-resort as substitutes — either device alone can implement the good (no-run) equilibrium under a fixed and known share of impatient depositors.",
+    "prompt": "Diamond & Dybvig (1983) treat deposit insurance and the central-bank lender-of-last-resort as substitutes – either device alone can implement the good (no-run) equilibrium under a fixed and known share of impatient depositors.",
     "answer": "true",
     "explanation": "Diamond & Dybvig (1983), 'Bank Runs, Deposit Insurance, and Liquidity'; Lecture on Deposit Insurance. With a known fraction of early types, three policy devices each implement the good equilibrium: suspension of convertibility, deposit insurance, and a fully-credible LOLR. Once aggregate uncertainty over the early-type share is introduced, suspension fails (it punishes true early types), and deposit insurance becomes the dominant device because it does not depend on knowing the ex-ante share."
   },
@@ -747,6 +747,6 @@
       "Loss spiral requires CDO² collateral; margin spiral does not."
     ],
     "answerIndex": 0,
-    "explanation": "Brunnermeier & Pedersen (2009). Loss spiral is equity-driven (price → equity → forced sale → price). Margin spiral is volatility-driven (price → vol → margin → funding → forced sale → price). Numerically: at 10× leverage a 5% price fall halves equity, requiring a sale of half the position to restore leverage (loss spiral). Independently, rising volatility can force margins up — even before equity is consumed — which itself requires deleveraging (margin spiral). Both spirals can run together in stress."
+    "explanation": "Brunnermeier & Pedersen (2009). Loss spiral is equity-driven (price → equity → forced sale → price). Margin spiral is volatility-driven (price → vol → margin → funding → forced sale → price). Numerically: at 10× leverage a 5% price fall halves equity, requiring a sale of half the position to restore leverage (loss spiral). Independently, rising volatility can force margins up – even before equity is consumed – which itself requires deleveraging (margin spiral). Both spirals can run together in stress."
   }
 ]

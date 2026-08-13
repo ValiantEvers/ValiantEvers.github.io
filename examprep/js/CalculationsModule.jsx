@@ -1,18 +1,18 @@
-// CalculationsModule.jsx — exam-grade numerical drills grouped by calculation type
+// CalculationsModule.jsx – exam-grade numerical drills grouped by calculation type
 (function() {
 const { useState, useMemo, useEffect } = React;
 
 const CATEGORIES = [
   { id: 'impairment-ifrs9',   label: 'Impairment / IFRS 9',           short: 'Impairment' },
   { id: 'rwa',                label: 'Risk-Weighted Assets (REA)',    short: 'RWA' },
-  { id: 'capital-ratios',     label: 'Capital Ratios — CET1 / T1 / Total', short: 'Capital Ratios' },
+  { id: 'capital-ratios',     label: 'Capital Ratios – CET1 / T1 / Total', short: 'Capital Ratios' },
   { id: 'liquidity-reg',      label: 'Liquidity & Leverage Ratios',   short: 'LCR / NSFR / Lev / MREL' },
   { id: 'bailin',             label: 'Bail-in Waterfall',             short: 'Bail-in' },
   { id: 'fx-swap',            label: 'FX Swap, CIP & Cross-Currency Basis', short: 'FX Swap & Basis' },
   { id: 'credit-risk-models', label: 'Credit-Risk Modelling',         short: 'Credit-Risk Models' },
   { id: 'tranche-math',       label: 'CDO Tranche Math',              short: 'Tranche Math' },
   { id: 'diamond-dybvig',     label: 'Diamond-Dybvig Deposit Contract', short: 'Diamond-Dybvig' },
-  { id: 'theory-models',      label: 'Theory Models — Merton DI, Money, Spirals', short: 'Theory Models' },
+  { id: 'theory-models',      label: 'Theory Models – Merton DI, Money, Spirals', short: 'Theory Models' },
 ];
 
 const DIFFICULTY_ORDER = { easy: 1, medium: 2, hard: 3 };
@@ -185,7 +185,7 @@ function CalcCard({ exercise, index, revealed, onToggle }) {
               {exercise.difficulty || 'medium'}
             </span>
             <span className="calc-meta-sep">·</span>
-            <span className="calc-meta-time">≈ {exercise.estimatedMinutes || '—'} min</span>
+            <span className="calc-meta-time">≈ {exercise.estimatedMinutes || '–'} min</span>
             <span className="calc-meta-sep">·</span>
             <span className="calc-meta-source">{exercise.source}</span>
           </div>

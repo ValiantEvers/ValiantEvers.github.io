@@ -21,7 +21,7 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:1ms}}
 </style>
 <style>
-/* ══ THEME VARIABLES (dark default, light alt — match prosjekter/) ══ */
+/* ══ THEME VARIABLES (dark default, light alt – match prosjekter/) ══ */
 :root{
   --bg:#0a0e1a;--surface:#111827;--surface2:#1a2236;
   --border:rgba(225,231,255,.06);--border-h:rgba(105,150,255,.2);
@@ -116,9 +116,9 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .b-sen-junior{background:var(--green-bg);color:var(--green);border:1px solid var(--green-b)}
 .b-sen-mid{background:var(--accent-g);color:var(--accent2);border:1px solid var(--border-h)}
 .b-sen-senior{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-b)}
-/* «Trolig nedtatt»-badge (juli 2026) — settes av fetch_jobs' probablyDown-flagg */
+/* «Trolig nedtatt»-badge (juli 2026) – settes av fetch_jobs' probablyDown-flagg */
 .b-down{font-size:.68rem;font-weight:500;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-b)}
-/* Søknadsfrist på jobbkortet — nøytral, snart, utløpt */
+/* Søknadsfrist på jobbkortet – nøytral, snart, utløpt */
 .b-dl-wrap{font-size:.68rem;font-weight:500;padding:2px 7px;border-radius:4px;letter-spacing:.2px;white-space:nowrap}
 .b-dl{background:var(--gray-bg);color:var(--gray);border:1px solid var(--gray-b)}
 .b-dl-soon{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-b);font-weight:600}
@@ -128,7 +128,7 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 .score.s-hi{background:var(--green-bg);color:var(--green);border-color:var(--green-b)}
 .score.s-lo{background:var(--gray-bg);color:var(--gray);border-color:var(--gray-b)}
 
-/* status picker — reuse pattern from old file */
+/* status picker – reuse pattern from old file */
 .sp{position:relative;display:inline-block}
 .sp-menu{position:absolute;right:0;top:calc(100% + 4px);background:var(--surface2);border:1px solid var(--border-h);border-radius:8px;padding:4px;z-index:100;min-width:120px;box-shadow:0 8px 30px rgba(0,0,0,.4);display:none}
 .sp-menu.open{display:block}
@@ -144,7 +144,7 @@ h1{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:
 
 /* notes row */
 .notes-row{margin-top:5px;display:none}
-/* #5: klikk-for-å-utvide — notes-rad vises når kortet er utvidet/fokusert, eller notater er åpne */
+/* #5: klikk-for-å-utvide – notes-rad vises når kortet er utvidet/fokusert, eller notater er åpne */
 .job-card.expanded>.notes-row,.job-card.focused>.notes-row,.job-card:has(.notes-area.open)>.notes-row{display:block}
 .notes-actions{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .notes-actions-l{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
@@ -282,7 +282,7 @@ select.inp{color-scheme:dark;appearance:auto}
 .card-t{font-weight:600;font-size:.94rem}
 .card-s{font-size:.82rem;color:var(--accent2);margin-top:1px}
 .card-m{display:flex;flex-wrap:wrap;gap:10px;font-size:.76rem;color:var(--faint);margin-top:5px}
-/* Outreach: «neste steg» redigerbart direkte på kortet — feltet fristvarselet leser */
+/* Outreach: «neste steg» redigerbart direkte på kortet – feltet fristvarselet leser */
 .out-next{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
 .out-next label{font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.4px}
 .out-next input{background:rgba(225,231,255,.04);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-family:inherit;font-size:.78rem;color:var(--text);outline:none}
@@ -332,7 +332,7 @@ select.inp{color-scheme:dark;appearance:auto}
 .setup-sec-h{font-size:.78rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .setup-div{border-top:1px solid var(--border);margin:20px 0 18px}
 
-/* Dokumentarkivet — åpne-flaten er en ekte lenke (se DOKUMENTER-blokka i JS),
+/* Dokumentarkivet – åpne-flaten er en ekte lenke (se DOKUMENTER-blokka i JS),
    slettknappen ligger UTENFOR den så et trykk på søpla ikke navigerer. */
 .doc-row{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;transition:border-color .2s}
 .doc-row:hover{border-color:var(--border-h)}
@@ -456,7 +456,7 @@ select.inp{color-scheme:dark;appearance:auto}
 .import-paste-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
 .import-status{font-size:.78rem;color:var(--dim);min-height:1.4em}
 .import-status.ok{color:var(--green)}
-/* Bookmarklet-lenke (juli 2026) — dras til bokmerkelinjen, href settes i bindImportControls */
+/* Bookmarklet-lenke (juli 2026) – dras til bokmerkelinjen, href settes i bindImportControls */
 .bookmarklet{display:inline-block;padding:6px 12px;border:1px dashed var(--accent);border-radius:6px;color:var(--accent);font-size:.78rem;text-decoration:none;cursor:grab}
 .bookmarklet:hover{background:var(--accent-g)}
 .import-status.warn{color:var(--yellow)}
@@ -539,7 +539,7 @@ select.inp{color-scheme:dark;appearance:auto}
 <div class="top-bar">
   <div class="top-bar-left">
     <a href="https://evers.no" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> evers.no</a>
-    <span class="saved-ind" id="savedInd">—</span>
+    <span class="saved-ind" id="savedInd">–</span>
   </div>
   <div class="top-bar-right">
     <button class="btn-export" id="btnSnapshot" title="Last ned strategi.enc.json (seed for nye enheter)">Snapshot til repo</button>
@@ -549,29 +549,29 @@ select.inp{color-scheme:dark;appearance:auto}
 </div>
 
 <h1>Jobbstrategi</h1>
-<p class="sub">Kommandosentral — Wealth Management, Private Banking &amp; Fund Sales</p>
+<p class="sub">Kommandosentral – Wealth Management, Private Banking &amp; Fund Sales</p>
 
 <!-- Strategitekst (collapsible) -->
-<button class="strat-toggle" id="stratToggle"><span class="chev">▶</span> Strategitekst — kjernen, ukentlig system, meldingsmal</button>
+<button class="strat-toggle" id="stratToggle"><span class="chev">▶</span> Strategitekst – kjernen, ukentlig system, meldingsmal</button>
 <div class="strat-body" id="stratBody">
   <div class="strat-block">
     <h3>🎯 Kjernestrategien</h3>
-    <p>Portalsøknader er supplement, ikke strategi. Mesteparten av WM/PB-rollene fylles gjennom nettverk. Masteroppgaven om norske privatinvestorer er din sterkeste inngang — bruk den som samtaleåpner.</p>
+    <p>Portalsøknader er supplement, ikke strategi. Mesteparten av WM/PB-rollene fylles gjennom nettverk. Masteroppgaven om norske privatinvestorer er din sterkeste inngang – bruk den som samtaleåpner.</p>
   </div>
   <div class="strat-block">
     <h3>📅 Ukentlig system</h3>
     <div class="strat-day"><span class="day">Mandag</span><span class="task">30 min: Sjekk høyprioritetskilder i ukesjekk-fanen. Søk på aktuelle stillinger.</span></div>
-    <div class="strat-day"><span class="day">Tirsdag</span><span class="task">Send 1 LinkedIn-melding til noen i en rolle du sikter mot. Referer til noe konkret — oppgaven, en rapport, eller noe selskapet gjør.</span></div>
+    <div class="strat-day"><span class="day">Tirsdag</span><span class="task">Send 1 LinkedIn-melding til noen i en rolle du sikter mot. Referer til noe konkret – oppgaven, en rapport, eller noe selskapet gjør.</span></div>
     <div class="strat-day"><span class="day">Onsdag</span><span class="task">Les én rapport/artikkel fra et målselskap. Lagre innsikt du kan bruke i samtaler.</span></div>
     <div class="strat-day"><span class="day">Torsdag</span><span class="task">Oppdater søknads-tracker. Følg opp pågående samtaler og eventuelle intervjuprosesser.</span></div>
     <div class="strat-day"><span class="day">Fredag</span><span class="task">Sjekk resterende kilder. Registrer nye interessante stillinger. Vurder om du skal ta initiativ til en kaffeprat.</span></div>
   </div>
   <div class="strat-block">
-    <h3>💬 Meldingsmal — Masteroppgaven som inngang</h3>
+    <h3>💬 Meldingsmal – Masteroppgaven som inngang</h3>
     <p style="background:var(--accent-g);border-radius:8px;padding:14px;font-style:italic;margin-top:8px;border-left:2px solid var(--accent)">
-      «Hei [navn], jeg tar en MSc Finance ved BI og skriver masteroppgave om norske privatinvestorers risikoatferd og overkonfidens — basert på data fra 750 investorer. Funnene er ganske interessante og overraskende relevante for klientrådgivning. Hadde satt stor pris på 15 minutter av din tid til å høre om det matcher det du ser i praksis. Ingen agenda utover genuin nysgjerrighet.»
+      «Hei [navn], jeg tar en MSc Finance ved BI og skriver masteroppgave om norske privatinvestorers risikoatferd og overkonfidens – basert på data fra 750 investorer. Funnene er ganske interessante og overraskende relevante for klientrådgivning. Hadde satt stor pris på 15 minutter av din tid til å høre om det matcher det du ser i praksis. Ingen agenda utover genuin nysgjerrighet.»
     </p>
-    <p style="margin-top:10px;font-size:.8rem;color:var(--faint)">Tilpass til mottaker. Vis at du har lest noe om dem eller selskapet. Aldri be om jobb direkte — la samtalen åpne den døren naturlig.</p>
+    <p style="margin-top:10px;font-size:.8rem;color:var(--faint)">Tilpass til mottaker. Vis at du har lest noe om dem eller selskapet. Aldri be om jobb direkte – la samtalen åpne den døren naturlig.</p>
   </div>
   <div class="strat-block">
     <h3>🏢 Prioriterte selskaper</h3>
@@ -635,7 +635,7 @@ select.inp{color-scheme:dark;appearance:auto}
       <button class="reset-btn hidden" id="resetBtn">↺ Reset filtre</button>
     </div>
     <div class="filter-row bulk-row">
-      <span class="bulk-count" id="bulkCount">—</span>
+      <span class="bulk-count" id="bulkCount">–</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="bulk-btn" id="btnAddJobs">+ Legg til jobber</button>
         <button class="bulk-btn hidden" id="bulkMarkSeenBtn">Markér alle som sett</button>
@@ -730,12 +730,12 @@ select.inp{color-scheme:dark;appearance:auto}
       Lim inn token under. PAT lagres kryptert sammen med resten av payload.
     </p>
     <p class="modal-sub" id="gistSetupCfg" style="display:none">
-      Synk er allerede satt opp mot gist <strong id="gistIdShown">—</strong>. Her kan du kun
-      <strong>bytte PAT</strong> — typisk når den gamle utløper. Det opprettes ingen ny gist:
+      Synk er allerede satt opp mot gist <strong id="gistIdShown">–</strong>. Her kan du kun
+      <strong>bytte PAT</strong> – typisk når den gamle utløper. Det opprettes ingen ny gist:
       det ville pekt hubben mot et tomt arkiv og gjort den gamle foreldreløs med alle jobbene i seg.
     </p>
     <input type="password" class="inp" id="patInput" placeholder="github_pat_…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="text" style="margin-bottom:6px">
-    <div class="modal-status" id="setupStatus">—</div>
+    <div class="modal-status" id="setupStatus">–</div>
     <div class="modal-actions">
       <button class="btn btn-p" id="btnSetupGo">Test og opprett Gist</button>
     </div>
@@ -744,14 +744,14 @@ select.inp{color-scheme:dark;appearance:auto}
 
     <div class="setup-sec-h">Dokumentarkiv (Supabase)</div>
     <p class="modal-sub">
-      Samme prosjekt og bruker som jobbloggen. Alle fire verdiene lagres kryptert i payloaden —
+      Samme prosjekt og bruker som jobbloggen. Alle fire verdiene lagres kryptert i payloaden –
       ingenting av dette havner i repoet. Innlogging skjer først når du åpner Dokumenter-fanen.
     </p>
     <input type="text" class="inp" id="sbUrlInput" placeholder="https://….supabase.co" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url" style="margin-bottom:6px">
     <input type="password" class="inp" id="sbKeyInput" placeholder="anon public-nøkkel" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="margin-bottom:6px">
     <input type="text" class="inp" id="sbEmailInput" placeholder="e-post" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="email" style="margin-bottom:6px">
     <input type="password" class="inp" id="sbPwInput" placeholder="passord" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" style="margin-bottom:6px">
-    <div class="modal-status" id="sbSetupStatus">—</div>
+    <div class="modal-status" id="sbSetupStatus">–</div>
     <div class="modal-actions">
       <button class="btn btn-p" id="btnSbSave">Test og lagre</button>
     </div>
@@ -763,17 +763,17 @@ select.inp{color-scheme:dark;appearance:auto}
   </div>
 </div>
 
-<!-- ═══ SLETT DOKUMENT — bekreftelse ═══
+<!-- ═══ SLETT DOKUMENT – bekreftelse ═══
      Sletting fra mobil er bevisst gated bak en bekreftelse: en feilplassert
      tommel skal ikke kunne fjerne et vitnemål fra det eneste arkivet. -->
 <div class="modal-overlay" id="docDelModal">
   <div class="modal" role="dialog" aria-labelledby="docDelTitle">
     <h2 id="docDelTitle">Slette dokument?</h2>
     <p class="modal-sub">
-      <strong id="docDelName">—</strong> fjernes fra arkivet — også i jobbloggen, det er samme lager.
+      <strong id="docDelName">–</strong> fjernes fra arkivet – også i jobbloggen, det er samme lager.
       Dette kan ikke angres.
     </p>
-    <div class="modal-status" id="docDelStatus">—</div>
+    <div class="modal-status" id="docDelStatus">–</div>
     <div class="modal-actions">
       <button class="btn btn-d" id="btnDocDelGo">Slett</button>
       <button class="btn btn-s" id="btnDocDelCancel">Avbryt</button>
@@ -781,11 +781,11 @@ select.inp{color-scheme:dark;appearance:auto}
   </div>
 </div>
 
-<!-- ═══ PROMPT MODAL (styled erstatning for window.prompt — mappe-CRUD) ═══ -->
+<!-- ═══ PROMPT MODAL (styled erstatning for window.prompt – mappe-CRUD) ═══ -->
 <div class="modal-overlay" id="nbPromptModal">
   <div class="modal" role="dialog" aria-labelledby="nbPromptTitle">
-    <h2 id="nbPromptTitle">—</h2>
-    <p class="modal-sub" id="nbPromptLabel">—</p>
+    <h2 id="nbPromptTitle">–</h2>
+    <p class="modal-sub" id="nbPromptLabel">–</p>
     <input type="text" class="inp" id="nbPromptInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
            onkeydown="if(event.key==='Enter'){event.preventDefault();closeNbPrompt(this.value);}">
     <div class="modal-actions">
@@ -842,7 +842,7 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
 
       <div class="import-section">
         <h3>LinkedIn-bookmarklet</h3>
-        <p class="modal-sub" style="margin-bottom:8px">Dra lenken til bokmerkelinjen. Klikk den på en LinkedIn-jobbside — jobben åpnes her, ferdig utfylt via samme parser som paste-import.</p>
+        <p class="modal-sub" style="margin-bottom:8px">Dra lenken til bokmerkelinjen. Klikk den på en LinkedIn-jobbside – jobben åpnes her, ferdig utfylt via samme parser som paste-import.</p>
         <a class="bookmarklet" id="bookmarkletLink" href="#">➕ Til strategien</a>
       </div>
 
@@ -855,7 +855,7 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
   </div>
 </div>
 
-<!-- ═══ COVER-LETTER MODAL (ETAPPE 8 — copy-paste mot cover-letter-valiant) ═══ -->
+<!-- ═══ COVER-LETTER MODAL (ETAPPE 8 – copy-paste mot cover-letter-valiant) ═══ -->
 <div class="modal-overlay full-mobile" id="letterModal">
   <div class="modal modal-lg" role="dialog" aria-labelledby="letterTitle">
     <div class="letter-head">
@@ -863,12 +863,12 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
       <button class="letter-x" id="btnLetterX" title="Lukk (Esc)" aria-label="Lukk">✕</button>
     </div>
     <div class="modal-body">
-      <h3 class="letter-step">Steg 1 — Kopier prompt og lim inn i Claude</h3>
+      <h3 class="letter-step">Steg 1 – Kopier prompt og lim inn i Claude</h3>
       <div class="letter-prompt" id="letterPrompt"></div>
       <button class="btn btn-s" id="btnLetterCopy" style="padding:7px 12px;font-size:.8rem;margin-top:8px">📋 Kopier til utklippstavle</button>
-      <p class="modal-sub" style="margin-top:8px">Lim inn i Cowork, Claude Code eller claude.ai — <strong>cover-letter-valiant</strong> trigges automatisk.</p>
+      <p class="modal-sub" style="margin-top:8px">Lim inn i Cowork, Claude Code eller claude.ai – <strong>cover-letter-valiant</strong> trigges automatisk.</p>
       <hr class="letter-sep">
-      <h3 class="letter-step">Steg 2 — Lim inn generert brev her</h3>
+      <h3 class="letter-step">Steg 2 – Lim inn generert brev her</h3>
       <textarea class="letter-paste" id="letterPaste" placeholder="Lim inn det genererte søknadsbrevet her…"></textarea>
       <div class="letter-mode" id="letterModeRow" style="display:none">
         <label><input type="radio" name="letterMode" value="replace"> Erstatt eksisterende notater</label>
@@ -912,7 +912,7 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===== VENDORED DEPENDENCY — IKKE REDIGER MANUELT =====
+/* ===== VENDORED DEPENDENCY – IKKE REDIGER MANUELT =====
    DOMPurify 3.4.5 (Cure53). Apache-2.0 / MPL-2.0.
    Kilde: https://github.com/cure53/DOMPurify (dist/purify.min.js @ 3.4.5)
    Inlinet uendret. Oppdater = bytt ut alt mellom VENDORED-START og VENDORED-END.
@@ -950,7 +950,7 @@ Datoformater: DD.MM.YYYY, DD/MM/YYYY, YYYY-MM-DD. Skill jobber med "---" eller f
 })();
 
 // ════════════════════════════════════════════════════════════════
-//  CRYPTO  (samme i scripts/migrate-jobs.html — duplicat OK)
+//  CRYPTO  (samme i scripts/migrate-jobs.html – duplicat OK)
 // ════════════════════════════════════════════════════════════════
 // Chunket i 32 kB-blokker. Den gamle per-byte-loopen målte 136 ms på 1,4 MB
 // payload; denne 31 ms, byte-identisk output. Kalles ved HVER mutate().
@@ -979,7 +979,7 @@ async function decryptAndCache(pw, blob){
   STATE.cryptoSalt = saltU8;
   return JSON.parse(new TextDecoder().decode(pt));
 }
-// Encrypt an arbitrary object with the cached key — fast (no PBKDF2), rotates IV.
+// Encrypt an arbitrary object with the cached key – fast (no PBKDF2), rotates IV.
 // snapshotToRepo bruker denne direkte for å kryptere en strippet klone.
 async function encryptWithKey(obj){
   if(!STATE.cryptoKey || !STATE.cryptoSalt) throw new Error("No cached key");
@@ -988,16 +988,16 @@ async function encryptWithKey(obj){
   var ct = await crypto.subtle.encrypt({name:"AES-GCM", iv:iv}, STATE.cryptoKey, pt);
   return {v:1, salt:b64(STATE.cryptoSalt), iv:b64(iv), ct:b64(new Uint8Array(ct))};
 }
-// Encrypt current payload with cached key — fast (no PBKDF2), rotates IV
+// Encrypt current payload with cached key – fast (no PBKDF2), rotates IV
 async function encryptCurrent(){
   return encryptWithKey(STATE.payload);
 }
 
 // ════════════════════════════════════════════════════════════════
-//  PROFILE  (samme i scripts/migrate-jobs.html — referanse for tooltip)
+//  PROFILE  (samme i scripts/migrate-jobs.html – referanse for tooltip)
 // ════════════════════════════════════════════════════════════════
 var PROFILE = {
-  // Fase 4-utvidelse juli 2026 — KEEP IN SYNC med scripts/fetch_jobs.py
+  // Fase 4-utvidelse juli 2026 – KEEP IN SYNC med scripts/fetch_jobs.py
   // (samme strenger/rekkefølge): seb+skandinaviska enskilda 25; sparebank 1
   // forvaltning/alfred berg/klp/garantum 20; first fondene/fondsfinans 15.
   priorityCompanies: [
@@ -1012,7 +1012,7 @@ var PROFILE = {
     {kw:"investeringsrådgiver",points:18},{kw:"formuesrådgiver",points:18},{kw:"investment advis",points:20},
     {kw:"investerings",points:15},{kw:"kapitalforvaltning",points:15},{kw:"finansiell rådgiver",points:15},
     {kw:"asset management",points:15},{kw:"fund manager",points:15},
-    // Forvalter-titler (juni 2026) — KEEP IN SYNC med fetch_jobs.py titleKeywords.
+    // Forvalter-titler (juni 2026) – KEEP IN SYNC med fetch_jobs.py titleKeywords.
     {kw:"formuesforvalt",points:25},{kw:"porteføljeforvalt",points:18},{kw:"fondsforvalt",points:18}
   ],
   // Oslo + pendlerbelte. «oslo» dekker hele Oslo kommune; beltet legger til Bærum/Asker-
@@ -1020,7 +1020,7 @@ var PROFILE = {
   // med scripts/fetch_jobs.py PROFILE.locations (samme nøkler + poeng).
   locations: [{kw:"oslo",points:10},{kw:"lysaker",points:8},{kw:"fornebu",points:8},{kw:"sandvika",points:8},{kw:"bærum",points:8},{kw:"asker",points:5},
     // Oslo-bydeler og -strøk (juli 2026): annonser som oppgir KUN strøket, ikke «Oslo», falt tidligere
-    // utenfor både filteret og scoringen (fikk -60 i nonOsloPenalty). points:0 er bevisst — de skal
+    // utenfor både filteret og scoringen (fikk -60 i nonOsloPenalty). points:0 er bevisst – de skal
     // telle som Oslo-treff uten å dobbeltscore når lokasjonsstrengen også inneholder «oslo».
     {kw:"aker brygge",points:0},{kw:"bjørvika",points:0},{kw:"skøyen",points:0},{kw:"nydalen",points:0},
     {kw:"majorstu",points:0},{kw:"grünerløkka",points:0},{kw:"tjuvholmen",points:0},{kw:"helsfyr",points:0},
@@ -1038,7 +1038,7 @@ var PROFILE = {
   nonOsloPenalty: -60
 };
 
-// scoreJob — same logic as scripts/migrate-jobs.html, needed in-app for imports
+// scoreJob – same logic as scripts/migrate-jobs.html, needed in-app for imports
 function scoreJob(job){
   var breakdown = {};
   var total = 0;
@@ -1046,7 +1046,7 @@ function scoreJob(job){
   var role = (job.role||"").toLowerCase();
   var loc = (job.location||"").toLowerCase();
   // A1: selskapspoeng krever minst ett tittel-treff. Et reelt seniority-treff
-  // (junior/senior — IKKE default "mid") teller også som tittel-treff (A2b).
+  // (junior/senior – IKKE default "mid") teller også som tittel-treff (A2b).
   var titleHit = PROFILE.titleKeywords.some(function(t){return role.indexOf(t.kw)!==-1});
   var senHit = job.seniority === "junior" || job.seniority === "senior";
   if(titleHit || senHit){
@@ -1088,13 +1088,13 @@ function isPriorityCompany(company){
 var STATE = {
   payload: null,           // decrypted full payload
   password: null,          // kept in-memory for re-decryption of fresh Gist fetches with different salt
-  cryptoSalt: null,        // Uint8Array — stable for the session (from initially-loaded blob)
-  cryptoKey: null,         // CryptoKey — cached AES-GCM key for fast re-encryption
-  initialUpdatedAt: null,  // payload.updatedAt at decrypt time — baseline for sync conflict detection
+  cryptoSalt: null,        // Uint8Array – stable for the session (from initially-loaded blob)
+  cryptoKey: null,         // CryptoKey – cached AES-GCM key for fast re-encryption
+  initialUpdatedAt: null,  // payload.updatedAt at decrypt time – baseline for sync conflict detection
   lastSyncedRemoteTs: null,// payload.updatedAt vi sist SÅ i Gist'en (settes av bootstrapSync + doPush)
   // remoteVerified: false til bootstrapSync har lest OG dekryptert fersk Gist.
   // Gate for ALL push (doPush). Uten den kan en offline-start pushe en ubekreftet
-  // lokal cache over nyere cron-/enhets-data — se online-handleren nederst.
+  // lokal cache over nyere cron-/enhets-data – se online-handleren nederst.
   remoteVerified: false,
   bootstrapping: false,    // true while bootstrapSync runs; locks UI
   syncState: "noconfig",   // synced | saving | offline | noconfig | patinvalid | pwmismatch | bootstrap | local
@@ -1105,13 +1105,13 @@ var STATE = {
   outFilter: "all",
   showAppForm: false,
   showOutForm: false,
-  // Etappe 3 — UI state
+  // Etappe 3 – UI state
   openOverlays: [],        // stack of open modals/popovers; gates global keydown to Esc-only when non-empty
   uiPrefs: null,           // loaded from localStorage "ve-strategi-ui"
   searchDebounce: null,    // setTimeout handle for search input
   scorePopoverFor: null,   // jobId currently shown in score popover (or null)
   letterModalJobId: null,  // jobId the cover-letter modal currently refers to (or null)
-  // Supabase-sesjon for dokumentarkivet — {url, key, token, uid, exp}.
+  // Supabase-sesjon for dokumentarkivet – {url, key, token, uid, exp}.
   // KUN i minnet: aldri localStorage, aldri payload. Se SUPABASE-blokka.
   sb: null,
   docs: null               // siste listing fra Storage, kun for render (aldri payload-data)
@@ -1138,7 +1138,7 @@ var DEFAULT_UI_PREFS = {
 var ARCHIVE_SOURCES = ["jobindex","jobslu"];
 
 // Frist-vinduet på jobbkortet. KEEP IN SYNC med REMINDER_WINDOW_DAYS i
-// scripts/email_reminder.py — det som er gult i huben skal være det som varsles.
+// scripts/email_reminder.py – det som er gult i huben skal være det som varsles.
 var URGENT_DEADLINE_DAYS = 5;
 
 var UI_PREFS_KEY = "ve-strategi-ui";
@@ -1200,22 +1200,22 @@ var SOURCES = [
 // ════════════════════════════════════════════════════════════════
 function getWeekId(){var d=new Date(),s=new Date(d.getFullYear(),0,1),w=Math.ceil(((d-s)/864e5+s.getDay()+1)/7);return d.getFullYear()+"-W"+String(w).padStart(2,"0")}
 function fmtDate(iso){if(!iso)return"";var d=new Date(iso);return d.toLocaleDateString("no-NB",{day:"numeric",month:"short"})}
-function fmtTime(iso){if(!iso)return"—";var d=new Date(iso);return d.toLocaleTimeString("no-NB",{hour:"2-digit",minute:"2-digit"})+" "+d.toLocaleDateString("no-NB",{day:"numeric",month:"short"})}
+function fmtTime(iso){if(!iso)return"–";var d=new Date(iso);return d.toLocaleTimeString("no-NB",{hour:"2-digit",minute:"2-digit"})+" "+d.toLocaleDateString("no-NB",{day:"numeric",month:"short"})}
 function daysUntil(iso){if(!iso)return 999;return Math.ceil((new Date(iso)-new Date())/864e5)}
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function esc(s){var d=document.createElement("div");d.appendChild(document.createTextNode(s||""));return d.innerHTML}
 
 // ════════════════════════════════════════════════════════════════
-//  SYNC INDICATOR — single source of truth for top-bar status pill
+//  SYNC INDICATOR – single source of truth for top-bar status pill
 // ════════════════════════════════════════════════════════════════
 var SYNC_LABELS = {
   synced:      function(ts){ return "Synket " + fmtTime(ts); },
   saving:      function(){ return '<span class="spin"></span>Lagrer…'; },
   bootstrap:   function(){ return '<span class="spin"></span>Henter siste fra Gist…'; },
-  offline:     function(){ return "Offline — prøver igjen"; },
+  offline:     function(){ return "Offline – prøver igjen"; },
   noconfig:    function(){ return "Synk ikke aktivert"; },
-  patinvalid:  function(){ return "PAT ugyldig — klikk for re-setup"; },
-  pwmismatch:  function(){ return "⚠ Cache-passord ≠ Gist — klikk for å tømme"; },
+  patinvalid:  function(){ return "PAT ugyldig – klikk for re-setup"; },
+  pwmismatch:  function(){ return "⚠ Cache-passord ≠ Gist – klikk for å tømme"; },
   local:       function(){ return "Lokal kun"; }
 };
 function updateSyncIndicator(state, ts){
@@ -1228,7 +1228,7 @@ function updateSyncIndicator(state, ts){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  LOCAL CACHE (localStorage, instant — encrypted blob only)
+//  LOCAL CACHE (localStorage, instant – encrypted blob only)
 // ════════════════════════════════════════════════════════════════
 var CACHE_KEY = "ve-strategi-cache";
 var BANNER_SNOOZE_KEY = "ve-banner-snooze";
@@ -1254,13 +1254,13 @@ async function saveToCacheNow(){
     };
     localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
   }catch(e){
-    // Gist push er det durable laget — men en full localStorage betyr at
+    // Gist push er det durable laget – men en full localStorage betyr at
     // offline-kopien stille slutter å oppdateres. Si det én gang per sesjon.
     console.warn("saveToCache failed:", e);
     var quota = e && (e.name === "QuotaExceededError" || e.name === "NS_ERROR_DOM_QUOTA_REACHED" || e.code === 22);
     if(quota && !CACHE_QUOTA_WARNED){
       CACHE_QUOTA_WARNED = true;
-      toast("Lokal cache er full — offline-kopien oppdateres ikke lenger. Gist-synk går som normalt.", 9000);
+      toast("Lokal cache er full – offline-kopien oppdateres ikke lenger. Gist-synk går som normalt.", 9000);
     }
   }
 }
@@ -1280,15 +1280,15 @@ function readCache(){
 var GIST_API = "https://api.github.com";
 var GIST_FILENAME = "strategi.enc.json";
 
-// ── Hva «synk er satt opp» betyr — to ULIKE spørsmål ──────────────────────
-//   gistConfigured() — vi vet HVILKEN gist (id). Da skal oppsettsmodalen aldri
+// ── Hva «synk er satt opp» betyr – to ULIKE spørsmål ──────────────────────
+//   gistConfigured() – vi vet HVILKEN gist (id). Da skal oppsettsmodalen aldri
 //     tilby opprettelse; se doSetup.
-//   gistUsable()     — vi kan faktisk SNAKKE med den (id OG pat). Alt som gjør
+//   gistUsable()     – vi kan faktisk SNAKKE med den (id OG pat). Alt som gjør
 //     et nettverkskall eller lover synk må bruke denne.
 //
 // Forskjellen er ikke akademisk: repo-seedet bærer `id` men ikke `pat` (den
 // strippes i snapshotToRepo), så en ny enhet lander nettopp i mellomtilstanden
-// «vet hvilken gist, mangler nøkkelen». Den skal gi banner + «Bytt PAT» — ikke
+// «vet hvilken gist, mangler nøkkelen». Den skal gi banner + «Bytt PAT» – ikke
 // en falsk «synk er oppe»-tilstand som fyrer kall med Bearer undefined.
 function gistConfigured(){
   var g = STATE.payload && STATE.payload.gist;
@@ -1363,7 +1363,7 @@ function schedulePush(){
   if(STATE.pushTimer) clearTimeout(STATE.pushTimer);
   if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
   if(STATE.bootstrapping){
-    // Don't schedule pushes while UI is locked — bootstrap will handle once done
+    // Don't schedule pushes while UI is locked – bootstrap will handle once done
     return;
   }
   if(!gistUsable()){
@@ -1425,19 +1425,19 @@ function mergeColl(localArr, remoteArr){
   return order.map(function(id){ return byId[id]; });
 }
 
-// supabase er et SINGLETON konfigfelt, ikke en per-id-samling — det finnes
+// supabase er et SINGLETON konfigfelt, ikke en per-id-samling – det finnes
 // ingen tidsstempler å flette på. Regel: adopter kildens felt kun når målet
 // mangler det; ellers vinner målet (et nyoppsett på DENNE enheten skal aldri
 // tapes til en eldre remote).
 //
 // Må kalles fra ALLE tre forsoningsveiene, ellers slettes legitimasjonen
 // stille fra Gist-en:
-//   • bootstrapSync, adopsjonsgrenen  — lokal legitimasjon overlever at hele
+//   • bootstrapSync, adopsjonsgrenen  – lokal legitimasjon overlever at hele
 //     remote-payloaden adopteres (enhet lagret creds, push feilet, cron gjorde
 //     remote nyere)
-//   • bootstrapSync, behold-lokal-grenen — remote sin adopteres før lokal
+//   • bootstrapSync, behold-lokal-grenen – remote sin adopteres før lokal
 //     payload pushes hel og holden
-//   • doPush sin clobber-guard — samme, rett før PATCH
+//   • doPush sin clobber-guard – samme, rett før PATCH
 // Returnerer true hvis feltet faktisk ble adoptert.
 function adoptSupabase(target, source){
   if(!target || !source || !source.supabase) return false;
@@ -1461,7 +1461,7 @@ async function doPush(){
     var fresh = await decryptBlob(STATE.password, freshBlob);
     var freshTs = fresh.updatedAt || fresh.migratedAt || null;
     if(freshTs && freshTs !== STATE.lastSyncedRemoteTs){
-      console.info("doPush: Gist endret remote (" + freshTs + ") — fletter inn før push");
+      console.info("doPush: Gist endret remote (" + freshTs + ") – fletter inn før push");
       STATE.payload.jobs     = mergeJobs(STATE.payload.jobs, fresh.jobs);
       HAY.clear();   // remote kan ha endret role/location/description
       STATE.payload.notebook = mergeNotebook(STATE.payload.notebook, fresh.notebook);
@@ -1521,7 +1521,7 @@ function scheduleRetry(err){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  MUTATE — called by every state-mutation site
+//  MUTATE – called by every state-mutation site
 // ════════════════════════════════════════════════════════════════
 // saveToCache krypterer HELE payloaden (~1,4 MB) og skriver den til localStorage.
 // Ukjent for de fem tekstfeltene som kaller mutate() per tastetrykk: 500 tegn =
@@ -1562,7 +1562,7 @@ function isDecryptError(err){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  BOOTSTRAP SYNC — fetch fresh Gist, reconcile, unlock UI
+//  BOOTSTRAP SYNC – fetch fresh Gist, reconcile, unlock UI
 // ════════════════════════════════════════════════════════════════
 // Re-render aktiv fane + tellere etter at payload er byttet/flettet utenfor
 // den vanlige mutasjonsveien (bootstrap-adopsjon, clobber-guard-merge).
@@ -1590,8 +1590,8 @@ async function bootstrapSync(){
     STATE.bootstrapping = false;
     document.querySelectorAll("section").forEach(function(s){ s.classList.remove("sync-lock"); });
     updateSyncIndicator("offline");
-    toast("Kunne ikke hente fra Gist innen 15s. Last siden på nytt — IKKE gjør endringer (de overskriver Gist-data).");
-    // KRITISK: ikke auto-push — vi har ikke bekreftet remote-state, kan overskrive nyere data fra cron eller andre enheter
+    toast("Kunne ikke hente fra Gist innen 15s. Last siden på nytt – IKKE gjør endringer (de overskriver Gist-data).");
+    // KRITISK: ikke auto-push – vi har ikke bekreftet remote-state, kan overskrive nyere data fra cron eller andre enheter
   }, 15000);
 
   try{
@@ -1611,7 +1611,7 @@ async function bootstrapSync(){
       var localNb = STATE.payload.notebook;
       var localApps = STATE.payload.apps;
       var localOut = STATE.payload.outreach;
-      var localSb = STATE.payload.supabase;   // singleton — se adoptSupabase
+      var localSb = STATE.payload.supabase;   // singleton – se adoptSupabase
       STATE.payload = remotePayload;
       if(typeof STATE.payload.scratchpad !== "string") STATE.payload.scratchpad = "";
       ensureNotebook(STATE.payload);
@@ -1640,12 +1640,12 @@ async function bootstrapSync(){
                    JSON.stringify(STATE.payload.apps || null) !== beforeApps ||
                    JSON.stringify(STATE.payload.outreach || null) !== beforeOut;
       // Adopsjonen skal i cachen, men trigger ingen re-render (ingen synlig data
-      // endret) og ingen push for egen del — remote har den allerede.
+      // endret) og ingen push for egen del – remote har den allerede.
       if(merged || adoptedSb) saveToCache();
       if(merged) renderAllFromPayload();
       updateSyncIndicator("synced", new Date().toISOString());
       if(merged || (localTs && (!remoteTs || new Date(localTs) > new Date(remoteTs)))){
-        // Local newer (eller nettopp flettet) — push så Gist tar igjen
+        // Local newer (eller nettopp flettet) – push så Gist tar igjen
         schedulePush();
       }
     }
@@ -1693,7 +1693,7 @@ function renderGistSetupSection(){
 
 // focus: "supabase" setter fokus i dokumentarkiv-feltene i stedet for PAT-feltet.
 // MERK: funksjonen brukes også direkte som event-listener (bannerSetup), så
-// første argument kan være et Event — derfor typesjekken.
+// første argument kan være et Event – derfor typesjekken.
 function openSetupModal(focus){
   var want = (typeof focus === "string") ? focus : "";
   document.getElementById("patInput").value = "";
@@ -1715,7 +1715,7 @@ function closeSetupModal(){
 }
 function setSetupStatus(msg, cls){
   var el = document.getElementById("setupStatus");
-  el.textContent = msg || "—";
+  el.textContent = msg || "–";
   el.className = "modal-status" + (cls?" "+cls:"");
 }
 async function doSetup(){
@@ -1736,7 +1736,7 @@ async function doSetup(){
       if(!okRot){ setSetupStatus("Ugyldig PAT (401). Sjekk scope og expiration.", "err"); btn.disabled = false; return; }
       STATE.payload.gist.pat = pat;
       mutate();
-      setSetupStatus("PAT byttet — kobler til på nytt…", "ok");
+      setSetupStatus("PAT byttet – kobler til på nytt…", "ok");
       // Banneret vises nå også når vi har id men mangler pat (ny enhet fra
       // strippet seed). Det evalueres kun ved init, så det må skjules her.
       hideBanner();
@@ -1761,8 +1761,8 @@ async function doSetup(){
     // Hard guard: gistCreate skal ALDRI nås med en eksisterende gist.id.
     // Grenen over fanger det normalt; denne står igjen som andre forsvarslinje
     // hvis noen senere fjerner den. Å opprette her ville pekt payloaden mot en
-    // fersk gist og etterlatt den gamle foreldreløs — med PAT-en i seg.
-    if(existingId) throw new Error("Gist finnes allerede (" + existingId + ") — opprettelse avbrutt.");
+    // fersk gist og etterlatt den gamle foreldreløs – med PAT-en i seg.
+    if(existingId) throw new Error("Gist finnes allerede (" + existingId + ") – opprettelse avbrutt.");
 
     setSetupStatus("Oppretter Gist…");
     // First add the gist field provisionally so the initial Gist body contains the PAT (consistent state)
@@ -1803,7 +1803,7 @@ async function doSetup(){
 // ── Dokumentarkiv-seksjonen i samme modal ────────────────────────
 function setSbSetupStatus(msg, cls){
   var el = document.getElementById("sbSetupStatus");
-  el.textContent = msg || "—";
+  el.textContent = msg || "–";
   el.className = "modal-status" + (cls?" "+cls:"");
 }
 function sbFillSetupFields(){
@@ -1832,7 +1832,7 @@ async function sbSaveSetup(){
   btn.disabled = true;
   try{
     setSbSetupStatus("Tester innlogging…");
-    // Lagrer kun ved bekreftet 200 — samme mønster som gistTestPat.
+    // Lagrer kun ved bekreftet 200 – samme mønster som gistTestPat.
     var sess = await sbSignIn({url:url, anonKey:key, email:email, password:pw});
     STATE.payload.supabase = {url:url, anonKey:key, email:email, password:pw};
     STATE.sb = sess;   // gjenbruk sesjonen vi nettopp fikk, ingen ekstra innlogging
@@ -1911,7 +1911,7 @@ function toast(msg, msOrOpts){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  UI PREFS — persistert filter/sort-state (ukryptert, ikke sensitive)
+//  UI PREFS – persistert filter/sort-state (ukryptert, ikke sensitive)
 // ════════════════════════════════════════════════════════════════
 function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
 function loadUiPrefs(){
@@ -1921,7 +1921,7 @@ function loadUiPrefs(){
     var p = JSON.parse(raw);
     if(!p || (p.v !== 1 && p.v !== 2)) return clone(DEFAULT_UI_PREFS);
     // Migrering v1 → v2: fjern "removed" fra default-visning (#2) + skru på Oslo+belte-filter
-    // (#1a) — uten å miste øvrige persisterte valg (sort, sources, search, score-range).
+    // (#1a) – uten å miste øvrige persisterte valg (sort, sources, search, score-range).
     if(p.v === 1){
       if(p.filters && Array.isArray(p.filters.status)){
         p.filters.status = p.filters.status.filter(function(s){ return s !== "removed"; });
@@ -1952,7 +1952,7 @@ function uiPrefsIsDefault(){
   if(f.status.length !== d.status.length) return false;
   var sortedF = f.status.slice().sort().join(","), sortedD = d.status.slice().sort().join(",");
   if(sortedF !== sortedD) return false;
-  // sources: empty = "all" — default is empty
+  // sources: empty = "all" – default is empty
   if(f.sources && f.sources.length !== 0) return false;
   return true;
 }
@@ -1962,7 +1962,7 @@ function resetUiPrefs(){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  OVERLAY STACK — gates global keydown to Esc-only when non-empty
+//  OVERLAY STACK – gates global keydown to Esc-only when non-empty
 // ════════════════════════════════════════════════════════════════
 function registerOverlay(name){
   if(STATE.openOverlays.indexOf(name) === -1) STATE.openOverlays.push(name);
@@ -1985,7 +1985,7 @@ function matchesOsloBelt(j){
   if(!loc) return true;
   return PROFILE.locations.some(function(l){ return loc.indexOf(l.kw) !== -1; });
 }
-// Søke-haystack memoiseres per jobb-id. VIKTIG: i et Map utenfor payloaden —
+// Søke-haystack memoiseres per jobb-id. VIKTIG: i et Map utenfor payloaden –
 // som felt på job-objektet ville den havnet i JSON.stringify og doblet Gist-bloben.
 // Bygging av ~1,4 MB strenger + toLowerCase() skjedde tidligere ved HVER passering.
 var HAY = new Map();
@@ -2063,7 +2063,7 @@ function stripBoldAndMdLink(v){
   v = (v||"").trim();
   // Strip surrounding bold **…**
   v = v.replace(/^\*+|\*+$/g, "").trim();
-  // If value is markdown link [text](url) — return text
+  // If value is markdown link [text](url) – return text
   var m = v.match(/^\[([^\]]*)\]\((https?:\/\/[^)]+)\)/);
   if(m) return {text: m[1].trim(), url: m[2]};
   return {text: v, url: null};
@@ -2091,17 +2091,17 @@ function parseImportDate(s){
   return null;
 }
 function detectSeniority(title){
-  // Bøyningstolerant junior-alternasjon (juli 2026) — KEEP IN SYNC med
+  // Bøyningstolerant junior-alternasjon (juli 2026) – KEEP IN SYNC med
   // scripts/fetch_jobs.py detect_seniority (tegn-for-tegn).
   var t = (title||"").toLowerCase();
   if(/\b(graduates?|trainees?|junior|associates?|nyutdannet|nyutdannede|første\s*år|entry|internships?|interns?)\b/.test(t)) return "junior";
   if(/\b(senior|lead|principal|director|head\s+of|vp|chief)\b/.test(t)) return "senior";
   return "mid";
 }
-// MERK — bevisst divergens fra Python normalize_url (fetch_jobs.py).
+// MERK – bevisst divergens fra Python normalize_url (fetch_jobs.py).
 // Denne JS-en brukes KUN av findImportDuplicate (LinkedIn-paste-dedup).
 // LinkedIn-URLer bærer ?refId=/?trackingId= som er tracking-søppel, ikke
-// identitet — derfor strippes hele query her (to pastes av samme jobb med
+// identitet – derfor strippes hele query her (to pastes av samme jobb med
 // ulik trackingId skal telle som dubletter). Python bevarer query fordi
 // jobs.lu bruker ?Id=N som identitet. Ikke "fiks" til paritet uten først å
 // håndtere LinkedIn tracking-parametre, ellers brytes paste-dedup.
@@ -2155,7 +2155,7 @@ function parseJobBlock(block){
     var after = block.substring(last.index + last[0].length);
     description = after.replace(/^\s*\n+/, "").trim();
   } else {
-    // No fields detected — everything after first ## line, if any
+    // No fields detected – everything after first ## line, if any
     if(tm){
       var idx = block.indexOf(tm[0]);
       var rest = block.substring(idx + tm[0].length);
@@ -2202,7 +2202,7 @@ function parseImport(rawMarkdown){
   return out;
 }
 
-// — Modal lifecycle —
+// – Modal lifecycle –
 function openImportModal(){
   IMPORT.items = [];
   document.getElementById("importPaste").value = "";
@@ -2237,7 +2237,7 @@ function closeImportModal(force){
 //  unlock) så refresh aldri re-importerer; payloaden parkeres i minnet
 //  og sendes inn i den eksisterende paste-import-flyten etter unlock
 //  (samme parser/dedup/scoring, source "linkedin"). Brukerinitiert på
-//  siden brukeren selv ser — ingen crawling mot LinkedIn.
+//  siden brukeren selv ser – ingen crawling mot LinkedIn.
 // ════════════════════════════════════════════════════════════════
 var PENDING_IMPORT_FRAGMENT = null;
 (function(){
@@ -2253,7 +2253,7 @@ var PENDING_IMPORT_FRAGMENT = null;
   history.replaceState(null, "", location.pathname + location.search);
 })();
 
-// Minifisert kilde for bookmarkleten — href settes i bindImportControls.
+// Minifisert kilde for bookmarkleten – href settes i bindImportControls.
 // Lesbar versjon i kommentarform: se parseJobBlock-flyten; bookmarkleten
 // leser document.scripts (unngår attributt-selektor-quoting), plukker
 // JobPosting-JSON-LD, faller tilbake til h1/toppkort, og åpner #import=.
@@ -2264,7 +2264,7 @@ var BOOKMARKLET_SRC = "javascript:(function(){function t(s){return(s||'').replac
 // Samme fragment-mekanikk som bookmarkleten over, motsatt vei: payloaden
 // base64-kodes i URL-fragmentet (når aldri serveren), og jobblogg oppretter
 // en ferdig utfylt prosess i research-status (deduplisert på annonse-URL).
-// Sett URL-en etter CF-deployen av jobblogg — tom streng = knappen skjules.
+// Sett URL-en etter CF-deployen av jobblogg – tom streng = knappen skjules.
 var JOBBLOGG_URL = "https://jobblogg.valiantevers1809.workers.dev";
 function sendToJobblogg(id){
   var j = STATE.payload.jobs.find(function(x){ return x.id === id; });
@@ -2291,10 +2291,10 @@ function runFragmentImport(f){
   openImportModal();
   document.getElementById("importPaste").value = fragmentToMarkdown(f);
   runImportParse();
-  toast("Importert fra bookmarklet — sjekk feltene og lagre");
+  toast("Importert fra bookmarklet – sjekk feltene og lagre");
 }
 
-// Venter til bootstrapSync er ferdig før importen kjøres — ellers kan en
+// Venter til bootstrapSync er ferdig før importen kjøres – ellers kan en
 // rask lagring bli klobbret når remote-payload adopteres (STATE.payload byttes).
 function runFragmentImportWhenReady(f, tries){
   if(STATE.bootstrapping && (tries || 0) < 100){
@@ -2305,7 +2305,7 @@ function runFragmentImportWhenReady(f, tries){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  ETAPPE 8 — COVER-LETTER (copy-paste mot cover-letter-valiant-skill)
+//  ETAPPE 8 – COVER-LETTER (copy-paste mot cover-letter-valiant-skill)
 // ════════════════════════════════════════════════════════════════
 function fmtDateDMY(iso){
   if(!iso) return "";
@@ -2319,8 +2319,8 @@ function buildLetterPrompt(job){
   var lines = [
     "Skriv søknadsbrev for følgende stilling, bruk cover-letter-valiant-skill:",
     "",
-    "**Selskap:** " + (job.company || "—"),
-    "**Rolle:** " + (job.role || "—")
+    "**Selskap:** " + (job.company || "–"),
+    "**Rolle:** " + (job.role || "–")
   ];
   if(job.location) lines.push("**Lokasjon:** " + job.location);
   if(job.url) lines.push("**URL:** " + job.url);
@@ -2339,7 +2339,7 @@ function openLetterModal(id){
   if(!job) return;
   STATE.letterModalJobId = id;
   document.getElementById("letterTitle").textContent =
-    "✉ Søknadsbrev — " + (job.role || "stilling") + (job.company ? " @ " + job.company : "");
+    "✉ Søknadsbrev – " + (job.role || "stilling") + (job.company ? " @ " + job.company : "");
   document.getElementById("letterPrompt").textContent = buildLetterPrompt(job);
   document.getElementById("letterPaste").value = "";
   var hasNotes = !!(job.notes && job.notes.trim());
@@ -2383,7 +2383,7 @@ function saveLetterToNotes(){
   var job = id && STATE.payload.jobs.find(function(j){return j.id===id;});
   if(!job) return;
   var letter = document.getElementById("letterPaste").value.trim();
-  if(!letter){ toast("Ingen tekst å lagre — lim inn brevet først"); return; }
+  if(!letter){ toast("Ingen tekst å lagre – lim inn brevet først"); return; }
   var existing = (job.notes || "").trim();
   if(!existing){
     job.notes = letter;
@@ -2393,7 +2393,7 @@ function saveLetterToNotes(){
     if(mode === "replace"){
       job.notes = letter;
     } else {
-      job.notes = job.notes + "\n\n— Søknadsbrev " + fmtDateDMY(new Date().toISOString()) + " —\n" + letter;
+      job.notes = job.notes + "\n\n– Søknadsbrev " + fmtDateDMY(new Date().toISOString()) + " –\n" + letter;
     }
   }
   mutate();
@@ -2402,7 +2402,7 @@ function saveLetterToNotes(){
   toast("Lagret til notater");
 }
 
-// — Parse from textarea —
+// – Parse from textarea –
 async function runImportParse(){
   var raw = document.getElementById("importPaste").value;
   var parsed = parseImport(raw);
@@ -2452,7 +2452,7 @@ function renderImportList(){
     newOnes.forEach(function(it){ html += renderImportCard(it); });
   }
   if(dups.length){
-    html += '<div class="import-list-h dup">Duplikater (' + dups.length + ') — finnes allerede</div>';
+    html += '<div class="import-list-h dup">Duplikater (' + dups.length + ') – finnes allerede</div>';
     dups.forEach(function(it){ html += renderImportCard(it); });
   }
   sec.innerHTML = html;
@@ -2481,7 +2481,7 @@ function renderImportCard(it){
       '<label>Firma</label><input type="text" data-f="company" value="' + esc(it.company) + '">' +
       '<label>Sted</label><input type="text" data-f="location" value="' + esc(it.location) + '">' +
       '<label>URL</label><input type="url" data-f="url" value="' + esc(it.url) + '" placeholder="https://…" class="' + (missingUrl?"miss":"") + '">' +
-      (missingUrl ? '<div class="miss-hint">URL mangler — påkrevd for å lagre (brukes som id)</div>' : '') +
+      (missingUrl ? '<div class="miss-hint">URL mangler – påkrevd for å lagre (brukes som id)</div>' : '') +
       '<label>Frist</label><input type="date" data-f="deadline" value="' + esc(it.deadline||"") + '">' +
       (it.deadlineRaw && !it.deadline ? '<div class="miss-hint" style="color:var(--faint)">Kunne ikke parse: «' + esc(it.deadlineRaw) + '»</div>' : '') +
     '</div>' +
@@ -2542,7 +2542,7 @@ function onImportFieldChange(idx, field, value){
     if(!it._isDuplicate) it._dupAction = null;
     // Re-render KUN når kortet faktisk skal bytte seksjon. Tidligere kjørte den
     // per tastetrykk, og siden renderImportList setter innerHTML ble <input>-et
-    // brukeren skrev i byttet ut — fokus forsvant etter første tegn.
+    // brukeren skrev i byttet ut – fokus forsvant etter første tegn.
     if(wasDup !== it._isDuplicate) renderImportList();
     updateImportSaveButton();
     return;
@@ -2711,7 +2711,7 @@ async function saveImports(){
   var visibleNew = getFilteredJobs().filter(function(j){return newIds.has(j.id)}).length;
   var hidden = totalAdded - visibleNew;
   if(hidden > 0){
-    toast(summary + " — filter skjuler " + hidden + ".", {
+    toast(summary + " – filter skjuler " + hidden + ".", {
       actionText: "Vis alle",
       action: function(){ resetUiPrefs(); renderJobs(); },
       ms: 8000
@@ -2760,15 +2760,15 @@ function bindImportControls(){
   bml.setAttribute("href", BOOKMARKLET_SRC);
   bml.addEventListener("click", function(e){
     e.preventDefault();
-    toast("Dra lenken til bokmerkelinjen — og klikk den når du står på en LinkedIn-jobbside");
+    toast("Dra lenken til bokmerkelinjen – og klikk den når du står på en LinkedIn-jobbside");
   });
 }
 
-// Hook into existing global Esc handler — needs to handle importModal
+// Hook into existing global Esc handler – needs to handle importModal
 // (the handler is in bindKeyboardShortcuts and dispatches based on top of stack)
 
 // ════════════════════════════════════════════════════════════════
-//  BEFOREUNLOAD — only warn if pushTimer is pending (debounce-window)
+//  BEFOREUNLOAD – only warn if pushTimer is pending (debounce-window)
 // ════════════════════════════════════════════════════════════════
 window.addEventListener("beforeunload", function(e){
   flushCache();   // debouncet cache-skriving må ikke gå tapt ved lukking
@@ -2780,14 +2780,14 @@ window.addEventListener("online", function(){
   if(!gistUsable()) return;
   if(STATE.retryTimer){ clearTimeout(STATE.retryTimer); STATE.retryTimer = null; }
   // Har vi ALDRI bekreftet remote (bootstrap feilet/timet ut), er en push her
-  // det farligste vi kan gjøre — den skriver ubekreftet cache over Gist'en.
+  // det farligste vi kan gjøre – den skriver ubekreftet cache over Gist'en.
   // Kjør bootstrap i stedet, som leser remote først.
   if(!STATE.remoteVerified){ bootstrapSync(); return; }
   if(STATE.syncState === "offline") doPush().catch(scheduleRetry);
 });
 
 // ════════════════════════════════════════════════════════════════
-//  GATE — localStorage cache → repo fetch → file picker → decrypt
+//  GATE – localStorage cache → repo fetch → file picker → decrypt
 // ════════════════════════════════════════════════════════════════
 (function(){
   var gateInp = document.getElementById("gatePw");
@@ -2801,7 +2801,7 @@ window.addEventListener("online", function(){
   if(cached){
     encBlob = cached.blob;
     cacheUsed = true;
-    gateSub.textContent = "Lokal cache klar — skriv inn passord";
+    gateSub.textContent = "Lokal cache klar – skriv inn passord";
   } else {
     // 2. Fall back to repo seed
     fetch("strategi.enc.json", {cache:"no-store"})
@@ -2823,7 +2823,7 @@ window.addEventListener("online", function(){
     reader.onload = function(){
       try{
         encBlob = JSON.parse(reader.result);
-        gateSub.textContent = "Fil lastet — skriv inn passord";
+        gateSub.textContent = "Fil lastet – skriv inn passord";
         gateSub.style.color = "var(--green)";
         gateInp.focus();
       }catch(err){
@@ -2873,7 +2873,7 @@ window.addEventListener("online", function(){
 })();
 
 // ════════════════════════════════════════════════════════════════
-//  INIT — wire up tabs, render counts, default tab
+//  INIT – wire up tabs, render counts, default tab
 // ════════════════════════════════════════════════════════════════
 function initUI(payload){
   // Load UI preferences before first render
@@ -2911,7 +2911,7 @@ function initUI(payload){
   document.getElementById("cntOut").textContent = countLive(payload.outreach);
 
   // Signerte dokumentlenker er ferskvare (1 t). Mobilen låses typisk i en
-  // pause og lenkene er døde når den låses opp — forny lista når fanen blir
+  // pause og lenkene er døde når den låses opp – forny lista når fanen blir
   // synlig igjen. Kun når Dokumenter faktisk er den aktive fanen; en skjult
   // fane skal aldri koste et nettverkskall.
   document.addEventListener("visibilitychange", function(){
@@ -2929,7 +2929,7 @@ function initUI(payload){
     if(e.target.id === "docDelModal") closeDocDelModal();
   });
 
-  // Dokumentopplasting — FileList må kopieres før value nullstilles, ellers
+  // Dokumentopplasting – FileList må kopieres før value nullstilles, ellers
   // er den tom. Nullstillingen gjør at samme fil kan velges på nytt.
   document.getElementById("docsFile").addEventListener("change", function(){
     var picked = Array.prototype.slice.call(this.files || []);
@@ -2947,7 +2947,7 @@ function initUI(payload){
     if(e.target.id === "helpOverlay") hideHelpOverlay();
   });
 
-  // Sync indicator — clickable when in error/no-config state to open setup
+  // Sync indicator – clickable when in error/no-config state to open setup
   document.getElementById("savedInd").addEventListener("click", function(){
     if(STATE.syncState === "noconfig" || STATE.syncState === "patinvalid") openSetupModal();
     else if(STATE.syncState === "pwmismatch") pwMismatchToast();
@@ -3019,7 +3019,7 @@ function initUI(payload){
 // ════════════════════════════════════════════════════════════════
 //  JOBS TAB
 // ════════════════════════════════════════════════════════════════
-// #4: append-only paginering — mal kun synlige kort + buffer, last mer ved scroll.
+// #4: append-only paginering – mal kun synlige kort + buffer, last mer ved scroll.
 var JOBS_VIEW = { list: [], rendered: 0, io: null };
 var JOBS_PAGE = 60;
 
@@ -3029,8 +3029,8 @@ function jobCardHtml(j, focusedId){
   var scoreClass = j.score >= 60 ? "s-hi" : (j.score < 25 ? "s-lo" : "");
   var senBadge = j.seniority ? '<span class="b-sen b-sen-'+esc(j.seniority)+'">'+esc(j.seniority)+'</span>' : '';
   var prio = j.priority ? '<span class="star" title="Prioritert selskap fra scrape">★</span>' : '';
-  // probablyDown settes av fetch_jobs (autoritative kilder, borte 3+ kjøringer) — null-guardet for eldre payloads
-  var downBadge = j.probablyDown ? '<span class="b-down" title="Ikke sett i kildens stillingsliste på '+(j.missingDays||3)+' kjøringer på rad — trolig tatt ned. Verifiser via lenken.">trolig nedtatt</span>' : '';
+  // probablyDown settes av fetch_jobs (autoritative kilder, borte 3+ kjøringer) – null-guardet for eldre payloads
+  var downBadge = j.probablyDown ? '<span class="b-down" title="Ikke sett i kildens stillingsliste på '+(j.missingDays||3)+' kjøringer på rad – trolig tatt ned. Verifiser via lenken.">trolig nedtatt</span>' : '';
   // Frist på kortet. Uten den sorterte «Frist (nærmest først)» på data du ikke
   // kunne se, og en passert frist var usynlig overalt i Jobber-fanen.
   var dlBadge = "";
@@ -3076,7 +3076,7 @@ function jobCardHtml(j, focusedId){
         '<div class="notes-actions-l">'+
           '<button class="notes-toggle" onclick="toggleNotes(\''+j.id+'\')">'+(j.notes ? "📝 Notater ("+j.notes.length+" tegn)" : "📝 Notater")+'</button>'+
           '<button class="letter-btn" onclick="openLetterModal(\''+j.id+'\')" title="Generer søknadsbrev-prompt">✉ Søknadsbrev</button>'+
-          (JOBBLOGG_URL ? '<button class="letter-btn" onclick="sendToJobblogg(\''+j.id+'\')" title="Send til jobblogg — åpner trackeren med ferdig utfylt prosess (dedupliseres på URL)">⇢ jobblogg</button>' : '')+
+          (JOBBLOGG_URL ? '<button class="letter-btn" onclick="sendToJobblogg(\''+j.id+'\')" title="Send til jobblogg – åpner trackeren med ferdig utfylt prosess (dedupliseres på URL)">⇢ jobblogg</button>' : '')+
         '</div>'+
         (((j.status||"new")==="removed")
           ? '<button class="restore-btn" onclick="restoreJob(\''+j.id+'\')" title="Gjenopprett til forrige status">↺ Gjenopprett</button>'
@@ -3106,7 +3106,7 @@ function ensureRenderedUpTo(idx){
 }
 
 function renderJobs(){
-  // ÉN filter+sort per render — resultatet deles med renderFilterBar og meta-linja.
+  // ÉN filter+sort per render – resultatet deles med renderFilterBar og meta-linja.
   var jobs = getFilteredJobs();
   var scope = countInStatusScope();
   renderFilterBar(jobs, scope);
@@ -3118,7 +3118,7 @@ function renderJobs(){
   var meta_html = jobs.length + " av " + scope + " jobber · " + total + " totalt · " + meta_label + " " + meta_date;
   if(STATE.payload.lastScrape && STATE.payload.lastScrape.at){
     var ls = STATE.payload.lastScrape;
-    // ⚠ når siste scrape er >48 t gammel — cron er daglig; to døgn uten kjøring = noe er galt
+    // ⚠ når siste scrape er >48 t gammel – cron er daglig; to døgn uten kjøring = noe er galt
     var staleScrape = (Date.now() - new Date(ls.at).getTime()) > 48*36e5;
     var scrapeTxt = (staleScrape ? "⚠ " : "") + "sist scrape " + fmtDate(ls.at);
     if(ls.count > 0) scrapeTxt += " (+" + ls.count + " nye)";
@@ -3184,7 +3184,7 @@ function toggleStarred(id){
       var btn = card0.querySelector(".starred-btn");
       if(btn){ btn.classList.toggle("on", !!job.starred); btn.textContent = job.starred ? "★" : "☆"; }
     }
-    renderFilterBar();  // oppdater "Vis kun starred (N)"-telleren — kort-fri, billig
+    renderFilterBar();  // oppdater "Vis kun starred (N)"-telleren – kort-fri, billig
     return;
   }
   // Starred-filter aktivt: membership kan endres → bevar fokus-kontinuitet + full re-render
@@ -3249,7 +3249,7 @@ function applyJobMutation(id, applyFn, toastMsg, toastOpts){
 }
 
 // Soft delete: flipp status → "removed", bevar forrige status i prevStatus.
-// Ingen confirm() — handlingen er reversibel; undo-toast er lavere friksjon.
+// Ingen confirm() – handlingen er reversibel; undo-toast er lavere friksjon.
 function hideJob(id){
   var job = STATE.payload.jobs.find(function(j){return j.id===id;});
   if(!job || (job.status||"new")==="removed") return;
@@ -3286,7 +3286,7 @@ function renderFilterBar(preFiltered, preScope){
   if(inp.value !== f.search) inp.value = f.search;
   document.getElementById("searchClear").classList.toggle("show", !!f.search);
 
-  // Status chips — counts shown are total per status (not after-filter)
+  // Status chips – counts shown are total per status (not after-filter)
   var counts = {};
   JOB_STATUSES.forEach(function(s){counts[s.v] = 0});
   var starredCount = 0;
@@ -3317,7 +3317,7 @@ function renderFilterBar(preFiltered, preScope){
     '<button class="chip chip-starred'+(f.starred?" on":"")+'" id="starredChip">☆ Vis kun starred<span class="cnt">'+starredCount+'</span></button>';
   document.getElementById("propsChips").innerHTML = propsHtml;
 
-  // Source chips — døde kilder (jobindex/jobslu) kollapses under én "Arkiv"-chip (#6)
+  // Source chips – døde kilder (jobindex/jobslu) kollapses under én "Arkiv"-chip (#6)
   var srcKeys = Object.keys(sourceCounts).sort();
   var srcSelected = f.sources && f.sources.length ? new Set(f.sources) : null;
   var srcAllOn = !srcSelected || srcSelected.size === srcKeys.length;
@@ -3368,7 +3368,7 @@ function renderFilterBar(preFiltered, preScope){
       } else {
         var i = f.status.indexOf(v);
         if(i === -1) f.status.push(v); else f.status.splice(i, 1);
-        if(f.status.length === 0) f.status = [v]; // never empty — re-select last toggled
+        if(f.status.length === 0) f.status = [v]; // never empty – re-select last toggled
       }
       saveUiPrefs(); renderJobs();
     });
@@ -3463,7 +3463,7 @@ function bulkMarkSeen(){
   if(!filtered.length) return;
   // Jobber med frist innenfor varselsvinduet holdes på "new". email_reminder.py
   // varsler bare om status "new" (eller stjernemerket), så ett klikk her slo
-  // tidligere av fristvarslingen for alt i filteret — også det som forfaller i morgen.
+  // tidligere av fristvarslingen for alt i filteret – også det som forfaller i morgen.
   var keep = filtered.filter(function(j){
     if(!j.deadline) return false;
     var d = daysUntil(j.deadline);
@@ -3471,7 +3471,7 @@ function bulkMarkSeen(){
   });
   var change = filtered.filter(function(j){ return keep.indexOf(j) === -1; });
   if(!change.length){
-    toast("Alle " + filtered.length + " har frist innen " + URGENT_DEADLINE_DAYS + " dager — beholdt som Ny så varslingen består.");
+    toast("Alle " + filtered.length + " har frist innen " + URGENT_DEADLINE_DAYS + " dager – beholdt som Ny så varslingen består.");
     return;
   }
   var q = "Markere " + change.length + " jobber i filteret som «Sett»?";
@@ -3482,7 +3482,7 @@ function bulkMarkSeen(){
     var job = STATE.payload.jobs.find(function(x){return x.id===j.id});
     if(job){ job.status = "seen"; job.statusUpdated = nowIso; }
   });
-  // Switch status filter to "seen" so user sees what changed; start fresh — clear focus
+  // Switch status filter to "seen" so user sees what changed; start fresh – clear focus
   // and scroll to top of filter-bar so user sees the new filter highlight + list head.
   STATE.uiPrefs.filters.status = keep.length ? ["new","seen"] : ["seen"];
   STATE.uiPrefs.focusedJobId = null;
@@ -3554,7 +3554,7 @@ function hideScorePopover(){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  KILDE-HELSE-POPOVER (juli 2026) — klikkbar «sist scrape» i meta-linja.
+//  KILDE-HELSE-POPOVER (juli 2026) – klikkbar «sist scrape» i meta-linja.
 //  Leser lastScrape.sources {found,kept,new} + sourceHealth
 //  {consecutiveZeroFound,lastOkAt} skrevet av scripts/fetch_jobs.py.
 //  Null-guardet: eldre payloads mangler begge feltene. IKKE paritetsbundet.
@@ -3592,7 +3592,7 @@ function toggleScrapeHealthPopover(anchorEl){
   pop.innerHTML = '<div class="pop-h">Kilde-helse<button class="x" onclick="hideScrapeHealthPopover()" title="Lukk (Esc)">×</button></div>' +
     buildScrapeHealthRows() +
     '<div class="pop-foot"><span>sist scrape: ' + (ls.at ? esc(fmtTime(ls.at)) : "aldri") + '</span><span>rød = alarm-terskel nådd</span></div>';
-  // Posisjonering — samme mønster som showScorePopover (fixed + clamp)
+  // Posisjonering – samme mønster som showScorePopover (fixed + clamp)
   pop.style.position = "fixed";
   pop.style.visibility = "hidden";
   pop.classList.add("show");
@@ -3684,7 +3684,7 @@ function setFocusedStatus(v){
   // Capture position in filtered list BEFORE mutation so we can move focus to
   // the job that "takes over" the slot if the current one is filtered away.
   // JOBS_VIEW.list ER forrige renders getFilteredJobs()-resultat, samme rekkefølge
-  // — gjenbruk det i stedet for å regne filter+sort på nytt (jf. focusStep).
+  // – gjenbruk det i stedet for å regne filter+sort på nytt (jf. focusStep).
   var beforeList = JOBS_VIEW.list && JOBS_VIEW.list.length ? JOBS_VIEW.list : getFilteredJobs();
   var prevIdx = beforeList.findIndex(function(j){return j.id===id});
   job.status = v;
@@ -3714,7 +3714,7 @@ function openFocusedUrl(){
 // ════════════════════════════════════════════════════════════════
 function bindKeyboardShortcuts(){
   document.addEventListener("keydown", function(e){
-    // Bootstrap-lås (.sync-lock) er kun pointer-events — blokker også
+    // Bootstrap-lås (.sync-lock) er kun pointer-events – blokker også
     // tastatursnarveier mens bootstrapSync kjører (Esc slipper gjennom).
     if(STATE.bootstrapping && e.key !== "Escape") return;
     // If overlay open, only Esc passes through; everything else blocked.
@@ -3810,7 +3810,7 @@ function setJobStatus(id, v){
 }
 // Åpne notatfelt er per-sesjon UI-state (samme mønster som PREP_COLLAPSED).
 // Uten dette rev renderJobs() (jobsList.innerHTML = …) et åpent notatfelt hver
-// gang du trykket statusbadgen — feltet lukket seg og fokus forsvant.
+// gang du trykket statusbadgen – feltet lukket seg og fokus forsvant.
 var NOTES_OPEN = {};
 function buildNotesArea(id){
   var area = document.getElementById("notes-"+id);
@@ -3904,7 +3904,7 @@ function jobPrepHtml(j){
       '<div class="prep-field"><label>Dato</label>'+
         '<input type="date" data-jid="'+j.id+'" data-pf="date" '+
         'value="'+esc(d)+'" oninput="onPrepInput(this)"></div>'+
-      ta("who","Hvem jeg møter","Navn — rolle, LinkedIn-URL …")+
+      ta("who","Hvem jeg møter","Navn – rolle, LinkedIn-URL …")+
       ta("research","Firma-research","Q-rapporter, nyheter, nøkkeltall, folk å kjenne til …")+
       ta("starStories","STAR-historier jeg har klar","Situasjon · Task · Action · Result")+
       ta("myQuestions","Mine spørsmål til dem","Hva vil jeg vite om rollen / teamet / veien videre?")+
@@ -3914,7 +3914,7 @@ function jobPrepHtml(j){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  NOTATER TAB — multi-notat + mapper + WYSIWYG, synker via
+//  NOTATER TAB – multi-notat + mapper + WYSIWYG, synker via
 //  payload.notebook. Lagring: sanitert HTML (DOMPurify, allowlist).
 //  scratchpad-feltet beholdes urørt som backup etter migrering.
 // ════════════════════════════════════════════════════════════════
@@ -3956,7 +3956,7 @@ function mdImportToHtml(text){
   return sanitizeNoteHtml(out.join("")) || "<p><br></p>";
 }
 var NOTE_FOLDER_DEFAULTS = ["Journal","Research","Forberedelser","Maler"];
-// Idempotent migrering — kalles ved opplåsing + bootstrap-adopt.
+// Idempotent migrering – kalles ved opplåsing + bootstrap-adopt.
 function ensureNotebook(payload){
   if(!payload) return false;
   if(payload.notebook && payload.notebook.v >= 1) return false; // allerede migrert
@@ -3970,7 +3970,7 @@ function ensureNotebook(payload){
     var wkNum = getWeekId().split("-W")[1] || getWeekId();
     notes.push({
       id: genId(), folderId: folders[0].id,
-      title: "Uke " + wkNum + " — import",
+      title: "Uke " + wkNum + " – import",
       body: mdImportToHtml(sp),
       createdAt: now, updatedAt: now
     });
@@ -3983,7 +3983,7 @@ function ensureNotebook(payload){
 // ── Notebook UI-state (ikke persistert) + accessors ──
 function nbState(){ if(!STATE.nb) STATE.nb = {noteId:null, search:"", mode:"rich", sort:"updated"}; return STATE.nb; }
 function nbData(){ return STATE.payload.notebook || {folders:[], notes:[]}; }
-function nbNotes(){ return nbData().notes || []; }          // rå (inkl. tombstones — for merge/mutasjon)
+function nbNotes(){ return nbData().notes || []; }          // rå (inkl. tombstones – for merge/mutasjon)
 function nbFolders(){ return nbData().folders || []; }       // rå (inkl. tombstones)
 // currentNote ignorerer tombstones: et slettet notat kan aldri være aktivt.
 function currentNote(){ var s = nbState(); return nbNotes().find(function(n){return n.id===s.noteId && !n.deleted}) || null; }
@@ -4024,7 +4024,7 @@ function mergeNotebook(localNb, remoteNb){
   };
 }
 
-// renderNotes — entry point (tab-switch + bootstrap-adopt kaller denne)
+// renderNotes – entry point (tab-switch + bootstrap-adopt kaller denne)
 function renderNotes(){
   if(!STATE.payload) return;
   ensureNotebook(STATE.payload);
@@ -4179,7 +4179,7 @@ function deleteFolder(id){
   mutate(); renderNotes();
   toast("Mappe «"+f.name+"» slettet."+(count?" "+count+" notat(er) → «Uten mappe».":""), {
     actionText:"Angre", ms:8000, action:function(){
-      // updatedAt MÅ settes — ellers vinner en annen enhets tombstone over
+      // updatedAt MÅ settes – ellers vinner en annen enhets tombstone over
       // den gjenopprettede mappen ved neste merge.
       delete f.deleted; delete f.deletedAt; f.updatedAt = new Date().toISOString();
       mutate(); renderNotes();
@@ -4192,7 +4192,7 @@ function togglePin(id){
   mutate(); renderNoteTree();
 }
 function setNoteSort(v){ nbState().sort = v || "updated"; renderNoteTree(); }
-// Debounce 200 ms — samme som jobbsøket (bindFilterControls). Uten den kjørte
+// Debounce 200 ms – samme som jobbsøket (bindFilterControls). Uten den kjørte
 // hvert tastetrykk et fullt tre-render med sanitering av alle notater.
 var NB_SEARCH_TIMER = null;
 function onNoteSearch(v){
@@ -4316,12 +4316,12 @@ function renderWeekly(){
   var total = Object.keys(wc).filter(function(k){return wc[k]}).length;
 
   document.getElementById("weekProgress").innerHTML =
-    '<div class="prog-top"><span style="color:var(--dim)">'+wid+' — '+total+'/'+SOURCES.length+' sjekket</span>'+
+    '<div class="prog-top"><span style="color:var(--dim)">'+wid+' – '+total+'/'+SOURCES.length+' sjekket</span>'+
     '<span style="color:'+(highDone===highSrc.length?"var(--green)":"var(--faint)")+'">Høy prioritet: '+highDone+'/'+highSrc.length+'</span></div>'+
     '<div class="prog-bar"><div class="prog-fill" style="width:'+(total/SOURCES.length*100)+'%;background:'+(total===SOURCES.length?"var(--green)":"var(--accent)")+'"></div></div>';
 
   var html = "";
-  [{p:"høy",label:"Høy prioritet — sjekk ukentlig"},{p:"mid",label:"Medium — sjekk jevnlig"},{p:"lav",label:"Lav — sjekk månedlig"}].forEach(function(g){
+  [{p:"høy",label:"Høy prioritet – sjekk ukentlig"},{p:"mid",label:"Medium – sjekk jevnlig"},{p:"lav",label:"Lav – sjekk månedlig"}].forEach(function(g){
     html += '<div class="sh">'+g.label+'</div>';
     SOURCES.filter(function(s){return s.p===g.p}).forEach(function(s){
       var done = wc[s.id];
@@ -4489,7 +4489,7 @@ function renderOutreach(){
   var html = chipArea;
   list.forEach(function(o){
     var st = OUT_STATUSES.find(function(s){return s.v===o.status}) || OUT_STATUSES[0];
-    // «Dager siden siste kontakt» — umulig før lastContact/updated fantes.
+    // «Dager siden siste kontakt» – umulig før lastContact/updated fantes.
     var since = "";
     var ref = o.lastContact || o.updated || null;
     if(ref){
@@ -4497,7 +4497,7 @@ function renderOutreach(){
       var cls = d >= OUTREACH_STALE_DAYS ? ' style="color:var(--yellow);font-weight:600"' : '';
       since = '<span'+cls+'>'+(d===0?"rørt i dag":(d===1?"1 dag siden":d+" dager siden"))+'</span>';
     }
-    // Neste steg — forfalt vises rødt. Dette er feltet email_reminder.py leser.
+    // Neste steg – forfalt vises rødt. Dette er feltet email_reminder.py leser.
     var nx = "";
     if(o.nextDate){
       var nd = daysUntil(o.nextDate);
@@ -4534,7 +4534,7 @@ function renderOutreach(){
     el.addEventListener("change", function(){ onOutFieldChange(this.dataset.oid, this.dataset.of, this.value); });
   });
 }
-// Endring på nextAction/nextDate skal IKKE nullstille lastContact — dette er
+// Endring på nextAction/nextDate skal IKKE nullstille lastContact – dette er
 // planlegging, ikke kontakt. Derfor eget felt-oppdateringsspor.
 function onOutFieldChange(id, field, value){
   var o = STATE.payload.outreach.find(function(x){return x.id===id;});
@@ -4551,7 +4551,7 @@ function addOut(){
   if(!n||!c) return;
   var nowIso = new Date().toISOString();
   var o = { id: genId(), name: n, company: c, status: "planned", created: nowIso, updated: nowIso };
-  // Valgfrie felter legges bare på når de har innhold — holder payloaden ren.
+  // Valgfrie felter legges bare på når de har innhold – holder payloaden ren.
   [["title","oTitle"],["linkedin","oLinkedin"],["email","oEmail"],["phone","oPhone"],
    ["notes","oNotes"],["nextAction","oNextAction"],["nextDate","oNextDate"]].forEach(function(p){
     var el = document.getElementById(p[1]);
@@ -4566,7 +4566,7 @@ function addOut(){
 function toggleOutStatus(id,e){if(e)e.stopPropagation();var el=document.getElementById("osp-"+id);document.querySelectorAll(".sp-menu.open").forEach(function(m){if(m!==el)m.classList.remove("open")});el.classList.toggle("open")}
 // setAppStatus skrev alltid `updated`; setOutStatus skrev ingenting, så det
 // fantes ikke noe spor av NÅR en kontakt sist ble rørt. lastContact settes i
-// tillegg når statusen betyr faktisk kontakt — det er den email_reminder.py purrer på.
+// tillegg når statusen betyr faktisk kontakt – det er den email_reminder.py purrer på.
 var OUTREACH_CONTACT_STATUSES = ["sent", "replied", "meeting"];
 var OUTREACH_STALE_DAYS = 14;   // KEEP IN SYNC med FOLLOWUP_AFTER_DAYS i email_reminder.py
 function setOutStatus(id,v){
@@ -4599,7 +4599,7 @@ function renderTimeline(){
   var weeks = [
     {w:"Nå",t:"Sett opp systemet",d:"Fullfør ukesjekk én gang. Identifiser 5 personer for outreach. Send første melding.",now:true},
     {w:"Uke 1–2",t:"Bygg momentum",d:"Send 2–3 LinkedIn-meldinger. Søk på alle aktuelle utlysninger. Bli synlig på BI-arrangementer."},
-    {w:"Uke 3–4",t:"Første samtaler",d:"Følg opp folk som har svart. Book 1–2 kaffeprater. Jobb med masteroppgaven — den er samtalegrunnlaget ditt."},
+    {w:"Uke 3–4",t:"Første samtaler",d:"Følg opp folk som har svart. Book 1–2 kaffeprater. Jobb med masteroppgaven – den er samtalegrunnlaget ditt."},
     {w:"Mai",t:"Intensiver",d:"Graduate/trainee-søknader begynner å dukke opp for høststart. Vær tidlig ute. Følg opp alle kontakter fra april."},
     {w:"Juni",t:"Masterinnlevering + sprint",d:"Lever oppgaven. Del funnene på LinkedIn (kort post). Bruk den ekstra tiden til å intensivere jobbsøket."},
     {w:"Sommer",t:"Oppfølging",d:"Mange beslutninger tas etter sommeren. Hold kontakten varm. Send korte oppdateringer til folk du har snakket med."},
@@ -4611,12 +4611,12 @@ function renderTimeline(){
       '<div class="tl-card card"><div class="card-t">'+w.t+'</div><div class="card-m" style="margin-top:6px;color:var(--dim);font-size:.84rem">'+w.d+'</div></div></div>';
   });
   html += '<div style="margin-top:24px;padding:16px 20px;background:var(--accent-g);border:1px solid var(--border-h);border-radius:12px;font-size:.85rem;color:var(--dim)">'+
-    '<strong style="color:var(--accent)">Husk:</strong> Det viktigste er ikke å søke på flest mulige stillinger — det er å ha 3–5 gode samtaler med folk som jobber der du vil jobbe. Resten følger av det.</div>';
+    '<strong style="color:var(--accent)">Husk:</strong> Det viktigste er ikke å søke på flest mulige stillinger – det er å ha 3–5 gode samtaler med folk som jobber der du vil jobbe. Resten følger av det.</div>';
   document.getElementById("timelineContent").innerHTML = html;
 }
 
 // ════════════════════════════════════════════════════════════════
-//  PIPELINE TAB — read-only funnel-diagnostikk fra payload.jobs.
+//  PIPELINE TAB – read-only funnel-diagnostikk fra payload.jobs.
 //  Ingen mutate(), ingen schema-endring. Idempotent: kalles på
 //  hver tab-aktivering for å reflektere ev. payload-endringer.
 // ════════════════════════════════════════════════════════════════
@@ -4659,7 +4659,7 @@ function renderPipeline(){
   rows.forEach(function(r){
     html += '<tr><td>'+r.l+'</td><td class="num">'+r.n+'</td>'+
       '<td class="num">'+r.pctTxt+'</td>'+
-      '<td class="num">'+(r.avg===null ? "—" : r.avg)+'</td></tr>';
+      '<td class="num">'+(r.avg===null ? "–" : r.avg)+'</td></tr>';
   });
   html += '</tbody></table></div>';
   html += '<div class="pl-total">Total: '+total+' jobber</div>';
@@ -4718,23 +4718,23 @@ function renderPipeline(){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  SUPABASE — LEGITIMASJON OG SESJON (dokumentarkivet)
+//  SUPABASE – LEGITIMASJON OG SESJON (dokumentarkivet)
 //
 //  Legitimasjonen bor i den krypterte payloaden (payload.supabase), som
 //  GitHub-PAT-en. Refresh-tokenet lagres BEVISST ikke: Supabase roterer
 //  det ved hver fornyelse, så to enheter ville invalidert hverandres
-//  token, og hver fornyelse måtte skrives tilbake til Gist-en — å åpne
+//  token, og hver fornyelse måtte skrives tilbake til Gist-en – å åpne
 //  et dokument ville blitt en skriveoperasjon på jobbdataene. I stedet
 //  gjør vi en fersk grant_type=password-innlogging per økt. Sesjonen
 //  lever kun i STATE.sb: aldri i localStorage, aldri i payloaden.
 //
-//  Innlogging er lat — den skjer først når Dokumenter-fanen åpnes, ikke
+//  Innlogging er lat – den skjer først når Dokumenter-fanen åpnes, ikke
 //  ved unlock. Ingen andre deler av hubben skal blokkeres av Supabase.
 // ════════════════════════════════════════════════════════════════
 var SB_BUCKET = "jobb-dokumenter";
 
 // Returnerer ferdig validert konfig, eller null når feltet mangler/er ufullstendig
-// (eldre payloads har det ikke — da skal Dokumenter-fanen vise oppsett-tilstanden).
+// (eldre payloads har det ikke – da skal Dokumenter-fanen vise oppsett-tilstanden).
 function sbCfg(){
   var c = STATE.payload && STATE.payload.supabase;
   if(!c || !c.url || !c.anonKey || !c.email || !c.password) return null;
@@ -4745,7 +4745,7 @@ function sbCfg(){
 function sbErrMsg(status, j){
   var d = j && (j.error_description || j.msg || j.message || j.error);
   if(status === 400 || status === 401) return "Innlogging avvist ("+status+"). " + (d || "Sjekk e-post, passord og anon-nøkkel.");
-  if(status === 403) return "Ingen tilgang (403) — sjekk RLS-reglene på bucketen.";
+  if(status === 403) return "Ingen tilgang (403) – sjekk RLS-reglene på bucketen.";
   return "Supabase svarte " + status + (d ? ": " + d : "");
 }
 
@@ -4780,7 +4780,7 @@ async function sbSession(){
 
 // Felles Storage-kall. Access-tokenet varer ~1 t; ved 401 midt i økten gjør vi
 // ETT stille re-innloggingsforsøk og lar deretter feilen bli synlig. Ingen
-// retry-løkke — en død legitimasjon skal ikke hamre mot API-et.
+// retry-løkke – en død legitimasjon skal ikke hamre mot API-et.
 async function sbFetch(pathname, opts, retried){
   var s = await sbSession();
   var o = opts || {};
@@ -4807,7 +4807,7 @@ function sbEncPath(p){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  DOKUMENTER — listing, signerte lenker, render
+//  DOKUMENTER – listing, signerte lenker, render
 //
 //  Sletting finnes bevisst ikke her: den krever at du sitter i
 //  jobbloggen. En feilplassert tommel på mobil skal ikke kunne
@@ -4821,7 +4821,7 @@ var DOCS_MAX_BYTES = 26214400;   // bucketens file_size_limit, jf. supabase/sche
 // Storage-nøkkelen utledes av filnavnet, så de to appene MÅ produsere samme
 // nøkkel for samme fil. Avviker de, får «Vitnemål.pdf» lastet opp herfra en
 // annen nøkkel enn fra jobbloggen, og arkivet ender med to filer der du tror
-// det er én. Endres den ene, må den andre endres i samme slengen — samme
+// det er én. Endres den ene, må den andre endres i samme slengen – samme
 // kontrakt som PROFILE/detectSeniority har mot scripts/fetch_jobs.py.
 //
 // Merk rekkefølgen: -+$ fjerner kun bindestreker helt til slutt i strengen,
@@ -4867,7 +4867,7 @@ async function sbList(){
 // Radene må derfor være ekte <a href> før brukeren trykker. Samme lærdom som
 // jobblogg/src/lib/documents.ts (se kommentaren over DocEntry.url der).
 //
-// signedURL er RELATIV (/object/sign/…?token=…) — full URL er
+// signedURL er RELATIV (/object/sign/…?token=…) – full URL er
 // $SB_URL + "/storage/v1" + signedURL. Glemmer du prefikset får du en lenke
 // som peker på evers.no og en 404 som ser ut som et rettighetsproblem.
 // Batch-svaret har error per element; de radene får ingen lenke og faller
@@ -4904,7 +4904,7 @@ async function sbSignOne(p){
 
 // Opplasting. x-upsert: true → samme filnavn overskriver, som i jobbloggen.
 // FormData-feltnavnene er ikke valgfrie: supabase-js sender "cacheControl" og
-// deretter fila under det TOMME feltnavnet. Content-Type settes bevisst ikke —
+// deretter fila under det TOMME feltnavnet. Content-Type settes bevisst ikke –
 // nettleseren må få sette multipart-grensen selv.
 async function sbUpload(file){
   var s = await sbSession();
@@ -4922,13 +4922,13 @@ async function sbUpload(file){
 // ── Sletting ─────────────────────────────────────────────────────
 // Opphever den opprinnelige «taus om sletting»-beslutningen (2026-07-28):
 // mobiltesten etterlot en testfil, og å måtte innom jobbloggen for å fjerne
-// den er reell friksjon. Tommel-begrunnelsen står — bekreftelsesmodalen er
+// den er reell friksjon. Tommel-begrunnelsen står – bekreftelsesmodalen er
 // svaret på den, ikke fraværet av knappen.
 var DOCS_DEL_IDX = null;
 
 function setDocDelStatus(msg, cls){
   var el = document.getElementById("docDelStatus");
-  el.textContent = msg || "—";
+  el.textContent = msg || "–";
   el.className = "modal-status" + (cls?" "+cls:"");
 }
 function askDeleteDoc(i){
@@ -4947,7 +4947,7 @@ function closeDocDelModal(){
   DOCS_DEL_IDX = null;
 }
 
-// DELETE /object/<bucket> med {prefixes:[…]} — samme form som storage-js sin
+// DELETE /object/<bucket> med {prefixes:[…]} – samme form som storage-js sin
 // remove(). RLS-delete-policyen på storage.objects begrenser til egen mappe.
 async function sbDelete(p){
   var r = await sbFetch("/object/" + SB_BUCKET, {
@@ -4967,7 +4967,7 @@ async function confirmDeleteDoc(){
     setDocDelStatus("Sletter…");
     await sbDelete(d.path);
     closeDocDelModal();
-    STATE.docs = null;      // tving fersk listing — raden skal faktisk forsvinne
+    STATE.docs = null;      // tving fersk listing – raden skal faktisk forsvinne
     await renderDocs();
     toast("«" + d.name + "» er slettet.");
   }catch(e){
@@ -4982,7 +4982,7 @@ function docsPickFiles(){
 }
 
 // Sekvensielt, ikke parallelt: stopp ved første feil og vis den. Størrelsen
-// sjekkes lokalt — 413 fra Storage er kryptisk, og en 25 MB-opplasting som
+// sjekkes lokalt – 413 fra Storage er kryptisk, og en 25 MB-opplasting som
 // dør halvveis på mobilnett er verre enn en beskjed før den starter.
 async function docsUpload(files){
   var list = Array.prototype.slice.call(files || []);
@@ -4994,7 +4994,7 @@ async function docsUpload(files){
   for(var i = 0; i < list.length; i++){
     var f = list[i];
     if(f.size > DOCS_MAX_BYTES){
-      failed = "«" + f.name + "» er " + docsBytes(f.size) + " — arkivet tar maks 25 MB per fil.";
+      failed = "«" + f.name + "» er " + docsBytes(f.size) + " – arkivet tar maks 25 MB per fil.";
       break;
     }
     if(btn) btn.textContent = "Laster opp " + (i+1) + " av " + list.length + " …";
@@ -5031,7 +5031,7 @@ async function openDocFallback(i){
   }
 }
 
-// esc() serialiserer &, < og > — men IKKE ", fordi tekstinnhold ikke trenger
+// esc() serialiserer &, < og > – men IKKE ", fordi tekstinnhold ikke trenger
 // det. I attributtverdier gjør det det: et filnavn fra Storage kan i prinsippet
 // inneholde et anførselstegn (sanitizeFilename hindrer det for filer lastet opp
 // via appene, men ikke for noe lagt inn via Supabase-dashbordet).
@@ -5042,7 +5042,7 @@ function docsRowHtml(d, i){
   var inner = '<span class="doc-name">' + esc(d.name) + '</span>' +
               '<span class="doc-meta">' + esc(meta) + '</span>' +
               '<span class="doc-open">↗</span>';
-  // Slettknappen må ligge UTENFOR åpne-flaten — ellers ville et trykk på den
+  // Slettknappen må ligge UTENFOR åpne-flaten – ellers ville et trykk på den
   // også fulgt lenken.
   var open = d.url
     ? '<a class="doc-open-tgt" href="' + escAttr(d.url) + '" target="_blank" rel="noreferrer">' + inner + '</a>'
@@ -5057,7 +5057,7 @@ async function renderDocs(){
   if(!el) return;
   if(!sbCfg()){
     el.innerHTML = '<div class="empty">Dokumentarkivet er ikke satt opp ennå.<br>' +
-      'Legg inn Supabase-legitimasjonen i oppsettet — samme prosjekt og bruker som jobbloggen.' +
+      'Legg inn Supabase-legitimasjonen i oppsettet – samme prosjekt og bruker som jobbloggen.' +
       '<div style="margin-top:16px"><button class="btn btn-p" onclick="openSetupModal(\'supabase\')">Åpne oppsett</button></div></div>';
     return;
   }
@@ -5073,12 +5073,12 @@ async function renderDocs(){
     var upload = '<button class="btn-ghost" id="btnDocsUpload" onclick="docsPickFiles()" style="margin-bottom:12px">' +
                  '+ Last opp dokument</button>';
     if(!entries.length){
-      el.innerHTML = upload + '<div class="empty">Arkivet er tomt.<br>Last opp CV, vitnemål og attester — ' +
+      el.innerHTML = upload + '<div class="empty">Arkivet er tomt.<br>Last opp CV, vitnemål og attester – ' +
         'PDF, bilde eller Word, inntil 25 MB.</div>';
       return;
     }
     el.innerHTML = upload + entries.map(docsRowHtml).join("") +
-      '<p class="doc-note">Privat bucket med radsikkerhet — kun din bruker ser filene. ' +
+      '<p class="doc-note">Privat bucket med radsikkerhet – kun din bruker ser filene. ' +
       'Lenkene er signert og lever 1 time; lista fornyes når fanen blir synlig igjen.</p>';
   }catch(e){
     if(gen !== DOCS_GEN) return;
@@ -5090,7 +5090,7 @@ async function renderDocs(){
 }
 
 // ════════════════════════════════════════════════════════════════
-//  SNAPSHOT TIL REPO — frivillig nedlasting (seed for nye enheter)
+//  SNAPSHOT TIL REPO – frivillig nedlasting (seed for nye enheter)
 // ════════════════════════════════════════════════════════════════
 async function snapshotToRepo(){
   if(!STATE.payload || !STATE.cryptoKey){ toast("Ingen payload lastet."); return; }
@@ -5100,17 +5100,17 @@ async function snapshotToRepo(){
   try{
     var stamp = new Date().toISOString();
     STATE.payload.lastSnapshotAt = stamp;
-    // No mutate() here — per spec lastSnapshotAt is cosmetic and shouldn't push.
+    // No mutate() here – per spec lastSnapshotAt is cosmetic and shouldn't push.
     // Save to cache so a refresh sees the new field; next real mutation will pick it up to Gist.
     saveToCache();
     // Legitimasjon skal IKKE inn i det offentlige repoet. Seedets jobb er å
-    // bootstrappe jobbdataene på en ny enhet — nøklene kommer inn via Gist-en
+    // bootstrappe jobbdataene på en ny enhet – nøklene kommer inn via Gist-en
     // (supabase) eller ved å lime inn en PAT (gist.pat).
     //
     // ⚠ Object.assign er GRUNN. `supabase` er et toppnivåfelt, så delete på
     // klonen rører ikke originalen. `gist.pat` er NØSTET: clone.gist peker på
     // SAMME objekt som STATE.payload.gist, og en delete rett på den ville
-    // fjernet PAT-en fra den kjørende økta — og fra localStorage ved neste
+    // fjernet PAT-en fra den kjørende økta – og fra localStorage ved neste
     // mutate(). Derfor egen kopi av gist-objektet først.
     //
     // gist.id blir BEVISST værende: da ser doSetup en existingId på en ny
@@ -5126,7 +5126,7 @@ async function snapshotToRepo(){
     var dataStr = JSON.stringify(blob);
     var url = URL.createObjectURL(new Blob([dataStr], {type:"application/json"}));
     var a = document.createElement("a");
-    // Ankeret må i DOM og URL-en må leve litt etter click() — synkron revoke
+    // Ankeret må i DOM og URL-en må leve litt etter click() – synkron revoke
     // avbryter nedlastingen av ~1,9 MB i Firefox/Safari.
     a.href = url; a.download = "strategi.enc.json";
     a.style.display = "none";

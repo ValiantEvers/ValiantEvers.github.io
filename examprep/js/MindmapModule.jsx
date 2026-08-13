@@ -1,4 +1,4 @@
-// MindmapModule.jsx — interactive concept graph powered by Cytoscape.js
+// MindmapModule.jsx – interactive concept graph powered by Cytoscape.js
 (function() {
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
@@ -271,7 +271,7 @@ function lookupDefinition(node, data) {
   if (topicRef) {
     const t = (data.topics || []).find(e => e.id === topicRef);
     if (t) {
-      const sub = (t.subtitle || '').split('—').slice(1).join('—').trim() || t.subtitle || '';
+      const sub = (t.subtitle || '').split('–').slice(1).join('–').trim() || t.subtitle || '';
       return { source: 'topic', id: t.id, term: t.title, definition: sub };
     }
   }
@@ -324,7 +324,7 @@ function PopupCard({ node, position, data, clusters, onClose, onNavigate }) {
       )}
       {!def && node.data.kind === 'root' && (
         <p className="mindmap-popup-def">
-          The full GRA6546 syllabus organised as a connected concept graph. Twelve topic clusters branch out from this centre — each cluster expands into the specific concepts, models, and regulatory frameworks you'll be tested on. Cross-cluster lines mark concepts that bridge two areas of the course.
+          The full GRA6546 syllabus organised as a connected concept graph. Twelve topic clusters branch out from this centre – each cluster expands into the specific concepts, models, and regulatory frameworks you'll be tested on. Cross-cluster lines mark concepts that bridge two areas of the course.
         </p>
       )}
       {!def && node.data.kind !== 'root' && (
@@ -337,7 +337,7 @@ function PopupCard({ node, position, data, clusters, onClose, onNavigate }) {
         <div className="mindmap-popup-freq">
           <span className="mindmap-popup-freq-dot" />
           {freq >= 4
-            ? 'Heavily tested — appears across most past exam papers'
+            ? 'Heavily tested – appears across most past exam papers'
             : freq === 3
               ? 'Frequently tested in past exams'
               : 'Appeared in multiple past exam papers'}

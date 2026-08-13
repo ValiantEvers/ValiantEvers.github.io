@@ -42,7 +42,7 @@
     "topic": "securitisation",
     "prompt": "Synthetic securitisation provides funding for the originating bank.",
     "answer": "false",
-    "explanation": "Synthetic securitisation transfers credit risk via CDS or guarantees but the loans REMAIN on the bank's balance sheet and must be funded. It's a credit-risk-management tool — capital relief, NOT funding. Compare to true-sale securitisation, which provides both."
+    "explanation": "Synthetic securitisation transfers credit risk via CDS or guarantees but the loans REMAIN on the bank's balance sheet and must be funded. It's a credit-risk-management tool – capital relief, NOT funding. Compare to true-sale securitisation, which provides both."
   },
   {
     "id": "tf-cds-synthetic",
@@ -60,7 +60,7 @@
     "topic": "recovery-resolution",
     "prompt": "Bail-out is a measure taken by authorities to AVOID using taxpayers' money.",
     "answer": "false",
-    "explanation": "Bail-out IS the use of taxpayer money — external public funds to recapitalise a failing bank. The tool that AVOIDS taxpayer money is BAIL-IN under the BRRD: equity is wiped out and creditors are converted to equity to recapitalise the bank internally."
+    "explanation": "Bail-out IS the use of taxpayer money – external public funds to recapitalise a failing bank. The tool that AVOIDS taxpayer money is BAIL-IN under the BRRD: equity is wiped out and creditors are converted to equity to recapitalise the bank internally."
   },
   {
     "id": "tf-derivatives-liquidity",
@@ -87,7 +87,7 @@
     "topic": "deposit-insurance",
     "prompt": "Deposit insurance mitigates moral hazard problems in banking.",
     "answer": "false",
-    "explanation": "Deposit insurance CREATES moral hazard. The bank can take more risk without seeing higher funding costs because depositors are protected (within the limit) and no longer monitor the bank. Risk-based premiums and supervision are compensating mitigants — but the insurance itself is the source of the problem."
+    "explanation": "Deposit insurance CREATES moral hazard. The bank can take more risk without seeing higher funding costs because depositors are protected (within the limit) and no longer monitor the bank. Risk-based premiums and supervision are compensating mitigants – but the insurance itself is the source of the problem."
   },
   {
     "id": "tf-impairment-earnings",
@@ -150,7 +150,7 @@
     "topic": "bank-models",
     "prompt": "Higher repo haircuts reduce the gearing achievable using the underlying securities.",
     "answer": "true",
-    "explanation": "Higher haircuts mean less can be borrowed against the same collateral. With a 5% haircut, €100 of bonds support €95 of borrowing; with a 20% haircut, only €80. Less leverage on the same balance sheet — exactly the procyclical mechanism Gorton-Metrick documented for the 2008 \"run on repo.\""
+    "explanation": "Higher haircuts mean less can be borrowed against the same collateral. With a 5% haircut, €100 of bonds support €95 of borrowing; with a 20% haircut, only €80. Less leverage on the same balance sheet – exactly the procyclical mechanism Gorton-Metrick documented for the 2008 \"run on repo.\""
   },
   {
     "id": "tf-cap-req-risk",
@@ -159,7 +159,7 @@
     "topic": "bank-regulation",
     "prompt": "Higher regulatory capital requirements always reduce a bank's risk-taking.",
     "answer": "uncertain",
-    "explanation": "Higher capital gives shareholders more skin in the game (incentive to invest safely). BUT an over-capitalised bank may seek riskier investments to deliver the required ROE on a larger equity base. The net effect depends on capital level, market conditions, and management incentives — empirically ambiguous."
+    "explanation": "Higher capital gives shareholders more skin in the game (incentive to invest safely). BUT an over-capitalised bank may seek riskier investments to deliver the required ROE on a larger equity base. The net effect depends on capital level, market conditions, and management incentives – empirically ambiguous."
   },
   {
     "id": "tf-deleveraging-credit-crunch",
@@ -168,7 +168,7 @@
     "topic": "bank-regulation",
     "prompt": "Bank deleveraging tends to cause credit crunches.",
     "answer": "true",
-    "explanation": "Banks deleverage by either issuing new equity (dilutive, unattractive) or shrinking the balance sheet — typically by cutting lending. Cutting lending = credit crunch. Documented in Ivashina & Scharfstein (2010) for the 2008 crisis."
+    "explanation": "Banks deleverage by either issuing new equity (dilutive, unattractive) or shrinking the balance sheet – typically by cutting lending. Cutting lending = credit crunch. Documented in Ivashina & Scharfstein (2010) for the 2008 crisis."
   },
   {
     "id": "tf-opacity-2008",
@@ -195,7 +195,7 @@
     "topic": "credit-risk",
     "prompt": "A widening of corporate credit spreads necessarily reflects deteriorating borrower fundamentals.",
     "answer": "uncertain",
-    "explanation": "Wider spreads can reflect (a) deteriorating fundamentals (higher PD), (b) higher risk premiums in stress, (c) reduced market liquidity, or (d) rising risk-free rate volatility. In 2008–09 and March 2020, spreads widened largely due to risk-premium and liquidity factors before fundamentals deteriorated. Spread widening is a noisy signal — fundamentals are one driver among several."
+    "explanation": "Wider spreads can reflect (a) deteriorating fundamentals (higher PD), (b) higher risk premiums in stress, (c) reduced market liquidity, or (d) rising risk-free rate volatility. In 2008–09 and March 2020, spreads widened largely due to risk-premium and liquidity factors before fundamentals deteriorated. Spread widening is a noisy signal – fundamentals are one driver among several."
   },
   {
     "id": "tf-adverse-similar-terms",
@@ -220,7 +220,7 @@
       "Numeraire / currency"
     ],
     "answerIndex": 2,
-    "explanation": "QAT covers five dimensions: duration, divisibility, liquidity, credit risk, and numeraire (currency). Geographic location is not part of the standard QAT framework — though geographic diversification is a separate risk-management principle."
+    "explanation": "QAT covers five dimensions: duration, divisibility, liquidity, credit risk, and numeraire (currency). Geographic location is not part of the standard QAT framework – though geographic diversification is a separate risk-management principle."
   },
   {
     "id": "mc-cet1-min",
@@ -252,7 +252,7 @@
       "8%"
     ],
     "answerIndex": 2,
-    "explanation": "The Basel III leverage ratio = Tier 1 / Total Exposures ≥ 3%. It's a non-risk-sensitive backstop against RWA gaming and model failure — separate from the risk-weighted capital ratios."
+    "explanation": "The Basel III leverage ratio = Tier 1 / Total Exposures ≥ 3%. It's a non-risk-sensitive backstop against RWA gaming and model failure – separate from the risk-weighted capital ratios."
   },
   {
     "id": "mc-ifrs9-stage-trigger",
@@ -348,7 +348,7 @@
       "Government recapitalisation"
     ],
     "answerIndex": 4,
-    "explanation": "The four BRRD tools are: Bail-in, Sale of Business, Bridge Institution, Asset Separation. Government recapitalisation (bail-out) is the OLD approach — explicitly avoided by BRRD because it places losses on taxpayers."
+    "explanation": "The four BRRD tools are: Bail-in, Sale of Business, Bridge Institution, Asset Separation. Government recapitalisation (bail-out) is the OLD approach – explicitly avoided by BRRD because it places losses on taxpayers."
   },
   {
     "id": "mc-credit-hierarchy-norway",
@@ -444,7 +444,7 @@
       "Credit Suisse executives received bonuses for delivering the merger"
     ],
     "answerIndex": 1,
-    "explanation": "The Swiss authorities wrote down ~CHF 16bn of AT1 hybrid capital to zero while equity holders received UBS shares — a deviation from the standard creditor hierarchy. This was legally permitted under Swiss AT1 contracts but commercially shocking. It triggered a global repricing of AT1 markets."
+    "explanation": "The Swiss authorities wrote down ~CHF 16bn of AT1 hybrid capital to zero while equity holders received UBS shares – a deviation from the standard creditor hierarchy. This was legally permitted under Swiss AT1 contracts but commercially shocking. It triggered a global repricing of AT1 markets."
   },
   {
     "id": "mc-stiglitz-weiss",
@@ -487,12 +487,12 @@
     "options": [
       "Depositors are irrational",
       "The bank is genuinely insolvent",
-      "If all depositors withdraw, the bank must liquidate long-term assets at a loss; if only early types withdraw, the bank is solvent — so each depositor's optimal action depends on what others do",
+      "If all depositors withdraw, the bank must liquidate long-term assets at a loss; if only early types withdraw, the bank is solvent – so each depositor's optimal action depends on what others do",
       "Banks deliberately under-reserve",
       "Deposit insurance is unavailable"
     ],
     "answerIndex": 2,
-    "explanation": "Diamond-Dybvig has TWO equilibria. In the good equilibrium, only depositors with genuine early liquidity needs withdraw — the bank is solvent. In the bad equilibrium, everyone withdraws because everyone EXPECTS everyone to withdraw — forcing premature liquidation that makes the bank insolvent. The run is a coordination failure, not a fundamentals problem."
+    "explanation": "Diamond-Dybvig has TWO equilibria. In the good equilibrium, only depositors with genuine early liquidity needs withdraw – the bank is solvent. In the bad equilibrium, everyone withdraws because everyone EXPECTS everyone to withdraw – forcing premature liquidation that makes the bank insolvent. The run is a coordination failure, not a fundamentals problem."
   },
   {
     "id": "mc-merton-1977",
@@ -502,13 +502,13 @@
     "prompt": "What does Merton (1977) tell us about deposit insurance?",
     "options": [
       "Deposit insurance should always be free",
-      "Insurance value rises with asset volatility (σ) and leverage (D/A) — so flat-rate premiums underprice risky banks and create moral hazard",
+      "Insurance value rises with asset volatility (σ) and leverage (D/A) – so flat-rate premiums underprice risky banks and create moral hazard",
       "Deposits are always safer than equity",
       "Deposit insurance is a perfect substitute for capital regulation",
       "Insurance value is independent of the bank's risk profile"
     ],
     "answerIndex": 1,
-    "explanation": "Merton modelled deposit insurance as a put option on bank assets. Its value rises with asset volatility and leverage. A flat-rate premium therefore subsidises risky banks at the expense of safe ones — creating moral hazard. Risk-based premiums are needed to remove the subsidy."
+    "explanation": "Merton modelled deposit insurance as a put option on bank assets. Its value rises with asset volatility and leverage. A flat-rate premium therefore subsidises risky banks at the expense of safe ones – creating moral hazard. Risk-based premiums are needed to remove the subsidy."
   },
   {
     "id": "mc-fx-swap-mechanic",
@@ -556,7 +556,7 @@
       "Carry-trade unwinding by US hedge funds"
     ],
     "answerIndex": 2,
-    "explanation": "Two channels drove the unprecedented NOK depreciation: (1) over-hedging — foreign equity values fell, leaving Norwegian NBFIs over-hedged, requiring NOK sales to buy back foreign currency; (2) margining — adverse MTM on FX hedges triggered margin calls, forcing NBFIs to sell Norwegian bonds. The oil collapse contributed but was not the primary mechanism (Alstadheim et al.)."
+    "explanation": "Two channels drove the unprecedented NOK depreciation: (1) over-hedging – foreign equity values fell, leaving Norwegian NBFIs over-hedged, requiring NOK sales to buy back foreign currency; (2) margining – adverse MTM on FX hedges triggered margin calls, forcing NBFIs to sell Norwegian bonds. The oil collapse contributed but was not the primary mechanism (Alstadheim et al.)."
   },
   {
     "id": "mc-securitisation-tranches",
@@ -588,7 +588,7 @@
       "A CDO with a 5-year maturity"
     ],
     "answerIndex": 2,
-    "explanation": "CDO-squared = CDO of CDOs. Mezzanine BBB tranches from multiple CDOs are pooled into a new CDO and re-tranched, supposedly producing AAA senior pieces. In 2008, when correlation broke, supposedly safe AAA CDO² tranches defaulted en masse — a textbook example of complexity hiding tail risk."
+    "explanation": "CDO-squared = CDO of CDOs. Mezzanine BBB tranches from multiple CDOs are pooled into a new CDO and re-tranched, supposedly producing AAA senior pieces. In 2008, when correlation broke, supposedly safe AAA CDO² tranches defaulted en masse – a textbook example of complexity hiding tail risk."
   },
   {
     "id": "mc-esg-physical",
@@ -636,7 +636,7 @@
       "€1,000,000"
     ],
     "answerIndex": 2,
-    "explanation": "EU/EEA standard is €100,000 per depositor per bank under the Deposit Guarantee Schemes Directive. Norway has a higher coverage of NOK 2,000,000 per depositor per bank — significantly above the EU floor."
+    "explanation": "EU/EEA standard is €100,000 per depositor per bank under the Deposit Guarantee Schemes Directive. Norway has a higher coverage of NOK 2,000,000 per depositor per bank – significantly above the EU floor."
   },
   {
     "id": "mc-norway-coverage",
@@ -652,7 +652,7 @@
       "Unlimited"
     ],
     "answerIndex": 2,
-    "explanation": "Norway's coverage is NOK 2,000,000 per depositor per bank — significantly higher than the EU's €100,000 floor. Funded by ex-ante contributions to the Norwegian Banks' Guarantee Fund."
+    "explanation": "Norway's coverage is NOK 2,000,000 per depositor per bank – significantly higher than the EU's €100,000 floor. Funded by ex-ante contributions to the Norwegian Banks' Guarantee Fund."
   },
   {
     "id": "mc-lcr-purpose",
@@ -684,7 +684,7 @@
       "Default probability"
     ],
     "answerIndex": 1,
-    "explanation": "NSFR ensures sustainable funding over a 1-year horizon. ASF (Available Stable Funding) / RSF (Required Stable Funding) ≥ 100%. Complements LCR's 30-day window — together they address acute and structural funding risk."
+    "explanation": "NSFR ensures sustainable funding over a 1-year horizon. ASF (Available Stable Funding) / RSF (Required Stable Funding) ≥ 100%. Complements LCR's 30-day window – together they address acute and structural funding risk."
   },
   {
     "id": "mc-may-2025-bail-in",

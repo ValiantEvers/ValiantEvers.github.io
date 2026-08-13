@@ -348,21 +348,21 @@
       "TAX_PAID_PRO_RATA",
       "SKJERMINGSRENTE_PROVISIONAL"
     ],
-    "illustrative_no": "Illustrative scenarier. Skattebehandlingen er eksakt (beregnet av motoren), men avkastningsbanene er stiliserte forutsetninger — IKKE prognoser og IKKE historiske Oslo Børs-data. Poenget er den RELATIVE forskjellen etter skatt mellom kontotypene, ikke de absolutte avkastningstallene.",
+    "illustrative_no": "Illustrative scenarier. Skattebehandlingen er eksakt (beregnet av motoren), men avkastningsbanene er stiliserte forutsetninger – IKKE prognoser og IKKE historiske Oslo Børs-data. Poenget er den RELATIVE forskjellen etter skatt mellom kontotypene, ikke de absolutte avkastningstallene.",
     "not_tax_advice_no": "Beslutningsstøtte, ikke skatteråd. Verifiser mot Skatteetaten og din egen skattemelding før du bruker tallene til noe.",
-    "skjermingsrente_provisional_no": "Skjermingsrenten for 2026 er foreløpig — den fastsettes av Skattedirektoratet først i januar 2027; siste fastsatte rente (2025: 3,6 %) er brukt som proxy."
+    "skjermingsrente_provisional_no": "Skjermingsrenten for 2026 er foreløpig – den fastsettes av Skattedirektoratet først i januar 2027; siste fastsatte rente (2025: 3,6 %) er brukt som proxy."
   },
   "rates": {
     "aar": 2026,
     "hentet": "2026-06-10",
     "kilder": [
-      "Stortingsvedtak om skatt for inntektsåret 2026, vedtatt 2025-12-18 (https://lovdata.no/dokument/STV/forskrift/2025-12-18-2747) — formuesskatt §2-1/§2-3 (bunnfradrag 1,9 MNOK, statlig 0,65 %/0,75 % over 21,5 MNOK, kommunal maks 0,35 %), selskapsskatt §3-3",
-      "Regjeringen — Skattesatser 2026 (https://www.regjeringen.no/no/tema/okonomi-og-budsjett/skatter-og-avgifter/skatte-og-avgiftssatser/skattesatser-2026/id3121978/) — full tabell 2025→2026",
-      "Skatteetaten — oppjusteringsfaktor (https://www.skatteetaten.no/en/rates/factor-for-upward-adjustment-of-gainloss-or-dividend-on-shares/) — 1,72 i 2026",
-      "Skatteetaten — skjermingsrente (https://www.skatteetaten.no/en/rates/risk-free-interest-rate-for-shares-and-sole-proprietorships/) — 2026-renten fastsettes av Skattedirektoratet i januar 2027; siste fastsatte er 2025: 3,6 %",
+      "Stortingsvedtak om skatt for inntektsåret 2026, vedtatt 2025-12-18 (https://lovdata.no/dokument/STV/forskrift/2025-12-18-2747) – formuesskatt §2-1/§2-3 (bunnfradrag 1,9 MNOK, statlig 0,65 %/0,75 % over 21,5 MNOK, kommunal maks 0,35 %), selskapsskatt §3-3",
+      "Regjeringen – Skattesatser 2026 (https://www.regjeringen.no/no/tema/okonomi-og-budsjett/skatter-og-avgifter/skatte-og-avgiftssatser/skattesatser-2026/id3121978/) – full tabell 2025→2026",
+      "Skatteetaten – oppjusteringsfaktor (https://www.skatteetaten.no/en/rates/factor-for-upward-adjustment-of-gainloss-or-dividend-on-shares/) – 1,72 i 2026",
+      "Skatteetaten – skjermingsrente (https://www.skatteetaten.no/en/rates/risk-free-interest-rate-for-shares-and-sole-proprietorships/) – 2026-renten fastsettes av Skattedirektoratet i januar 2027; siste fastsatte er 2025: 3,6 %",
       "Skatteloven §4-12 (børsnotert aksje 80 %), §4-19, §2-38 sjette ledd (lovdata.no)"
     ],
-    "merknad": "Vedtatte 2026-satser, researchet med kilde-URL per verdi og adversarialt verifisert (null korreksjoner). FORELØPIG: skjermingsrenten for 2026 fastsettes først i januar 2027 — 2025-renten (3,6 %) brukes som proxy; oppdater når fastsatt. Formuesskatten er restrukturert: kommunal 0,525→0,35 %, statlig trinn 1 0,475→0,65 %, trinn 2 0,575→0,75 %, innslag 20,7→21,5 MNOK, bunnfradrag 1,76→1,9 MNOK — samlede marginalsatser uendret (1,0 %/1,1 %)."
+    "merknad": "Vedtatte 2026-satser, researchet med kilde-URL per verdi og adversarialt verifisert (null korreksjoner). FORELØPIG: skjermingsrenten for 2026 fastsettes først i januar 2027 – 2025-renten (3,6 %) brukes som proxy; oppdater når fastsatt. Formuesskatten er restrukturert: kommunal 0,525→0,35 %, statlig trinn 1 0,475→0,65 %, trinn 2 0,575→0,75 %, innslag 20,7→21,5 MNOK, bunnfradrag 1,76→1,9 MNOK – samlede marginalsatser uendret (1,0 %/1,1 %)."
   },
   "rebalancer_demo": {
     "ask": {
@@ -431,7 +431,7 @@
       "4": "TEL"
     },
     "note": "Illustrative positions, not advice on these companies.",
-    "note_no": "Illustrative posisjoner — ikke råd om disse selskapene. Ekte rebalansering av egne beholdninger kjøres lokalt/privat; ingen data lastes opp her.",
+    "note_no": "Illustrative posisjoner – ikke råd om disse selskapene. Ekte rebalansering av egne beholdninger kjøres lokalt/privat; ingen data lastes opp her.",
     "on": "2025-10-01",
     "taxable": {
       "comparison": [

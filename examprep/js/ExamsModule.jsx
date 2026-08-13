@@ -3,12 +3,12 @@
 const { useState, useMemo } = React;
 
 const PAPERS = [
-  { id: 'spring-2025-final',   label: 'May 2025 — Final (GRA 65463)',     year: 2025, type: 'final',   date: '2025-05-14' },
-  { id: 'spring-2025-midterm', label: 'Feb 2025 — Mid-term (GRA 65462)',  year: 2025, type: 'midterm', date: '2025-02-14' },
-  { id: 'spring-2024-final',   label: 'May 2024 — Final (GRA 65463 V3)',  year: 2024, type: 'final',   date: '2024-05-15' },
-  { id: 'spring-2024-midterm', label: 'Feb 2024 — Mid-term (GRA 65462)',  year: 2024, type: 'midterm', date: '2024-02-14' },
-  { id: 'final-2023',          label: '2023 — Final',                     year: 2023, type: 'final',   date: '2023-05-15' },
-  { id: 'final-2022',          label: '2022 — Final',                     year: 2022, type: 'final',   date: '2022-05-15' },
+  { id: 'spring-2025-final',   label: 'May 2025 – Final (GRA 65463)',     year: 2025, type: 'final',   date: '2025-05-14' },
+  { id: 'spring-2025-midterm', label: 'Feb 2025 – Mid-term (GRA 65462)',  year: 2025, type: 'midterm', date: '2025-02-14' },
+  { id: 'spring-2024-final',   label: 'May 2024 – Final (GRA 65463 V3)',  year: 2024, type: 'final',   date: '2024-05-15' },
+  { id: 'spring-2024-midterm', label: 'Feb 2024 – Mid-term (GRA 65462)',  year: 2024, type: 'midterm', date: '2024-02-14' },
+  { id: 'final-2023',          label: '2023 – Final',                     year: 2023, type: 'final',   date: '2023-05-15' },
+  { id: 'final-2022',          label: '2022 – Final',                     year: 2022, type: 'final',   date: '2022-05-15' },
 ];
 
 const GRADING = [
@@ -72,7 +72,7 @@ function ExamsModule({ data, pendingExamNav }) {
 
           {allReconstructed && (
             <div className="exam-reconstructed-banner">
-              <strong>Reconstructed paper.</strong> The original question paper for this year was not available — only the grading-guide answer key. The prompts below are inferred from the answer text and may not match the actual exam wording. The model answers, however, are taken verbatim from the answer key. Use the May 2025 paper as the most reliable predictor.
+              <strong>Reconstructed paper.</strong> The original question paper for this year was not available – only the grading-guide answer key. The prompts below are inferred from the answer text and may not match the actual exam wording. The model answers, however, are taken verbatim from the answer key. Use the May 2025 paper as the most reliable predictor.
             </div>
           )}
 
@@ -219,7 +219,7 @@ function QuestionRow({ q, expanded, onToggle, allEntries }) {
         <span className="exam-q-prompt">{q.prompt}</span>
         <span className="exam-q-points">{q.points} pts</span>
         {q.reconstructed && (
-          <span className="exam-q-reconstructed-badge" title="Prompt reconstructed from answer key — may not match the original wording">recon</span>
+          <span className="exam-q-reconstructed-badge" title="Prompt reconstructed from answer key – may not match the original wording">recon</span>
         )}
         {q.topicTags && q.topicTags.length > 0 && (
           <div style={{ display:'flex', gap:4, flexShrink:0 }}>

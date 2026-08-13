@@ -1,4 +1,4 @@
-// MockExamModule.jsx — timed full-exam simulation
+// MockExamModule.jsx – timed full-exam simulation
 (function() {
 const { useState, useMemo, useEffect, useRef } = React;
 
@@ -6,31 +6,31 @@ const { useState, useMemo, useEffect, useRef } = React;
 const PAPER_TEMPLATES = [
   {
     id: 'spring-2025-final',
-    label: 'May 2025 — Final (GRA 65463)',
+    label: 'May 2025 – Final (GRA 65463)',
     description: 'The most recent past paper. Closest predictor of the May 2026 exam.',
     durationSec: 3 * 60 * 60,  // 3 hours
   },
   {
     id: 'spring-2024-final',
-    label: 'May 2024 — Final (GRA 65463 V3)',
+    label: 'May 2024 – Final (GRA 65463 V3)',
     description: 'A second full paper to attempt. Heavy on FX swaps and 2008 reforms.',
     durationSec: 3 * 60 * 60,
   },
   {
     id: 'final-2023',
-    label: '2023 — Final',
+    label: '2023 – Final',
     description: 'Older format with longer essay questions.',
     durationSec: 3 * 60 * 60,
   },
   {
     id: 'final-2022',
-    label: '2022 — Final',
+    label: '2022 – Final',
     description: 'Includes Akerlof lemons numerical and bail-in calculation.',
     durationSec: 3 * 60 * 60,
   },
 ];
 
-// May 2025 (and most recent) scale — also the precedent for May 2026
+// May 2025 (and most recent) scale – also the precedent for May 2026
 const GRADING_RECENT = [
   { grade: 'A', min: 75 }, { grade: 'B', min: 65 }, { grade: 'C', min: 55 },
   { grade: 'D', min: 45 }, { grade: 'E', min: 35 }, { grade: 'F', min: 0 },
@@ -163,7 +163,7 @@ function MockExamModule({ data }) {
 
           <div className="mock-grading-ref">
             <span className="label">
-              Grade thresholds — {paperId === 'spring-2024-final' ? 'Spring 2024 scale (stricter)' : 'May 2025 scale (also expected for May 2026)'}
+              Grade thresholds – {paperId === 'spring-2024-final' ? 'Spring 2024 scale (stricter)' : 'May 2025 scale (also expected for May 2026)'}
             </span>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 6 }}>
               {(paperId === 'spring-2024-final' ? GRADING_SPRING2024 : GRADING_RECENT).map(g => (

@@ -1,4 +1,4 @@
-// TopicsModule.jsx — 8 topic-summary pages for last-minute exam revision
+// TopicsModule.jsx – 8 topic-summary pages for last-minute exam revision
 (function() {
 const { useState, useEffect, useMemo } = React;
 
@@ -83,7 +83,7 @@ function TopicsModule({ data, navigateToExam, pendingTopicNav }) {
             aria-current={selectedId === t.id ? 'page' : undefined}
           >
             <span className="item-term">{t.title}</span>
-            <span className="item-type">{(t.subtitle || '').split('—')[0].trim()}</span>
+            <span className="item-type">{(t.subtitle || '').split('–')[0].trim()}</span>
           </button>
         ))}
       </aside>
@@ -91,9 +91,9 @@ function TopicsModule({ data, navigateToExam, pendingTopicNav }) {
       <article className="topics-detail" aria-label="Topic detail">
         {selected ? (
           <>
-            <div className="detail-type-label">Topic — {selected.subtitle && selected.subtitle.split('—')[0].trim()}</div>
+            <div className="detail-type-label">Topic – {selected.subtitle && selected.subtitle.split('–')[0].trim()}</div>
             <h1 className="detail-term">{selected.title}</h1>
-            <p className="detail-summary">{selected.subtitle && selected.subtitle.split('—').slice(1).join('—').trim()}</p>
+            <p className="detail-summary">{selected.subtitle && selected.subtitle.split('–').slice(1).join('–').trim()}</p>
 
             {selected.examWeight && (
               <div className="topic-exam-weight">
@@ -135,7 +135,7 @@ function TopicsModule({ data, navigateToExam, pendingTopicNav }) {
                     <li key={i} className={r.supplementary ? 'supp' : ''}>
                       <span className="reading-author">{r.author}</span>
                       {r.year && <span className="reading-year"> ({r.year})</span>}
-                      {r.title && <span className="reading-title"> — {r.title}</span>}
+                      {r.title && <span className="reading-title"> – {r.title}</span>}
                       {r.supplementary && <span className="reading-supp"> *supplementary</span>}
                     </li>
                   ))}
@@ -157,7 +157,7 @@ function TopicsModule({ data, navigateToExam, pendingTopicNav }) {
                         onClick={() => navigateToExam && navigateToExam(qid)}
                         title={q.prompt}
                       >
-                        <strong>{q.paperLabel.replace(' — ', ' ').replace(/\(.*?\)/, '').trim()}</strong>
+                        <strong>{q.paperLabel.replace(' – ', ' ').replace(/\(.*?\)/, '').trim()}</strong>
                         <span style={{ marginLeft: 6 }}>Q{q.questionNumber}</span>
                         <span style={{ marginLeft: 6, color: 'var(--ink-light)' }}>· {q.points} pts</span>
                       </button>

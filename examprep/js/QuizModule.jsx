@@ -1,4 +1,4 @@
-// QuizModule.jsx — multiple-choice + true/false-with-explanation practice
+// QuizModule.jsx – multiple-choice + true/false-with-explanation practice
 (function() {
 const { useState, useMemo, useEffect } = React;
 

@@ -4,22 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0a0c10">
-<title>Aksjeskatt på tvers av kontotyper — Valiant Evers</title>
-<meta name="description" content="Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap. Alle tall beregnet av en deterministisk skattemotor — ingen skatteregning i nettleseren, ingen data lastes opp.">
+<title>Aksjeskatt på tvers av kontotyper – Valiant Evers</title>
+<meta name="description" content="Interaktiv sammenligning av avkastning etter skatt i vanlig depot, ASK og holdingselskap. Alle tall beregnet av en deterministisk skattemotor – ingen skatteregning i nettleseren, ingen data lastes opp.">
 <link rel="canonical" href="https://www.evers.no/aksjeskatt/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:url" content="https://www.evers.no/aksjeskatt/">
 <meta property="og:title" content="Aksjeskatt på tvers av kontotyper">
-<meta property="og:description" content="Vanlig depot vs ASK vs holdingselskap — etter skatt. Se kurvene krysse og rangeringen snu.">
+<meta property="og:description" content="Vanlig depot vs ASK vs holdingselskap – etter skatt. Se kurvene krysse og rangeringen snu.">
 <meta property="og:image" content="https://www.evers.no/aksjeskatt/og-aksjeskatt.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Aksjeskatt på tvers av kontotyper — evers.no">
+<meta property="og:image:alt" content="Aksjeskatt på tvers av kontotyper – evers.no">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Aksjeskatt på tvers av kontotyper">
-<meta name="twitter:description" content="Vanlig depot vs ASK vs holdingselskap — etter skatt. Se kurvene krysse og rangeringen snu.">
+<meta name="twitter:description" content="Vanlig depot vs ASK vs holdingselskap – etter skatt. Se kurvene krysse og rangeringen snu.">
 <meta name="twitter:image" content="https://www.evers.no/aksjeskatt/og-aksjeskatt.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script src="./vendor/lightweight-charts.standalone.js"></script>
@@ -119,8 +119,8 @@
 <div class="wrap">
   <header>
     <h1>Aksjeskatt på tvers av kontotyper</h1>
-    <p class="lede">Samme strategi, tre innpakninger — <b>vanlig depot</b>, <b>aksjesparekonto (ASK)</b>
-      og <b>holdingselskap</b> — sammenlignet <b>etter skatt</b>. Velg et scenario og se kurvene krysse,
+    <p class="lede">Samme strategi, tre innpakninger – <b>vanlig depot</b>, <b>aksjesparekonto (ASK)</b>
+      og <b>holdingselskap</b> – sammenlignet <b>etter skatt</b>. Velg et scenario og se kurvene krysse,
       skattesplitten og hvordan rangeringen etter skatt kan snu rangeringen før skatt.</p>
     <button class="btn" id="openGuide" aria-haspopup="dialog">📖 Skattemekanikk forklart</button>
   </header>
@@ -168,7 +168,7 @@
       <div class="v" id="flipText"></div>
     </div>
 
-    <h2>Etter skatt — hele <span id="hy">20</span>-årsløpet</h2>
+    <h2>Etter skatt – hele <span id="hy">20</span>-årsløpet</h2>
     <div class="grid" id="rankCards"></div>
 
     <h2>Skattesplitt per kontotype</h2>
@@ -385,7 +385,7 @@
       return f.status === sel.status && String(f.capital) === String(sel.capital) && f.yield_pct === sel.yield_pct;
     });
     if(fx.length){ txt += " " + fx[0].no; }
-    else { txt += " Forskjellen mellom kontotypene er ren skatteeffekt — les den relative forskjellen, ikke de absolutte tallene."; }
+    else { txt += " Forskjellen mellom kontotypene er ren skatteeffekt – les den relative forskjellen, ikke de absolutte tallene."; }
     document.getElementById("flipText").innerHTML = txt;
   }
 
@@ -404,7 +404,7 @@
     var tax = d.taxable, ask = d.ask;
     p.innerHTML =
       '<p><span class="badge">Demo</span> &nbsp;<small>'+d.note_no+'</small></p>'+
-      '<p style="margin:.6em 0 .2em"><b>Vanlig depot</b> — anbefalte handler (anbefaler kun, utfører ingenting):</p>'+
+      '<p style="margin:.6em 0 .2em"><b>Vanlig depot</b> – anbefalte handler (anbefaler kun, utfører ingenting):</p>'+
       '<table><thead><tr><th>Handling</th><th>Antall</th><th>Beløp</th><th></th></tr></thead><tbody>'+tradeRows(tax)+'</tbody></table>'+
       '<p style="margin:.6em 0">Netto realisert: <span class="mono">'+fmtKr(parseFloat(tax.tax.net_realized))+
         '</span> → skatt <span class="mono '+(parseFloat(tax.tax.skatt_kr)<0?'pos':'')+'">'+fmtKr(parseFloat(tax.tax.skatt_kr))+
@@ -421,10 +421,10 @@
   // --- guide modal ---
   var GUIDE = [
     ["Aksjeoppjustering", "Gevinst og utbytte på aksjer ganges med en oppjusteringsfaktor (1,72 i 2026) før de skattlegges med 22 %. Effektiv sats blir derfor ca. 37,84 %. Dette gjelder i vanlig depot og ved uttak fra ASK."],
-    ["Skjermingsfradrag", "Et skjermingsfradrag (skjermingsrente × kostpris) skjermer en del av utbytte/gevinst mot skatt. Ubrukt skjerming akkumuleres år for år og kan brukes senere — en fordel for langsiktige eiere."],
-    ["ASK — utsatt skatt", "På aksjesparekonto kan du kjøpe og selge aksjer/fond uten å utløse skatt; gevinst skattlegges først ved uttak utover innskutt beløp. Innskuddet kan tas ut skattefritt først. Utsettelsen gir rentes-rente på ubeskattet kapital."],
+    ["Skjermingsfradrag", "Et skjermingsfradrag (skjermingsrente × kostpris) skjermer en del av utbytte/gevinst mot skatt. Ubrukt skjerming akkumuleres år for år og kan brukes senere – en fordel for langsiktige eiere."],
+    ["ASK – utsatt skatt", "På aksjesparekonto kan du kjøpe og selge aksjer/fond uten å utløse skatt; gevinst skattlegges først ved uttak utover innskutt beløp. Innskuddet kan tas ut skattefritt først. Utsettelsen gir rentes-rente på ubeskattet kapital."],
     ["Fritaksmetoden (§2-38)", "Et holdingselskap (AS) betaler i praksis ingen skatt på aksjegevinster og kun 0,66 % på utbytte innenfor selskapet. Skatt utløses først når penger tas ut til deg som personlig eier. Bra for reinvestering, men gir et ekstra skattelag ved uttak."],
-    ["Formuesskatt", "Beregnes årlig per 31.12 av nettoformue over et bunnfradrag (verdsettingsrabatt på aksjer). Den er ikke-lineær: under bunnfradraget betaler du ingenting, over slår den inn. Derfor oppfører små og store porteføljer seg ulikt — og derfor er kapitalnivåene her diskrete valg, ikke en glidende skala."]
+    ["Formuesskatt", "Beregnes årlig per 31.12 av nettoformue over et bunnfradrag (verdsettingsrabatt på aksjer). Den er ikke-lineær: under bunnfradraget betaler du ingenting, over slår den inn. Derfor oppfører små og store porteføljer seg ulikt – og derfor er kapitalnivåene her diskrete valg, ikke en glidende skala."]
   ];
   function buildGuide(){
     var body = document.getElementById("guideBody"); body.innerHTML = "";

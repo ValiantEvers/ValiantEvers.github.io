@@ -6,8 +6,8 @@
     "max_years": 30,
     "monthly_growth": "1.004",
     "profile_no": {
-      "aktiv": "porteføljen vedlikeholdes — fond byttes/rebalanseres tilsvarende 30 % årlig omløp",
-      "passiv": "kjøp og hold — porteføljen røres aldri før horisonten"
+      "aktiv": "porteføljen vedlikeholdes – fond byttes/rebalanseres tilsvarende 30 % årlig omløp",
+      "passiv": "kjøp og hold – porteføljen røres aldri før horisonten"
     },
     "start": "2026-01-01"
   },
@@ -40119,10 +40119,10 @@
       "SKJERMINGSRENTE_PROVISIONAL"
     ],
     "household_no": "Rentedelen av beløpet holdes flat og uskattet i modellen (som bankinnskudd i formuesgrunnlaget), og husholdningens samlede formuesskatt trekkes fra aksjedelen. Rangeringen mellom kontotyper påvirkes ikke.",
-    "illustrative_no": "Illustrative scenarier. Skattebehandlingen er eksakt (beregnet av motoren), men avkastningsbanen er én stilisert forutsetning — IKKE en prognose og IKKE historiske data. Poenget er den RELATIVE forskjellen mellom kontotypene for DIN profil, ikke kronebeløpene.",
-    "liquidation_no": "Sluttbeløpene forutsetter at alt selges og tas ut ved horisonten — også i vanlig depot, der gevinsten da skattlegges. Kurvene i grafen viser verdiutviklingen FØR salg og uttak.",
+    "illustrative_no": "Illustrative scenarier. Skattebehandlingen er eksakt (beregnet av motoren), men avkastningsbanen er én stilisert forutsetning – IKKE en prognose og IKKE historiske data. Poenget er den RELATIVE forskjellen mellom kontotypene for DIN profil, ikke kronebeløpene.",
+    "liquidation_no": "Sluttbeløpene forutsetter at alt selges og tas ut ved horisonten – også i vanlig depot, der gevinsten da skattlegges. Kurvene i grafen viser verdiutviklingen FØR salg og uttak.",
     "not_tax_advice_no": "Beslutningsstøtte, ikke skatteråd eller investeringsråd. Verifiser mot Skatteetaten og din egen situasjon før du bruker tallene til noe.",
-    "skjermingsrente_provisional_no": "Skjermingsrenten for 2026 er foreløpig — den fastsettes av Skattedirektoratet først i januar 2027; siste fastsatte rente (2025: 3,6 %) er brukt som proxy."
+    "skjermingsrente_provisional_no": "Skjermingsrenten for 2026 er foreløpig – den fastsettes av Skattedirektoratet først i januar 2027; siste fastsatte rente (2025: 3,6 %) er brukt som proxy."
   },
   "pedagogy": {
     "cost": {
@@ -40153,13 +40153,13 @@
     "effektiv_aksjesats": "0.3784",
     "hentet": "2026-06-10",
     "kilder": [
-      "Stortingsvedtak om skatt for inntektsåret 2026, vedtatt 2025-12-18 (https://lovdata.no/dokument/STV/forskrift/2025-12-18-2747) — formuesskatt §2-1/§2-3 (bunnfradrag 1,9 MNOK, statlig 0,65 %/0,75 % over 21,5 MNOK, kommunal maks 0,35 %), selskapsskatt §3-3",
-      "Regjeringen — Skattesatser 2026 (https://www.regjeringen.no/no/tema/okonomi-og-budsjett/skatter-og-avgifter/skatte-og-avgiftssatser/skattesatser-2026/id3121978/) — full tabell 2025→2026",
-      "Skatteetaten — oppjusteringsfaktor (https://www.skatteetaten.no/en/rates/factor-for-upward-adjustment-of-gainloss-or-dividend-on-shares/) — 1,72 i 2026",
-      "Skatteetaten — skjermingsrente (https://www.skatteetaten.no/en/rates/risk-free-interest-rate-for-shares-and-sole-proprietorships/) — 2026-renten fastsettes av Skattedirektoratet i januar 2027; siste fastsatte er 2025: 3,6 %",
+      "Stortingsvedtak om skatt for inntektsåret 2026, vedtatt 2025-12-18 (https://lovdata.no/dokument/STV/forskrift/2025-12-18-2747) – formuesskatt §2-1/§2-3 (bunnfradrag 1,9 MNOK, statlig 0,65 %/0,75 % over 21,5 MNOK, kommunal maks 0,35 %), selskapsskatt §3-3",
+      "Regjeringen – Skattesatser 2026 (https://www.regjeringen.no/no/tema/okonomi-og-budsjett/skatter-og-avgifter/skatte-og-avgiftssatser/skattesatser-2026/id3121978/) – full tabell 2025→2026",
+      "Skatteetaten – oppjusteringsfaktor (https://www.skatteetaten.no/en/rates/factor-for-upward-adjustment-of-gainloss-or-dividend-on-shares/) – 1,72 i 2026",
+      "Skatteetaten – skjermingsrente (https://www.skatteetaten.no/en/rates/risk-free-interest-rate-for-shares-and-sole-proprietorships/) – 2026-renten fastsettes av Skattedirektoratet i januar 2027; siste fastsatte er 2025: 3,6 %",
       "Skatteloven §4-12 (børsnotert aksje 80 %), §4-19, §2-38 sjette ledd (lovdata.no)"
     ],
-    "merknad": "Vedtatte 2026-satser, researchet med kilde-URL per verdi og adversarialt verifisert (null korreksjoner). FORELØPIG: skjermingsrenten for 2026 fastsettes først i januar 2027 — 2025-renten (3,6 %) brukes som proxy; oppdater når fastsatt. Formuesskatten er restrukturert: kommunal 0,525→0,35 %, statlig trinn 1 0,475→0,65 %, trinn 2 0,575→0,75 %, innslag 20,7→21,5 MNOK, bunnfradrag 1,76→1,9 MNOK — samlede marginalsatser uendret (1,0 %/1,1 %).",
+    "merknad": "Vedtatte 2026-satser, researchet med kilde-URL per verdi og adversarialt verifisert (null korreksjoner). FORELØPIG: skjermingsrenten for 2026 fastsettes først i januar 2027 – 2025-renten (3,6 %) brukes som proxy; oppdater når fastsatt. Formuesskatten er restrukturert: kommunal 0,525→0,35 %, statlig trinn 1 0,475→0,65 %, trinn 2 0,575→0,75 %, innslag 20,7→21,5 MNOK, bunnfradrag 1,76→1,9 MNOK – samlede marginalsatser uendret (1,0 %/1,1 %).",
     "oppjustering_faktor": "1.72",
     "skjermingsrente": "0.036",
     "trinn2_innslag_ektefeller": "43000000",
