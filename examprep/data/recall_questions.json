@@ -2,15 +2,15 @@
   "qat": [
     {
       "question": "Along which five dimensions do banks transform financial claims, and what risk does each dimension create?",
-      "answer": "Banks transform claims along (1) maturity — long-term assets funded by short-term deposits, creating liquidity and interest-rate risk; (2) denomination — large loans funded by many small deposits; (3) liquidity — illiquid assets against liquid liabilities; (4) credit risk — risky assets converted into safe (deposit-insured) liabilities; and (5) currency — foreign assets funded in domestic currency. Each transformation creates the corresponding risk: liquidity mismatch, interest-rate risk, currency risk, and credit risk. QAT therefore explains both why banks exist and why they need regulation."
+      "answer": "Banks transform claims along (1) maturity – long-term assets funded by short-term deposits, creating liquidity and interest-rate risk; (2) denomination – large loans funded by many small deposits; (3) liquidity – illiquid assets against liquid liabilities; (4) credit risk – risky assets converted into safe (deposit-insured) liabilities; and (5) currency – foreign assets funded in domestic currency. Each transformation creates the corresponding risk: liquidity mismatch, interest-rate risk, currency risk, and credit risk. QAT therefore explains both why banks exist and why they need regulation."
     },
     {
-      "question": "What is the fundamental difference between brokerage and qualitative asset transformation — and what determines whether a bank bears balance-sheet risk?",
-      "answer": "A broker brings parties with complementary needs together and earns a fee — the broker does not take assets onto its own balance sheet and bears no risk exposure. QAT means the bank holds assets that DIFFER from its liabilities along one or more dimensions, and the mismatch creates inherent risks for which the bank is compensated through its interest margin. The key implication is that if the bank fully transfers all QAT-related risk to a counterparty via swaps or forwards, the activity is reduced to brokerage — the bank earns a fee, not a margin."
+      "question": "What is the fundamental difference between brokerage and qualitative asset transformation – and what determines whether a bank bears balance-sheet risk?",
+      "answer": "A broker brings parties with complementary needs together and earns a fee – the broker does not take assets onto its own balance sheet and bears no risk exposure. QAT means the bank holds assets that DIFFER from its liabilities along one or more dimensions, and the mismatch creates inherent risks for which the bank is compensated through its interest margin. The key implication is that if the bank fully transfers all QAT-related risk to a counterparty via swaps or forwards, the activity is reduced to brokerage – the bank earns a fee, not a margin."
     },
     {
       "question": "What societal benefits do financial intermediaries produce through QAT, and who bears the costs?",
-      "answer": "QAT enables (1) channelling short-term savings into long-term investments that promote economic growth; (2) liquidity provision — savers remain liquid while borrowers get long maturities; (3) risk-sharing and diversification through professionally monitored and diversified portfolios; and (4) information production via delegated monitoring that avoids duplicated screening costs. The costs are the mismatch between the asset and liability side, which creates liquidity vulnerabilities requiring the central bank's LOLR role, capital requirements, and deposit insurance to make the system stable."
+      "answer": "QAT enables (1) channelling short-term savings into long-term investments that promote economic growth; (2) liquidity provision – savers remain liquid while borrowers get long maturities; (3) risk-sharing and diversification through professionally monitored and diversified portfolios; and (4) information production via delegated monitoring that avoids duplicated screening costs. The costs are the mismatch between the asset and liability side, which creates liquidity vulnerabilities requiring the central bank's LOLR role, capital requirements, and deposit insurance to make the system stable."
     }
   ],
   "repo": [
@@ -20,7 +20,7 @@
     },
     {
       "question": "What role did the repo market play in the 2007–09 financial crisis?",
-      "answer": "Repo was the primary funding tool for the shadow banking sector. When haircuts on structured products rose sharply in 2007–08, the repo market froze — what Gorton and Metrick describe as a classic bank run on the shadow banking system."
+      "answer": "Repo was the primary funding tool for the shadow banking sector. When haircuts on structured products rose sharply in 2007–08, the repo market froze – what Gorton and Metrick describe as a classic bank run on the shadow banking system."
     },
     {
       "question": "What does the price difference between the sale price and the repurchase price in a repo represent?",
@@ -30,11 +30,11 @@
   "haircut": [
     {
       "question": "What is a haircut in secured lending, and what happens with a 10% haircut on a bond worth 100?",
-      "answer": "A haircut is a percentage discount on the collateral's market value. With a 10% haircut on a bond worth 100, the borrower receives only 90 — the remaining 10 serves as a buffer against price declines."
+      "answer": "A haircut is a percentage discount on the collateral's market value. With a 10% haircut on a bond worth 100, the borrower receives only 90 – the remaining 10 serves as a buffer against price declines."
     },
     {
       "question": "How did rising haircuts in 2007–08 function as a shadow bank run?",
-      "answer": "As haircuts on structured products rose sharply and rapidly, margin-financed players were forced to sell assets to meet margin calls — equivalent to massive withdrawals from a conventional bank. Gorton and Metrick call this the 'run on repo'."
+      "answer": "As haircuts on structured products rose sharply and rapidly, margin-financed players were forced to sell assets to meet margin calls – equivalent to massive withdrawals from a conventional bank. Gorton and Metrick call this the 'run on repo'."
     }
   ],
   "cds": [
@@ -44,7 +44,7 @@
     },
     {
       "question": "Why did AIG's CDS exposure nearly bring down the company in September 2008?",
-      "answer": "AIG had sold protection on roughly $440 billion of CDS referencing structured credit products (MBS/CDO). As underlying default rates rose, AIG was required to post enormous collateral — losses it did not have the capital to absorb."
+      "answer": "AIG had sold protection on roughly $440 billion of CDS referencing structured credit products (MBS/CDO). As underlying default rates rose, AIG was required to post enormous collateral – losses it did not have the capital to absorb."
     },
     {
       "question": "What functionally distinguishes a CDS from bond insurance?",
@@ -62,7 +62,7 @@
     },
     {
       "question": "What problem arose for sponsor banks when the ABCP market froze?",
-      "answer": "Sponsor banks had to either let the SIVs collapse — which would damage their reputation and trigger legal claims — or take the assets back onto their own balance sheets, sharply increasing capital requirements."
+      "answer": "Sponsor banks had to either let the SIVs collapse – which would damage their reputation and trigger legal claims – or take the assets back onto their own balance sheets, sharply increasing capital requirements."
     }
   ],
   "fx-swap-basis": [
@@ -82,11 +82,11 @@
     },
     {
       "question": "What practical challenge does the central bank face in its role as LOLR?",
-      "answer": "It is extremely difficult to distinguish illiquidity from insolvency in real time during a panic — the central bank cannot observe the true value of assets while the crisis is ongoing."
+      "answer": "It is extremely difficult to distinguish illiquidity from insolvency in real time during a panic – the central bank cannot observe the true value of assets while the crisis is ongoing."
     },
     {
       "question": "Why is Bagehot's 'penalty rate' principle important?",
-      "answer": "The penalty rate ensures that banks only use the LOLR facility in genuine distress, not as cheap routine funding — it limits moral hazard."
+      "answer": "The penalty rate ensures that banks only use the LOLR facility in genuine distress, not as cheap routine funding – it limits moral hazard."
     }
   ],
   "bail-in": [
@@ -114,7 +114,7 @@
     },
     {
       "question": "What is the US equivalent of MREL?",
-      "answer": "TLAC — Total Loss-Absorbing Capacity."
+      "answer": "TLAC – Total Loss-Absorbing Capacity."
     }
   ],
   "inside-outside-money": [
@@ -124,21 +124,21 @@
     },
     {
       "question": "Who creates inside money, and how?",
-      "answer": "Commercial banks create inside money when they extend loans — both sides of the bank's balance sheet expand simultaneously. It is not the central bank that 'prints' inside money."
+      "answer": "Commercial banks create inside money when they extend loans – both sides of the bank's balance sheet expand simultaneously. It is not the central bank that 'prints' inside money."
     }
   ],
   "deposit-insurance": [
     {
-      "question": "Explain the Diamond–Dybvig model's two equilibria — and why is deposit insurance an equilibrium-selection mechanism, not merely a safety net?",
-      "answer": "Banks engage in maturity transformation: short-term deposits fund long-term loans. Diamond & Dybvig (1983) showed that this produces two equilibria: (1) Good equilibrium — only depositors with genuine liquidity needs withdraw; the bank survives. (2) Bad equilibrium (bank run) — each depositor believes others will withdraw, making it rational to rush to the counter; the bank is forced into a fire sale of long-term assets and fails — not from insolvency, but because everyone expected it. Deposit insurance eliminates the incentive to participate in the run: insured deposits need not be protected by hasty withdrawal, so the bad equilibrium ceases to exist."
+      "question": "Explain the Diamond–Dybvig model's two equilibria – and why is deposit insurance an equilibrium-selection mechanism, not merely a safety net?",
+      "answer": "Banks engage in maturity transformation: short-term deposits fund long-term loans. Diamond & Dybvig (1983) showed that this produces two equilibria: (1) Good equilibrium – only depositors with genuine liquidity needs withdraw; the bank survives. (2) Bad equilibrium (bank run) – each depositor believes others will withdraw, making it rational to rush to the counter; the bank is forced into a fire sale of long-term assets and fails – not from insolvency, but because everyone expected it. Deposit insurance eliminates the incentive to participate in the run: insured deposits need not be protected by hasty withdrawal, so the bad equilibrium ceases to exist."
     },
     {
       "question": "What is Merton's (1977) put-option framework for pricing deposit insurance, and what policy implication follows from it?",
-      "answer": "Merton showed that deposit insurance is economically equivalent to a put option on the bank's assets, with a strike price equal to the face value of deposits: the guarantee 'kicks in' when assets fall below liabilities. As with any put option, its value increases with asset volatility (σ) and leverage (D/A). The consequence is that a flat guarantee premium (the same percentage of deposits for all banks) subsidises risky banks — they get insurance that is too cheap. This is the analytical basis for risk-based premiums: riskier banks should pay more to restore correct pricing of the underlying risk, as the S&L crisis of the 1980s illustrated with flat FDIC pricing combined with deregulation."
+      "answer": "Merton showed that deposit insurance is economically equivalent to a put option on the bank's assets, with a strike price equal to the face value of deposits: the guarantee 'kicks in' when assets fall below liabilities. As with any put option, its value increases with asset volatility (σ) and leverage (D/A). The consequence is that a flat guarantee premium (the same percentage of deposits for all banks) subsidises risky banks – they get insurance that is too cheap. This is the analytical basis for risk-based premiums: riskier banks should pay more to restore correct pricing of the underlying risk, as the S&L crisis of the 1980s illustrated with flat FDIC pricing combined with deregulation."
     },
     {
       "question": "What happens to the deposit insurance fund and various creditors if the super-preference for covered deposits is removed?",
-      "answer": "With super-preference, covered deposits are paid ahead of all other creditors in liquidation; the fund then steps into the depositors' top-priority position to recover from the estate. Without super-preference, the fund is exposed to higher losses on its claim — the capacity to finance 'alternative measures' (using fund resources for resolution instead of payout) becomes more limited. Paradoxically, the fund's discretionary contribution ceiling (which is capped at the expected payout loss) increases, because the loss ceiling rises. Large corporate depositors above the guarantee threshold (NOK 2 million) gain a materially improved relative ranking — and would prefer deposits over senior bonds of the bank."
+      "answer": "With super-preference, covered deposits are paid ahead of all other creditors in liquidation; the fund then steps into the depositors' top-priority position to recover from the estate. Without super-preference, the fund is exposed to higher losses on its claim – the capacity to finance 'alternative measures' (using fund resources for resolution instead of payout) becomes more limited. Paradoxically, the fund's discretionary contribution ceiling (which is capped at the expected payout loss) increases, because the loss ceiling rises. Large corporate depositors above the guarantee threshold (NOK 2 million) gain a materially improved relative ranking – and would prefer deposits over senior bonds of the bank."
     }
   ],
   "mbs": [
@@ -164,7 +164,7 @@
   "asymmetric-information": [
     {
       "question": "What is asymmetric information in credit markets, and what two frictions does it give rise to?",
-      "answer": "Asymmetric information means the borrower knows more about their ability and willingness to repay than the lender. This gives rise to two frictions: adverse selection — hidden information before the contract — and moral hazard — hidden action after the contract."
+      "answer": "Asymmetric information means the borrower knows more about their ability and willingness to repay than the lender. This gives rise to two frictions: adverse selection – hidden information before the contract – and moral hazard – hidden action after the contract."
     },
     {
       "question": "Why do banks exist partly because of asymmetric information?",
@@ -174,7 +174,7 @@
   "adverse-selection": [
     {
       "question": "What is adverse selection in credit markets, and how does it lead to credit rationing?",
-      "answer": "Adverse selection is an ex-ante information problem: the bank cannot distinguish high- from low-risk borrowers. Under pooled pricing, low-risk borrowers exit the market; the pool deteriorates. According to Stiglitz–Weiss, the bank's expected return is non-monotonic in the interest rate — above r* the return falls, and the bank rations quantity rather than raising the price."
+      "answer": "Adverse selection is an ex-ante information problem: the bank cannot distinguish high- from low-risk borrowers. Under pooled pricing, low-risk borrowers exit the market; the pool deteriorates. According to Stiglitz–Weiss, the bank's expected return is non-monotonic in the interest rate – above r* the return falls, and the bank rations quantity rather than raising the price."
     },
     {
       "question": "What is the 'lemons problem', and how does it relate to adverse selection in credit?",
@@ -188,7 +188,7 @@
     },
     {
       "question": "What are the most important tools for mitigating moral hazard in lending?",
-      "answer": "Monitoring, loan covenants, collateral (skin in the game), and capital requirements (co-investment) — all reduce protection from consequences and restore incentive alignment."
+      "answer": "Monitoring, loan covenants, collateral (skin in the game), and capital requirements (co-investment) – all reduce protection from consequences and restore incentive alignment."
     }
   ],
   "akerlof-lemons": [
@@ -198,43 +198,43 @@
     },
     {
       "question": "What are the three solutions the Akerlof literature identifies for the lemons problem?",
-      "answer": "Warranties as non-dissipative signals, reputation mechanisms, and certification by an independent third party — all make it possible to distinguish high from low quality."
+      "answer": "Warranties as non-dissipative signals, reputation mechanisms, and certification by an independent third party – all make it possible to distinguish high from low quality."
     }
   ],
   "stiglitz-weiss": [
     {
       "question": "Why is the bank's expected return non-monotonic in the loan interest rate according to Stiglitz–Weiss?",
-      "answer": "Above a critical rate r*, two things happen simultaneously: (1) safe borrowers leave the market (adverse selection — the pool deteriorates), and (2) remaining borrowers take riskier projects (moral hazard). Both effects reduce the bank's expected return."
+      "answer": "Above a critical rate r*, two things happen simultaneously: (1) safe borrowers leave the market (adverse selection – the pool deteriorates), and (2) remaining borrowers take riskier projects (moral hazard). Both effects reduce the bank's expected return."
     },
     {
       "question": "What does the Stiglitz–Weiss equilibrium imply for the credit market?",
-      "answer": "Banks ration the quantity of credit at r* rather than raising the rate further. Equilibrium credit rationing arises from information frictions — the market does not clear the way Walras assumes."
+      "answer": "Banks ration the quantity of credit at r* rather than raising the rate further. Equilibrium credit rationing arises from information frictions – the market does not clear the way Walras assumes."
     }
   ],
   "credit-rationing": [
     {
       "question": "What is credit rationing, and how does it differ from an ordinary market equilibrium?",
-      "answer": "Credit rationing is an equilibrium outcome in which some borrowers are denied credit at the profit-maximising rate — even if they are willing to pay more. It differs from market clearing because a higher rate would worsen the loan portfolio and reduce the bank's return (Stiglitz–Weiss)."
+      "answer": "Credit rationing is an equilibrium outcome in which some borrowers are denied credit at the profit-maximising rate – even if they are willing to pay more. It differs from market clearing because a higher rate would worsen the loan portfolio and reduce the bank's return (Stiglitz–Weiss)."
     },
     {
       "question": "What does credit rationing imply for the possibility of resolving a credit crunch by raising interest rates?",
-      "answer": "Stiglitz–Weiss shows that higher rates do not resolve a credit crunch — they worsen portfolio quality and can sustain rationing even over a long period. Supply is downward-sloping in the interest rate above r*."
+      "answer": "Stiglitz–Weiss shows that higher rates do not resolve a credit crunch – they worsen portfolio quality and can sustain rationing even over a long period. Supply is downward-sloping in the interest rate above r*."
     }
   ],
   "delegated-monitoring": [
     {
       "question": "What is delegated monitoring (Diamond 1984), and what two characteristics of banks make it possible?",
-      "answer": "Banks monitor borrowers on behalf of many small savers — savers 'delegate' the monitoring. Economies of scale in monitoring and diversification across loans make the bank's promise to depositors credible without those depositors needing to monitor themselves."
+      "answer": "Banks monitor borrowers on behalf of many small savers – savers 'delegate' the monitoring. Economies of scale in monitoring and diversification across loans make the bank's promise to depositors credible without those depositors needing to monitor themselves."
     },
     {
       "question": "What is the fundamental argument for why bank intermediation dominates direct lending?",
-      "answer": "Without a bank, every saver would need to monitor every borrower — duplicated costs. The bank consolidates monitoring and diversifies, reducing total information costs in the system."
+      "answer": "Without a bank, every saver would need to monitor every borrower – duplicated costs. The bank consolidates monitoring and diversifies, reducing total information costs in the system."
     }
   ],
   "screening-monitoring": [
     {
       "question": "What is the difference between screening and monitoring in bank lending?",
-      "answer": "Screening is ex ante: the bank identifies borrower quality BEFORE the loan is granted (credit scoring, due diligence) — it mitigates adverse selection. Monitoring is ex post: the bank observes borrower behaviour AFTER disbursement (covenant tracking, reporting) — it mitigates moral hazard."
+      "answer": "Screening is ex ante: the bank identifies borrower quality BEFORE the loan is granted (credit scoring, due diligence) – it mitigates adverse selection. Monitoring is ex post: the bank observes borrower behaviour AFTER disbursement (covenant tracking, reporting) – it mitigates moral hazard."
     },
     {
       "question": "Which information friction does screening and monitoring each mitigate?",
@@ -248,7 +248,7 @@
     },
     {
       "question": "Which information friction are covenants primarily designed to mitigate, and how?",
-      "answer": "Covenants mitigate moral hazard by constraining the borrower's freedom of action after the loan is disbursed — they cannot take excessive risk, pay unlawful dividends, or sell assets without the bank's consent."
+      "answer": "Covenants mitigate moral hazard by constraining the borrower's freedom of action after the loan is disbursed – they cannot take excessive risk, pay unlawful dividends, or sell assets without the bank's consent."
     },
     {
       "question": "What is an Event of Default covenant, and what does it trigger?",
@@ -268,11 +268,11 @@
   "collateral-signal": [
     {
       "question": "How does collateral mitigate BOTH adverse selection and moral hazard?",
-      "answer": "Against adverse selection: high-risk borrowers are less willing to pledge collateral because they expect to lose it — pledging is therefore a quality signal. Against moral hazard: the borrower has more to lose ('skin in the game') and is incentivised to avoid risky projects."
+      "answer": "Against adverse selection: high-risk borrowers are less willing to pledge collateral because they expect to lose it – pledging is therefore a quality signal. Against moral hazard: the borrower has more to lose ('skin in the game') and is incentivised to avoid risky projects."
     },
     {
       "question": "What makes collateral the canonical instrument against information frictions?",
-      "answer": "It is the only single tool that addresses both information frictions — adverse selection (pre-contract) and moral hazard (post-contract) — simultaneously."
+      "answer": "It is the only single tool that addresses both information frictions – adverse selection (pre-contract) and moral hazard (post-contract) – simultaneously."
     }
   ],
   "signalling-separating": [
@@ -282,13 +282,13 @@
     },
     {
       "question": "Give an example of a signal that satisfies the IC condition.",
-      "answer": "Akerlof's warranty: high-quality sellers offer warranties cheaply because they expect no payouts; low-quality sellers cannot afford the same warranty because they know the product is bad. IC holds — imitation is too costly."
+      "answer": "Akerlof's warranty: high-quality sellers offer warranties cheaply because they expect no payouts; low-quality sellers cannot afford the same warranty because they know the product is bad. IC holds – imitation is too costly."
     }
   ],
   "dissipative-signal": [
     {
       "question": "What is the difference between a dissipative and a non-dissipative signal?",
-      "answer": "A non-dissipative signal preserves total surplus — for example, a costless warranty that only high-quality sellers can credibly offer. A dissipative signal destroys surplus — for example, costly education in Spence's model, which has no productive value but reveals type."
+      "answer": "A non-dissipative signal preserves total surplus – for example, a costless warranty that only high-quality sellers can credibly offer. A dissipative signal destroys surplus – for example, costly education in Spence's model, which has no productive value but reveals type."
     },
     {
       "question": "Can a dissipative signal still be socially valuable?",
@@ -298,7 +298,7 @@
   "diamond-dybvig": [
     {
       "question": "What are the two equilibria in the Diamond–Dybvig model (1983)?",
-      "answer": "The good equilibrium: only those with genuine liquidity needs withdraw early — the bank is stable. The bad equilibrium: everyone withdraws because everyone expects everyone else to — a self-fulfilling bank run occurs regardless of the bank's solvency."
+      "answer": "The good equilibrium: only those with genuine liquidity needs withdraw early – the bank is stable. The bad equilibrium: everyone withdraws because everyone expects everyone else to – a self-fulfilling bank run occurs regardless of the bank's solvency."
     },
     {
       "question": "Name the three solutions Diamond–Dybvig propose to eliminate the bad equilibrium.",
@@ -306,13 +306,13 @@
     },
     {
       "question": "What is the fundamental source of banks' vulnerability in Diamond–Dybvig?",
-      "answer": "Deposits are liquid and can be demanded immediately, while the bank's assets are illiquid long-term investments — the maturity mismatch creates the multiple-equilibrium problem."
+      "answer": "Deposits are liquid and can be demanded immediately, while the bank's assets are illiquid long-term investments – the maturity mismatch creates the multiple-equilibrium problem."
     }
   ],
   "suspension-convertibility": [
     {
       "question": "What is suspension of convertibility, and how does it solve the bank-run problem in Diamond–Dybvig?",
-      "answer": "The bank temporarily refuses to honour withdrawals above a threshold. This removes the strategic incentive to withdraw early — since large withdrawals cannot be executed anyway, the fear of being left with nothing disappears."
+      "answer": "The bank temporarily refuses to honour withdrawals above a threshold. This removes the strategic incentive to withdraw early – since large withdrawals cannot be executed anyway, the fear of being left with nothing disappears."
     },
     {
       "question": "What is the most important drawback of suspension of convertibility?",
@@ -322,21 +322,21 @@
   "bank-charter-value": [
     {
       "question": "What is a bank's charter value, and why does it dampen risk-taking behaviour?",
-      "answer": "Charter value is the present value of future economic rents from the bank franchise (relationship capital, access to the payment system, regulated entry protection). Insolvency entails the loss of the charter — banks therefore have an endogenous interest in limiting risk-taking."
+      "answer": "Charter value is the present value of future economic rents from the bank franchise (relationship capital, access to the payment system, regulated entry protection). Insolvency entails the loss of the charter – banks therefore have an endogenous interest in limiting risk-taking."
     },
     {
       "question": "What does Marcus (1984) explain about the relationship between charter value and the S&L crisis?",
-      "answer": "Deregulation of US savings institutions (thrifts) in the early 1980s compressed charter value. With low charter value — and little to lose — thrifts took excessive risk, which was a key cause of the S&L crisis."
+      "answer": "Deregulation of US savings institutions (thrifts) in the early 1980s compressed charter value. With low charter value – and little to lose – thrifts took excessive risk, which was a key cause of the S&L crisis."
     }
   ],
   "brokerage-vs-qat": [
     {
       "question": "What is the fundamental difference between the brokerage model and the QAT model of financial intermediation?",
-      "answer": "In the brokerage model, savers and borrowers are connected without the intermediary taking assets onto its own balance sheet — the intermediary bears no credit, liquidity, or interest-rate risk. In the QAT model, the bank holds mismatched assets and liabilities on its own balance sheet and bears the resulting risks in exchange for earning the spread."
+      "answer": "In the brokerage model, savers and borrowers are connected without the intermediary taking assets onto its own balance sheet – the intermediary bears no credit, liquidity, or interest-rate risk. In the QAT model, the bank holds mismatched assets and liabilities on its own balance sheet and bears the resulting risks in exchange for earning the spread."
     },
     {
       "question": "Why do banks bear a heavier regulatory burden than pure brokers?",
-      "answer": "Because banks' regulatory burden follows from QAT — from holding mismatched balance sheets — not from the brokerage function. The mismatch creates systemic vulnerability (bank runs, contagion) that requires regulatory containment."
+      "answer": "Because banks' regulatory burden follows from QAT – from holding mismatched balance sheets – not from the brokerage function. The mismatch creates systemic vulnerability (bank runs, contagion) that requires regulatory containment."
     }
   ],
   "nii-nim": [
@@ -346,7 +346,7 @@
     },
     {
       "question": "What happens to NIM when the yield curve flattens?",
-      "answer": "NIM compresses because the bank earns the term premium (long-term rates minus short-term rates) — a flatter curve reduces that premium directly."
+      "answer": "NIM compresses because the bank earns the term premium (long-term rates minus short-term rates) – a flatter curve reduces that premium directly."
     }
   ],
   "roa-roe-dupont": [
@@ -356,7 +356,7 @@
     },
     {
       "question": "What does an equity multiplier of 30–50× suggest about the risk profile?",
-      "answer": "It indicates extremely high leverage — a small percentage decline in asset values is enough to wipe out all equity. Investment banks operated with such multipliers before 2008."
+      "answer": "It indicates extremely high leverage – a small percentage decline in asset values is enough to wipe out all equity. Investment banks operated with such multipliers before 2008."
     }
   ],
   "cost-to-income": [
@@ -372,17 +372,17 @@
   "deposit-to-loan": [
     {
       "question": "What does the Loan-to-Deposit ratio (LDR) measure, and what does an LDR above 100% mean?",
-      "answer": "LDR = loans / deposits. Above 100% means the bank is funding more loans than it has deposits — the remainder is wholesale funding. This is a signal of liquidity vulnerability (cf. SVB, Northern Rock)."
+      "answer": "LDR = loans / deposits. Above 100% means the bank is funding more loans than it has deposits – the remainder is wholesale funding. This is a signal of liquidity vulnerability (cf. SVB, Northern Rock)."
     },
     {
       "question": "Why is wholesale funding more unstable than deposit funding?",
-      "answer": "Wholesale investors are more sophisticated and do not automatically roll over — when there is uncertainty about a bank's soundness they may refuse to refinance, triggering a liquidity crisis (Northern Rock 2007)."
+      "answer": "Wholesale investors are more sophisticated and do not automatically roll over – when there is uncertainty about a bank's soundness they may refuse to refinance, triggering a liquidity crisis (Northern Rock 2007)."
     }
   ],
   "npl": [
     {
       "question": "What is a non-performing loan (NPL), and what is the NPL ratio?",
-      "answer": "An NPL is a loan that is more than 90 days past due or unlikely to be repaid in full — broadly equivalent to IFRS 9 Stage 3. NPL ratio = NPL / total loans."
+      "answer": "An NPL is a loan that is more than 90 days past due or unlikely to be repaid in full – broadly equivalent to IFRS 9 Stage 3. NPL ratio = NPL / total loans."
     },
     {
       "question": "What are the accounting consequences when a loan is classified as NPL?",
@@ -416,7 +416,7 @@
     },
     {
       "question": "Are transitions between IFRS 9 stages one-directional?",
-      "answer": "No, movement is two-way — a loan can cure from Stage 2 back to Stage 1 if credit risk improves to the level at origination. Cure from Stage 3 is permitted but subject to conservative rules."
+      "answer": "No, movement is two-way – a loan can cure from Stage 2 back to Stage 1 if credit risk improves to the level at origination. Cure from Stage 3 is permitted but subject to conservative rules."
     }
   ],
   "sicr": [
@@ -426,13 +426,13 @@
     },
     {
       "question": "Does deteriorated collateral value alone trigger SICR?",
-      "answer": "No — deteriorated collateral value alone does NOT trigger SICR under IFRS 9. SICR is linked to changes in the probability of default (PD), not to the value of the collateral. This is a classic true/false trap (tested in Feb 2025 Q4(e))."
+      "answer": "No – deteriorated collateral value alone does NOT trigger SICR under IFRS 9. SICR is linked to changes in the probability of default (PD), not to the value of the collateral. This is a classic true/false trap (tested in Feb 2025 Q4(e))."
     }
   ],
   "ias39": [
     {
       "question": "What was the incurred loss model under IAS 39, and what was its criticised weakness?",
-      "answer": "IAS 39 required provisions to be recognised only when there was objective evidence that a loss had already occurred. The weakness was that loss recognition came too late — the bank looked healthy on the way down and recognised losses only mid-recession, amplifying procyclicality."
+      "answer": "IAS 39 required provisions to be recognised only when there was objective evidence that a loss had already occurred. The weakness was that loss recognition came too late – the bank looked healthy on the way down and recognised losses only mid-recession, amplifying procyclicality."
     },
     {
       "question": "What replaced IAS 39, and in what year?",
@@ -446,13 +446,13 @@
     },
     {
       "question": "What happens to unrealised gains and losses on AFS bonds when they are realised?",
-      "answer": "They are 'recycled' to profit or loss on sale — the accumulated OCI is reversed and the gain or loss enters net income."
+      "answer": "They are 'recycled' to profit or loss on sale – the accumulated OCI is reversed and the gain or loss enters net income."
     }
   ],
   "htm": [
     {
       "question": "What is HTM (amortised cost) classification, and what risk does it conceal?",
-      "answer": "HTM instruments are held under the 'hold-to-collect' business model with SPPI cash flows and are carried at amortised cost. Fair-value changes are not visible on the balance sheet or in profit or loss — only in the notes. The risk is that large unrealised losses remain hidden until the instruments are sold."
+      "answer": "HTM instruments are held under the 'hold-to-collect' business model with SPPI cash flows and are carried at amortised cost. Fair-value changes are not visible on the balance sheet or in profit or loss – only in the notes. The risk is that large unrealised losses remain hidden until the instruments are sold."
     },
     {
       "question": "What did the SVB collapse in March 2023 illustrate about HTM accounting?",
@@ -462,7 +462,7 @@
   "fvtpl": [
     {
       "question": "Which instruments are classified as FVTPL, and what is the consequence for the financial statements?",
-      "answer": "FVTPL is the default classification for instruments that fail the SPPI test, are held for trading, or are derivatives and equity investments. All value changes — realised and unrealised — go directly through profit or loss, producing maximum earnings volatility."
+      "answer": "FVTPL is the default classification for instruments that fail the SPPI test, are held for trading, or are derivatives and equity investments. All value changes – realised and unrealised – go directly through profit or loss, producing maximum earnings volatility."
     },
     {
       "question": "What is the SPPI test, and what happens if an instrument fails it?",
@@ -476,7 +476,7 @@
     },
     {
       "question": "Can a bank have a negative tangible equity valuation without reporting a loss in net income?",
-      "answer": "Yes — large negative OCI balances (e.g. from unrealised AFS losses) reduce book equity without affecting net income, since these items do not pass through profit or loss."
+      "answer": "Yes – large negative OCI balances (e.g. from unrealised AFS losses) reduce book equity without affecting net income, since these items do not pass through profit or loss."
     }
   ],
   "amortised-cost": [
@@ -492,7 +492,7 @@
   "loan-loss-reserves": [
     {
       "question": "What are loan loss reserves (LLR), and what accounting function do they serve?",
-      "answer": "LLR is the accumulated stock of impairments deducted from gross loans on the asset side — a contra-asset account. Net loans = gross loans − LLR."
+      "answer": "LLR is the accumulated stock of impairments deducted from gross loans on the asset side – a contra-asset account. Net loans = gross loans − LLR."
     },
     {
       "question": "What is the reconciliation identity for LLR from period to period?",
@@ -502,21 +502,21 @@
   "impairment-charge": [
     {
       "question": "What is an impairment charge, and what two accounting effects does it have?",
-      "answer": "An impairment charge is a profit-and-loss expense that increases LLR (contra-asset) and reduces net income — and therefore equity. Under IFRS 9 it is forward-looking (ECL); under IAS 39 it required objective evidence."
+      "answer": "An impairment charge is a profit-and-loss expense that increases LLR (contra-asset) and reduces net income – and therefore equity. Under IFRS 9 it is forward-looking (ECL); under IAS 39 it required objective evidence."
     },
     {
       "question": "Why is the impairment charge the most important discretionary P&L line in a bank?",
-      "answer": "Bank management has wide latitude in setting ECL scenarios, PD estimates, and assumptions — meaning the impairment charge largely reflects management's judgements and priorities."
+      "answer": "Bank management has wide latitude in setting ECL scenarios, PD estimates, and assumptions – meaning the impairment charge largely reflects management's judgements and priorities."
     }
   ],
   "write-off": [
     {
       "question": "What happens accounting-wise when a loan is written off, and what is the P&L effect?",
-      "answer": "Gross loans and the corresponding LLR are both reduced by the same amount — the net effect on P&L is zero, because the loss was already expensed when the provision was made."
+      "answer": "Gross loans and the corresponding LLR are both reduced by the same amount – the net effect on P&L is zero, because the loss was already expensed when the provision was made."
     },
     {
       "question": "What is the difference between default and write-off?",
-      "answer": "Default is an event (missed payment > 90 days). A write-off is an accounting decision that the bank no longer has a reasonable expectation of recovery — a loan can remain in default for years before it is written off."
+      "answer": "Default is an event (missed payment > 90 days). A write-off is an accounting decision that the bank no longer has a reasonable expectation of recovery – a loan can remain in default for years before it is written off."
     }
   ],
   "gross-vs-net-loans": [
@@ -532,7 +532,7 @@
   "equity-reconciliation": [
     {
       "question": "What is the equity reconciliation identity, and how does it link to regulatory capital?",
-      "answer": "ΔEquity = net income − dividends ± share issuances/buybacks. The identity links the income statement to balance-sheet capital — dividends directly reduce CET1."
+      "answer": "ΔEquity = net income − dividends ± share issuances/buybacks. The identity links the income statement to balance-sheet capital – dividends directly reduce CET1."
     },
     {
       "question": "What happens to equity if a bank pays dividends greater than annual earnings?",
@@ -546,7 +546,7 @@
     },
     {
       "question": "What is the P&L effect of a write-off in isolation?",
-      "answer": "None — a write-off reduces gross loans and LLR by equal amounts. The P&L effect occurred when the corresponding impairment charge was recognised earlier."
+      "answer": "None – a write-off reduces gross loans and LLR by equal amounts. The P&L effect occurred when the corresponding impairment charge was recognised earlier."
     }
   ],
   "off-balance-sheet": [
@@ -566,7 +566,7 @@
     },
     {
       "question": "What is the term premium, and how does it relate to maturity transformation?",
-      "answer": "The term premium is the extra return on long-term fixed-income instruments over short-term ones. Banks earn this premium by holding long-term assets funded with short-term debt — the gain from maturity transformation."
+      "answer": "The term premium is the extra return on long-term fixed-income instruments over short-term ones. Banks earn this premium by holding long-term assets funded with short-term debt – the gain from maturity transformation."
     }
   ],
   "fractional-reserve": [
@@ -576,7 +576,7 @@
     },
     {
       "question": "What in practice limits bank lending in the modern banking system?",
-      "answer": "Capital (CET1 requirements) and risk appetite — not the reserve requirement — are the binding constraints on lending in modern banking systems."
+      "answer": "Capital (CET1 requirements) and risk appetite – not the reserve requirement – are the binding constraints on lending in modern banking systems."
     }
   ],
   "money-multiplier": [
@@ -586,17 +586,17 @@
     },
     {
       "question": "What is the likely exam trap relating to the money multiplier?",
-      "answer": "A true/false statement claiming that increased central bank reserves mechanically increase the money supply and bank lending — this is incorrect in modern banking systems. Reserves are not the binding factor in banks' lending decisions."
+      "answer": "A true/false statement claiming that increased central bank reserves mechanically increase the money supply and bank lending – this is incorrect in modern banking systems. Reserves are not the binding factor in banks' lending decisions."
     }
   ],
   "money-creation-modern": [
     {
       "question": "What is the BoE 2014 view of money creation, and what is the binding constraint on lending?",
-      "answer": "BoE 2014: when a bank extends a loan, it simultaneously creates a deposit in the borrower's account — both sides of the bank's balance sheet expand. Reserves are not the constraint; capital and risk appetite are the binding factors. Reserves are supplied ex post."
+      "answer": "BoE 2014: when a bank extends a loan, it simultaneously creates a deposit in the borrower's account – both sides of the bank's balance sheet expand. Reserves are not the constraint; capital and risk appetite are the binding factors. Reserves are supplied ex post."
     },
     {
       "question": "What is the implication of the BoE 2014 view for interpreting QE?",
-      "answer": "QE increases reserves, but broad money supply only increases if banks lend out the reserves. Without increased bank lending, QE primarily lowers term rates and supports asset prices — it does not automatically increase the broad money supply."
+      "answer": "QE increases reserves, but broad money supply only increases if banks lend out the reserves. Without increased bank lending, QE primarily lowers term rates and supports asset prices – it does not automatically increase the broad money supply."
     }
   ],
   "qe": [
@@ -612,7 +612,7 @@
   "goldsmith": [
     {
       "question": "What does the goldsmith model illustrate about the emergence of fractional reserve banking?",
-      "answer": "Goldsmiths stored gold against receipts that were used as means of payment. When they discovered that not all depositors claimed their gold simultaneously, they began lending out gold and issuing receipts beyond the reserved gold — they created inside money and invented fractional reserve banking and maturity transformation."
+      "answer": "Goldsmiths stored gold against receipts that were used as means of payment. When they discovered that not all depositors claimed their gold simultaneously, they began lending out gold and issuing receipts beyond the reserved gold – they created inside money and invented fractional reserve banking and maturity transformation."
     },
     {
       "question": "What new risk arose when goldsmiths started fractional reserve banking?",
@@ -622,11 +622,11 @@
   "capital-vs-money-markets": [
     {
       "question": "What is the decisive distinction between the capital market and the money market?",
-      "answer": "Maturity — not liquidity. The money market trades short-term debt with an original maturity of at most 12 months. The capital market trades longer maturities and equity. Liquidity is a separate dimension."
+      "answer": "Maturity – not liquidity. The money market trades short-term debt with an original maturity of at most 12 months. The capital market trades longer maturities and equity. Liquidity is a separate dimension."
     },
     {
       "question": "What is the classic true/false trap about the money market and liquidity?",
-      "answer": "That the money market is always more liquid than the capital market — this is incorrect. Example: ABCP (money market) froze in August 2007, while long-term US Treasuries (capital market) remained liquid. Maturity ≠ liquidity."
+      "answer": "That the money market is always more liquid than the capital market – this is incorrect. Example: ABCP (money market) froze in August 2007, while long-term US Treasuries (capital market) remained liquid. Maturity ≠ liquidity."
     }
   ],
   "cp-interbank-repo": [
@@ -642,7 +642,7 @@
   "reserve-requirements": [
     {
       "question": "What are reserve requirements, and what two purposes are discussed in the course?",
-      "answer": "Reserve requirements are mandatory minimum holdings at the central bank as a share of certain deposits. They serve: (1) liquidity buffer — preventing banks from outsourcing all liquidity management to the LOLR; (2) seigniorage sharing — unremunerated reserves act as an implicit tax whereby seigniorage is shared between the state and the banking system."
+      "answer": "Reserve requirements are mandatory minimum holdings at the central bank as a share of certain deposits. They serve: (1) liquidity buffer – preventing banks from outsourcing all liquidity management to the LOLR; (2) seigniorage sharing – unremunerated reserves act as an implicit tax whereby seigniorage is shared between the state and the banking system."
     },
     {
       "question": "What has largely replaced traditional reserve requirements as liquidity regulation?",
@@ -656,7 +656,7 @@
     },
     {
       "question": "What function does a term sheet serve in the lending process?",
-      "answer": "A term sheet aligns bank and borrower commercially BEFORE formal documentation is prepared — it reduces negotiation costs and identifies deal-breakers early."
+      "answer": "A term sheet aligns bank and borrower commercially BEFORE formal documentation is prepared – it reduces negotiation costs and identifies deal-breakers early."
     }
   ],
   "kyc-aml": [
@@ -676,13 +676,13 @@
     },
     {
       "question": "What happens to the bank's commitment if one condition precedent is not satisfied?",
-      "answer": "The commitment remains conditional — the bank is not obligated to disburse the loan so long as the CPs are not met. Disbursement is delayed or withdrawn."
+      "answer": "The commitment remains conditional – the bank is not obligated to disburse the loan so long as the CPs are not met. Disbursement is delayed or withdrawn."
     }
   ],
   "drawdown-balloon": [
     {
       "question": "What is a drawdown, and what is a balloon payment?",
-      "answer": "A drawdown is the act of utilising an approved credit facility — funds are transferred from commitment to outstanding loan. A balloon payment is a large single payment at maturity covering most of the remaining principal in a bullet loan."
+      "answer": "A drawdown is the act of utilising an approved credit facility – funds are transferred from commitment to outstanding loan. A balloon payment is a large single payment at maturity covering most of the remaining principal in a bullet loan."
     },
     {
       "question": "What characterises a bullet loan with a balloon payment, compared with an amortising loan?",
@@ -696,7 +696,7 @@
     },
     {
       "question": "What is a commitment fee, and which type of facility typically triggers it?",
-      "answer": "A commitment fee is a running charge the bank levies on the undrawn portion of a revolving facility or term loan — compensation for holding capital and liquidity in reserve without the borrower drawing on it."
+      "answer": "A commitment fee is a running charge the bank levies on the undrawn portion of a revolving facility or term loan – compensation for holding capital and liquidity in reserve without the borrower drawing on it."
     }
   ],
   "pd": [
@@ -726,13 +726,13 @@
     },
     {
       "question": "Why is EAD forward-looking rather than a simple balance-sheet figure?",
-      "answer": "Borrowers approaching default typically draw down available credit lines to the maximum — the EAD model accounts for this behaviour by including expected future drawdowns on undrawn facilities."
+      "answer": "Borrowers approaching default typically draw down available credit lines to the maximum – the EAD model accounts for this behaviour by including expected future drawdowns on undrawn facilities."
     }
   ],
   "maturity-m": [
     {
       "question": "What is M (Maturity Adjustment) in the Basel IRB formula, and why does longer maturity require more capital?",
-      "answer": "M is the effective remaining maturity (capped at 5 years) of the exposure. Longer maturity requires more capital because there is greater migration risk over time — an exposure can be downgraded over a long tenor even if it is performing today."
+      "answer": "M is the effective remaining maturity (capped at 5 years) of the exposure. Longer maturity requires more capital because there is greater migration risk over time – an exposure can be downgraded over a long tenor even if it is performing today."
     },
     {
       "question": "What is the default value of M under IRB Foundation vs. IRB Advanced?",
@@ -746,7 +746,7 @@
     },
     {
       "question": "What is the 'output floor' under Basel III, and which approach serves as its reference?",
-      "answer": "The output floor sets a minimum RWA level for IRB banks, expressed as a percentage (typically 72.5% at full phase-in) of what the Standardised Approach would produce — to limit the capital benefit of using internal models."
+      "answer": "The output floor sets a minimum RWA level for IRB banks, expressed as a percentage (typically 72.5% at full phase-in) of what the Standardised Approach would produce – to limit the capital benefit of using internal models."
     }
   ],
   "irb-formula": [
@@ -762,7 +762,7 @@
   "unexpected-loss": [
     {
       "question": "What is Unexpected Loss (UL), and what is it calibrated to under Basel?",
-      "answer": "UL is the loss exceeding expected loss, measured at a 99.9% confidence interval over one year. Basel IRB capital is sized to absorb UL — it is the loss tail that capital must cover."
+      "answer": "UL is the loss exceeding expected loss, measured at a 99.9% confidence interval over one year. Basel IRB capital is sized to absorb UL – it is the loss tail that capital must cover."
     },
     {
       "question": "What is the regulatory division of labour between ECL provisions and capital?",
@@ -776,17 +776,17 @@
     },
     {
       "question": "How did IAS 39 contribute to procyclicality during the financial crisis?",
-      "answer": "IAS 39's incurred-loss model required objective evidence of losses already incurred. As a result, banks appeared healthy during the upswing and recognised massive losses mid-crisis — exactly when loss recognition contributed to tightening the credit supply further."
+      "answer": "IAS 39's incurred-loss model required objective evidence of losses already incurred. As a result, banks appeared healthy during the upswing and recognised massive losses mid-crisis – exactly when loss recognition contributed to tightening the credit supply further."
     }
   ],
   "knightian": [
     {
       "question": "What is Frank Knight's distinction between risk and uncertainty?",
-      "answer": "Risk is measurable — probabilities can be assigned to known outcomes. Uncertainty is unmeasurable — the underlying distribution is unknown or unknowable."
+      "answer": "Risk is measurable – probabilities can be assigned to known outcomes. Uncertainty is unmeasurable – the underlying distribution is unknown or unknowable."
     },
     {
       "question": "Why does the Turner Review highlight Knightian uncertainty as a structural failure in pre-crisis risk management?",
-      "answer": "Banks treated unknowable correlations in structured credit products as known, measurable parameters — they quantified the unquantifiable, which systematically underestimated real risk."
+      "answer": "Banks treated unknowable correlations in structured credit products as known, measurable parameters – they quantified the unquantifiable, which systematically underestimated real risk."
     },
     {
       "question": "What is the practical consequence of confusing Knightian uncertainty with risk in bank models?",
@@ -803,7 +803,7 @@
       "answer": "The Basel III minimum is 4.5% of RWA. Including the permanent conservation buffer of 2.5%, the requirement rises to 7%. With the full Norwegian buffer stack (including SyRB and O-SII), the requirement for DNB can reach around 17%."
     },
     {
-      "question": "On what basis does CET1 absorb losses — going-concern or gone-concern?",
+      "question": "On what basis does CET1 absorb losses – going-concern or gone-concern?",
       "answer": "CET1 absorbs losses on a going-concern basis, i.e. while the bank is still operating as a functioning entity."
     }
   ],
@@ -828,13 +828,13 @@
     },
     {
       "question": "At what point does Tier 2 absorb losses, and why is it cheaper than AT1?",
-      "answer": "Tier 2 absorbs losses on a gone-concern basis — only at the point of non-viability or in resolution. Because loss absorption occurs later and is more conditional, Tier 2 funding is cheaper than AT1."
+      "answer": "Tier 2 absorbs losses on a gone-concern basis – only at the point of non-viability or in resolution. Because loss absorption occurs later and is more conditional, Tier 2 funding is cheaper than AT1."
     }
   ],
   "rwa-rea": [
     {
       "question": "What are Risk-Weighted Assets (RWA), and what is the difference between the terms RWA and REA?",
-      "answer": "RWA is the sum of EAD multiplied by the risk weight for each exposure. EU regulation uses the term REA (Risk Exposure Amount), while the rest of the world uses RWA — the terms are identical in substance."
+      "answer": "RWA is the sum of EAD multiplied by the risk weight for each exposure. EU regulation uses the term REA (Risk Exposure Amount), while the rest of the world uses RWA – the terms are identical in substance."
     },
     {
       "question": "What role do RWA play in capital ratios, and what three calculation methods exist?",
@@ -854,7 +854,7 @@
   "pillar-3": [
     {
       "question": "What is the purpose of Pillar 3, and who is assumed to exercise market discipline?",
-      "answer": "Pillar 3 requires standardised disclosure of risk, capital, and governance information so that market participants can price risk and discipline excessive risk-taking. Market discipline works best for professional creditors and equity analysts — not for ordinary depositors."
+      "answer": "Pillar 3 requires standardised disclosure of risk, capital, and governance information so that market participants can price risk and discipline excessive risk-taking. Market discipline works best for professional creditors and equity analysts – not for ordinary depositors."
     },
     {
       "question": "What is the practical weakness of Pillar 3 as a market discipline mechanism?",
@@ -908,7 +908,7 @@
     },
     {
       "question": "How do the G-SIB buffer and the O-SII buffer interact?",
-      "answer": "The higher of the G-SIB and O-SII buffer requirements applies — they are not double-counted. Only one of the two institution-specific buffers is added to the combined buffer stack."
+      "answer": "The higher of the G-SIB and O-SII buffer requirements applies – they are not double-counted. Only one of the two institution-specific buffers is added to the combined buffer stack."
     }
   ],
   "cbr": [
@@ -918,7 +918,7 @@
     },
     {
       "question": "Which capital type must be used to cover the entire CBR?",
-      "answer": "All elements of the CBR must be covered exclusively with CET1 capital — no other capital classes are eligible for the buffer requirements."
+      "answer": "All elements of the CBR must be covered exclusively with CET1 capital – no other capital classes are eligible for the buffer requirements."
     }
   ],
   "leverage-ratio": [
@@ -938,7 +938,7 @@
     },
     {
       "question": "What is the overarching purpose of the MDA regime?",
-      "answer": "MDA makes the capital buffers genuinely usable in stress periods by preserving capital automatically, without bank management facing an immediate capital shortfall — it operationalises the conservation buffer concept."
+      "answer": "MDA makes the capital buffers genuinely usable in stress periods by preserving capital automatically, without bank management facing an immediate capital shortfall – it operationalises the conservation buffer concept."
     }
   ],
   "tlac": [
@@ -988,7 +988,7 @@
     },
     {
       "question": "What is HQLA in the LCR context?",
-      "answer": "HQLA is the numerator of the LCR formula — the liquid assets a bank can convert quickly to cash in a stress scenario without significant loss of value."
+      "answer": "HQLA is the numerator of the LCR formula – the liquid assets a bank can convert quickly to cash in a stress scenario without significant loss of value."
     }
   ],
   "asf-rsf": [
@@ -1018,7 +1018,7 @@
     },
     {
       "question": "Why is the swap arrangement considered balance-sheet neutral, and what was its strategic advantage?",
-      "answer": "The arrangement was a swap, not a loan — Norges Bank's balance sheet did not grow. This provided liquidity support without money printing and was seen as a template for collateral-swap-based LOLR design."
+      "answer": "The arrangement was a swap, not a loan – Norges Bank's balance sheet did not grow. This provided liquidity support without money printing and was seen as a template for collateral-swap-based LOLR design."
     }
   ],
   "fed-swap-lines": [
@@ -1028,7 +1028,7 @@
     },
     {
       "question": "When were Fed swap lines activated, and what market problem did they solve?",
-      "answer": "The lines were activated in October 2008 and again in March 2020. They counter dollar funding stress among non-US banks — manifested as a negative cross-currency basis — by offering direct dollar access through the central bank channel."
+      "answer": "The lines were activated in October 2008 and again in March 2020. They counter dollar funding stress among non-US banks – manifested as a negative cross-currency basis – by offering direct dollar access through the central bank channel."
     }
   ],
   "run-on-repo": [
@@ -1068,7 +1068,7 @@
     },
     {
       "question": "Under what two conditions does the diversification effect for deposit withdrawals break down?",
-      "answer": "Diversification fails under (1) concentration — SVB had approximately 90% of deposits above the FDIC limit from a tightly connected tech/VC community — and (2) correlated panic, as in the bad equilibrium of the Diamond–Dybvig model."
+      "answer": "Diversification fails under (1) concentration – SVB had approximately 90% of deposits above the FDIC limit from a tightly connected tech/VC community – and (2) correlated panic, as in the bad equilibrium of the Diamond–Dybvig model."
     }
   ],
   "alm": [
@@ -1084,7 +1084,7 @@
   "spv": [
     {
       "question": "What is an SPV, and what is meant by it being 'bankruptcy-remote'?",
-      "answer": "An SPV (Special Purpose Vehicle) is a legal entity that holds pooled assets and issues tranched securities. 'Bankruptcy-remote' means that the SPV's assets are separated from the originator's insolvency estate — creditors cannot seize the SPV's assets if the originator goes bankrupt."
+      "answer": "An SPV (Special Purpose Vehicle) is a legal entity that holds pooled assets and issues tranched securities. 'Bankruptcy-remote' means that the SPV's assets are separated from the originator's insolvency estate – creditors cannot seize the SPV's assets if the originator goes bankrupt."
     },
     {
       "question": "What does an originator bank achieve by executing a 'true sale' to an SPV?",
@@ -1098,13 +1098,13 @@
     },
     {
       "question": "What is the primary credit enhancement technique in tranched structuring?",
-      "answer": "Subordination is the primary credit enhancement: the thickness of the loss-bearing layers below a senior tranche determines its rating support — more subordination gives the senior tranche more rating headroom."
+      "answer": "Subordination is the primary credit enhancement: the thickness of the loss-bearing layers below a senior tranche determines its rating support – more subordination gives the senior tranche more rating headroom."
     }
   ],
   "subordination": [
     {
       "question": "What is subordination in a securitisation context, and what determines a senior tranche's rating?",
-      "answer": "Subordination means that junior tranches absorb losses before senior tranches. A senior tranche's rating depends on the thickness of the subordinated layers below it — more subordination provides higher rating support."
+      "answer": "Subordination means that junior tranches absorb losses before senior tranches. A senior tranche's rating depends on the thickness of the subordinated layers below it – more subordination provides higher rating support."
     },
     {
       "question": "What was the flaw in pre-crisis subordination models, and what were the consequences?",
@@ -1124,7 +1124,7 @@
   "credit-enhancement": [
     {
       "question": "What is the difference between internal and external credit enhancement in a securitisation structure?",
-      "answer": "Internal credit enhancement: subordination, overcollateralisation, excess spread, and reserve accounts — mechanisms within the structure itself. External credit enhancement: monoline insurance, parent guarantees, and surety bonds — risk is shifted to a third party."
+      "answer": "Internal credit enhancement: subordination, overcollateralisation, excess spread, and reserve accounts – mechanisms within the structure itself. External credit enhancement: monoline insurance, parent guarantees, and surety bonds – risk is shifted to a third party."
     },
     {
       "question": "What is the fundamental weakness of external credit enhancement?",
@@ -1134,7 +1134,7 @@
   "synthetic-securitisation": [
     {
       "question": "How does synthetic securitisation differ from traditional securitisation, and what is the typical true/false exam trap?",
-      "answer": "In synthetic securitisation the loans remain on the bank's balance sheet — only credit risk is transferred via CDS. The bank achieves capital relief but NOT funding. The T/F trap: synthetic securitisation does not provide funding relief."
+      "answer": "In synthetic securitisation the loans remain on the bank's balance sheet – only credit risk is transferred via CDS. The bank achieves capital relief but NOT funding. The T/F trap: synthetic securitisation does not provide funding relief."
     },
     {
       "question": "What are SRT transactions, and what is their purpose today?",
@@ -1144,7 +1144,7 @@
   "traditional-securitisation": [
     {
       "question": "What are the two main benefits an originator bank achieves through traditional (true-sale) securitisation?",
-      "answer": "The bank achieves (1) funding — cash proceeds from selling the loans to the SPV — and (2) capital relief — the loans are derecognised from the balance sheet and no longer attract capital requirements."
+      "answer": "The bank achieves (1) funding – cash proceeds from selling the loans to the SPV – and (2) capital relief – the loans are derecognised from the balance sheet and no longer attract capital requirements."
     },
     {
       "question": "What is the post-crisis 'skin-in-the-game' requirement in traditional securitisation?",
@@ -1154,7 +1154,7 @@
   "originate-to-distribute": [
     {
       "question": "Why does the originate-to-distribute model weaken incentives for credit assessment?",
-      "answer": "When the originator sells the loan and sheds the credit risk, there is little to lose from poor borrower screening and inadequate monitoring. The incentive structure breaks down — the originator profits from volume, not from loan quality."
+      "answer": "When the originator sells the loan and sheds the credit risk, there is little to lose from poor borrower screening and inadequate monitoring. The incentive structure breaks down – the originator profits from volume, not from loan quality."
     },
     {
       "question": "What was the direct regulatory response to the weaknesses of the OTD model after the financial crisis?",
@@ -1164,7 +1164,7 @@
   "cdo-squared": [
     {
       "question": "What is a CDO² (CDO-squared), and what is its structural danger?",
-      "answer": "A CDO² is a CDO whose collateral pool consists of mezzanine tranches from other CDOs — typically BBB-rated MBS tranches. It re-tranches this low-quality pool and produces new AAA-rated tranches. The danger is hidden correlation: a small shock to subprime defaults propagates non-linearly through two layers of tranching."
+      "answer": "A CDO² is a CDO whose collateral pool consists of mezzanine tranches from other CDOs – typically BBB-rated MBS tranches. It re-tranches this low-quality pool and produces new AAA-rated tranches. The danger is hidden correlation: a small shock to subprime defaults propagates non-linearly through two layers of tranching."
     },
     {
       "question": "How did CDO² contribute to underestimating systemic risk in the pre-crisis period?",
@@ -1178,7 +1178,7 @@
     },
     {
       "question": "What happened to the ABCP market on 9 August 2007, and why is this regarded as the start of the financial crisis?",
-      "answer": "BNP Paribas suspended redemptions from three subprime-exposed funds, which froze the ABCP market. SIVs lost the ability to roll their funding and had to absorb assets back onto sponsor banks' balance sheets — the beginning of the broader financial crisis."
+      "answer": "BNP Paribas suspended redemptions from three subprime-exposed funds, which froze the ABCP market. SIVs lost the ability to roll their funding and had to absorb assets back onto sponsor banks' balance sheets – the beginning of the broader financial crisis."
     }
   ],
   "conduit": [
@@ -1188,13 +1188,13 @@
     },
     {
       "question": "What happened to ABCP conduits during the 2007 turbulence, and what mechanism transferred the stress to the regulated sector?",
-      "answer": "When the ABCP market froze in August 2007, the liquidity backstops were triggered automatically. The assets and funding needs were then absorbed back onto sponsor banks' balance sheets — a pre-arranged transfer of shadow-banking stress to the regulated sector."
+      "answer": "When the ABCP market froze in August 2007, the liquidity backstops were triggered automatically. The assets and funding needs were then absorbed back onto sponsor banks' balance sheets – a pre-arranged transfer of shadow-banking stress to the regulated sector."
     }
   ],
   "ninja": [
     {
       "question": "What are NINJA loans, and what does the acronym stand for?",
-      "answer": "NINJA stands for 'No Income, No Job, No Assets' — subprime residential mortgages extended to borrowers with no documented income, employment, or assets. Extreme examples of the collapse in credit assessment practices in the US during 2003–07."
+      "answer": "NINJA stands for 'No Income, No Job, No Assets' – subprime residential mortgages extended to borrowers with no documented income, employment, or assets. Extreme examples of the collapse in credit assessment practices in the US during 2003–07."
     },
     {
       "question": "What enabled NINJA loans to be issued on a large scale?",
@@ -1214,7 +1214,7 @@
   "rating-agency": [
     {
       "question": "What is the issuer-pays model, and what conflict of interest did it create in structured credit?",
-      "answer": "In the issuer-pays model, the issuer selects and pays the rating agency. Agencies competed for repeat mandates by issuing more generous ratings — particularly in lucrative structured credit — rather than maintaining independent analysis."
+      "answer": "In the issuer-pays model, the issuer selects and pays the rating agency. Agencies competed for repeat mandates by issuing more generous ratings – particularly in lucrative structured credit – rather than maintaining independent analysis."
     },
     {
       "question": "What was the regulatory response to the rating agencies' failures, and did the issuer-pays model survive?",
@@ -1224,7 +1224,7 @@
   "mmf-rpf": [
     {
       "question": "What happened to the Reserve Primary Fund on 16 September 2008, and what did it trigger?",
-      "answer": "The Reserve Primary Fund's NAV fell to USD 0.97 after Lehman's failure devalued the fund's commercial paper holdings — the fund 'broke the buck'. This triggered an industry-wide run on money market funds."
+      "answer": "The Reserve Primary Fund's NAV fell to USD 0.97 after Lehman's failure devalued the fund's commercial paper holdings – the fund 'broke the buck'. This triggered an industry-wide run on money market funds."
     },
     {
       "question": "How was the run on money market funds stopped in 2008?",
@@ -1248,7 +1248,7 @@
     },
     {
       "question": "What does it mean when a currency trades at a forward premium?",
-      "answer": "A forward premium means F > S — the base currency's forward price is higher than the spot rate. This indicates that the pricing currency has lower interest rates than the base currency, consistent with CIP relationships."
+      "answer": "A forward premium means F > S – the base currency's forward price is higher than the spot rate. This indicates that the pricing currency has lower interest rates than the base currency, consistent with CIP relationships."
     }
   ],
   "swap-points": [
@@ -1258,7 +1258,7 @@
     },
     {
       "question": "What is the standard quoting convention for forward contracts in the interbank market?",
-      "answer": "The interbank market quotes forward contracts by stating swap points (forward points) added to the spot rate — not by quoting the outright forward rate directly."
+      "answer": "The interbank market quotes forward contracts by stating swap points (forward points) added to the spot rate – not by quoting the outright forward rate directly."
     }
   ],
   "ccbs": [
@@ -1274,7 +1274,7 @@
   "basis-spread": [
     {
       "question": "What is the cross-currency basis spread, and what does a negative dollar basis mean?",
-      "answer": "The basis spread is the term added to a CCBS to enforce no-arbitrage when CIP is violated. A negative dollar basis means that those funding themselves in dollars via FX swap pay a premium — it costs more to obtain dollars than CIP implies."
+      "answer": "The basis spread is the term added to a CCBS to enforce no-arbitrage when CIP is violated. A negative dollar basis means that those funding themselves in dollars via FX swap pay a premium – it costs more to obtain dollars than CIP implies."
     },
     {
       "question": "What cured the dollar basis flare-ups in 2008 and March 2020?",
@@ -1284,11 +1284,11 @@
   "irs": [
     {
       "question": "What is an interest rate swap (IRS), and what do the parties exchange?",
-      "answer": "An IRS is a same-currency swap in which one party pays a fixed rate and receives a floating rate (or vice versa) on a notional amount. The notional amount is never exchanged — only net interest payments are settled."
+      "answer": "An IRS is a same-currency swap in which one party pays a fixed rate and receives a floating rate (or vice versa) on a notional amount. The notional amount is never exchanged – only net interest payments are settled."
     },
     {
       "question": "What is the important risk distinction for a fixed-rate payer in an IRS?",
-      "answer": "A fixed-rate payer locks in a funding cost but bears the risk that floating rates fall below the agreed fixed rate. An IRS transforms interest rate risk but does not eliminate it — the risk profile changes form."
+      "answer": "A fixed-rate payer locks in a funding cost but bears the risk that floating rates fall below the agreed fixed rate. An IRS transforms interest rate risk but does not eliminate it – the risk profile changes form."
     }
   ],
   "benchmarks": [
@@ -1314,7 +1314,7 @@
   "margin": [
     {
       "question": "What is the difference between initial margin and variation margin in derivatives clearing?",
-      "answer": "Initial margin is pre-posted collateral against potential future exposure (typically 99% 10-day VaR). Variation margin is the daily settlement of mark-to-market gains and losses — one-for-one with the previous day's movement."
+      "answer": "Initial margin is pre-posted collateral against potential future exposure (typically 99% 10-day VaR). Variation margin is the daily settlement of mark-to-market gains and losses – one-for-one with the previous day's movement."
     },
     {
       "question": "What is UMR, and what did it extend margin requirements to cover?",
@@ -1324,7 +1324,7 @@
   "rebalancing-channel": [
     {
       "question": "What is the rebalancing channel for FX hedging, and how does it create a self-reinforcing weakening of NOK?",
-      "answer": "A foreign investor holds a Norwegian bond hedged with a EUR/NOK forward. When NOK weakens, the Norwegian bond's value (in EUR) is now larger than the hedge — the investor is under-hedged. To rebalance, more NOK is sold forward, which weakens NOK further."
+      "answer": "A foreign investor holds a Norwegian bond hedged with a EUR/NOK forward. When NOK weakens, the Norwegian bond's value (in EUR) is now larger than the hedge – the investor is under-hedged. To rebalance, more NOK is sold forward, which weakens NOK further."
     },
     {
       "question": "Which historical episode clearly illustrates the rebalancing channel?",
@@ -1348,7 +1348,7 @@
     },
     {
       "question": "What cures acute dollar funding flare-ups effectively?",
-      "answer": "Fed dollar swap lines cure acute episodes by offering central-bank-intermediated dollar access to foreign central banks, which pass it on to their banks — so that dollar scarcity is addressed without using the money market."
+      "answer": "Fed dollar swap lines cure acute episodes by offering central-bank-intermediated dollar access to foreign central banks, which pass it on to their banks – so that dollar scarcity is addressed without using the money market."
     }
   ],
   "forward-contract": [
@@ -1358,17 +1358,17 @@
     },
     {
       "question": "What is the cash flow profile of a standard forward contract?",
-      "answer": "A forward contract has no initial cash flow. Mark-to-market accumulates over the tenor, and settlement occurs at maturity. Counterparty risk is symmetric — either party may end up in-the-money."
+      "answer": "A forward contract has no initial cash flow. Mark-to-market accumulates over the tenor, and settlement occurs at maturity. Counterparty risk is symmetric – either party may end up in-the-money."
     }
   ],
   "brrd": [
     {
       "question": "What are the four resolution tools under BRRD?",
-      "answer": "The four tools are: (1) sale of business to a private buyer, (2) bridge institution, (3) asset separation to an asset management vehicle, and (4) bail-in — write-down and conversion of debt."
+      "answer": "The four tools are: (1) sale of business to a private buyer, (2) bridge institution, (3) asset separation to an asset management vehicle, and (4) bail-in – write-down and conversion of debt."
     },
     {
       "question": "What is the FOLF trigger, and what is the function of the public interest assessment under BRRD?",
-      "answer": "FOLF (Failing or Likely to Fail) is the threshold for resolution. The public interest assessment determines whether resolution is necessary rather than ordinary insolvency — only if resolution serves the public interest are the BRRD tools applied."
+      "answer": "FOLF (Failing or Likely to Fail) is the threshold for resolution. The public interest assessment determines whether resolution is necessary rather than ordinary insolvency – only if resolution serves the public interest are the BRRD tools applied."
     }
   ],
   "recovery-plan": [
@@ -1398,7 +1398,7 @@
     },
     {
       "question": "What distinguishes the FOLF criterion from ordinary insolvency under national law?",
-      "answer": "FOLF can be triggered by future (likely) failure, not only current failure — 'likely to fail' is a forward-looking criterion. Ordinary insolvency is typically a fact-based, backward-looking legal concept."
+      "answer": "FOLF can be triggered by future (likely) failure, not only current failure – 'likely to fail' is a forward-looking criterion. Ordinary insolvency is typically a fact-based, backward-looking legal concept."
     }
   ],
   "public-interest-assessment": [
@@ -1414,7 +1414,7 @@
   "resolution-tools": [
     {
       "question": "Name the four resolution tools under BRRD, and state the restriction that applies to one of them.",
-      "answer": "The four tools are: (1) Sale of Business, (2) Bridge Institution, (3) Asset Separation, and (4) Bail-in. Asset Separation cannot be used alone — it must be combined with one of the other three tools."
+      "answer": "The four tools are: (1) Sale of Business, (2) Bridge Institution, (3) Asset Separation, and (4) Bail-in. Asset Separation cannot be used alone – it must be combined with one of the other three tools."
     },
     {
       "question": "Can BRRD resolution tools be combined, and what does an examiner expect candidates to name?",
@@ -1424,7 +1424,7 @@
   "sale-of-business": [
     {
       "question": "What does the Sale of Business tool entail, and why is it preferred when a willing buyer exists?",
-      "answer": "The tool involves transferring all or part of the failing bank's business — shares, assets, rights, and liabilities — to a willing private buyer without shareholder consent. It preserves the franchise and avoids exposing the public balance sheet."
+      "answer": "The tool involves transferring all or part of the failing bank's business – shares, assets, rights, and liabilities – to a willing private buyer without shareholder consent. It preserves the franchise and avoids exposing the public balance sheet."
     },
     {
       "question": "Which concrete case illustrates rapid use of the Sale of Business tool, and what was the timeframe?",
@@ -1444,7 +1444,7 @@
   "asset-separation": [
     {
       "question": "What is the purpose of the Asset Separation tool, and what critical restriction applies to its use?",
-      "answer": "Asset Separation transfers toxic or illiquid assets to a publicly controlled Asset Management Vehicle (AMV) so that the 'good bank' can continue with a clean balance sheet. The tool cannot be used alone — it must be combined with Sale of Business, Bridge Institution, or Bail-in."
+      "answer": "Asset Separation transfers toxic or illiquid assets to a publicly controlled Asset Management Vehicle (AMV) so that the 'good bank' can continue with a clean balance sheet. The tool cannot be used alone – it must be combined with Sale of Business, Bridge Institution, or Bail-in."
     },
     {
       "question": "Which historical example is regarded as the precursor to the Asset Separation tool?",
@@ -1464,7 +1464,7 @@
   "ra": [
     {
       "question": "What is the Recapitalisation Amount (RA), and on which balance sheet is it calculated?",
-      "answer": "RA is the second MREL component and covers the capital needed to restore the bank — or a successor — to its full operating capital requirements after resolution. It is calculated on the post-resolution balance sheet, which may be smaller after asset transfers."
+      "answer": "RA is the second MREL component and covers the capital needed to restore the bank – or a successor – to its full operating capital requirements after resolution. It is calculated on the post-resolution balance sheet, which may be smaller after asset transfers."
     },
     {
       "question": "Why can RA be calibrated to a lower amount than LAA in some cases?",
@@ -1474,7 +1474,7 @@
   "going-vs-gone-concern": [
     {
       "question": "What distinguishes going-concern loss absorption from gone-concern loss absorption, and which capital classes belong to each category?",
-      "answer": "Going-concern: the bank absorbs losses while still operating — CET1 always, AT1 upon trigger (5.125%/7% CET1). Gone-concern: capital absorbs losses only at PONV or in resolution — Tier 2, senior non-preferred, and senior unsecured debt."
+      "answer": "Going-concern: the bank absorbs losses while still operating – CET1 always, AT1 upon trigger (5.125%/7% CET1). Gone-concern: capital absorbs losses only at PONV or in resolution – Tier 2, senior non-preferred, and senior unsecured debt."
     },
     {
       "question": "Why is the going- vs. gone-concern distinction the backbone of bail-in design?",
@@ -1488,7 +1488,7 @@
     },
     {
       "question": "Which country introduced the SNP class, and why is the SNP designation important to investors?",
-      "answer": "France introduced the class in 2016. The designation explicitly signals to investors that the instrument, despite its senior status, is intended to absorb losses in resolution — unlike ordinary senior bonds."
+      "answer": "France introduced the class in 2016. The designation explicitly signals to investors that the instrument, despite its senior status, is intended to absorb losses in resolution – unlike ordinary senior bonds."
     }
   ],
   "creditor-hierarchy": [
@@ -1498,13 +1498,13 @@
     },
     {
       "question": "What exam-typical question is linked to creditor hierarchy, and what is the key point?",
-      "answer": "Exams typically ask for the explicit ranking (Spring 2024 Q5). The key point is that bail-in operates from the bottom up — shareholders and hybrid capital holders bear losses first, covered depositors last."
+      "answer": "Exams typically ask for the explicit ranking (Spring 2024 Q5). The key point is that bail-in operates from the bottom up – shareholders and hybrid capital holders bear losses first, covered depositors last."
     }
   ],
   "super-preference": [
     {
       "question": "What does super-preference for covered deposits entail, and when was it introduced into Norwegian law?",
-      "answer": "Covered deposits (NOK 2 million in Norway, €100,000 in the EU) rank highest in the hierarchy in resolution and winding-up. The deposit guarantee fund — which has paid out covered depositors — recovers funds from the estate ahead of all other creditors. Introduced into Norwegian law in 2019 upon implementation of BRRD2."
+      "answer": "Covered deposits (NOK 2 million in Norway, €100,000 in the EU) rank highest in the hierarchy in resolution and winding-up. The deposit guarantee fund – which has paid out covered depositors – recovers funds from the estate ahead of all other creditors. Introduced into Norwegian law in 2019 upon implementation of BRRD2."
     },
     {
       "question": "What consequences would removing the super-preference for covered deposits have?",
@@ -1544,7 +1544,7 @@
   "bail-out": [
     {
       "question": "What is a bail-out, and what is its most important difference from bail-in?",
-      "answer": "A bail-out is the recapitalisation of a failing bank using external (taxpayer) funds — equity injections, asset purchases, or blanket guarantees. Bail-in instead uses the bank's own creditors (not taxpayers) to bear the losses."
+      "answer": "A bail-out is the recapitalisation of a failing bank using external (taxpayer) funds – equity injections, asset purchases, or blanket guarantees. Bail-in instead uses the bank's own creditors (not taxpayers) to bear the losses."
     },
     {
       "question": "Name three historical examples of bail-outs, and what political consequence did they have?",
@@ -1564,7 +1564,7 @@
   "ponv": [
     {
       "question": "What is the Point of Non-Viability (PONV), and what role does it play in the resolution framework?",
-      "answer": "PONV is the point at which the resolution authority determines that the bank would no longer be viable without intervention — typically just before a formal FOLF determination. It is the legal hook that triggers AT1 and Tier 2 write-down or conversion outside of formal resolution."
+      "answer": "PONV is the point at which the resolution authority determines that the bank would no longer be viable without intervention – typically just before a formal FOLF determination. It is the legal hook that triggers AT1 and Tier 2 write-down or conversion outside of formal resolution."
     },
     {
       "question": "Is PONV the same as FOLF, and who determines that PONV has been reached?",
@@ -1584,7 +1584,7 @@
   "sre": [
     {
       "question": "What is the Systemic Risk Exception (SRE), and when was it used in 2023?",
-      "answer": "The SRE is an FDIC tool that authorises deviating from the 'least-cost resolution' standard in the event of serious systemic risk. It was invoked on 12 March 2023 to guarantee all uninsured deposits at SVB and Signature Bank — above the FDIC limit of $250,000 — to prevent a broader bank run."
+      "answer": "The SRE is an FDIC tool that authorises deviating from the 'least-cost resolution' standard in the event of serious systemic risk. It was invoked on 12 March 2023 to guarantee all uninsured deposits at SVB and Signature Bank – above the FDIC limit of $250,000 – to prevent a broader bank run."
     },
     {
       "question": "Why is the use of the SRE after the SVB collapse controversial?",
@@ -1594,11 +1594,11 @@
   "btfp": [
     {
       "question": "What was the Bank Term Funding Program (BTFP), and what was its key innovation?",
-      "answer": "The BTFP was a Federal Reserve emergency facility launched on 12 March 2023 that lent to banks for up to one year against high-quality collateral valued at par — not market value. This directly addressed the HTM loss problem that triggered the SVB collapse."
+      "answer": "The BTFP was a Federal Reserve emergency facility launched on 12 March 2023 that lent to banks for up to one year against high-quality collateral valued at par – not market value. This directly addressed the HTM loss problem that triggered the SVB collapse."
     },
     {
       "question": "Why does the BTFP break Bagehot's classical LOLR principle, and what was the justification?",
-      "answer": "Bagehot required 'good collateral' — valued at market price — as a condition for LOLR lending. The BTFP accepted par value (above market value) to break the run dynamics arising from HTM losses; the rule was deliberately broken for financial stability reasons."
+      "answer": "Bagehot required 'good collateral' – valued at market price – as a condition for LOLR lending. The BTFP accepted par value (above market value) to break the run dynamics arising from HTM losses; the rule was deliberately broken for financial stability reasons."
     }
   ],
   "finanstilsynet": [
@@ -1608,7 +1608,7 @@
     },
     {
       "question": "What does the Næringsbanken case illustrate about Finanstilsynet's supervisory practice?",
-      "answer": "The case demonstrates effective preventive supervisory action: Finanstilsynet imposed a lending freeze, raised P2R, and forced recapitalisation of a small Norwegian bank — all before the FOLF threshold was reached — thereby avoiding full resolution."
+      "answer": "The case demonstrates effective preventive supervisory action: Finanstilsynet imposed a lending freeze, raised P2R, and forced recapitalisation of a small Norwegian bank – all before the FOLF threshold was reached – thereby avoiding full resolution."
     }
   ],
   "ring-fencing": [
@@ -1638,13 +1638,13 @@
     },
     {
       "question": "What is the most important distinction between the Næringsbanken intervention and a formal BRRD resolution?",
-      "answer": "The Næringsbanken intervention was a preventive supervisory measure under Finanstilsynet's ordinary powers — not a formal BRRD resolution. The bank had not reached the FOLF threshold, and the intervention avoided the use of resolution tools."
+      "answer": "The Næringsbanken intervention was a preventive supervisory measure under Finanstilsynet's ordinary powers – not a formal BRRD resolution. The bank had not reached the FOLF threshold, and the intervention avoided the use of resolution tools."
     }
   ],
   "sberbank-europe": [
     {
       "question": "What triggered the Sberbank Europe case, and which resolution tool was used?",
-      "answer": "Russia's invasion of Ukraine in February 2022 triggered a sanctions-driven deposit run on the European subsidiary of Russia's Sberbank. The SRB determined FOLF on 27 February 2022 and applied the Sale of Business tool — Croatian and Slovenian operations were transferred to local buyers within days."
+      "answer": "Russia's invasion of Ukraine in February 2022 triggered a sanctions-driven deposit run on the European subsidiary of Russia's Sberbank. The SRB determined FOLF on 27 February 2022 and applied the Sale of Business tool – Croatian and Slovenian operations were transferred to local buyers within days."
     },
     {
       "question": "Why is Sberbank Europe regarded as an example of successful rapid resolution?",
@@ -1664,7 +1664,7 @@
   "bankenes-sikringsfond": [
     {
       "question": "What is Bankenes Sikringsfond, and what distinguishes Norwegian deposit insurance from the EU standard?",
-      "answer": "Bankenes Sikringsfond is Norway's deposit guarantee and resolution financing arrangement with two pots: a deposit guarantee fund and a resolution fund. Coverage is NOK 2 million per depositor per bank — substantially more generous than the EU cap of €100,000."
+      "answer": "Bankenes Sikringsfond is Norway's deposit guarantee and resolution financing arrangement with two pots: a deposit guarantee fund and a resolution fund. Coverage is NOK 2 million per depositor per bank – substantially more generous than the EU cap of €100,000."
     },
     {
       "question": "How is Bankenes Sikringsfond financed, and what is the proposed premium ratio from 2026?",
@@ -1708,17 +1708,17 @@
     },
     {
       "question": "What is the most important implication of Merton (1977) for regulatory design?",
-      "answer": "Flat-rate deposit insurance transfers value from safe banks (and taxpayers) to risky banks, creating moral hazard. The solution is risk-based premiums — the theoretical foundation Merton laid for this reform."
+      "answer": "Flat-rate deposit insurance transfers value from safe banks (and taxpayers) to risky banks, creating moral hazard. The solution is risk-based premiums – the theoretical foundation Merton laid for this reform."
     }
   ],
   "esg": [
     {
-      "question": "What distinguishes physical risk from transition risk in an ESG context — and give two examples of each?",
-      "answer": "Physical risk relates to direct climate impacts on assets and cash flows: (1) acute — extreme weather such as floods or storms damaging collateral properties or disrupting operations; (2) chronic — rising sea levels and prolonged drought gradually eroding property values and increasing default risk over time. Transition risk arises from the shift to a low-carbon economy: (1) regulatory/policy — carbon pricing or emissions requirements raising costs for fossil-intensive borrowers; (2) market — technology shifts making existing installations into stranded assets and affecting credit spreads and equity values. Both categories are transversal: they manifest as credit risk, market risk, operational risk, and reputational risk."
+      "question": "What distinguishes physical risk from transition risk in an ESG context – and give two examples of each?",
+      "answer": "Physical risk relates to direct climate impacts on assets and cash flows: (1) acute – extreme weather such as floods or storms damaging collateral properties or disrupting operations; (2) chronic – rising sea levels and prolonged drought gradually eroding property values and increasing default risk over time. Transition risk arises from the shift to a low-carbon economy: (1) regulatory/policy – carbon pricing or emissions requirements raising costs for fossil-intensive borrowers; (2) market – technology shifts making existing installations into stranded assets and affecting credit spreads and equity values. Both categories are transversal: they manifest as credit risk, market risk, operational risk, and reputational risk."
     },
     {
       "question": "What is a 'double materiality assessment' under CSRD, and what are its implications for banks?",
-      "answer": "Double materiality requires businesses to assess risks and opportunities from two directions: (1) outside-in — how climate and ESG factors affect the company's financial position and risk exposure (financial materiality); and (2) inside-out — what impact the company's activities have on society and the environment (impact materiality). For banks this means mapping both the risk that climate change poses to the bank's portfolio and the bank's own financed emissions through its lending activities. The report must include a credible transition plan in which material risks are identified. Non-compliance may trigger supervisory capital add-ons under CRD VI/CRR3."
+      "answer": "Double materiality requires businesses to assess risks and opportunities from two directions: (1) outside-in – how climate and ESG factors affect the company's financial position and risk exposure (financial materiality); and (2) inside-out – what impact the company's activities have on society and the environment (impact materiality). For banks this means mapping both the risk that climate change poses to the bank's portfolio and the bank's own financed emissions through its lending activities. The report must include a credible transition plan in which material risks are identified. Non-compliance may trigger supervisory capital add-ons under CRD VI/CRR3."
     },
     {
       "question": "What regulatory tools do the EBA and the EU use to integrate ESG into banking regulation, and what incentives are created?",
@@ -1738,17 +1738,17 @@
   "transition-risk": [
     {
       "question": "What is transition risk, and what three sub-types are distinguished?",
-      "answer": "Transition risk arises from the shift to a low-carbon economy and is divided into: (1) Regulatory — carbon pricing, fossil fuel bans, building energy efficiency requirements; (2) Market — demand and technology shifts (e.g. electric vehicles replacing combustion engines); (3) Reputational — criticism of financing controversial sectors."
+      "answer": "Transition risk arises from the shift to a low-carbon economy and is divided into: (1) Regulatory – carbon pricing, fossil fuel bans, building energy efficiency requirements; (2) Market – demand and technology shifts (e.g. electric vehicles replacing combustion engines); (3) Reputational – criticism of financing controversial sectors."
     },
     {
       "question": "How does transition risk concretely materialise on banks' balance sheets?",
-      "answer": "Transition risk manifests as stranded assets in banks' loan portfolios — borrowers' assets (fossil reserves, energy-inefficient buildings) lose value before the end of their physical lifespan, increasing PD and LGD on the bank's exposures."
+      "answer": "Transition risk manifests as stranded assets in banks' loan portfolios – borrowers' assets (fossil reserves, energy-inefficient buildings) lose value before the end of their physical lifespan, increasing PD and LGD on the bank's exposures."
     }
   ],
   "stranded-assets": [
     {
       "question": "What are stranded assets, and what is the central credit risk channel for banks?",
-      "answer": "Stranded assets are assets — typically fossil reserves, fossil power plants, combustion engine vehicle production, or energy-inefficient buildings — that become uneconomical before the end of their physical lifespan due to the low-carbon transition. For banks, credit risk materialises through borrower financial distress and impairment — often long before the assets are formally written down."
+      "answer": "Stranded assets are assets – typically fossil reserves, fossil power plants, combustion engine vehicle production, or energy-inefficient buildings – that become uneconomical before the end of their physical lifespan due to the low-carbon transition. For banks, credit risk materialises through borrower financial distress and impairment – often long before the assets are formally written down."
     },
     {
       "question": "What time dimension is important to specify regarding stranded asset risk for banks?",
@@ -1772,13 +1772,13 @@
     },
     {
       "question": "How do the EBA ESG Guidelines position ESG risk within the Pillar 2 framework?",
-      "answer": "The guidelines operationalise ESG risk within SREP — supervisors are expected to assess banks' ESG risk management as an integrated part of the Pillar 2 review, on a par with capital and liquidity assessments."
+      "answer": "The guidelines operationalise ESG risk within SREP – supervisors are expected to assess banks' ESG risk management as an integrated part of the Pillar 2 review, on a par with capital and liquidity assessments."
     }
   ],
   "bernanke-1983": [
     {
       "question": "What was Bernanke's (1983) central argument about bank failures during the Great Depression?",
-      "answer": "Bernanke argued that bank failures had real economic effects beyond the money supply contraction emphasised by Friedman and Schwartz. The failures destroyed bank-specific intermediation capital — relationships, credit assessments, and monitoring infrastructure — that could not be quickly rebuilt, thereby deepening and prolonging the Depression."
+      "answer": "Bernanke argued that bank failures had real economic effects beyond the money supply contraction emphasised by Friedman and Schwartz. The failures destroyed bank-specific intermediation capital – relationships, credit assessments, and monitoring infrastructure – that could not be quickly rebuilt, thereby deepening and prolonging the Depression."
     },
     {
       "question": "What policy implication follows from Bernanke (1983), and what did the article ultimately earn him?",
@@ -1788,11 +1788,11 @@
   "northern-rock": [
     {
       "question": "What caused the Northern Rock collapse in September 2007, and what triggered the bank run?",
-      "answer": "Northern Rock was heavily reliant on wholesale and securitisation funding (deposits covered only ~25% of assets). The August 2007 freezing of the ABCP market cut the bank's rolling funding; news that the bank had sought LOLR assistance from the Bank of England triggered queues outside branches on 14 September — the first UK bank run since 1866."
+      "answer": "Northern Rock was heavily reliant on wholesale and securitisation funding (deposits covered only ~25% of assets). The August 2007 freezing of the ABCP market cut the bank's rolling funding; news that the bank had sought LOLR assistance from the Bank of England triggered queues outside branches on 14 September – the first UK bank run since 1866."
     },
     {
       "question": "What does Northern Rock illustrate about the limitations of LOLR communication?",
-      "answer": "News of LOLR support, even though intended as stabilising, signalled to the market that the bank was in serious trouble. It highlights that LOLR success depends on timing and public communication — a late or publicly known LOLR request can itself trigger a run."
+      "answer": "News of LOLR support, even though intended as stabilising, signalled to the market that the bank was in serious trouble. It highlights that LOLR success depends on timing and public communication – a late or publicly known LOLR request can itself trigger a run."
     }
   ],
   "bear-stearns": [
@@ -1808,11 +1808,11 @@
   "lehman-brothers": [
     {
       "question": "What happened when Lehman Brothers went bankrupt on 15 September 2008, and what were the immediate consequences?",
-      "answer": "Lehman filed for Chapter 11 with $613 billion in debt — the largest bankruptcy in US history. Consequences: global dollar funding markets froze, the Reserve Primary MMF broke the buck the following day, Fed currency swap lines were activated, and AIG collapsed within hours."
+      "answer": "Lehman filed for Chapter 11 with $613 billion in debt – the largest bankruptcy in US history. Consequences: global dollar funding markets froze, the Reserve Primary MMF broke the buck the following day, Fed currency swap lines were activated, and AIG collapsed within hours."
     },
     {
       "question": "What is the regulatory significance of the decision not to rescue Lehman Brothers?",
-      "answer": "The decision is regarded as the single greatest policy mistake during the financial crisis and became a direct catalyst for the bail-in, MREL, and resolution reforms in Basel III and BRRD — precisely to avoid authorities again facing the choice between bail-out and systemic collapse."
+      "answer": "The decision is regarded as the single greatest policy mistake during the financial crisis and became a direct catalyst for the bail-in, MREL, and resolution reforms in Basel III and BRRD – precisely to avoid authorities again facing the choice between bail-out and systemic collapse."
     }
   ],
   "aig": [
@@ -1822,7 +1822,7 @@
     },
     {
       "question": "What does the AIG case illustrate about systemic CDS risk?",
-      "answer": "AIG functioned as an unregulated counterparty that accumulated enormous credit risk exposure via CDS without commensurate capital. When AIG was unable to meet margin calls, AIG's counterparties — major banks globally — were in practice rescued at taxpayers' expense when the government intervened."
+      "answer": "AIG functioned as an unregulated counterparty that accumulated enormous credit risk exposure via CDS without commensurate capital. When AIG was unable to meet margin calls, AIG's counterparties – major banks globally – were in practice rescued at taxpayers' expense when the government intervened."
     }
   ],
   "bnp-paribas-2007": [
@@ -1852,13 +1852,13 @@
     },
     {
       "question": "What is the accounting lesson from SVB relating to HTM classification?",
-      "answer": "HTM classification conceals unrealised mark-to-market losses as long as the bank holds the securities to maturity. But upon forced sale — triggered by a liquidity need — the losses are realised. SVB illustrates that HTM portfolio size and interest rate risk should be visible in stress analyses, not hidden by classification choices."
+      "answer": "HTM classification conceals unrealised mark-to-market losses as long as the bank holds the securities to maturity. But upon forced sale – triggered by a liquidity need – the losses are realised. SVB illustrates that HTM portfolio size and interest rate risk should be visible in stress analyses, not hidden by classification choices."
     }
   ],
   "norwegian-banking-crisis": [
     {
       "question": "What were the underlying causes of the Norwegian banking crisis (1988–93), and what was the political outcome?",
-      "answer": "Financial deregulation in the early 1980s triggered a property and shipping boom from 1985–87 followed by a crash. Cumulative losses exceeded NOK 76 billion. The state took full ownership of the three largest banks (DnB, Christiania, Fokus) — shareholders were written down to zero without compensation."
+      "answer": "Financial deregulation in the early 1980s triggered a property and shipping boom from 1985–87 followed by a crash. Cumulative losses exceeded NOK 76 billion. The state took full ownership of the three largest banks (DnB, Christiania, Fokus) – shareholders were written down to zero without compensation."
     },
     {
       "question": "What was the regulatory legacy of the Norwegian banking crisis?",
@@ -1882,17 +1882,17 @@
     },
     {
       "question": "What is the connection between the S&L crisis and Marcus's (1984) charter value theory?",
-      "answer": "Marcus (1984) extended Merton (1977) by showing that franchise value (charter value) acts as a disciplining device — banks with high charter value take less risk to protect it. The S&L crisis illustrates what happens when charter value is eroded by competition and deregulation: institutions gamble for resurrection at the state's expense."
+      "answer": "Marcus (1984) extended Merton (1977) by showing that franchise value (charter value) acts as a disciplining device – banks with high charter value take less risk to protect it. The S&L crisis illustrates what happens when charter value is eroded by competition and deregulation: institutions gamble for resurrection at the state's expense."
     }
   ],
   "nok-march-2020": [
     {
       "question": "What triggered the sharp NOK depreciation in March 2020, and which two channels did Norges Bank identify?",
-      "answer": "The COVID-19 panic triggered an unprecedented NOK depreciation (EUR/NOK +~20% within days). Norges Bank and Alstadheim identified two channels: (1) the rebalancing channel — foreign holders of NOK assets reduced their exposure; (2) the margining channel — mark-to-market losses on currency hedges forced sales of Norwegian bonds."
+      "answer": "The COVID-19 panic triggered an unprecedented NOK depreciation (EUR/NOK +~20% within days). Norges Bank and Alstadheim identified two channels: (1) the rebalancing channel – foreign holders of NOK assets reduced their exposure; (2) the margining channel – mark-to-market losses on currency hedges forced sales of Norwegian bonds."
     },
     {
       "question": "What measures did Norges Bank take during the March 2020 NOK turbulence?",
-      "answer": "Norges Bank intervened in the foreign exchange market with NOK-supportive purchases and drew on the Fed currency swap line to obtain dollar liquidity — which relieved pressure in the Norwegian financial market."
+      "answer": "Norges Bank intervened in the foreign exchange market with NOK-supportive purchases and drew on the Fed currency swap line to obtain dollar liquidity – which relieved pressure in the Norwegian financial market."
     }
   ],
   "turner-review": [
@@ -1902,45 +1902,45 @@
     },
     {
       "question": "What regulatory agenda did the Turner Review set, and who published it?",
-      "answer": "The UK FSA published the report in March 2009. It set the agenda for Basel III (stricter capital requirements, leverage ratio, liquidity standards) as well as resolution reform — and the six-cause framework is cited directly in exam marking guides."
+      "answer": "The UK FSA published the report in March 2009. It set the agenda for Basel III (stricter capital requirements, leverage ratio, liquidity standards) as well as resolution reform – and the six-cause framework is cited directly in exam marking guides."
     }
   ],
   "asymmetric-info": [
     {
-      "question": "What is the difference between adverse selection and moral hazard — and when does each arise?",
+      "question": "What is the difference between adverse selection and moral hazard – and when does each arise?",
       "answer": "Adverse selection is a pre-contractual problem: the bank cannot distinguish good from bad borrowers in its pricing, and a high interest rate selects for risky types. Moral hazard is a post-contractual problem: the borrower can take more risk after funds are disbursed because the upside accrues to the borrower while the downside falls on the bank. Both stem from information asymmetry between contracting parties, and both can persist in equilibrium because the informed party cannot credibly commit to prudent behaviour."
     },
     {
       "question": "Explain the Stiglitz–Weiss mechanism: why do banks ration credit instead of raising the interest rate to market-clearing levels?",
-      "answer": "A higher interest rate acts adversely in two ways: it selects for risky borrowers (adverse selection) and motivates risk-taking behaviour by existing borrowers (moral hazard). Both effects reduce the bank's expected return, which is non-monotonic in the interest rate and is maximised at an optimal rate r* below the market-clearing rate. The bank sets r* and rations credit — some applicants are denied rather than being charged a higher rate — because credit markets do not clear through price the way ordinary goods markets do."
+      "answer": "A higher interest rate acts adversely in two ways: it selects for risky borrowers (adverse selection) and motivates risk-taking behaviour by existing borrowers (moral hazard). Both effects reduce the bank's expected return, which is non-monotonic in the interest rate and is maximised at an optimal rate r* below the market-clearing rate. The bank sets r* and rations credit – some applicants are denied rather than being charged a higher rate – because credit markets do not clear through price the way ordinary goods markets do."
     },
     {
-      "question": "What two purposes does collateral serve — and which information problem does each purpose address?",
-      "answer": "Collateral addresses both information problems: (1) As a signal of credit quality (adverse selection) — risky borrowers are less willing to pledge personal assets as collateral because the expected cost to them is higher. (2) As an incentive mechanism after disbursement (moral hazard) — the borrower has 'skin in the game' and is thereby motivated to act prudently. Collateral is the only countermeasure that addresses both information problems simultaneously."
+      "question": "What two purposes does collateral serve – and which information problem does each purpose address?",
+      "answer": "Collateral addresses both information problems: (1) As a signal of credit quality (adverse selection) – risky borrowers are less willing to pledge personal assets as collateral because the expected cost to them is higher. (2) As an incentive mechanism after disbursement (moral hazard) – the borrower has 'skin in the game' and is thereby motivated to act prudently. Collateral is the only countermeasure that addresses both information problems simultaneously."
     }
   ],
   "bank-balance-sheets": [
     {
-      "question": "Explain how modern banks actually create money — and why the money multiplier narrative is misleading.",
-      "answer": "When a bank extends a loan, it credits the borrower's account and creates a new deposit on the liability side — both sides of the balance sheet expand simultaneously. Loans create deposits, not the other way around. In modern fiat systems, reserves are neither a binding constraint on lending (Bank of England 2014) nor the mechanistic starting point that is multiplied; the binding constraints are capital (Basel rules) and demand from creditworthy borrowers. Reserve requirements are therefore an instrument for managing the sharing of seigniorage between the public and banks, not a cap on credit creation."
+      "question": "Explain how modern banks actually create money – and why the money multiplier narrative is misleading.",
+      "answer": "When a bank extends a loan, it credits the borrower's account and creates a new deposit on the liability side – both sides of the balance sheet expand simultaneously. Loans create deposits, not the other way around. In modern fiat systems, reserves are neither a binding constraint on lending (Bank of England 2014) nor the mechanistic starting point that is multiplied; the binding constraints are capital (Basel rules) and demand from creditworthy borrowers. Reserve requirements are therefore an instrument for managing the sharing of seigniorage between the public and banks, not a cap on credit creation."
     },
     {
-      "question": "What distinguishes HTM, AFS, and FVtPL classification of bonds under IFRS 9 — and what lesson does SVB's collapse illustrate?",
-      "answer": "FVtPL bonds are marked to market and gains/losses flow through the income statement. AFS bonds are marked to market, but unrealised gains/losses go to Other Comprehensive Income (OCI) and affect equity. HTM bonds are carried at amortised cost — fair value is disclosed only in notes and affects neither the balance sheet, equity, nor capital ratios. SVB held a large long-duration HTM portfolio; as rates rose, the bonds' market value fell by ~$15.9 billion, but capital ratios appeared normal. Forced sales triggered realisation of the losses, and a social-media-driven deposit run forced a public takeover — the HTM classification had concealed a real insolvency."
+      "question": "What distinguishes HTM, AFS, and FVtPL classification of bonds under IFRS 9 – and what lesson does SVB's collapse illustrate?",
+      "answer": "FVtPL bonds are marked to market and gains/losses flow through the income statement. AFS bonds are marked to market, but unrealised gains/losses go to Other Comprehensive Income (OCI) and affect equity. HTM bonds are carried at amortised cost – fair value is disclosed only in notes and affects neither the balance sheet, equity, nor capital ratios. SVB held a large long-duration HTM portfolio; as rates rose, the bonds' market value fell by ~$15.9 billion, but capital ratios appeared normal. Forced sales triggered realisation of the losses, and a social-media-driven deposit run forced a public takeover – the HTM classification had concealed a real insolvency."
     },
     {
-      "question": "How are ROA, ROE, and the equity multiplier related — and what is the regulatory implication of banks' high leverage?",
-      "answer": "The relationship is: ROE = ROA × (Assets / Equity). With 5–10% equity ratios (10–20× leverage), a modest ROA of ~1% is transformed into a respectable ROE of ~10–15%. However, the leverage effect amplifies losses just as much as gains — a small fall in asset values can wipe out equity. This is precisely what motivates the capital requirements in Basel III: capital buffers absorb unexpected losses and reduce the risk of thin equity cushions being eliminated under stress, with systemic contagion as the consequence."
+      "question": "How are ROA, ROE, and the equity multiplier related – and what is the regulatory implication of banks' high leverage?",
+      "answer": "The relationship is: ROE = ROA × (Assets / Equity). With 5–10% equity ratios (10–20× leverage), a modest ROA of ~1% is transformed into a respectable ROE of ~10–15%. However, the leverage effect amplifies losses just as much as gains – a small fall in asset values can wipe out equity. This is precisely what motivates the capital requirements in Basel III: capital buffers absorb unexpected losses and reduce the risk of thin equity cushions being eliminated under stress, with systemic contagion as the consequence."
     }
   ],
   "credit-risk": [
     {
       "question": "What are the four credit risk parameters under the Basel IRB framework, and which part of the loss do provisions and capital respectively cover?",
-      "answer": "The four parameters are: PD (probability of default over one year), LGD (loss given default, i.e. 1 minus the recovery rate), EAD (exposure at default including accrued interest and undrawn commitments), and M (maturity). Expected loss = PD × LGD × EAD is covered by accounting provisions. Unexpected loss — tail events at the 99.9% confidence level — is covered by regulatory capital. The Basel logic is that provisions absorb average losses, while capital is a buffer against rare but large losses."
+      "answer": "The four parameters are: PD (probability of default over one year), LGD (loss given default, i.e. 1 minus the recovery rate), EAD (exposure at default including accrued interest and undrawn commitments), and M (maturity). Expected loss = PD × LGD × EAD is covered by accounting provisions. Unexpected loss – tail events at the 99.9% confidence level – is covered by regulatory capital. The Basel logic is that provisions absorb average losses, while capital is a buffer against rare but large losses."
     },
     {
-      "question": "Explain the three-stage classification of loans under IFRS 9 — what ECL horizon applies to each stage, and what triggers a transfer from Stage 1 to Stage 2?",
-      "answer": "Stage 1 (performing loans): no significant increase in credit risk since origination — provision for 12-month ECL = EAD × PD₁₂ₘ × LGD. Stage 2 (significant increase in credit risk, SICR): lifetime PD has increased materially — provision for lifetime ECL = EAD × PD_lifetime × LGD. Stage 3 (credit-impaired): default has occurred — PD is set to 100%, provision for lifetime ECL = EAD × LGD. A critical exam point: SICR is triggered by changes in PD, not by deterioration in collateral value alone — collateral deterioration triggers Stage 2 only if it signals higher PD."
+      "question": "Explain the three-stage classification of loans under IFRS 9 – what ECL horizon applies to each stage, and what triggers a transfer from Stage 1 to Stage 2?",
+      "answer": "Stage 1 (performing loans): no significant increase in credit risk since origination – provision for 12-month ECL = EAD × PD₁₂ₘ × LGD. Stage 2 (significant increase in credit risk, SICR): lifetime PD has increased materially – provision for lifetime ECL = EAD × PD_lifetime × LGD. Stage 3 (credit-impaired): default has occurred – PD is set to 100%, provision for lifetime ECL = EAD × LGD. A critical exam point: SICR is triggered by changes in PD, not by deterioration in collateral value alone – collateral deterioration triggers Stage 2 only if it signals higher PD."
     },
     {
       "question": "What distinguishes the Standardised Approach from IRB approaches for credit risk, and which approach typically yields the lowest risk-weighted assets?",
@@ -1949,86 +1949,86 @@
   ],
   "liquidity-risk": [
     {
-      "question": "What is the difference between illiquidity and insolvency — and why is the distinction crucial for choosing the right crisis policy?",
-      "answer": "Insolvency means that the bank's liabilities exceed its assets at fair value — net worth is negative and the bank is fundamentally broken. Illiquidity means that assets exceed liabilities at fair value, but the assets cannot be realised quickly enough to meet current claims — the bank is solvent but operationally 'locked'. The distinction is crucial because the remedies differ: insolvency requires new equity (bail-in or government rescue), while illiquidity requires liquidity injection via the central bank's LOLR function. In practice the two states look very similar from the outside, and misdiagnosis is a classic policy error."
+      "question": "What is the difference between illiquidity and insolvency – and why is the distinction crucial for choosing the right crisis policy?",
+      "answer": "Insolvency means that the bank's liabilities exceed its assets at fair value – net worth is negative and the bank is fundamentally broken. Illiquidity means that assets exceed liabilities at fair value, but the assets cannot be realised quickly enough to meet current claims – the bank is solvent but operationally 'locked'. The distinction is crucial because the remedies differ: insolvency requires new equity (bail-in or government rescue), while illiquidity requires liquidity injection via the central bank's LOLR function. In practice the two states look very similar from the outside, and misdiagnosis is a classic policy error."
     },
     {
-      "question": "Explain Bagehot's rule and the moral hazard problem it creates — what mechanism is used to moderate this?",
-      "answer": "Bagehot's rule (1873) states that the central bank should lend freely, at a penalty rate, against good collateral. The penalty rate ensures that only genuinely illiquid banks borrow (solvent banks find cheaper funding); good collateral protects the central bank from absorbing insolvency disguised as illiquidity. The moral hazard problem is that cheap LOLR access causes banks to hold fewer voluntary liquidity reserves — they externalise liquidity management to the central bank and capture seigniorage that should belong to the public. Reserve requirements are the classic corrective: they force banks to maintain a certain liquidity cushion regardless of LOLR pricing."
+      "question": "Explain Bagehot's rule and the moral hazard problem it creates – what mechanism is used to moderate this?",
+      "answer": "Bagehot's rule (1873) states that the central bank should lend freely, at a penalty rate, against good collateral. The penalty rate ensures that only genuinely illiquid banks borrow (solvent banks find cheaper funding); good collateral protects the central bank from absorbing insolvency disguised as illiquidity. The moral hazard problem is that cheap LOLR access causes banks to hold fewer voluntary liquidity reserves – they externalise liquidity management to the central bank and capture seigniorage that should belong to the public. Reserve requirements are the classic corrective: they force banks to maintain a certain liquidity cushion regardless of LOLR pricing."
     },
     {
       "question": "Explain the two channels that caused the sharp NOK depreciation in March 2020.",
-      "answer": "When foreign equity portfolios fell ~30% in value during the COVID shock, two mechanisms were triggered: (1) The rebalancing channel — Norwegian NBFIs were over-hedged (the hedge was now larger than the underlying exposure) and had to buy foreign currency (sell NOK) to fulfil their hedge contracts, pushing NOK downward. (2) The margining channel — NOK depreciation produced negative mark-to-market on FX hedges, triggering margin calls; to meet these, fund managers sold Norwegian bonds, pushing bond prices down and risk premia up. Norges Bank intervened progressively from 13 March with liquidity, rate cuts, and ultimately possible foreign exchange intervention signalling."
+      "answer": "When foreign equity portfolios fell ~30% in value during the COVID shock, two mechanisms were triggered: (1) The rebalancing channel – Norwegian NBFIs were over-hedged (the hedge was now larger than the underlying exposure) and had to buy foreign currency (sell NOK) to fulfil their hedge contracts, pushing NOK downward. (2) The margining channel – NOK depreciation produced negative mark-to-market on FX hedges, triggering margin calls; to meet these, fund managers sold Norwegian bonds, pushing bond prices down and risk premia up. Norges Bank intervened progressively from 13 March with liquidity, rate cuts, and ultimately possible foreign exchange intervention signalling."
     }
   ],
   "bank-crises": [
     {
       "question": "Account for the Turner Review's six causes of the financial crisis of 2007–09.",
-      "answer": "The Turner Review (2009) identifies: (1) Macro imbalances — China's surplus pushed global real rates down and triggered a search for yield. (2) Financial innovation and shadow banking — securitisation, increased leverage, and maturity transformation in SIVs and money market funds outside the regulatory perimeter. (3) Excessive reliance on sophisticated mathematics — rating agencies lacked experience with new complex products and underestimated correlation. (4) Pro-cyclicality and interconnectedness — downgrades raised repo haircuts, forced fire sales, pushed prices further down, and threatened solvency in a self-reinforcing spiral. (5) Lack of transparency — hidden risks dried up money market funding and froze credit markets. (6) Trigger — US subprime mortgages with weak credit standards spreading globally via securitisation."
+      "answer": "The Turner Review (2009) identifies: (1) Macro imbalances – China's surplus pushed global real rates down and triggered a search for yield. (2) Financial innovation and shadow banking – securitisation, increased leverage, and maturity transformation in SIVs and money market funds outside the regulatory perimeter. (3) Excessive reliance on sophisticated mathematics – rating agencies lacked experience with new complex products and underestimated correlation. (4) Pro-cyclicality and interconnectedness – downgrades raised repo haircuts, forced fire sales, pushed prices further down, and threatened solvency in a self-reinforcing spiral. (5) Lack of transparency – hidden risks dried up money market funding and froze credit markets. (6) Trigger – US subprime mortgages with weak credit standards spreading globally via securitisation."
     },
     {
-      "question": "Explain Bernanke's (1983) non-monetary channel of crisis propagation — and what are its implications for the policy response?",
+      "question": "Explain Bernanke's (1983) non-monetary channel of crisis propagation – and what are its implications for the policy response?",
       "answer": "Bernanke argued that bank failures during the Depression had real economic effects beyond Friedman and Schwartz's monetary contraction narrative: when banks collapsed, information capital and relationships with borrowers were destroyed, particularly for small businesses without access to capital markets. Credit allocation collapsed even with an unchanged money supply. This was empirically confirmed by Ivashina and Scharfstein (2010) after Lehman's bankruptcy: banks with counterparty exposure to Lehman cut new lending regardless of borrower quality. The policy implication is that aggressive central bank intervention to prevent bank failures is justified even if it creates moral hazard, because the costs of systemic failure include a credit network that takes years to rebuild."
     },
     {
-      "question": "What was distinctive about the Norwegian banking crisis of 2008 compared with the crisis in the US and UK — and what was Norges Bank's most important response?",
-      "answer": "Unlike the US and UK, where banks suffered major asset-side problems (subprime losses, insolvency), the 2008 crisis hit Norway primarily through the funding channel: Norwegian banks were well-capitalised but had exposure to foreign wholesale funding that froze. The crisis was a liquidity problem, not a solvency problem — a common exam error is to confuse the two. Norges Bank's most important measure was the 'swap arrangement' (Bytteordningen): banks were allowed to exchange illiquid covered bonds (OMF) and mortgage loans for liquid government treasury bills. This restored interbank confidence at minimal cost to taxpayers, because the banks repaid in full."
+      "question": "What was distinctive about the Norwegian banking crisis of 2008 compared with the crisis in the US and UK – and what was Norges Bank's most important response?",
+      "answer": "Unlike the US and UK, where banks suffered major asset-side problems (subprime losses, insolvency), the 2008 crisis hit Norway primarily through the funding channel: Norwegian banks were well-capitalised but had exposure to foreign wholesale funding that froze. The crisis was a liquidity problem, not a solvency problem – a common exam error is to confuse the two. Norges Bank's most important measure was the 'swap arrangement' (Bytteordningen): banks were allowed to exchange illiquid covered bonds (OMF) and mortgage loans for liquid government treasury bills. This restored interbank confidence at minimal cost to taxpayers, because the banks repaid in full."
     }
   ],
   "basel-regulation": [
     {
       "question": "What are the three types of capital requirement under Basel III, and what is the regulatory rationale for having all three?",
-      "answer": "Basel III operates with: (1) Risk-based capital adequacy — equity/RWA — which calibrates capital against asset risk and is the primary requirement. (2) Unweighted leverage ratio — Tier 1 / total exposures — which is a backstop requirement independent of model risk and RWA 'gaming'; the Basel III minimum is 3%. (3) Bail-in capital (MREL) — (equity + eligible liabilities) / RWA — which ensures that enough loss-bearing debt exists to recapitalise the bank in resolution without taxpayer funds. The three requirements complement each other: the risk-based requirement is precise but manipulable; the leverage ratio is robust but blunt; MREL addresses the 'too big to fail' problem."
+      "answer": "Basel III operates with: (1) Risk-based capital adequacy – equity/RWA – which calibrates capital against asset risk and is the primary requirement. (2) Unweighted leverage ratio – Tier 1 / total exposures – which is a backstop requirement independent of model risk and RWA 'gaming'; the Basel III minimum is 3%. (3) Bail-in capital (MREL) – (equity + eligible liabilities) / RWA – which ensures that enough loss-bearing debt exists to recapitalise the bank in resolution without taxpayer funds. The three requirements complement each other: the risk-based requirement is precise but manipulable; the leverage ratio is robust but blunt; MREL addresses the 'too big to fail' problem."
     },
     {
-      "question": "Describe the capital hierarchy (CET1, AT1, T2) and minimum requirements — and what happens to AT1 instruments in a crisis?",
+      "question": "Describe the capital hierarchy (CET1, AT1, T2) and minimum requirements – and what happens to AT1 instruments in a crisis?",
       "answer": "Capital is ranked by loss-absorption quality: CET1 (common equity minus deductions such as goodwill) is the highest quality and can be written down and zeroed without formal bankruptcy. AT1 (Additional Tier 1) is perpetual hybrid capital that converts to equity or is written down on a going-concern basis (while the bank is still operating); coupons are discretionary. T2 (subordinated debt) is written down first in resolution or liquidation. Pillar 1 minimum requirements are: CET1 ≥ 4.5%, AT1 ≥ 1.5%, T2 ≥ 2.0%, total ≥ 8% of RWA. The stacked requirement for Norwegian systemically important banks (such as DNB) can bring the total CET1 requirement to ~18% including all buffers."
     },
     {
-      "question": "How is a bank's capital adequacy calculated — and what are the steps in a typical exam question?",
+      "question": "How is a bank's capital adequacy calculated – and what are the steps in a typical exam question?",
       "answer": "The standard procedure is: (1) Calculate credit RWA by multiplying each asset by its risk weight and summing. (2) Add market risk RWA and operational risk RWA (usually given). (3) Calculate own funds: CET1 = equity minus deductions; Tier 1 = CET1 + AT1; Total capital = Tier 1 + T2. (4) Divide: CET1 ratio = CET1/total RWA; Tier 1 ratio = T1/total RWA; total capital ratio = Total capital/total RWA. Example from May 2025 Q6a (Lilledal Sparebank): credit RWA = 605, total RWA = 695 (+ 15 market risk + 75 operational), CET1 ratio = 100/695 = 14.4%."
     }
   ],
   "fx-swaps": [
     {
       "question": "Explain Covered Interest Parity (CIP) and derive why the forward rate of a high-interest-rate currency lies above the spot rate.",
-      "answer": "CIP is a no-arbitrage condition: F = S₀ × (1 + r_quote × t) / (1 + r_base × t). If the quote currency (numerator) has a higher interest rate, the forward rate must be higher — i.e. the quote currency is weaker in forward terms than at spot. The intuition is that the party lending the low-rate currency receives a lower interest rate over the period, and the forward rate compensates by delivering more of the high-rate currency at maturity. Without this adjustment, risk-free arbitrage (borrow low, swap to high, deposit, swap back) would be possible. Swap points = F − S₀ represent the magnitude of this interest rate differential compensation."
+      "answer": "CIP is a no-arbitrage condition: F = S₀ × (1 + r_quote × t) / (1 + r_base × t). If the quote currency (numerator) has a higher interest rate, the forward rate must be higher – i.e. the quote currency is weaker in forward terms than at spot. The intuition is that the party lending the low-rate currency receives a lower interest rate over the period, and the forward rate compensates by delivering more of the high-rate currency at maturity. Without this adjustment, risk-free arbitrage (borrow low, swap to high, deposit, swap back) would be possible. Swap points = F − S₀ represent the magnitude of this interest rate differential compensation."
     },
     {
-      "question": "What is the difference between an FX swap and a cross-currency basis swap (CCBS) — and what does the basis spread mean?",
+      "question": "What is the difference between an FX swap and a cross-currency basis swap (CCBS) – and what does the basis spread mean?",
       "answer": "An FX swap is a short-term instrument with two legs: exchange of currencies today at the spot rate (near leg) and reversal at a pre-agreed forward rate at maturity (far leg). A CCBS is long-term (1–30 years): principal is exchanged at the spot rate at inception, floating interest rates in both currencies are exchanged periodically, and principal is re-exchanged at the original spot rate at maturity (not the forward rate). The basis spread is the deviation from CIP that arises in practice due to counterparty credit risk, imbalanced demand, and capital constraints; the spread widened sharply in 2008 (dollar was scarce) and 2020. A negative EUR/USD basis means it is more expensive to swap euros into dollars than CIP implies."
     },
     {
       "question": "A Norwegian mortgage credit institution issues a 5-year fixed-coupon EUR bond. Explain which two risks must be hedged and which instruments are used in a complete hedging strategy.",
-      "answer": "Two risks arise: (1) Currency risk — EUR liabilities fund NOK assets. (2) Interest rate risk — fixed coupon versus floating NOK income. The hedging strategy is: Step 1 — EUR IRS: receive fixed coupon (neutralising the bond coupon), pay floating EURIBOR. Step 2 — EUR/NOK CCBS: receive EURIBOR (neutralising the IRS), pay NIBOR minus basis spread; principal is exchanged at spot and repaid at the SAME spot rate at maturity, so no forward currency risk arises. The net position is a pure floating NOK margin (NIBOR + spread − basis), with all currency and interest rate risk hedged. Residual risks are basis spread movements, counterparty credit risk on swaps, and refinancing risk."
+      "answer": "Two risks arise: (1) Currency risk – EUR liabilities fund NOK assets. (2) Interest rate risk – fixed coupon versus floating NOK income. The hedging strategy is: Step 1 – EUR IRS: receive fixed coupon (neutralising the bond coupon), pay floating EURIBOR. Step 2 – EUR/NOK CCBS: receive EURIBOR (neutralising the IRS), pay NIBOR minus basis spread; principal is exchanged at spot and repaid at the SAME spot rate at maturity, so no forward currency risk arises. The net position is a pure floating NOK margin (NIBOR + spread − basis), with all currency and interest rate risk hedged. Residual risks are basis spread movements, counterparty credit risk on swaps, and refinancing risk."
     }
   ],
   "securitisation": [
     {
-      "question": "What is the difference between traditional (true-sale) securitisation and synthetic securitisation — and what does each achieve?",
-      "answer": "In traditional securitisation, loans are legally sold to an SPV and leave the bank's balance sheet: the bank achieves both funding (cash) and capital relief (lower RWA). In synthetic securitisation, the loans remain on the bank's balance sheet; credit risk is transferred to investors via CDS or financial guarantees on a reference portfolio. Synthetic securitisation provides only capital relief — no funding. A classic exam error is the claim that 'synthetic securitisation provides funding' — this is WRONG. CDS is a key instrument in synthetic securitisation because it transfers credit risk without moving the assets."
+      "question": "What is the difference between traditional (true-sale) securitisation and synthetic securitisation – and what does each achieve?",
+      "answer": "In traditional securitisation, loans are legally sold to an SPV and leave the bank's balance sheet: the bank achieves both funding (cash) and capital relief (lower RWA). In synthetic securitisation, the loans remain on the bank's balance sheet; credit risk is transferred to investors via CDS or financial guarantees on a reference portfolio. Synthetic securitisation provides only capital relief – no funding. A classic exam error is the claim that 'synthetic securitisation provides funding' – this is WRONG. CDS is a key instrument in synthetic securitisation because it transfers credit risk without moving the assets."
     },
     {
       "question": "Explain the tranching mechanism in an ABS: what is the waterfall principle, and what forms of credit enhancement are used to protect senior tranches?",
-      "answer": "An SPV holds a loan portfolio and distributes cash flows in waterfall order: the senior tranche (typically AAA-rated) is paid first and carries the lowest yield; mezzanine tranches are paid next; the equity/first-loss tranche is paid last and absorbs the initial losses. Credit enhancement protects senior tranches through: (1) subordination — junior tranches absorb losses first; (2) overcollateralisation — portfolio value exceeds the face value of tranches; (3) excess spread captured in reserve accounts; and (4) external guarantees (monoline insurance, used extensively pre-GFC). Tranching allows one illiquid, heterogeneous loan portfolio to give rise to instruments with very different risk profiles."
+      "answer": "An SPV holds a loan portfolio and distributes cash flows in waterfall order: the senior tranche (typically AAA-rated) is paid first and carries the lowest yield; mezzanine tranches are paid next; the equity/first-loss tranche is paid last and absorbs the initial losses. Credit enhancement protects senior tranches through: (1) subordination – junior tranches absorb losses first; (2) overcollateralisation – portfolio value exceeds the face value of tranches; (3) excess spread captured in reserve accounts; and (4) external guarantees (monoline insurance, used extensively pre-GFC). Tranching allows one illiquid, heterogeneous loan portfolio to give rise to instruments with very different risk profiles."
     },
     {
       "question": "What five mechanisms contributed to the collapse of the securitisation market during the financial crisis of 2007–09?",
-      "answer": "Five concurrent mechanisms were: (1) 'Originate-to-distribute' weakened screening — without skin in the game, originating banks had reduced incentive to verify borrower creditworthiness, leading to widespread NINJA loans. (2) CDO and CDO² opacity — investors could not understand the underlying credit exposure loop and confidence collapsed at the first subprime losses. (3) Rating agency failure — the issuer-pays model created conflicts of interest; historical correlations from a benign housing market were used and failed under stress. (4) Pro-cyclical margin requirements — ratings downgrades raised repo haircuts, forcing fire sales and pushing prices in a self-reinforcing spiral. (5) Shadow banking maturity mismatch — SIVs and ABCP conduits funded long-term MBS/CDOs with short-term ABCP; when BNP Paribas froze redemptions on 9 August 2007, the market collapsed overnight."
+      "answer": "Five concurrent mechanisms were: (1) 'Originate-to-distribute' weakened screening – without skin in the game, originating banks had reduced incentive to verify borrower creditworthiness, leading to widespread NINJA loans. (2) CDO and CDO² opacity – investors could not understand the underlying credit exposure loop and confidence collapsed at the first subprime losses. (3) Rating agency failure – the issuer-pays model created conflicts of interest; historical correlations from a benign housing market were used and failed under stress. (4) Pro-cyclical margin requirements – ratings downgrades raised repo haircuts, forcing fire sales and pushing prices in a self-reinforcing spiral. (5) Shadow banking maturity mismatch – SIVs and ABCP conduits funded long-term MBS/CDOs with short-term ABCP; when BNP Paribas froze redemptions on 9 August 2007, the market collapsed overnight."
     }
   ],
   "bank-resolution": [
     {
       "question": "What are BRRD's three phases in a bank's life cycle, and what conditions must be met for the resolution phase to be triggered?",
-      "answer": "BRRD organises bank crisis management into: (1) Normal phase — financial optimisation, all indicators in the green, no special action. (2) Recovery phase — bank-led: the bank activates its recovery plan (pre-approved by the supervisor) with measures such as dividend freezes, capital raising, and asset disposals; the goal is to restore normal operations independently. (3) Resolution phase — authority-led: commences when the bank is 'failing or likely to fail' (FOLF) AND it is in the public interest to restructure rather than liquidate. FOLF criteria: the bank no longer meets its authorisation requirements, liabilities exceed assets, it cannot pay its obligations as they fall due, or it requires extraordinary public financial support."
+      "answer": "BRRD organises bank crisis management into: (1) Normal phase – financial optimisation, all indicators in the green, no special action. (2) Recovery phase – bank-led: the bank activates its recovery plan (pre-approved by the supervisor) with measures such as dividend freezes, capital raising, and asset disposals; the goal is to restore normal operations independently. (3) Resolution phase – authority-led: commences when the bank is 'failing or likely to fail' (FOLF) AND it is in the public interest to restructure rather than liquidate. FOLF criteria: the bank no longer meets its authorisation requirements, liabilities exceed assets, it cannot pay its obligations as they fall due, or it requires extraordinary public financial support."
     },
     {
       "question": "Describe the creditor hierarchy in a bail-in and explain why the order is central to the 'too big to fail' problem.",
-      "answer": "In bail-in, losses are absorbed from the bottom up: (1) Equity is zeroed first. (2) AT1 hybrid capital is written down or converted to equity. (3) Tier 2 subordinated debt is written down or converted. (4) Senior non-preferred bonds are converted. (5) Senior unsecured bonds are converted if necessary. (6) Deposits — unguaranteed deposits bear losses before guaranteed ones. Bail-in stops once the recapitalisation target is reached. The order is crucial for 'too big to fail': pre-2008 markets priced in an implicit government guarantee for senior creditors, subsidising large banks' funding. With credible bail-in, senior creditors lose, and the subsidy disappears — banks pay their true risk price."
+      "answer": "In bail-in, losses are absorbed from the bottom up: (1) Equity is zeroed first. (2) AT1 hybrid capital is written down or converted to equity. (3) Tier 2 subordinated debt is written down or converted. (4) Senior non-preferred bonds are converted. (5) Senior unsecured bonds are converted if necessary. (6) Deposits – unguaranteed deposits bear losses before guaranteed ones. Bail-in stops once the recapitalisation target is reached. The order is crucial for 'too big to fail': pre-2008 markets priced in an implicit government guarantee for senior creditors, subsidising large banks' funding. With credible bail-in, senior creditors lose, and the subsidy disappears – banks pay their true risk price."
     },
     {
       "question": "What is MREL, what does it consist of, and why is it necessary for bail-in to function operationally?",
-      "answer": "MREL (Minimum Requirement for own funds and Eligible Liabilities) = (equity + eligible liabilities) / RWA. The requirement has two components: the Loss Absorption Amount (LAA) — to absorb losses on the way down (typically equal to current capital requirements) — and the Recapitalisation Amount (RA) — to rebuild capital to operating standards after resolution. MREL is necessary because bail-in without sufficient bail-in-able debt is not operationally feasible: if the bank's only bail-in-able capital is equity, and that is exhausted, there is nothing left to convert. Without adequate MREL, the temptation to bail out returns — and the implicit subsidy for systemically important banks re-emerges."
+      "answer": "MREL (Minimum Requirement for own funds and Eligible Liabilities) = (equity + eligible liabilities) / RWA. The requirement has two components: the Loss Absorption Amount (LAA) – to absorb losses on the way down (typically equal to current capital requirements) – and the Recapitalisation Amount (RA) – to rebuild capital to operating standards after resolution. MREL is necessary because bail-in without sufficient bail-in-able debt is not operationally feasible: if the bank's only bail-in-able capital is equity, and that is exhausted, there is nothing left to convert. Without adequate MREL, the temptation to bail out returns – and the implicit subsidy for systemically important banks re-emerges."
     }
   ],
   "brunnermeier-pedersen": [
@@ -2048,7 +2048,7 @@
   "merton-deposit-insurance": [
     {
       "question": "How does Merton (1977) model deposit insurance as a put option, and who is the option seller?",
-      "answer": "Deposit insurance pays max(D − A, 0) when the bank is insolvent (A < D) — exactly the payoff profile of a European put on the bank's assets A with strike D. The state is the option seller; the bank's owners are the buyer and pay the premium."
+      "answer": "Deposit insurance pays max(D − A, 0) when the bank is insolvent (A < D) – exactly the payoff profile of a European put on the bank's assets A with strike D. The state is the option seller; the bank's owners are the buyer and pay the premium."
     },
     {
       "question": "Which two factors should the risk-adjusted deposit insurance premium increase with, according to Merton?",
@@ -2062,7 +2062,7 @@
   "abreu-brunnermeier": [
     {
       "question": "Explain the synchronisation problem in Abreu–Brunnermeier: why do bubbles survive even when everyone knows they exist?",
-      "answer": "Arbitrageurs discover the bubble sequentially and at different times. Attacking the bubble is only profitable if enough others do so simultaneously. No individual trader can observe whether others are ready — the dominant strategy is to ride the bubble a little longer. The bubble survives because coordination fails, not because information is lacking."
+      "answer": "Arbitrageurs discover the bubble sequentially and at different times. Attacking the bubble is only profitable if enough others do so simultaneously. No individual trader can observe whether others are ready – the dominant strategy is to ride the bubble a little longer. The bubble survives because coordination fails, not because information is lacking."
     },
     {
       "question": "What determines the duration of the bubble in Abreu–Brunnermeier?",
@@ -2070,7 +2070,7 @@
     },
     {
       "question": "What is the regulatory implication of Abreu–Brunnermeier for combating bubbles?",
-      "answer": "Coordinated early action by regulators or the central bank solves the synchronisation problem that individual market participants cannot solve alone. Waiting is rational for the individual but collectively destructive — regulatory intervention can coordinate expectations and unwind the bubble."
+      "answer": "Coordinated early action by regulators or the central bank solves the synchronisation problem that individual market participants cannot solve alone. Waiting is rational for the individual but collectively destructive – regulatory intervention can coordinate expectations and unwind the bubble."
     }
   ],
   "var": [
@@ -2080,11 +2080,11 @@
     },
     {
       "question": "What are the three most important criticisms of VaR as a risk measure, and what has replaced it for the trading book?",
-      "answer": "VaR (1) ignores tail risk beyond the threshold — a 1-in-1000-day loss can be far larger than VaR; (2) assumes a normal distribution that underestimates fat tails; and (3) is pro-cyclical since volatility rises in downturns and increases capital requirements. Replaced by Expected Shortfall (ES) under FRTB."
+      "answer": "VaR (1) ignores tail risk beyond the threshold – a 1-in-1000-day loss can be far larger than VaR; (2) assumes a normal distribution that underestimates fat tails; and (3) is pro-cyclical since volatility rises in downturns and increases capital requirements. Replaced by Expected Shortfall (ES) under FRTB."
     },
     {
       "question": "What is the difference between VaR and Expected Shortfall (ES)?",
-      "answer": "VaR specifies only the threshold — it says nothing about how large losses are when the threshold is breached. ES (also called Conditional VaR) measures the average loss in the worst x% of cases and thereby captures tail risk that VaR systematically ignores."
+      "answer": "VaR specifies only the threshold – it says nothing about how large losses are when the threshold is breached. ES (also called Conditional VaR) measures the average loss in the worst x% of cases and thereby captures tail risk that VaR systematically ignores."
     }
   ]
 }

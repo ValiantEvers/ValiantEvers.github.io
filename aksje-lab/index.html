@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0a0c10">
-<title>aksje-lab — verdiscreening & backtest (Oslo Børs / Norden) — Valiant Evers</title>
+<title>aksje-lab – verdiscreening & backtest (Oslo Børs / Norden) – Valiant Evers</title>
 <meta name="description" content="Et walk-forward backtest- og verdiscreening-verktøy for ASK-kvalifiserte aksjer på Oslo Børs og i Norden. Punkt-i-tid-korrekt, kildeverifiserte data, caveat-først. Sammendrag av et privat verktøy.">
 <link rel="canonical" href="https://www.evers.no/aksje-lab/">
 <link rel="alternate" hreflang="nb-NO" href="https://www.evers.no/aksje-lab/">
@@ -14,11 +14,11 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:url" content="https://www.evers.no/aksje-lab/">
-<meta property="og:title" content="aksje-lab — verdiscreening & backtest for Oslo Børs / Norden">
-<meta property="og:description" content="Walk-forward-backtest av faktorstrategier, punkt-i-tid-korrekt og caveat-først. Rangeringen etter skatt (ASK) er den robuste innsikten — ikke desimalene.">
+<meta property="og:title" content="aksje-lab – verdiscreening & backtest for Oslo Børs / Norden">
+<meta property="og:description" content="Walk-forward-backtest av faktorstrategier, punkt-i-tid-korrekt og caveat-først. Rangeringen etter skatt (ASK) er den robuste innsikten – ikke desimalene.">
 <meta property="og:image" content="https://www.evers.no/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="aksje-lab — verdiscreening & backtest for Oslo Børs / Norden">
+<meta name="twitter:title" content="aksje-lab – verdiscreening & backtest for Oslo Børs / Norden">
 <meta name="twitter:description" content="Walk-forward-backtest av faktorstrategier, punkt-i-tid-korrekt og caveat-først.">
 <meta name="twitter:image" content="https://www.evers.no/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -92,7 +92,7 @@
     <h1>aksje-lab</h1>
     <p class="lede">Et verdiscreening- og <b>walk-forward-backtest</b>-verktøy for ASK-kvalifiserte aksjer
       på Oslo Børs og i Norden. Bygget for å teste om en faktorstrategi faktisk overlever kostnader,
-      skatt og ærlig metode — ikke bare ser fin ut i et regneark. Motoren er et privat repo;
+      skatt og ærlig metode – ikke bare ser fin ut i et regneark. Motoren er et privat repo;
       denne siden er et sammendrag av resultatene og hvordan de er kommet fram.</p>
   </header>
 
@@ -109,7 +109,7 @@
   <h2>Hovedresultat: rangering etter skatt (ASK)</h2>
   <p class="lede">Fem kandidatstrategier kjørt gjennom ett identisk walk-forward-harness, deretter gjennom
     en etter-skatt-kaskade på en norsk aksjesparekonto (<span class="mono">ASK, 1 MNOK, 2017–2026</span>).
-    <b>Rekkefølgen — ikke desimalene — er den robuste innsikten:</b> toppen holdt seg gjennom fire
+    <b>Rekkefølgen – ikke desimalene – er den robuste innsikten:</b> toppen holdt seg gjennom fire
     uavhengige re-baseliner etter datakvalitetsrettinger.</p>
 
   <div class="result">
@@ -161,13 +161,13 @@
   <div class="grid">
     <div class="card"><span class="k">Punkt-i-tid</span>
       <p><b>Samme as_of-logikk</b> for live screening og backtest. Fundamentals tilgjengeliggjøres på
-        Börsdatas <span class="mono">report_Date</span> — ekte PIT, ingen lookahead.</p></div>
+        Börsdatas <span class="mono">report_Date</span> – ekte PIT, ingen lookahead.</p></div>
     <div class="card"><span class="k">Data</span>
       <p>Priser fra Yahoo, fundamentals + <b>verifiserte ISIN-er</b> fra Börsdata Pro+.
         ~113 navn på Oslo, ~825 i det nordiske universet.</p></div>
     <div class="card"><span class="k">Backtest</span>
       <p><b>Walk-forward</b> out-of-sample-segmenter, kostnadssensitivitet og likviditetsbevisst
-        slippage — ikke én enkelt lykketreff-periode.</p></div>
+        slippage – ikke én enkelt lykketreff-periode.</p></div>
     <div class="card"><span class="k">Disiplin</span>
       <p><b>312 hermetiske tester</b> grønne, ruff + mypy rene. Rent domenelag uten I/O; all data
         gjennom én punkt-i-tid-port.</p></div>
@@ -177,21 +177,21 @@
   <p class="lede">Det som skiller dette fra en pen backtest er hva verktøyet nekter å skjule.</p>
   <ul class="honest">
     <li><b>Kildeverifisert eller NULL.</b> Identifikatorer og tall kommer fra en verifisert kilde eller
-      står tomme og flagges — aldri gjettet.</li>
+      står tomme og flagges – aldri gjettet.</li>
     <li><b>Caveat-først.</b> Hver rapportflate bærer sine forbehold åpent (survivorship, overfitting,
       modellert slippage), i stedet for å pynte på tallet.</li>
-    <li><b>Datakvalitet tas på alvor.</b> Fire uavhengige feilklasser funnet og rettet — blant annet en
+    <li><b>Datakvalitet tas på alvor.</b> Fire uavhengige feilklasser funnet og rettet – blant annet en
       ex-dato-feiljustering og en utbyttefaktor anvendt inntil 3× (oppdaget ved kryssvalidering mot
       Börsdatas utbyttekalender). Alltid via et <b>korreksjonsoverlegg som aldri endrer originaldata</b>.</li>
     <li><b>Verifiseringsgate.</b> Dobbeltkjøring gir byte-identisk resultat; markedsserien er avstemt
       mot Ødegaards uavhengige Oslo Børs-data (Pearson 0,976).</li>
     <li><b>Den ekte testen kommer.</b> En forward paper-logg akkumulerer nå survivorship-immun
-      out-of-sample-avkastning over tid — det eneste beviset en backtest aldri kan gi.</li>
+      out-of-sample-avkastning over tid – det eneste beviset en backtest aldri kan gi.</li>
   </ul>
   </main>
 
   <footer>
-    <p>Tallene er beregnet i verktøyet og hentet fra en committet rapport — <b>ingen beregning skjer
+    <p>Tallene er beregnet i verktøyet og hentet fra en committet rapport – <b>ingen beregning skjer
       i nettleseren</b>, ingen data lastes opp. aksje-lab er et privat repo; denne siden er et sammendrag.</p>
     <p class="prov">Ikke investerings- eller skatteråd. · Relatert: <a href="/aksjeskatt/">avkastning etter skatt på tvers av kontotyper</a> · <a href="/">evers.no</a></p>
   </footer>

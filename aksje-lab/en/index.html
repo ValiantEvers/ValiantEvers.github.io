@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0a0c10">
-<title>aksje-lab — value screening & backtesting (Oslo Børs / Nordics) — Valiant Evers</title>
+<title>aksje-lab – value screening & backtesting (Oslo Børs / Nordics) – Valiant Evers</title>
 <meta name="description" content="Walk-forward backtesting of factor strategies for Oslo Børs and the Nordics, ranked after tax on an ASK. Point-in-time, caveat-first. A private tool.">
 <link rel="canonical" href="https://www.evers.no/aksje-lab/en/">
 <link rel="alternate" hreflang="nb-NO" href="https://www.evers.no/aksje-lab/">
@@ -14,11 +14,11 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://www.evers.no/aksje-lab/en/">
-<meta property="og:title" content="aksje-lab — value screening & backtesting for Oslo Børs / Nordics">
-<meta property="og:description" content="Walk-forward backtesting of factor strategies, point-in-time correct and caveat-first. The after-tax (ASK) ranking is the robust insight — not the decimals.">
+<meta property="og:title" content="aksje-lab – value screening & backtesting for Oslo Børs / Nordics">
+<meta property="og:description" content="Walk-forward backtesting of factor strategies, point-in-time correct and caveat-first. The after-tax (ASK) ranking is the robust insight – not the decimals.">
 <meta property="og:image" content="https://www.evers.no/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="aksje-lab — value screening & backtesting for Oslo Børs / Nordics">
+<meta name="twitter:title" content="aksje-lab – value screening & backtesting for Oslo Børs / Nordics">
 <meta name="twitter:description" content="Walk-forward backtesting of factor strategies, point-in-time correct and caveat-first.">
 <meta name="twitter:image" content="https://www.evers.no/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -92,7 +92,7 @@
     <h1>aksje-lab</h1>
     <p class="lede">A value-screening and <b>walk-forward backtesting</b> engine for ASK-eligible equities
       on the Oslo Stock Exchange and across the Nordics. Built to test whether a factor strategy actually
-      survives costs, tax and honest methodology — not just look good in a spreadsheet. The engine is a
+      survives costs, tax and honest methodology – not just look good in a spreadsheet. The engine is a
       private repo; this page summarises the results and how they were reached.</p>
   </header>
 
@@ -109,7 +109,7 @@
   <h2>Headline result: after-tax ranking (ASK)</h2>
   <p class="lede">Five candidate strategies run through one identical walk-forward harness, then through
     an after-tax cascade on a Norwegian share savings account (<span class="mono">ASK, NOK 1M, 2017–2026</span>).
-    <b>The ordering — not the decimals — is the robust insight:</b> the top held through four independent
+    <b>The ordering – not the decimals – is the robust insight:</b> the top held through four independent
     re-baselines after data-quality corrections.</p>
 
   <div class="result">
@@ -161,12 +161,12 @@
   <div class="grid">
     <div class="card"><span class="k">Point-in-time</span>
       <p><b>Same as_of logic</b> for live screening and backtesting. Fundamentals become available on
-        Börsdata's <span class="mono">report_Date</span> — true PIT, no lookahead.</p></div>
+        Börsdata's <span class="mono">report_Date</span> – true PIT, no lookahead.</p></div>
     <div class="card"><span class="k">Data</span>
       <p>Prices from Yahoo, fundamentals + <b>verified ISINs</b> from Börsdata Pro+.
         ~113 names on Oslo, ~825 across the Nordic universe.</p></div>
     <div class="card"><span class="k">Backtest</span>
-      <p><b>Walk-forward</b> out-of-sample segments, cost sensitivity and liquidity-aware slippage —
+      <p><b>Walk-forward</b> out-of-sample segments, cost sensitivity and liquidity-aware slippage –
         not a single lucky window.</p></div>
     <div class="card"><span class="k">Discipline</span>
       <p><b>312 hermetic tests</b> green, ruff + mypy clean. Pure domain layer with no I/O; all data
@@ -177,21 +177,21 @@
   <p class="lede">What sets this apart from a pretty backtest is what the tool refuses to hide.</p>
   <ul class="honest">
     <li><b>Source-verified or NULL.</b> Identifiers and values come from a verified source or are left
-      blank and flagged — never guessed.</li>
+      blank and flagged – never guessed.</li>
     <li><b>Caveat-first.</b> Every report surface carries its caveats openly (survivorship, overfitting,
       modelled slippage) rather than dressing up the number.</li>
-    <li><b>Data quality taken seriously.</b> Four independent error classes found and fixed — including an
+    <li><b>Data quality taken seriously.</b> Four independent error classes found and fixed – including an
       ex-date misalignment and a dividend factor applied up to 3× (caught by cross-validating against
       Börsdata's dividend calendar). Always via a <b>correction overlay that never mutates source data</b>.</li>
     <li><b>Verification gate.</b> A double run is byte-identical; the market series is reconciled against
       Ødegaard's independent Oslo Stock Exchange data (Pearson 0.976).</li>
     <li><b>The real test is coming.</b> A forward paper-log now accumulates survivorship-immune
-      out-of-sample performance over time — the one proof a backtest can never give.</li>
+      out-of-sample performance over time – the one proof a backtest can never give.</li>
   </ul>
   </main>
 
   <footer>
-    <p>Figures are computed in the tool and taken from a committed report — <b>nothing is computed in
+    <p>Figures are computed in the tool and taken from a committed report – <b>nothing is computed in
       your browser</b>, no data is uploaded. aksje-lab is a private repo; this page is a summary.</p>
     <p class="prov">Not investment or tax advice. · Related: <a href="/aksjeskatt/">after-tax returns across account types</a> · <a href="/">evers.no</a></p>
   </footer>

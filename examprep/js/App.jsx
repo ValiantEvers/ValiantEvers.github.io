@@ -1,4 +1,4 @@
-// App.jsx — main shell
+// App.jsx – main shell
 (function() {
 const { useState, useEffect } = React;
 
@@ -61,7 +61,7 @@ function ModuleHeader({ module }) {
       <div className="module-header">
         <div className="module-header-left">
           <div className="label" style={{ marginBottom: 6 }}>
-            Section {NUMS[module]} — Financial Institutions &amp; Crises
+            Section {NUMS[module]} – Financial Institutions &amp; Crises
           </div>
           <h1 className="module-title">{m.label}</h1>
           <p className="module-subtitle">{m.subtitle}</p>

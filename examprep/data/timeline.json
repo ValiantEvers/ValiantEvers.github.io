@@ -3,7 +3,7 @@
     "id": "sl-deregulation",
     "date": "1980-03-31",
     "title": "US Depository Institutions Deregulation and Monetary Control Act",
-    "summary": "Deregulated interest-rate ceilings on deposits (Regulation Q), allowed S&Ls to offer adjustable-rate mortgages, and removed many portfolio restrictions — unleashing rate competition that S&Ls, locked into fixed-rate loans, could not survive.",
+    "summary": "Deregulated interest-rate ceilings on deposits (Regulation Q), allowed S&Ls to offer adjustable-rate mortgages, and removed many portfolio restrictions – unleashing rate competition that S&Ls, locked into fixed-rate loans, could not survive.",
     "tags": ["bank-crises", "bank-regulation"],
     "related": ["sl-crisis", "deposit-insurance"]
   },
@@ -11,7 +11,7 @@
     "id": "sl-crisis-peak",
     "date": "1986-01-01",
     "title": "US S&L crisis escalates",
-    "summary": "Around 1,000 savings and loan associations failed between 1986 and 1995. Deposit insurance (FSLIC) covered losses; the eventual taxpayer cost exceeded $130bn. Root cause: maturity mismatch — long fixed-rate mortgages funded by short deposits in a high-rate environment — compounded by regulatory forbearance and moral hazard.",
+    "summary": "Around 1,000 savings and loan associations failed between 1986 and 1995. Deposit insurance (FSLIC) covered losses; the eventual taxpayer cost exceeded $130bn. Root cause: maturity mismatch – long fixed-rate mortgages funded by short deposits in a high-rate environment – compounded by regulatory forbearance and moral hazard.",
     "tags": ["bank-crises", "deposit-insurance"],
     "related": ["deposit-insurance", "moral-hazard", "merton-deposit-insurance"]
   },
@@ -27,15 +27,15 @@
     "id": "sweden-crisis",
     "date": "1991-09-01",
     "title": "Swedish banking crisis: Första Sparbanken collapses",
-    "summary": "Sweden's credit boom of the late 1980s ended abruptly when the Riksbank defended the krona peg with overnight rates above 500%. Real estate prices collapsed; non-performing loans swelled to 11% of GDP by 1993. The government issued a blanket guarantee of all bank liabilities and created 'bad banks' (Securum, Retriva) to manage distressed assets — a template for subsequent crisis management.",
+    "summary": "Sweden's credit boom of the late 1980s ended abruptly when the Riksbank defended the krona peg with overnight rates above 500%. Real estate prices collapsed; non-performing loans swelled to 11% of GDP by 1993. The government issued a blanket guarantee of all bank liabilities and created 'bad banks' (Securum, Retriva) to manage distressed assets – a template for subsequent crisis management.",
     "tags": ["bank-crises", "case-studies"],
     "related": ["nordic-crisis", "lolr", "bail-in"]
   },
   {
     "id": "finland-crisis",
     "date": "1991-01-01",
-    "title": "Finnish banking crisis — worst of the Nordic trio",
-    "summary": "Finland's banking losses peaked at 13% of GDP — the largest bank losses of any OECD country to that point. The collapse of the Soviet export market, a fixed exchange-rate regime, and a post-deregulation credit bubble combined. The government recapitalised STS Bank and KOP; Skopbank required central-bank emergency support as early as 1991.",
+    "title": "Finnish banking crisis – worst of the Nordic trio",
+    "summary": "Finland's banking losses peaked at 13% of GDP – the largest bank losses of any OECD country to that point. The collapse of the Soviet export market, a fixed exchange-rate regime, and a post-deregulation credit bubble combined. The government recapitalised STS Bank and KOP; Skopbank required central-bank emergency support as early as 1991.",
     "tags": ["bank-crises", "case-studies"],
     "related": ["nordic-crisis", "deposit-insurance"]
   },
@@ -43,7 +43,7 @@
     "id": "bnp-paribas-aug07",
     "date": "2007-08-09",
     "title": "BNP Paribas suspends redemptions on three ABS funds",
-    "summary": "BNP Paribas suspended withdrawals from three funds exposed to US subprime MBS, citing inability to value assets. This froze the European ABCP market overnight, triggering a global liquidity scramble. The ECB injected €95bn in emergency liquidity the same day — the first large-scale crisis intervention. Widely regarded as the start of the 2007–09 crisis.",
+    "summary": "BNP Paribas suspended withdrawals from three funds exposed to US subprime MBS, citing inability to value assets. This froze the European ABCP market overnight, triggering a global liquidity scramble. The ECB injected €95bn in emergency liquidity the same day – the first large-scale crisis intervention. Widely regarded as the start of the 2007–09 crisis.",
     "tags": ["bank-crises", "securitisation", "case-studies"],
     "related": ["abcp", "siv", "mbs", "fx-swap-basis"]
   },
@@ -67,7 +67,7 @@
     "id": "lehman-bankruptcy",
     "date": "2008-09-15",
     "title": "Lehman Brothers files for bankruptcy",
-    "summary": "Lehman's $613bn bankruptcy — the largest in US history — triggered global money-market panic, froze interbank lending, and exposed the fragility of the shadow-banking system that had financed the housing boom. The Reserve Primary Fund 'broke the buck' the following day after writing off Lehman commercial paper, triggering a run on money-market funds.",
+    "summary": "Lehman's $613bn bankruptcy – the largest in US history – triggered global money-market panic, froze interbank lending, and exposed the fragility of the shadow-banking system that had financed the housing boom. The Reserve Primary Fund 'broke the buck' the following day after writing off Lehman commercial paper, triggering a run on money-market funds.",
     "tags": ["bank-crises", "case-studies"],
     "related": ["repo", "fx-swap-basis", "money-market-funds", "shadow-banking"]
   },
@@ -75,7 +75,7 @@
     "id": "aig-bailout",
     "date": "2008-09-16",
     "title": "AIG rescued by US government for $85bn",
-    "summary": "AIG's Financial Products division had sold CDS protection on roughly $440bn of structured credit products. As collateral calls mounted, AIG faced insolvency. The Fed provided an $85bn revolving credit facility in exchange for a 79.9% equity stake — a de facto nationalisation. The rescue prevented a cascade of CDS losses across global banks that AIG had 'insured'.",
+    "summary": "AIG's Financial Products division had sold CDS protection on roughly $440bn of structured credit products. As collateral calls mounted, AIG faced insolvency. The Fed provided an $85bn revolving credit facility in exchange for a 79.9% equity stake – a de facto nationalisation. The rescue prevented a cascade of CDS losses across global banks that AIG had 'insured'.",
     "tags": ["bank-crises", "case-studies"],
     "related": ["cds", "systemic-risk", "lolr"]
   },
@@ -90,8 +90,8 @@
   {
     "id": "eurozone-crisis",
     "date": "2010-04-23",
-    "title": "Greece requests EU/IMF bailout — Eurozone sovereign crisis begins",
-    "summary": "Greece's admission that its deficit was 12.7% of GDP (not 3.7% as reported) triggered a reassessment of peripheral sovereign creditworthiness. Spreads on Greek, Irish, Portuguese, and Spanish debt surged. The crisis exposed the 'doom loop' between weak sovereigns and their domestic banks — each held large quantities of the other's debt.",
+    "title": "Greece requests EU/IMF bailout – Eurozone sovereign crisis begins",
+    "summary": "Greece's admission that its deficit was 12.7% of GDP (not 3.7% as reported) triggered a reassessment of peripheral sovereign creditworthiness. Spreads on Greek, Irish, Portuguese, and Spanish debt surged. The crisis exposed the 'doom loop' between weak sovereigns and their domestic banks – each held large quantities of the other's debt.",
     "tags": ["bank-crises", "bank-regulation"],
     "related": ["bail-in", "brrd", "mrel"]
   }

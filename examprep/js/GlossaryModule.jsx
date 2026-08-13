@@ -116,7 +116,7 @@ function GlossaryModule({ data, pendingGlossaryNav }) {
               >
                 <span className="item-term">{entry.term}</span>
                 <span className="item-type">
-                  {entry._type === 'model' ? '— Model Walkthrough' : '— Term'}
+                  {entry._type === 'model' ? '– Model Walkthrough' : '– Term'}
                 </span>
               </button>
             ))}

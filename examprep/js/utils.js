@@ -1,4 +1,4 @@
-// utils.js — shared constants and helpers
+// utils.js – shared constants and helpers
 
 window.TAG_TAXONOMY = {
   'asymmetric-info':    'Asymmetric Info',
@@ -99,7 +99,7 @@ window.renderMarkdown = function(text) {
       return '<ol class="md-list">' + items + '</ol>';
     }
 
-    // Default — paragraph; allow soft <br/> on lone newlines
+    // Default – paragraph; allow soft <br/> on lone newlines
     return '<p>' + inlineMd(escapedLines.join('<br/>')) + '</p>';
   }).join('');
 };

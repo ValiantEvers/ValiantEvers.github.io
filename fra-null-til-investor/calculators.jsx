@@ -83,7 +83,7 @@ function BudgetCalc() {
       )}
       {hasValues && leftover > 0 && (
         <p style={{ marginTop: '14px', fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--muted)', lineHeight: '1.6' }}>
-          💡 Med {fmt(leftover)} kr til overs per måned kan du begynne å bygge buffer — og senere investere.
+          💡 Med {fmt(leftover)} kr til overs per måned kan du begynne å bygge buffer – og senere investere.
         </p>
       )}
     </div>
@@ -220,7 +220,7 @@ function CompoundCalc() {
         </div>
         {gain > 0 && (
           <p style={{ marginTop: '14px', fontFamily: 'var(--font-body)', fontSize: '13px', color: 'rgba(255,255,255,0.45)', textAlign: 'center', lineHeight: '1.5' }}>
-            Pengene dine vokser {Math.round(gainPct)}% utover det du setter inn — takket være rentes rente.
+            Pengene dine vokser {Math.round(gainPct)}% utover det du setter inn – takket være rentes rente.
           </p>
         )}
       </div>

@@ -1,7 +1,7 @@
 {
   "series": "nowa_3m",
   "unit": "percent",
-  "description": "3-måneders glidende gjennomsnitt av NOWA. Brukes som proxy for NIBOR 3M — Norges Bank publiserer ikke NIBOR direkte, og NOWA er den moderne RFR-baserte erstatningen.",
+  "description": "3-måneders glidende gjennomsnitt av NOWA. Brukes som proxy for NIBOR 3M – Norges Bank publiserer ikke NIBOR direkte, og NOWA er den moderne RFR-baserte erstatningen.",
   "source_key": "SHORT_RATES/B.NOWA_AVERAGE.3M.R",
   "data": [
     {

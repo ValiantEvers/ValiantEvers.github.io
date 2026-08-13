@@ -1,4 +1,4 @@
-// SearchPalette.jsx — global ⌘K search across all content types
+// SearchPalette.jsx – global ⌘K search across all content types
 (function() {
 const { useState, useMemo, useEffect, useRef } = React;
 
@@ -68,23 +68,23 @@ function highlightInline(query, text) {
 // ── Source definitions ────────────────────────────────────────
 //
 // Each source declares:
-//   key         — unique identifier
-//   label       — section header in results
-//   module      — which module to navigate to on click
-//   buildItems  — given the loaded `data` object, return the searchable units
-//   searchTexts — for each item, the array of strings to test against the query
-//   resultId    — id passed to onNavigate (deep-link target inside the module)
-//   resultModule— optional override of `module` per item (used by recall, where
+//   key         – unique identifier
+//   label       – section header in results
+//   module      – which module to navigate to on click
+//   buildItems  – given the loaded `data` object, return the searchable units
+//   searchTexts – for each item, the array of strings to test against the query
+//   resultId    – id passed to onNavigate (deep-link target inside the module)
+//   resultModule– optional override of `module` per item (used by recall, where
 //                 the parent may live in either glossary or topics)
-//   title       — string shown as the result heading
-//   defaultSnippet — fallback text when no field matched (rare)
-//   limit       — max results returned per source
+//   title       – string shown as the result heading
+//   defaultSnippet – fallback text when no field matched (rare)
+//   limit       – max results returned per source
 
 function buildSources(data) {
   const { glossary = [], models = [], timeline = [], exams = [], topics = [],
           quiz = [], flashcards = [], calculations = [] } = data;
 
-  // mindmap is loaded lazily from a separate fetch — passed in via data.mindmap
+  // mindmap is loaded lazily from a separate fetch – passed in via data.mindmap
   const mindmap = data.mindmap || null;
   const mindmapNodes = mindmap?.nodes || [];
 
@@ -159,7 +159,7 @@ function buildSources(data) {
       buildItems: () => exams.filter(e => !e.placeholder && e.prompt),
       searchTexts: e => [e.prompt, e.modelAnswer],
       resultId: e => e.id,
-      title: e => 'Q' + e.questionNumber + (e.paperLabel ? ' — ' + e.paperLabel : ''),
+      title: e => 'Q' + e.questionNumber + (e.paperLabel ? ' – ' + e.paperLabel : ''),
       defaultSnippet: e => e.prompt || '',
       limit: 4,
     },
@@ -188,7 +188,7 @@ function buildSources(data) {
       searchTexts: e => [e.title, e.summary],
       resultId: e => e.id,
       title: e => e.title,
-      defaultSnippet: e => (e.date ? window.formatDate(e.date) + ' — ' : '') + (e.summary || ''),
+      defaultSnippet: e => (e.date ? window.formatDate(e.date) + ' – ' : '') + (e.summary || ''),
       limit: 4,
     },
     {
@@ -232,7 +232,7 @@ function buildSources(data) {
       title: ({ parent, q }) => {
         const parentName = parent.term || parent.title || 'Recall';
         const trimmed = (q.question || '').replace(/\s+/g, ' ').trim();
-        return parentName + ' — ' + (trimmed.length > 70 ? trimmed.slice(0, 70) + '…' : trimmed);
+        return parentName + ' – ' + (trimmed.length > 70 ? trimmed.slice(0, 70) + '…' : trimmed);
       },
       defaultSnippet: ({ q }) => (q.answer || ''),
       limit: 4,

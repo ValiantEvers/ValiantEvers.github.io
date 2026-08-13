@@ -1,4 +1,4 @@
-// All 6 step components — exported to window
+// All 6 step components – exported to window
 
 // ─── Shared helpers ───────────────────────────────────────────
 function ExampleBox({ children, title = 'Eksempel' }) {
@@ -57,15 +57,15 @@ function Step1() {
     <div>
       <SectionTitle>Hva er en buffer?</SectionTitle>
       <Concept label="Definisjon">
-        En buffer er penger du setter til side for uventede utgifter — som en ødelagt vaskemaskin, tannlege, eller å miste jobben. Det er din finansielle trygghet.
+        En buffer er penger du setter til side for uventede utgifter – som en ødelagt vaskemaskin, tannlege, eller å miste jobben. Det er din finansielle trygghet.
       </Concept>
       <ExampleBox title="Tenk deg dette">
-        Bilen din ryker plutselig. Reparasjonen koster 12 000 kr. Uten buffer må du ta opp forbrukslån med høy rente. Med buffer betaler du bare — og sover godt.
+        Bilen din ryker plutselig. Reparasjonen koster 12 000 kr. Uten buffer må du ta opp forbrukslån med høy rente. Med buffer betaler du bare – og sover godt.
       </ExampleBox>
 
       <SectionTitle>Hvorfor buffer før investering?</SectionTitle>
       <Concept label="Rekkefølge">
-        Hvis du investerer 50 000 kr, men ikke har buffer, risikerer du å måtte <strong>selge aksjene på verst mulig tidspunkt</strong> — kanskje midt i et krakk. Buffer = frihet til å la pengene jobbe i fred.
+        Hvis du investerer 50 000 kr, men ikke har buffer, risikerer du å måtte <strong>selge aksjene på verst mulig tidspunkt</strong> – kanskje midt i et krakk. Buffer = frihet til å la pengene jobbe i fred.
       </Concept>
       <div style={{ padding: '18px 22px', background: 'var(--navy)', borderRadius: '16px', marginTop: '14px' }}>
         <p style={{ fontFamily: 'var(--font-body)', fontSize: '15px', color: 'rgba(255,255,255,0.9)', lineHeight: '1.65' }}>
@@ -76,7 +76,7 @@ function Step1() {
       <SectionTitle>Hva koster måneden din?</SectionTitle>
       <BudgetCalc />
 
-      <SectionTitle>Kredittkort — smart eller farlig?</SectionTitle>
+      <SectionTitle>Kredittkort – smart eller farlig?</SectionTitle>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '8px' }}>
         {[
           { mode: 'smart', label: '✓ Smart bruk', color: 'var(--green)', bg: 'var(--green-light)', border: '#b8e8d0', desc: 'Bruker kredittkortet som et betalingskort, betaler hele beløpet ved forfall. Ingen renter. Kanskje bonuspoeng.' },
@@ -103,7 +103,7 @@ function Step2() {
     <div>
       <SectionTitle>Hva er rente?</SectionTitle>
       <Concept label="Enkelt forklart">
-        Rente er betaling for å låne penger. Du betaler rente til banken når du låner — og banken betaler rente til deg når du sparer.
+        Rente er betaling for å låne penger. Du betaler rente til banken når du låner – og banken betaler rente til deg når du sparer.
       </Concept>
       <ExampleBox title="Sparerente i praksis">
         Du setter 50 000 kr i banken med 3 % rente.<br /><br />
@@ -116,7 +116,7 @@ function Step2() {
 
       <SectionTitle>Hva er avkastning?</SectionTitle>
       <Concept label="Definisjon">
-        Avkastning er gevinsten du får på en investering — i prosent. Historisk har aksjemarkedet gitt ca. 7–10 % i snitt per år over lange perioder.
+        Avkastning er gevinsten du får på en investering – i prosent. Historisk har aksjemarkedet gitt ca. 7–10 % i snitt per år over lange perioder.
       </Concept>
 
       <SectionTitle>Hva er inflasjon?</SectionTitle>
@@ -129,9 +129,9 @@ function Step2() {
         </p>
       </div>
 
-      <SectionTitle>Rentes rente — den åttende underet</SectionTitle>
+      <SectionTitle>Rentes rente – den åttende underet</SectionTitle>
       <Concept label="Snøballeffekten">
-        Når avkastningen din også begynner å gi avkastning, skjer det noe magisk. Effekten er liten i starten — men eksploderer over tid.
+        Når avkastningen din også begynner å gi avkastning, skjer det noe magisk. Effekten er liten i starten – men eksploderer over tid.
       </Concept>
       <CompoundCalc />
     </div>
@@ -187,16 +187,16 @@ function Step3() {
 
       <SectionTitle>Hva er fond?</SectionTitle>
       <Concept label="Spredning">
-        Et fond samler mange investorer og kjøper hundrevis av aksjer på én gang. Du kjøper én andel — og eier litt av alt. Lavere risiko enn enkeltaksjer.
+        Et fond samler mange investorer og kjøper hundrevis av aksjer på én gang. Du kjøper én andel – og eier litt av alt. Lavere risiko enn enkeltaksjer.
       </Concept>
       <ExampleBox title="Indeksfond i praksis">
         Et globalt indeksfond kan inneholde 1600+ selskaper fra hele verden. Om ett selskap går konkurs, merker du det knapt.<br /><br />
-        Dette er en smart måte å <strong>diversifisere</strong> på — altså å ikke legge alle eggene i samme kurv. Hvis én aksje kollapser, holder de andre deg oppe.
+        Dette er en smart måte å <strong>diversifisere</strong> på – altså å ikke legge alle eggene i samme kurv. Hvis én aksje kollapser, holder de andre deg oppe.
       </ExampleBox>
 
       <SectionTitle>Hva er obligasjoner?</SectionTitle>
       <Concept label="Sikrere alternativ">
-        En obligasjon er et lån du gir til et selskap eller stat. De betaler deg fast rente over tid, og tilbake lånet ved slutten. Tryggere enn aksjer — men lavere avkastning.
+        En obligasjon er et lån du gir til et selskap eller stat. De betaler deg fast rente over tid, og tilbake lånet ved slutten. Tryggere enn aksjer – men lavere avkastning.
       </Concept>
 
       <SectionTitle>Hva er risiko?</SectionTitle>
@@ -206,7 +206,7 @@ function Step3() {
 
       <SectionTitle>Hva er en resesjon?</SectionTitle>
       <Concept label="Markedsnedgang">
-        En resesjon er når økonomien skrumper over tid — bedrifter tjener mindre, folk mister jobber, aksjene faller. Historisk har alle resesjoner tatt slutt. Markedet henter seg alltid inn.
+        En resesjon er når økonomien skrumper over tid – bedrifter tjener mindre, folk mister jobber, aksjene faller. Historisk har alle resesjoner tatt slutt. Markedet henter seg alltid inn.
       </Concept>
     </div>
   );
@@ -222,7 +222,7 @@ function Step4() {
       full: 'Aksjesparekonto',
       tag: 'Mest populær',
       desc: 'Du kan flytte penger mellom aksjer og fond uten å betale skatt underveis. Skatt betales kun når du tar ut gevinst fra kontoen. Ideell for langsiktig sparing i aksjer.',
-      tip: 'Perfekt for deg som vil investere i aksjer og fond over tid. Du har også rett på skjermingsfradrag — et fradrag beregnet av din investerte kapital som reduserer skatten du betaler på gevinst.',
+      tip: 'Perfekt for deg som vil investere i aksjer og fond over tid. Du har også rett på skjermingsfradrag – et fradrag beregnet av din investerte kapital som reduserer skatten du betaler på gevinst.',
     },
     {
       id: 'ikz',
@@ -237,7 +237,7 @@ function Step4() {
       name: 'AF-konto',
       full: 'Aksje- og fondskonto',
       tag: 'Fleksibel',
-      desc: 'Vanlig konto for aksjer og fond. Skatt beregnes ved hvert salg — ingen utsettelse. Gir mest fleksibilitet, men er skattemessig mindre gunstig enn ASK.',
+      desc: 'Vanlig konto for aksjer og fond. Skatt beregnes ved hvert salg – ingen utsettelse. Gir mest fleksibilitet, men er skattemessig mindre gunstig enn ASK.',
       tip: 'Bra hvis du trenger tilgang til pengene, eller handler enkeltaksjer mye.',
     },
     {
@@ -246,14 +246,14 @@ function Step4() {
       full: 'Boligsparing for ungdom',
       tag: 'Under 34 år',
       desc: 'Spar til bolig og få 10 % skattefradrag på innskuddet (inntil 27 500 kr/år). Kun for deg under 34 år som ikke eier bolig.',
-      tip: '🏠 Har du ikke bolig og er under 34? Start her — det er Norges beste spareordning.',
+      tip: '🏠 Har du ikke bolig og er under 34? Start her – det er Norges beste spareordning.',
     },
   ];
 
   return (
     <div>
       <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: 'var(--muted)', lineHeight: '1.7', marginBottom: '20px' }}>
-        Valget av konto påvirker hvor mye skatt du betaler. Her er de viktigste kontoene i Norge — trykk for detaljer.
+        Valget av konto påvirker hvor mye skatt du betaler. Her er de viktigste kontoene i Norge – trykk for detaljer.
       </p>
 
       <div style={{ display: 'grid', gap: '12px' }}>
@@ -286,7 +286,7 @@ function Step4() {
 
       <SectionTitle>Skatt på investeringer</SectionTitle>
       <Concept label="Skattesats 2024">
-        Gevinst på aksjer og fond beskattes med ca. <strong>37,84 %</strong> (inkl. oppjustering). Men med ASK utsetter du skatten til du tar penger ut — og lar rentes rente jobbe for deg.
+        Gevinst på aksjer og fond beskattes med ca. <strong>37,84 %</strong> (inkl. oppjustering). Men med ASK utsetter du skatten til du tar penger ut – og lar rentes rente jobbe for deg.
       </Concept>
       <ExampleBox title="Skatteeksempel">
         Du kjøper fond for 10 000 kr. Det vokser til 15 000 kr. Gevinsten er 5 000 kr.<br /><br />
@@ -304,14 +304,14 @@ function Step5() {
       name: 'Benjamin Graham',
       title: 'Beskytt nedsiden',
       quote: '«Margin of safety»',
-      desc: 'Invester aldri i noe du ikke forstår. Kjøp med en sikkerhetsmargin — betal aldri mer enn verdien. Ikke tap penger er regel nr. 1.',
+      desc: 'Invester aldri i noe du ikke forstår. Kjøp med en sikkerhetsmargin – betal aldri mer enn verdien. Ikke tap penger er regel nr. 1.',
       icon: '🛡',
     },
     {
       name: 'Morgan Housel',
       title: 'Atferd slår kunnskap',
       quote: 'The Psychology of Money',
-      desc: 'Den beste investeringsplanen er én du faktisk holder deg til. Din atferd — ro i storm, tålmodighet, ikke panikksalg — er viktigere enn å velge "riktig" aksje.',
+      desc: 'Den beste investeringsplanen er én du faktisk holder deg til. Din atferd – ro i storm, tålmodighet, ikke panikksalg – er viktigere enn å velge "riktig" aksje.',
       icon: '🧠',
     },
     {
@@ -356,13 +356,13 @@ function Step6() {
     {
       number: '01',
       title: 'Investere uten buffer',
-      desc: 'Penger i markedet kan ikke brukes til uventede utgifter. Uten buffer risikerer du å selge aksjene på verst mulig tidspunkt — rett etter et fall.',
+      desc: 'Penger i markedet kan ikke brukes til uventede utgifter. Uten buffer risikerer du å selge aksjene på verst mulig tidspunkt – rett etter et fall.',
       fix: 'Ha alltid 3–6 måneders buffer i klar konto før du starter.',
     },
     {
       number: '02',
       title: 'Selge i panikk',
-      desc: 'Markedet faller 30 %. Du ser røde tall og selger alt. En uke senere begynner det å stige. Du misset oppgangen — og tapte på papirtapet.',
+      desc: 'Markedet faller 30 %. Du ser røde tall og selger alt. En uke senere begynner det å stige. Du misset oppgangen – og tapte på papirtapet.',
       fix: 'Lag en plan på forhånd. Bestem deg for å ikke røre pengene i X år.',
     },
     {

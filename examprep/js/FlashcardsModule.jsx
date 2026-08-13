@@ -8,7 +8,7 @@ const TIER_KEY   = 'gra6546_fc_tier';
 const BACKUP_KEY = 'gra6546_flashcards_pre_exam_backup';
 
 // ── EXAM MODE intervals (May 13 final) ─────────────────────
-// Pre-exam-mode default was [1, 3, 7, 14, 30, 90] days — built for
+// Pre-exam-mode default was [1, 3, 7, 14, 30, 90] days – built for
 // long-term retention. These are recalibrated for an 8-day window so
 // every card cycles 4-6 times before the exam.
 const MIN_AGAIN    = 5;          // 5 minutes (relearn within session)
@@ -94,7 +94,7 @@ function buildBaseDeck(glossary, flashcards, activeTags, tierFilter) {
       triage_reason: e.triage_reason || null,
     }));
   let deck = [...auto, ...(flashcards || [])];
-  // Tier filter — drops are excluded from every view.
+  // Tier filter – drops are excluded from every view.
   // tierFilter: 'core' | 'nice' | 'all'  (where 'all' = core + nice; 'drop' is never shown)
   deck = deck.filter(c => c.tier !== 'drop');
   if (tierFilter === 'core') deck = deck.filter(c => c.tier === 'core');

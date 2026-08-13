@@ -3,7 +3,7 @@
     "id": "calc-imp-001",
     "category": "impairment-ifrs9",
     "set": 1,
-    "title": "Industrial Bank — accumulated-impairment reconciliation",
+    "title": "Industrial Bank – accumulated-impairment reconciliation",
     "difficulty": "medium",
     "estimatedMinutes": 10,
     "source": "Exercise Impairment.pdf (course readings, Lecture 3) + worked solution",
@@ -18,7 +18,7 @@
     "parts": [
       {
         "id": "1",
-        "prompt": "Q1 — What is the **gross** loans-to-customers figure at the end of 2019?",
+        "prompt": "Q1 – What is the **gross** loans-to-customers figure at the end of 2019?",
         "answer": "16,450,000",
         "working": [
           "The balance sheet shows **net** loans (after impairment provisions).",
@@ -27,7 +27,7 @@
       },
       {
         "id": "2",
-        "prompt": "Q2 — What is the figure for loans to customers at the end of 2020 that will be exhibited on the balance sheet (net)?",
+        "prompt": "Q2 – What is the figure for loans to customers at the end of 2020 that will be exhibited on the balance sheet (net)?",
         "answer": "16,425,000",
         "working": [
           "Build the gross-loan roll-forward:",
@@ -38,7 +38,7 @@
       },
       {
         "id": "3",
-        "prompt": "Q3 — In 2019 the bank wrote off loans with accumulated impairments of 10,000 and recognised new impairments of 75,000. What were the accumulated impairments at the **beginning** of 2019?",
+        "prompt": "Q3 – In 2019 the bank wrote off loans with accumulated impairments of 10,000 and recognised new impairments of 75,000. What were the accumulated impairments at the **beginning** of 2019?",
         "answer": "385,000",
         "working": [
           "Roll-forward of accumulated impairment:",
@@ -49,7 +49,7 @@
       },
       {
         "id": "4",
-        "prompt": "Q4 — In 2021 no new loans were extended and no loans were written off. What were the accumulated impairments at the end of 2021, and what was the impairment expense in P&L for 2021?",
+        "prompt": "Q4 – In 2021 no new loans were extended and no loans were written off. What were the accumulated impairments at the end of 2021, and what was the impairment expense in P&L for 2021?",
         "answer": "Acc. impairment 2021 = 750,000 · P&L 2021 expense = 200,000",
         "working": [
           "Strict-consistency reading (continuing from Q2's gross of 16,975,000):",
@@ -61,7 +61,7 @@
         ]
       }
     ],
-    "intuition": "Q4's published answer (750,000 / 200,000) silently assumes 525,000 of fully-impairment-covered loans were also written off in 2020 — otherwise it contradicts Q2. On an exam, write out the gross-loan roll-forward explicitly so the marker can follow your assumption. The mechanics are the same either way: accumulated impairment moves only via new charges and write-offs; gross loans move only via originations, repayments and write-offs."
+    "intuition": "Q4's published answer (750,000 / 200,000) silently assumes 525,000 of fully-impairment-covered loans were also written off in 2020 – otherwise it contradicts Q2. On an exam, write out the gross-loan roll-forward explicitly so the marker can follow your assumption. The mechanics are the same either way: accumulated impairment moves only via new charges and write-offs; gross loans move only via originations, repayments and write-offs."
   },
   {
     "id": "calc-imp-002",
@@ -85,7 +85,7 @@
     "parts": [
       {
         "id": "a-y1",
-        "prompt": "Year 1 — total book value.",
+        "prompt": "Year 1 – total book value.",
         "answer": "219.60",
         "working": [
           "Loan 1 (S1): ECL = 100 × 1% × 10% = 0.10 → BV = 99.90.",
@@ -96,7 +96,7 @@
       },
       {
         "id": "a-y2",
-        "prompt": "Year 2 — total book value.",
+        "prompt": "Year 2 – total book value.",
         "answer": "164.70",
         "working": [
           "Loan 1 (S3, defaulted): ECL = 100 × 100% × 10% = 10.00 → BV = 90.00.",
@@ -107,7 +107,7 @@
       },
       {
         "id": "b",
-        "prompt": "Year 2 — net impairment expense in P&L.",
+        "prompt": "Year 2 – net impairment expense in P&L.",
         "answer": "4.90 (expense)",
         "working": [
           "P&L expense Year 2 = Acc. ECL Y2 − Acc. ECL Y1 = 10.30 − 5.40 = **4.90 (expense)**.",
@@ -165,7 +165,7 @@
     "parts": [
       {
         "id": "step-1",
-        "prompt": "Step 1 — solve for the impairment removed via write-off (call it X).",
+        "prompt": "Step 1 – solve for the impairment removed via write-off (call it X).",
         "answer": "X = 30",
         "working": [
           "Roll-forward: 100 + 10 − X = 80.",
@@ -175,7 +175,7 @@
       },
       {
         "id": "step-2",
-        "prompt": "Step 2 — back out the gross loans written off.",
+        "prompt": "Step 2 – back out the gross loans written off.",
         "answer": "150",
         "working": [
           "The 30 of impairment represented 20% of the gross written-off amount.",
@@ -273,13 +273,13 @@
         ]
       }
     ],
-    "intuition": "When a loan moves to Stage 3, PD effectively becomes 100% — default is no longer probabilistic, it has happened. The remaining uncertainty is loss-given-default, which is why collateral revaluation drives the post-default provision so heavily."
+    "intuition": "When a loan moves to Stage 3, PD effectively becomes 100% – default is no longer probabilistic, it has happened. The remaining uncertainty is loss-given-default, which is why collateral revaluation drives the post-default provision so heavily."
   },
   {
     "id": "calc-rwa-001",
     "category": "rwa",
     "set": 1,
-    "title": "Credit-risk REA — mortgage-heavy retail bank",
+    "title": "Credit-risk REA – mortgage-heavy retail bank",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill on Basel standardised approach",
@@ -311,7 +311,7 @@
     "id": "calc-rwa-002",
     "category": "rwa",
     "set": 1,
-    "title": "Credit-risk REA — corporate-focused bank",
+    "title": "Credit-risk REA – corporate-focused bank",
     "difficulty": "medium",
     "estimatedMinutes": 5,
     "source": "Custom drill on Basel standardised approach",
@@ -339,13 +339,13 @@
         ]
       }
     ],
-    "intuition": "Compared with the mortgage-heavy bank (REA 335 on 1,000 assets), this corporate bank carries 745 of REA on only 900 of assets. The 150% risk weight on speculative-grade corporates and the 250% weight on equity holdings disproportionately drive REA up — the same balance-sheet size needs ~2× the capital to back."
+    "intuition": "Compared with the mortgage-heavy bank (REA 335 on 1,000 assets), this corporate bank carries 745 of REA on only 900 of assets. The 150% risk weight on speculative-grade corporates and the 250% weight on equity holdings disproportionately drive REA up – the same balance-sheet size needs ~2× the capital to back."
   },
   {
     "id": "calc-rwa-003",
     "category": "rwa",
     "set": 1,
-    "title": "Total REA — credit + market + operational",
+    "title": "Total REA – credit + market + operational",
     "difficulty": "easy",
     "estimatedMinutes": 4,
     "source": "Custom drill on Basel REA composition",
@@ -359,7 +359,7 @@
     "parts": [
       {
         "id": "step-1",
-        "prompt": "Step 1 — credit-risk REA.",
+        "prompt": "Step 1 – credit-risk REA.",
         "answer": "6,250",
         "working": [
           "5,000 × 35%  = 1,750",
@@ -370,7 +370,7 @@
       },
       {
         "id": "step-2",
-        "prompt": "Step 2 — total REA.",
+        "prompt": "Step 2 – total REA.",
         "answer": "6,700",
         "working": [
           "Total REA = 6,250 (credit) + 100 (market) + 350 (operational) = **6,700**."
@@ -383,7 +383,7 @@
     "id": "calc-cap-001",
     "category": "capital-ratios",
     "set": 1,
-    "title": "Lilledal Savingsbank — CET1 / T1 / Total capital ratios",
+    "title": "Lilledal Savingsbank – CET1 / T1 / Total capital ratios",
     "difficulty": "medium",
     "estimatedMinutes": 8,
     "source": "May 2025 Final, Q6a",
@@ -402,7 +402,7 @@
     "parts": [
       {
         "id": "step-1",
-        "prompt": "Step 1 — credit-risk REA.",
+        "prompt": "Step 1 – credit-risk REA.",
         "answer": "605",
         "working": [
           "10 × 0%    = 0",
@@ -415,7 +415,7 @@
       },
       {
         "id": "step-2",
-        "prompt": "Step 2 — total REA.",
+        "prompt": "Step 2 – total REA.",
         "answer": "695",
         "working": [
           "Total REA = 605 (credit) + 15 (market) + 75 (operational) = **695**."
@@ -423,7 +423,7 @@
       },
       {
         "id": "step-3",
-        "prompt": "Step 3 — own funds (CET1, T1, Total capital).",
+        "prompt": "Step 3 – own funds (CET1, T1, Total capital).",
         "answer": "CET1 = 100 · T1 = 110 · Total = 130",
         "working": [
           "CET1  = Equity = **100**.",
@@ -433,7 +433,7 @@
       },
       {
         "id": "step-4",
-        "prompt": "Step 4 — capital ratios.",
+        "prompt": "Step 4 – capital ratios.",
         "answer": "CET1 14.4% · T1 15.8% · Total 18.7%",
         "unit": "%",
         "working": [
@@ -443,7 +443,7 @@
         ]
       }
     ],
-    "intuition": "All three ratios sit comfortably above the Pillar-1 minimums (4.5% / 6% / 8%). Lilledal is well-capitalised. The favourable 35% risk weight on retail mortgages is why a 980-asset bank carries only 605 of credit-risk REA — most of the book is RW=0% sovereign exposure or RW=35% mortgages, with only 430 in RW=100% claims.",
+    "intuition": "All three ratios sit comfortably above the Pillar-1 minimums (4.5% / 6% / 8%). Lilledal is well-capitalised. The favourable 35% risk weight on retail mortgages is why a 980-asset bank carries only 605 of credit-risk REA – most of the book is RW=0% sovereign exposure or RW=35% mortgages, with only 430 in RW=100% claims.",
     "sourceId": "may2025-q6a"
   },
   {
@@ -476,7 +476,7 @@
         ]
       }
     ],
-    "intuition": "Pillar-1 minimums are the **floor**. Most jurisdictions add a capital-conservation buffer (2.5%), countercyclical buffer (variable), and a systemic-risk / O-SII buffer — pushing the effective minimum CET1 ratio for a typical European bank to ~10–12%. Don't confuse Pillar-1 floors with the **combined buffer requirement**."
+    "intuition": "Pillar-1 minimums are the **floor**. Most jurisdictions add a capital-conservation buffer (2.5%), countercyclical buffer (variable), and a systemic-risk / O-SII buffer – pushing the effective minimum CET1 ratio for a typical European bank to ~10–12%. Don't confuse Pillar-1 floors with the **combined buffer requirement**."
   },
   {
     "id": "calc-cap-003",
@@ -513,7 +513,7 @@
     "id": "calc-bail-001",
     "category": "bailin",
     "set": 1,
-    "title": "Lilledal bail-in — required CET1 and waterfall",
+    "title": "Lilledal bail-in – required CET1 and waterfall",
     "difficulty": "medium",
     "estimatedMinutes": 8,
     "source": "May 2025 Final, Q6c + Q6d",
@@ -546,18 +546,18 @@
           "──────────────────────────────────────────────",
           "**Total new CET1 = 84** ✓",
           "",
-          "Non-preferred senior is converted only **partially** (34 of 100) — exactly enough to hit the 12% target. Senior unsecured bonds, deposits and higher-ranked liabilities are **not** touched."
+          "Non-preferred senior is converted only **partially** (34 of 100) – exactly enough to hit the 12% target. Senior unsecured bonds, deposits and higher-ranked liabilities are **not** touched."
         ]
       }
     ],
-    "intuition": "Bail-in works **bottom-up through the creditor hierarchy** until the target capital ratio is restored. Equity absorbs first, then AT1, T2, senior non-preferred — and crucially, conversion stops at the level where the target is met. Senior unsecured creditors and depositors usually walk away whole, which is precisely what BRRD was designed to achieve: no taxpayer cost, no contagion via senior depositors.",
+    "intuition": "Bail-in works **bottom-up through the creditor hierarchy** until the target capital ratio is restored. Equity absorbs first, then AT1, T2, senior non-preferred – and crucially, conversion stops at the level where the target is met. Senior unsecured creditors and depositors usually walk away whole, which is precisely what BRRD was designed to achieve: no taxpayer cost, no contagion via senior depositors.",
     "sourceId": "may2025-q6c"
   },
   {
     "id": "calc-bail-002",
     "category": "bailin",
     "set": 1,
-    "title": "Large-bank bail-in — summing the conversion stack",
+    "title": "Large-bank bail-in – summing the conversion stack",
     "difficulty": "easy",
     "estimatedMinutes": 3,
     "source": "Final 2022, Q4 (preserved fragment of grading guide)",
@@ -578,7 +578,7 @@
         ]
       }
     ],
-    "intuition": "When the resolution authority publishes conversion amounts, summing them gives total new CET1 directly. The fact that residual shareholders retain 350 — rather than being wiped out — means losses were just barely large enough to require bail-in but did not exhaust pre-existing equity completely.",
+    "intuition": "When the resolution authority publishes conversion amounts, summing them gives total new CET1 directly. The fact that residual shareholders retain 350 – rather than being wiped out – means losses were just barely large enough to require bail-in but did not exhaust pre-existing equity completely.",
     "sourceId": "final2022-q4"
   },
   {
@@ -616,7 +616,7 @@
           "T2 .................................... 40    (cumul 70)",
           "Non-preferred senior bonds (partial) .. 30    (cumul **100**) ✓",
           "──────────────────────────────────────",
-          "Required CET1 = 100 — target met without touching senior unsecured.",
+          "Required CET1 = 100 – target met without touching senior unsecured.",
           "Non-preferred bonds remaining un-converted: 80 − 30 = **50**.",
           "Senior unsecured bonds untouched: 200."
         ]
@@ -628,7 +628,7 @@
     "id": "calc-fx-001",
     "category": "fx-swap",
     "set": 1,
-    "title": "NOK/DKK 6-month FX swap — CIP and swap points",
+    "title": "NOK/DKK 6-month FX swap – CIP and swap points",
     "difficulty": "easy",
     "estimatedMinutes": 5,
     "source": "May 2024 Final, Q4a (= Final 2022, Q3a)",
@@ -664,14 +664,14 @@
         ]
       }
     ],
-    "intuition": "NOK has the higher interest rate, so the forward NOK must **weaken** against DKK to deny arbitrage — the party lending out the higher-yielding NOK has to receive more DKK back at maturity to be compensated. Equivalently, DKK trades at a forward **premium**. This is the core mechanic of CIP.",
+    "intuition": "NOK has the higher interest rate, so the forward NOK must **weaken** against DKK to deny arbitrage – the party lending out the higher-yielding NOK has to receive more DKK back at maturity to be compensated. Equivalently, DKK trades at a forward **premium**. This is the core mechanic of CIP.",
     "sourceId": "may2024-q4a"
   },
   {
     "id": "calc-fx-002",
     "category": "fx-swap",
     "set": 1,
-    "title": "EUR/NOK 1-year FX swap — CIP variant",
+    "title": "EUR/NOK 1-year FX swap – CIP variant",
     "difficulty": "easy",
     "estimatedMinutes": 5,
     "source": "Custom drill on CIP",
@@ -706,7 +706,7 @@
         ]
       }
     ],
-    "intuition": "Same mechanic as the NOK/DKK case — the higher-yielding currency (NOK, 4.5%) must depreciate forward against the lower-yielding currency (EUR, 3.0%). The 1.5-pp differential over 1 year produces a ~1.5% forward premium on EUR."
+    "intuition": "Same mechanic as the NOK/DKK case – the higher-yielding currency (NOK, 4.5%) must depreciate forward against the lower-yielding currency (EUR, 3.0%). The 1.5-pp differential over 1 year produces a ~1.5% forward premium on EUR."
   },
   {
     "id": "calc-fx-003",
@@ -715,7 +715,7 @@
     "title": "Backing out an interest rate from forward and spot",
     "difficulty": "medium",
     "estimatedMinutes": 5,
-    "source": "Custom drill on CIP — reverse direction",
+    "source": "Custom drill on CIP – reverse direction",
     "topicTags": [
       "derivatives-fx"
     ],
@@ -739,13 +739,13 @@
         ]
       }
     ],
-    "intuition": "If the FX-swap market and money markets are in equilibrium (no arbitrage), CIP holds **identically**. Any persistent deviation (a CIP basis) implies frictions — balance-sheet costs at FX-swap dealers, dollar funding stress, or regulatory constraints. The equation can be inverted in any direction: given any three of {S₀, F, r_d, r_f, t}, solve for the fourth."
+    "intuition": "If the FX-swap market and money markets are in equilibrium (no arbitrage), CIP holds **identically**. Any persistent deviation (a CIP basis) implies frictions – balance-sheet costs at FX-swap dealers, dollar funding stress, or regulatory constraints. The equation can be inverted in any direction: given any three of {S₀, F, r_d, r_f, t}, solve for the fourth."
   },
   {
     "id": "calc-credit-001",
     "category": "credit-risk-models",
     "set": 1,
-    "title": "Miller Manufacturing — moral hazard with equity (Example 7.1)",
+    "title": "Miller Manufacturing – moral hazard with equity (Example 7.1)",
     "difficulty": "hard",
     "estimatedMinutes": 18,
     "source": "Greenbaum/Thakor/Boot, Contemporary Financial Intermediation, Example 7.1 + Ex Ch7.xlsx (sheet Ex7-1)",
@@ -763,7 +763,7 @@
     "parts": [
       {
         "id": "a",
-        "prompt": "Step 1 — Joint distribution of (Project A + existing assets), with the 1 M equity added.",
+        "prompt": "Step 1 – Joint distribution of (Project A + existing assets), with the 1 M equity added.",
         "answer": "6 M (0.64), 5 M (0.16), 3 M (0.16), 2 M (0.04)",
         "working": [
           "Project A × Existing assets (independent):",
@@ -777,7 +777,7 @@
       },
       {
         "id": "b",
-        "prompt": "Step 2 — Cash flow available to service the bank loan after the 2 M senior obligation.",
+        "prompt": "Step 2 – Cash flow available to service the bank loan after the 2 M senior obligation.",
         "answer": "4 (0.64), 3 (0.16), 1 (0.16), 0 (0.04)",
         "working": [
           "Total − 2 M senior debt:",
@@ -790,7 +790,7 @@
       },
       {
         "id": "c",
-        "prompt": "Step 3 — Bank zero-profit condition; solve for the repayment obligation P and the loan interest rate r.",
+        "prompt": "Step 3 – Bank zero-profit condition; solve for the repayment obligation P and the loan interest rate r.",
         "answer": "P = 1.1125 M · r ≈ 5.95%",
         "working": [
           "Set 0.80 P + 0.16 = 1.05 (the loan principal).",
@@ -800,7 +800,7 @@
       },
       {
         "id": "d",
-        "prompt": "Step 4 — Expected value of equity if Miller does in fact choose project A.",
+        "prompt": "Step 4 – Expected value of equity if Miller does in fact choose project A.",
         "answer": "≈ 2.15 M",
         "working": [
           "Cash to shareholders = max(available − P, 0):",
@@ -809,17 +809,17 @@
           "1 < P, so 0,           prob 0.16",
           "0 < P, so 0,           prob 0.04",
           "E[equity | A] = 0.64 × 2.8875 + 0.16 × 1.8875 = 1.848 + 0.302 = **2.150 M**.",
-          "(The textbook also computes E[equity | B] = 2.0255 M < 2.150 M, confirming Miller prefers A — so the bank's belief is consistent and we have a Nash equilibrium.)"
+          "(The textbook also computes E[equity | B] = 2.0255 M < 2.150 M, confirming Miller prefers A – so the bank's belief is consistent and we have a Nash equilibrium.)"
         ]
       }
     ],
-    "intuition": "Equity is a **commitment device**. With 1 M of skin in the game, Miller's downside under the risky project B is large enough that the safe project A becomes preferred — the bank can therefore price the loan at the safe rate (5.95%). Without the equity (Example 7.1 step 3 of the textbook), the calculation flips: Miller chooses B, the bank anticipates this, and the loan rate jumps. Capital signals **and resolves** moral hazard simultaneously."
+    "intuition": "Equity is a **commitment device**. With 1 M of skin in the game, Miller's downside under the risky project B is large enough that the safe project A becomes preferred – the bank can therefore price the loan at the safe rate (5.95%). Without the equity (Example 7.1 step 3 of the textbook), the calculation flips: Miller chooses B, the bank anticipates this, and the loan rate jumps. Capital signals **and resolves** moral hazard simultaneously."
   },
   {
     "id": "calc-credit-002",
     "category": "credit-risk-models",
     "set": 1,
-    "title": "Borrowers A & B — collateral as a screening device (Example 7.3)",
+    "title": "Borrowers A & B – collateral as a screening device (Example 7.3)",
     "difficulty": "hard",
     "estimatedMinutes": 12,
     "source": "Greenbaum/Thakor/Boot, Example 7.3 + Ex Ch7.xlsx (sheet Ex7-3)",
@@ -827,7 +827,7 @@
       "credit-risk",
       "asymmetric-info"
     ],
-    "problem": "Two borrowers indistinguishable to the bank ex ante:\n\n• **Borrower A (safe):** end-of-period assets = 100 with probability 1.\n• **Borrower B (risky):** end-of-period assets = 200 with probability 0.5, 0 with probability 0.5.\n\nEach borrower needs a **30** loan. Riskless rate = **10%**. Everyone is risk-neutral. Collateral worth 1 to a borrower is worth only **0.90** to the bank (10% liquidation haircut).\n\nDesign a pair of contracts — secured loan (rate r_s, collateral C) and unsecured loan (rate r_u) — such that A self-selects into the secured contract and B into the unsecured one (Nash separating equilibrium).",
+    "problem": "Two borrowers indistinguishable to the bank ex ante:\n\n• **Borrower A (safe):** end-of-period assets = 100 with probability 1.\n• **Borrower B (risky):** end-of-period assets = 200 with probability 0.5, 0 with probability 0.5.\n\nEach borrower needs a **30** loan. Riskless rate = **10%**. Everyone is risk-neutral. Collateral worth 1 to a borrower is worth only **0.90** to the bank (10% liquidation haircut).\n\nDesign a pair of contracts – secured loan (rate r_s, collateral C) and unsecured loan (rate r_u) – such that A self-selects into the secured contract and B into the unsecured one (Nash separating equilibrium).",
     "keyFormulas": [
       "Bank break-even (secured, riskless borrower): 1 + r_s = 1 + r_riskless",
       "Bank break-even (unsecured, default prob 1 − π): [π × (1 + r_u) × L] / (1 + r_riskless) = L",
@@ -836,7 +836,7 @@
     "parts": [
       {
         "id": "a",
-        "prompt": "Step 1 — Interest rate on the secured loan (taken by A, who repays for sure).",
+        "prompt": "Step 1 – Interest rate on the secured loan (taken by A, who repays for sure).",
         "answer": "r_s = 10%",
         "working": [
           "A repays 30 × (1 + r_s) for sure. Bank break-even discounted at riskless 10%:",
@@ -845,7 +845,7 @@
       },
       {
         "id": "b",
-        "prompt": "Step 2 — Interest rate on the unsecured loan (taken by B, who repays only in the high state).",
+        "prompt": "Step 2 – Interest rate on the unsecured loan (taken by B, who repays only in the high state).",
         "answer": "r_u = 120%",
         "working": [
           "Repayment probability for B = 0.5. Bank break-even:",
@@ -857,7 +857,7 @@
       },
       {
         "id": "c",
-        "prompt": "Step 3 — Collateral C that makes B indifferent between the two contracts (so that B does not mimic A).",
+        "prompt": "Step 3 – Collateral C that makes B indifferent between the two contracts (so that B does not mimic A).",
         "answer": "C = 33",
         "working": [
           "Repayment on secured loan: 30 × 1.10 = 33.",
@@ -868,7 +868,7 @@
       },
       {
         "id": "d",
-        "prompt": "Step 4 — Verify A strictly prefers the secured contract (so the equilibrium separates).",
+        "prompt": "Step 4 – Verify A strictly prefers the secured contract (so the equilibrium separates).",
         "answer": "A's secured payoff = 67 > A's unsecured payoff = 34",
         "working": [
           "A's net payoff under **secured** (collateral surrendered with prob 0): 100 − 33 − 0 × C = 67.",
@@ -877,13 +877,13 @@
         ]
       }
     ],
-    "intuition": "Collateral works as a **signal** because the risky borrower B has a higher probability of losing it. By demanding C = 33 alongside the low secured rate (10%), the bank makes the secured contract unattractive enough to B that B reveals its type by accepting the 120% unsecured rate instead. Note that the haircut (0.90) does not affect the separating C in this case because the secured loan to A is riskless — A never surrenders collateral in equilibrium."
+    "intuition": "Collateral works as a **signal** because the risky borrower B has a higher probability of losing it. By demanding C = 33 alongside the low secured rate (10%), the bank makes the secured contract unattractive enough to B that B reveals its type by accepting the 120% unsecured rate instead. Note that the haircut (0.90) does not affect the separating C in this case because the secured loan to A is riskless – A never surrenders collateral in equilibrium."
   },
   {
     "id": "calc-credit-003",
     "category": "credit-risk-models",
     "set": 1,
-    "title": "Brown Bakery — collateral against asset substitution (Example 7.4)",
+    "title": "Brown Bakery – collateral against asset substitution (Example 7.4)",
     "difficulty": "hard",
     "estimatedMinutes": 18,
     "source": "Greenbaum/Thakor/Boot, Example 7.4 + Ex Ch7.xlsx (sheet Ex7-4)",
@@ -902,8 +902,8 @@
     "parts": [
       {
         "id": "a",
-        "prompt": "Step 1 — If the bank offers an unsecured loan priced under the assumption that S will be chosen, show that this is **not** a Nash equilibrium.",
-        "answer": "r_u^S ≈ 22.22%, but Brown picks R (166.7 > 160.0) — not equilibrium.",
+        "prompt": "Step 1 – If the bank offers an unsecured loan priced under the assumption that S will be chosen, show that this is **not** a Nash equilibrium.",
+        "answer": "r_u^S ≈ 22.22%, but Brown picks R (166.7 > 160.0) – not equilibrium.",
         "working": [
           "Bank break-even assuming S: [0.9 × (1+r_u^S) × 100] / 1.10 = 100",
           "1 + r_u^S = 1.10 / 0.9 = 11/9 ≈ 1.2222 → **r_u^S = 22.22%**.",
@@ -911,13 +911,13 @@
           "Brown's expected net payoff under S: 0.9 × (300 − 122.22) ≈ **160.00**.",
           "Brown's expected net payoff under R: 0.6 × (400 − 122.22) ≈ **166.67**.",
           "Brown prefers R → **bank's belief is inconsistent**, no equilibrium.",
-          "(The textbook writes 160.2 by rounding the rate to 22% before computing — same qualitative conclusion either way.)"
+          "(The textbook writes 160.2 by rounding the rate to 22% before computing – same qualitative conclusion either way.)"
         ]
       },
       {
         "id": "b",
-        "prompt": "Step 2 — If the bank instead prices the unsecured loan assuming R, show this is a Nash equilibrium.",
-        "answer": "r_u^R ≈ 83.33%, Brown picks R (130 > 105) — equilibrium but bad for Brown.",
+        "prompt": "Step 2 – If the bank instead prices the unsecured loan assuming R, show this is a Nash equilibrium.",
+        "answer": "r_u^R ≈ 83.33%, Brown picks R (130 > 105) – equilibrium but bad for Brown.",
         "working": [
           "Bank break-even assuming R: [0.6 × (1+r_u^R) × 100] / 1.10 = 100",
           "1 + r_u^R = 1.10 / 0.6 ≈ 1.8333 → **r_u^R = 83.33%**.",
@@ -928,7 +928,7 @@
       },
       {
         "id": "c",
-        "prompt": "Step 3 — With a secured loan, find the secured rate r_s and the collateral C that induce Brown to choose S while the bank breaks even.",
+        "prompt": "Step 3 – With a secured loan, find the secured rate r_s and the collateral C that induce Brown to choose S while the bank breaks even.",
         "answer": "r_s ≈ 20.20% · C ≈ 20.20",
         "working": [
           "Bank break-even (with collateral, project S):",
@@ -952,7 +952,7 @@
       },
       {
         "id": "d",
-        "prompt": "Step 4 — Verify that the secured contract is a Nash equilibrium and compare Brown's payoff with the unsecured-R equilibrium.",
+        "prompt": "Step 4 – Verify that the secured contract is a Nash equilibrium and compare Brown's payoff with the unsecured-R equilibrium.",
         "answer": "Brown's secured-S payoff ≈ 159.79 > unsecured-R payoff 130 ✓",
         "working": [
           "Brown's expected payoff under S (secured): 0.9 × (300 − 120.20) − 0.1 × 20.20 = 0.9 × 179.80 − 2.02 = 161.82 − 2.02 = **159.80**.",
@@ -962,7 +962,7 @@
         ]
       }
     ],
-    "intuition": "Without collateral, Brown chooses R because the loan turns the firm's project-selection problem into a **call-option** problem — Brown captures the upside but the bank absorbs the downside. Collateral attaches a **personal cost to default**, partially restoring the alignment. The cost of imposing collateral is the haircut (0.90 here): a dollar of collateral protection only buys 90 cents of bank recovery, which is why the secured rate (20.20%) is well above the riskless rate (10%) — the bank prices the residual default risk and the haircut into the loan."
+    "intuition": "Without collateral, Brown chooses R because the loan turns the firm's project-selection problem into a **call-option** problem – Brown captures the upside but the bank absorbs the downside. Collateral attaches a **personal cost to default**, partially restoring the alignment. The cost of imposing collateral is the haircut (0.90 here): a dollar of collateral protection only buys 90 cents of bank recovery, which is why the secured rate (20.20%) is well above the riskless rate (10%) – the bank prices the residual default risk and the haircut into the loan."
   },
   {
     "id": "calc-dd-001",
@@ -971,7 +971,7 @@
     "title": "Diamond-Dybvig: liquidity insurance via two-deposit contracts",
     "difficulty": "hard",
     "estimatedMinutes": 14,
-    "source": "Ex Ch12.xlsx (sheet 12-2) — Diamond-Dybvig depositor model",
+    "source": "Ex Ch12.xlsx (sheet 12-2) – Diamond-Dybvig depositor model",
     "topicTags": [
       "liquidity-risk",
       "foundational-models"
@@ -1019,14 +1019,14 @@
       {
         "id": "d",
         "prompt": "(d) Welfare comparison.",
-        "answer": "0.9412 > 0.94 — bank improves welfare ✓",
+        "answer": "0.9412 > 0.94 – bank improves welfare ✓",
         "working": [
           "0.9412 (with bank) > 0.94 (autarky).",
           "Improvement of **+0.0012 utils per depositor**.",
-          "Mechanism: the bank **pools liquidity risk** across depositors. D-types get 1.1 (better than 1); L-types get 2.1 (worse than 2.25) — but ex ante, before knowing their type, every depositor prefers the contract to autarky."
+          "Mechanism: the bank **pools liquidity risk** across depositors. D-types get 1.1 (better than 1); L-types get 2.1 (worse than 2.25) – but ex ante, before knowing their type, every depositor prefers the contract to autarky."
         ]
       }
     ],
-    "intuition": "This is the core Diamond-Dybvig welfare argument. Without a bank, each depositor must choose **before** learning their type: either liquidate at t=1 (and lose 2.25 if they turn out to be a liver) or hold to t=2 (and consume 0 if they turn out to be a dier). The bank, by writing a contract with state-contingent payouts, converts this all-or-nothing problem into a pooling arrangement. The same intuition motivates **bank-run vulnerability**: the demand-deposit contract (1.1 at t=1) is not backed by enough liquid assets if more than 40 depositors withdraw early, because the project pays 1:1 only on the 56 portion left at t=1 — a self-fulfilling run is possible."
+    "intuition": "This is the core Diamond-Dybvig welfare argument. Without a bank, each depositor must choose **before** learning their type: either liquidate at t=1 (and lose 2.25 if they turn out to be a liver) or hold to t=2 (and consume 0 if they turn out to be a dier). The bank, by writing a contract with state-contingent payouts, converts this all-or-nothing problem into a pooling arrangement. The same intuition motivates **bank-run vulnerability**: the demand-deposit contract (1.1 at t=1) is not backed by enough liquid assets if more than 40 depositors withdraw early, because the project pays 1:1 only on the 56 portion left at t=1 – a self-fulfilling run is possible."
   }
 ]

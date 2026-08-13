@@ -2,7 +2,7 @@
   {
     "id": "fc-asym-def",
     "tier": "core",
-    "triage_reason": "summary §1 / past finals 2025 Q3a, 2023 Q3 — define asymmetric info",
+    "triage_reason": "summary §1 / past finals 2025 Q3a, 2023 Q3 – define asymmetric info",
     "front": "Asymmetric information",
     "back": "One party in a transaction has more or better information than the other. In credit markets, the borrower knows more about their financial state, repayment ability, and risk than the lender.",
     "tags": [
@@ -12,7 +12,7 @@
   {
     "id": "fc-adverse-selection",
     "tier": "core",
-    "triage_reason": "summary §1 / 2023 Q3, 2025 Q3a-b — adverse selection definition",
+    "triage_reason": "summary §1 / 2023 Q3, 2025 Q3a-b – adverse selection definition",
     "front": "Adverse selection",
     "back": "Pre-contract / ex-ante information problem. Lenders cannot distinguish high-risk from low-risk borrowers; with pooled pricing, low-risk borrowers exit and the pool worsens. Akerlof's lemons.",
     "tags": [
@@ -44,7 +44,7 @@
   {
     "id": "fc-screening",
     "tier": "core",
-    "triage_reason": "summary §1 / 2025 Q3b mitigants — ex-ante",
+    "triage_reason": "summary §1 / 2025 Q3b mitigants – ex-ante",
     "front": "Screening",
     "back": "Ex-ante effort to identify borrower quality before lending. Credit-scoring, financial-statement analysis, risk-based pricing. Mitigates adverse selection.",
     "tags": [
@@ -54,7 +54,7 @@
   {
     "id": "fc-monitoring",
     "tier": "core",
-    "triage_reason": "summary §1 / 2025 Q3b mitigants — ex-post",
+    "triage_reason": "summary §1 / 2025 Q3b mitigants – ex-post",
     "front": "Monitoring",
     "back": "Ex-post effort to observe borrower behaviour after lending. Covenants, regular reporting, site visits, performance reviews. Mitigates moral hazard.",
     "tags": [
@@ -64,9 +64,9 @@
   {
     "id": "fc-covenant-types",
     "tier": "core",
-    "triage_reason": "2025 mid Q1 — covenants control credit risk",
+    "triage_reason": "2025 mid Q1 – covenants control credit risk",
     "front": "Covenant types",
-    "back": "Affirmative (must do — provide statements, maintain insurance), Negative (must not do — extra debt, dividends, asset sales), Financial (ratios — debt/equity, ICR), Reporting (deliver data), Operational (restrict activities).",
+    "back": "Affirmative (must do – provide statements, maintain insurance), Negative (must not do – extra debt, dividends, asset sales), Financial (ratios – debt/equity, ICR), Reporting (deliver data), Operational (restrict activities).",
     "tags": [
       "asymmetric-info",
       "credit-risk"
@@ -75,7 +75,7 @@
   {
     "id": "fc-collateral-signal",
     "tier": "core",
-    "triage_reason": "2025 Q3b — collateral mitigates BOTH AS and MH",
+    "triage_reason": "2025 Q3b – collateral mitigates BOTH AS and MH",
     "front": "Why collateral mitigates BOTH problems",
     "back": "(1) Adverse selection: risky borrowers less willing to pledge collateral → self-selection signal. (2) Moral hazard: borrower has skin in the game → less risk-shifting after disbursal.",
     "tags": [
@@ -85,9 +85,9 @@
   {
     "id": "fc-waiver",
     "tier": "core",
-    "triage_reason": "2025 mid Q2 — waiver explicitly tested",
+    "triage_reason": "2025 mid Q2 – waiver explicitly tested",
     "front": "Loan covenant waiver",
-    "back": "When a covenant is breached, the bank can grant a waiver — choosing not to enforce its remedies. Reasons: maintain relationship, breach is minor/temporary, borrower viable, enforcement would worsen losses, prelude to renegotiation.",
+    "back": "When a covenant is breached, the bank can grant a waiver – choosing not to enforce its remedies. Reasons: maintain relationship, breach is minor/temporary, borrower viable, enforcement would worsen losses, prelude to renegotiation.",
     "tags": [
       "asymmetric-info"
     ]
@@ -95,8 +95,8 @@
   {
     "id": "fc-akerlof",
     "tier": "core",
-    "triage_reason": "summary §2 / Final 2022 Q2 — Akerlof lemons",
-    "front": "Akerlof (1970) — Market for Lemons",
+    "triage_reason": "summary §2 / Final 2022 Q2 – Akerlof lemons",
+    "front": "Akerlof (1970) – Market for Lemons",
     "back": "Asymmetric information about quality leads to market unravelling. Buyers price-down, high-quality sellers exit, only lemons remain. Foundational adverse-selection model.",
     "tags": [
       "asymmetric-info",
@@ -117,7 +117,7 @@
   {
     "id": "fc-relationship-banking",
     "tier": "nice",
-    "triage_reason": "AS mitigant subcategory — not tested standalone",
+    "triage_reason": "AS mitigant subcategory – not tested standalone",
     "front": "Relationship banking",
     "back": "Long-run lending relationships reveal private borrower information over time, reducing asymmetric information. Banks gain a soft-information advantage and can lend at better terms.",
     "tags": [
@@ -127,7 +127,7 @@
   {
     "id": "fc-delegated-monitoring",
     "tier": "core",
-    "triage_reason": "summary §1 — banks as delegated monitors (Diamond)",
+    "triage_reason": "summary §1 – banks as delegated monitors (Diamond)",
     "front": "Delegated monitoring (Diamond)",
     "back": "Banks act as agents for many savers, monitoring borrowers on their behalf. Economies of scale + diversification make it cheaper than each saver monitoring directly. Justifies the bank intermediary.",
     "tags": [
@@ -138,7 +138,7 @@
   {
     "id": "fc-qat",
     "tier": "core",
-    "triage_reason": "summary §1 / 2025 Q2a — QAT definition",
+    "triage_reason": "summary §1 / 2025 Q2a – QAT definition",
     "front": "Qualitative Asset Transformation (QAT)",
     "back": "Banks transform claim attributes along five dimensions: duration, divisibility, liquidity, credit risk, currency. Source of both value and fragility.",
     "tags": [
@@ -148,8 +148,8 @@
   {
     "id": "fc-qat-five",
     "tier": "core",
-    "triage_reason": "summary §1 / 2025 Q2a — five dimensions",
-    "front": "QAT — five dimensions",
+    "triage_reason": "summary §1 / 2025 Q2a – five dimensions",
+    "front": "QAT – five dimensions",
     "back": "1. Duration (long mortgages from short deposits). 2. Divisibility (large loans from small deposits). 3. Liquidity (illiquid assets, liquid liabilities). 4. Credit risk (risky assets, safe deposits). 5. Numeraire (foreign assets, domestic liabilities).",
     "tags": [
       "bank-models"
@@ -158,7 +158,7 @@
   {
     "id": "fc-mat-transform",
     "tier": "core",
-    "triage_reason": "2023 Q4 / 2024 mid QP2d — maturity transformation",
+    "triage_reason": "2023 Q4 / 2024 mid QP2d – maturity transformation",
     "front": "Maturity transformation",
     "back": "Banks fund long-term assets with short-term liabilities, earning a margin from the upward-sloping yield curve. Creates liquidity, funding, and interest-rate risk.",
     "tags": [
@@ -168,7 +168,7 @@
   {
     "id": "fc-fractional-reserve",
     "tier": "core",
-    "triage_reason": "2024 Q2c — fractional reserve banking",
+    "triage_reason": "2024 Q2c – fractional reserve banking",
     "front": "Fractional reserve banking",
     "back": "Banks hold only a fraction of deposits as reserves and lend out the remainder. Relies on most depositors not withdrawing simultaneously. Multiplies money supply via the deposit multiplier.",
     "tags": [
@@ -178,9 +178,9 @@
   {
     "id": "fc-inside-money",
     "tier": "core",
-    "triage_reason": "summary §1 + BoE 2014 reading — inside vs outside money",
+    "triage_reason": "summary §1 + BoE 2014 reading – inside vs outside money",
     "front": "Inside vs outside money",
-    "back": "Inside money = bank-created (deposits, loans). Outside money = central bank money (banknotes, reserves). Modern money is mostly inside money — created when banks lend.",
+    "back": "Inside money = bank-created (deposits, loans). Outside money = central bank money (banknotes, reserves). Modern money is mostly inside money – created when banks lend.",
     "tags": [
       "bank-models"
     ]
@@ -188,7 +188,7 @@
   {
     "id": "fc-yield-curve-ride",
     "tier": "core",
-    "triage_reason": "2024 Q2a — riding the yield curve explicitly tested",
+    "triage_reason": "2024 Q2a – riding the yield curve explicitly tested",
     "front": "Riding the yield curve",
     "back": "Bank funds short (money market) and invests long (fixed-rate bonds). Earns positive carry on upward-sloping curve; loses on inversion. Risks: interest-rate risk, funding risk, yield-curve inversion.",
     "tags": [
@@ -198,7 +198,7 @@
   {
     "id": "fc-nim",
     "tier": "core",
-    "triage_reason": "Feb 2024 mid Q2 — interest margin",
+    "triage_reason": "Feb 2024 mid Q2 – interest margin",
     "front": "Net interest margin (NIM)",
     "back": "NIM = NII / Average Assets. Headline measure of how efficiently a bank earns spread between asset yield and funding cost. Typical bank NIM: 1–3%.",
     "tags": [
@@ -208,7 +208,7 @@
   {
     "id": "fc-deposit-loan-ratio",
     "tier": "core",
-    "triage_reason": "Feb 2024 mid Q1 — D/L ratio",
+    "triage_reason": "Feb 2024 mid Q1 – D/L ratio",
     "front": "Deposit-to-loan ratio",
     "back": "Deposits / Loans. Below 100% means the bank funds part of its lending with non-deposit sources (wholesale funding, debt securities, equity). Lower ratio = greater wholesale funding reliance = higher liquidity risk.",
     "tags": [
@@ -218,7 +218,7 @@
   {
     "id": "fc-gross-vs-net-loans",
     "tier": "core",
-    "triage_reason": "Feb 2024 mid Q4 — gross loans = net + accumulated impairment",
+    "triage_reason": "Feb 2024 mid Q4 – gross loans = net + accumulated impairment",
     "front": "Gross vs net loans",
     "back": "Gross loans = exposure before impairment. Net loans = gross − accumulated impairment. The balance sheet shows net; gross requires adding back the impairment provision.",
     "tags": [
@@ -229,8 +229,8 @@
   {
     "id": "fc-assets-liabilities",
     "tier": "core",
-    "triage_reason": "summary §3 — bank business model",
-    "front": "Bank balance sheet — assets vs liabilities (typical)",
+    "triage_reason": "summary §3 – bank business model",
+    "front": "Bank balance sheet – assets vs liabilities (typical)",
     "back": "Assets (use of funds): loans, securities, cash & central-bank reserves, interbank claims. Liabilities (sources): deposits, wholesale funding, subordinated debt, equity. The fundamental mismatch creates QAT risks.",
     "tags": [
       "bank-models"
@@ -239,7 +239,7 @@
   {
     "id": "fc-roe-leverage",
     "tier": "core",
-    "triage_reason": "summary §3 — leverage effect",
+    "triage_reason": "summary §3 – leverage effect",
     "front": "Why bank leverage matters",
     "back": "ROE = ROA × (Assets/Equity). Banks operate with ~5–10% equity (10–20× leverage). A 1% ROA + 15× leverage = 15% ROE. Leverage amplifies returns but also losses → why capital regulation matters.",
     "tags": [
@@ -250,7 +250,7 @@
   {
     "id": "fc-capital-mar-money-mar",
     "tier": "core",
-    "triage_reason": "Feb 2024 mid QP2c — capital vs money markets distinction",
+    "triage_reason": "Feb 2024 mid QP2c – capital vs money markets distinction",
     "front": "Capital vs money markets",
     "back": "Distinguished by MATURITY, not liquidity. Money markets: <12-month instruments (T-bills, CP, repo, interbank). Capital markets: >12-month (bonds, equity).",
     "tags": [
@@ -260,8 +260,8 @@
   {
     "id": "fc-pd",
     "tier": "core",
-    "triage_reason": "summary §4 — PD parameter",
-    "front": "PD — Probability of Default",
+    "triage_reason": "summary §4 – PD parameter",
+    "front": "PD – Probability of Default",
     "back": "Likelihood that a borrower defaults within a horizon (typically 1 year). Estimated from internal models or external ratings. Drives expected and unexpected loss.",
     "tags": [
       "credit-risk"
@@ -270,8 +270,8 @@
   {
     "id": "fc-lgd",
     "tier": "core",
-    "triage_reason": "summary §4 — LGD parameter",
-    "front": "LGD — Loss Given Default",
+    "triage_reason": "summary §4 – LGD parameter",
+    "front": "LGD – Loss Given Default",
     "back": "Percentage of exposure not recovered after default = 1 − Recovery Rate. Depends on collateral, seniority, jurisdiction. Multiplies into Expected Loss.",
     "tags": [
       "credit-risk"
@@ -280,9 +280,9 @@
   {
     "id": "fc-ead",
     "tier": "core",
-    "triage_reason": "summary §4 — EAD parameter",
-    "front": "EAD — Exposure at Default",
-    "back": "The amount owed at the moment of default — includes accrued interest, drawn balances, expected drawdown of undrawn commitments. Typically larger than current balance for credit lines.",
+    "triage_reason": "summary §4 – EAD parameter",
+    "front": "EAD – Exposure at Default",
+    "back": "The amount owed at the moment of default – includes accrued interest, drawn balances, expected drawdown of undrawn commitments. Typically larger than current balance for credit lines.",
     "tags": [
       "credit-risk"
     ]
@@ -290,9 +290,9 @@
   {
     "id": "fc-el",
     "tier": "core",
-    "triage_reason": "summary §4 — EL = PD×LGD×EAD",
+    "triage_reason": "summary §4 – EL = PD×LGD×EAD",
     "front": "Expected Loss formula",
-    "back": "EL = PD × LGD × EAD. Covered by impairment PROVISIONS — accounting expense, not capital.",
+    "back": "EL = PD × LGD × EAD. Covered by impairment PROVISIONS – accounting expense, not capital.",
     "tags": [
       "credit-risk"
     ]
@@ -300,7 +300,7 @@
   {
     "id": "fc-ul",
     "tier": "core",
-    "triage_reason": "summary §4 — Unexpected Loss / capital tail",
+    "triage_reason": "summary §4 – Unexpected Loss / capital tail",
     "front": "Unexpected Loss",
     "back": "Tail risk at 99.9% confidence over 1-year horizon. Covered by regulatory CAPITAL, not provisions. The job of capital is to absorb losses BEYOND the expected.",
     "tags": [
@@ -311,7 +311,7 @@
   {
     "id": "fc-ifrs9-stages",
     "tier": "core",
-    "triage_reason": "2025 Q4 / 2024 Q1b — IFRS 9 staging",
+    "triage_reason": "2025 Q4 / 2024 Q1b – IFRS 9 staging",
     "front": "IFRS 9 three stages",
     "back": "Stage 1: performing (12-month ECL). Stage 2: significant increase in credit risk since origination (lifetime ECL). Stage 3: credit-impaired / default (lifetime ECL with PD = 100%).",
     "tags": [
@@ -321,7 +321,7 @@
   {
     "id": "fc-ifrs9-stage1",
     "tier": "core",
-    "triage_reason": "2025 Q4a — Stage 1 12m ECL",
+    "triage_reason": "2025 Q4a – Stage 1 12m ECL",
     "front": "IFRS 9 Stage 1 impairment",
     "back": "12-month ECL = EAD × PD₁₂ₘ × LGD. Applied to all performing loans at origination and as long as no significant increase in credit risk has occurred.",
     "tags": [
@@ -331,7 +331,7 @@
   {
     "id": "fc-ifrs9-stage2",
     "tier": "core",
-    "triage_reason": "2025 Q4a — Stage 2 lifetime ECL",
+    "triage_reason": "2025 Q4a – Stage 2 lifetime ECL",
     "front": "IFRS 9 Stage 2 impairment",
     "back": "Lifetime ECL = EAD × PD_lifetime × LGD. Triggered by significant increase in credit risk (SICR). Provisioning becomes much heavier than Stage 1.",
     "tags": [
@@ -341,7 +341,7 @@
   {
     "id": "fc-ifrs9-stage3",
     "tier": "core",
-    "triage_reason": "2025 Q4a — Stage 3 default",
+    "triage_reason": "2025 Q4a – Stage 3 default",
     "front": "IFRS 9 Stage 3 impairment",
     "back": "Default has occurred; PD = 100%. Impairment = EAD × LGD. Interest income calculated on net (post-impairment) carrying amount, not gross.",
     "tags": [
@@ -351,8 +351,8 @@
   {
     "id": "fc-sicr",
     "tier": "core",
-    "triage_reason": "2025 mid Q4e — SICR triggers Stage 2",
-    "front": "SICR — Significant Increase in Credit Risk",
+    "triage_reason": "2025 mid Q4e – SICR triggers Stage 2",
+    "front": "SICR – Significant Increase in Credit Risk",
     "back": "Trigger for Stage 1 → Stage 2 migration. Measured by changes in PD since origination, NOT by collateral value alone. Lower collateral matters only if it signals higher PD.",
     "tags": [
       "credit-risk"
@@ -361,9 +361,9 @@
   {
     "id": "fc-lifetime-pd-decline",
     "tier": "core",
-    "triage_reason": "2025 Q4c — lifetime PD declines over time at constant credit quality",
+    "triage_reason": "2025 Q4c – lifetime PD declines over time at constant credit quality",
     "front": "Why lifetime PD declines over time",
-    "back": "Lifetime PD measures default risk over remaining life of the loan. As time passes and the loan amortises, less time remains during which default can occur — so lifetime PD mechanically falls, even with constant credit quality.",
+    "back": "Lifetime PD measures default risk over remaining life of the loan. As time passes and the loan amortises, less time remains during which default can occur – so lifetime PD mechanically falls, even with constant credit quality.",
     "tags": [
       "credit-risk"
     ]
@@ -371,8 +371,8 @@
   {
     "id": "fc-rwa",
     "tier": "core",
-    "triage_reason": "2025 Q6a — RWA / REA calculation",
-    "front": "RWA — Risk-Weighted Assets",
+    "triage_reason": "2025 Q6a – RWA / REA calculation",
+    "front": "RWA – Risk-Weighted Assets",
     "back": "Notional amount of an asset multiplied by its risk weight. Capital ratios are computed against RWA, not raw assets. Different approaches: standardised (regulator-set weights), IRB (bank-estimated).",
     "tags": [
       "credit-risk",
@@ -383,7 +383,7 @@
     "id": "fc-rea",
     "tier": "nice",
     "triage_reason": "duplicate-ish of fc-rwa (both terms used interchangeably)",
-    "front": "REA — Risk Exposure Amount",
+    "front": "REA – Risk Exposure Amount",
     "back": "EU equivalent term for RWA. Total REA = Credit REA + Market REA + Operational REA. Capital ratios are over Total REA.",
     "tags": [
       "credit-risk",
@@ -393,7 +393,7 @@
   {
     "id": "fc-standardised-approach",
     "tier": "core",
-    "triage_reason": "summary §4 — Standardised approach",
+    "triage_reason": "summary §4 – Standardised approach",
     "front": "Standardised approach (credit risk)",
     "back": "Regulator-prescribed risk weights based on external ratings. Sovereigns 0%, retail mortgages 35%, corporates 100% (unrated). Simple and transparent but blunt.",
     "tags": [
@@ -404,7 +404,7 @@
   {
     "id": "fc-irb-foundation",
     "tier": "core",
-    "triage_reason": "summary §4 — IRB Foundation",
+    "triage_reason": "summary §4 – IRB Foundation",
     "front": "IRB Foundation approach",
     "back": "Bank estimates own PD; regulator supplies LGD and EAD. More risk-sensitive than standardised but less than IRB Advanced. Requires regulatory approval.",
     "tags": [
@@ -415,7 +415,7 @@
   {
     "id": "fc-irb-advanced",
     "tier": "core",
-    "triage_reason": "summary §4 — IRB Advanced",
+    "triage_reason": "summary §4 – IRB Advanced",
     "front": "IRB Advanced approach",
     "back": "Bank estimates ALL parameters (PD, LGD, EAD, M). Most risk-sensitive but most demanding in terms of data, models, governance, and regulatory scrutiny. Norwegian banks heavily use IRB.",
     "tags": [
@@ -426,7 +426,7 @@
   {
     "id": "fc-impairment-recon",
     "tier": "core",
-    "triage_reason": "Feb 2024 mid Q5 — impairment reconciliation",
+    "triage_reason": "Feb 2024 mid Q5 – impairment reconciliation",
     "front": "Impairment reconciliation pattern",
     "back": "Acc. impairment Y2 = Acc. impairment Y1 + new impairments charged − write-offs. Solve for the unknown. Common exam question (Mid-term 2024 P1Q5).",
     "tags": [
@@ -436,8 +436,8 @@
   {
     "id": "fc-cet1",
     "tier": "core",
-    "triage_reason": "summary §7 — CET1 capital tier",
-    "front": "CET1 — Common Equity Tier 1",
+    "triage_reason": "summary §7 – CET1 capital tier",
+    "front": "CET1 – Common Equity Tier 1",
     "back": "Highest-quality regulatory capital. Common equity less deductions (goodwill, proposed dividends, intangibles). Minimum 4.5% of RWA under Basel III.",
     "tags": [
       "bank-regulation"
@@ -446,8 +446,8 @@
   {
     "id": "fc-at1",
     "tier": "core",
-    "triage_reason": "summary §7 — AT1 / hybrid",
-    "front": "AT1 — Additional Tier 1",
+    "triage_reason": "summary §7 – AT1 / hybrid",
+    "front": "AT1 – Additional Tier 1",
     "back": "Hybrid / contingent convertible capital. Perpetual; can be converted to equity or written down on going-concern basis. Coupon at bank's discretion. Minimum 1.5% (or fill with CET1).",
     "tags": [
       "bank-regulation"
@@ -456,7 +456,7 @@
   {
     "id": "fc-tier2",
     "tier": "core",
-    "triage_reason": "summary §7 — Tier 2 / subordinated",
+    "triage_reason": "summary §7 – Tier 2 / subordinated",
     "front": "Tier 2 capital",
     "back": "Subordinated debt. Only written down in resolution or liquidation (gone-concern). Minimum 2% (or fill with CET1/AT1). Total Pillar 1 minimum: 8%.",
     "tags": [
@@ -466,7 +466,7 @@
   {
     "id": "fc-pillar1",
     "tier": "core",
-    "triage_reason": "summary §7 — Pillar 1 minimum",
+    "triage_reason": "summary §7 – Pillar 1 minimum",
     "front": "Pillar 1 minimum",
     "back": "Universal minimum capital requirement: 8% Total / 6% T1 / 4.5% CET1 of RWA. Same for all banks. Designed to cover unexpected loss.",
     "tags": [
@@ -476,7 +476,7 @@
   {
     "id": "fc-pillar2-r",
     "tier": "core",
-    "triage_reason": "summary §7 — P2R",
+    "triage_reason": "summary §7 – P2R",
     "front": "Pillar 2 Requirement (P2R)",
     "back": "Bank-specific minimum on top of Pillar 1, set by the supervisor based on the bank's risk profile (interest-rate risk, concentration risk, etc.). Mandatory.",
     "tags": [
@@ -486,7 +486,7 @@
   {
     "id": "fc-pillar2-g",
     "tier": "core",
-    "triage_reason": "summary §7 — P2G",
+    "triage_reason": "summary §7 – P2G",
     "front": "Pillar 2 Guidance (P2G)",
     "back": "Bank-specific guidance for additional capital that the bank should hold under stress, but breach does not automatically restrict distributions. Soft requirement.",
     "tags": [
@@ -496,7 +496,7 @@
   {
     "id": "fc-conservation-buffer",
     "tier": "core",
-    "triage_reason": "summary §7 — conservation buffer",
+    "triage_reason": "summary §7 – conservation buffer",
     "front": "Capital conservation buffer",
     "back": "+2.5% CET1 above Pillar 1 minimum. Designed to be drawn down in stress. Breach restricts dividend/AT1/bonus payments via the Maximum Distributable Amount (MDA).",
     "tags": [
@@ -506,7 +506,7 @@
   {
     "id": "fc-countercyclical-buffer",
     "tier": "core",
-    "triage_reason": "summary §7 — CCyB",
+    "triage_reason": "summary §7 – CCyB",
     "front": "Countercyclical buffer (CCyB)",
     "back": "0–2.5% CET1, set by national authorities based on credit cycle. Built up in booms, released in busts. In Norway: currently 2.5%.",
     "tags": [
@@ -516,7 +516,7 @@
   {
     "id": "fc-systemic-risk-buffer",
     "tier": "nice",
-    "triage_reason": "summary §7 — SyRB",
+    "triage_reason": "summary §7 – SyRB",
     "front": "Systemic risk buffer",
     "back": "CET1 buffer to address structural systemic risk in a country or sector. In Norway: 4.5%. Combined with G-SIB/O-SII buffers for individual systemic banks.",
     "tags": [
@@ -526,7 +526,7 @@
   {
     "id": "fc-osii-buffer",
     "tier": "nice",
-    "triage_reason": "summary §7 — O-SII buffer (DNB stack)",
+    "triage_reason": "summary §7 – O-SII buffer (DNB stack)",
     "front": "O-SII buffer",
     "back": "CET1 buffer for Other Systemically Important Institutions (national systemically important banks). In Norway: DNB carries 2.0%; SpareBank 1 federation members carry 1.0–2.0% depending on size.",
     "tags": [
@@ -536,7 +536,7 @@
   {
     "id": "fc-leverage-ratio",
     "tier": "core",
-    "triage_reason": "summary §7 — leverage ratio backstop",
+    "triage_reason": "summary §7 – leverage ratio backstop",
     "front": "Leverage ratio",
     "back": "Tier 1 / Total Exposures (unweighted). Basel III minimum 3%. Non-risk-sensitive backstop against RWA gaming or model failure.",
     "tags": [
@@ -546,8 +546,8 @@
   {
     "id": "fc-lcr",
     "tier": "core",
-    "triage_reason": "summary §7 — LCR",
-    "front": "LCR — Liquidity Coverage Ratio",
+    "triage_reason": "summary §7 – LCR",
+    "front": "LCR – Liquidity Coverage Ratio",
     "back": "HQLA / Net cash outflow over 30 days ≥ 100%. Ensures the bank can survive a 30-day stress run on its own liquidity.",
     "tags": [
       "bank-regulation"
@@ -556,8 +556,8 @@
   {
     "id": "fc-nsfr",
     "tier": "core",
-    "triage_reason": "summary §7 — NSFR",
-    "front": "NSFR — Net Stable Funding Ratio",
+    "triage_reason": "summary §7 – NSFR",
+    "front": "NSFR – Net Stable Funding Ratio",
     "back": "Available Stable Funding / Required Stable Funding (1-year) ≥ 100%. Ensures sustainable funding structure beyond the 30-day LCR window.",
     "tags": [
       "bank-regulation"
@@ -566,8 +566,8 @@
   {
     "id": "fc-mrel",
     "tier": "core",
-    "triage_reason": "summary §7 + §10 — MREL bail-in capital",
-    "front": "MREL — Minimum Requirement for Own Funds and Eligible Liabilities",
+    "triage_reason": "summary §7 + §10 – MREL bail-in capital",
+    "front": "MREL – Minimum Requirement for Own Funds and Eligible Liabilities",
     "back": "(Own Funds + Eligible Liabilities) / RWA. Bank-specific. Ensures enough bail-in-able liabilities exist BEFORE a crisis. Two parts: Loss Absorption Amount + Recapitalisation Amount.",
     "tags": [
       "bank-regulation",
@@ -577,8 +577,8 @@
   {
     "id": "fc-tlac",
     "tier": "nice",
-    "triage_reason": "summary §7 — TLAC (G-SIB equivalent)",
-    "front": "TLAC — Total Loss-Absorbing Capacity",
+    "triage_reason": "summary §7 – TLAC (G-SIB equivalent)",
+    "front": "TLAC – Total Loss-Absorbing Capacity",
     "back": "FSB standard for global systemically important banks (G-SIBs). Minimum 18% of RWA from January 2022 (was 16% in the 2019 transitional phase). EU equivalent integrated with MREL.",
     "tags": [
       "bank-regulation",
@@ -588,7 +588,7 @@
   {
     "id": "fc-basel-i",
     "tier": "core",
-    "triage_reason": "summary §7 — Basel I evolution",
+    "triage_reason": "summary §7 – Basel I evolution",
     "front": "Basel I (1988)",
     "back": "Simple 8% capital ratio with crude risk weights (sovereigns 0%, banks 20%, mortgages 50%, corporates 100%). Credited with stabilising the 1990s but criticised for risk insensitivity.",
     "tags": [
@@ -598,7 +598,7 @@
   {
     "id": "fc-basel-ii",
     "tier": "core",
-    "triage_reason": "summary §7 — Basel II evolution",
+    "triage_reason": "summary §7 – Basel II evolution",
     "front": "Basel II (2004)",
     "back": "Three pillars: (1) minimum capital with IRB models, (2) supervisory review, (3) market discipline. Added operational risk. Procyclical risk weights criticised after the 2008 crisis.",
     "tags": [
@@ -608,7 +608,7 @@
   {
     "id": "fc-basel-iii",
     "tier": "core",
-    "triage_reason": "summary §7 — Basel III",
+    "triage_reason": "summary §7 – Basel III",
     "front": "Basel III (2010–17)",
     "back": "Post-2008 overhaul: stricter CET1, capital buffers, leverage ratio, LCR + NSFR, MREL. Implemented in EU through CRR/CRD IV; CRR3/CRD VI is the latest update.",
     "tags": [
@@ -618,7 +618,7 @@
   {
     "id": "fc-dnb-stack",
     "tier": "core",
-    "triage_reason": "summary slide 17 — DNB CET1 stack worked example",
+    "triage_reason": "summary slide 17 – DNB CET1 stack worked example",
     "front": "DNB total CET1 requirement (end-2025)",
     "back": "~18%: 4.5% min + 1.7% P2R + 2.5% conservation + 2.5% countercyclical + 4.5% systemic + 2.0% O-SII + 1.0% P2G. Total capital requirement ~22%.",
     "tags": [
@@ -628,7 +628,7 @@
   {
     "id": "fc-three-types",
     "tier": "core",
-    "triage_reason": "summary slide 16 — three types of capital req",
+    "triage_reason": "summary slide 16 – three types of capital req",
     "front": "Three types of capital requirements",
     "back": "1. Risk-sensitive: capital adequacy ratio = Own Funds / RWA. 2. Non-risk-sensitive: leverage ratio = Tier 1 / Total Exposures. 3. Bail-in capital: MREL = (Own Funds + Eligible Liabilities) / RWA.",
     "tags": [
@@ -638,7 +638,7 @@
   {
     "id": "fc-securitisation",
     "tier": "core",
-    "triage_reason": "summary §8 — securitisation overview",
+    "triage_reason": "summary §8 – securitisation overview",
     "front": "Securitisation",
     "back": "Pooling loans into a Special Purpose Vehicle (SPV) and issuing tranches of bonds backed by the pool. Originate-to-distribute model. Transfers credit risk and (in true-sale form) provides funding.",
     "tags": [
@@ -648,8 +648,8 @@
   {
     "id": "fc-spv",
     "tier": "core",
-    "triage_reason": "summary §8 — SPV",
-    "front": "SPV — Special Purpose Vehicle",
+    "triage_reason": "summary §8 – SPV",
+    "front": "SPV – Special Purpose Vehicle",
     "back": "Off-balance-sheet entity that holds the loan pool in a true-sale securitisation. Bankruptcy-remote from the originating bank. Issues tranches to fund the pool.",
     "tags": [
       "securitisation"
@@ -658,7 +658,7 @@
   {
     "id": "fc-tranches",
     "tier": "core",
-    "triage_reason": "summary §8 — tranching",
+    "triage_reason": "summary §8 – tranching",
     "front": "Tranching",
     "back": "Cash flows from the pool are paid in waterfall sequence: senior (AAA, lowest yield) → mezzanine → equity (first loss, highest yield). Senior is protected by subordination.",
     "tags": [
@@ -668,7 +668,7 @@
   {
     "id": "fc-subordination",
     "tier": "core",
-    "triage_reason": "summary §8 — credit enhancement",
+    "triage_reason": "summary §8 – credit enhancement",
     "front": "Subordination (credit enhancement)",
     "back": "Junior tranches absorb losses first, protecting senior tranches. The most common form of credit enhancement. Combined with overcollateralisation, reserve accounts, excess spread.",
     "tags": [
@@ -678,9 +678,9 @@
   {
     "id": "fc-cdo",
     "tier": "core",
-    "triage_reason": "summary §8 — CDO",
-    "front": "CDO — Collateralised Debt Obligation",
-    "back": "Securitisation pooling already-securitised assets (typically MBS tranches) and re-tranching them. Created supposedly safe AAA from BBB MBS — until correlation broke in 2008.",
+    "triage_reason": "summary §8 – CDO",
+    "front": "CDO – Collateralised Debt Obligation",
+    "back": "Securitisation pooling already-securitised assets (typically MBS tranches) and re-tranching them. Created supposedly safe AAA from BBB MBS – until correlation broke in 2008.",
     "tags": [
       "securitisation",
       "bank-crises"
@@ -689,7 +689,7 @@
   {
     "id": "fc-cdo-squared",
     "tier": "core",
-    "triage_reason": "summary §8 — CDO²",
+    "triage_reason": "summary §8 – CDO²",
     "front": "CDO-squared",
     "back": "CDO of CDOs. Pool of mezzanine tranches from multiple CDOs, re-tranched into a new senior/mezzanine/equity structure. Extreme opacity; senior tranches defaulted en masse in 2008.",
     "tags": [
@@ -710,7 +710,7 @@
   {
     "id": "fc-true-sale",
     "tier": "core",
-    "triage_reason": "summary §8 — traditional securitisation",
+    "triage_reason": "summary §8 – traditional securitisation",
     "front": "True-sale securitisation",
     "back": "Loans are legally SOLD to the SPV. Both funding and capital relief. Loans leave the originating bank's balance sheet entirely.",
     "tags": [
@@ -720,8 +720,8 @@
   {
     "id": "fc-mbs",
     "tier": "core",
-    "triage_reason": "summary §8 — MBS",
-    "front": "MBS — Mortgage-Backed Security",
+    "triage_reason": "summary §8 – MBS",
+    "front": "MBS – Mortgage-Backed Security",
     "back": "Securitised pool of mortgages. Agency MBS (Fannie/Freddie/Ginnie) carry US government guarantees; private-label (non-agency) MBS pools subprime/Alt-A and have no guarantee.",
     "tags": [
       "securitisation"
@@ -730,9 +730,9 @@
   {
     "id": "fc-originate-distribute",
     "tier": "core",
-    "triage_reason": "summary §8 — OTD weakened screening",
+    "triage_reason": "summary §8 – OTD weakened screening",
     "front": "Originate-to-distribute",
-    "back": "Bank originates loans then immediately sells them to investors or SPVs. Removes credit risk and funding need. BUT weakens screening incentive — central GFC failure mode.",
+    "back": "Bank originates loans then immediately sells them to investors or SPVs. Removes credit risk and funding need. BUT weakens screening incentive – central GFC failure mode.",
     "tags": [
       "securitisation",
       "bank-crises"
@@ -741,7 +741,7 @@
   {
     "id": "fc-rating-agency-failures",
     "tier": "nice",
-    "triage_reason": "summary §8 / 2024 Q3a — rating agency failures",
+    "triage_reason": "summary §8 / 2024 Q3a – rating agency failures",
     "front": "Rating agency failures (GFC)",
     "back": "Issuer-pays conflict of interest; models calibrated on benign housing-price periods; correlation underestimated; rapid downgrades when crisis broke. AAA tranches defaulted.",
     "tags": [
@@ -752,7 +752,7 @@
   {
     "id": "fc-cds",
     "tier": "core",
-    "triage_reason": "2025 Q1b — CDS in synthetic securitisation",
+    "triage_reason": "2025 Q1b – CDS in synthetic securitisation",
     "front": "Credit Default Swap (CDS)",
     "back": "Bilateral derivative: protection buyer pays a periodic spread; seller pays out on a credit event (default, restructuring). Used to hedge credit risk OR to take views OR to construct synthetic securitisations.",
     "tags": [
@@ -763,7 +763,7 @@
   {
     "id": "fc-aig-cds",
     "tier": "core",
-    "triage_reason": "2024 Q3a / summary §5 — AIG CDS exposure",
+    "triage_reason": "2024 Q3a / summary §5 – AIG CDS exposure",
     "front": "AIG CDS exposure (2008)",
     "back": "AIG Financial Products had sold CDS protection on ~$440bn of structured-credit reference assets. Collateral calls mounted as ratings fell; AIG became insolvent. Fed bailed out at $85bn for 79.9% equity (Sep 2008).",
     "tags": [
@@ -775,7 +775,7 @@
   {
     "id": "fc-abcp-conduit",
     "tier": "nice",
-    "triage_reason": "summary §5 — shadow banking ABCP conduit",
+    "triage_reason": "summary §5 – shadow banking ABCP conduit",
     "front": "ABCP conduit",
     "back": "Off-balance-sheet vehicle that funds longer-term ABS holdings with short-term Asset-Backed Commercial Paper. When ABCP markets froze (Aug 2007), conduits could not roll funding; sponsors were forced to absorb them back.",
     "tags": [
@@ -786,9 +786,9 @@
   {
     "id": "fc-siv",
     "tier": "nice",
-    "triage_reason": "summary §5 — SIV maturity transformation",
-    "front": "SIV — Structured Investment Vehicle",
-    "back": "Off-balance-sheet entity funding long-dated ABS/CDOs with short-term ABCP and medium-term notes. Maturity mismatch monetised the yield spread — until ABCP markets froze.",
+    "triage_reason": "summary §5 – SIV maturity transformation",
+    "front": "SIV – Structured Investment Vehicle",
+    "back": "Off-balance-sheet entity funding long-dated ABS/CDOs with short-term ABCP and medium-term notes. Maturity mismatch monetised the yield spread – until ABCP markets froze.",
     "tags": [
       "securitisation",
       "bank-crises"
@@ -797,7 +797,7 @@
   {
     "id": "fc-fx-swap-mech",
     "tier": "core",
-    "triage_reason": "summary §9 — FX swap mechanics",
+    "triage_reason": "summary §9 – FX swap mechanics",
     "front": "FX swap mechanics",
     "back": "Simultaneous spot exchange of two currencies + agreement to reverse the exchange at a forward rate F at a future date. Economically a collateralised loan: one currency pledged to borrow the other. No interim interest payments.",
     "tags": [
@@ -807,7 +807,7 @@
   {
     "id": "fc-cip",
     "tier": "core",
-    "triage_reason": "summary §9 / 2024 Q4a, 2022 Q3a — CIP",
+    "triage_reason": "summary §9 / 2024 Q4a, 2022 Q3a – CIP",
     "front": "Covered Interest Parity (CIP)",
     "back": "F = S₀ × (1 + r_quote × t) / (1 + r_base × t). Forward premium/discount equals the interest differential. No-arbitrage condition. Deviations = cross-currency basis.",
     "tags": [
@@ -817,7 +817,7 @@
   {
     "id": "fc-swap-points",
     "tier": "core",
-    "triage_reason": "summary §9 — swap points",
+    "triage_reason": "summary §9 – swap points",
     "front": "Swap points",
     "back": "F − S₀ = forward minus spot. Compensation embedded in the exchange rate for the interest-rate differential. Positive when quote currency has higher rate. Quoted in pips.",
     "tags": [
@@ -837,7 +837,7 @@
   {
     "id": "fc-ccbs",
     "tier": "core",
-    "triage_reason": "summary §9 — CCBS",
+    "triage_reason": "summary §9 – CCBS",
     "front": "Cross-Currency Basis Swap (CCBS)",
     "back": "Long-dated (1–30y) instrument: principal exchange at SPOT + periodic floating-rate payments in each currency + final re-exchange at SAME spot. Interest differential delivered through coupon legs, not forward rate.",
     "tags": [
@@ -847,7 +847,7 @@
   {
     "id": "fc-basis-spread",
     "tier": "core",
-    "triage_reason": "summary §9 — basis spread / dollar funding stress",
+    "triage_reason": "summary §9 – basis spread / dollar funding stress",
     "front": "Cross-currency basis spread",
     "back": "Deviation from CIP. Added to one leg of the CCBS (typically non-USD) to reflect counterparty risk, supply/demand, and capital constraints. Widened sharply in 2008 (USD scarce) and 2020.",
     "tags": [
@@ -858,9 +858,9 @@
   {
     "id": "fc-irs",
     "tier": "core",
-    "triage_reason": "summary §9 — IRS",
+    "triage_reason": "summary §9 – IRS",
     "front": "Interest Rate Swap (IRS)",
-    "back": "Same-currency swap: one party pays fixed, receives floating; the other does the reverse. No principal exchange. TRANSFORMS interest-rate risk (price risk → cash-flow risk) — does not eliminate it.",
+    "back": "Same-currency swap: one party pays fixed, receives floating; the other does the reverse. No principal exchange. TRANSFORMS interest-rate risk (price risk → cash-flow risk) – does not eliminate it.",
     "tags": [
       "derivatives-fx"
     ]
@@ -878,7 +878,7 @@
   {
     "id": "fc-eur-bond-hedge",
     "tier": "nice",
-    "triage_reason": "summary slide 20 — EUR bond → NOK floating worked hedge",
+    "triage_reason": "summary slide 20 – EUR bond → NOK floating worked hedge",
     "front": "EUR bond → NOK floating hedge",
     "back": "Issue EUR fixed bond → enter EUR IRS (receive fixed, pay EURIBOR) → enter EUR/NOK CCBS (receive EURIBOR, pay NIBOR − basis). Net: NIBOR + spread − basis. Clean floating NOK exposure.",
     "tags": [
@@ -888,8 +888,8 @@
   {
     "id": "fc-march-2020-overhedge",
     "tier": "core",
-    "triage_reason": "2024 Q4b explicitly — over-hedging channel",
-    "front": "March 2020 NOK weakening — over-hedging channel",
+    "triage_reason": "2024 Q4b explicitly – over-hedging channel",
+    "front": "March 2020 NOK weakening – over-hedging channel",
     "back": "Foreign equity values fell → Norwegian investors over-hedged → must buy more foreign currency to honour hedge → must sell NOK → adds to NOK selling pressure → NOK depreciates further.",
     "tags": [
       "derivatives-fx",
@@ -899,8 +899,8 @@
   {
     "id": "fc-march-2020-margin",
     "tier": "core",
-    "triage_reason": "2024 Q4b explicitly — margining channel",
-    "front": "March 2020 NOK weakening — margin channel",
+    "triage_reason": "2024 Q4b explicitly – margining channel",
+    "front": "March 2020 NOK weakening – margin channel",
     "back": "NOK depreciated → mark-to-market losses on FX hedges → margin calls → NBFIs sold Norwegian bonds to raise cash → bond prices fell, risk premiums spiked. Bond fire sales.",
     "tags": [
       "derivatives-fx",
@@ -910,7 +910,7 @@
   {
     "id": "fc-norges-bank-2020",
     "tier": "core",
-    "triage_reason": "2024 Q4b context — Norges Bank response March 2020",
+    "triage_reason": "2024 Q4b context – Norges Bank response March 2020",
     "front": "Norges Bank response March 2020",
     "back": "13 March: extra liquidity + 50bp rate cut. 18 March: collateral framework changes. 19 March: press release on possible FX intervention. 20 March: 75bp rate cut to 0.25%. 7 May: rate to zero.",
     "tags": [
@@ -923,7 +923,7 @@
     "tier": "core",
     "triage_reason": "summary §5 / dollar shortage cure",
     "front": "Fed dollar swap lines",
-    "back": "Standing facility: Fed lends USD to foreign central banks against their currency. Activated unlimited in October 2008 and March 2020 — collapsed the negative dollar basis within weeks. Critical international LOLR tool.",
+    "back": "Standing facility: Fed lends USD to foreign central banks against their currency. Activated unlimited in October 2008 and March 2020 – collapsed the negative dollar basis within weeks. Critical international LOLR tool.",
     "tags": [
       "derivatives-fx",
       "bank-crises"
@@ -932,9 +932,9 @@
   {
     "id": "fc-derivatives-liquidity",
     "tier": "core",
-    "triage_reason": "2025 Q1a explicitly — derivatives create liquidity risk",
+    "triage_reason": "2025 Q1a explicitly – derivatives create liquidity risk",
     "front": "Derivatives create liquidity risk (despite hedging price risk)",
-    "back": "Derivatives reduce price risk but create LIQUIDITY risk via margin/collateral requirements. Adverse MTM moves trigger immediate cash demands — SVB and March 2020 are textbook cases.",
+    "back": "Derivatives reduce price risk but create LIQUIDITY risk via margin/collateral requirements. Adverse MTM moves trigger immediate cash demands – SVB and March 2020 are textbook cases.",
     "tags": [
       "derivatives-fx"
     ]
@@ -953,7 +953,7 @@
   {
     "id": "fc-illiquidity-vs-insolvency",
     "tier": "core",
-    "triage_reason": "LOLR Bagehot distinction — recurring",
+    "triage_reason": "LOLR Bagehot distinction – recurring",
     "front": "Illiquidity vs insolvency",
     "back": "Illiquid: assets > liabilities at fair value, but cannot meet short-term obligations. Insolvent: liabilities > assets. LOLR can solve illiquidity; only recapitalisation solves insolvency.",
     "tags": [
@@ -964,7 +964,7 @@
   {
     "id": "fc-lolr",
     "tier": "core",
-    "triage_reason": "2024 Q2d — central bank role / LOLR",
+    "triage_reason": "2024 Q2d – central bank role / LOLR",
     "front": "Lender of Last Resort (LOLR)",
     "back": "Central bank role: lend freely, at penalty rate, against good collateral, to solvent-but-illiquid banks. Bagehot's Rule (1873). Distinguishes liquidity support from solvency bailout.",
     "tags": [
@@ -975,7 +975,7 @@
   {
     "id": "fc-bagehot",
     "tier": "core",
-    "triage_reason": "summary §1+§5 — Bagehot rule",
+    "triage_reason": "summary §1+§5 – Bagehot rule",
     "front": "Bagehot's Rule (1873)",
     "back": "In a panic, the central bank should lend freely, at a penalty rate, against good collateral. Foundational principle of LOLR. Distinguishes legitimate liquidity support from bailout.",
     "tags": [
@@ -986,8 +986,8 @@
   {
     "id": "fc-2008-causes",
     "tier": "core",
-    "triage_reason": "2024 Q3a — six causes (Turner Review)",
-    "front": "2008 crisis — six causes (Turner Review)",
+    "triage_reason": "2024 Q3a – six causes (Turner Review)",
+    "front": "2008 crisis – six causes (Turner Review)",
     "back": "1. Macro-imbalances (savings glut, low rates). 2. Financial innovation + shadow banking. 3. Misplaced reliance on math/models. 4. Procyclicality (haircuts, margins, ratings). 5. Lack of confidence/transparency. 6. Trigger: US subprime.",
     "tags": [
       "bank-crises"
@@ -997,8 +997,8 @@
     "id": "fc-2008-shadow-banking",
     "tier": "core",
     "triage_reason": "2024 Q3a + summary §5",
-    "front": "2008 — shadow banking failures",
-    "back": "SIVs, ABCP conduits, money-market funds, investment banks (30–50× leverage) — maturity transformation OUTSIDE the regulated banking system. No deposit insurance, no LOLR access. Repo runs and ABCP freezes.",
+    "front": "2008 – shadow banking failures",
+    "back": "SIVs, ABCP conduits, money-market funds, investment banks (30–50× leverage) – maturity transformation OUTSIDE the regulated banking system. No deposit insurance, no LOLR access. Repo runs and ABCP freezes.",
     "tags": [
       "bank-crises",
       "securitisation"
@@ -1007,8 +1007,8 @@
   {
     "id": "fc-2008-procyclicality",
     "tier": "core",
-    "triage_reason": "summary §5 — hard-wired procyclicality",
-    "front": "2008 — procyclicality mechanism",
+    "triage_reason": "summary §5 – hard-wired procyclicality",
+    "front": "2008 – procyclicality mechanism",
     "back": "Falling ratings → wider haircuts/margins → forced selling → falling prices → further rating downgrades. Mark-to-market accounting + VaR risk-management amplified the cycle.",
     "tags": [
       "bank-crises"
@@ -1017,7 +1017,7 @@
   {
     "id": "fc-bnp-aug2007",
     "tier": "nice",
-    "triage_reason": "summary timeline — start of GFC",
+    "triage_reason": "summary timeline – start of GFC",
     "front": "BNP Paribas August 2007",
     "back": "9 Aug 2007: BNP suspended redemptions on three ABS funds, citing inability to value assets. Froze European ABCP market overnight. ECB injected €95bn same day. Marked the start of the GFC.",
     "tags": [
@@ -1050,9 +1050,9 @@
   {
     "id": "fc-lehman",
     "tier": "core",
-    "triage_reason": "summary timeline — pivotal event",
+    "triage_reason": "summary timeline – pivotal event",
     "front": "Lehman Brothers (15 Sep 2008)",
-    "back": "$613bn Chapter 11 bankruptcy — largest in US history. Triggered global money-market panic; Reserve Primary Fund broke the buck. Decision NOT to rescue Lehman is widely seen as the worst policy mistake of the crisis.",
+    "back": "$613bn Chapter 11 bankruptcy – largest in US history. Triggered global money-market panic; Reserve Primary Fund broke the buck. Decision NOT to rescue Lehman is widely seen as the worst policy mistake of the crisis.",
     "tags": [
       "bank-crises",
       "case-studies"
@@ -1072,7 +1072,7 @@
   {
     "id": "fc-svb",
     "tier": "core",
-    "triage_reason": "2024 Q1a / 2023 Q1d / summary §10 — recurring case",
+    "triage_reason": "2024 Q1a / 2023 Q1d / summary §10 – recurring case",
     "front": "SVB collapse (March 2023)",
     "back": "Long-duration HTM bond losses (~$15.9bn unrealised) + concentrated uninsured deposits → social-media-driven run. Capital ratios LOOKED fine; economic reality was different. FDIC invoked Systemic Risk Exception.",
     "tags": [
@@ -1083,9 +1083,9 @@
   {
     "id": "fc-credit-suisse",
     "tier": "core",
-    "triage_reason": "2023 Q1d / summary §10 — AT1 controversy",
+    "triage_reason": "2023 Q1d / summary §10 – AT1 controversy",
     "front": "Credit Suisse failure (March 2023)",
-    "back": "Forced merger with UBS by Swiss authorities + CHF 100bn liquidity + CHF 9bn loss guarantee. AT1 written down BEFORE equity — controversial hierarchy breach. Repriced AT1 markets globally.",
+    "back": "Forced merger with UBS by Swiss authorities + CHF 100bn liquidity + CHF 9bn loss guarantee. AT1 written down BEFORE equity – controversial hierarchy breach. Repriced AT1 markets globally.",
     "tags": [
       "bank-crises",
       "case-studies"
@@ -1094,7 +1094,7 @@
   {
     "id": "fc-nordic-crisis",
     "tier": "core",
-    "triage_reason": "lecture 6 readings — Nordic crisis",
+    "triage_reason": "lecture 6 readings – Nordic crisis",
     "front": "Nordic banking crisis (1988–95)",
     "back": "Norway/Sweden/Finland: post-deregulation credit boom + asset bubble + maturity mismatch. Norway: state ownership of three big banks. Sweden: blanket guarantee + bad banks. Finland: severe (13% of GDP losses).",
     "tags": [
@@ -1105,7 +1105,7 @@
   {
     "id": "fc-sl-crisis",
     "tier": "core",
-    "triage_reason": "Merton/Marcus / FDIC History — explains DI moral hazard",
+    "triage_reason": "Merton/Marcus / FDIC History – explains DI moral hazard",
     "front": "1980s S&L crisis (US)",
     "back": "Deregulation + flat-rate deposit insurance + interest-rate spike → S&Ls insolvent on cost basis but kept open via forbearance → eventual large losses. ~1000 institutions failed; $124bn taxpayer cost.",
     "tags": [
@@ -1117,7 +1117,7 @@
     "id": "fc-deposit-insurance",
     "tier": "core",
     "triage_reason": "summary §6",
-    "front": "Deposit insurance — purpose",
+    "front": "Deposit insurance – purpose",
     "back": "Government guarantee on deposits up to a limit. Solves Diamond–Dybvig coordination problem by removing incentive to run. Coverage: EU/EEA €100k; Norway NOK 2m per depositor per bank.",
     "tags": [
       "deposit-insurance"
@@ -1126,7 +1126,7 @@
   {
     "id": "fc-norwegian-fund",
     "tier": "core",
-    "triage_reason": "2023 Q2 / 2025 mid Q3 — explicitly tested",
+    "triage_reason": "2023 Q2 / 2025 mid Q3 – explicitly tested",
     "front": "Norwegian Banks' Guarantee Fund",
     "back": "Deposit-insurance scheme guaranteeing deposits up to NOK 2 million per customer per bank. Funded by ex-ante contributions from member banks. Higher coverage than EU minimum.",
     "tags": [
@@ -1138,7 +1138,7 @@
     "tier": "core",
     "triage_reason": "recurring TF (2022 Q1d, 2024 mid QP2b, 2024 Q1c)",
     "front": "Deposit insurance & moral hazard",
-    "back": "Deposit insurance CREATES moral hazard — banks can take more risk without paying higher funding cost (depositors don't care). Mitigants: risk-based premiums, capital requirements, prudential supervision.",
+    "back": "Deposit insurance CREATES moral hazard – banks can take more risk without paying higher funding cost (depositors don't care). Mitigants: risk-based premiums, capital requirements, prudential supervision.",
     "tags": [
       "deposit-insurance"
     ]
@@ -1146,7 +1146,7 @@
   {
     "id": "fc-merton-1977",
     "tier": "core",
-    "triage_reason": "summary §6 — DI as put option",
+    "triage_reason": "summary §6 – DI as put option",
     "front": "Merton (1977) deposit insurance",
     "back": "Deposit insurance is a put option held by the bank's shareholders. Value rises with asset volatility (σ) and leverage (D/A). Flat-rate insurance underprices risk for risky banks → moral hazard. Risk-based premiums needed.",
     "tags": [
@@ -1157,7 +1157,7 @@
   {
     "id": "fc-coverage-removed",
     "tier": "core",
-    "triage_reason": "2023 Q2 — super-preference removal scenario",
+    "triage_reason": "2023 Q2 – super-preference removal scenario",
     "front": "If super-preference removed from deposit insurance fund",
     "back": "Fund faces higher loss risk → reduced ability to finance alternative measures (must conserve capital for payouts). Uninsured depositors (esp. corporates) gain better ranking → may shift from bond-buying to deposits.",
     "tags": [
@@ -1168,7 +1168,7 @@
   {
     "id": "fc-diamond-dybvig",
     "tier": "core",
-    "triage_reason": "summary §2 — DD foundational",
+    "triage_reason": "summary §2 – DD foundational",
     "front": "Diamond–Dybvig (1983)",
     "back": "Foundational model of bank fragility. Demand deposits offer liquidity insurance to consumers with uncertain cash needs. Two equilibria: good (only early types withdraw) and bad (run = self-fulfilling panic). Nobel Prize 2022.",
     "tags": [
@@ -1179,7 +1179,7 @@
   {
     "id": "fc-dd-three-solutions",
     "tier": "core",
-    "triage_reason": "summary §2 — DI / LOLR / suspension",
+    "triage_reason": "summary §2 – DI / LOLR / suspension",
     "front": "Diamond–Dybvig solutions to bank runs",
     "back": "1. Deposit insurance (eliminates run incentive). 2. Lender of Last Resort (Bagehot's rule). 3. Suspension of convertibility (closes the bank to new withdrawals). Each addresses the coordination failure differently.",
     "tags": [
@@ -1190,7 +1190,7 @@
   {
     "id": "fc-bernanke-1983",
     "tier": "core",
-    "triage_reason": "lecture 6 supplementary reading — non-monetary effects",
+    "triage_reason": "lecture 6 supplementary reading – non-monetary effects",
     "front": "Bernanke (1983)",
     "back": "Non-monetary effects of the financial crisis in the propagation of the Great Depression. Bank failures impair credit intermediation → real-economy effects beyond the monetary channel. Nobel Prize 2022.",
     "tags": [
@@ -1201,7 +1201,7 @@
   {
     "id": "fc-modigliani-miller",
     "tier": "nice",
-    "triage_reason": "lecture aside — why MM fails for banks; not directly tested",
+    "triage_reason": "lecture aside – why MM fails for banks; not directly tested",
     "front": "Modigliani–Miller for banks (why it fails)",
     "back": "MM says capital structure doesn't matter in a frictionless world. Fails for banks because: (1) deposit insurance creates a subsidy, (2) information asymmetry, (3) tax deductibility of interest, (4) regulatory constraints.",
     "tags": [
@@ -1212,8 +1212,8 @@
   {
     "id": "fc-brrd",
     "tier": "core",
-    "triage_reason": "summary §10 — BRRD",
-    "front": "BRRD — Bank Recovery and Resolution Directive",
+    "triage_reason": "summary §10 – BRRD",
+    "front": "BRRD – Bank Recovery and Resolution Directive",
     "back": "EU framework (2014/59/EU) for managing bank failures without taxpayer bail-out. Three phases: normal → recovery (bank-led) → resolution (authority-led). Four resolution tools.",
     "tags": [
       "recovery-resolution"
@@ -1222,7 +1222,7 @@
   {
     "id": "fc-recovery-plan",
     "tier": "core",
-    "triage_reason": "2024 Q6a — recovery vs resolution plan",
+    "triage_reason": "2024 Q6a – recovery vs resolution plan",
     "front": "Recovery plan vs resolution plan",
     "back": "Recovery plan: written by the BANK; measures the bank can take itself to restore health (capital raise, dividend suspension, asset sales). Resolution plan: written by AUTHORITIES; how they would handle failure.",
     "tags": [
@@ -1232,8 +1232,8 @@
   {
     "id": "fc-folf",
     "tier": "core",
-    "triage_reason": "summary §10 / 2025 Q6b — FOLF triggers",
-    "front": "FOLF — Failing Or Likely to Fail (four triggers)",
+    "triage_reason": "summary §10 / 2025 Q6b – FOLF triggers",
+    "front": "FOLF – Failing Or Likely to Fail (four triggers)",
     "back": "1. No longer meets authorisation requirements. 2. Liabilities > assets. 3. Cannot pay debts as they fall due. 4. Requires extraordinary public support.",
     "tags": [
       "recovery-resolution"
@@ -1242,7 +1242,7 @@
   {
     "id": "fc-resolution-tools",
     "tier": "core",
-    "triage_reason": "summary §10 — four BRRD tools",
+    "triage_reason": "summary §10 – four BRRD tools",
     "front": "Four BRRD resolution tools",
     "back": "1. Bail-in. 2. Sale of business. 3. Bridge institution. 4. Asset separation (bad bank). Authority chooses the tool(s) based on circumstances.",
     "tags": [
@@ -1252,7 +1252,7 @@
   {
     "id": "fc-bail-in",
     "tier": "core",
-    "triage_reason": "summary §10 — bail-in",
+    "triage_reason": "summary §10 – bail-in",
     "front": "Bail-in",
     "back": "Recapitalise the bank by writing down equity and converting subordinated debt and senior non-preferred bonds to new equity. NO taxpayer money. Removes the implicit too-big-to-fail subsidy.",
     "tags": [
@@ -1262,7 +1262,7 @@
   {
     "id": "fc-bail-out",
     "tier": "core",
-    "triage_reason": "summary §10 / 2024 Q6b — bail-in vs bail-out",
+    "triage_reason": "summary §10 / 2024 Q6b – bail-in vs bail-out",
     "front": "Bail-out",
     "back": "Recapitalise the bank with EXTERNAL public funds (taxpayer-financed). Used widely in 2008–09 (RBS, Citi, AIG). The pre-2008 default; post-2008 reforms make bail-in the new default.",
     "tags": [
@@ -1272,7 +1272,7 @@
   {
     "id": "fc-tbtf",
     "tier": "core",
-    "triage_reason": "2024 Q6c / 2023 Q5 — TBTF concept",
+    "triage_reason": "2024 Q6c / 2023 Q5 – TBTF concept",
     "front": "Too Big To Fail (TBTF)",
     "back": "Large systemic banks expected to be bailed out by governments rather than allowed to fail. Markets price in the implicit guarantee → cheaper funding → unfair subsidy → incentivises further size and risk.",
     "tags": [
@@ -1282,9 +1282,9 @@
   {
     "id": "fc-bail-in-remedy",
     "tier": "core",
-    "triage_reason": "2024 Q6c — why bail-in cures TBTF",
+    "triage_reason": "2024 Q6c – why bail-in cures TBTF",
     "front": "Why bail-in cures TBTF",
-    "back": "(1) No taxpayer money — losses absorbed inside the bank. (2) Markets price bail-in risk → implicit subsidy disappears. (3) Creditors and management have skin in the game. Requires credible MREL.",
+    "back": "(1) No taxpayer money – losses absorbed inside the bank. (2) Markets price bail-in risk → implicit subsidy disappears. (3) Creditors and management have skin in the game. Requires credible MREL.",
     "tags": [
       "recovery-resolution"
     ]
@@ -1292,7 +1292,7 @@
   {
     "id": "fc-creditor-hierarchy",
     "tier": "core",
-    "triage_reason": "2024 Q5a-b — creditor hierarchy ranking",
+    "triage_reason": "2024 Q5a-b – creditor hierarchy ranking",
     "front": "Creditor hierarchy (bail-in waterfall, EU)",
     "back": "Bottom-up loss absorption: 1. Equity → 2. AT1 hybrid → 3. T2 subordinated → 4. Senior non-preferred → 5. Senior unsecured → 6. Deposits (uninsured first, then insured/covered).",
     "tags": [
@@ -1302,7 +1302,7 @@
   {
     "id": "fc-norwegian-hierarchy",
     "tier": "core",
-    "triage_reason": "2024 Q5b — Norway-specific ranking",
+    "triage_reason": "2024 Q5b – Norway-specific ranking",
     "front": "Norwegian creditor hierarchy (deposits first)",
     "back": "1. Covered deposits (super-preference). 2. Retail/SME deposits not covered. 3. Senior bonds. 4. Non-preferred bonds. 5. T2 subordinated. 6. AT1 hybrid. Equity below all.",
     "tags": [
@@ -1333,8 +1333,8 @@
   {
     "id": "fc-esg",
     "tier": "core",
-    "triage_reason": "2025 Q5a — ESG three pillars",
-    "front": "ESG — three pillars",
+    "triage_reason": "2025 Q5a – ESG three pillars",
+    "front": "ESG – three pillars",
     "back": "Environmental (climate, resources, pollution), Social (labour, community, consumer protection), Governance (board, compensation, corruption, risk culture). Transversal driver of credit/market/operational/reputational risk.",
     "tags": [
       "esg"
@@ -1343,7 +1343,7 @@
   {
     "id": "fc-physical-risk",
     "tier": "core",
-    "triage_reason": "2025 Q5b — physical risk classification",
+    "triage_reason": "2025 Q5b – physical risk classification",
     "front": "Physical risk (climate)",
     "back": "Acute: extreme weather (floods, hurricanes, wildfires) → direct losses on collateral and borrowers. Chronic: long-term shifts (sea level, drought) → declining property values, rising NPLs in vulnerable regions.",
     "tags": [
@@ -1353,7 +1353,7 @@
   {
     "id": "fc-transition-risk",
     "tier": "core",
-    "triage_reason": "2025 Q5b — transition risk classification",
+    "triage_reason": "2025 Q5b – transition risk classification",
     "front": "Transition risk (climate)",
     "back": "Risk from shifting to a low-carbon economy. (1) Regulatory: carbon prices, emissions caps, disclosure mandates. (2) Market: stranded assets, divestment. (3) Reputational: brand damage, activist pressure.",
     "tags": [
@@ -1363,8 +1363,8 @@
   {
     "id": "fc-tcfd",
     "tier": "nice",
-    "triage_reason": "ESG disclosure framework — background",
-    "front": "TCFD — Task Force on Climate-related Financial Disclosures",
+    "triage_reason": "ESG disclosure framework – background",
+    "front": "TCFD – Task Force on Climate-related Financial Disclosures",
     "back": "Voluntary framework (now mandatory in many jurisdictions) for reporting climate risk: governance, strategy, risk management, metrics & targets. Foundation for CSRD-style mandatory disclosure.",
     "tags": [
       "esg"
@@ -1373,8 +1373,8 @@
   {
     "id": "fc-csrd",
     "tier": "nice",
-    "triage_reason": "EU disclosure framework — background",
-    "front": "CSRD — Corporate Sustainability Reporting Directive",
+    "triage_reason": "EU disclosure framework – background",
+    "front": "CSRD – Corporate Sustainability Reporting Directive",
     "back": "EU mandatory sustainability reporting framework. Requires double-materiality assessment (impact ON and FROM the firm). Credible transition plans mandatory if material risks identified.",
     "tags": [
       "esg"
@@ -1383,7 +1383,7 @@
   {
     "id": "fc-double-materiality",
     "tier": "nice",
-    "triage_reason": "ESG concept — not tested standalone",
+    "triage_reason": "ESG concept – not tested standalone",
     "front": "Double materiality",
     "back": "(1) Financial materiality: how sustainability factors affect the firm's financial performance. (2) Impact materiality: how the firm affects society and environment. EU CSRD requires both.",
     "tags": [
@@ -1393,7 +1393,7 @@
   {
     "id": "fc-eba-esg-guidelines",
     "tier": "nice",
-    "triage_reason": "specific guideline — secondary detail",
+    "triage_reason": "specific guideline – secondary detail",
     "front": "EBA Guidelines on ESG Risk Management (2024)",
     "back": "Banks must integrate ESG into governance, risk appetite, internal controls, risk assessment, management, and reporting. Capital add-ons possible if ESG-risk management is insufficient under CRD VI.",
     "tags": [
@@ -1415,7 +1415,7 @@
   {
     "id": "fc-repo",
     "tier": "core",
-    "triage_reason": "2024 Q2e — repo vs CP vs interbank",
+    "triage_reason": "2024 Q2e – repo vs CP vs interbank",
     "front": "Repo (Repurchase Agreement)",
     "back": "Sale of a security with simultaneous agreement to buy back at a higher price on a future date. Economically a secured loan. Primary funding tool of shadow banking. Central to 2007–09 crisis (\"run on repo\").",
     "tags": [
@@ -1426,7 +1426,7 @@
   {
     "id": "fc-haircut",
     "tier": "core",
-    "triage_reason": "recurring TF (2022 Q1b, 2024 Q1d) — haircut concept",
+    "triage_reason": "recurring TF (2022 Q1b, 2024 Q1d) – haircut concept",
     "front": "Haircut (repo collateral)",
     "back": "Discount applied to the market value of collateral. A 10% haircut on a €100 bond means borrower receives only €90. Higher haircuts = less leverage achievable + protect lender against price moves.",
     "tags": [
@@ -1437,7 +1437,7 @@
   {
     "id": "fc-repo-run",
     "tier": "core",
-    "triage_reason": "Krishnamurthy 2010 reading — run on repo",
+    "triage_reason": "Krishnamurthy 2010 reading – run on repo",
     "front": "Run on repo (Gorton–Metrick)",
     "back": "2007–09: haircuts on structured-product collateral spiked from ~0% to ~50%. Equivalent to a bank run on shadow-banking funding. Forced fire sales, debt cascades, liquidity spirals.",
     "tags": [
@@ -1448,7 +1448,7 @@
   {
     "id": "fc-cp",
     "tier": "nice",
-    "triage_reason": "2024 Q2e — commercial paper",
+    "triage_reason": "2024 Q2e – commercial paper",
     "front": "Commercial paper (CP)",
     "back": "Short-term unsecured promissory notes issued by corporates and FIs. Maturities typically a few weeks to a few months (≤270 days for ABCP). Frozen during 2007–08, prompting Fed AMLF facility.",
     "tags": [
@@ -1459,7 +1459,7 @@
   {
     "id": "fc-interbank-lending",
     "tier": "nice",
-    "triage_reason": "2024 Q2e — interbank lending",
+    "triage_reason": "2024 Q2e – interbank lending",
     "front": "Interbank lending",
     "back": "Unsecured short-term loans between banks. Reference rates: NIBOR (Norway), EURIBOR (EU), SOFR (US, secured replacement for LIBOR). Froze August 2007 → marked start of GFC interbank stress.",
     "tags": [
@@ -1469,7 +1469,7 @@
   {
     "id": "fc-repo-vs-others",
     "tier": "core",
-    "triage_reason": "2024 Q2e — direct comparison required",
+    "triage_reason": "2024 Q2e – direct comparison required",
     "front": "Repo vs CP vs interbank lending",
     "back": "Repo: SECURED, very short-term. Commercial paper: UNSECURED, weeks to months. Interbank: UNSECURED, often overnight. Repo borrower bears haircut; CP/interbank lender bears full credit exposure.",
     "tags": [
@@ -1479,7 +1479,7 @@
   {
     "id": "fc-repo-haircut-2008",
     "tier": "core",
-    "triage_reason": "2024 Q1d — haircut volatility mechanic",
+    "triage_reason": "2024 Q1d – haircut volatility mechanic",
     "front": "Repo haircuts 2008 mechanic",
     "back": "Higher haircuts mean less can be borrowed against the same collateral → forced selling to raise cash → collateral prices fall → haircuts widen further → procyclical death spiral.",
     "tags": [
@@ -1490,7 +1490,7 @@
   {
     "id": "fc-htm-vs-fvtpl",
     "tier": "nice",
-    "triage_reason": "summary §3 — IFRS 9 classification (SVB lesson)",
+    "triage_reason": "summary §3 – IFRS 9 classification (SVB lesson)",
     "front": "Bond portfolio classification (IFRS 9)",
     "back": "FVtPL: mark-to-market, P&L impact immediate. AFS: fair value through OCI. HTM: amortised cost; fair value DISCLOSED only. SVB lesson: HTM hid $15.9bn losses while capital ratios looked adequate.",
     "tags": [
@@ -1501,9 +1501,9 @@
   {
     "id": "fc-svb-htm",
     "tier": "core",
-    "triage_reason": "summary §3 + §10 — SVB HTM lesson",
+    "triage_reason": "summary §3 + §10 – SVB HTM lesson",
     "front": "SVB HTM lesson",
-    "back": "Bond portfolio classification has REAL crisis consequences. Held-to-Maturity classification let SVB avoid recognising mark-to-market losses on long Treasuries — but the economic insolvency was real and the run forced the losses to be realised.",
+    "back": "Bond portfolio classification has REAL crisis consequences. Held-to-Maturity classification let SVB avoid recognising mark-to-market losses on long Treasuries – but the economic insolvency was real and the run forced the losses to be realised.",
     "tags": [
       "case-studies",
       "bank-crises"
@@ -1512,9 +1512,9 @@
   {
     "id": "fc-money-creation",
     "tier": "core",
-    "triage_reason": "BoE 2014 reading — loans create deposits",
+    "triage_reason": "BoE 2014 reading – loans create deposits",
     "front": "Money creation through lending",
-    "back": "When a bank makes a loan, it CREATES a matching deposit. Loans create deposits, not the other way around (BoE 2014 Quarterly Bulletin). Reserves are not the binding constraint in modern fiat systems — capital and demand are.",
+    "back": "When a bank makes a loan, it CREATES a matching deposit. Loans create deposits, not the other way around (BoE 2014 Quarterly Bulletin). Reserves are not the binding constraint in modern fiat systems – capital and demand are.",
     "tags": [
       "bank-models"
     ]
@@ -1522,8 +1522,8 @@
   {
     "id": "fc-norway-2008-response",
     "tier": "core",
-    "triage_reason": "2024 Q1a — Golden Card / Bytteordning",
-    "front": "Norway's 2008 response — Golden Card",
+    "triage_reason": "2024 Q1a – Golden Card / Bytteordning",
+    "front": "Norway's 2008 response – Golden Card",
     "back": "Norges Bank's swap arrangement: banks swapped illiquid covered bonds and mortgages for government T-bills. Restored interbank trust without recapitalisation. Norway avoided solvency crisis (it was a liquidity crisis there).",
     "tags": [
       "bank-crises",
@@ -1546,7 +1546,7 @@
     "tier": "core",
     "triage_reason": "Final 2022 Q2 separating-equilibrium answer",
     "front": "Warranties as a separating signal",
-    "back": "If high-quality sellers offer warranties tied to breakdown probability, they distinguish themselves from lower types. The warranty must satisfy an Incentive Compatibility (IC) condition so that q2 sellers cannot mimic q1, and q3 cannot mimic q2. In equilibrium the chosen signal is costless because high-quality goods rarely break down — warranty payouts have low expected value.",
+    "back": "If high-quality sellers offer warranties tied to breakdown probability, they distinguish themselves from lower types. The warranty must satisfy an Incentive Compatibility (IC) condition so that q2 sellers cannot mimic q1, and q3 cannot mimic q2. In equilibrium the chosen signal is costless because high-quality goods rarely break down – warranty payouts have low expected value.",
     "tags": [
       "asymmetric-info",
       "foundational-models"
@@ -1555,7 +1555,7 @@
   {
     "id": "fc-ic-condition",
     "tier": "nice",
-    "triage_reason": "IC mechanic — sub-detail of warranty signal",
+    "triage_reason": "IC mechanic – sub-detail of warranty signal",
     "front": "Incentive Compatibility (IC) condition",
     "back": "A contract feature that aligns incentives so that an agent prefers to truthfully reveal type rather than mimic a different type. In the lemons signalling model: warranty terms must make a q2 seller indifferent (or worse) when claiming to be q1. By convention, indifference = truth-telling. Solved as an equality.",
     "tags": [
@@ -1568,7 +1568,7 @@
     "tier": "nice",
     "triage_reason": "duplicate of dissipative-signal (auto)",
     "front": "Non-dissipative signal",
-    "back": "A signal whose cost is a TRANSFER from one party to another rather than a deadweight loss — e.g. a warranty payout flows from seller to buyer. Total surplus is preserved; the signal serves only to separate types. Compared to dissipative signals, these are more efficient.",
+    "back": "A signal whose cost is a TRANSFER from one party to another rather than a deadweight loss – e.g. a warranty payout flows from seller to buyer. Total surplus is preserved; the signal serves only to separate types. Compared to dissipative signals, these are more efficient.",
     "tags": [
       "asymmetric-info",
       "foundational-models"
@@ -1579,7 +1579,7 @@
     "tier": "nice",
     "triage_reason": "duplicate of dissipative-signal (auto)",
     "front": "Dissipative signal",
-    "back": "A signal whose cost is a NET LOSS to the system — e.g. paying repair costs that nobody captures, or burning resources to demonstrate quality. Less efficient than non-dissipative signals because surplus is destroyed, not transferred.",
+    "back": "A signal whose cost is a NET LOSS to the system – e.g. paying repair costs that nobody captures, or burning resources to demonstrate quality. Less efficient than non-dissipative signals because surplus is destroyed, not transferred.",
     "tags": [
       "asymmetric-info",
       "foundational-models"
@@ -1598,7 +1598,7 @@
   {
     "id": "fc-principal-agent",
     "tier": "nice",
-    "triage_reason": "general framing — covered by AS/MH cards",
+    "triage_reason": "general framing – covered by AS/MH cards",
     "front": "Principal–agent problem",
     "back": "Situations where the agent (employee, manager, borrower) and the principal (employer, owner, lender) have diverging incentives. The agent's actions are partially hidden; acting in the principal's interest may contradict the agent's own. Bank lending and management compensation are the classic exam examples.",
     "tags": [
@@ -1618,7 +1618,7 @@
   {
     "id": "fc-brokerage-vs-qat",
     "tier": "core",
-    "triage_reason": "lecture 2 — distinguishing FI functions",
+    "triage_reason": "lecture 2 – distinguishing FI functions",
     "front": "Brokerage vs Qualitative Asset Transformation",
     "back": "Brokerage = matchmaking + information processing; no balance-sheet risk. QAT = transforming claim attributes by holding mismatched assets and liabilities; risk is INHERENT. If the FI fully shifts the QAT risk via swaps/forwards/options, QAT effectively reverts to brokerage.",
     "tags": [
@@ -1628,9 +1628,9 @@
   {
     "id": "fc-information-reusability",
     "tier": "drop",
-    "triage_reason": "sub-detail of brokerage function — terminology minutiae",
+    "triage_reason": "sub-detail of brokerage function – terminology minutiae",
     "front": "Information reusability",
-    "back": "The broker's key advantage: information collected once can be applied to many transactions — cross-sectional and intertemporal. A real-estate broker reuses local market knowledge across hundreds of deals; a credit-rating agency reuses its analyst infrastructure across many issuers.",
+    "back": "The broker's key advantage: information collected once can be applied to many transactions – cross-sectional and intertemporal. A real-estate broker reuses local market knowledge across hundreds of deals; a credit-rating agency reuses its analyst infrastructure across many issuers.",
     "tags": [
       "bank-models"
     ]
@@ -1640,7 +1640,7 @@
     "tier": "nice",
     "triage_reason": "sub-detail; covered by delegated-monitoring",
     "front": "Duplicated screening",
-    "back": "When many lenders independently screen the same borrower, costly screening resources are wasted. An FI eliminates duplication by exploiting information reusability — one screen serves many depositors. Foundational rationale for delegated monitoring (Diamond).",
+    "back": "When many lenders independently screen the same borrower, costly screening resources are wasted. An FI eliminates duplication by exploiting information reusability – one screen serves many depositors. Foundational rationale for delegated monitoring (Diamond).",
     "tags": [
       "asymmetric-info",
       "bank-models"
@@ -1649,8 +1649,8 @@
   {
     "id": "fc-qat-risk-management",
     "tier": "core",
-    "triage_reason": "2025 Q2c — risks created by QAT and management",
-    "front": "QAT — three risk-management options",
+    "triage_reason": "2025 Q2c – risks created by QAT and management",
+    "front": "QAT – three risk-management options",
     "back": "1. Diversify (across many borrowers / depositors). 2. Shift the risk to others via swaps, forwards, futures, options. 3. Passively accept the exposure. If the FI fully shifts all QAT-related risk, the activity reverts to pure brokerage.",
     "tags": [
       "bank-models"
@@ -1659,8 +1659,8 @@
   {
     "id": "fc-commercial-bank-features",
     "tier": "nice",
-    "triage_reason": "lecture 2 FI universe — context",
-    "front": "Commercial bank — distinguishing features",
+    "triage_reason": "lecture 2 FI universe – context",
+    "front": "Commercial bank – distinguishing features",
     "back": "(1) Role in payments system. (2) Diverse asset portfolio (commercial, mortgage, consumer, government, off-balance-sheet contingent claims). (3) ALL shareholder-owned (unlike thrifts and credit unions). (4) Access to central-bank discount window. (5) Used to transmit monetary policy.",
     "tags": [
       "bank-models"
@@ -1670,7 +1670,7 @@
     "id": "fc-thrifts-sl-msb",
     "tier": "nice",
     "triage_reason": "lecture 2 / S&L crisis context",
-    "front": "Thrifts — S&Ls and MSBs",
+    "front": "Thrifts – S&Ls and MSBs",
     "back": "Savings & Loans and Mutual Savings Banks. Specialised lenders chartered to extend residential mortgage finance. Substantially MUTUAL ownership. Asset mix has broadened over time but historically focused on home mortgages. MSBs were FDIC-regulated; S&Ls were under FHLBB/FSLIC until the 1980s crisis.",
     "tags": [
       "bank-models"
@@ -1679,9 +1679,9 @@
   {
     "id": "fc-credit-unions",
     "tier": "drop",
-    "triage_reason": "FI type minutiae — not tested",
+    "triage_reason": "FI type minutiae – not tested",
     "front": "Credit unions",
-    "back": "Depository institutions specialised in consumer savings and consumer loans. Exclusively MUTUAL — owned by depositors. Members must share a 'common bond' (same employer or similar). Federally chartered ones are regulated by the NCUA (which also provides deposit insurance). Low capital-to-assets ratios.",
+    "back": "Depository institutions specialised in consumer savings and consumer loans. Exclusively MUTUAL – owned by depositors. Members must share a 'common bond' (same employer or similar). Federally chartered ones are regulated by the NCUA (which also provides deposit insurance). Low capital-to-assets ratios.",
     "tags": [
       "bank-models"
     ]
@@ -1689,9 +1689,9 @@
   {
     "id": "fc-mutual-vs-stock",
     "tier": "drop",
-    "triage_reason": "organisational form — not tested in summary or finals",
+    "triage_reason": "organisational form – not tested in summary or finals",
     "front": "Mutual vs stock ownership (depository institutions)",
-    "back": "Stock: shareholder-owned, can issue new equity, owners have residual profits + voting + right-to-dissolve. Mutual: customer-owned (depositors at S&L, policyholders at mutual life insurer). Mutual depositors have weaker rights — paid as creditors, limited voting, no dissolution power. The de jure owner is the customer; de facto control rests with management and the deposit-insurance regulator.",
+    "back": "Stock: shareholder-owned, can issue new equity, owners have residual profits + voting + right-to-dissolve. Mutual: customer-owned (depositors at S&L, policyholders at mutual life insurer). Mutual depositors have weaker rights – paid as creditors, limited voting, no dissolution power. The de jure owner is the customer; de facto control rests with management and the deposit-insurance regulator.",
     "tags": [
       "bank-models"
     ]
@@ -1699,9 +1699,9 @@
   {
     "id": "fc-de-jure-de-facto",
     "tier": "drop",
-    "triage_reason": "governance subdetail — minutiae",
+    "triage_reason": "governance subdetail – minutiae",
     "front": "De jure vs de facto ownership in mutuals",
-    "back": "De jure (legal): mutual customers — depositors of S&Ls/credit unions, policyholders of mutual insurers. De facto (effective control): managers and the government via deposit insurance. Once deposit insurance arrived, depositors no longer cared about S&L risk-taking, so the agency-cost-of-debt advantage of mutuals over stocks evaporated.",
+    "back": "De jure (legal): mutual customers – depositors of S&Ls/credit unions, policyholders of mutual insurers. De facto (effective control): managers and the government via deposit insurance. Once deposit insurance arrived, depositors no longer cared about S&L risk-taking, so the agency-cost-of-debt advantage of mutuals over stocks evaporated.",
     "tags": [
       "bank-models"
     ]
@@ -1710,8 +1710,8 @@
     "id": "fc-investment-bank-services",
     "tier": "nice",
     "triage_reason": "lecture 2 background",
-    "front": "Investment bank — service categories",
-    "back": "(1) Capital raising — underwriting, private placement, VC, securitisation, merchant banking. (2) M&A advisory — due diligence, valuation, transaction services. (3) Investment management — institutional + private banking. (4) Research. (5) Corporate advisory. (6) Sales & trading — market making, placing offerings, brokerage. (7) Structured-finance / SPV ancillary services.",
+    "front": "Investment bank – service categories",
+    "back": "(1) Capital raising – underwriting, private placement, VC, securitisation, merchant banking. (2) M&A advisory – due diligence, valuation, transaction services. (3) Investment management – institutional + private banking. (4) Research. (5) Corporate advisory. (6) Sales & trading – market making, placing offerings, brokerage. (7) Structured-finance / SPV ancillary services.",
     "tags": [
       "bank-models"
     ]
@@ -1719,9 +1719,9 @@
   {
     "id": "fc-firm-commitment-underwriting",
     "tier": "drop",
-    "triage_reason": "IB mechanic — out of summary scope",
+    "triage_reason": "IB mechanic – out of summary scope",
     "front": "Firm commitment underwriting",
-    "back": "The most common form of IPO underwriting. The investment bank effectively PURCHASES the entire issue from the issuer at an agreed price and resells it to the public — taking on the placement risk. Contrast with best-efforts underwriting where the bank doesn't guarantee proceeds.",
+    "back": "The most common form of IPO underwriting. The investment bank effectively PURCHASES the entire issue from the issuer at an agreed price and resells it to the public – taking on the placement risk. Contrast with best-efforts underwriting where the bank doesn't guarantee proceeds.",
     "tags": [
       "bank-models"
     ]
@@ -1729,9 +1729,9 @@
   {
     "id": "fc-private-placement",
     "tier": "drop",
-    "triage_reason": "IB mechanic — out of scope",
+    "triage_reason": "IB mechanic – out of scope",
     "front": "Private placement",
-    "back": "Distributing newly issued securities to a small number of large institutional buyers. Lighter SEC registration requirements (sophisticated-buyer presumption) make distribution cheaper. More common with debt than equity — and the channel through which most corporate debt is actually placed.",
+    "back": "Distributing newly issued securities to a small number of large institutional buyers. Lighter SEC registration requirements (sophisticated-buyer presumption) make distribution cheaper. More common with debt than equity – and the channel through which most corporate debt is actually placed.",
     "tags": [
       "bank-models"
     ]
@@ -1739,7 +1739,7 @@
   {
     "id": "fc-merchant-banking",
     "tier": "drop",
-    "triage_reason": "IB sub-product — out of scope",
+    "triage_reason": "IB sub-product – out of scope",
     "front": "Merchant banking",
     "back": "Investment-bank activity that COMMITS the bank's own capital to facilitate client transactions (i.e. QAT, not just brokerage). Includes loan commitments, syndicated loans, highly leveraged transactions and bridge loans. Distinguishes IBs from pure brokers.",
     "tags": [
@@ -1751,7 +1751,7 @@
     "tier": "drop",
     "triage_reason": "loan-type minutiae",
     "front": "Bridge loan",
-    "back": "Temporary loan that serves as a bridge to permanent future financing — e.g. financing an M&A close while a bond issue is being prepared. Typically short-term, higher-priced, refinanced when the long-term funding becomes available.",
+    "back": "Temporary loan that serves as a bridge to permanent future financing – e.g. financing an M&A close while a bond issue is being prepared. Typically short-term, higher-priced, refinanced when the long-term funding becomes available.",
     "tags": [
       "bank-models"
     ]
@@ -1769,7 +1769,7 @@
   {
     "id": "fc-chinese-walls",
     "tier": "drop",
-    "triage_reason": "IB compliance — not tested",
+    "triage_reason": "IB compliance – not tested",
     "front": "Chinese Walls (information barriers)",
     "back": "Internal separation between an investment bank's banking-side activities (advising clients, with access to material non-public information) and its marketing/trading side. Required to prevent misuse of proprietary client information. Regulatory and reputational requirement.",
     "tags": [
@@ -1779,9 +1779,9 @@
   {
     "id": "fc-vc-contract-features",
     "tier": "drop",
-    "triage_reason": "venture capital — out of summary scope",
-    "front": "Venture-capital contract — four salient features",
-    "back": "(1) The entrepreneur cannot 'walk away' to another financier (no de novo financing). (2) Performance requirement — VC can take control if minimum performance not met. (3) Buyout option — if relieved of control, entrepreneur is paid a fixed amount independent of skill or future cash flows. (4) Earnout — if entrepreneur retains control, both parties get equity payoffs.",
+    "triage_reason": "venture capital – out of summary scope",
+    "front": "Venture-capital contract – four salient features",
+    "back": "(1) The entrepreneur cannot 'walk away' to another financier (no de novo financing). (2) Performance requirement – VC can take control if minimum performance not met. (3) Buyout option – if relieved of control, entrepreneur is paid a fixed amount independent of skill or future cash flows. (4) Earnout – if entrepreneur retains control, both parties get equity payoffs.",
     "tags": [
       "bank-models",
       "asymmetric-info"
@@ -1790,7 +1790,7 @@
   {
     "id": "fc-vc-dual-role",
     "tier": "drop",
-    "triage_reason": "venture capital — out of summary scope",
+    "triage_reason": "venture capital – out of summary scope",
     "front": "Why VCs combine capital + management expertise",
     "back": "Most entrepreneurs are engineers or marketers, not financiers. They need both money AND management. A bank could lend money but would face moral hazard if it tried to provide management consulting separately (incentives wouldn't align). A VC bundles both into one entity, internalising the agency cost.",
     "tags": [
@@ -1803,7 +1803,7 @@
     "tier": "drop",
     "triage_reason": "FI type minutiae",
     "front": "Finance companies",
-    "back": "Lend to consumers and businesses, usually on a SECURED basis (with collateral). Specialise in riskier credits than commercial banks. Three main types: (1) sales financing (cars, appliances), (2) personal finance (small unsecured loans), (3) business finance (commercial loans, leases). Fund themselves by selling commercial paper, not deposits — so no deposit insurance, no LOLR access.",
+    "back": "Lend to consumers and businesses, usually on a SECURED basis (with collateral). Specialise in riskier credits than commercial banks. Three main types: (1) sales financing (cars, appliances), (2) personal finance (small unsecured loans), (3) business finance (commercial loans, leases). Fund themselves by selling commercial paper, not deposits – so no deposit insurance, no LOLR access.",
     "tags": [
       "bank-models"
     ]
@@ -1811,9 +1811,9 @@
   {
     "id": "fc-insurance-vs-bank",
     "tier": "nice",
-    "triage_reason": "lecture 2 background — liability-side compare",
-    "front": "Insurance company vs bank — liability side",
-    "back": "Banks: liabilities (deposits) change INSTANTANEOUSLY at depositor discretion → run risk. Insurance companies: liabilities become current upon a prespecified event (death, accident, lawsuit) — uncontrollable by claimant. Life-insurance liabilities are MUCH longer-duration than bank deposits — life insurers and pension funds are the two largest pools of long-term private money.",
+    "triage_reason": "lecture 2 background – liability-side compare",
+    "front": "Insurance company vs bank – liability side",
+    "back": "Banks: liabilities (deposits) change INSTANTANEOUSLY at depositor discretion → run risk. Insurance companies: liabilities become current upon a prespecified event (death, accident, lawsuit) – uncontrollable by claimant. Life-insurance liabilities are MUCH longer-duration than bank deposits – life insurers and pension funds are the two largest pools of long-term private money.",
     "tags": [
       "bank-models"
     ]
@@ -1821,9 +1821,9 @@
   {
     "id": "fc-property-casualty-insurance",
     "tier": "drop",
-    "triage_reason": "insurance product types — out of scope",
-    "front": "Property & casualty insurance — coverage types",
-    "back": "Writes policies against: (1) damage or loss of physical/intellectual property (incl. lost income); (2) liability; (3) health-care needs; (4) surety — third-party contractual performance guarantees (fidelity, construction and bail bonds, standby letters of credit, repayment of third-party debt).",
+    "triage_reason": "insurance product types – out of scope",
+    "front": "Property & casualty insurance – coverage types",
+    "back": "Writes policies against: (1) damage or loss of physical/intellectual property (incl. lost income); (2) liability; (3) health-care needs; (4) surety – third-party contractual performance guarantees (fidelity, construction and bail bonds, standby letters of credit, repayment of third-party debt).",
     "tags": [
       "bank-models"
     ]
@@ -1831,8 +1831,8 @@
   {
     "id": "fc-pension-dc-vs-db",
     "tier": "drop",
-    "triage_reason": "pension type — out of scope",
-    "front": "Pension funds — defined contribution vs defined benefit",
+    "triage_reason": "pension type – out of scope",
+    "front": "Pension funds – defined contribution vs defined benefit",
     "back": "DC: contributions accumulate; at retirement/death, member's claim is paid as a lump sum or used to buy an annuity. The retiree bears the investment risk. DB: the fund pays a prescribed annuity at retirement. The plan sponsor bears the investment + longevity risk. Both regulated under ERISA in the US.",
     "tags": [
       "bank-models"
@@ -1841,9 +1841,9 @@
   {
     "id": "fc-erisa",
     "tier": "drop",
-    "triage_reason": "US pension regulation — out of scope",
+    "triage_reason": "US pension regulation – out of scope",
     "front": "ERISA",
-    "back": "Employee Retirement Income Security Act — US federal law defining the responsibilities of pension fiduciaries. Constrains how pension assets can be invested, requires funding standards, and creates remedies for beneficiaries. Pensions are one of the largest investor classes; ERISA shapes their behaviour.",
+    "back": "Employee Retirement Income Security Act – US federal law defining the responsibilities of pension fiduciaries. Constrains how pension assets can be invested, requires funding standards, and creates remedies for beneficiaries. Pensions are one of the largest investor classes; ERISA shapes their behaviour.",
     "tags": [
       "bank-models"
     ]
@@ -1851,8 +1851,8 @@
   {
     "id": "fc-mutual-funds-types",
     "tier": "drop",
-    "triage_reason": "fund types — out of scope",
-    "front": "Mutual funds — open-end vs closed-end",
+    "triage_reason": "fund types – out of scope",
+    "front": "Mutual funds – open-end vs closed-end",
     "back": "Open-end: continuously creates and redeems shares at NAV; share price = NAV by construction. Closed-end: pre-established number of shares, traded as a single security on an exchange like a stock; market price can deviate widely from NAV. Most modern retail mutual funds are open-end.",
     "tags": [
       "bank-models"
@@ -1861,7 +1861,7 @@
   {
     "id": "fc-nav",
     "tier": "drop",
-    "triage_reason": "basic fund concept — not tested",
+    "triage_reason": "basic fund concept – not tested",
     "front": "Net Asset Value (NAV)",
     "back": "NAV = (market value of fund assets − liabilities) / shares outstanding. The book value of a unit in an open-end fund. Open-end shares trade at NAV; closed-end shares can trade at a premium or discount to NAV.",
     "tags": [
@@ -1871,7 +1871,7 @@
   {
     "id": "fc-hedge-fund-vs-mutual",
     "tier": "drop",
-    "triage_reason": "fund types — out of scope",
+    "triage_reason": "fund types – out of scope",
     "front": "Hedge fund vs mutual fund",
     "back": "Hedge funds: actively managed, nontraditional strategies (long/short, leveraged, derivatives), private investment pool, NO regulatory limit on fees, much higher minimum investment, much higher risk tolerance. Mutual funds: registered, regulated, fee-capped, retail-friendly, mostly long-only.",
     "tags": [
@@ -1881,9 +1881,9 @@
   {
     "id": "fc-cra-oligopoly",
     "tier": "nice",
-    "triage_reason": "rating-agency context — secondary",
+    "triage_reason": "rating-agency context – secondary",
     "front": "Credit-rating-agency oligopoly",
-    "back": "Three CRAs control ~95% of the global ratings market: Moody's, Standard & Poor's, and Fitch. Ratings range across 21–22 categories from AAA (highest) to D (default). CRAs are issuer-paid — a structural conflict of interest that contributed to rating-inflation on structured products in 2007–08.",
+    "back": "Three CRAs control ~95% of the global ratings market: Moody's, Standard & Poor's, and Fitch. Ratings range across 21–22 categories from AAA (highest) to D (default). CRAs are issuer-paid – a structural conflict of interest that contributed to rating-inflation on structured products in 2007–08.",
     "tags": [
       "securitisation",
       "bank-crises"
@@ -1892,7 +1892,7 @@
   {
     "id": "fc-government-as-fi",
     "tier": "drop",
-    "triage_reason": "lecture aside — not tested",
+    "triage_reason": "lecture aside – not tested",
     "front": "Government as the largest financial intermediary",
     "back": "Annual flows through Old Age, Survivors, Disability Insurance and Medicare are about TWICE the assets of the largest US commercial bank, and ~one-sixth the assets of the entire US banking industry. Plus housing agencies (Fannie Mae, Freddie Mac, Ginnie Mae, Sally Mae). The US government is the world's biggest FI.",
     "tags": [
@@ -1902,7 +1902,7 @@
   {
     "id": "fc-pawnbroker",
     "tier": "drop",
-    "triage_reason": "FI on the periphery — not tested",
+    "triage_reason": "FI on the periphery – not tested",
     "front": "Pawnbroker (FI on the periphery)",
     "back": "Asset-backed (secured) lender. Loans are small, short-term (weeks/months), and secured by merchandise (jewellery, electronics, instruments) with resale value ~2× the debt. Interest can run 25–30% per month in unregulated states. The lender prefers repayment over selling collateral; borrower creditworthiness is barely assessed.",
     "tags": [
@@ -1912,9 +1912,9 @@
   {
     "id": "fc-payday-title-lending",
     "tier": "drop",
-    "triage_reason": "consumer finance — out of scope",
+    "triage_reason": "consumer finance – out of scope",
     "front": "Payday & title lending",
-    "back": "Payday lenders: UNSECURED short-term loans against the borrower's next paycheck (postdated check or bank-debit authorisation), typically two-week term. Title lenders: SECURED — borrower keeps the collateral (e.g. car) but the lender holds title; repossession on default. Title lending is essentially a bigger-ticket extension of pawnbroking.",
+    "back": "Payday lenders: UNSECURED short-term loans against the borrower's next paycheck (postdated check or bank-debit authorisation), typically two-week term. Title lenders: SECURED – borrower keeps the collateral (e.g. car) but the lender holds title; repossession on default. Title lending is essentially a bigger-ticket extension of pawnbroking.",
     "tags": [
       "bank-models"
     ]
@@ -1922,7 +1922,7 @@
   {
     "id": "fc-gambling-vs-insurance",
     "tier": "drop",
-    "triage_reason": "lecture color — not tested",
+    "triage_reason": "lecture color – not tested",
     "front": "Gambling vs insurance",
     "back": "Both are FI services. Gambling: upfront payment for a contingent gain; the contract CREATES uncertainty. Insurance: payment for relief from a pre-existing uncertain liability; the contract DISSIPATES and redistributes uncertainty. Same machinery, opposite economic purpose.",
     "tags": [
@@ -1932,7 +1932,7 @@
   {
     "id": "fc-financial-system-services",
     "tier": "nice",
-    "triage_reason": "lecture 2 overview — background",
+    "triage_reason": "lecture 2 overview – background",
     "front": "Four services of the financial system",
     "back": "(1) Facilitates trade (payments and settlement). (2) Facilitates risk management (pricing, pooling, ameliorating, trading risk). (3) Mobilises resources (savings → investment). (4) Obtains information, evaluates borrowers, and allocates capital. Together they drive economic growth.",
     "tags": [
@@ -1942,9 +1942,9 @@
   {
     "id": "fc-cbch",
     "tier": "drop",
-    "triage_reason": "clearing house terminology — minutiae",
+    "triage_reason": "clearing house terminology – minutiae",
     "front": "Commercial Bank Clearing Houses (CBCH)",
-    "back": "19th-century private arrangement: member banks pooled resources to support each other in liquidity crises — a private, pre-central-bank version of the LOLR. Capacity was limited (no money-printing power), which is why central-bank LOLR eventually replaced CBCHs.",
+    "back": "19th-century private arrangement: member banks pooled resources to support each other in liquidity crises – a private, pre-central-bank version of the LOLR. Capacity was limited (no money-printing power), which is why central-bank LOLR eventually replaced CBCHs.",
     "tags": [
       "bank-models",
       "bank-crises"
@@ -1953,7 +1953,7 @@
   {
     "id": "fc-bank-natural-monopoly",
     "tier": "drop",
-    "triage_reason": "lecture aside — not tested",
+    "triage_reason": "lecture aside – not tested",
     "front": "Bank as a natural monopoly",
     "back": "Depositors are risk-averse (concave payoff function). The bank can reduce depositor risk by diversifying lending across many borrowers, and the benefit of diversification grows with size. So bigger banks → safer deposits → lower required deposit rates → still bigger banks. Without regulatory intervention, banking tends toward a natural monopoly.",
     "tags": [
@@ -1963,9 +1963,9 @@
   {
     "id": "fc-inside-vs-outside-debt",
     "tier": "drop",
-    "triage_reason": "easily confused with inside/outside money — drop the redundancy",
+    "triage_reason": "easily confused with inside/outside money – drop the redundancy",
     "front": "Inside debt vs outside debt",
-    "back": "Inside debt: creditor has access to private (non-public) information about the borrower — typically bank loans, where the lender screens and monitors. Outside debt: creditor relies only on public information — commercial paper, traded corporate bonds. Banks' comparative advantage is on inside debt; capital-market competition is on outside debt.",
+    "back": "Inside debt: creditor has access to private (non-public) information about the borrower – typically bank loans, where the lender screens and monitors. Outside debt: creditor relies only on public information – commercial paper, traded corporate bonds. Banks' comparative advantage is on inside debt; capital-market competition is on outside debt.",
     "tags": [
       "bank-models"
     ]
@@ -1973,7 +1973,7 @@
   {
     "id": "fc-goldsmith-fractional-reserve",
     "tier": "nice",
-    "triage_reason": "historical evolution — context",
+    "triage_reason": "historical evolution – context",
     "front": "Goldsmith → fractional reserve evolution",
     "back": "(1) Goldsmith warehouses gold on deposit. (2) Receipts trade as money (more efficient than physical gold). (3) Goldsmith prints extra receipts to lend → loans are illiquid; liabilities now exceed cash assets. (4) Once receipts > gold, the system is unstable to a run. The original fractional-reserve story; rationale for both LOLR and reserve requirements.",
     "tags": [
@@ -1983,8 +1983,8 @@
   {
     "id": "fc-esops",
     "tier": "drop",
-    "triage_reason": "employee ownership — out of scope",
-    "front": "ESOPs — Employee Stock Ownership Plans",
+    "triage_reason": "employee ownership – out of scope",
+    "front": "ESOPs – Employee Stock Ownership Plans",
     "back": "Plans that give employees a stake (often via a trust) in their employer's equity. Aligns employee incentives with shareholders, may improve productivity, and provides an internal market for the firm's equity in private companies. A form of internal equity financing.",
     "tags": [
       "bank-models"
@@ -1993,7 +1993,7 @@
   {
     "id": "fc-angel-financing",
     "tier": "drop",
-    "triage_reason": "startup finance — out of scope",
+    "triage_reason": "startup finance – out of scope",
     "front": "Angel financing",
     "back": "Pre-VC equity from wealthy individuals investing personal capital in early-stage companies that don't yet have revenues or earnings to attract VC firms or banks. Angels often invest in industries they know and provide mentoring alongside capital. Comes BEFORE venture-capital rounds in the financing hierarchy.",
     "tags": [
@@ -2003,7 +2003,7 @@
   {
     "id": "fc-financing-hierarchy",
     "tier": "drop",
-    "triage_reason": "general corporate finance — not testable in this course frame",
+    "triage_reason": "general corporate finance – not testable in this course frame",
     "front": "Hierarchy of financing sources",
     "back": "Young firm with no tangible assets → VC (capital + management). Maturing firm with collateral → bank loans (monitoring controls moral hazard). Established firm with reputation → direct capital-market access (no intermediation rents). The choice tracks how much monitoring is needed to control agency costs.",
     "tags": [
@@ -2014,9 +2014,9 @@
   {
     "id": "fc-law-of-large-numbers",
     "tier": "nice",
-    "triage_reason": "underpins withdrawal-diversification — useful context",
+    "triage_reason": "underpins withdrawal-diversification – useful context",
     "front": "Law of Large Numbers (in banking context)",
-    "back": "With a large enough sample drawn from the same distribution, the average realised value converges to the statistical mean. In banking: as depositors become numerous and independent, withdrawal rates become predictable — a fixed cash buffer 'almost certainly' covers withdrawals. Foundation for diversification of withdrawal risk.",
+    "back": "With a large enough sample drawn from the same distribution, the average realised value converges to the statistical mean. In banking: as depositors become numerous and independent, withdrawal rates become predictable – a fixed cash buffer 'almost certainly' covers withdrawals. Foundation for diversification of withdrawal risk.",
     "tags": [
       "bank-models",
       "foundational-models"
@@ -2025,7 +2025,7 @@
   {
     "id": "fc-event-study",
     "tier": "drop",
-    "triage_reason": "methodology — not testable here",
+    "triage_reason": "methodology – not testable here",
     "front": "Event study methodology",
     "back": "Statistical approach to evaluate the price impact of an event. Estimate alpha and beta of a stock against the market over a long pre-event window (excluding ±2-3 days around the event). Then compute average abnormal returns (residuals) inside the event window. Used to test whether news, regulatory changes, or M&A announcements have measurable effects.",
     "tags": [
@@ -2037,7 +2037,7 @@
     "tier": "drop",
     "triage_reason": "general management framework",
     "front": "Enterprise Risk Management (ERM)",
-    "back": "An integrated, organisation-wide approach to identifying, prioritising and managing all material risks — replacing the older 'silo' approach (separate desks for credit, market, operational risk). Goal: avoid errors of omission that threaten organisational sustainability and trigger bankruptcy costs. Communication is central.",
+    "back": "An integrated, organisation-wide approach to identifying, prioritising and managing all material risks – replacing the older 'silo' approach (separate desks for credit, market, operational risk). Goal: avoid errors of omission that threaten organisational sustainability and trigger bankruptcy costs. Communication is central.",
     "tags": [
       "bank-models"
     ]
@@ -2045,9 +2045,9 @@
   {
     "id": "fc-existential-tail-risk",
     "tier": "nice",
-    "triage_reason": "connects to Knightian uncertainty (summary §5) — useful but secondary",
+    "triage_reason": "connects to Knightian uncertainty (summary §5) – useful but secondary",
     "front": "Existential / tail risk",
-    "back": "Risks capable of overwhelming the organisation — situated in the tail of the probability distribution but capable of triggering insolvency when realised. In a 1929/2007-style economic shock, credit risks become correlated, depositors run, diversification implodes. ERM exists largely to surface and price these risks.",
+    "back": "Risks capable of overwhelming the organisation – situated in the tail of the probability distribution but capable of triggering insolvency when realised. In a 1929/2007-style economic shock, credit risks become correlated, depositors run, diversification implodes. ERM exists largely to surface and price these risks.",
     "tags": [
       "bank-models",
       "bank-crises"
@@ -2056,7 +2056,7 @@
   {
     "id": "fc-overconfidence-bias",
     "tier": "drop",
-    "triage_reason": "behavioural finance — not in summary",
+    "triage_reason": "behavioural finance – not in summary",
     "front": "Overconfidence bias",
     "back": "Called the 'mother of all biases.' Investors and executives substitute rules of thumb and intuition for careful analysis even when good information is available. Manifests as excessive optimism, false certainty about estimates, and undue trust in one's models. Leads to underestimation of negative tail risks.",
     "tags": [
@@ -2067,9 +2067,9 @@
   {
     "id": "fc-anchoring-focalism",
     "tier": "drop",
-    "triage_reason": "behavioural finance — not in summary",
+    "triage_reason": "behavioural finance – not in summary",
     "front": "Anchoring (focalism) bias",
-    "back": "Decision-making bias driven by recency. A large recent loss inflates current loss probabilities; absence of recent shocks systematically deflates them. The further an extreme event recedes, the more biased toward zero its perceived probability becomes — Taleb's Black Swan thesis is a form of this argument.",
+    "back": "Decision-making bias driven by recency. A large recent loss inflates current loss probabilities; absence of recent shocks systematically deflates them. The further an extreme event recedes, the more biased toward zero its perceived probability becomes – Taleb's Black Swan thesis is a form of this argument.",
     "tags": [
       "bank-models",
       "bank-crises"
@@ -2078,7 +2078,7 @@
   {
     "id": "fc-groupthink",
     "tier": "drop",
-    "triage_reason": "behavioural — not in summary",
+    "triage_reason": "behavioural – not in summary",
     "front": "Groupthink",
     "back": "Group-dynamics pathology where members sacrifice independent judgement for herd consensus. Conditions that breed it: cohesiveness, isolation, lack of diversity, partial leadership, no procedural protocols, stress, recent failures, moral dilemmas. Produces overestimation of group competence, uniformity pressure, and closed-mindedness.",
     "tags": [
@@ -2088,7 +2088,7 @@
   {
     "id": "fc-cro",
     "tier": "drop",
-    "triage_reason": "governance role — not tested",
+    "triage_reason": "governance role – not tested",
     "front": "Chief Risk Officer (CRO)",
     "back": "C-suite executive heading the office of risk management. Coordinates risk information vertically (from operating units up to the board) and horizontally (across functions). Tools include the risk register, simulation, stress tests, scenario planning, dashboards. Reports to both the board's risk committee and the executive risk-management committee.",
     "tags": [
@@ -2100,7 +2100,7 @@
     "tier": "drop",
     "triage_reason": "org chart minutiae",
     "front": "ERM communication triad",
-    "back": "Three documents that structure ERM communication: (1) Risk Culture Statement — common understanding of terms, values, practices around risk; (2) Risk Register — catalogue of all perceived material risks; (3) Risk Appetite — written statement of the organisation's risk preferences, the normative counterpart to the register.",
+    "back": "Three documents that structure ERM communication: (1) Risk Culture Statement – common understanding of terms, values, practices around risk; (2) Risk Register – catalogue of all perceived material risks; (3) Risk Appetite – written statement of the organisation's risk preferences, the normative counterpart to the register.",
     "tags": [
       "bank-models"
     ]
@@ -2110,7 +2110,7 @@
     "tier": "nice",
     "triage_reason": "tied to Knightian uncertainty (summary §5)",
     "front": "Black Swan (Taleb)",
-    "back": "Argument that unprecedented or extremely rare events tend to be UNDERPRICED — investors and models systematically discount tail probabilities toward zero. A specific case of anchoring bias. Exam-relevant for explaining VaR-model failures in 2007–09 and risk-management blind spots.",
+    "back": "Argument that unprecedented or extremely rare events tend to be UNDERPRICED – investors and models systematically discount tail probabilities toward zero. A specific case of anchoring bias. Exam-relevant for explaining VaR-model failures in 2007–09 and risk-management blind spots.",
     "tags": [
       "bank-models",
       "bank-crises"
@@ -2119,9 +2119,9 @@
   {
     "id": "fc-liquidity-three-factors",
     "tier": "nice",
-    "triage_reason": "lecture 5 framework — useful context",
+    "triage_reason": "lecture 5 framework – useful context",
     "front": "Three factors determining bank liquidity quality",
-    "back": "(1) Liquidity of the loan portfolio — how easily assets can be sold or pledged. (2) Cash and liquid assets on hand. (3) Withdrawal risk in the deposit base — how stable the funding is. The bank can improve any of the three to reduce liquidity risk.",
+    "back": "(1) Liquidity of the loan portfolio – how easily assets can be sold or pledged. (2) Cash and liquid assets on hand. (3) Withdrawal risk in the deposit base – how stable the funding is. The bank can improve any of the three to reduce liquidity risk.",
     "tags": [
       "bank-models"
     ]
@@ -2129,7 +2129,7 @@
   {
     "id": "fc-withdrawal-diversification",
     "tier": "core",
-    "triage_reason": "SVB lesson — concentrated uninsured deposits",
+    "triage_reason": "SVB lesson – concentrated uninsured deposits",
     "front": "Diversifying withdrawal risk",
     "back": "More depositors, independently distributed → withdrawal rate becomes predictable (Law of Large Numbers). The fixed-percent cash buffer that covers any chosen confidence level shrinks. In the limit, withdrawals become a routine cost rather than a tail catastrophe. Why retail-deposit-funded banks are more stable than wholesale-funded ones.",
     "tags": [
@@ -2139,9 +2139,9 @@
   {
     "id": "fc-treasury-function",
     "tier": "drop",
-    "triage_reason": "treasury role — not tested",
+    "triage_reason": "treasury role – not tested",
     "front": "Treasury function (CFO)",
-    "back": "Internal bank role responsible for funding the bank — understanding cash flows and lining up diverse, deep, reliable funding sources against future contingencies. Typically run by the CFO. The reason banks deliberately borrow from many sources rather than concentrate on the cheapest one: protection against single-source funding shocks.",
+    "back": "Internal bank role responsible for funding the bank – understanding cash flows and lining up diverse, deep, reliable funding sources against future contingencies. Typically run by the CFO. The reason banks deliberately borrow from many sources rather than concentrate on the cheapest one: protection against single-source funding shocks.",
     "tags": [
       "bank-models"
     ]
@@ -2149,7 +2149,7 @@
   {
     "id": "fc-llr-moral-hazard",
     "tier": "nice",
-    "triage_reason": "LOLR moral hazard — secondary",
+    "triage_reason": "LOLR moral hazard – secondary",
     "front": "Lender-of-last-resort moral hazard",
     "back": "If LOLR borrowing is cheap and easy, banks hold less voluntary cash (the LOLR is a substitute for own cash reserves). Two consequences: (1) deposit seigniorage shifts from the public to private banks; (2) the LLR is exposed to the credit risk of the collateral. Reserve requirements + discount-window rules exist to compensate.",
     "tags": [
@@ -2161,7 +2161,7 @@
     "tier": "drop",
     "triage_reason": "mentioned in lecture but not tested",
     "front": "Seigniorage",
-    "back": "The 'profit' from issuing money — the difference between the face value of money and its production cost. With pure central-bank money, seigniorage accrues to the public via the central bank's balance sheet. With LOLR-backstopped fractional-reserve banking, banks hold less cash and effectively capture some seigniorage privately. Reserve requirements rebalance the split.",
+    "back": "The 'profit' from issuing money – the difference between the face value of money and its production cost. With pure central-bank money, seigniorage accrues to the public via the central bank's balance sheet. With LOLR-backstopped fractional-reserve banking, banks hold less cash and effectively capture some seigniorage privately. Reserve requirements rebalance the split.",
     "tags": [
       "bank-models"
     ]
@@ -2169,9 +2169,9 @@
   {
     "id": "fc-liquidity-vs-solvency-practice",
     "tier": "core",
-    "triage_reason": "classic LOLR distinction — recurring concept",
-    "front": "Liquidity vs solvency — why hard to distinguish in practice",
-    "back": "Liquidity crisis: financiers can't fund the bank because of THEIR own liquidity stock, not the bank's asset quality. Insolvency crisis: the bank's asset quality has DETERIORATED, so financiers won't fund. From the outside, both look the same — funding dries up. Distinguishing them is the LOLR's central operational problem.",
+    "triage_reason": "classic LOLR distinction – recurring concept",
+    "front": "Liquidity vs solvency – why hard to distinguish in practice",
+    "back": "Liquidity crisis: financiers can't fund the bank because of THEIR own liquidity stock, not the bank's asset quality. Insolvency crisis: the bank's asset quality has DETERIORATED, so financiers won't fund. From the outside, both look the same – funding dries up. Distinguishing them is the LOLR's central operational problem.",
     "tags": [
       "bank-models",
       "bank-crises"
@@ -2180,9 +2180,9 @@
   {
     "id": "fc-glass-steagall",
     "tier": "nice",
-    "triage_reason": "US history — relevant to ring-fencing/Volcker",
+    "triage_reason": "US history – relevant to ring-fencing/Volcker",
     "front": "Glass-Steagall Act (1933)",
-    "back": "US legislation that separated commercial banking from investment banking — prohibited commercial banks from underwriting securities and from insurance activities. Enacted after the Great Depression. Largely repealed by the Gramm-Leach-Bliley Act in 1999, opening the door to bank holding companies that span both businesses.",
+    "back": "US legislation that separated commercial banking from investment banking – prohibited commercial banks from underwriting securities and from insurance activities. Enacted after the Great Depression. Largely repealed by the Gramm-Leach-Bliley Act in 1999, opening the door to bank holding companies that span both businesses.",
     "tags": [
       "bank-regulation",
       "bank-crises"
@@ -2191,9 +2191,9 @@
   {
     "id": "fc-spot-vs-forward-loan",
     "tier": "drop",
-    "triage_reason": "lending mechanic — minutiae",
+    "triage_reason": "lending mechanic – minutiae",
     "front": "Spot vs forward loan",
-    "back": "Spot loan: bank extends credit immediately on approval. Forward loan: bank issues a binding promise to lend in the future on prespecified terms — known as a LOAN COMMITMENT. The commitment is itself an off-balance-sheet contingent claim; banks reserve capital against it.",
+    "back": "Spot loan: bank extends credit immediately on approval. Forward loan: bank issues a binding promise to lend in the future on prespecified terms – known as a LOAN COMMITMENT. The commitment is itself an off-balance-sheet contingent claim; banks reserve capital against it.",
     "tags": [
       "bank-models"
     ]
@@ -2201,9 +2201,9 @@
   {
     "id": "fc-loan-commitment",
     "tier": "nice",
-    "triage_reason": "off-balance-sheet item — secondary",
+    "triage_reason": "off-balance-sheet item – secondary",
     "front": "Loan commitment",
-    "back": "Bank's promise to make a loan in the future under prespecified terms — a forward-market loan. The commitment is an off-balance-sheet contingent claim; the bank needs to hold capital and liquidity against it. Used by corporates as backup lines for commercial-paper programmes.",
+    "back": "Bank's promise to make a loan in the future under prespecified terms – a forward-market loan. The commitment is an off-balance-sheet contingent claim; the bank needs to hold capital and liquidity against it. Used by corporates as backup lines for commercial-paper programmes.",
     "tags": [
       "bank-models"
     ]
@@ -2211,9 +2211,9 @@
   {
     "id": "fc-lending-decomposition",
     "tier": "drop",
-    "triage_reason": "process steps — not testable",
+    "triage_reason": "process steps – not testable",
     "front": "Decomposition of the lending function (5 components)",
-    "back": "(1) Origination — solicit and screen the borrower; design the loan contract. (2) Funding — actually extend credit. (3) Servicing — collect payments, keep records. (4) Risk processing — post-lending monitoring, manage default and interest-rate risk. (5) Credit culture — organisational design, communication, incentive schemes for credit officers.",
+    "back": "(1) Origination – solicit and screen the borrower; design the loan contract. (2) Funding – actually extend credit. (3) Servicing – collect payments, keep records. (4) Risk processing – post-lending monitoring, manage default and interest-rate risk. (5) Credit culture – organisational design, communication, incentive schemes for credit officers.",
     "tags": [
       "bank-models",
       "asymmetric-info"
@@ -2224,7 +2224,7 @@
     "tier": "drop",
     "triage_reason": "loan taxonomy minutiae",
     "front": "Four types of business (C&I) loans",
-    "back": "(1) Transaction loan — financing a specific purchase, usually secured by the asset, episodic. (2) Working-capital loan — short-term, general-purpose, for current assets, often secured by receivables/inventory. (3) Term loan — 3–10 year, for fixed-asset acquisition, repaid from asset cash flows, often drawn under revolving lines. (4) Combination — short-term that converts to term at borrower's request.",
+    "back": "(1) Transaction loan – financing a specific purchase, usually secured by the asset, episodic. (2) Working-capital loan – short-term, general-purpose, for current assets, often secured by receivables/inventory. (3) Term loan – 3–10 year, for fixed-asset acquisition, repaid from asset cash flows, often drawn under revolving lines. (4) Combination – short-term that converts to term at borrower's request.",
     "tags": [
       "bank-models"
     ]
@@ -2232,7 +2232,7 @@
   {
     "id": "fc-credit-card-profit",
     "tier": "drop",
-    "triage_reason": "consumer-credit mechanic — out of scope",
+    "triage_reason": "consumer-credit mechanic – out of scope",
     "front": "Credit-card profit sources (3)",
     "back": "(1) The discount at which the bank purchases sales slips from merchants. (2) Interest charged to cardholders who carry a balance. (3) Annual membership fees. The first source is hidden from cardholders but is the largest in aggregate.",
     "tags": [
@@ -2244,7 +2244,7 @@
     "tier": "drop",
     "triage_reason": "instrument type minutiae",
     "front": "Bankers' acceptance",
-    "back": "A bank-guaranteed indebtedness of the bank's CUSTOMER to a third party. Used heavily in trade finance — the bank guarantees the buyer's payment to the seller. Maturity usually < 6 months. Trades in the secondary money market like commercial paper but credit-enhanced by the bank's guarantee.",
+    "back": "A bank-guaranteed indebtedness of the bank's CUSTOMER to a third party. Used heavily in trade finance – the bank guarantees the buyer's payment to the seller. Maturity usually < 6 months. Trades in the secondary money market like commercial paper but credit-enhanced by the bank's guarantee.",
     "tags": [
       "bank-models"
     ]
@@ -2252,8 +2252,8 @@
   {
     "id": "fc-treasury-maturities",
     "tier": "drop",
-    "triage_reason": "T-bill/note/bond definitions — basic",
-    "front": "T-bills, T-notes, T-bonds — maturity ranges",
+    "triage_reason": "T-bill/note/bond definitions – basic",
+    "front": "T-bills, T-notes, T-bonds – maturity ranges",
     "back": "T-bills: 91 days, 182 days, 1 year (sold at discount, no coupon). T-notes: 1–7 years (semi-annual coupons). T-bonds: 10–30 years. All issued by the US Treasury, all default-risk-free in dollar terms. Federal income tax applies; state and local exempt.",
     "tags": [
       "bank-models"
@@ -2262,9 +2262,9 @@
   {
     "id": "fc-municipal-bond-types",
     "tier": "drop",
-    "triage_reason": "muni-bond categories — out of scope",
-    "front": "Municipal bonds — three categories",
-    "back": "(1) Housing-authority bonds — issued by local agencies to fund and administer housing. (2) General-obligation (GO) bonds — backed by 'full faith and credit' (taxing power) of the issuer. (3) Revenue bonds — supported solely by the cash flow of a specific project (tolls, dedicated taxes, building rents). All three have interest exempt from federal, state and local taxes.",
+    "triage_reason": "muni-bond categories – out of scope",
+    "front": "Municipal bonds – three categories",
+    "back": "(1) Housing-authority bonds – issued by local agencies to fund and administer housing. (2) General-obligation (GO) bonds – backed by 'full faith and credit' (taxing power) of the issuer. (3) Revenue bonds – supported solely by the cash flow of a specific project (tolls, dedicated taxes, building rents). All three have interest exempt from federal, state and local taxes.",
     "tags": [
       "bank-models"
     ]
@@ -2272,7 +2272,7 @@
   {
     "id": "fc-prime-rate",
     "tier": "drop",
-    "triage_reason": "rate definition — basic",
+    "triage_reason": "rate definition – basic",
     "front": "Prime rate",
     "back": "Reference / benchmark borrowing rate posted by a bank for its best (lowest-risk) corporate customers. Loans to riskier borrowers are quoted as 'prime + spread'. Historically the most-watched US bank reference rate; now competing with SOFR (replacing LIBOR).",
     "tags": [
@@ -2282,9 +2282,9 @@
   {
     "id": "fc-libor",
     "tier": "nice",
-    "triage_reason": "mentioned in summary §9 — covered by sofr-libor",
+    "triage_reason": "mentioned in summary §9 – covered by sofr-libor",
     "front": "LIBOR",
-    "back": "London Interbank Offer Rate — the rate banks charged each other for short-term loans in the UK. Reference rate for trillions of dollars of floating-rate contracts. Largely replaced by SOFR (US), SONIA (UK), and €STR (EU) after the LIBOR-fixing scandal and 2021–23 transition.",
+    "back": "London Interbank Offer Rate – the rate banks charged each other for short-term loans in the UK. Reference rate for trillions of dollars of floating-rate contracts. Largely replaced by SOFR (US), SONIA (UK), and €STR (EU) after the LIBOR-fixing scandal and 2021–23 transition.",
     "tags": [
       "bank-models"
     ]
@@ -2292,7 +2292,7 @@
   {
     "id": "fc-nash-equilibrium",
     "tier": "drop",
-    "triage_reason": "general game theory — not course-specific",
+    "triage_reason": "general game theory – not course-specific",
     "front": "Nash equilibrium",
     "back": "A steady state in which no contracting party has an incentive to change its actions UNILATERALLY, given the actions of the others. The standard solution concept in game-theoretic models of bank lending, deposit competition, and creditor coordination (e.g. in bank-run models).",
     "tags": [
@@ -2302,9 +2302,9 @@
   {
     "id": "fc-absolute-priority-rule",
     "tier": "drop",
-    "triage_reason": "US bankruptcy concept — BRRD has its own waterfall",
+    "triage_reason": "US bankruptcy concept – BRRD has its own waterfall",
     "front": "Absolute priority rule",
-    "back": "Bankruptcy principle: creditors are paid in strict order of seniority before any junior class receives anything. Senior secured → senior unsecured → subordinated → preferred equity → common equity. Underlies the BRRD bail-in waterfall — the resolution authority must respect the priority order (with limited exceptions like the 'no-creditor-worse-off' principle).",
+    "back": "Bankruptcy principle: creditors are paid in strict order of seniority before any junior class receives anything. Senior secured → senior unsecured → subordinated → preferred equity → common equity. Underlies the BRRD bail-in waterfall – the resolution authority must respect the priority order (with limited exceptions like the 'no-creditor-worse-off' principle).",
     "tags": [
       "recovery-resolution"
     ]
@@ -2312,9 +2312,9 @@
   {
     "id": "fc-gaap",
     "tier": "drop",
-    "triage_reason": "US accounting — course uses IFRS 9",
+    "triage_reason": "US accounting – course uses IFRS 9",
     "front": "GAAP",
-    "back": "Generally Accepted Accounting Principles — the US accounting framework. The non-IFRS alternative used by US-listed firms; for banking, GAAP and IFRS differ on impairment (CECL under GAAP vs. ECL under IFRS 9), netting of derivatives, and consolidation rules.",
+    "back": "Generally Accepted Accounting Principles – the US accounting framework. The non-IFRS alternative used by US-listed firms; for banking, GAAP and IFRS differ on impairment (CECL under GAAP vs. ECL under IFRS 9), netting of derivatives, and consolidation rules.",
     "tags": [
       "credit-risk"
     ]
@@ -2333,9 +2333,9 @@
   {
     "id": "fc-discriminant-analysis",
     "tier": "drop",
-    "triage_reason": "ML-style method — not tested",
+    "triage_reason": "ML-style method – not tested",
     "front": "Discriminant analysis",
-    "back": "Statistical technique to identify which factors best predict an outcome — e.g. Altman's Z-score uses discriminant analysis to predict corporate bankruptcy from financial-statement ratios. Foundational technique behind early credit-scoring models.",
+    "back": "Statistical technique to identify which factors best predict an outcome – e.g. Altman's Z-score uses discriminant analysis to predict corporate bankruptcy from financial-statement ratios. Foundational technique behind early credit-scoring models.",
     "tags": [
       "credit-risk"
     ]
@@ -2343,9 +2343,9 @@
   {
     "id": "fc-credit-rationing-formal",
     "tier": "nice",
-    "triage_reason": "formal definition — sub-detail of credit-rationing",
-    "front": "Credit rationing — formal definition",
-    "back": "A situation where the lender REFUSES to extend credit to a borrower at the price posted for the borrower's class — even though the borrower is willing to pay that price. Distinct from charging a higher rate; the bank chooses to ration QUANTITY rather than clear the market through price.",
+    "triage_reason": "formal definition – sub-detail of credit-rationing",
+    "front": "Credit rationing – formal definition",
+    "back": "A situation where the lender REFUSES to extend credit to a borrower at the price posted for the borrower's class – even though the borrower is willing to pay that price. Distinct from charging a higher rate; the bank chooses to ration QUANTITY rather than clear the market through price.",
     "tags": [
       "asymmetric-info",
       "foundational-models"
@@ -2354,9 +2354,9 @@
   {
     "id": "fc-credit-rationing-two-reasons",
     "tier": "nice",
-    "triage_reason": "taxonomy detail — sub-of credit-rationing",
+    "triage_reason": "taxonomy detail – sub-of credit-rationing",
     "front": "Two reasons banks ration credit",
-    "back": "(1) PRECONTRACT private information — bank can't perfectly distinguish risks within a class, so charges all the same; some borrowers subsidise others. (2) Raising the rate would worsen the pool: safer borrowers exit (adverse selection) and remaining borrowers undertake riskier projects (moral hazard) — so the bank's expected return FALLS rather than rises.",
+    "back": "(1) PRECONTRACT private information – bank can't perfectly distinguish risks within a class, so charges all the same; some borrowers subsidise others. (2) Raising the rate would worsen the pool: safer borrowers exit (adverse selection) and remaining borrowers undertake riskier projects (moral hazard) – so the bank's expected return FALLS rather than rises.",
     "tags": [
       "asymmetric-info",
       "foundational-models"
@@ -2365,9 +2365,9 @@
   {
     "id": "fc-qe-mechanism",
     "tier": "nice",
-    "triage_reason": "lecture aside — not tested",
-    "front": "QE — how it works",
-    "back": "Quantitative Easing: when the policy rate is at the lower bound and spending is too low, the central bank buys government bonds (and sometimes other assets) — typically from pension funds and other non-banks. The seller's bank receives reserves at the central bank; the seller's deposit balance rises. So QE directly increases bank deposits and bank reserves simultaneously.",
+    "triage_reason": "lecture aside – not tested",
+    "front": "QE – how it works",
+    "back": "Quantitative Easing: when the policy rate is at the lower bound and spending is too low, the central bank buys government bonds (and sometimes other assets) – typically from pension funds and other non-banks. The seller's bank receives reserves at the central bank; the seller's deposit balance rises. So QE directly increases bank deposits and bank reserves simultaneously.",
     "tags": [
       "bank-models",
       "bank-crises"
@@ -2376,7 +2376,7 @@
   {
     "id": "fc-npl-ratio",
     "tier": "nice",
-    "triage_reason": "standard credit-quality KPI — feeds into staging",
+    "triage_reason": "standard credit-quality KPI – feeds into staging",
     "front": "Non-Performing Loan (NPL) ratio",
     "back": "NPL ratio = Stage 3 (default-impaired) loans / Total gross loans. Headline measure of asset-quality deterioration. Norwegian banks: typically <1%. Eurozone average post-GFC peaked above 7%; Greek and Italian banks much higher.",
     "tags": [
@@ -2387,7 +2387,7 @@
     "id": "fc-gross-vs-net-amortised",
     "tier": "nice",
     "triage_reason": "covered by gross-vs-net-loans (auto)",
-    "front": "Loans at amortised cost — gross vs net",
+    "front": "Loans at amortised cost – gross vs net",
     "back": "Gross = total exposure before impairment. Net = gross MINUS accumulated impairment provision. Reported on the balance sheet as net; gross is usually disclosed in the notes. Difference matters for ratio calculations: NPL uses gross, while book-value reconciliations use net.",
     "tags": [
       "credit-risk"
@@ -2396,9 +2396,9 @@
   {
     "id": "fc-max-exposure",
     "tier": "drop",
-    "triage_reason": "terminology subset — not tested",
+    "triage_reason": "terminology subset – not tested",
     "front": "Maximum exposure",
-    "back": "Loans on the balance sheet PLUS undrawn loan commitments and other off-balance-sheet credit exposures. The metric a bank uses for total credit-risk exposure to a counterparty — relevant because drawn balances can grow rapidly when a borrower deteriorates (commitments are typically drawn down before default).",
+    "back": "Loans on the balance sheet PLUS undrawn loan commitments and other off-balance-sheet credit exposures. The metric a bank uses for total credit-risk exposure to a counterparty – relevant because drawn balances can grow rapidly when a borrower deteriorates (commitments are typically drawn down before default).",
     "tags": [
       "credit-risk"
     ]
@@ -2419,7 +2419,7 @@
     "tier": "core",
     "triage_reason": "mid-term-style ratio (efficiency)",
     "front": "Cost/income ratio",
-    "back": "Operating expenses / Total operating income. Standard efficiency measure for banks. Lower is better — Norwegian banks typically run 35–45%; large universal banks often 55–65%. A ratio below 50% is generally considered efficient.",
+    "back": "Operating expenses / Total operating income. Standard efficiency measure for banks. Lower is better – Norwegian banks typically run 35–45%; large universal banks often 55–65%. A ratio below 50% is generally considered efficient.",
     "tags": [
       "bank-models"
     ]
@@ -2429,7 +2429,7 @@
     "tier": "core",
     "triage_reason": "mid-term-style ratio",
     "front": "ROA and ROE",
-    "back": "ROA = Net Income / Average Total Assets — return per dollar of assets, typically 0.5–1.5% for a healthy bank. ROE = Net Income / Average Equity — return per dollar of equity, typically 8–15%. Linked by the equity multiplier: ROE = ROA × (Assets / Equity). Banks deliberately use high leverage to amplify thin ROA into respectable ROE.",
+    "back": "ROA = Net Income / Average Total Assets – return per dollar of assets, typically 0.5–1.5% for a healthy bank. ROE = Net Income / Average Equity – return per dollar of equity, typically 8–15%. Linked by the equity multiplier: ROE = ROA × (Assets / Equity). Banks deliberately use high leverage to amplify thin ROA into respectable ROE.",
     "tags": [
       "bank-models"
     ]
@@ -2437,7 +2437,7 @@
   {
     "id": "fc-loan-spread",
     "tier": "nice",
-    "triage_reason": "basic concept — secondary",
+    "triage_reason": "basic concept – secondary",
     "front": "Loan spread",
     "back": "Loan spread = Interest rate charged on loans − the bank's funding cost. Compensates the bank for credit risk, operational costs, and required return on capital. Norwegian retail mortgages: spread ~1–2% over reference rate.",
     "tags": [
@@ -2448,7 +2448,7 @@
   {
     "id": "fc-deposit-spread",
     "tier": "nice",
-    "triage_reason": "basic concept — secondary",
+    "triage_reason": "basic concept – secondary",
     "front": "Deposit spread",
     "back": "Deposit spread = Reference market rate − interest rate paid on deposits. Captures how cheaply the bank can fund itself relative to the wholesale market. In normal times, banks earn a positive deposit spread because deposits are stickier and less rate-sensitive than wholesale funding. Compresses in low-rate environments.",
     "tags": [
@@ -2458,15 +2458,15 @@
   {
     "id": "fc-grading-thresholds",
     "tier": "nice",
-    "triage_reason": "exam-format meta — useful before exam",
+    "triage_reason": "exam-format meta – useful before exam",
     "front": "GRA 65463 grading thresholds (May 2025)",
-    "back": "A: 75–100. B: 65–74. C: 55–64. D: 45–54. E: 35–44. F: 0–34. Partial credit available on all questions. NOTE: the older Spring 2024 final used a stricter scale (A: 85–100, B: 72–84, C: 60–71, D: 48–59, E: 35–47, F: 0–34) — the May 2025 thresholds are the most recent precedent for May 2026.",
+    "back": "A: 75–100. B: 65–74. C: 55–64. D: 45–54. E: 35–44. F: 0–34. Partial credit available on all questions. NOTE: the older Spring 2024 final used a stricter scale (A: 85–100, B: 72–84, C: 60–71, D: 48–59, E: 35–47, F: 0–34) – the May 2025 thresholds are the most recent precedent for May 2026.",
     "tags": []
   },
   {
     "id": "fc-exam-format",
     "tier": "nice",
-    "triage_reason": "exam-format meta — useful before exam",
+    "triage_reason": "exam-format meta – useful before exam",
     "front": "GRA 65463 final exam format",
     "back": "6 questions, 100 points, 3-hour digital school exam. Mix: T/F-with-explanation (15–25 pts), conceptual essays (15–25 pts), numerical problems (15–25 pts: IFRS 9 impairment, capital ratios, FX swap pricing, bail-in calc).",
     "tags": []
@@ -2474,8 +2474,8 @@
   {
     "id": "fc-emir",
     "tier": "nice",
-    "triage_reason": "lecture 9 — not in past finals as standalone",
-    "front": "EMIR — three pillars",
+    "triage_reason": "lecture 9 – not in past finals as standalone",
+    "front": "EMIR – three pillars",
     "back": "Reg (EU) 648/2012 (refit 2019). EU framework for OTC derivatives. (1) Mandatory CCP clearing for standardised OTC (most IRS, certain CDS indices). (2) Bilateral margin (IM + VM) for non-cleared. (3) Trade reporting to authorised repositories. FX swaps/forwards largely exempt from clearing. US equivalent: Dodd-Frank Title VII.",
     "tags": [
       "derivatives-fx",
@@ -2485,9 +2485,9 @@
   {
     "id": "fc-ccp-novation",
     "tier": "nice",
-    "triage_reason": "lecture 9 — not in past finals",
+    "triage_reason": "lecture 9 – not in past finals",
     "front": "CCP and novation",
-    "back": "A Central Counterparty Clearing House interposes itself via NOVATION — substitution of one legal obligation for another. The original buyer↔seller contract becomes buyer↔CCP and CCP↔seller. Each member faces only the CCP. Reduces bilateral counterparty risk but creates CCP concentration risk.",
+    "back": "A Central Counterparty Clearing House interposes itself via NOVATION – substitution of one legal obligation for another. The original buyer↔seller contract becomes buyer↔CCP and CCP↔seller. Each member faces only the CCP. Reduces bilateral counterparty risk but creates CCP concentration risk.",
     "tags": [
       "derivatives-fx",
       "bank-regulation"
@@ -2496,7 +2496,7 @@
   {
     "id": "fc-im-vm",
     "tier": "nice",
-    "triage_reason": "lecture 9 — Mar 2020 NOK Q tests VM in passing",
+    "triage_reason": "lecture 9 – Mar 2020 NOK Q tests VM in passing",
     "front": "Initial Margin vs Variation Margin",
     "back": "IM = collateral posted at trade INCEPTION, sized to potential future exposure under stress over the MPOR (~10 business days). Held by CCP or in segregated custody; returned at expiry if no default. VM = collateral exchanged DAILY based on mark-to-market change. Mandatory under EMIR/DF for ALL in-scope OTC trades.",
     "tags": [
@@ -2507,9 +2507,9 @@
   {
     "id": "fc-mandatory-clearing-scope",
     "tier": "nice",
-    "triage_reason": "lecture 9 — not in past finals",
-    "front": "Mandatory clearing — what's in, what's out",
-    "back": "IN: standardised IRS in EUR/USD/GBP/JPY/NOK; certain CDS indices. OUT (mostly): FX swaps, FX forwards (politically exempt — used for trade finance), bespoke / non-standard contracts. Cross-currency swaps NOT mandatorily cleared but ARE subject to bilateral margin (VM mandatory, IM phased in by AANA threshold).",
+    "triage_reason": "lecture 9 – not in past finals",
+    "front": "Mandatory clearing – what's in, what's out",
+    "back": "IN: standardised IRS in EUR/USD/GBP/JPY/NOK; certain CDS indices. OUT (mostly): FX swaps, FX forwards (politically exempt – used for trade finance), bespoke / non-standard contracts. Cross-currency swaps NOT mandatorily cleared but ARE subject to bilateral margin (VM mandatory, IM phased in by AANA threshold).",
     "tags": [
       "derivatives-fx",
       "bank-regulation"
@@ -2518,9 +2518,9 @@
   {
     "id": "fc-sofr-libor",
     "tier": "nice",
-    "triage_reason": "lecture 9 LIBOR transition — covered by libor-transition",
+    "triage_reason": "lecture 9 LIBOR transition – covered by libor-transition",
     "front": "SOFR replacing LIBOR",
-    "back": "Final tenors of USD LIBOR ceased 30 June 2023. Replaced by SOFR (Secured Overnight Financing Rate, NY Fed, based on overnight Treasury repo). RFRs by currency: SOFR/USD, ESTR/EUR, SONIA/GBP, SARON/CHF, TONA/JPY. RFRs are overnight, transaction-based, near-risk-free — compounded in arrears for term reference; NOT forward-looking. Legacy contracts auto-fall back via ISDA fallback (RFR + median historical spread).",
+    "back": "Final tenors of USD LIBOR ceased 30 June 2023. Replaced by SOFR (Secured Overnight Financing Rate, NY Fed, based on overnight Treasury repo). RFRs by currency: SOFR/USD, ESTR/EUR, SONIA/GBP, SARON/CHF, TONA/JPY. RFRs are overnight, transaction-based, near-risk-free – compounded in arrears for term reference; NOT forward-looking. Legacy contracts auto-fall back via ISDA fallback (RFR + median historical spread).",
     "tags": [
       "derivatives-fx",
       "bank-regulation"
@@ -2529,7 +2529,7 @@
   {
     "id": "fc-default-waterfall",
     "tier": "nice",
-    "triage_reason": "CCP waterfall — lecture 9 only",
+    "triage_reason": "CCP waterfall – lecture 9 only",
     "front": "CCP default management waterfall",
     "back": "Loss-absorption order when a clearing member defaults: (1) defaulter's IM → (2) defaulter's DF contribution → (3) CCP's own Skin-in-the-Game (small %) → (4) surviving members' DF (mutualised) → (5) cash calls (capped) → (6) VM haircuts / partial tear-up. Designed so CCP insolvency is extremely unlikely while limiting member exposure.",
     "tags": [
@@ -2541,8 +2541,8 @@
   {
     "id": "fc-dora",
     "tier": "drop",
-    "triage_reason": "DORA — not in summary, not tested",
-    "front": "DORA — Digital Operational Resilience Act",
+    "triage_reason": "DORA – not in summary, not tested",
+    "front": "DORA – Digital Operational Resilience Act",
     "back": "EU Reg 2022/2554, applicable from 17 January 2025. Imposes ICT risk management, mandatory incident reporting, threat-led penetration testing (TLPT) for significant entities, and direct oversight of critical cloud / IT third parties. Covers all EU financial entities. Response to cyber risk and cloud concentration.",
     "tags": [
       "bank-regulation"

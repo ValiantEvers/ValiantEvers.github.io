@@ -1,4 +1,4 @@
-// inactivity-popup.js — shows a nudge after 30 min of inactivity on /examprep
+// inactivity-popup.js – shows a nudge after 30 min of inactivity on /examprep
 (function () {
   'use strict';
 
@@ -10,7 +10,7 @@
   const COOLDOWN_MS = DEBUG ? 15_000 : 30 * 60 * 1000;
   const log         = DEBUG ? (...a) => console.log('[inactivity-popup]', ...a) : () => {};
 
-  log('initialised — timeout:', TIMEOUT_MS + 'ms  cooldown:', COOLDOWN_MS + 'ms');
+  log('initialised – timeout:', TIMEOUT_MS + 'ms  cooldown:', COOLDOWN_MS + 'ms');
 
   let timer     = null;
   let tabHidden = false;
@@ -28,7 +28,7 @@
     const cooldownUntil = Number(localStorage.getItem('examprep_popup_cooldown_until') || 0);
     if (Date.now() < cooldownUntil) {
       const remaining = cooldownUntil - Date.now();
-      log('cooldown active — retrying in', Math.round(remaining / 1000) + 's');
+      log('cooldown active – retrying in', Math.round(remaining / 1000) + 's');
       timer = setTimeout(maybeShow, remaining + 200); // +200ms margin
       return;
     }
@@ -88,7 +88,7 @@
   function hidePopup() {
     const until = Date.now() + COOLDOWN_MS;
     localStorage.setItem('examprep_popup_cooldown_until', String(until));
-    log('dismissed — cooldown until', new Date(until).toLocaleTimeString());
+    log('dismissed – cooldown until', new Date(until).toLocaleTimeString());
     removePopup();
     // Activity listeners are still live; the next user interaction resets the timer.
   }
@@ -108,10 +108,10 @@
     if (document.hidden) {
       tabHidden = true;
       clearTimeout(timer);
-      log('tab hidden — timer paused');
+      log('tab hidden – timer paused');
     } else {
       tabHidden = false;
-      log('tab visible — timer restarted from 0');
+      log('tab visible – timer restarted from 0');
       resetTimer();
     }
   }
