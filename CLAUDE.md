@@ -10,7 +10,7 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `cv.html` — CV page (single file at root, not a directory)
 - `rekrutterer/index.html` — landing page for recruiters in Wealth Management / Private Banking / Fund Sales (public, indexed)
 - `strategi.html` — private internal job-search strategy tracker (noindex, nofollow — not for public)
-- `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`) with subpage `masteroppgave/` (scrollytelling thesis presentation). Subpage `finansielle-maler/` is UNLISTED as of 2026-07-09: live at its URL but noindex, no gallery card (`synlig:false` in projects.json), no links, not in sitemap — flip `synlig` back and re-add sitemap/section to relaunch. `forretningsenhet-dashboard/` was REMOVED 2026-07-31 (page, screenshot and projects.json entry) because it claimed SQL/SQLite skills that overstate what I can do; the folder is archived outside the repo under `_til sletting/`.
+- `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`). Kortene bakes OGSÅ statisk inn mellom `<!--STATIC-CARDS-->`-markørene av `scripts/build_projects_static.py` (workflow: `update-projects-static.yml`) så galleriet er lesbart for crawlere/AI-screenere uten JS — rediger aldri mellom markørene for hånd, endre `projects.json` og la baken kjøre with subpage `masteroppgave/` (scrollytelling thesis presentation). Subpage `finansielle-maler/` is UNLISTED as of 2026-07-09: live at its URL but noindex, no gallery card (`synlig:false` in projects.json), no links, not in sitemap — flip `synlig` back and re-add sitemap/section to relaunch. `forretningsenhet-dashboard/` was REMOVED 2026-07-31 (page, screenshot and projects.json entry) because it claimed SQL/SQLite skills that overstate what I can do; the folder is archived outside the repo under `_til sletting/`.
 - `aksjeskatt/` — after-tax return comparison depot vs ASK vs holdingselskap; reads pre-computed `aksjeskatt_grid.json` (deterministic tax engine runs offline, not in the browser)
 - `formuessamtalen/` — interaktiv rådgivningsdemo (wealth-management-samtalen: egnethet → kontovalg → møtereferat); reads pre-computed `samtale_grid.json` (same offline skatt-optimizer engine pattern as `aksjeskatt/`, tax math never in the browser). Cream-skin, norsk-only, medieval «prins»-easter-egg
 - `klima/` — climate status/myths page, every number with a source reference
@@ -34,7 +34,28 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - Language support: no, en, fr, de, ja + medieval (easter egg). Strings driven by `data-i` attributes + JS dictionary.
   BESLUTTET 2026-07-04: dette 5-språksettet (med ja, uten es/nl) er det BEVISSTE valget for
   index.html og cv.html — ikke forsømt rydding. Ikke legg til es/nl uten eksplisitt ønske.
+  **FRYST 2026-08-14 (supersederer over):** fr/de/ja er frosset — knappene er fjernet fra
+  språkmenyene og lagret `ve-lang` faller tilbake til no, men ordbøkene BESTÅR i koden for
+  reversibilitet. Nytt/endret innhold vedlikeholdes kun i **no + en (+ medieval)** — ikke
+  oppdater fr/de/ja-strenger, og ikke re-eksponer knappene uten eksplisitt ønske.
+  Bakgrunn: hver tekstendring kostet 6 redigeringer (motstandsgjennomgang 2026-08-14).
 - Email is JS-rendered from character codes after page load. The HTML source must contain only an empty `<a>` element with an empty `<span>` inside — no plain mailto: href and no visible email text. This pattern bypasses Cloudflare email obfuscation entirely. Apply to every page that exposes the email.
+- Telefonnummeret følger samme mønster (2026-08-14): tomt `<a>` + `<span>`, `tel:`-href og visningstekst bygges fra tegnkoder i `setPhone()` etter load. Aldri `tel:`-href eller nummer i klartekst i HTML-kilden.
+
+## Offentlig repo — hygiene (stående påminnelse fra Valiant, 2026-08-14)
+
+Dette repoet er OFFENTLIG, og commit-historikken kan ikke trekkes tilbake. Motstandsgjennomgangen
+2026-08-14 fant at prep-sidene røpet jobbsøket i sanntid: mappenavnene (`unifor/`, `oslobors/`)
+sa HVOR det ble intervjuet, og commit-meldinger som «personlig quiz (generalprøvens feilsvar som
+distraktorer)» og «nytt passord» sa HVA og NÅR. Reglene for alt lignende i framtiden:
+
+- **Prep-/intervjuinnhold:** nøytrale mappenavn og nøytrale commit-meldinger («prep: oppdatert
+  innhold» — aldri arbeidsgivernavn, aldri intervjudetaljer, aldri passordhint).
+- **Passord:** aldri hentet fra intervjukonteksten (gate, tema, navn) — de eneste som finner
+  sidene er akkurat de som kan gjette slike passord.
+- **Vurder privat repo/Workers** (jobblogg-mønsteret) før neste prep-hub bygges her.
+- strategi.html serverer scoringen (PROFILE/priorityCompanies) i klartekst — dette er en
+  AKSEPTERT risiko (Valiants beslutning 2026-08-14), men ikke utvid hva som ligger der.
 
 ## Easter eggs (DO NOT BREAK)
 Desktop keyboard triggers (ALL gated behind a touch-device check — deliberately do not fire on mobile):
