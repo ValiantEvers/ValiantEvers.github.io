@@ -669,7 +669,7 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <p style="text-align:center;font-size:.72rem;color:rgba(0,18,51,.3);margin-top:1.2rem" data-i="ytSub"></p>
 </div>
 </main>
-<div class="footer"><a href="https://letterboxd.com/valleyalleyg/films/by/entry-rating/" target="_blank" rel="noopener noreferrer" title="Letterboxd" style="text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;color:inherit;opacity:.45;transition:opacity .3s;vertical-align:middle" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.45'"><svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="11" r="5" fill="#00E054" opacity=".85"/><circle cx="11" cy="11" r="5" fill="#40BCF4" opacity=".85"/><circle cx="15.5" cy="11" r="5" fill="#FF8000" opacity=".85"/></svg></a> &copy; 2026 Valiant Evers, Oslo<span style="margin-left:1.2rem;display:inline-flex;align-items:center;gap:1.5rem"><a href="/garmin/" style="text-decoration:none;opacity:.3;transition:opacity .3s;display:inline-flex;align-items:center" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.3'" title="Garmin Løpedata"><svg width="64" height="16" viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="900" fill="#007CC3" letter-spacing="0.2">GARMIN</text></svg></a><a href="/cars/" style="text-decoration:none;font-size:1.05rem;line-height:1;opacity:.35;transition:opacity .3s,transform .3s;display:inline-flex;align-items:center" onmouseover="this.style.opacity='1';this.style.transform='translateX(5px)'" onmouseout="this.style.opacity='.35';this.style.transform='none'" title="Forgasserdalen – et lite bilspill" aria-label="Forgasserdalen – et lite bilspill">🚗</a></span></div>
+<div class="footer"><a href="https://letterboxd.com/valleyalleyg/films/by/entry-rating/" target="_blank" rel="noopener noreferrer" title="Letterboxd" style="text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;color:inherit;opacity:.45;transition:opacity .3s;vertical-align:middle" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.45'"><svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="11" r="5" fill="#00E054" opacity=".85"/><circle cx="11" cy="11" r="5" fill="#40BCF4" opacity=".85"/><circle cx="15.5" cy="11" r="5" fill="#FF8000" opacity=".85"/></svg></a> &copy; 2026 Valiant Evers, Oslo<span style="margin-left:1.2rem;display:inline-flex;align-items:center;gap:1.5rem"><button id="eggBadge" class="egg-badge" hidden aria-haspopup="dialog" aria-expanded="false" title="Påskeegg">🥚 <span id="eggCount"></span></button><a href="/garmin/" style="text-decoration:none;opacity:.3;transition:opacity .3s;display:inline-flex;align-items:center" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.3'" title="Garmin Løpedata"><svg width="64" height="16" viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="900" fill="#007CC3" letter-spacing="0.2">GARMIN</text></svg></a><a href="/cars/" style="text-decoration:none;font-size:1.05rem;line-height:1;opacity:.35;transition:opacity .3s,transform .3s;display:inline-flex;align-items:center" onmouseover="this.style.opacity='1';this.style.transform='translateX(5px)'" onmouseout="this.style.opacity='.35';this.style.transform='none'" title="Forgasserdalen – et lite bilspill" aria-label="Forgasserdalen – et lite bilspill">🚗</a></span></div>
 <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 <div class="page-flash" id="pageFlash"></div>
 <script>console.log('%c👋 Nysgjerrig? Prøv å skrive «prins», «viking» eller «mjød» – eller Konami-koden.','font-size:13px;padding:4px 0');</script>
@@ -1500,6 +1500,78 @@ var obs=new MutationObserver(sync);
 obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 if(document.body)obs.observe(document.body,{attributes:true,attributeFilter:['data-theme']});
 sync();
+})();
+</script>
+
+<!-- ═══ EGG-JEGER (2026-08-14): teller funnede påskeegg med EGNE lyttere — rører aldri trigger-koden. «jobb» telles aldri. Endres et egg: oppdater EGGS/WORDS her. ═══ -->
+<style>
+.egg-badge{background:none;border:none;cursor:pointer;font:inherit;color:inherit;opacity:.45;transition:opacity .2s;padding:0 .3rem}
+.egg-badge:hover{opacity:.9}
+.egg-badge.egg-pulse{animation:eggPulse .5s var(--ease-out)}
+@keyframes eggPulse{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.egg-badge.egg-pulse{animation:none}}
+.egg-pop{position:fixed;right:1rem;bottom:3.4rem;z-index:950;background:var(--card-bg);border:1px solid var(--accent3);border-radius:12px;box-shadow:0 12px 40px rgba(0,18,51,.18);padding:.9rem 1.1rem;max-width:300px;font-size:.8rem;line-height:1.55;text-align:left}
+.egg-pop h4{font-size:.85rem;margin:0 0 .5rem}
+.egg-pop ul{list-style:none;margin:0;padding:0}
+.egg-pop li{margin:.25rem 0;color:var(--muted)}
+.egg-pop li.egg-found{color:var(--text)}
+</style>
+<div id="eggPop" class="egg-pop" hidden role="dialog" aria-label="Egg-jakt"></div>
+<script>
+(function(){
+if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
+var KEY='ve-eggs';
+var EGGS=[
+{id:'prins',name:'Prins Valiant',no:'Oppkalt etter en tegneseriehelt. Skriv tittelen hans.',en:'Named after a comic-strip knight. Type his title.'},
+{id:'run',name:'Løpeturen',no:'Det Strava-kortet sier jeg gjør. På engelsk.',en:'What the Strava card says I do.'},
+{id:'waffle',name:'Vaffelen',no:'Belgisk bakverk. Engelsk eller norsk.',en:'Belgian pastry.'},
+{id:'thesis',name:'Oppgaven',no:'Ett engelsk ord for det jeg leverte i juni 2026.',en:'One English word for what I handed in, June 2026.'},
+{id:'viking',name:'Vikingen',no:'Forfedre med langskip.',en:'Ancestors with longships.'},
+{id:'mjod',name:'Mjøden',no:'Vikingenes drikke.',en:'What the vikings drank. In Norwegian.'},
+{id:'penger',name:'Pengeregnet',no:'Det alt sammen handler om. På norsk.',en:'What it is all about. In Norwegian.'},
+{id:'tangen',name:'Tangen',no:'En viss oljefondssjef. Etternavnet.',en:'A certain sovereign wealth fund CEO. Last name.'},
+{id:'konami',name:'Konami',no:'↑ ↑ ↓ ↓ … du kan resten.',en:'↑ ↑ ↓ ↓ … you know the rest.'}
+];
+var WORDS=[['prince','prins'],['prins','prins'],['waffle','waffle'],['vaffel','waffle'],['thesis','thesis'],['viking','viking'],['mjød','mjod'],['mjod','mjod'],['penger','penger'],['tangen','tangen'],['run','run']];
+var found={};
+try{(JSON.parse(localStorage.getItem(KEY))||[]).forEach(function(i){found[i]=1;});}catch(e){}
+var badge=document.getElementById('eggBadge'),count=document.getElementById('eggCount'),pop=document.getElementById('eggPop');
+if(!badge||!count||!pop)return;
+function n(){var c=0,k;for(k in found)c++;return c;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(Object.keys(found)))}catch(e){}}
+function render(){
+var en=(document.documentElement.lang||'no').indexOf('en')===0;
+var h='<h4>'+(en?'Egg hunt':'Egg-jakt')+' · '+n()+'/'+EGGS.length+'</h4><ul>';
+for(var i=0;i<EGGS.length;i++){var e=EGGS[i];
+h+=found[e.id]?'<li class="egg-found">🥚 '+e.name+'</li>':'<li>❔ '+(en?e.en:e.no)+'</li>';}
+pop.innerHTML=h+'</ul>';
+}
+function update(pulse){
+if(n()<1)return;
+badge.hidden=false;
+count.textContent=n()+'/'+EGGS.length;
+if(pulse){badge.classList.remove('egg-pulse');void badge.offsetWidth;badge.classList.add('egg-pulse');}
+}
+function foundEgg(id){if(found[id])return;found[id]=1;save();update(true);if(!pop.hidden)render();}
+/* medieval-modus = prins-egget, uansett inngang (skriving eller trippelklikk) */
+if(window.MutationObserver){new MutationObserver(function(){if(document.documentElement.getAttribute('data-theme')==='medieval')foundEgg('prins');}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}
+/* ord-eggene: egen rullende buffer, samme deteksjon som triggerne (includes) */
+var b='';
+document.addEventListener('keydown',function(e){
+if(!e.key||e.key.length!==1)return;
+b=(b+e.key.toLowerCase()).slice(-12);
+for(var i=0;i<WORDS.length;i++){if(b.indexOf(WORDS[i][0])!==-1){foundEgg(WORDS[i][1]);b='';break;}}
+});
+/* konami: speiler sekvensen i trigger-koden */
+var seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'],pos=0;
+document.addEventListener('keydown',function(e){
+if(e.key===seq[pos]||(e.key&&e.key.toLowerCase&&e.key.toLowerCase()===seq[pos])){pos++;if(pos===seq.length){pos=0;foundEgg('konami');}}
+else{pos=(e.key===seq[0])?1:0;}
+});
+badge.addEventListener('click',function(ev){ev.stopPropagation();var open=pop.hidden;render();pop.hidden=!open;badge.setAttribute('aria-expanded',open?'true':'false');});
+document.addEventListener('click',function(ev){if(!pop.hidden&&ev.target!==badge&&!pop.contains(ev.target)){pop.hidden=true;badge.setAttribute('aria-expanded','false');}});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&!pop.hidden){pop.hidden=true;badge.setAttribute('aria-expanded','false');badge.focus();}});
+update(false);
 })();
 </script>
 </body>
