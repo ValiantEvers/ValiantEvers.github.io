@@ -76,6 +76,13 @@ Discoverability clues (intentional, keep subtle — added 2026-07-06):
 
 These are personality features, not bugs. If a refactor risks breaking them, ASK before proceeding.
 
+Egg-jegeren (2026-08-14): en diskret 🥚-teller i footeren (`#eggBadge`, localStorage `ve-eggs`)
+som dukker opp først når det FØRSTE egget er funnet, med gåtehint for resten. Den bruker EGNE
+lyttere (egen buffer + egen konami-speiling + MutationObserver på `data-theme` for medieval) og
+rører aldri trigger-koden — men endres/legges det til et egg, MÅ `EGGS`/`WORDS`-listene i
+egg-jeger-scriptet nederst i index.html oppdateres. «jobb»-egget telles ALDRI og skal aldri inn
+i listene (privat). Touch-gates som resten av eggene.
+
 ## Live integrations
 - Strava + Letterboxd via GitHub Actions (separate workflow files)
 - Live finance bar: S&P 500 (Yahoo `^GSPC`), OSEBX (`OSEBX.OL` — NOT `^OSEAX`), EUR/NOK
