@@ -30,11 +30,9 @@ URLMAP = {
     "/osebx/": None,
     "/renteriket/": None,
     "/wc2026/": None,
-    "/examprep/": ["examprep"],
     "/fra-null-til-investor/": ["fra-null-til-investor"],
     "/fra-null-til-investor2/": ["fra-null-til-investor2"],
     "/fra-null-til-investor3/": ["fra-null-til-investor3"],
-    "/garmin/": ["garmin"],
 }
 
 
