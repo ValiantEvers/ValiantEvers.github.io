@@ -1,0 +1,47 @@
+name: Bake static project cards
+
+# /prosjekter rendres av fetch(projects.json) og er dermed tom HTML for
+# crawlere og AI-screenere. Dette bygget baker kortene statisk inn mellom
+# STATIC-CARDS-markoerene ved hver endring av projects.json — samme kilde,
+# null drift; JS-en overskriver ved load. Committer kun ved faktisk diff
+# (egen commit roerer bare prosjekter/index.html; sitemap-workflowen som
+# trigges av html-pushen terminerer alltid). Kun stdlib.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'prosjekter/projects.json'
+      - 'scripts/build_projects_static.py'
+  workflow_dispatch:
+
+jobs:
+  bake:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Bake cards from projects.json
+        run: python scripts/build_projects_static.py
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add prosjekter/index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Bak statiske prosjektkort fra projects.json"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then exit 0; fi
+            echo "Push attempt $attempt rejected — retrying..."
+            sleep 2
+          done
+          echo "Push failed after 3 attempts"
+          exit 1
