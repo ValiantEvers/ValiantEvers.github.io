@@ -227,9 +227,6 @@ table.cmp tbody tr.be-row{background:rgba(0,112,237,.09)}
 <div class="lang-menu" id="langMenu">
 <button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
 <button class="lang-opt" data-lang="en">🇬🇧 English</button>
-<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
-<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
-<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
 </div>
 </div>
 </div>
@@ -508,7 +505,7 @@ function setLang(l){
   try{localStorage.setItem('ve-lang',l)}catch(e){}
 }
 var sv;try{sv=localStorage.getItem('ve-lang')}catch(e){}
-setLang(sv&&T[sv]?sv:'no');
+setLang(sv&&T[sv]&&!{fr:1,de:1,ja:1}[sv]?sv:'no');
 
 var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
 if(savedTheme==='dark'||savedTheme==='medieval'){document.documentElement.setAttribute('data-theme',savedTheme);}

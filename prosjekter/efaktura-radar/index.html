@@ -212,9 +212,6 @@ footer a:hover{color:var(--accent)}
 <div class="lang-menu" id="langMenu">
 <button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
 <button class="lang-opt" data-lang="en">🇬🇧 English</button>
-<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
-<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
-<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
 </div>
 </div>
 </div>
@@ -371,7 +368,7 @@ Previously, ELMA was the only PEPPOL SMP where norwegian organizations were regi
   }
   window.setLang=setLang;
   var sv; try{sv=localStorage.getItem('ve-lang')}catch(e){}
-  setLang(sv && T[sv] ? sv : 'no');
+  setLang(sv && T[sv] && !{fr:1,de:1,ja:1}[sv] ? sv : 'no');
 
   /* -------------- theme ------------------------------------------- */
   var savedTheme; try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}

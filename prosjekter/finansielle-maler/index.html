@@ -214,9 +214,6 @@ section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 
 <div class="lang-menu" id="langMenu">
 <button class="lang-opt active" data-lang="no">🇳🇴 Norsk</button>
 <button class="lang-opt" data-lang="en">🇬🇧 English</button>
-<button class="lang-opt" data-lang="fr">🇫🇷 Français</button>
-<button class="lang-opt" data-lang="de">🇩🇪 Deutsch</button>
-<button class="lang-opt" data-lang="ja">🇯🇵 日本語</button>
 </div>
 </div>
 </div>
@@ -592,7 +589,7 @@ function setLang(l){
 window.setLang=setLang;
 
 var sv;try{sv=localStorage.getItem('ve-lang')}catch(e){}
-setLang(sv&&T[sv]?sv:'no');
+setLang(sv&&T[sv]&&!{fr:1,de:1,ja:1}[sv]?sv:'no');
 
 // Theme
 var savedTheme;try{savedTheme=localStorage.getItem('ve-theme')}catch(e){}
