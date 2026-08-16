@@ -1537,7 +1537,7 @@ var found={};
 try{(JSON.parse(localStorage.getItem(KEY))||[]).forEach(function(i){found[i]=1;});}catch(e){}
 var badge=document.getElementById('eggBadge'),count=document.getElementById('eggCount'),pop=document.getElementById('eggPop');
 if(!badge||!count||!pop)return;
-function n(){var c=0,k;for(k in found)c++;return c;}
+function n(){return Object.keys(found).length;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(Object.keys(found)))}catch(e){}}
 function render(){
 var en=(document.documentElement.lang||'no').indexOf('en')===0;
