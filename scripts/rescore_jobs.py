@@ -52,7 +52,15 @@ GIST_API = "https://api.github.com"
 GIST_FILENAME = "strategi.enc.json"
 
 # Backup goes OUTSIDE the repo (projects/_backups/strategi-gist/), never committed.
-BACKUP_DIR = Path(__file__).resolve().parents[2] / "_backups" / "strategi-gist"
+#
+# STRATEGI_BACKUP_DIR overrides it. That exists for CI: the default is relative to the
+# checkout, so under GitHub Actions the backup landed on the runner and died with it —
+# i.e. the one safety net the --apply path has did not actually exist there. The workflow
+# now points this into the workspace and uploads the directory as an artifact.
+BACKUP_DIR = Path(
+    os.environ.get("STRATEGI_BACKUP_DIR")
+    or Path(__file__).resolve().parents[2] / "_backups" / "strategi-gist"
+)
 
 
 def derive_key(password: str, salt: bytes) -> bytes:
