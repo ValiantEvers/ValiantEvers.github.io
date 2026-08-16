@@ -1059,11 +1059,19 @@ function scoreJob(job){
   PROFILE.titleKeywords.forEach(function(t){
     if(role.indexOf(t.kw)!==-1){ breakdown["tittel: "+t.kw] = t.points; total += t.points; }
   });
-  var locHit = false;
+  // locations: BESTE enkelttreff, aldri summen – en jobb utlyst to steder er ikke dobbelt
+  // så godt plassert. Før: «Oslo og Bærum» fikk 10+8=18 og slo en ren Oslo-jobb. Ties går
+  // til første treff i lista (sortert mest sentral først). Kun vinneren i breakdown, ellers
+  // slutter «Sum:»-linja i score-popoveren å stemme. KEEP IN SYNC med fetch_jobs.py.
+  var locHit = false, bestKw = null, bestPts = 0;
   PROFILE.locations.forEach(function(l){
-    if(loc.indexOf(l.kw)!==-1){ breakdown["sted: "+l.kw] = l.points; total += l.points; locHit = true; }
+    if(loc.indexOf(l.kw)!==-1){
+      locHit = true;
+      if(bestKw === null || l.points > bestPts){ bestKw = l.kw; bestPts = l.points; }
+    }
   });
-  if(!locHit){ breakdown["utenfor Oslo+belte"] = PROFILE.nonOsloPenalty; total += PROFILE.nonOsloPenalty; }
+  if(locHit){ breakdown["sted: "+bestKw] = bestPts; total += bestPts; }
+  else { breakdown["utenfor Oslo+belte"] = PROFILE.nonOsloPenalty; total += PROFILE.nonOsloPenalty; }
   if(job.seniority && PROFILE.seniorityBoost[job.seniority]!==undefined){
     var b = PROFILE.seniorityBoost[job.seniority];
     breakdown["seniority: "+job.seniority] = b; total += b;

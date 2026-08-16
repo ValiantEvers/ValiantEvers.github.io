@@ -666,14 +666,23 @@ def score_job(job: dict) -> dict:
             breakdown[f"tittel: {kw}"] = pts
             total += pts
 
-    # locations: sum all matches; penalty if NO Oslo+belte match (Oslo-fokus)
+    # locations: BEST single match, never the sum — en jobb som er utlyst to steder er ikke
+    # dobbelt så godt plassert. Før: «Oslo og Bærum» fikk 10+8=18 og slo en ren Oslo-jobb.
+    # Ties går til første treff i lista, som er den mest sentrale (lista er sortert slik).
+    # Kun det vinnende treffet legges i breakdown, ellers slutter popoverens «Sum:»-linje
+    # i strategi.html å stemme med scoren. Penalty hvis INGEN Oslo+belte-treff.
     loc_hit = False
+    best_kw = None
+    best_pts = 0
     for kw, pts in PROFILE["locations"]:
         if kw in loc:
-            breakdown[f"sted: {kw}"] = pts
-            total += pts
             loc_hit = True
-    if not loc_hit:
+            if best_kw is None or pts > best_pts:
+                best_kw, best_pts = kw, pts
+    if loc_hit:
+        breakdown[f"sted: {best_kw}"] = best_pts
+        total += best_pts
+    else:
         breakdown["utenfor Oslo+belte"] = PROFILE["nonOsloPenalty"]
         total += PROFILE["nonOsloPenalty"]
 
