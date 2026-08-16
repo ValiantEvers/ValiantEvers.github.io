@@ -8,6 +8,9 @@ overskriver innholdet ved load (grid.innerHTML=\'\'), saa dette er ren
 progressiv forsterkning: samme kilde (projects.json), null drift.
 Kjoeres av .github/workflows/update-projects-static.yml ved push av
 projects.json. Kun stdlib. Deterministisk output (JSON-rekkefoelge).
+
+Baker OGSAA <span class="sub-count"> per seksjon (2026-08-16). Den staar utenfor
+markoerene og var en haandskrevet literal — den sa 9 mens 12 kort ble bakt.
 """
 import json, re, sys
 from html import escape
@@ -34,7 +37,25 @@ def main():
     out = src
     for m in re.finditer(r'<section[^>]*data-kategori="([^"]+)"', src):
         kat = m.group(1)
-        cards = "\n".join(card(p) for p in data if p.get("kategori") == kat)
+        in_kat = [p for p in data if p.get("kategori") == kat]
+        cards = "\n".join(card(p) for p in in_kat)
+
+        # Sub-telleren staar i <div class="sub-header">, altsaa UTENFOR markoerene, og var
+        # derfor en haandskrevet literal som raatnet i stillhet: den sa 9 mens 12 kort ble
+        # bakt (satt i 793da5f 09.07, tre nye verktoey lagt til siden). JS-en overskriver
+        # den ved load, saa feilen var usynlig i nettleseren og synlig for nettopp crawlerne
+        # og AI-screenerne den statiske baken finnes for. Naa avledes den av samme filtrerte
+        # liste som kortene, saa de to kan ikke lenger drifte fra hverandre.
+        sec_ix = out.index(m.group(0))
+        head_end = out.index('<div class="certs-grid">', sec_ix)
+        head, n_sub = re.subn(r'(<span class="sub-count">)\d+(</span>)',
+                              r"\g<1>%d\g<2>" % len(in_kat), out[sec_ix:head_end])
+        if n_sub != 1:
+            print(f'FEIL: forventet noeyaktig EN sub-count i seksjonen "{kat}", fant {n_sub}',
+                  file=sys.stderr)
+            return 1
+        out = out[:sec_ix] + head + out[head_end:]
+
         gi = out.index('<div class="certs-grid">', out.index(m.group(0)))
         gi_end = gi + len('<div class="certs-grid">')
         s_ix = out.find(START, gi_end)
