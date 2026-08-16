@@ -25,9 +25,24 @@ jobs:
           STRATEGI_PASSWORD: ${{ secrets.STRATEGI_PASSWORD }}
           GIST_PAT: ${{ secrets.GIST_PAT }}
           GIST_ID: ${{ secrets.GIST_ID }}
+          # Scriptets default legger backupen to nivåer over checkouten — altså utenfor
+          # workspacet her, der den dør med runneren. Da har --apply ingen angrelogg i det
+          # hele tatt. Pek den inn i workspacet så steget under kan ta vare på den.
+          STRATEGI_BACKUP_DIR: ${{ github.workspace }}/_gist-backup
         run: |
           if [ "${{ inputs.apply }}" = "true" ]; then
             python scripts/rescore_jobs.py --apply
           else
             python scripts/rescore_jobs.py
           fi
+
+      # Kjøres også hvis steget over feilet: backupen tas FØR gist-skrivingen, så den er
+      # mest verdifull nettopp når noe gikk galt etterpå.
+      - name: Ta vare på blob-backupen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strategi-gist-backup-${{ github.run_id }}
+          path: ${{ github.workspace }}/_gist-backup/
+          retention-days: 30
+          if-no-files-found: ignore
