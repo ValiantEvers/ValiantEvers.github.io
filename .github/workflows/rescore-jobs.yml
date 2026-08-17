@@ -40,7 +40,10 @@ jobs:
       # mest verdifull nettopp når noe gikk galt etterpå.
       - name: Ta vare på blob-backupen
         if: always()
-        uses: actions/upload-artifact@v4
+        # v7 kjører på node24 (v4 targeter deprecated node20). Hopp forbi v5: den kjører
+        # fortsatt node20 og ville ikke fjernet annotasjonen. Alle fire inputene under
+        # finnes uendret i v7 — verifisert mot action.yml@v7.
+        uses: actions/upload-artifact@v7
         with:
           name: strategi-gist-backup-${{ github.run_id }}
           path: ${{ github.workspace }}/_gist-backup/
