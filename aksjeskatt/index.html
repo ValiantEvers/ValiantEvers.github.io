@@ -46,6 +46,21 @@
   .notice-tax{background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.35);color:#f7d9a0}
   .notice-illustrative{background:rgba(59,130,246,.07);border-color:rgba(59,130,246,.32);color:#bcd4ff}
   .notice b{color:inherit}
+  /* kostnotat: tredje eksplisitte antakelse, rett etter illustrativ-merknaden */
+  .notice-cost{background:rgba(167,139,250,.07);border-color:rgba(167,139,250,.32);color:#d8ccff}
+  .notice-cost summary{cursor:pointer;list-style:none;display:flex;gap:8px;align-items:baseline}
+  .notice-cost summary::-webkit-details-marker{display:none}
+  .notice-cost summary::before{content:"▸";flex:none;color:var(--violet)}
+  .notice-cost[open] summary::before{content:"▾"}
+  .notice-cost summary:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:6px}
+  .notice-cost .cost-body{margin-top:10px;padding-top:10px;border-top:1px solid rgba(167,139,250,.22)}
+  .notice-cost p{margin:.6em 0}
+  .notice-cost .cost-table{overflow-x:auto;margin:12px 0 2px}
+  .notice-cost table{font-size:.84rem;min-width:340px}
+  .notice-cost th,.notice-cost td{border-bottom-color:rgba(167,139,250,.18)}
+  .notice-cost thead th{color:#b9a8ea}
+  .notice-cost caption{caption-side:bottom;text-align:left;color:var(--text-muted);
+    font-size:.75rem;line-height:1.45;padding-top:8px}
   .provenance{color:var(--text-muted);font-size:.78rem;margin:2px 0 0}
   /* controls */
   .controls{display:grid;grid-template-columns:1fr;gap:14px;background:var(--bg-elevated);
@@ -127,6 +142,57 @@
 
   <div class="notice notice-tax" role="note" id="noticeTax"></div>
   <div class="notice notice-illustrative" role="note" id="noticeIllustrative"></div>
+
+  <details class="notice notice-cost" id="noticeCost">
+    <summary><span><b>Tredje antakelse: handelskostnadene.</b> De er lavt satt her. På det en
+      småsparer faktisk betaler, faller momentumstrategien fra 11,02 til 5,79 prosent i året.</span></summary>
+    <div class="cost-body">
+      <p>Tallene på denne siden regner skatt eksakt, men <b>handelskostnader er en antakelse</b>,
+        og antakelsen er lav. Modellen belaster 5 basispunkter i kurtasje og halve spreaden av
+        10 basispunkter, og den regner kostnaden på halve rundturen. En reell handel har to sider:
+        du selger noe og kjøper noe annet.</p>
+      <p>En norsk småsparer med aksjesparekonto hos Nordnet betaler i praksis mer enn dette: en
+        minstekurtasje i kroner som slår inn på små poster, rundt 0,15 prosent på det som er over
+        minstebeløpet, og et valutapåslag på hver vei når papiret ikke er i kroner.</p>
+      <p>Forskjellen er ikke akademisk. Regnet om på de samme strategiene over tjue år, med én
+        million i startkapital:</p>
+      <div class="cost-table">
+      <table>
+        <caption>Avkastning i året etter skatt på aksjesparekonto, 20 år, 1 000 000 kr i
+          startkapital, 2,5 prosent direkteavkastning, enslig. Scenariene regnes i kroner, så
+          valutapåslaget nevnt over inngår ikke i tallene.</caption>
+        <thead>
+          <tr><th>Kostnadsnivå</th><th>Momentum</th><th>Indeks</th><th>Utbytte</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Modellens nivå i dag</td>
+            <td class="mono">11,02 %</td><td class="mono">8,27 %</td><td class="mono">6,27 %</td></tr>
+          <tr><td>Rundturen belastet begge sider</td>
+            <td class="mono">9,88 %</td><td class="mono">8,27 %</td><td class="mono">6,28 %</td></tr>
+          <tr><td>Nordnet-nivå (0,15 % kurtasje, 0,30 % spread, minstekurtasje)</td>
+            <td class="mono">5,79 %</td><td class="mono">8,26 %</td><td class="mono">6,27 %</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Les de to siste kolonnene først. <b>Indeksstrategien flytter seg ikke</b> – 8,27 mot
+        8,26 prosent. Utbyttestrategien heller ikke: hele bevegelsen der er tre tusendels
+        prosentpoeng, altså mindre enn avrundingen i tabellen. Det er momentumstrategien som faller,
+        fra 11,02 til 5,79 prosent, og den faller fordi den handler mye. Kostnad er en skatt på
+        omløp, og den betales enten resultatet blir godt eller dårlig.</p>
+      <p>Det snur konklusjonen på hodet: på modellens nivå slår momentum indeksstrategien med
+        nesten tre prosentpoeng. På det en småsparer faktisk betaler, taper den med nesten to og
+        et halvt.</p>
+      <p><b>Hvorfor tallene på siden ikke er endret:</b> kostnadsnivået er en antakelse, og hvilken
+        antakelse som er den rette avhenger av hvem du er. Har du store poster, handler sjelden og
+        eier norske papirer, ligger du nærmere det øverste nivået. Handler du månedlig i små
+        poster i utenlandske aksjer, ligger du nærmere det nederste. Siden viser det øverste, og
+        det er derfor det står her hva det betyr.</p>
+      <p>Poenget å ta med seg er uansett det samme, og det gjelder uavhengig av hvilket nivå som er
+        riktig for deg: <b>for en småsparer er det kostnadene, ikke skatten, som spiser en strategi
+        som handler mye.</b> Skatteforskjellen mellom kontotypene er reell og verdt å kjenne. Men
+        den er liten mot det omløpet koster.</p>
+    </div>
+  </details>
   <p class="provenance" id="provenance"></p>
 
   <div id="app" hidden>
