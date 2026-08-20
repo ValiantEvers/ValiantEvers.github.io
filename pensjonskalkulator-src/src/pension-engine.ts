@@ -49,13 +49,32 @@
 
 import { calculatePensionTax, calculateAskTax } from './lib/tax'
 
-// G per 1. mai 2025 = 130 160 kr.
-// Bekreftet fra NAV. Sjekk https://www.nav.no/grunnbelopet for siste verdi.
-export const G_DEFAULT = 130_160
-export const G_DEFAULT_AS_OF = '1. mai 2025'
+// G per 1. mai 2026 = 136 549 kr.
+// Bekreftet fra NAV, lest 2026-08-20. Sjekk https://www.nav.no/grunnbelopet
+// for siste verdi. Oppdateres hvert år etter trygdeoppgjøret i mai.
+export const G_DEFAULT = 136_549
+export const G_DEFAULT_AS_OF = '1. mai 2026'
 
-// Lovlig maks IPS-bidrag per år (per 2026)
-export const IPS_ANNUAL_MAX = 15_000
+// Gjennomsnittlig G per år = 134 419 kr for 2026 (NAV oppgir begge tallene på
+// samme side, lest 2026-08-20). Gjennomsnittet er lavere enn selve G fordi
+// beløpet oppdateres 1. mai og ikke 1. januar.
+//
+// Dette er IKKE det samme tallet som G_DEFAULT, og forskjellen har praktisk
+// betydning: NAV skriver at alderspensjon tjenes opp med 18,1 prosent av
+// inntekt «opp til 7,1 ganger gjennomsnittlig grunnbeløp». Regner man taket av
+// mai-verdien i stedet, blir taket 2 130 kr for høyt i 2026, og opptjeningen
+// for lønn over taket tilsvarende for høy.
+export const G_SNITT_DEFAULT = 134_419
+
+// Forholdet mellom gjennomsnittlig G og G per 1. mai (0,9844 for 2026).
+// Brukes som faktor og ikke som fast tall, slik at en bruker som overstyrer G
+// i skjemaet fortsatt får et gjennomsnitt som følger sin egen verdi.
+export const G_SNITT_FAKTOR = G_SNITT_DEFAULT / G_DEFAULT
+
+// Lovlig maks årlig innbetaling til IPS. 25 000 kr fra og med inntektsåret
+// 2026, hevet fra 15 000 kr som gjaldt til og med 2025 (Skatteetaten, lest
+// 2026-08-19). Sjekk satssiden ved årsskiftet.
+export const IPS_ANNUAL_MAX = 25_000
 
 // 7,1G og 12G er grenser for pensjonsopptjening i folketrygd / tjenestepensjon
 export const G_CAP_LOW = 7.1
@@ -192,7 +211,8 @@ export function calculatePension(inputs: PensionInputs): PensionResult {
     retirementAge + Math.max(otpPayoutYears, ipsPayoutYears, askPayoutYears) + 2
   const totalYears = Math.min(visualizeEndAge - currentAge, 120)
 
-  // IPS er capet på 15 000 kr / år (norske skatteregler)
+  // IPS er capet på IPS_ANNUAL_MAX per år (norske skatteregler). Tallet står
+  // ett sted, i konstanten, så det ikke råtner i en kommentar.
   const ipsAnnualCapped = Math.min(Math.max(0, ipsAnnualContribution), IPS_ANNUAL_MAX)
 
   // Initielle balanser — én per pensjonskilde.
@@ -287,10 +307,17 @@ export function calculatePension(inputs: PensionInputs): PensionResult {
       const salaryThisYear = salaryGross * Math.pow(1 + g, yearsFromNow)
       const G_thisYear = G * Math.pow(1 + g, yearsFromNow)
 
-      const cappedLow = Math.min(salaryThisYear, G_CAP_LOW * G_thisYear)
+      // Opptjeningstakene regnes av GJENNOMSNITTLIG G, ikke av mai-verdien.
+      // NAV: «opp til 7,1 ganger gjennomsnittlig grunnbeløp i folketrygden».
+      // Modellvalg: 12 G-båndet regnes av samme grunnlag som 7,1 G, slik at
+      // båndet mellom dem verken overlapper eller får et hull. Den delen har
+      // ikke sin egen kilde og er en bevisst forenkling.
+      const G_snittThisYear = G_thisYear * G_SNITT_FAKTOR
+
+      const cappedLow = Math.min(salaryThisYear, G_CAP_LOW * G_snittThisYear)
       const cappedHigh = Math.max(
         0,
-        Math.min(salaryThisYear, G_CAP_HIGH * G_thisYear) - G_CAP_LOW * G_thisYear,
+        Math.min(salaryThisYear, G_CAP_HIGH * G_snittThisYear) - G_CAP_LOW * G_snittThisYear,
       )
 
       // Folketrygd: balanse vokser med lønnsvekst, deretter legges årets opptjening til.
