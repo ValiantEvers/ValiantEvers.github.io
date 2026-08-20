@@ -1,5 +1,5 @@
 import type { PensionInputs } from '../pension-engine'
-import { G_CAP_LOW, G_CAP_HIGH, IPS_ANNUAL_MAX, G_DEFAULT_AS_OF } from '../pension-engine'
+import { G_CAP_LOW, G_CAP_HIGH, IPS_ANNUAL_MAX, G_DEFAULT_AS_OF, G_SNITT_FAKTOR } from '../pension-engine'
 import { NumberField, SliderField, ToggleField, sliderFormatters } from './InputControls'
 import { formatKr } from '../lib/format'
 import { fmtAsOf, type MacroData, type MacroSeries } from '../lib/macro'
@@ -15,9 +15,13 @@ export function InputPanel({ inputs, update, macro }: Props) {
   const srcNote = (s?: MacroSeries) =>
     s?.source ? `Kilde: ${s.source} · oppdatert ${fmtAsOf(s.asOf)}` : undefined
   const ipsOver = inputs.ipsAnnualContribution > IPS_ANNUAL_MAX
-  const salaryAbove12G = inputs.salaryGross > G_CAP_HIGH * inputs.G
-  const salaryAbove71G = inputs.salaryGross > G_CAP_LOW * inputs.G
-  const cap71G = G_CAP_LOW * inputs.G
+  // Takene regnes av gjennomsnittlig G, samme grunnlag som motoren bruker.
+  // Brukte panelet mai-verdien, ville varselet slått inn på et annet beløp
+  // enn det beregningen faktisk kapper på.
+  const gSnitt = inputs.G * G_SNITT_FAKTOR
+  const salaryAbove12G = inputs.salaryGross > G_CAP_HIGH * gSnitt
+  const salaryAbove71G = inputs.salaryGross > G_CAP_LOW * gSnitt
+  const cap71G = G_CAP_LOW * gSnitt
 
   return (
     <div className="rounded-3xl bg-white shadow-card p-5 sm:p-8">
@@ -53,7 +57,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
           step={10_000}
           warning={
             salaryAbove12G
-              ? `Lønn over 12 G (${formatKr(G_CAP_HIGH * inputs.G)}) gir ikke mer pensjonsopptjening.`
+              ? `Lønn over 12 G (${formatKr(G_CAP_HIGH * gSnitt)}) gir ikke mer pensjonsopptjening.`
               : undefined
           }
         />
