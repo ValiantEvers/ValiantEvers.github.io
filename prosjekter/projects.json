@@ -79,8 +79,8 @@
       "personlig-økonomi"
     ],
     "opprettet": "2026-06-09",
-    "sist_oppdatert": "2026-06-09",
-    "synlig": true
+    "sist_oppdatert": "2026-08-24",
+    "synlig": false
   },
   {
     "slug": "skatt-mcp",
@@ -175,8 +175,8 @@
       "dashboard"
     ],
     "opprettet": "",
-    "sist_oppdatert": "",
-    "synlig": true
+    "sist_oppdatert": "2026-08-24",
+    "synlig": false
   },
   {
     "slug": "examprep",
