@@ -868,11 +868,13 @@ function haptic(pattern){try{if(navigator.vibrate)navigator.vibrate(pattern||[40
 
 /* ═══ KONAMI CODE – UPGRADED ═══ */
 (function(){
-if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
+/* Ingen touch-gate her: sekvensen krever uansett tastatur, og hybrid-
+   laptoper (Windows m/berøringsskjerm) meldte maxTouchPoints>0 og mistet
+   hele effekten. Fjernet 2026-08-24. */
 var seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 var pos=0;
 document.addEventListener('keydown',function(e){
-if(e.key===seq[pos]||e.key.toLowerCase()===seq[pos]){
+if(e.key===seq[pos]||(e.key&&e.key.toLowerCase&&e.key.toLowerCase()===seq[pos])){
 pos++;
 if(pos===seq.length){
 pos=0;
