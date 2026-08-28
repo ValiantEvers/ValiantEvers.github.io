@@ -14,7 +14,7 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `aksjeskatt/` — after-tax return comparison depot vs ASK vs holdingselskap; reads pre-computed `aksjeskatt_grid.json` (deterministic tax engine runs offline, not in the browser)
 - `formuessamtalen/` — interaktiv rådgivningsdemo (wealth-management-samtalen: egnethet → kontovalg → møtereferat); reads pre-computed `samtale_grid.json` (same offline skatt-optimizer engine pattern as `aksjeskatt/`, tax math never in the browser). Cream-skin, norsk-only, medieval «prins»-easter-egg
 - `klima/` — climate status/myths page, every number with a source reference
-- `leie-eller-eie/` — rent-vs-buy interactive calculator (Chart.js from CDN)
+- `leie-eller-eie/` — rent-vs-buy interactive calculator (Chart.js 4.4.3, self-hosted from `/vendor/`)
 - `nb-watch/` — Norges Bank Watch macro dashboard. DISCONTINUED 2026-07-09: the auto-refresh pipeline (`.github/workflows/refresh-nb-watch-data.yml`) was deleted (restore from git history if ever revived); last data is frozen static. Page is unlisted (noindex, out of sitemap) but stays live at its URL
 - `nb-watch-src/` — frozen source for nb-watch (Vite + React + Tailwind; crawl-blocked in robots.txt)
 - `osebx/` og `wc2026/` — IKKE mapper i dette repoet: egne prosjekt-repoer (ValiantEvers/osebx, ValiantEvers/wc2026) servert under evers.no-stiene via GitHub Pages prosjektside-ruting
@@ -22,11 +22,16 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `pensjonskalkulator/` — bygd output for pensjonskalkulator (generert av GitHub Actions, ikke rediger direkte)
 - `pensjonskalkulator-src/` — kildekode for pensjonskalkulatoren (Vite + React + Tailwind + Recharts). Har egen `CLAUDE.md` (auto-lastes ved arbeid i mappa): modellvalg, årlige konstanter, mirror-synk, deploy
 - `fra-null-til-investor/`, `fra-null-til-investor2/`, `fra-null-til-investor3/` — deliberate 3-part FNTI series (all three stay live — parts, not superseded iterations)
-- `examprep/` — GRA6546 (Financial Institutions and Crises) exam-prep hub: quiz, flashcards, timeline, Cytoscape mind-map, mock exams. React UMD + Babel standalone from CDN, JSX modules in `js/`, no build step
+- `examprep/` — GRA6546 (Financial Institutions and Crises) exam-prep hub: quiz, flashcards, timeline, Cytoscape mind-map, mock exams. React UMD + Babel standalone from `/vendor/`, JSX modules in `js/`, no build step
 - `garmin/` — running dashboard for Garmin data (inline run data, Chart.js trends + Leaflet route map)
 - `jobs/` — meta-refresh redirect stub to `/strategi.html` (noindex; kept so old links don't 404)
 - `travel/` — compressed travel photos used in Leaflet map
 - `.github/workflows/` — Strava + Letterboxd integrations
+- `vendor/` — self-hostede tredjepartsbiblioteker (twemoji, Leaflet, Chart.js ×2, three.js,
+  web-vitals, React/Babel/Cytoscape). Se `vendor/README.md` for proveniens, SRI-bevis og
+  lisenser. **Ingen side skal laste et bibliotek fra en ekstern CDN** — last det ned dit i
+  stedet. Bevisste unntak (kartfliser, egen Worker) er listet i den README-en.
+- `thumbs/` — self-hostede miniatyrbilder for de eksterne videolenkene på forsiden
 
 ## Conventions
 - ALL CSS, JS, HTML stays in single file per page (no extracted .css/.js — this is intentional, not a bug)
