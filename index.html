@@ -54,9 +54,7 @@
 <link rel="preload" href="profile.jpg" as="image">
 <link rel="preload" href="fonts/newsreader-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://finance-proxy.valiantevers1809.workers.dev">
-<link rel="dns-prefetch" href="https://unpkg.com">
 <!-- leaflet css loaded lazily when map is opened -->
 <style>
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -564,7 +562,7 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <section id="om"><div class="section-header"><span class="section-label anim-label" data-i="s1label"></span><h2 class="section-title split-title" data-i="s1title"></h2></div>
 <div class="about-grid">
 <div class="about-card" data-delay="0"><span class="emoji-icon">📊</span><h3 data-i="ab1label"></h3><p data-i="ab1text"></p></div>
-<div class="about-card" data-delay="120"><div class="flag-duo" id="flagDuo"><span class="f1"><img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1f3-1f1f4.svg" alt="🇳🇴" style="width:1.55rem;height:1.55rem;vertical-align:middle"></span><span class="f2"><img src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f1e7-1f1ea.svg" alt="🇧🇪" style="width:1.55rem;height:1.55rem;vertical-align:middle"></span></div><h3 data-i="ab2label"></h3><p data-i="ab2text"></p></div>
+<div class="about-card" data-delay="120"><div class="flag-duo" id="flagDuo"><span class="f1"><img src="/vendor/twemoji/svg/1f1f3-1f1f4.svg" alt="🇳🇴" style="width:1.55rem;height:1.55rem;vertical-align:middle"></span><span class="f2"><img src="/vendor/twemoji/svg/1f1e7-1f1ea.svg" alt="🇧🇪" style="width:1.55rem;height:1.55rem;vertical-align:middle"></span></div><h3 data-i="ab2label"></h3><p data-i="ab2text"></p></div>
 </div></section>
 
 <section id="prosjekter"><div class="section-header"><span class="section-label anim-label" data-i="projLabel"></span><h2 class="section-title split-title" data-i="projTitle"></h2></div>
@@ -655,10 +653,10 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 <div style="max-width:1000px;margin:0 auto;padding:0 2rem 3rem;position:relative;z-index:1">
 <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap">
 <a href="https://www.youtube.com/watch?v=PHe0bXAIuk0" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
-<div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/PHe0bXAIuk0/hqdefault.jpg" alt="Ray Dalio" loading="lazy" decoding="async" width="280" height="158" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
+<div style="position:relative;overflow:hidden"><img src="/thumbs/yt-ray-dalio.jpg" alt="Ray Dalio" loading="lazy" decoding="async" width="280" height="158" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
 <div style="padding:1rem"><p style="font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.82rem;line-height:1.4;margin-bottom:.3rem" data-i="yt1title"></p><p style="font-size:.72rem;color:rgba(0,18,51,.4)">Ray Dalio</p></div></a>
 <a href="https://www.youtube.com/watch?v=WEDIj9JBTC8" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;display:block;width:280px;background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:var(--card-shadow);transition:transform 240ms cubic-bezier(.22,1,.36,1),box-shadow 240ms cubic-bezier(.22,1,.36,1)" onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 44px rgba(0,18,51,.14)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--card-shadow)'">
-<div style="position:relative;overflow:hidden"><img src="https://img.youtube.com/vi/WEDIj9JBTC8/hqdefault.jpg" alt="Bill Ackman" loading="lazy" decoding="async" width="280" height="158" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
+<div style="position:relative;overflow:hidden"><img src="/thumbs/yt-bill-ackman.jpg" alt="Bill Ackman" loading="lazy" decoding="async" width="280" height="158" style="width:100%;height:158px;object-fit:cover;display:block"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.25)"><div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid #fff;margin-left:3px"></div></div></div></div>
 <div style="padding:1rem"><p style="font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.82rem;line-height:1.4;margin-bottom:.3rem" data-i="yt2title"></p><p style="font-size:.72rem;color:rgba(0,18,51,.4)">William Ackman / Big Think</p></div></a>
 </div>
 <p style="text-align:center;font-size:.72rem;color:rgba(0,18,51,.3);margin-top:1.2rem" data-i="ytSub"></p>
@@ -1189,12 +1187,12 @@ if(buf.length>15)buf=buf.slice(-15);
 })();
 </script>
 <!-- leaflet js loaded lazily on map open -->
-<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js" integrity="sha384-o28+zJO3/45GHIy+9TFKGaYnbt0KQcFRzyBrb0WSSrz7bPGwGI1d64worBiXPgXw" crossorigin="anonymous" defer></script>
+<script src="/vendor/twemoji-15.1.0.min.js" defer></script>
 <script>
 var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
 window.addEventListener('load',function(){
 if(!isIOS){
-twemoji.parse(document.body,{folder:'svg',ext:'.svg'});
+twemoji.parse(document.body,{base:'/vendor/twemoji/',folder:'svg',ext:'.svg'});
 }
 /* On iOS: swap hardcoded Twemoji SVGs in flag-duo back to native emoji chars */
 if(isIOS){
@@ -1210,7 +1208,7 @@ if(fd)setInterval(function(){fd.classList.toggle('show-f2')},2200);
 var origSetLang=window.setLang;
 window.setLang=function(l){
 origSetLang(l);
-if(!isIOS)twemoji.parse(document.body,{folder:'svg',ext:'.svg'});
+if(!isIOS)twemoji.parse(document.body,{base:'/vendor/twemoji/',folder:'svg',ext:'.svg'});
 };
 });
 </script>
@@ -1223,12 +1221,10 @@ function loadLeaflet(){
 if(leafletLoading)return leafletLoading;
 leafletLoading=new Promise(function(resolve){
 var css=document.createElement('link');
-css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-css.integrity='sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H';css.crossOrigin='anonymous';
+css.rel='stylesheet';css.href='/vendor/leaflet-1.9.4/leaflet.css';
 document.head.appendChild(css);
 var s=document.createElement('script');
-s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-s.integrity='sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH';s.crossOrigin='anonymous';
+s.src='/vendor/leaflet-1.9.4/leaflet.js';
 s.onload=resolve;
 document.head.appendChild(s);
 });
@@ -1473,7 +1469,7 @@ window.addEventListener('load',function(){setTimeout(setContacts,500)});
 </script>
 <script type="module">
 // web-vitals RUM (P-9) → egen Worker. Personvern: ingen cookies, ingen persistente id, ingen samtykke.
-import {onLCP,onINP,onCLS,onFCP,onTTFB} from 'https://cdn.jsdelivr.net/npm/web-vitals@4.2.4/+esm';
+import {onLCP,onINP,onCLS,onFCP,onTTFB} from '/vendor/web-vitals-4.2.4.js';
 var ENDPOINT='https://finance-proxy.valiantevers1809.workers.dev/vitals';
 function send(m){try{
 var body=JSON.stringify({n:m.name,v:Math.round(m.value*1000)/1000,id:m.id,p:location.pathname,t:m.navigationType});

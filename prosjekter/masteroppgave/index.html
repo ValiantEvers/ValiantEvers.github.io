@@ -713,7 +713,7 @@ main{position:relative;z-index:2}
   "use strict";
   var canvas=document.getElementById('bgfield'); if(!canvas) return;
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var THREE; try{ THREE=await import('https://unpkg.com/three@0.160.0/build/three.module.min.js'); }catch(e){ return; }
+  var THREE; try{ THREE=await import('/vendor/three-0.160.0.module.min.js'); }catch(e){ return; }
   try{
     var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
     renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
