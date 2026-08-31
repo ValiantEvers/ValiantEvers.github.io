@@ -445,8 +445,8 @@ details .course-list li::before{content:''}
 
     <div class="working-item">
       <div class="working-head">
-        <h3><a href="https://www.evers.no/osebx/" target="_blank" rel="noopener">OSEBX Dashboard</a></h3>
-        <span class="status status-active"><span data-i="active">Aktiv</span></span>
+        <h3>OSEBX Dashboard</h3>
+        <span class="status status-done"><span data-i="paused">Pauset</span></span>
       </div>
       <p data-i="osebxDesc">Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.</p>
     </div>
@@ -629,6 +629,7 @@ var T = {
     active: "Aktiv",
     completed: "Fullført",
     wip: "Under arbeid",
+    paused: "Pauset",
     formuesDesc: "Interaktiv demo av rådgivningssamtalen i wealth management: egnethetskartlegging, åpen allokeringsmatrise, kontovalg mellom depot, ASK og eget AS, og en kalibreringstest bygget på masteroppgaven.",
     renterikeDesc: "Spill som lærer bort privatøkonomi fra null, med alle norske satser samlet i én kildeforankret blokk. 1004 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet; mattesjekkene regner fasiten med andre formler enn spillet bruker, og avdekket blant annet at ett oppdrag var matematisk uløselig.",
     personligDesc: "Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.",
@@ -707,6 +708,7 @@ var T = {
     active: "Live",
     completed: "Completed",
     wip: "Work in progress",
+    paused: "Paused",
     formuesDesc: "Interactive demo of the advisory conversation in wealth management: suitability profiling, an open allocation matrix, the choice between a taxable account, an ASK and a personal holding company, and a calibration test built on my master’s thesis.",
     renterikeDesc: "A personal-finance game that teaches from zero, with every Norwegian rate gathered into a single source-referenced block. 1004 automated checks cover the math, the missions, storage and accessibility; the math checks compute the expected answer using different formulas than the game itself – and revealed, among other things, that one mission was mathematically unsolvable.",
     personligDesc: "Interactive learning tool for personal finance aimed at ordinary Norwegians. Three modules: compound interest calculator with crossover visualisation, opportunity cost tool based on streaming subscription costs, and inflation calculator with housing price evolution. Built with React, Recharts and Framer Motion.",
@@ -782,6 +784,7 @@ var T = {
     active: "Actif",
     completed: "Terminé",
     wip: "En cours",
+    paused: "En pause",
     formuesDesc: "Démo interactive de l’entretien de conseil en gestion de patrimoine : profil d’adéquation, matrice d’allocation ouverte, choix entre compte-titres, ASK et société holding personnelle, et un test de calibrage bâti sur le mémoire de master.",
     renterikeDesc: "Jeu de finances personnelles qui part de zéro, avec tous les taux norvégiens réunis dans un seul bloc sourcé. 970 vérifications automatisées couvrent les calculs, les missions, la sauvegarde et l’accessibilité ; celles portant sur les calculs recalculent la réponse attendue avec des formules différentes de celles du jeu – et ont révélé, entre autres, qu’une mission était mathématiquement insoluble.",
     personligDesc: "Outil d'apprentissage interactif des finances personnelles destiné au grand public norvégien. Trois modules : calculateur d'intérêts composés avec visualisation du croisement, outil de coût d'opportunité basé sur les abonnements de streaming, et calculateur d'inflation avec évolution des prix immobiliers. Construit avec React, Recharts et Framer Motion.",
@@ -857,6 +860,7 @@ var T = {
     active: "Aktiv",
     completed: "Abgeschlossen",
     wip: "In Arbeit",
+    paused: "Pausiert",
     formuesDesc: "Interaktive Demo des Beratungsgesprächs im Wealth Management: Eignungsprofil, offene Allokationsmatrix, Kontowahl zwischen Depot, ASK und eigener Holding sowie ein Kalibrierungstest auf Basis der Masterarbeit.",
     renterikeDesc: "Ein Privatfinanz-Spiel, das bei null beginnt – mit allen norwegischen Sätzen in einem einzigen quellenbelegten Block. 970 automatisierte Prüfungen decken Rechenlogik, Aufgaben, Speicherung und Barrierefreiheit ab; die Rechenprüfungen berechnen das erwartete Ergebnis mit anderen Formeln als das Spiel selbst und deckten unter anderem auf, dass eine Aufgabe mathematisch unlösbar war.",
     personligDesc: "Interaktives Lerntool für persönliche Finanzen für den durchschnittlichen Norweger. Drei Module: Zinseszinsrechner mit Crossover-Visualisierung, Opportunitätskostentool basierend auf Streaming-Abonnements und Inflationsrechner mit Immobilienpreisentwicklung. Gebaut mit React, Recharts und Framer Motion.",
@@ -932,6 +936,7 @@ var T = {
     active: "稼働中",
     completed: "完了",
     wip: "開発中",
+    paused: "休止中",
     formuesDesc: "ウェルスマネジメントにおける顧客面談のインタラクティブなデモ。適合性プロファイリング、開かれた資産配分マトリクス、課税口座・ASK・個人持株会社の選択、そして修士論文に基づくキャリブレーションテスト。",
     renterikeDesc: "ゼロから学べるパーソナルファイナンスのゲーム。ノルウェーの全料率を出典付きの単一ブロックに集約。970件の自動検証が計算・課題・保存・アクセシビリティを網羅し、うち計算検証はゲーム本体とは別の式で正解を算出して、ある課題が数学的に解けないことなどを発見した。",
     personligDesc: "一般のノルウェー人を対象としたパーソナルファイナンスのインタラクティブな学習ツール。3つのモジュール:クロスオーバー可視化付きの複利計算機、ストリーミング購読料に基づく機会費用ツール、住宅価格推移を含むインフレ計算機。React、Recharts、Framer Motionで構築。",
