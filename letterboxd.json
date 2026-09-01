@@ -1,5 +1,19 @@
 [
   {
+    "title": "Spider-Man: Brand New Day",
+    "year": "2026",
+    "rating": 3.0,
+    "poster": "https://a.ltrbxd.com/resized/film-poster/8/7/2/8/7/1/872871-spider-man-brand-new-day-0-600-0-900-crop.jpg?v=ebe6beb4fc",
+    "url": "https://letterboxd.com/valleyalleyg/film/spider-man-brand-new-day/"
+  },
+  {
+    "title": "Good Luck, Have Fun, Don't Die",
+    "year": "2025",
+    "rating": 3.0,
+    "poster": "https://a.ltrbxd.com/resized/film-poster/1/0/0/9/2/3/7/1009237-good-luck-have-fun-dont-die-0-600-0-900-crop.jpg?v=be79007f48",
+    "url": "https://letterboxd.com/valleyalleyg/film/good-luck-have-fun-dont-die/"
+  },
+  {
     "title": "The Beach",
     "year": "2000",
     "rating": 3.5,
@@ -12,19 +26,5 @@
     "rating": 2.0,
     "poster": "https://a.ltrbxd.com/resized/film-poster/8/5/4/8/3/1/854831-the-invite-2026-0-600-0-900-crop.jpg?v=ee72905e48",
     "url": "https://letterboxd.com/valleyalleyg/film/the-invite-2026/"
-  },
-  {
-    "title": "The Odyssey",
-    "year": "2026",
-    "rating": 4.0,
-    "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/5/5/3/9/4/1255394-the-odyssey-2026-0-600-0-900-crop.jpg?v=1eed046d0c",
-    "url": "https://letterboxd.com/valleyalleyg/film/the-odyssey-2026/"
-  },
-  {
-    "title": "The Mandalorian and Grogu",
-    "year": "2026",
-    "rating": 3.0,
-    "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/1/1/0/7/3/1111073-star-wars-the-mandalorian-and-grogu-0-600-0-900-crop.jpg?v=5da24e2cba",
-    "url": "https://letterboxd.com/valleyalleyg/film/the-mandalorian-and-grogu/"
   }
 ]
