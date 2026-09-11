@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0  # scriptet trenger full historikk for per-fil-datoer
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.14'
       - name: Update lastmod from git history
         run: python scripts/update_sitemap.py
       - name: Commit and push if changed
