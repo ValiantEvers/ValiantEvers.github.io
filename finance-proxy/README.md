@@ -69,3 +69,52 @@ curl -s "https://api.cloudflare.com/client/v4/accounts/<ACCOUNT_ID>/analytics_en
 
 API-token trenger «Account Analytics Read». `<ACCOUNT_ID>` finnes i Cloudflare-dashbordet
 eller via `npx wrangler whoami`.
+
+## Besøksmåler (`POST /hit` + `GET /stats`) — 2026-10-03
+
+Cookiefri sidevisningsmåler for evers.no, kun for eget bruk. Et lite inline-script
+(markert `<!-- besøksmåler -->`) før `</body>` på de offentlige sidene sender én
+`sendBeacon` per sidevisning til `/hit`, som skriver til Analytics Engine
+(`HITS`-binding → datasett `evers_hits`).
+
+**Personvern:** ingen cookies, ingen IP, ingen id — samme mønster som `/vitals`.
+Lagres: sidesti, referrer-**vert** (aldri full URL), valgfri `?ref=`-kilde, land
+(fra Cloudflare), enhetsklasse (mobil/desktop) og om visningen er en inngang (tom
+eller ekstern referrer). Boter (UA-mønster) og `navigator.webdriver` telles ikke.
+CORS/Origin låst til evers.no.
+
+**Egen trafikk:** åpne `https://www.evers.no/?nostats` én gang i hver nettleser du
+bruker (lagres i localStorage `ve-nostats`). `?stats=on` slår måling på igjen.
+
+**Merkede lenker:** `evers.no/?ref=linkedin` → vises under «?ref=-kilder».
+
+**404-er:** `404.html` sender stien med prefikset `404:` — døde lenker dukker opp
+i sidelista.
+
+### Oppsett (én gang)
+
+```bash
+cd finance-proxy
+npx wrangler whoami                       # viser Account ID
+npx wrangler secret put CF_ACCOUNT_ID     # lim inn Account ID
+npx wrangler secret put CF_API_TOKEN      # API-token med «Account Analytics Read»
+npx wrangler secret put STATS_KEY         # lang tilfeldig streng, f.eks. fra: openssl rand -hex 24
+npx wrangler deploy                       # oppretter evers_hits ved første write
+```
+
+API-tokenet lages i Cloudflare-dashbordet → My Profile → API Tokens → Create
+Token → Custom → Permissions: *Account · Account Analytics · Read*.
+
+### Lese tallene
+
+`https://finance-proxy.valiantevers1809.workers.dev/stats?k=<STATS_KEY>` (bokmerk).
+`&d=7|30|90` velger periode. Feil/manglende nøkkel gir 404. Siden viser besøk og
+sidevisninger per dag, sider, referrere (kun innganger), `?ref=`-kilder, land og
+enhet — pluss en **baseline** fra web-vitals-datasettet: antall TTFB-målinger per
+dag på forsiden de siste 90 dagene, som grovt mål på forsidetrafikk fra før
+måleren fantes. Dager er i UTC.
+
+```
+POST /hit    body (text/plain JSON): {"p":"/prosjekter/","r":"linkedin.com","e":1,"s":"linkedin"}
+→ 204   (400 ugyldig sti · 403 feil origin · 405 ikke-POST · 413 for stor)
+```

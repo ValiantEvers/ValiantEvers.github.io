@@ -90,6 +90,7 @@ i listene (privat). Touch-gates som resten av eggene.
 
 ## Live integrations
 - Strava + Letterboxd via GitHub Actions (separate workflow files)
+- Besøksmåler (2026-10-03): inline-script markert `<!-- besøksmåler -->` før `</body>` på de offentlige sidene → `finance-proxy` `/hit` (Analytics Engine `evers_hits`); privat oversikt på `/stats?k=…`. Ny offentlig side: kopier snippeten. Detaljer og personvern: `finance-proxy/README.md`
 - Live finance bar: S&P 500 (Yahoo `^GSPC`), OSEBX (`OSEBX.OL` — NOT `^OSEAX`), EUR/NOK
 - Leaflet travel map with markers from compressed `/travel/` images
 
