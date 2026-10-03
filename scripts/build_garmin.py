@@ -97,6 +97,17 @@ def map_activity(a: dict) -> dict | None:
     stride = num(a.get("avgStrideLength"))
     gct, power = num(a.get("avgGroundContactTime")), num(a.get("avgPower"))
     tl = num(a.get("activityTrainingLoad"))
+    steps, moving, elev = num(a.get("steps")), num(a.get("movingDuration")), num(a.get("elevationGain"))
+    # Kadens = steg per BEVEGELSEStid. Garmins snitt tar med stopp (en tur med lange pauser
+    # fikk 10,6 spm), og de gamle FIT-baserte tallene utelot stopp. Steg/bevegelsestid er den
+    # nærmeste konsistente definisjonen (diagnose 03.10: 150,2 mot gammel 151,2 og API 147,2).
+    if steps and moving:
+        cadence = round(steps / (moving / 60), 1)
+    else:
+        cadence = r1(num(a.get("averageRunningCadenceInStepsPerMinute")))
+    # Watt fra API-et tar også med stopp. Er under 80 % av tiden bevegelse, er snittet meningsløst.
+    if power is not None and moving and dur and moving / dur < 0.8:
+        power = None
     run = {
         "date": (a.get("startTimeLocal") or "")[:10],
         "name": a.get("activityName") or "Løping",
@@ -106,12 +117,12 @@ def map_activity(a: dict) -> dict | None:
         "pace": round(dur / 60 / km, 3) if dur / 60 / km <= 15 else None,
         "avg_hr": num(a.get("averageHR")),
         "max_hr": num(a.get("maxHR")),
-        "elev_gain": num(a.get("elevationGain")),
+        "elev_gain": float(round(elev)) if elev is not None else None,  # gamle data: hele meter
         "calories": num(a.get("calories")),
         "vo2max": num(a.get("vO2MaxValue")),
         "training_load": round(tl, 1) if tl is not None else None,
         "aerobic_te": num(a.get("aerobicTrainingEffect")),
-        "cadence": r1(num(a.get("averageRunningCadenceInStepsPerMinute"))),
+        "cadence": cadence,
         "location": a.get("locationName"),
         "split_1k": r1(num(a.get("fastestSplit_1000"))),
         "split_mile": r1(num(a.get("fastestSplit_1609"))),
@@ -152,7 +163,7 @@ def garmin_login():
     return g
 
 
-def fetch_runs() -> list[dict]:
+def fetch_runs(raw_out: list | None = None) -> list[dict]:
     g = garmin_login()
     today = dt.date.today().isoformat()
     acts = g.get_activities_by_date(START_DATE, today, activitytype="running", sortorder="asc") or []
@@ -168,6 +179,8 @@ def fetch_runs() -> list[dict]:
         r = map_activity(a)
         if r:
             runs.append(r)
+            if raw_out is not None:
+                raw_out.append((r, a))
     runs.sort(key=lambda r: (r["date"], r["name"]))
     print(f"Garmin: {len(acts)} aktiviteter hentet, {len(runs)} løpeturer fra {START_DATE}.")
     return runs
@@ -198,6 +211,71 @@ def compare_and_merge(old: list[dict], new: list[dict]) -> tuple[list[dict], dic
     report["__par"] = pairs
     merged.sort(key=lambda r: (r["date"], r["name"]))
     return merged, report
+
+
+DIAG_KEYS = ["steps", "movingDuration", "duration", "elapsedDuration", "averageRunningCadenceInStepsPerMinute", "averageDoubleCadence", "averageBikingCadenceInRevPerMinute",
+             "elevationGain", "elevationLoss", "avgPower", "normPower", "maxPower", "differenceBodyBattery",
+             "avgRespirationRate", "minRespirationRate", "maxRespirationRate", "avgGroundContactTime",
+             "avgStrideLength", "avgVerticalOscillation", "avgVerticalRatio", "pr", "hasPersonalRecord",
+             "hrTimeInZone_1", "hrTimeInZone_2", "hrTimeInZone_3", "hrTimeInZone_4", "hrTimeInZone_5"]
+
+
+def diagnose(old: list[dict], pairs_raw: list) -> None:
+    """Skriver _garmin-diag.json i projects-roten: eksempler på avvik + rå API-felt (ingen posisjonsdata)."""
+    out = {"felt": {}, "raa_eksempler": [], "alle_api_nokler": []}
+    by_date = collections.defaultdict(list)
+    for o in old:
+        by_date[o["date"]].append(o)
+    for r, a in pairs_raw:
+        o = next((x for x in by_date.get(r["date"], []) if abs(x["dist_km"] - r["dist_km"]) <= 0.05), None)
+        if not o:
+            continue
+        for k in FIELDS:
+            x, y = o.get(k), r.get(k)
+            if isinstance(x, (int, float)) and isinstance(y, (int, float)) and not isinstance(x, bool) and abs(x - y) > 0.051:
+                f = out["felt"].setdefault(k, {"n": 0, "eksempler": [], "diffs": [], "ratios": []})
+                f["n"] += 1
+                f["diffs"].append(y - x)
+                if x:
+                    f["ratios"].append(y / x)
+                if len(f["eksempler"]) < 6:
+                    f["eksempler"].append({"date": r["date"], "gammel": x, "ny": y})
+            elif (x is None) != (y is None) and k not in ("name", "location"):
+                f = out["felt"].setdefault(k, {"n": 0, "eksempler": [], "diffs": [], "ratios": []})
+                f["n"] += 1
+                if len(f["eksempler"]) < 6:
+                    f["eksempler"].append({"date": r["date"], "gammel": x, "ny": y})
+        if len(out["raa_eksempler"]) < 4 and r["date"] >= "2025-06-01":
+            out["raa_eksempler"].append({"date": r["date"], "gammel": {k: o.get(k) for k in FIELDS if k not in ("name", "location")},
+                                         "api": {k: a.get(k) for k in DIAG_KEYS}})
+    for k, f in out["felt"].items():
+        d, q = f.pop("diffs"), f.pop("ratios")
+        f["snitt_diff"] = round(st.mean(d), 3) if d else None
+        f["median_ratio"] = round(st.median(q), 4) if q else None
+    # Kadens-kandidater: hvilken definisjon matcher de gamle tallene?
+    cand = collections.Counter()
+    npairs = 0
+    for r, a in pairs_raw:
+        o = next((x for x in by_date.get(r["date"], []) if abs(x["dist_km"] - r["dist_km"]) <= 0.05), None)
+        if not o or not o.get("cadence"):
+            continue
+        npairs += 1
+        steps, mov, dur = num(a.get("steps")), num(a.get("movingDuration")), num(a.get("duration"))
+        el = num(a.get("elapsedDuration"))
+        c = {"api_snitt": num(a.get("averageRunningCadenceInStepsPerMinute")),
+             "steg_per_bevegelsestid": steps / (mov / 60) if steps and mov else None,
+             "steg_per_varighet": steps / (dur / 60) if steps and dur else None,
+             "steg_per_total_tid": steps / (el / 60) if steps and el else None}
+        for k, v in c.items():
+            if v is not None and abs(v - o["cadence"]) <= 0.15:
+                cand[k] += 1
+    out["kadens_kandidater"] = {"par_med_kadens": npairs, **cand}
+    if pairs_raw:
+        out["alle_api_nokler"] = sorted(k for k in pairs_raw[-1][1].keys()
+                                        if not re.search(r"(?i)lat|lon|location|owner|user|profile|device|id$|gps|polyline", k))
+    path = ROOT.parent / "_garmin-diag.json"
+    path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"Diagnose skrevet til {path} (ingen posisjonsdata, ingen tokens).")
 
 
 # ── analyser (rekonstruert, se --check) ───────────────────────────────────
@@ -315,11 +393,13 @@ def static_values(runs):
         "elev": f"{int(el['elev_gain'])} M", "elev_sub": f"{no_date(el['date'])} · {el.get('location') or ''}".rstrip(" ·"),
         "best_session": pace_str(b2["pace"]), "best_session_sub": f"{no_date(b2['date'])} · {b2['dist_km']:.2f} km",
         "predict_split": mmss(best_split), "predict_top5": pace_str(top5),
+        "badge": f"{len(runs)} ØKTER · " + f"{round(sum(r['dist_km'] for r in runs)):,}".replace(",", " ") + " KM",
     }
 
 
 STATIC_PATTERNS = [
     # (nøkkel, regex med én gruppe rundt verdien)
+    ("badge", r'<div class="header-badge">([^<]*)<'),
     ("total_km", r'Total distanse</div>\s*<div class="stat-value">([^<]*)<'),
     ("vo2", r'VO₂ Maks</div>\s*<div class="stat-value">([^<]*)<'),
     ("vo2_delta", r'ML/KG/MIN</div>\s*<div class="stat-delta up">([^<]*)<'),
@@ -368,6 +448,7 @@ def main():
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--check", action="store_true", help="bare sammenlign, skriv ingenting")
     g.add_argument("--offline", action="store_true", help="regn på nytt fra dagens RUNS, ingen nett")
+    g.add_argument("--diagnose", action="store_true", help="hent fra Garmin, skriv avviksrapport, endre ingenting")
     ap.add_argument("--force", action="store_true", help="skriv selv om feltmappingen avviker mye")
     args = ap.parse_args()
 
@@ -377,6 +458,11 @@ def main():
 
     if args.check or args.offline:
         runs = [{k: r.get(k) for k in FIELDS} for r in old_runs]
+    elif args.diagnose:
+        raw = []
+        fetch_runs(raw)
+        diagnose(old_runs, raw)
+        return
     else:
         new = fetch_runs()
         runs, rep = compare_and_merge(old_runs, new)
@@ -386,7 +472,10 @@ def main():
         bad = {k: v for k, v in rep.items() if v}
         if bad:
             print("  Felt som avviker på matchede turer:", ", ".join(f"{k}={v}" for k, v in sorted(bad.items())))
-        worst = max(bad.values(), default=0)
+        # Felt som avviker av DEFINISJON (dokumentert i diagnosen 03.10), ikke av feil kobling:
+        # kadens (stopp med/uten), watt (stopp med), kroppsbatteri (±1), pust/GCT/vertikal (avrunding).
+        definitional = {"cadence", "avg_power", "bb_delta", "avg_resp", "avg_gct", "avg_vert_osc", "avg_vert_ratio"}
+        worst = max((v for k, v in bad.items() if k not in definitional), default=0)
         if pairs and worst > 0.1 * pairs and not args.force:
             sys.exit("Over 10 % avvik i minst ett felt — sjekk mappingen før du skriver (eller kjør med --force).")
         print(f"Nye løpeturer: {len(runs) - len(old_runs)} (totalt {len(runs)}, siste {runs[-1]['date']}).")
