@@ -334,24 +334,6 @@ a.cert-link,a.thesis-link{text-decoration:none;color:inherit;display:block}
 
 /* SHARE BUTTON */
 .share-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.1rem;background:var(--card-bg);border:1.5px solid rgba(0,18,51,.1);border-radius:50px;font-size:.8rem;font-weight:600;color:rgba(0,18,51,.55);cursor:pointer;transition:border-color 240ms var(--ease-out),color 240ms var(--ease-out),transform 240ms var(--ease-out),box-shadow 240ms var(--ease-out);font-family:inherit;box-shadow:var(--card-shadow);margin-top:1.2rem}
-/* STRAVA WIDGET */
-.strava-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid rgba(0,18,51,.04);max-width:480px;margin:0 auto 2rem;text-decoration:none;color:inherit;display:block;transition:transform 240ms var(--ease-out),box-shadow 240ms var(--ease-out),border-color 240ms var(--ease-out);position:relative;overflow:hidden}
-.strava-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
-.strava-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#fc5200,#ff7a33);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.strava-title{font-family:var(--font-serif);letter-spacing:-0.02em;font-weight:700;font-size:1rem}
-.strava-date{font-size:.75rem;color:rgba(0,18,51,.4);margin-top:.1rem}
-[data-theme="dark"] .strava-date{color:rgba(225,231,255,.35)}
-[data-theme="medieval"] .strava-date{color:rgba(232,213,181,.4)}
-.strava-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
-.strava-stat{text-align:center}
-.strava-stat-val{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:800;font-size:1.3rem;color:var(--accent);line-height:1.2}
-.strava-stat-label{font-size:.7rem;color:rgba(0,18,51,.4);text-transform:uppercase;letter-spacing:.5px;margin-top:.2rem}
-[data-theme="dark"] .strava-stat-label{color:rgba(225,231,255,.3)}
-[data-theme="medieval"] .strava-stat-label{color:rgba(232,213,181,.35)}
-[data-theme="medieval"] .strava-card:hover{border-color:rgba(196,132,29,.2)}
-.strava-powered{font-size:.65rem;color:rgba(0,18,51,.25);text-align:center;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:.3rem}
-[data-theme="dark"] .strava-powered{color:rgba(225,231,255,.15)}
-.strava-hidden{display:none}
 /* LETTERBOXD WIDGET */
 .lb-card{background:var(--card-bg);border-radius:20px;padding:2rem;box-shadow:var(--card-shadow);border:1px solid rgba(0,18,51,.04);max-width:580px;margin:0 auto;transition:transform 240ms var(--ease-out),box-shadow 240ms var(--ease-out)}
 .lb-header{display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem}
@@ -453,7 +435,6 @@ section{padding:0 1.2rem;max-width:100%}
 .fact-flip .fact-inner{min-height:240px}
 .thesis-body{padding:1.5rem}
 .cv-body{padding:1.2rem}
-.strava-card,.lb-card{padding:1.5rem}
 .btn{padding:.75rem 1.4rem;font-size:.9rem}
 .scroll-top{bottom:1.2rem;right:1.2rem;width:42px;height:42px}
 nav{padding:.7rem 1rem}
@@ -479,7 +460,6 @@ section{padding:0 1rem}
 .timeline{padding-left:2rem}
 .timeline-dot{left:-1.7rem;width:12px;height:12px}
 .live-bar{gap:.5rem;font-size:.55rem}
-.strava-stat-val{font-size:1.05rem}
 }
 
 /* TWEMOJI – consistent emoji cross-platform */
@@ -525,7 +505,6 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 .contact-link:hover{transform:translateY(-5px) scale(1.04) !important}
 .cert-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 16px 40px rgba(0,18,51,.12);border-color:var(--accent)}
 .scroll-top:hover{transform:translateY(-3px) scale(1.08)}
-.strava-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(0,18,51,.12);border-color:rgba(252,82,0,.15)}
 .bk-book:hover{transform:translateY(-2px)}
 .share-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,112,237,.15)}
 .lb-link:hover{opacity:1;transform:scale(1.05)}
@@ -617,20 +596,6 @@ html:not(.js) .hero-img-wrap,html:not(.js) .split-title,html:not(.js) .hero-desc
 </section>
 
 
-<div style="max-width:1000px;margin:0 auto;padding:3rem 2rem 1rem;position:relative;z-index:1">
-<div id="stravaCard" class="strava-card strava-hidden">
-<div class="strava-header">
-<div class="strava-icon">🏃</div>
-<div><div class="strava-title" id="stravaName"></div><div class="strava-date" id="stravaDate"></div></div>
-</div>
-<div class="strava-stats">
-<div class="strava-stat"><div class="strava-stat-val" id="stravaDist"></div><div class="strava-stat-label">km</div></div>
-<div class="strava-stat"><div class="strava-stat-val" id="stravaTime"></div><div class="strava-stat-label" id="stravaTimeLabel" data-i="stravaTimeLabel">tid</div></div>
-<div class="strava-stat"><div class="strava-stat-val" id="stravaPace"></div><div class="strava-stat-label" id="stravaPaceLabel">tempo</div></div>
-</div>
-<div class="strava-powered">Powered by Strava</div>
-</div>
-</div>
 
 <div style="max-width:1000px;margin:0 auto;padding:1.5rem 2rem 1rem;position:relative;z-index:1">
 <div id="booksCard" class="lb-card lb-hidden">
@@ -1249,7 +1214,9 @@ if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();this.cli
 });
 function initMap(){
 var map=L.map('travelMap',{scrollWheelZoom:false}).setView([45,15],3);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'OpenStreetMap, CARTO',maxZoom:19}).addTo(map);
+/* Kartfliser: CARTO krever API-nøkkel fra 23.09.2026 (uten nøkkel: «API KEY REQUIRED»-vannmerke). Gratis ikke-kommersiell nøkkel: carto.com/basemaps/apikey. Tom nøkkel → OpenStreetMap-fliser uten vannmerke. */
+var CARTO_KEY='';
+(CARTO_KEY?L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key='+CARTO_KEY,{attribution:'&copy; OpenStreetMap-bidragsytere, &copy; CARTO',maxZoom:19}):L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap-bidragsytere',maxZoom:19})).addTo(map);
 var icon=L.divIcon({className:'',html:'<div style="width:28px;height:28px;background:#0070ed;border:3px solid #fff;border-radius:50%;box-shadow:0 3px 12px rgba(0,18,51,.3)"></div>',iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-16]});
 var pins=[
 {lat:40.7058,lng:-74.0132,city:'New York',country:'USA',img:'travel/newyork.jpeg'},
@@ -1377,35 +1344,6 @@ setTimeout(function(){btn.innerHTML=(window.T_ACTIVE||{}).shareBtn||'🔗 Del si
 });
 })();
 
-/* ═══ STRAVA WIDGET ═══ */
-(function(){
-var card=document.getElementById('stravaCard');
-if(!card)return;
-var typeIcons={Run:'🏃',Ride:'🚴',Swim:'🏊',Walk:'🚶',Hike:'🥾',WeightTraining:'🏋️',Workout:'💪',Yoga:'🧘'};
-function fmtTime(s){var h=Math.floor(s/3600);var m=Math.floor((s%3600)/60);var sec=s%60;if(h>0)return h+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');return m+':'+String(sec).padStart(2,'0')}
-function fmtPace(kmh){if(!kmh||kmh===0)return '-';var paceMin=60/kmh;var m=Math.floor(paceMin);var s=Math.round((paceMin-m)*60);return m+':'+String(s).padStart(2,'0')}
-function fmtDate(d){var dt=new Date(d);var now=new Date();var diff=Math.floor((now-dt)/(1000*60*60*24));if(diff===0)return 'I dag';if(diff===1)return 'I går';if(diff<7)return diff+' dager siden';return dt.toLocaleDateString('no-NO',{day:'numeric',month:'short'})}
-fetch('strava.json?v='+Date.now())
-.then(function(r){if(!r.ok)throw new Error();return r.json()})
-.then(function(a){
-if(!a||!a.name)return;
-document.getElementById('stravaName').textContent=a.name;
-document.getElementById('stravaDate').textContent=fmtDate(a.start_date);
-document.getElementById('stravaDist').textContent=a.distance.toFixed(1);
-document.getElementById('stravaTime').textContent=fmtTime(a.moving_time);
-var icon=card.querySelector('.strava-icon');
-icon.textContent=typeIcons[a.type]||typeIcons[a.sport_type]||'🏃';
-var isRun=a.type==='Run'||a.sport_type==='Run';
-var isRide=a.type==='Ride'||a.sport_type==='Ride';
-var paceEl=document.getElementById('stravaPace');
-var paceLbl=document.getElementById('stravaPaceLabel');
-if(isRun){paceEl.textContent=fmtPace(a.average_speed);paceLbl.textContent='min/km'}
-else if(isRide){paceEl.textContent=a.average_speed.toFixed(1);paceLbl.textContent='km/t'}
-else{paceEl.textContent=fmtPace(a.average_speed);paceLbl.textContent='min/km'}
-card.classList.remove('strava-hidden');
-}).catch(function(){});
-})();
-
 /* ═══ BOOKSHELF WIDGET ═══ */
 (function(){
 var wrap=document.getElementById('booksCard');
@@ -1518,7 +1456,7 @@ if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
 var KEY='ve-eggs';
 var EGGS=[
 {id:'prins',name:'Prins Valiant',no:'Oppkalt etter en tegneseriehelt. Skriv tittelen hans.',en:'Named after a comic-strip knight. Type his title.'},
-{id:'run',name:'Løpeturen',no:'Det Strava-kortet sier jeg gjør. På engelsk.',en:'What the Strava card says I do.'},
+{id:'run',name:'Løpeturen',no:'Det triatleten gjør mest av. På engelsk.',en:'What the triathlete does most.'},
 {id:'waffle',name:'Vaffelen',no:'Belgisk bakverk. Engelsk eller norsk.',en:'Belgian pastry.'},
 {id:'thesis',name:'Oppgaven',no:'Ett engelsk ord for det jeg leverte i juni 2026.',en:'One English word for what I handed in, June 2026.'},
 {id:'viking',name:'Vikingen',no:'Forfedre med langskip.',en:'Ancestors with longships.'},

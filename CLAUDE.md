@@ -23,10 +23,10 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `pensjonskalkulator-src/` — kildekode for pensjonskalkulatoren (Vite + React + Tailwind + Recharts). Har egen `CLAUDE.md` (auto-lastes ved arbeid i mappa): modellvalg, årlige konstanter, mirror-synk, deploy
 - `fra-null-til-investor/`, `fra-null-til-investor2/`, `fra-null-til-investor3/` — deliberate 3-part FNTI series (all three stay live — parts, not superseded iterations)
 - `examprep/` — GRA6546 (Financial Institutions and Crises) exam-prep hub: quiz, flashcards, timeline, Cytoscape mind-map, mock exams. React UMD + Babel standalone from `/vendor/`, JSX modules in `js/`, no build step
-- `garmin/` — running dashboard for Garmin data (inline run data, Chart.js trends + Leaflet route map)
+- `garmin/` — løpedashbord (inline `RUNS` + `ANALYTICS`, Chart.js). Data bygges av `scripts/build_garmin.py` (Garmin Connect → RUNS, analysene rekonstruert og verifisert med `--check`). **Aldri lat/lon i RUNS** (fjernet 2026-10-03: startpunktene røpet bosted). «Skriftlig analyse»-prosaen har hardkodede tall og skrives om for hånd etter en refresh
 - `jobs/` — meta-refresh redirect stub to `/strategi.html` (noindex; kept so old links don't 404)
 - `travel/` — compressed travel photos used in Leaflet map
-- `.github/workflows/` — Strava + Letterboxd integrations
+- `.github/workflows/` — Letterboxd + makro m.fl. (Strava-integrasjonen fjernet 2026-10-03: Strava-API-et krever nå betalt abonnement)
 - `vendor/` — self-hostede tredjepartsbiblioteker (twemoji, Leaflet, Chart.js ×2, three.js,
   web-vitals, React/Babel/Cytoscape). Se `vendor/README.md` for proveniens, SRI-bevis og
   lisenser. **Ingen side skal laste et bibliotek fra en ekstern CDN** — last det ned dit i
@@ -89,7 +89,7 @@ egg-jeger-scriptet nederst i index.html oppdateres. «jobb»-egget telles ALDRI 
 i listene (privat). Touch-gates som resten av eggene.
 
 ## Live integrations
-- Strava + Letterboxd via GitHub Actions (separate workflow files)
+- Letterboxd via GitHub Actions. Strava FJERNET 2026-10-03 (API-et bak betalingsmur; kort, JS, CSS, workflow og strava.json ut)
 - Besøksmåler (2026-10-03): inline-script markert `<!-- besøksmåler -->` før `</body>` på de offentlige sidene → `finance-proxy` `/hit` (Analytics Engine `evers_hits`); privat oversikt på `/stats?k=…`. Ny offentlig side: kopier snippeten. Detaljer og personvern: `finance-proxy/README.md`
 - Live finance bar: S&P 500 (Yahoo `^GSPC`), OSEBX (`OSEBX.OL` — NOT `^OSEAX`), EUR/NOK
 - Leaflet travel map with markers from compressed `/travel/` images

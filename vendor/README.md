@@ -65,7 +65,7 @@ selv om selve skriptet er lokalt.
 
 | Kall | Hvor | Hvorfor det står |
 |---|---|---|
-| `{s}.basemaps.cartocdn.com` (kartfliser) | `index.html` — reisekartet | Et verdensbasiskart kan ikke pakkes i repoet. Kallet er **lat**: det skjer først når brukeren åpner kartet, ikke ved sidelast. Gjenåpnes hvis kartet fjernes eller byttes til statisk bilde. |
+| `{s}.basemaps.cartocdn.com` (kartfliser, `?key=` fra 2026-10; uten nøkkel: `tile.openstreetmap.org`) | `index.html` — reisekartet | Et verdensbasiskart kan ikke pakkes i repoet. Kallet er **lat**: det skjer først når brukeren åpner kartet, ikke ved sidelast. Gjenåpnes hvis kartet fjernes eller byttes til statisk bilde. |
 | `finance-proxy.valiantevers1809.workers.dev` | `index.html` — børsticker + web-vitals-endepunkt · alle offentlige sider — besøksmåler (`/hit`, fra 2026-10-03) | Egen Cloudflare Worker, ikke tredjepart. Ingen cookies/IP/id lagres. |
 | `api.github.com` | `strategi.html` | Privat, noindex, passordlåst jobbsøk-OS mot egen gist. |
 
