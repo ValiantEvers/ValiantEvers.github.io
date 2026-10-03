@@ -184,6 +184,9 @@ async function stats(request, env) {
     land: top('blob4', '', 10),
     dev: top('blob5', '', 3),
     base: `SELECT ${DAY} AS d, SUM(_sample_interval) AS n FROM evers_web_vitals WHERE timestamp > NOW() - INTERVAL '90' DAY AND index1 = 'TTFB' GROUP BY d ORDER BY d`,
+    // Web-vitals (p75, slik Google vurderer dem): valgt periode og perioden før, for trend.
+    vit: `SELECT index1 AS k, quantileWeighted(0.75, double1, _sample_interval) AS p75, SUM(_sample_interval) AS n FROM evers_web_vitals WHERE ${W} GROUP BY k`,
+    vitPrev: `SELECT index1 AS k, quantileWeighted(0.75, double1, _sample_interval) AS p75, SUM(_sample_interval) AS n FROM evers_web_vitals WHERE timestamp > NOW() - INTERVAL '${days * 2}' DAY AND timestamp <= NOW() - INTERVAL '${days}' DAY GROUP BY k`,
   };
   const keys = Object.keys(Q);
   const res = await Promise.allSettled(keys.map((k) => aeQuery(env, Q[k])));
@@ -215,6 +218,38 @@ async function sameSecret(a, b) {
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const dkey = (d) => String(d).slice(0, 10);
+
+// Googles terskler for «god» / «dårlig» (p75). Verdier i ms, CLS uten enhet.
+const VITAL_INFO = [
+  ['LCP', 'Største innhold synlig', 2500, 4000, 'ms'],
+  ['INP', 'Respons på klikk/trykk', 200, 500, 'ms'],
+  ['CLS', 'Layout-hopp', 0.1, 0.25, ''],
+  ['FCP', 'Første innhold synlig', 1800, 3000, 'ms'],
+  ['TTFB', 'Serverens svartid', 800, 1800, 'ms'],
+];
+function fmtVital(v, unit) {
+  if (v === null || v === undefined || !isFinite(v)) return '–';
+  return unit === 'ms' ? (v >= 1000 ? (v / 1000).toFixed(2) + ' s' : Math.round(v) + ' ms') : v.toFixed(3);
+}
+function renderVitals(now, prev, days) {
+  if (now && now.error) return `<h2>Hastighet (web-vitals)</h2><p class="err">${esc(now.error)}</p>`;
+  const cur = {}, old = {};
+  (Array.isArray(now) ? now : []).forEach((r) => { cur[r.k] = { p: Number(r.p75), n: r.n }; });
+  (Array.isArray(prev) ? prev : []).forEach((r) => { old[r.k] = { p: Number(r.p75), n: r.n }; });
+  const rows = VITAL_INFO.map(([k, label, good, poor, unit]) => {
+    const c = cur[k], o = old[k];
+    if (!c) return `<tr><td><b>${k}</b> <span class="muted">${label}</span></td><td class="n">–</td><td class="muted">ingen data</td><td class="n">0</td><td class="n">${o ? fmtVital(o.p, unit) : '–'}</td></tr>`;
+    const grade = c.p <= good ? ['God', 'ok'] : c.p <= poor ? ['Middels', 'mid'] : ['Dårlig', 'bad'];
+    let trend = '';
+    if (o && isFinite(o.p) && o.p > 0) {
+      const ch = (c.p - o.p) / o.p;
+      if (Math.abs(ch) >= 0.1) trend = ch > 0 ? ' <span class="bad">↑ verre</span>' : ' <span class="ok">↓ bedre</span>';
+    }
+    return `<tr><td><b>${k}</b> <span class="muted">${label}</span></td><td class="n">${fmtVital(c.p, unit)}</td><td><span class="${grade[1]}">${grade[0]}</span>${trend}</td><td class="n">${c.n}</td><td class="n">${o ? fmtVital(o.p, unit) : '–'}</td></tr>`;
+  }).join('');
+  return `<h2>Hastighet (web-vitals, forsiden)</h2><p class="note">75-persentil siste ${days} dager, slik Google måler det. «God»/«Dårlig» følger Googles terskler. Trendpil ved ≥10 % endring mot de ${days} dagene før. Bare forsiden sender målinger.</p>
+<table><tr><td class="muted">Måling</td><td class="n muted">p75</td><td class="muted">Vurdering</td><td class="n muted">Antall</td><td class="n muted">Forrige</td></tr>${rows}</table>`;
+}
 
 function renderStats(R, days, k) {
   const err = (x) => (x && x.error ? `<p class="err">${esc(x.error)}</p>` : '');
@@ -251,6 +286,8 @@ function renderStats(R, days, k) {
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 main{max-width:860px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.4rem;margin:0 0 4px}h2{font-size:1rem;margin:32px 0 8px}
 .muted,.note{color:var(--mu);font-size:.85rem}.err{color:#d33;font-size:.85rem}
+.ok{color:#1a8f4a;font-weight:600}.mid{color:#b7791f;font-weight:600}.bad{color:#d33;font-weight:600}
+@media (prefers-color-scheme:dark){.ok{color:#4ade80}.mid{color:#fbbf24}.bad{color:#f87171}}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}.kpi b{display:block;font-size:1.5rem}
 table{width:100%;border-collapse:collapse;font-size:.88rem}td{padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle;word-break:break-all}
@@ -264,6 +301,7 @@ ${err(R.views)}${err(R.visits)}
 <h2>Per dag</h2><p class="note">Mørk strek = besøk (innganger), lys = sidevisninger.</p><table><tr><td class="d muted">Dato</td><td class="n muted">Besøk</td><td class="n muted">Visn.</td><td></td></tr>${rows}</table>
 <div class="cols"><div><h2>Sider</h2>${table(R.pages, '?', 'Ingen data ennå.')}</div><div><h2>Kom fra</h2><p class="note">Kun innganger. «(direkte)» = ingen referrer — podkastapper, lenker i meldinger og bokmerker havner her.</p>${table(R.refs, '(direkte)', 'Ingen data ennå.')}</div></div>
 <div class="cols"><div><h2>?ref=-kilder</h2>${table(R.srcs, '?', 'Ingen merkede lenker ennå (f.eks. evers.no/?ref=linkedin).')}</div><div><h2>Land</h2>${table(R.land, '(ukjent)', 'Ingen data ennå.')}<h2>Enhet</h2>${table(R.dev, '?', 'Ingen data ennå.')}</div></div>
+${renderVitals(R.vit, R.vitPrev, days)}
 <h2>Baseline: forsideinnlastinger fra web-vitals (90 d)</h2><p class="note">Hver forside-innlasting sender én TTFB-måling — et grovt mål på forsidetrafikk fra før måleren fantes. Kun forsiden.</p>${R.base && R.base.error ? err(R.base) : `<table>${baseRows || '<tr><td class="muted">Ingen data.</td></tr>'}</table>`}
 </main></body></html>`;
 }

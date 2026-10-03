@@ -114,6 +114,10 @@ enhet — pluss en **baseline** fra web-vitals-datasettet: antall TTFB-målinger
 dag på forsiden de siste 90 dagene, som grovt mål på forsidetrafikk fra før
 måleren fantes. Dager er i UTC.
 
+**Hastighet (fra 2026-10-03):** egen seksjon med p75 for LCP, INP, CLS, FCP og TTFB
+fra `evers_web_vitals` for valgt periode, vurdert mot Googles terskler (god/middels/dårlig),
+med trendpil ved ≥10 % endring mot perioden før. Bare forsiden sender web-vitals.
+
 ```
 POST /hit    body (text/plain JSON): {"p":"/prosjekter/","r":"linkedin.com","e":1,"s":"linkedin"}
 → 204   (400 ugyldig sti · 403 feil origin · 405 ikke-POST · 413 for stor)
