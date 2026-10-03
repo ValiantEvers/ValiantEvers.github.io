@@ -1,8 +1,10 @@
 name: Fetch jobs
 
 on:
-  schedule:
-    - cron: "0 4 * * *"  # 04:00 UTC daglig (06:00 norsk sommertid / 05:00 norsk vintertid)
+  # PAUSET 2026-10-03: jobbsøket er over (Euronext fra sept. 2026). Cron slått av,
+  # koden beholdes; manuell kjøring virker fortsatt. Reaktiver ved å fjerne kommentaren.
+  # schedule:
+  #   - cron: "0 4 * * *"  # 04:00 UTC daglig (06:00 norsk sommertid / 05:00 norsk vintertid)
   workflow_dispatch:
 
 jobs:
