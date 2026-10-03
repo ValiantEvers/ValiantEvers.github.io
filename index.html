@@ -1215,7 +1215,7 @@ if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();this.cli
 function initMap(){
 var map=L.map('travelMap',{scrollWheelZoom:false}).setView([45,15],3);
 /* Kartfliser: CARTO krever API-nøkkel fra 23.09.2026 (uten nøkkel: «API KEY REQUIRED»-vannmerke). Gratis ikke-kommersiell nøkkel: carto.com/basemaps/apikey. Tom nøkkel → OpenStreetMap-fliser uten vannmerke. */
-var CARTO_KEY='';
+var CARTO_KEY='cb1_48kx_1_20048285fabb59b8fe82ed0c'; /* begrenset til evers.no via Referer */
 (CARTO_KEY?L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key='+CARTO_KEY,{attribution:'&copy; OpenStreetMap-bidragsytere, &copy; CARTO',maxZoom:19}):L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap-bidragsytere',maxZoom:19})).addTo(map);
 var icon=L.divIcon({className:'',html:'<div style="width:28px;height:28px;background:#0070ed;border:3px solid #fff;border-radius:50%;box-shadow:0 3px 12px rgba(0,18,51,.3)"></div>',iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-16]});
 var pins=[
