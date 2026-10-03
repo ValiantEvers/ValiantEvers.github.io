@@ -10,3 +10,9 @@ workers_dev = true
 [[analytics_engine_datasets]]
 binding = "VITALS"
 dataset = "evers_web_vitals"
+
+# Besøksmåler (2026-10-03): POST /hit → eget datasett. Leses av GET /stats, som krever
+# secrets STATS_KEY, CF_ACCOUNT_ID og CF_API_TOKEN (wrangler secret put …) — se README.
+[[analytics_engine_datasets]]
+binding = "HITS"
+dataset = "evers_hits"

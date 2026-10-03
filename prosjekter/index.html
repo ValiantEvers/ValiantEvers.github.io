@@ -670,5 +670,22 @@ if(document.body)obs.observe(document.body,{attributes:true,attributeFilter:['da
 sync();
 })();
 </script>
+<!-- besøksmåler -->
+<script>
+/* Besøksmåler (2026-10-03) → egen Worker, samme personvernmønster som web-vitals: ingen cookies,
+   ingen id, ingen IP lagres. Egen trafikk: åpne evers.no/?nostats én gang per nettleser
+   (huskes lokalt); ?stats=on slår måling på igjen. Oversikt: finance-proxy /stats (privat). */
+(function(){try{
+var q=location.search,ls=null;try{ls=window.localStorage}catch(e){}
+if(ls){try{if(/[?&]nostats\b/.test(q))ls.setItem('ve-nostats','1');else if(/[?&]stats=on\b/.test(q))ls.removeItem('ve-nostats');if(ls.getItem('ve-nostats'))return}catch(e){}}
+if(navigator.webdriver||!navigator.sendBeacon)return;
+var h=function(x){return x.replace(/^www\./,'')},ref=document.referrer,r='',ext=0;
+if(ref){try{var u=new URL(ref);if(h(u.hostname)!==h(location.hostname)){r=h(u.hostname);ext=1}}catch(e){}}
+var m=q.match(/[?&]ref=([\w-]{1,32})/);
+var b=JSON.stringify({p:''+location.pathname,r:r,e:(!ref||ext)?1:0,s:m?m[1]:''});
+var send=function(){try{navigator.sendBeacon('https://finance-proxy.valiantevers1809.workers.dev/hit',new Blob([b],{type:'text/plain'}))}catch(e){}};
+if(document.prerendering)document.addEventListener('prerenderingchange',send,{once:true});else send();
+}catch(e){}})();
+</script>
 </body>
 </html>
