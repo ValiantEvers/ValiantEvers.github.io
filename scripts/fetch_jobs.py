@@ -1,4 +1,4 @@
-"""Daglig jobb-scraper for strategi.html — 13 kilder (juli 2026).
+"""Daglig jobb-henter for strategi.html — 12 kilder (oktober 2026).
 
 Decrypts the encrypted payload from the private Gist, henter kandidater fra
 alle kildene, dedupes against existing entries (URL mot alt; fingerprint kun
@@ -8,8 +8,6 @@ pushes it back to the Gist. strategi.html picks up the new jobs on next
 unlock via its existing bootstrapSync flow.
 
 Kilder (se ENABLE_-flaggene under):
-  finn        Playwright deep-scrape, 27 queries (query-forhåndsfiltrert,
-              går UTENOM keep_job)
   nav         pam-stilling-feed (requests, cursor i payload.sourceCursors.nav).
               NB: feeden inneholder i praksis IKKE finans/WM-annonser
               (verifisert juli 2026: 18 320 ACTIVE på 16 dager → 6
@@ -22,18 +20,22 @@ Kilder (se ENABLE_-flaggene under):
   danske      Oracle HCM CE REST (findReqs-finder, limit=200)
   nbim        requests+regex på vacancies-siden, Playwright-fallback
   arctic      requests+regex, Playwright-fallback
-Alle unntatt finn går gjennom keep_job (finans/grad/employer-nett + Oslo-gate).
+Alle går gjennom keep_job (finans/grad/employer-nett + Oslo-gate).
+
+finn.no-skrapingen er FJERNET 2026-10-13 (Valiants beslutning): ingen
+finn.no-kall, verken søk eller annonsesider. Ikke gjeninnfør uten eksplisitt
+ønske. Siste versjon med finn ligger i git-historikken.
 
 Telemetri (juli 2026): payload.lastScrape.sources = {kilde: {found, kept,
 new}} der found = RÅTT volum før keep, og payload.sourceHealth = {kilde:
 {consecutiveZeroFound, lastOkAt}}. Fail-loud ETTER push: exit 1 når en
-kilde har vært 0-found FAIL_LOUD_AFTER dager på rad (finn: 1, RSS: 2,
+kilde har vært 0-found FAIL_LOUD_AFTER dager på rad (RSS: 2,
 småfeeds: 5) → GitHub failure-mail. strategi.html viser det samme i
 meta-linjas kilde-helse-popover; email_reminder.py legger ⚠-linje i mailen.
 
 Frist-berikelse (juli 2026): dagens NYE jobber (etter cross-source-dedup,
 før scoring/push) berikes med søknadsfrist fra kildens detaljside/-API der
-lista ikke leverer den (teamtailor/finn/danske/storebrand/nav — se
+lista ikke leverer den (teamtailor/danske/storebrand/nav — se
 enrich_deadlines). Best-effort: feil logges og gir deadline=None, aldri
 kastet kjøring. Telemetri: sources[kilde].enriched = "X/Y" (X fikk frist
 av Y forsøkt).
@@ -67,10 +69,11 @@ import requests
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-# playwright importeres lazy inne i scrape_finn() slik at PROFILE/score_job
-# kan importeres (re-score-migrering, tester) uten at playwright er installert.
+# playwright importeres lazy inne i scraperne (nbim/arctic-fallback, jobindex)
+# slik at PROFILE/score_job kan importeres (re-score-migrering, tester) uten at
+# playwright er installert.
 
-USER_AGENT = "ValiantEvers-strategi-scraper/1.0 (+https://evers.no)"
+USER_AGENT = "strategi-fetch/1.0"
 
 ENABLE_JOBINDEX = False  # dansk Jobindex deaktivert (Oslo-fokus, juni 2026). Sett True for å gjenoppta.
 
@@ -163,39 +166,6 @@ PROFILE = {
     # Oslo rangerer over sammenlignbar ikke-Oslo. KEEP IN SYNC med strategi.html PROFILE.
     "nonOsloPenalty": -60,
 }
-
-QUERIES = [
-    "wealth management",
-    "formuesforvaltning",
-    "formuesforvalter",
-    "private banking",
-    "premium banking",
-    "fund sales",
-    "investeringsrådgiver",
-    "finansrådgiver",
-    "porteføljeforvalter",
-    "fondsforvalter",
-    "kapitalforvaltning",
-    "asset management",
-    "finansanalytiker",
-    # "aksjeanalytiker" droppet juli 2026 — 0 SSR-treff siden mai (verifisert
-    # i Actions-logger 18. mai → 14. juli). Gjeninnfør ved behov.
-    "kunderådgiver bank",
-    "relasjonsleder",
-    "graduate finans",
-    "trainee finans",
-    "nyutdannet finans",
-    "junior rådgiver finans",
-    "private banker",
-    # F5 — utvidet dekning: engelske titler + norske fond/formue-varianter
-    "investment advisor",
-    "client advisor",
-    "relationship manager",
-    "wealth advisor",
-    "fondsrådgiver",
-    "fondsselger",
-    "kunderådgiver formue",
-]
 
 # Danske søkeord for Jobindex.dk (source="jobindex"). Dansk stavemåte avviker
 # fra norsk: "formueforvaltning" (uten -s-), "formuerådgiver", osv. Titler som
@@ -295,165 +265,6 @@ def gist_patch(pat: str, gist_id: str, blob: dict) -> None:
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# finn.no scraper — Playwright headless Chromium (post-2026 Warp redesign)
-#
-# finn.no renders only ~5 job cards server-side; the rest is hydrated
-# client-side and lazy-loaded on scroll, so requests+BeautifulSoup capped
-# at 1–41 jobs/query. This version renders JS, scrolls to trigger
-# lazy-loading, and captures the full result list (5–10x more candidates).
-#
-# Verified DOM (May 2026):
-#   <div class="job-card__body">
-#     <a class="job-card-link" href="https://www.finn.no/job/ad/{id}"
-#        id="card-anchor-{id}">
-#       <span class="inset-0 absolute" aria-hidden="true"></span>
-#       {TITLE}
-#     </a>
-#     <div class="text-caption s-text-subtle"><strong>{COMPANY}</strong></div>
-#     <ul class="job-card__pills">
-#       <li><span class="block truncate">{LOCATION}</span></li>
-#       <li><time dateTime="2026-04-29T17:36:25.000Z">14 dager siden</time></li>
-#     </ul>
-#   </div>
-#
-# `?sort=PUBLISHED_DESC` is the canonical sort param (verified from
-# <select id="search-sorter">). If finn.no serves a captcha/block page,
-# query_selector_all finds nothing and scrape_finn() returns [] — main()
-# records 0 new for that query and continues. Pagination is now handled
-# via scroll-to-load-more, so the old max_pages param is gone.
-# ─────────────────────────────────────────────────────────────────────────
-
-FINN_SEARCH = "https://www.finn.no/job/search"
-CARD_SELECTOR = "a.job-card-link[href*='/job/ad/']"
-
-
-def scrape_finn(query: str, max_jobs: int = 100) -> list:
-    from playwright.sync_api import sync_playwright
-    jobs = []
-    url = f"{FINN_SEARCH}?q={requests.utils.quote(query)}&sort=PUBLISHED_DESC"
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(
-            user_agent=USER_AGENT,
-            viewport={"width": 1280, "height": 800},
-        )
-        page = context.new_page()
-
-        try:
-            page.goto(url, wait_until="networkidle", timeout=30000)
-        except Exception as e:
-            print(f"  goto failed: {e}", file=sys.stderr)
-            browser.close()
-            return []
-
-        # Cookie consent — best effort, ignore if no popup matches
-        for sel in (
-            "button:has-text('Godta alle')",
-            "button:has-text('Godta')",
-            "[id*='cookie'] button",
-        ):
-            try:
-                page.click(sel, timeout=2000)
-                page.wait_for_timeout(500)
-                break
-            except Exception:
-                pass
-
-        # Scroll-to-load-more: stop once the card count stabilises across
-        # 3 attempts or the hard cap is reached.
-        previous = 0
-        stable_attempts = 0
-        for _ in range(20):
-            count = len(page.query_selector_all(CARD_SELECTOR))
-            if count >= max_jobs:
-                break
-            if count == previous:
-                stable_attempts += 1
-                if stable_attempts >= 3:
-                    break  # no more loading
-            else:
-                stable_attempts = 0
-                previous = count
-            page.mouse.wheel(0, 5000)
-            page.wait_for_timeout(1500)
-
-        anchors = page.query_selector_all(CARD_SELECTOR)[:max_jobs]
-        seen_urls = set()
-        for a in anchors:
-            try:
-                href = (a.get_attribute("href") or "").strip()
-                if not href:
-                    continue
-                if not href.startswith("http"):
-                    href = "https://www.finn.no" + href
-                if href in seen_urls:
-                    continue
-                seen_urls.add(href)
-
-                # Title: anchor text minus the absolute-overlay span
-                title = (a.text_content() or "").strip()
-                if not title:
-                    continue
-
-                # Walk up to the card container for company/location/time
-                handle = a.evaluate_handle(
-                    "a => a.closest('.job-card__body')"
-                )
-                card = handle.as_element() if handle else None
-
-                company = ""
-                location = ""
-                posted = None
-                if card:
-                    # Company: <div class="text-caption …"><strong>…</strong>
-                    # No bare-strong fallback on purpose: if this selector
-                    # misses, company comes back empty across the board —
-                    # a loud signal that finn.no's DOM moved, not a silent
-                    # wrong-element grab.
-                    strong = card.query_selector(".text-caption strong")
-                    if strong:
-                        company = (strong.text_content() or "").strip()
-                    # Location: first <li> in <ul class="job-card__pills">
-                    loc = card.query_selector(
-                        "ul.job-card__pills > li:first-child span"
-                    )
-                    if loc:
-                        location = (loc.text_content() or "").strip()
-                    # Posted date: <time dateTime="ISO">
-                    time_el = card.query_selector("time")
-                    if time_el:
-                        dt = (
-                            time_el.get_attribute("datetime")
-                            or time_el.get_attribute("dateTime")
-                            or ""
-                        )
-                        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", dt)
-                        if m:
-                            posted = m.group(0)
-
-                jobs.append({
-                    "role": title,
-                    "company": company,
-                    "location": location,
-                    "url": href,
-                    "posted": posted,
-                    "query": query,
-                })
-            except Exception as e:
-                print(
-                    f"  extract failed for one anchor: {e}", file=sys.stderr
-                )
-                continue
-
-        browser.close()
-
-    # Inter-query throttle — stay polite to finn.no (was per-page before)
-    time.sleep(1.5)
-    return jobs
-
-
-# ─────────────────────────────────────────────────────────────────────────
 # Jobindex.dk scraper — Playwright headless Chromium
 #
 # Jobindex server-renders ~20 result cards per page and paginates the old
@@ -472,7 +283,7 @@ def scrape_finn(query: str, max_jobs: int = 100) -> list:
 #       <span class="jix_robotjob--area">{LOCATION}</span>
 #       <time datetime="2026-05-19">19-05-2026</time>   ← posted (ISO date)
 #
-# Defensive parity with scrape_finn(): if div.jobsearch-result matches nothing
+# Defensive: if div.jobsearch-result matches nothing
 # on page 1 (captcha/block/DOM move), we log and return [] rather than guess a
 # wrong element. Same {role, company, location, url, posted, query} dict shape.
 # ─────────────────────────────────────────────────────────────────────────
@@ -709,9 +520,8 @@ def is_priority_company(company: str) -> bool:
 
 # ─────────────────────────────────────────────────────────────────────────
 # Keep-filter for de brede/arbeidsgiver-kildene (NAV/ATS/NBIM).
-# finn er query-forhåndsfiltrert og går UTENOM dette (beholder alt som før).
 #
-# Behold en jobb hvis: (finans-tittel som finn) ELLER graduate-nett — men for
+# Behold en jobb hvis: finans-tittel ELLER graduate-nett — men for
 # brede NAV gjelder graduate-nettet KUN målbedrift i priorityCompanies-allowlist
 # (ellers fanges hele Oslos graduate-marked). Oslo-avgrensning + negativeKeywords
 # gjenbrukes. «neg and not finance» dropper tech-graduate/lærling-støy, men
@@ -733,7 +543,7 @@ GRADUATE_NET = [
 ]
 
 # Finans-vokabular for keep-filteret — bevisst BREDERE enn PROFILE.titleKeywords
-# (som er SCORING-vokabular). Speiler finn-søkeordene (QUERIES) slik at ekte
+# (som er SCORING-vokabular). Speilet de tidligere finn-søkeordene slik at ekte
 # finansroller fra de ufiltrerte feedene fanges (f.eks. «Formuesforvalter»,
 # «Porteføljeforvalter» — som IKKE er titleKeywords). Påvirker IKKE scoring →
 # ingen parity-krav mot strategi.html.
@@ -772,7 +582,7 @@ def matches_oslo_belt(location: str) -> bool:
 
 
 def keep_job(job: dict, source: str) -> bool:
-    """Keep-filter for brede/arbeidsgiver-kilder. finn kaller IKKE denne."""
+    """Keep-filter for brede/arbeidsgiver-kilder."""
     role = (job.get("role") or "").lower()
     company = job.get("company") or ""
     loc = (job.get("location") or "").strip()
@@ -798,7 +608,7 @@ def keep_job(job: dict, source: str) -> bool:
 # Cursor (siste konsumerte side-id) persisteres i payload.sourceCursors.nav.
 # Første kjøring (cursor None) starter på tuppen — ingen bakover-/dato-seek finnes
 # (verifisert: ?date= ignoreres, ingen prev_url), så 7–14-dagers-backfill er ikke
-# mulig; hullet dekkes av ATS/finn-overlapp. Senere kjøringer re-henter cursor-
+# mulig; hullet dekkes av ATS-overlapp. Senere kjøringer re-henter cursor-
 # siden (kan ha vokst) og følger next_url framover.
 #
 # ToS (arbeidsplassen.nav.no/vilkar-api): kun ACTIVE slippes; deep-link til den
@@ -1522,9 +1332,6 @@ def scrape_arctic() -> list:
 #                23:59:59 +0200»; null når arbeidsgiver ikke satte frist,
 #                enkelte eldre annonser mangler JSON-LD helt). Deler HTML med
 #                lokasjonsberikelsen via _TT_DETAIL_CACHE → ETT kall per jobb.
-#   finn         annonsesiden er SSR: «Søknadsfrist<!-- --> <span class="…
-#                font-bold">2.8.2026</span>»; «Snarest» → ingen dato. Cap
-#                ENRICH_FINN_CAP oppslag/kjøring + throttle. IKKE Playwright.
 #   danske       requisition-detalj m/ fields=ExternalPostedEndDate (lista har
 #                PostingEndDate=None for samtlige — verifisert).
 #   storebrand   CXS-detalj {api_base}{externalPath} → jobPostingInfo.endDate.
@@ -1537,12 +1344,7 @@ def scrape_arctic() -> list:
 #   nbim + SF (nordea/dnb/klp) leverer frist fra lista fra før — uendret.
 # ─────────────────────────────────────────────────────────────────────────
 
-ENRICH_FINN_CAP = 25     # maks finn-detaljoppslag per kjøring
 ENRICH_THROTTLE_S = 0.5  # pause mellom berikelses-oppslag
-
-FINN_DEADLINE_RE = re.compile(
-    r"Søknadsfrist(?:<!--\s*-->)?\s*<span[^>]*>([^<]+)</span>", re.I
-)
 
 
 def _iso_date(s):
@@ -1565,17 +1367,6 @@ def _jobposting_valid_through(html: str):
             if isinstance(block, dict) and block.get("@type") == "JobPosting":
                 return _iso_date(block.get("validThrough"))
     return None
-
-
-def _finn_deadline_from_html(html: str):
-    """SSR-annonsesidens «Søknadsfrist»-celle → ISO-dato («Snarest» o.l. → None)."""
-    m = FINN_DEADLINE_RE.search(html or "")
-    if not m:
-        return None
-    d = re.match(r"(\d{1,2})\.(\d{1,2})\.(\d{4})", m.group(1).strip())
-    if not d:
-        return None
-    return f"{d.group(3)}-{int(d.group(2)):02d}-{int(d.group(1)):02d}"
 
 
 def _oracle_requisition_end_date(rid: str):
@@ -1627,8 +1418,6 @@ def enrich_deadlines(jobs):
     leverer den. Muterer jobs in-place; returnerer telemetri
     {kilde: {"tried": n, "got": n}}. Kaster aldri."""
     stats = {}
-    finn_used = 0
-    finn_capped = 0
     for j in jobs:
         if j.get("deadline"):
             continue
@@ -1639,14 +1428,6 @@ def enrich_deadlines(jobs):
             if src in ("formue", "pareto", "garantum"):
                 html = _tt_detail_html(url, src)
                 deadline = _jobposting_valid_through(html) if html else None
-            elif src == "finn":
-                if finn_used >= ENRICH_FINN_CAP:
-                    finn_capped += 1
-                    continue
-                finn_used += 1
-                r = requests.get(url, headers={"User-Agent": BROWSER_UA}, timeout=30)
-                r.raise_for_status()
-                deadline = _finn_deadline_from_html(r.text)
             elif src == "danske":
                 m = re.search(r"/job/(\d+)$", url)
                 deadline = _oracle_requisition_end_date(m.group(1)) if m else None
@@ -1671,9 +1452,6 @@ def enrich_deadlines(jobs):
             st["got"] += 1
             j["deadline"] = deadline
         time.sleep(ENRICH_THROTTLE_S)
-    if finn_capped:
-        print(f"  frist-berikelse: finn-cap {ENRICH_FINN_CAP} nådd — "
-              f"{finn_capped} annonser ikke slått opp")
     return stats
 
 
@@ -1747,24 +1525,22 @@ def check_watch_pages(prev_hashes):
 
 # ─────────────────────────────────────────────────────────────────────────
 # Cross-source dedup — fingerprint (selskap+tittel+by) på toppen av URL-dedup,
-# så samme jobb fra finn/NAV/ATS ikke vises 2–3×. Kilde-preferanse: direkte
-# arbeidsgiver > nav > finn > arkiv. Konjunktiv match = streng → få falske positiver.
+# så samme jobb fra NAV/ATS ikke vises 2×. Kilde-preferanse: direkte
+# arbeidsgiver > nav > arkiv. Konjunktiv match = streng → få falske positiver.
 # ─────────────────────────────────────────────────────────────────────────
 
 SOURCE_PREF = {
     "nbim": 0, "nordea": 0, "dnb": 0, "formue": 0,  # direkte arbeidsgiver
     "storebrand": 0, "arctic": 0, "pareto": 0,      # direkte arbeidsgiver (nye, juli 2026)
     "klp": 0, "seb": 0, "danske": 0, "garantum": 0,  # direkte arbeidsgiver (juli 2026)
-    "nav": 1, "finn": 2, "jobindex": 3,
+    "nav": 1, "jobindex": 3,
 }
 
 # Fail-loud-terskler (juli 2026): kjøringer på rad med found==0 før exit 1
 # (etter at Gist-payloaden er pushet — alarmen skal aldri koste data).
-# finn: 28 queries sortert PUBLISHED_DESC gir organisk aldri 0 totalt → alarm
-# samme dag (betyr blokk/DOM-brudd/Playwright-havari). Nordea/DNB-RSS har alltid
-# innhold → 2. Småfeeds (formue/pareto/nbim/arctic/storebrand/nav) kan ha
-# organiske 0-dager → default 5.
-FAIL_LOUD_AFTER = {"finn": 1, "nordea": 2, "dnb": 2}
+# Nordea/DNB-RSS har alltid innhold → 2. Småfeeds (formue/pareto/nbim/arctic/
+# storebrand/nav) kan ha organiske 0-dager → default 5.
+FAIL_LOUD_AFTER = {"nordea": 2, "dnb": 2}
 FAIL_LOUD_DEFAULT = 5
 
 
@@ -1955,7 +1731,7 @@ def main():
     # en kilde som kaster exception blir stående på 0 (teller som zero-found).
     scrape_stats = {}
     for src, enabled in (
-        ("finn", True), ("jobindex", ENABLE_JOBINDEX), ("nav", ENABLE_NAV),
+        ("jobindex", ENABLE_JOBINDEX), ("nav", ENABLE_NAV),
         ("nordea", ENABLE_NORDEA), ("dnb", ENABLE_DNB), ("formue", ENABLE_FORMUE),
         ("nbim", ENABLE_NBIM), ("storebrand", ENABLE_STOREBRAND),
         ("arctic", ENABLE_ARCTIC), ("pareto", ENABLE_PARETO),
@@ -1991,11 +1767,9 @@ def main():
         return kept, new
 
     def collect(queries, scraper, source):
-        # Per-query try/except. Uten den drepte ÉN feil hele kjøringen: collect()
-        # kjøres først (finn, linje under), og Playwright-import/launch ligger
-        # utenfor den interne try-en i scrape_finn — en manglende browser-binary
-        # ga FATAL før NAV og alle 12 ATS-kildene var forsøkt. Det er stikk
-        # motsatt av isolasjonsprinsippet kommentaren under beskriver.
+        # Per-query try/except: collect() kjøres først, og Playwright-import/
+        # launch ligger utenfor scraperens interne try — uten denne ga en
+        # manglende browser-binary FATAL før NAV og ATS-kildene var forsøkt.
         for q in queries:
             print(f"Scraping {source} query: {q!r}")
             try:
@@ -2010,13 +1784,12 @@ def main():
             record(source, len(scraped), len(scraped), new)
             print(f"  {len(scraped)} jobber, {new} nye etter dedup")
 
-    # finn er query-forhåndsfiltrert → ingen keep_job. Nye kilder → keep_job.
-    collect(QUERIES, scrape_finn, "finn")
+    # jobindex er query-forhåndsfiltrert → ingen keep_job. Øvrige kilder → keep_job.
     if ENABLE_JOBINDEX:
         collect(DK_QUERIES, scrape_jobindex, "jobindex")
 
-    # Hver ny kilde er isolert: feiler én, logges den og resten + finn fortsetter
-    # (en daglig kjøring skal aldri tape finn-resultatene fordi NAV/ATS er nede).
+    # Hver kilde er isolert: feiler én, logges den og resten fortsetter
+    # (en daglig kjøring skal aldri tape alt fordi én kilde er nede).
     if ENABLE_NAV:
         print("Henter NAV-feed…")
         try:
@@ -2091,7 +1864,7 @@ def main():
     print("Boutique-vakt: sjekker karrieresider…")
     watch_hashes, watch_changed = check_watch_pages(prev_watch)
 
-    all_queries = QUERIES + DK_QUERIES
+    all_queries = DK_QUERIES if ENABLE_JOBINDEX else []
     now_iso = now_utc.isoformat()
 
     new_jobs = []
