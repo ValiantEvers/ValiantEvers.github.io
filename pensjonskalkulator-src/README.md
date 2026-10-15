@@ -45,26 +45,27 @@ De viktigste antakelsene:
   reflektere de-risking. Folketrygd bruker NAVs delingstall som allerede inkluderer en
   indekseringsforutsetning.
 - Privat AFP: forenklet 0,8 × G / 12 livsvarig.
-- G per 1. mai 2025 = 130 160 kr. Oppdater i `pension-engine.ts` ved nye verdier.
+- G per 1. mai 2026 = 136 549 kr. Oppdater i `pension-engine.ts` ved nye verdier.
 - Garantipensjon-floor (`1,9 × G/år`) anvendes på folketrygd-utbetalingen, slik at
   lavinntektsbrukere ikke får underestimert pensjonen. Flagget
   `folketrygdAtGarantipensjonFloor` i resultatet sier om floor'en ble brukt.
 
 ## Skattemodell
 
-Modellen i `src/lib/tax.ts` er kalibrert mot **2025-satser** og dekker:
+Modellen i `src/lib/tax.ts` er kalibrert mot **2026-satser** (inkludert revidert budsjett
+juni 2026, som endret skattefradraget for pensjonsinntekt) og dekker:
 
 - Alminnelig inntekt 22 % på pensjonsinntekt etter minstefradrag og personfradrag
-- Trygdeavgift 5,1 % på pensjon (vs 7,7 % på lønn), med 25 %-opptrappingsregel
+- Trygdeavgift 5,1 % på pensjon (vs 7,6 % på lønn), med 25 %-opptrappingsregel
   rett over nedre grense
-- Trinnskatt (5 brakketter, 1,7–17,7 %)
-- Skattefradrag for pensjonsinntekt (maks 36 000, to-trinns nedtrapping)
+- Trinnskatt (5 brakketter, 1,7–17,8 %)
+- Skattefradrag for pensjonsinntekt (maks 39 100, to-trinns nedtrapping)
 - ASK beskattes separat som aksjegevinst, 37,84 % på gevinst-andelen
 
 Skatten anvendes på **real** (dagens kjøpekraft) pensjonsinntekt, ikke
 nominell. Det forutsetter at skattebraktene justeres med inflasjon i takt
 med pensjonen — en standard antakelse for langsiktig pensjonsmodellering.
-Uten dette ville en pensjon på X real i 2063 blitt beskattet med 2025-brakter
+Uten dette ville en pensjon på X real i 2063 blitt beskattet med 2026-brakter
 på sin nominelle verdi, som ville overestimert skatten dramatisk (bracket creep).
 
 Før produksjon: verifiser mot siste statsbudsjett på

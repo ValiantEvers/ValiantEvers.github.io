@@ -432,8 +432,8 @@ export function calculatePension(inputs: PensionInputs): PensionResult {
 
   // Skatt anvendes i REALKRONER (dagens kjøpekraft). Forutsetning: norske
   // skattebrakter justeres årlig med inflasjon, slik at en pensjon på X real
-  // i 2063 beskattes som en pensjon på X i 2025. Dette er den korrekte
-  // modelleringen — å anvende 2025-brakter på 2063-nominell inntekt ville
+  // i 2063 beskattes som en pensjon på X i 2026. Dette er den korrekte
+  // modelleringen — å anvende 2026-brakter på 2063-nominell inntekt ville
   // dramatisk overestimere skatten (bracket creep).
   const monthlyFolketrygdRealForTax = deflate(monthlyFolketrygd)
   const monthlyOtpRealForTax = deflate(monthlyOtp)

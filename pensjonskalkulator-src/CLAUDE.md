@@ -37,7 +37,7 @@ gangs deploy ble committet manuelt i workflow-commiten.
 - **Real/nominell-konvensjon**: All compounding internt skjer i nominelle
   kroner. Deflatering til realkroner kun for visning og for skatteberegning.
 - **Skatt anvendes på REAL inntekt** (ikke nominell). Forutsetter at
-  skattebrakter justeres med inflasjon over tid. Å anvende 2025-brakter på
+  skattebrakter justeres med inflasjon over tid. Å anvende 2026-brakter på
   2063-nominell inntekt ville dramatisk overestimere skatten (bracket creep).
 - **Hybrid annuitet**:
   - Folketrygd: naiv `balanse / delingstall / 12` (delingstall har innebakt
@@ -56,13 +56,14 @@ gangs deploy ble committet manuelt i workflow-commiten.
 ## Konstanter som må vedlikeholdes årlig
 - `G_DEFAULT` i `src/pension-engine.ts` (mai-justert hvert år)
 - Skattekonstanter i `src/lib/tax.ts` (oppdateres med nytt statsbudsjett
-  vedtatt i desember)
+  vedtatt i desember, og sjekk revidert budsjett i juni — det endret
+  pensjonsfradraget i 2026)
 - Standard delingstall (per kohort — endrer seg langsomt med
   levetidsprognoser)
 
 ## Viktige filer
 - `src/pension-engine.ts` — all matematikk, isolert testbar
-- `src/lib/tax.ts` — norsk skattemodell (2025-satser)
+- `src/lib/tax.ts` — norsk skattemodell (2026-satser)
 - `src/lib/useUrlState.ts` — URL-state sync (delbarhet)
 - `src/sanity-test.mjs` — kjør `node src/sanity-test.mjs` for å verifisere
   at modellen ikke er regrert. Forventet output: brutto 24–34k, netto 22–30k
