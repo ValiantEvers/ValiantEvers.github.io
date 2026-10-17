@@ -8,7 +8,7 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `profile.jpg`, `og-image.png`, `favicon.svg` — assets in root
 - `CNAME` — points to evers.no (do not delete or modify)
 - `cv.html` — CV page (single file at root, not a directory)
-- `rekrutterer/index.html` — landing page for recruiters in Wealth Management / Private Banking / Fund Sales (public, indexed)
+- `rekrutterer/index.html` — meta-refresh stub to `/cv` (noindex). The recruiter landing page was retired 2026-08-24 after the Euronext signing; kept so old links don't 404
 - `strategi.html` — private internal job-search strategy tracker (noindex, nofollow — not for public)
 - `prosjekter/` — project gallery (`index.html` + `projects.json` + `screenshots/`). Kortene bakes OGSÅ statisk inn mellom `<!--STATIC-CARDS-->`-markørene av `scripts/build_projects_static.py` (workflow: `update-projects-static.yml`) så galleriet er lesbart for crawlere/AI-screenere uten JS — rediger aldri mellom markørene for hånd, endre `projects.json` og la baken kjøre with subpage `masteroppgave/` (scrollytelling thesis presentation). Subpage `finansielle-maler/` is UNLISTED as of 2026-07-09: live at its URL but noindex, no gallery card (`synlig:false` in projects.json), no links, not in sitemap — flip `synlig` back and re-add sitemap/section to relaunch. `forretningsenhet-dashboard/` was REMOVED 2026-07-31 (page, screenshot and projects.json entry) because it claimed SQL/SQLite skills that overstate what I can do; the folder is archived outside the repo under `_til sletting/`.
 - `aksjeskatt/` — after-tax return comparison depot vs ASK vs holdingselskap; reads pre-computed `aksjeskatt_grid.json` (deterministic tax engine runs offline, not in the browser)

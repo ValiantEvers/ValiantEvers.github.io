@@ -37,7 +37,8 @@
   "@type": "Person",
   "name": "Valiant Evers",
   "url": "https://www.evers.no",
-  "jobTitle": "MSc Finance graduate",
+  "jobTitle": "Client Services Manager",
+  "worksFor": { "@type": "Organization", "name": "Euronext Securities Oslo" },
   "alumniOf": { "@type": "CollegeOrUniversity", "name": "BI Norwegian Business School" },
   "address": { "@type": "PostalAddress", "addressLocality": "Oslo", "addressCountry": "NO" },
   "sameAs": [
@@ -1334,7 +1335,7 @@ if(!btn)return;
 btn.addEventListener('click',function(){
 var d=window.T_ACTIVE||{};
 if(navigator.share){
-navigator.share({title:'Valiant Evers',text:d.shareText||'MSc Finance ved BI – rolle tett på klienten innen Wealth Management og Private Banking',url:window.location.href}).catch(function(){});
+navigator.share({title:'Valiant Evers',text:d.shareText||'MSc i finans (BI) og Client Services Manager i Euronext Securities Oslo – egenbygde finansverktøy på evers.no',url:window.location.href}).catch(function(){});
 }else{
 navigator.clipboard.writeText(window.location.href).then(function(){
 btn.textContent=d.shareCopied||'✅ Lenke kopiert!';

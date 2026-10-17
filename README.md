@@ -1,9 +1,9 @@
 # evers.no
 
 Min personlige finans- og karriereside — live på **[evers.no](https://www.evers.no)**.
-MSc Finance @ BI Norwegian Business School, Oslo. Søker en klient-nær rolle der finansiell kompetanse møter relasjonsbygging — Wealth Management, Private Banking, Fund Sales.
+MSc Finance @ BI Norwegian Business School, Oslo. Client Services Manager i Euronext Securities Oslo siden september 2026.
 
-*Personal finance & career site — live at [evers.no](https://www.evers.no). MSc Finance candidate at BI Norwegian Business School, Oslo.*
+*Personal finance & career site — live at [evers.no](https://www.evers.no). MSc Finance (BI Norwegian Business School), Client Services Manager at Euronext Securities Oslo.*
 
 ## Hva er dette / What this is
 Single-file vanilla HTML for hovedsiden (ingen rammeverk, ingen build), deployet via GitHub Pages på eget domene. Inneholder CV, forskning, sertifiseringer og interaktive finansverktøy. De interaktive verktøyene er egne små React-apper bygget inn under egne stier.
@@ -13,7 +13,7 @@ Single-file vanilla HTML for hovedsiden (ingen rammeverk, ingen build), deployet
 - **`pensjonskalkulator/`** — norsk pensjonskalkulator (Vite + React): folketrygd, tjenestepensjon, IPS og ASK i ett. → [evers.no/pensjonskalkulator](https://www.evers.no/pensjonskalkulator/)
 - **`personligokonomi/`** — interaktive moduler om renters rente, inflasjon, nåverdi m.m. → [evers.no/personligokonomi](https://www.evers.no/personligokonomi/)
 - **`osebx/`** — Oslo Børs-dashboard (speilet fra [ValiantEvers/osebx](https://github.com/ValiantEvers/osebx)). → [evers.no/osebx](https://www.evers.no/osebx/)
-- **`rekrutterer/`** — landingsside for rekrutterere i Wealth Management / Private Banking / Fund Sales.
+- **`rekrutterer/`** — kun en videresending til `/cv` (rekrutterersiden ble avviklet 2026-08-24).
 
 ## Tilgjengelighet & ytelse / Accessibility & performance
 WCAG AA-kontrast, tastaturnavigasjon, skip-link, `lang` per språk, semantisk `<main>`-landmark. Ekte felt-ytelse (Core Web Vitals) måles via en personvern-ren web-vitals-RUM (egen Cloudflare Worker, ingen cookies/IP).
