@@ -26,6 +26,8 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `garmin/` — løpedashbord (inline `RUNS` + `ANALYTICS`, Chart.js). Data bygges av `scripts/build_garmin.py` (Garmin Connect → RUNS, analysene rekonstruert og verifisert med `--check`). **Aldri lat/lon i RUNS** (fjernet 2026-10-03: startpunktene røpet bosted). «Skriftlig analyse»-prosaen har hardkodede tall og skrives om for hånd etter en refresh
 - `jobs/` — meta-refresh redirect stub to `/strategi.html` (noindex; kept so old links don't 404)
 - `travel/` — compressed travel photos used in Leaflet map
+- `glimt/` — 19 bilder til Glimt-karusellen på forsiden (WebP ≤1600 px). EXIF/GPS er strippet — gjør det samme for nye bilder (repoet er offentlig). Kilder (HEIC/JPG) ligger utenfor repoet i `projects/Bilder til evers.no/`
+- `profile.jpg` — portrett 576×720 (4:5) siden 2026-10-17; brukes av forsidens hero, av middelalderegget (som legger det tilbake ved avslutning) og som 4:5-portrett øverst i `cv.html`
 - `.github/workflows/` — Letterboxd + makro m.fl. (Strava-integrasjonen fjernet 2026-10-03: Strava-API-et krever nå betalt abonnement)
 - `vendor/` — self-hostede tredjepartsbiblioteker (twemoji, Leaflet, Chart.js ×2, three.js,
   web-vitals, React/Babel/Cytoscape). Se `vendor/README.md` for proveniens, SRI-bevis og
@@ -65,11 +67,11 @@ distraktorer)» og «nytt passord» sa HVA og NÅR. Reglene for alt lignende i f
 ## Easter eggs (DO NOT BREAK)
 Desktop keyboard triggers (ALL gated behind a touch-device check — deliberately do not fire on mobile):
 - Type "prins"/"prince" (or "prins valiant"/"prince valiant") → Prins Valiant medieval mode (CSS theme switch + GIF/APNG transitions, name + language swap). "prince" spelling added 2026-07-06 so the clue works in en/fr.
-- Type "run", "waffle" (or "vaffel"), "thesis", "viking", "mjod"/"mjød" → ride-across-screen + emoji-rain effects
+- Type "run", "waffle" (or "vaffel"), "thesis", "viking" → ride-across-screen + emoji-rain effects
 - Type "penger" → money-emoji rain
 - Type "tangen" → opens ft.com (Nicolai Tangen nod)
 - Type "jobb" → opens /strategi.html — PRIVATE tracker (noindex). Deliberately UNHINTED; never advertise or add a clue for this one.
-- Konami code (up up down down left right left right b a) → confetti + 360-degree spin + hue-rotate
+- FJERNET 2026-10-17 (Valiant): «mjød»/«mjod» og Konami-koden. Konami var i praksis ødelagt — spinnet roterte hele `body` rundt midten av en ~9000 px høy side, så skjermen ble hvit og konfettien fulgte med ut. Ikke gjeninnfør uten å spørre. `.mjod-emoji` i CSS er emojiRain-klassen for alle eggene, ikke mjød-egget.
 Click trigger (works on mobile too):
 - Triple-click profile photo (#heroImg) → same medieval mode
 
@@ -77,7 +79,7 @@ Discoverability clues (intentional, keep subtle — added 2026-07-06):
 - Prins clue is baked into the fact-card copy (data-i="ff1d") in no/en/fr — points at typing his "title"
 - Waffle clue is in the Belgia fact-card copy (data-i="ff3d") in no/en
 - Console greeting (inline <script> right after #pageFlash) nudges toward a few triggers
-- viking/mjød/penger/tangen/konami are left unhinted on purpose — rewards for the persistent
+- penger/tangen are left unhinted on purpose — rewards for the persistent (the console greeting names prins and viking)
 
 These are personality features, not bugs. If a refactor risks breaking them, ASK before proceeding.
 
@@ -86,13 +88,23 @@ som dukker opp først når det FØRSTE egget er funnet, med gåtehint for resten
 lyttere (egen buffer + egen konami-speiling + MutationObserver på `data-theme` for medieval) og
 rører aldri trigger-koden — men endres/legges det til et egg, MÅ `EGGS`/`WORDS`-listene i
 egg-jeger-scriptet nederst i index.html oppdateres. «jobb»-egget telles ALDRI og skal aldri inn
-i listene (privat). Touch-gates som resten av eggene.
+i listene (privat). Touch-gates som resten av eggene. Teller 7 egg etter 2026-10-17; lagrede `mjod`/`konami`
+fra eldre besøk filtreres bort ved lasting, så telleren aldri viser 9/7.
+
+Tastatur og nye funksjoner på forsiden (2026-10-17) som må leve side om side med eggene:
+- «Gå til»-paletten åpnes med `Ctrl/⌘ K` eller `/`. Ren `K` er BEVISST ikke en snarvei: den ville kapret «viking».
+  Snarveien lyttes i capture-fasen på `window` og stoppes der — ellers havner «k» i egg-bufferne, og «prins»
+  rett etter en palett-runde blir «kprins» og utløser ingenting (funnet i testen 2026-10-17).
+- Paletten og Glimt-karusellen er `<dialog>` som kaller `stopPropagation()` på tastetrykk, så egg-lytterne på
+  `document` aldri ser det som skrives i søkefeltet eller piltastene i karusellen. Nye dialoger må gjøre det samme.
+- Glimt (ikke et egg, telles ikke): etter 35 s synlig tid dukker en pille opp som åpner en karusell med `/glimt/*.webp`.
+  `?bilder=na` viser den med en gang (testkrok).
 
 ## Live integrations
 - Letterboxd via GitHub Actions. Strava FJERNET 2026-10-03 (API-et bak betalingsmur; kort, JS, CSS, workflow og strava.json ut)
 - Besøksmåler (2026-10-03): inline-script markert `<!-- besøksmåler -->` før `</body>` på de offentlige sidene → `finance-proxy` `/hit` (Analytics Engine `evers_hits`); privat oversikt på `/stats?k=…`. Ny offentlig side: kopier snippeten. Detaljer og personvern: `finance-proxy/README.md`
 - Live finance bar: S&P 500 (Yahoo `^GSPC`), OSEBX (`OSEBX.OL` — NOT `^OSEAX`), EUR/NOK
-- Leaflet travel map with markers from compressed `/travel/` images
+- Leaflet travel map with markers from compressed `/travel/` images. `Ctrl/⌘ + scroll` zoomer, vanlig scroll ruller siden; på berøring flytter to fingre kartet. CARTO-flisene har en nøkkel låst til evers.no, så kartet er grått på localhost — ikke en feil.
 
 ## Deploy
 - Push to main → auto-deployed by GitHub Pages

@@ -6,13 +6,57 @@ Living reference for the visual and interaction identity of evers.no. Attach thi
 
 ## Voice
 
-Half-Belgian, half-Norwegian MSc Finance student. Personal portfolio targeting client-facing roles in Wealth Management, Private Banking, and Fund Sales. The site should read as competent but warm — not corporate-fintech, not startup-template.
+Half-Belgian, half-Norwegian, Client Services Manager at Euronext Securities Oslo, MSc Finance (BI). Since 2026-10 the site is a **creative outlet** — the place he builds things he is curious about — not a job-search portfolio. It should read as competent but warm — not corporate-fintech, not startup-template.
 
 Three principles underpin the visual identity:
 
-1. **Calm blue authority.** A single functional blue (`#0070ed`) used sparingly on actionable surfaces. Most of the page is near-black text on warm off-white.
+1. **Calm blue authority.** A single functional blue (`#0070ed`) used sparingly — on the homepage as a line and as text, never as a surface. Most of the page is near-black ink on warm paper.
 2. **Refined motion.** Short durations, one strong easing curve, tactile press feedback. No decoration without purpose.
-3. **Personal warmth.** Small persistent details that reward visitors who linger — cursor dot, scroll-hint chevron, grain texture, the medieval easter-egg. Refined ≠ sterile.
+3. **Personal warmth.** Small persistent details that reward visitors who linger — cursor dot, grain texture, the medieval easter-egg, the Glimt photo carousel that appears after a while. Refined ≠ sterile.
+
+> **Two states of the editorial core (2026-10-17).** The homepage (`index.html`) was redesigned to the layout below in *Homepage 2026-10*, and `cv.html` followed the same day (see *CV* below). The other sub-pages (`prosjekter/`, …) still follow the older core described in the rest of this file until they are migrated. When you touch a sub-page, follow the older rules; when you migrate one, use *Homepage 2026-10* and record it in the changelog.
+
+---
+
+## Homepage 2026-10 (variant C, `index.html`)
+
+Chosen by Valiant on 2026-10-17 from the 2026-08-17 design lab (`projects/_designlab-2026-08-17/`): variant C's layout (European private-bank restraint), A's command palette, C's large images in «Litt om meg», C's navy footer. Blue kept from the evers.no identity instead of C's copper.
+
+**Tokens** (`:root`; dark and medieval redefine the same names):
+
+| Token | Light | Used for |
+| --- | --- | --- |
+| `--bg` / `--bg-raised` | `#f7f6f4` / `#fdfcfb` | Paper; raised = image frames, palette, menus |
+| `--text` / `--text-2` / `--muted` | `#231f20` / `#4c4a47` / `#5f5d5a` | Ink; secondary text (≥ 7:1); hints (≥ 4.5:1) |
+| `--rule` / `--rule-strong` | `#d3d1cd` / `#231f20` | Hairlines; full-ink table rows (timeline) |
+| `--accent` / `--accent4` | `#0070ed` / `#004eaa` | Line accent + section numbers / link text |
+| `--pale` | `#e7edf6` | The ONE pale field (Forskning) + palette selection |
+| `--ground` / `--on-ground` | `#162b4b` / `#f7f6f4` | Navy footer, primary button, carousel pill |
+| `--font-display` | `= --font-serif` | Headings (medieval swaps it to Unifraktur) |
+
+**Type.** Newsreader for headings *and* body (19px, `opsz` 14; 17px on mobile). Hanken Grotesk only for UI and labels ≤ 15px (nav, buttons, metadata). Headings are weight 400 — hierarchy from size, not weight. Section labels are `01` (serif, accent) + label (sans 13px, no caps, no tracking).
+
+**Layout.** `.band` + `.wrap`: edge `max(20px, …)`, content 1200px, section rhythm `--sec` (72–136px). No cards, no shadows, no rounded corners on content: separation is hairline + air. Projects are numbered rows with real screenshots (`/prosjekter/screenshots/`); the timeline is full-ink table rows.
+
+**Components.** `.btn` (navy fill), `.btn-q` (text + 1px underline), `.link` (sans 14px accent4 + hairline). Sticky top bar with lowercase nav links ending in a dot (`om meg.`). Live finance bar is a light hairline strip — no red/green, the sign carries direction.
+
+**Interaction.** «Gå til» command palette: `Ctrl/⌘ K` or `/` (bare `K` is deliberately NOT a shortcut — it would hijack the «viking» egg). It replaces the hamburger on mobile. Keystrokes inside the palette and carousel dialogs `stopPropagation()` so the easter-egg listeners never see them. Travel map: `Ctrl/⌘ + scroll` zooms, plain scroll passes to the page; on touch one finger scrolls the page, two fingers move/zoom the map. Theme toggle shows line icons (moon in light, sun in dark) drawn with CSS masks, because the theme JS and the prins egg write emoji into the button.
+
+**Glimt.** After 35 s of visible time a navy pill «Fortsatt her? Se noen bilder» opens a full-screen carousel of `/glimt/*.webp` (19 photos, EXIF/GPS stripped, loaded only on open, auto-advance 5.5 s until touched, none under reduced motion). `?bilder=na` shows the pill immediately. Not counted by the egg hunter.
+
+**Motion.** Colour and opacity only — no reveal transforms, no hero parallax, no card tilt. Easter eggs keep their own motion. Never put `scroll-behavior: smooth` on `html`: `veScrollTo()` animates anchor links and the back-to-top button itself, and CSS smooth scrolling makes the two fight (measured 2026-10-17: the button never reached the top within 2 s).
+
+### CV (`cv.html`, migrated 2026-10-17)
+
+Same tokens, fonts, top bar, links and navy footer as the homepage, copied into the page (one file per page). What differs on a sub-page:
+
+- **Header:** `Curriculum vitae` label, name (Newsreader 400, up to 92px), contact line in sans, citizenship + PDF link, and the 4:5 portrait at 168px on the right (104px on mobile). The profile is a `.stmt` with the blue top line.
+- **Sections** are plain `h2.sec-title`, no numbers. Order: Erfaring (with the Meny recommendation as a `.quote`) → Utdanning → Forskning → Prosjekter → Nøkkelkvalifikasjoner → Sertifiseringer.
+- **Rows:** `.rows` is the homepage timeline (date column + body). Full-ink rules for the timelines (Erfaring, Utdanning, Forskning), hairlines (`.rows.light`) for Prosjekter; skills and certificates use the hairline `.skills` / `.certs` lists.
+- **Project status is text only** («Aktiv», «Fullført», «Pauset», «Under arbeid») in the date column — no coloured badges.
+- **Courses** sit in `<details>`; a `beforeprint` script opens them (Chromium does not print closed `<details>`) and `afterprint` closes them again.
+- **Print:** black on white, 10.5pt, no nav, footer reduced to the copyright line, about 4 A4 pages.
+- Rough Notation (hand-drawn marks on «MSc» and «750», added 2026-06-04) was removed: it animated on every visit.
 
 ---
 
@@ -266,10 +310,11 @@ Background appears on scroll via `nav.scrolled` rule: `rgba(225,231,255,.72)` wi
 
 ### Homepage only
 
-- Hero with profile photo (160 × 160 circle, `box-shadow: 0 1px 3px rgba(0,0,0,.08)` only — no glow, no conic ring).
-- Scroll-hint chevron beneath hero.
-- Numbered section labels (`01 · `, `02 · `, …).
-- Section order: Om meg → Erfaring → Anbefaling → CV → Sertifiseringer → Forskning → Prosjekter → Personlig → Kontakt.
+See *Homepage 2026-10* above. In short:
+
+- Hero: name (Newsreader 400, up to 112px) + lead + `.btn`/`.btn-q`, with a 4:5 portrait (`profile.jpg`, 576×720) at 300px on the right. No scroll hint.
+- Numbered section labels `01`–`06`, in this order: Om meg → Prosjekter → Forskning → Bakgrunn (bare tre hovedlinjer + lenke til `/cv`; kurs, øvrig erfaring, sertifikater og anbefaling bor i CV-en) → Personlig (bilder, reisekart, bibliotek, videoer) → Kontakt.
+- Navy footer with the hidden-ish links (Letterboxd, GARMIN, 🚗) and the 🥚 egg badge.
 
 ### Sub-page baseline
 
@@ -287,7 +332,7 @@ Toggled via `data-theme` attribute on `<html>` or `<body>`.
 | --- | --- | --- |
 | Light | default | Off-white bg, dark text |
 | Dark | `data-theme="dark"`, via theme toggle | Near-black bg, off-white text, lighter blue accents |
-| Medieval | `data-theme="medieval"`, easter-egg (type "prins") | Brown palette, Fraktur fonts, sword cursor, mjød pour animation. Has its own internal taste system — do not retrofit Emil's rules to it. |
+| Medieval | `data-theme="medieval"`, easter-egg (type "prins") | Brown palette, Fraktur fonts, sword cursor. On the homepage it only redefines tokens (incl. `--font-display/-serif/-sans`); the components inherit. Has its own internal taste system — do not retrofit Emil's rules to it. |
 | Japanese | `html[lang="ja"]`, via language switcher | Noto Sans JP fallback font, otherwise same palette |
 
 When adding a new theme, define the full color token set under `[data-theme="newtheme"]`. Match the structure of existing variants. Don't introduce new tokens beyond what's in `:root`.
@@ -337,3 +382,6 @@ That single instruction should be enough for the agent to stay coherent with the
 - **2026-05-26** — Sub-pages aligned. `cv.html` og `prosjekter/index.html` brakt i samsvar med designsystemet etter forsiden-redesignet: Outfit+Syne erstattet med Inter+JetBrains Mono, gamle lyseblå tokens (`--bg:#e1e7ff`) erstattet med varm off-white (`--bg:#fafaf9`), nav byttet til fixed med scrolled-state, cursor dot og medieval theme lagt til, springy easing og floating blobs fjernet fra `/prosjekter`. Ticker droppet på begge sub-pages — DESIGN.md-prinsippet om at den er valgfri og bør droppes hvis den konkurrerer om oppmerksomheten, gjelder begge. Cursor-dot, grain og medieval-tema arvet site-wide.
 
 - **2026-07-23** — Doc re-synced with the live site + small additions. **Correction:** the core type system is no longer Inter — it is self-hosted **Newsreader (serif headings) + Hanken Grotesk (sans body)** (the FT-emulation shipped ~2026-07; this file had lagged). **Added (vanilla, no build):** cross-document **View Transitions** (`@view-transition{navigation:auto}` + a 240 ms root cross-fade, reduced-motion-guarded) for native page-to-page continuity; `text-wrap: pretty` on `p,li,figcaption`; and a themed `::selection` via `color-mix()`.
+
+- **2026-10-17** — **Homepage redesign (variant C).** `index.html` moved to the *Homepage 2026-10* system above: paper/ink tokens with the evers blue as line, Newsreader body, hairlines instead of cards, numbered sections 01–06 in a new order (Bakgrunn merges erfaring + anbefaling + CV + sertifikater), navy footer, «Gå til» command palette (`Ctrl/⌘ K`, `/`), Glimt photo carousel (`/glimt/`), new 4:5 portrait (`profile.jpg`), Ctrl+scroll / two-finger map. Removed: reveal transforms, hero parallax + every-frame rAF loop, card tilt, bg-morph, scroll hint, the mjød and Konami easter eggs (Valiant). Sub-pages still on the older core — see the note under *Voice*.
+- **2026-10-17** — **`cv.html` migrated** to the same system (see *CV* under *Homepage 2026-10*): top bar, `.stmt` profile, timeline rows, text-only project status, navy footer, 4:5 portrait instead of the circle. Erfaring now comes first and carries the Meny recommendation that left the homepage. Removed: cards, coloured status badges, Rough Notation, the nav «scrolled» state.
