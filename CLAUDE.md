@@ -93,6 +93,8 @@ fra eldre besøk filtreres bort ved lasting, så telleren aldri viser 9/7.
 
 Tastatur og nye funksjoner på forsiden (2026-10-17) som må leve side om side med eggene:
 - «Gå til»-paletten åpnes med `Ctrl/⌘ K` eller `/`. Ren `K` er BEVISST ikke en snarvei: den ville kapret «viking».
+  Snarveien lyttes i capture-fasen på `window` og stoppes der — ellers havner «k» i egg-bufferne, og «prins»
+  rett etter en palett-runde blir «kprins» og utløser ingenting (funnet i testen 2026-10-17).
 - Paletten og Glimt-karusellen er `<dialog>` som kaller `stopPropagation()` på tastetrykk, så egg-lytterne på
   `document` aldri ser det som skrives i søkefeltet eller piltastene i karusellen. Nye dialoger må gjøre det samme.
 - Glimt (ikke et egg, telles ikke): etter 35 s synlig tid dukker en pille opp som åpner en karusell med `/glimt/*.webp`.
