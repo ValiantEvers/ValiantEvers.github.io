@@ -32,7 +32,6 @@ ned filen hit, pinn versjonen i filnavnet, og før den inn i tabellen under.
 | `react-18.3.1.production.min.js`, `react-dom-18.3.1.production.min.js` | React 18.3.1 | (self-hostet i audit 2026-07-06) | — | MIT |
 | `babel-standalone-7.29.0.min.js` | Babel 7.29.0 | (self-hostet i audit 2026-07-06) | — | MIT |
 | `cytoscape-3.30.2.min.js` | Cytoscape 3.30.2 | (self-hostet i audit 2026-07-06) | — | MIT |
-| `rough-notation.iife.js` | rough-notation | (self-hostet tidligere) | — | MIT |
 
 **SRI-kolonnen er bevis, ikke konfigurasjon:** hashene er de sidene deklarerte
 FØR self-hostingen, og hver nedlastede fil ble målt mot sin hash før den ble

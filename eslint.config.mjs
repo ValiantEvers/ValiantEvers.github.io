@@ -67,7 +67,6 @@ export default [
       globals: {
         ...globals.browser,
         // Third-party libraries loaded via <script> tags (read-only).
-        RoughNotation: "readonly",
         L: "readonly", // Leaflet (travel map)
         twemoji: "readonly",
         Chart: "readonly", // Chart.js (forretningsenhet-dashboard)
