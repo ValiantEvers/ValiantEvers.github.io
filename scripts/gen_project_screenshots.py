@@ -14,11 +14,16 @@ Regenerate:
     python3 -m venv /tmp/shotenv && /tmp/shotenv/bin/pip install playwright pillow
     /tmp/shotenv/bin/python scripts/gen_project_screenshots.py
 Then visually inspect every file in prosjekter/screenshots/ before committing.
+Only some slugs:  python scripts/gen_project_screenshots.py personligokonomi klima
+Before a deploy:  SHOT_BASE=http://127.0.0.1:8765 python ... (captures the local
+repo instead of live evers.no; osebx/ and wc2026/ are not in this repo).
 Tune `scroll`/`wait_ms`/`q` per target below if a capture frames the wrong
 region or lands on a loading/empty state (SPAs hydrate; osebx fetches live data).
 """
 import io
+import os
 import pathlib
+import sys
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
@@ -40,6 +45,9 @@ TARGETS = [
     {"slug": "examprep",                   "url": "https://www.evers.no/examprep/",                                         "scroll": 0,   "wait_ms": 3500, "q": 69},
     {"slug": "renteriket",                 "url": "https://www.evers.no/renteriket/",                                       "scroll": 0,   "wait_ms": 3000},
     {"slug": "efaktura-radar",             "url": "https://www.evers.no/prosjekter/efaktura-radar/",                        "scroll": 1180, "wait_ms": 2500},
+    {"slug": "fra-null-til-investor",      "url": "https://www.evers.no/fra-null-til-investor/",                            "scroll": 0,   "wait_ms": 3000},
+    {"slug": "fra-null-til-investor2",     "url": "https://www.evers.no/fra-null-til-investor2/",                           "scroll": 0,   "wait_ms": 3000},
+    {"slug": "fra-null-til-investor3",     "url": "https://www.evers.no/fra-null-til-investor3/",                           "scroll": 0,   "wait_ms": 3000},
 ]
 
 
@@ -61,10 +69,15 @@ def cover_to_target(img):
 def main():
     with sync_playwright() as p:
         b = p.chromium.launch(channel="chrome", headless=True)
+        only = set(sys.argv[1:])
+        base = os.environ.get("SHOT_BASE", "").rstrip("/")
         for t in TARGETS:
+            if only and t["slug"] not in only:
+                continue
+            url = t["url"].replace("https://www.evers.no", base) if base else t["url"]
             pg = b.new_page(viewport={"width": 1440, "height": 900}, device_scale_factor=2)
             try:
-                pg.goto(t["url"], wait_until="networkidle", timeout=45000)
+                pg.goto(url, wait_until="networkidle", timeout=45000)
             except Exception as e:                      # noqa: BLE001
                 print(f"  ! {t['slug']} networkidle timeout ({e}); continuing")
             if t["scroll"]:

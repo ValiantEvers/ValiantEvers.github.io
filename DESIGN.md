@@ -14,7 +14,7 @@ Three principles underpin the visual identity:
 2. **Refined motion.** Short durations, one strong easing curve, tactile press feedback. No decoration without purpose.
 3. **Personal warmth.** Small persistent details that reward visitors who linger — cursor dot, grain texture, the medieval easter-egg, the Glimt photo carousel that appears after a while. Refined ≠ sterile.
 
-> **Two states of the editorial core (2026-10-17).** The homepage (`index.html`) was redesigned to the layout below in *Homepage 2026-10*, and `cv.html` followed the same day (see *CV* below). The other sub-pages (`prosjekter/`, …) still follow the older core described in the rest of this file until they are migrated. When you touch a sub-page, follow the older rules; when you migrate one, use *Homepage 2026-10* and record it in the changelog.
+> **Two states of the editorial core (2026-10-17).** The homepage (`index.html`) was redesigned to the layout below in *Homepage 2026-10*, and `cv.html` and the `prosjekter/` gallery followed the same day (see *CV* and *Prosjekter* below). The other sub-pages (`prosjekter/masteroppgave/`, the tools, …) still follow the older core described in the rest of this file until they are migrated. When you touch a sub-page, follow the older rules; when you migrate one, use *Homepage 2026-10* and record it in the changelog.
 
 ---
 
@@ -57,6 +57,16 @@ Same tokens, fonts, top bar, links and navy footer as the homepage, copied into 
 - **Courses** sit in `<details>`; a `beforeprint` script opens them (Chromium does not print closed `<details>`) and `afterprint` closes them again.
 - **Print:** black on white, 10.5pt, no nav, footer reduced to the copyright line, about 4 A4 pages.
 - Rough Notation (hand-drawn marks on «MSc» and «750», added 2026-06-04) was removed: it animated on every visit.
+
+### Prosjekter (`prosjekter/index.html`, migrated 2026-10-17)
+
+Same top bar, tokens and navy footer as the CV. The page is a gallery, not a timeline:
+
+- **Header:** `Prosjekter` label, «Alle prosjekter» (up to 92px), one lead sentence. The three «Hva prosjektene viser» columns are gone: they were job-search copy («det samme jeg vil gjøre i en samtale med en kunde»).
+- **Controls** under a hairline: search field with an ink underline, «Kort / Tabell» and the topic buttons as 6px-radius hairline buttons; active = navy fill. Only topics shared by at least two projects become buttons (30 → 8); single-project topics are found by search.
+- **Cards:** 16:10 screenshot with a 1px rule, title (h3), description clamped to four lines, «Åpne ↗». No card surface, shadow or lift. Three columns, two under 1020px, one under 640px. A project without a screenshot gets a pale tile with its URL. Medieval hides the screenshots and shows the project emoji (the egg's own look).
+- **Static cards:** `scripts/build_projects_static.py` bakes the same markup as `makeCard()` in the page. Change both together.
+- **Table view:** hairline rows, title in serif, category and up to three topics in sans, no emoji.
 
 ---
 
@@ -385,3 +395,4 @@ That single instruction should be enough for the agent to stay coherent with the
 
 - **2026-10-17** — **Homepage redesign (variant C).** `index.html` moved to the *Homepage 2026-10* system above: paper/ink tokens with the evers blue as line, Newsreader body, hairlines instead of cards, numbered sections 01–06 in a new order (Bakgrunn merges erfaring + anbefaling + CV + sertifikater), navy footer, «Gå til» command palette (`Ctrl/⌘ K`, `/`), Glimt photo carousel (`/glimt/`), new 4:5 portrait (`profile.jpg`), Ctrl+scroll / two-finger map. Removed: reveal transforms, hero parallax + every-frame rAF loop, card tilt, bg-morph, scroll hint, the mjød and Konami easter eggs (Valiant). Sub-pages still on the older core — see the note under *Voice*.
 - **2026-10-17** — **`cv.html` migrated** to the same system (see *CV* under *Homepage 2026-10*): top bar, `.stmt` profile, timeline rows, text-only project status, navy footer, 4:5 portrait instead of the circle. Erfaring now comes first and carries the Meny recommendation that left the homepage. Removed: cards, coloured status badges, Rough Notation, the nav «scrolled» state.
+- **2026-10-17** — **`prosjekter/` gallery migrated** (see *Prosjekter* under *Homepage 2026-10*): screenshot grid without card surfaces, hairline controls, topic buttons cut to shared topics, navy footer, no hamburger (nav links hide under 820px as on the CV). The «Hva prosjektene viser» value props were removed. New captures for the three Fra null til investor guides; personligokonomi re-captured after its cleanup.

@@ -22,14 +22,23 @@ DATA = ROOT / "prosjekter" / "projects.json"
 START, END = "<!--STATIC-CARDS-->", "<!--/STATIC-CARDS-->"
 
 def card(p):
+    # Samme markup som makeCard() i prosjekter/index.html (redesign 2026-10-17).
     tags = " ".join(p.get("tags") or [])
     hay = escape((p.get("tittel", "") + " " + p.get("beskrivelse", "") + " " + tags).lower(), quote=True)
+    url = p.get("url", "")
+    ext = ' target="_blank" rel="noopener"' if re.match(r"https?://", url) else ""
+    if p.get("bilde"):
+        shot = ('<span class="pg-shot"><img class="pg-img" src="%s" alt="" loading="lazy" '
+                'decoding="async" width="800" height="500">' % escape(p["bilde"], quote=True))
+    else:
+        shot = ('<span class="pg-shot pg-tile"><span class="pg-tile-t">%s</span>'
+                % escape(re.sub(r"^https?://", "", url)))
+    shot += '<span class="pg-emoji" aria-hidden="true">%s</span></span>' % escape(p.get("ikon", ""))
     return (
-        '<a class="cert-link" href="%s" data-tags="%s" data-search="%s" data-weight="1">'
-        '<div class="cert-card"><div class="cert-icon">%s</div><h3>%s</h3>'
-        '<p class="cert-issuer">%s</p></div></a>'
-    ) % (escape(p.get("url", ""), quote=True), escape(tags, quote=True), hay,
-         escape(p.get("ikon", "")), escape(p.get("tittel", "")), escape(p.get("beskrivelse", "")))
+        '<a class="cert-link" href="%s"%s data-tags="%s" data-search="%s" data-weight="1">'
+        '%s<h3>%s</h3><p class="pg-desc">%s</p><span class="pg-go">Åpne ↗</span></a>'
+    ) % (escape(url, quote=True), ext, escape(tags, quote=True), hay, shot,
+         escape(p.get("tittel", "")), escape(p.get("beskrivelse", "")))
 
 def main():
     src = HTML.read_text(encoding="utf-8")
