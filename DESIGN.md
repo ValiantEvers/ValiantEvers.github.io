@@ -44,7 +44,7 @@ Chosen by Valiant on 2026-10-17 from the 2026-08-17 design lab (`projects/_desig
 
 **Glimt.** After 35 s of visible time a navy pill «Fortsatt her? Se noen bilder» opens a full-screen carousel of `/glimt/*.webp` (19 photos, EXIF/GPS stripped, loaded only on open, auto-advance 5.5 s until touched, none under reduced motion). `?bilder=na` shows the pill immediately. Not counted by the egg hunter.
 
-**Motion.** Colour and opacity only — no reveal transforms, no hero parallax, no card tilt. Easter eggs keep their own motion.
+**Motion.** Colour and opacity only — no reveal transforms, no hero parallax, no card tilt. Easter eggs keep their own motion. Never put `scroll-behavior: smooth` on `html`: `veScrollTo()` animates anchor links and the back-to-top button itself, and CSS smooth scrolling makes the two fight (measured 2026-10-17: the button never reached the top within 2 s).
 
 ---
 
@@ -301,7 +301,7 @@ Background appears on scroll via `nav.scrolled` rule: `rgba(225,231,255,.72)` wi
 See *Homepage 2026-10* above. In short:
 
 - Hero: name (Newsreader 400, up to 112px) + lead + `.btn`/`.btn-q`, with a 4:5 portrait (`profile.jpg`, 576×720) at 300px on the right. No scroll hint.
-- Numbered section labels `01`–`06`, in this order: Om meg → Prosjekter → Forskning → Bakgrunn (erfaring, anbefaling, CV, sertifikater) → Personlig (bilder, reisekart, bibliotek, videoer) → Kontakt.
+- Numbered section labels `01`–`06`, in this order: Om meg → Prosjekter → Forskning → Bakgrunn (bare tre hovedlinjer + lenke til `/cv`; kurs, øvrig erfaring, sertifikater og anbefaling bor i CV-en) → Personlig (bilder, reisekart, bibliotek, videoer) → Kontakt.
 - Navy footer with the hidden-ish links (Letterboxd, GARMIN, 🚗) and the 🥚 egg badge.
 
 ### Sub-page baseline
