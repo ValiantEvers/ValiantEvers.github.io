@@ -21,7 +21,7 @@ WCAG AA-kontrast, tastaturnavigasjon, skip-link, `lang` per språk, semantisk `<
 ## Deploy
 Push til `main` → auto-deployes av GitHub Pages (ingen build-steg for hovedsiden). Sub-appene har egne Vite-build-steg via GitHub Actions.
 
-🌐 [evers.no](https://www.evers.no) · 💼 [LinkedIn](https://www.linkedin.com/in/valiant-evers-linked-in/) · 🧑‍💻 [@ValiantEvers](https://github.com/ValiantEvers)
+🌐 [evers.no](https://www.evers.no) · 💼 [LinkedIn](https://www.linkedin.com/in/valiant-evers/) · 🧑‍💻 [@ValiantEvers](https://github.com/ValiantEvers)
 
 ---
 *MIT — bruk gjerne mønstre herfra.*
