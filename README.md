@@ -12,7 +12,7 @@ Single-file vanilla HTML for hovedsiden (ingen rammeverk, ingen build), deployet
 - **`index.html`** — forsiden: CV, erfaring, masteroppgave, kontakt. 6-språk i18n (no/en/fr/de/ja + en middelalder-easter-egg).
 - **`pensjonskalkulator/`** — norsk pensjonskalkulator (Vite + React): folketrygd, tjenestepensjon, IPS og ASK i ett. → [evers.no/pensjonskalkulator](https://www.evers.no/pensjonskalkulator/)
 - **`personligokonomi/`** — interaktive moduler om renters rente, inflasjon, nåverdi m.m. → [evers.no/personligokonomi](https://www.evers.no/personligokonomi/)
-- **`osebx/`** — Oslo Børs-dashboard (speilet fra [ValiantEvers/osebx](https://github.com/ValiantEvers/osebx)). → [evers.no/osebx](https://www.evers.no/osebx/)
+- **`osebx/`** — Oslo Børs-dashboard fra eget repo (`ValiantEvers/osebx`). Pauset, ikke tilgjengelig for øyeblikket.
 - **`rekrutterer/`** — kun en videresending til `/cv` (rekrutterersiden ble avviklet 2026-08-24).
 
 ## Tilgjengelighet & ytelse / Accessibility & performance
