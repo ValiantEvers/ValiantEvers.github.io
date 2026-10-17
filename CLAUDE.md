@@ -27,7 +27,7 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `jobs/` — meta-refresh redirect stub to `/strategi.html` (noindex; kept so old links don't 404)
 - `travel/` — compressed travel photos used in Leaflet map
 - `glimt/` — 19 bilder til Glimt-karusellen på forsiden (WebP ≤1600 px). EXIF/GPS er strippet — gjør det samme for nye bilder (repoet er offentlig). Kilder (HEIC/JPG) ligger utenfor repoet i `projects/Bilder til evers.no/`
-- `profile.jpg` — portrett 576×720 (4:5) siden 2026-10-17; brukes av forsidens hero, av middelalderegget (som legger det tilbake ved avslutning) og som sirkel i `cv.html` (`object-position` holder hodet innenfor)
+- `profile.jpg` — portrett 576×720 (4:5) siden 2026-10-17; brukes av forsidens hero, av middelalderegget (som legger det tilbake ved avslutning) og som 4:5-portrett øverst i `cv.html`
 - `.github/workflows/` — Letterboxd + makro m.fl. (Strava-integrasjonen fjernet 2026-10-03: Strava-API-et krever nå betalt abonnement)
 - `vendor/` — self-hostede tredjepartsbiblioteker (twemoji, Leaflet, Chart.js ×2, three.js,
   web-vitals, React/Babel/Cytoscape). Se `vendor/README.md` for proveniens, SRI-bevis og

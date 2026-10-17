@@ -6,7 +6,7 @@
 <title>CV · Valiant Evers</title>
 <meta name="description" data-i-content="metaDesc" content="CV for Valiant Evers – MSc i finans fra Handelshøyskolen BI, masteroppgave med karakter A. Utdanning, erfaring, sertifiseringer og prosjekter.">
 <meta name="author" content="Valiant Evers">
-<meta name="theme-color" content="#004eaa">
+<meta name="theme-color" content="#f7f6f4">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="CV · Valiant Evers">
 <meta property="og:description" data-i-content="ogDesc" content="MSc i finans fra BI, masteroppgave med karakter A. Full CV: utdanning, erfaring og egenbygde finansverktøy.">
@@ -55,298 +55,353 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:1ms}}
 </style>
 <style>
-:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.6);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06)}
-[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.5);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07)}
+/* TOKENS. Samme papir/blekk-system som forsiden (DESIGN.md «Homepage 2026-10»): blå aksent som linje og tekst, aldri flate. */
+:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--font-display:var(--font-serif);
+--bg:#f7f6f4;--bg-raised:#fdfcfb;--text:#231f20;--text-2:#4c4a47;--muted:#5f5d5a;--rule:#d3d1cd;--rule-strong:#231f20;
+--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--pale:#e7edf6;--ground:#162b4b;--on-ground:#f7f6f4;--on-ground-2:#c3cfe2;
+--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--ease:cubic-bezier(0.33,1,0.68,1);--dur:.2s;
+--edge:max(20px,calc((min(100vw,1980px) - 1248px) / 2 + 24px));--content:1200px;--measure:820px;--sec:clamp(56px,6.5vw,96px)}
+[data-theme="dark"]{--bg:#0e0f11;--bg-raised:#16171a;--text:#ecebe8;--text-2:#b3b1ad;--muted:#9c9a96;--rule:rgba(236,235,232,.14);--rule-strong:rgba(236,235,232,.5);--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#8bb8ff;--pale:#131b27;--ground:#0b1626;--on-ground:#ecebe8;--on-ground-2:#9fb0c8}
+:root{color-scheme:light}[data-theme="dark"],[data-theme="medieval"]{color-scheme:dark}
 
+/* MEDIEVAL THEME (prins-egget) — bare tokens og fonter; komponentene arver */
+[data-theme="medieval"]{--bg:#2a1a0e;--bg-raised:#1e1208;--text:#e8d5b5;--text-2:rgba(232,213,181,.75);--muted:rgba(232,213,181,.62);--rule:rgba(196,132,29,.28);--rule-strong:rgba(232,213,181,.5);--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#d4a54a;--pale:#22150a;--ground:#1a0f05;--on-ground:#e8d5b5;--on-ground-2:rgba(232,213,181,.7);--font-serif:'MedievalSharp',serif;--font-sans:'MedievalSharp',sans-serif;--font-display:'UnifrakturMaguntia','MedievalSharp',cursive;cursor:url('medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"],[data-theme="medieval"] summary{cursor:url('medieval/cursor-sword.png') 2 30, pointer;}
+[data-theme="medieval"]::after{opacity:.06}
+
+/* BASIS */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased}
-/* FT: serif-overskrifter (Newsreader); body-prefiks løfter spesifisiteten over basereglene; medieval-temaet er mer spesifikt og vinner fortsatt. */
-body .nav-logo,body .cv-name,body .cv-section-title,body .cv-item-body h3,body .cert-info h3,body .working-head h3{font-family:var(--font-serif);font-optical-sizing:auto}
-html[lang="ja"] body{font-family:var(--font-sans)}
+html{overflow-x:hidden;width:100%;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-serif);font-size:19px;line-height:1.55;font-variation-settings:"opsz" 14;background:var(--bg);color:var(--text);overflow-x:clip;width:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 320ms ease,color 320ms ease}
+img,svg{max-width:100%}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 
-/* Grain */
-body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 [data-theme="dark"] body::after{opacity:.04}
 
-/* Custom cursor */
+/* CUSTOM CURSOR */
 .cursor-dot{position:fixed;width:var(--cursor-size);height:var(--cursor-size);border-radius:50%;background:var(--accent);opacity:.35;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
 .cursor-dot.hover{width:44px;height:44px;opacity:.18}
 @media(max-width:768px){.cursor-dot{display:none}}
 @media(hover:none){.cursor-dot{display:none}}
 
-/* Nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
-nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
-[data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
-.nav-logo{letter-spacing:-0.02em;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none}.nav-logo svg{display:block;height:1.02rem;width:auto}.nav-logo .nl-med{display:none}[data-theme="medieval"] .nav-logo svg{display:none}[data-theme="medieval"] .nav-logo .nl-med{display:inline}
-.nav-logo:hover{opacity:.8}
-.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
-.nav-links a{text-decoration:none;color:var(--text);font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:500;font-size:.9rem;position:relative;transition:color .3s}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
-.nav-links a:hover{color:var(--accent)}
-.nav-links a:hover::after{width:100%}
-.nav-links a.active{color:var(--accent)}
-.nav-links a.active::after{width:100%}
-.nav-right{display:flex;align-items:center;gap:2rem}
-.theme-toggle{background:none;border:1.5px solid var(--border);width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
-.theme-toggle:hover{border-color:var(--accent)}
+/* LAYOUT */
+.band{padding-inline:var(--edge)}
+.wrap{max-width:var(--content);margin:0 auto}
+.cv-sec{padding-top:var(--sec)}
+.cv-sec:last-of-type{padding-bottom:var(--sec)}
+
+/* TYPOGRAFI */
+h1,h2,h3{font-family:var(--font-display);font-weight:400}
+.sec-title{font-variation-settings:"opsz" 36;font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:-.01em;margin-bottom:clamp(22px,2.6vw,32px)}
+h3{font-variation-settings:"opsz" 30;font-size:clamp(20px,1.9vw,23px);line-height:1.28}
+.lbl{font-family:var(--font-sans);font-size:13px;font-weight:450;line-height:1.4;color:var(--text-2)}
+
+/* LENKER — beveger seg i farge, ikke i rom */
+.link{display:inline-flex;align-items:baseline;gap:8px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--accent4);border-bottom:1px solid var(--rule);padding-bottom:3px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.link:active,.theme-toggle:active,.lang-btn:active,details summary:active{transform:scale(.98)}
+
+/* TOPPLINJE */
+#mainNav{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--rule);transition:background-color 320ms ease}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:16px}
+.nav-logo{display:inline-flex;align-items:center;color:var(--text)}
+.nav-logo svg{display:block;height:1.1rem;width:auto}.nav-logo .nl-med{display:none;font-family:var(--font-display);font-size:1.5rem}[data-theme="medieval"] .nav-logo svg{display:none}[data-theme="medieval"] .nav-logo .nl-med{display:inline}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-links{display:flex;gap:24px}
+.nav-links a{font-family:var(--font-sans);font-size:14px;font-weight:450;color:var(--text-2);text-transform:lowercase;transition:color var(--dur) var(--ease)}
+.nav-links a::after{content:'.'}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-tools{display:flex;align-items:center;gap:8px}
+.lang-btn{white-space:nowrap;display:inline-flex;align-items:center;height:32px;padding:0 10px;font-family:var(--font-sans);font-size:13px;font-weight:450;color:var(--text-2);background:none;border:1px solid var(--rule);border-radius:6px;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.lang-btn:hover{color:var(--accent);border-color:var(--accent)}
+.theme-toggle{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:0;color:var(--text-2);background:none;border:1px solid var(--rule);border-radius:6px;cursor:pointer;transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+/* Strek-ikoner som på forsiden: tema-JS skriver emoji i knappen, så teksten skjules og ikonet følger data-theme. */
+.theme-toggle::before{content:'';width:17px;height:17px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z'/%3E%3C/svg%3E") center/contain no-repeat}
+[data-theme="dark"] .theme-toggle::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Cpath d='M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.4 5.4l1.4 1.4M17.2 17.2l1.4 1.4M18.6 5.4l-1.4 1.4M6.8 17.2l-1.4 1.4'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Cpath d='M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.4 5.4l1.4 1.4M17.2 17.2l1.4 1.4M18.6 5.4l-1.4 1.4M6.8 17.2l-1.4 1.4'/%3E%3C/svg%3E")}
+[data-theme="medieval"] .theme-toggle{font-size:.95rem}
+[data-theme="medieval"] .theme-toggle::before{display:none}
 .lang-switch{position:relative}
-.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;font-family:inherit;transition:border-color 200ms ease,color 200ms ease}
-.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity 220ms ease,transform 220ms var(--ease-out);min-width:140px;box-shadow:0 12px 40px rgba(0,18,51,.12);z-index:200}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--bg-raised);border:1px solid var(--rule);border-radius:8px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity 200ms ease,transform 200ms var(--ease-out);min-width:150px;z-index:300;box-shadow:0 12px 40px rgba(22,43,75,.12)}
 .lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
-.lang-opt{display:block;width:100%;padding:.55rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}.lang-opt[data-lang="ja"]{font-family:'Hanken Grotesk',system-ui,sans-serif}
-.lang-opt:hover{background:rgba(0,112,237,.06)}
-.lang-opt.active{color:var(--accent);font-weight:700}
-.lang-flag{height:.85em;width:auto;display:inline-block;vertical-align:middle;border-radius:1px;margin-right:.5rem;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
-[data-theme="dark"] .lang-flag{box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+.lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-family:var(--font-sans);font-size:14px;text-align:left;cursor:pointer;transition:background-color .2s}
+.lang-opt:hover{background:var(--pale)}.lang-opt.active{color:var(--accent);font-weight:600}
+/* SVG-flagg: Windows har ingen flagg-emoji, og CV-en laster ikke twemoji */
+.lang-flag{height:.85em;width:auto;display:inline-block;vertical-align:middle;margin-right:.5rem;box-shadow:0 0 0 1px var(--rule)}
 
-/* Press states */
-.theme-toggle:active,.lang-btn:active,.cv-doc-link:active,details summary:active{transform:scale(0.97)}
-.cert:active{transform:scale(0.98)}
-
-/* Medieval theme */
-[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);cursor:url('medieval/cursor-sword.png') 2 30, auto}
-[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('medieval/cursor-sword.png') 2 30, pointer}
-[data-theme="medieval"] body{font-family:'MedievalSharp',sans-serif}
-[data-theme="medieval"] .cv-name,[data-theme="medieval"] .cv-section-title,[data-theme="medieval"] .cv-item-body h3,[data-theme="medieval"] .cert-info h3,[data-theme="medieval"] .working-head h3,[data-theme="medieval"] .skills-grid dt{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
-[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cv-summary-label,[data-theme="medieval"] .cv-item-date,[data-theme="medieval"] .cert-info p{font-family:'MedievalSharp',sans-serif}
-[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
-[data-theme="medieval"] .nav-links a{color:var(--text)}
-[data-theme="medieval"] .lang-btn{border-color:rgba(232,213,181,.2);color:var(--text)}
-[data-theme="medieval"] .theme-toggle{border-color:rgba(232,213,181,.2)}
-[data-theme="medieval"] .citizenship-tag{background:rgba(196,132,29,.1);border-color:rgba(196,132,29,.25);color:var(--accent2)}
-[data-theme="medieval"] .grade{color:var(--accent2)}
-[data-theme="medieval"] details .details-content{background:rgba(196,132,29,.06)}
-[data-theme="medieval"]::after{opacity:.06}
-
-/* Layout */
-main{max-width:840px;margin:0 auto;padding:5.5rem 2rem 4rem;position:relative;z-index:1}
-
-/* Header */
-.cv-header{display:grid;grid-template-columns:130px 1fr;gap:2rem;align-items:center;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
-.cv-photo{width:130px;height:130px;border-radius:50%;object-fit:cover;object-position:50% 18%;box-shadow:0 6px 30px rgba(0,18,51,.12)}
-.cv-name{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:800;font-size:2.6rem;line-height:1.05;margin-bottom:.75rem}
-.cv-contact{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.85rem;color:var(--muted);align-items:center}
-.cv-contact a{color:inherit;text-decoration:none;transition:color .2s;border-bottom:1px solid transparent}
+/* TOPP — navn, kontakt, portrett, profil */
+.cv-head{padding-top:clamp(48px,7vw,104px)}
+.cv-top{display:grid;grid-template-columns:minmax(0,1fr) 168px;column-gap:56px;align-items:start}
+.cv-id{grid-column:1;grid-row:1}
+.cv-head h1{font-variation-settings:"opsz" 72;font-size:clamp(48px,7vw,92px);line-height:.98;letter-spacing:-.025em;margin:12px 0 28px}
+.cv-photo{grid-column:2;grid-row:1 / span 3;display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%;background:var(--bg-raised)}
+.cv-contact{grid-column:1;grid-row:2;display:flex;flex-wrap:wrap;gap:6px 24px;font-family:var(--font-sans);font-size:15px;font-weight:450;color:var(--text-2)}
+.cv-contact a{border-bottom:1px solid var(--rule);padding-bottom:1px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
 .cv-contact a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.cv-contact .sep{opacity:.3}
-.citizenship-tag{display:inline-flex;align-items:center;gap:.35rem;background:rgba(0,112,237,.08);border:1px solid rgba(0,112,237,.2);color:var(--accent4);padding:.2rem .7rem;border-radius:50px;font-size:.75rem;font-weight:600;margin-top:.7rem}
-[data-theme="dark"] .citizenship-tag{background:rgba(105,150,255,.08);border-color:rgba(105,150,255,.2);color:var(--accent2)}
-.citizenship-tag .cit-flags{display:inline-flex;gap:2px;align-items:center}
-.citizenship-tag .cit-flag{height:.9em;width:auto;display:block;border-radius:1px}
+.cv-meta{grid-column:1;grid-row:3;display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 28px;margin-top:20px}
+.cit{display:inline-flex;align-items:center;gap:8px}
+.cit-flags{display:inline-flex;gap:3px;align-items:center}
+.cit-flag{height:.9em;width:auto;display:block;box-shadow:0 0 0 1px var(--rule)}
+.stmt{border-top:1px solid var(--accent);padding-top:30px;margin-top:clamp(48px,6vw,80px);max-width:var(--measure)}
+.stmt .lbl{margin-bottom:16px}
+.stmt .big{font-size:clamp(20px,2.2vw,25px);line-height:1.42;font-variation-settings:"opsz" 24}
 
-/* Profile */
-.cv-summary{margin-bottom:3rem;padding:1.4rem 1.7rem;background:var(--card-bg);border-radius:14px;border:1px solid var(--border);box-shadow:var(--card-shadow);position:relative}
-.cv-summary-label{position:absolute;top:-9px;left:1.4rem;font-family:var(--font-mono);font-size:.65rem;font-weight:500;letter-spacing:0;background:var(--bg);padding:0 .5rem;color:var(--accent);text-transform:uppercase}
-.cv-summary p{font-size:1rem;line-height:1.7;color:var(--text)}
+/* RADER — samme tabellrader som «Bakgrunn» på forsiden: fullt blekk for tidslinjene, hårstrek for resten */
+.rows{border-bottom:1px solid var(--rule-strong)}
+.rows > li{display:grid;grid-template-columns:180px minmax(0,1fr);column-gap:40px;border-top:1px solid var(--rule-strong);padding:28px 0 32px}
+.rows.light,.rows.light > li{border-color:var(--rule)}
+.rows .per{font-variant-numeric:tabular-nums;font-size:16px;line-height:1.6;color:var(--text-2)}
+.rows .st{font-family:var(--font-sans);font-size:13px;font-weight:450;line-height:2;color:var(--text-2)}
+.rows h3{margin-bottom:4px}
+.rows h3 a{border-bottom:1px solid var(--rule);transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.rows h3 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.org{font-family:var(--font-sans);font-size:14px;font-weight:450;color:var(--text-2);margin-bottom:12px}
+.org a{border-bottom:1px solid var(--rule);transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.org a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.txt > p:not([class]){font-size:17px;max-width:64ch}
+.txt > p:not([class]) + p{margin-top:10px}
+.txt > .link{margin-top:16px}
+.note{font-family:var(--font-sans);font-size:14px;color:var(--text-2)}
+.pts{margin-top:4px;max-width:64ch}
+.pts li{font-size:17px;padding-left:20px;position:relative;margin-bottom:6px}
+.pts li::before{content:'–';position:absolute;left:0;color:var(--muted)}
+.grade{font-variant-numeric:tabular-nums;color:var(--accent4)}
+.proj-all{margin-top:28px}
 
-/* Sections */
-.cv-section{margin-bottom:3rem}
-.cv-section-title{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1.35rem;margin-bottom:1.4rem;color:var(--text);position:relative;padding-bottom:.7rem;border-bottom:2px solid var(--accent3)}
-
-/* Items */
-.cv-item{display:grid;grid-template-columns:170px 1fr;gap:1.5rem;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--hair)}
-.cv-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.cv-item-date{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;padding-top:.25rem}
-.cv-item-body h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1.05rem;margin-bottom:.15rem;line-height:1.35}
-.cv-item-body .org{font-size:.88rem;color:var(--muted);margin-bottom:.7rem}
-.cv-item-body .org a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
-.cv-item-body .org a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.cv-item-body > p{font-size:.92rem;color:var(--text);line-height:1.65;margin-bottom:.6rem}
-.cv-item-body ul{list-style:none;padding:0;margin-top:.4rem}
-.cv-item-body ul li{font-size:.9rem;color:var(--text);line-height:1.65;padding-left:1.1rem;position:relative;margin-bottom:.35rem}
-.cv-item-body ul li::before{content:'–';position:absolute;left:0;color:var(--accent);font-weight:700}
-.cv-doc-link{display:inline-flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--accent);font-weight:600;text-decoration:none;margin-top:.4rem;padding:.3rem .65rem;border:1px solid var(--border);border-radius:50px;transition:border-color 250ms ease,background-color 250ms ease}
-.cv-doc-link:hover{border-color:var(--accent);background:rgba(0,112,237,.04)}
-
-.grade{font-weight:700;color:var(--accent4);font-variant-numeric:tabular-nums}
-[data-theme="dark"] .grade{color:var(--accent2)}
-
-/* Expandable */
-details{margin-top:.8rem}
-details summary{cursor:pointer;font-size:.8rem;font-weight:600;color:var(--accent);user-select:none;list-style:none;display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border:1.5px solid var(--border);border-radius:50px;transition:border-color 250ms ease,background-color 250ms ease;font-family:inherit}
+/* FAG — utvidbar liste */
+details{margin-top:16px}
+details summary{display:inline-flex;align-items:baseline;gap:8px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--accent4);border-bottom:1px solid var(--rule);padding-bottom:3px;cursor:pointer;list-style:none;user-select:none;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
 details summary::-webkit-details-marker{display:none}
-details summary::before{content:'+';font-size:1rem;font-weight:700;line-height:1;transition:transform .3s;width:10px;display:inline-block;text-align:center}
+details summary::before{content:'+';display:inline-block;width:.7em}
 details[open] summary::before{content:'−'}
-details summary:hover{border-color:var(--accent);background:rgba(0,112,237,.04)}
-details .details-content{margin-top:1rem;padding:1rem 1.3rem;background:rgba(0,112,237,.03);border-radius:10px;border-left:3px solid var(--accent3)}
-[data-theme="dark"] details .details-content{background:rgba(105,150,255,.04)}
-details .details-content ul{margin-top:0}
-details .details-content ul li{font-size:.85rem;padding-left:0;margin-bottom:.3rem}
-details .details-content ul li::before{content:''}
-details .course-list{columns:2;column-gap:2rem;list-style:none;padding:0;margin:0}
-details .course-list li{break-inside:avoid;margin-bottom:.35rem;padding-left:0}
-details .course-list li::before{content:''}
-@media(max-width:600px){details .course-list{columns:1}}
+details summary:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.courses{columns:2;column-gap:40px;margin-top:18px;padding-left:18px;border-left:1px solid var(--rule)}
+.courses li{break-inside:avoid;font-family:var(--font-sans);font-size:15px;line-height:1.5;margin-bottom:7px}
 
-/* Skills */
-.skills-grid{display:grid;grid-template-columns:200px 1fr;gap:.9rem 1.5rem;font-size:.92rem;line-height:1.65}
-.skills-grid dt{font-weight:700;color:var(--accent4);font-family:var(--font-sans);letter-spacing:-0.02em;font-size:.88rem}
-[data-theme="dark"] .skills-grid dt{color:var(--accent2)}
-.skills-grid dd{color:var(--text)}
+/* NØKKELKVALIFIKASJONER */
+.skills{border-bottom:1px solid var(--rule)}
+.skills .row{display:grid;grid-template-columns:180px minmax(0,1fr);column-gap:40px;border-top:1px solid var(--rule);padding:20px 0 22px}
+.skills dt{font-family:var(--font-sans);font-size:14px;font-weight:500;line-height:1.5;padding-top:3px}
+.skills dd{font-size:17px;max-width:64ch}
 
-/* Certs */
-.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
-.cert{display:flex;align-items:center;gap:.8rem;padding:.85rem 1rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:border-color 250ms ease,transform 250ms var(--ease-out),box-shadow 250ms ease}
-.cert:hover{border-color:var(--accent)}
-@media(hover:hover) and (pointer:fine){
-  .cert:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,112,237,.1)}
-}
-.cert-icon{font-size:1.5rem;flex-shrink:0}
-.cert-info{min-width:0;flex:1}
-.cert-info h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.88rem;margin-bottom:.15rem;line-height:1.25}
-.cert-info p{font-size:.72rem;color:var(--muted)}
+/* ANBEFALING */
+.quote{margin-top:clamp(48px,6vw,80px);max-width:var(--measure)}
+.quote .lbl{margin-bottom:18px}
+.quote blockquote{font-size:clamp(20px,2.3vw,26px);line-height:1.4;font-variation-settings:"opsz" 28}
+.quote figcaption{margin-top:22px;font-family:var(--font-sans);font-size:14px;color:var(--text-2)}
+.quote figcaption b{font-weight:600;color:var(--text)}
 
-/* Working on */
-.working-list{display:grid;gap:1rem}
-.working-item{padding:1.25rem 1.4rem;background:var(--card-bg);border:1px solid var(--border);border-radius:14px;box-shadow:var(--card-shadow)}
-.working-head{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.55rem}
-.working-head h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1.02rem;line-height:1.3}
-.working-head h3 a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent;transition:color 200ms ease,border-bottom-color 200ms ease}
-.working-head h3 a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.status{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:.2rem .6rem;border-radius:50px}
-.status-active{background:rgba(0,200,80,.1);color:#00a040;border:1px solid rgba(0,200,80,.25)}
-[data-theme="dark"] .status-active{color:#4ade80;background:rgba(0,200,80,.08)}
-.status-done{background:rgba(120,130,150,.12);color:#556070;border:1px solid rgba(120,130,150,.30)}
-[data-theme="dark"] .status-done{color:#9aa7b8;background:rgba(120,130,150,.14);border-color:rgba(120,130,150,.22)}
-.status-wip{background:rgba(214,150,20,.12);color:#a06a00;border:1px solid rgba(214,150,20,.32)}
-[data-theme="dark"] .status-wip{color:#fbbf24;background:rgba(214,150,20,.13);border-color:rgba(214,150,20,.26)}
-.working-item > p{font-size:.88rem;color:var(--text);line-height:1.6}
-.working-item .meta{font-size:.75rem;color:var(--subtle);margin-top:.55rem;font-style:italic}
+/* SERTIFISERINGER */
+.certs{border-bottom:1px solid var(--rule)}
+.certs li{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 24px;border-top:1px solid var(--rule);padding:18px 0}
+.certs .n{font-size:19px}
+.certs .u{display:block;font-family:var(--font-sans);font-size:14px;color:var(--text-2);margin-top:2px}
 
-/* Footer */
-.cv-footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--subtle)}
-.cv-footer a{color:var(--accent);text-decoration:none;font-weight:600;transition:opacity .2s}
-.cv-footer a:hover{opacity:.7}
+/* BUNN — marineblå grunn som på forsiden */
+.site-foot{background:var(--ground);color:var(--on-ground);padding-block:clamp(56px,6vw,88px) 32px;position:relative;z-index:1}
+.site-foot .grid{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;row-gap:32px;align-items:start}
+.fbrand{font-family:var(--font-display);font-size:28px;line-height:1.2;margin-bottom:10px}
+.fsub{font-family:var(--font-sans);font-size:14px;color:var(--on-ground-2)}
+.site-foot nav ul{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:flex-end}
+.site-foot nav a{font-family:var(--font-sans);font-size:14px;color:var(--on-ground);text-transform:lowercase;transition:color var(--dur) var(--ease)}
+.site-foot nav a::after{content:'.'}
+.site-foot nav a:hover{color:var(--on-ground-2)}
+.fbot{display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px;margin-top:56px;padding-top:22px;border-top:1px solid rgba(247,246,244,.18);font-family:var(--font-sans);font-size:13px;color:var(--on-ground-2)}
+.fbot .copy{margin-right:auto}
+.site-foot :focus-visible{outline-color:var(--on-ground)}
 
-/* Responsive */
-@media(max-width:700px){
-  nav{padding:.9rem 1.2rem}
-  .nav-links{display:none}
-  main{padding:4.5rem 1.2rem 3rem}
-  .cv-header{grid-template-columns:1fr;text-align:center;gap:1.2rem;padding-bottom:2rem;margin-bottom:2rem}
-  .cv-photo{margin:0 auto;width:110px;height:110px}
-  .cv-name{font-size:2rem}
-  .cv-contact{justify-content:center}
-  .cv-item{grid-template-columns:1fr;gap:.45rem}
-  .cv-item-date{padding-top:0;font-size:.7rem}
-  .skills-grid{grid-template-columns:1fr;gap:.2rem 0}
-  .skills-grid dt{margin-top:.7rem}
-  .skills-grid dt:first-of-type{margin-top:0}
+/* RESPONS */
+@media(max-width:900px){.site-foot .grid{grid-template-columns:minmax(0,1fr)}.site-foot nav ul{justify-content:flex-start}}
+@media(max-width:820px){.nav-links{display:none}}
+@media(max-width:760px){
+body{font-size:17px}
+.nav-right{gap:10px}
+.nav-in{padding-block:12px}
+.cv-top{grid-template-columns:minmax(0,1fr) 104px;column-gap:18px}
+.cv-id{align-self:end}
+.cv-head h1{font-size:clamp(42px,12vw,60px);margin:8px 0 0}
+.cv-photo{grid-row:1}
+.cv-contact,.cv-meta{grid-column:1 / -1}
+.cv-contact{margin-top:24px;font-size:14px;gap:6px 18px}
+.rows > li,.skills .row{grid-template-columns:minmax(0,1fr);row-gap:8px;padding:24px 0 26px}
+.skills .row{padding:18px 0 20px}
+.courses{columns:1}
+.txt > p:not([class]),.pts li,.skills dd{font-size:16.5px}
 }
 
-/* Print */
+/* UTSKRIFT — kompakt, svart på hvitt, alle fag synlige (beforeprint-skriptet åpner <details>) */
 @media print{
-  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.5}
-  body::after{display:none}
-  nav,.theme-toggle,.lang-switch,.cv-footer a,.cursor-dot{display:none !important}
-  main{max-width:100%;padding:.4in}
-  .cv-header{padding-bottom:1rem;margin-bottom:1.2rem;gap:1.2rem;grid-template-columns:90px 1fr}
-  .cv-photo{width:90px;height:90px;box-shadow:none;border:1px solid #ccc}
-  .cv-name{font-size:2rem;margin-bottom:.4rem}
-  .cv-summary{background:#fff;box-shadow:none;border:1px solid #ccc;padding:.8rem 1rem;margin-bottom:1.5rem}
-  .cv-summary-label{background:#fff;color:#333}
-  .cv-section{margin-bottom:1.5rem;break-inside:avoid-page}
-  .cv-section-title{font-size:1.15rem;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1.5px solid #333;color:#000}
-  .cv-item{break-inside:avoid;margin-bottom:.9rem;padding-bottom:.9rem}
-  details > summary{display:none !important}
-  details > *:not(summary){display:block !important}
-  details .details-content{background:#fff;border-left:2px solid #999;padding:.6rem .9rem;margin-top:.5rem}
-  .cert{background:#fff;box-shadow:none;border:1px solid #ccc;break-inside:avoid}
-  .working-item{background:#fff;box-shadow:none;border:1px solid #ccc;break-inside:avoid}
-  a{color:#000 !important;text-decoration:none !important;border-bottom:none !important}
-  .cv-contact a{color:#333 !important}
-  .cv-contact a[href^="mailto:"],.cv-contact a[href^="tel:"]{color:#000 !important}
-  .status{border:1px solid #999 !important;color:#333 !important;background:#fff !important}
-  .citizenship-tag{background:#fff;border:1px solid #999;color:#333}
-  .grade{color:#000}
-  .cv-doc-link{border:none;padding:0;color:#333;font-style:italic}
-  .cv-doc-link::before{content:'↗ '}
+@page{margin:14mm}
+body{background:#fff !important;color:#000 !important;font-size:10.5pt;line-height:1.45}
+body::after,.cursor-dot,#mainNav,.site-foot nav,.cv-pdf,.proj-all,details > summary{display:none !important}
+.band{padding-inline:0}
+.cv-head{padding-top:0}
+.cv-top{grid-template-columns:minmax(0,1fr) 78pt;column-gap:18pt}
+.cv-head h1{font-size:28pt;margin:2pt 0 8pt}
+.cv-contact{font-size:9.5pt;color:#333}
+.cv-meta{margin-top:6pt}
+.stmt{margin-top:12pt;padding-top:8pt;border-top-color:#000}
+.stmt .big{font-size:11.5pt}
+.cv-sec{padding-top:14pt}
+.cv-sec:last-of-type{padding-bottom:0}
+.sec-title{font-size:15pt;margin-bottom:6pt}
+h3{font-size:12pt}
+.rows,.rows > li,.skills,.skills .row,.certs,.certs li{border-color:#999 !important}
+.rows > li,.skills .row{grid-template-columns:105pt minmax(0,1fr);column-gap:14pt;padding:7pt 0;break-inside:avoid}
+.rows .per,.rows .st,.org,.note,.lbl,.certs .u{font-size:9pt;color:#333}
+.org{margin-bottom:4pt}
+.txt > p:not([class]),.pts li,.skills dd,.quote blockquote{font-size:10pt}
+.pts li{margin-bottom:2pt}
+details{margin-top:4pt}
+.courses{margin-top:2pt;border-left-color:#999}
+.courses li{font-size:9pt;margin-bottom:1pt}
+.grade{color:#000}
+.quote{margin-top:12pt;break-inside:avoid}
+.quote figcaption{margin-top:6pt}
+.certs li{padding:5pt 0}
+.certs .n{font-size:10.5pt}
+.certs .link{display:none}
+.site-foot{background:#fff !important;color:#000 !important;padding:10pt 0 0}
+.site-foot .grid{display:none}
+.fbot{margin-top:0;padding-top:6pt;border-top-color:#999;color:#333;font-size:8.5pt}
+a{color:#000 !important;border-bottom:none !important}
+.txt > .link{display:inline;font-style:italic;color:#333 !important}
 }
 
-/* Reduced motion */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
-}
+/* REDUSERT BEVEGELSE */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
 </style>
 </head>
 <body>
 <div class="cursor-dot" id="cursorDot"></div>
 
-<nav id="mainNav">
+<nav id="mainNav" class="band" aria-label="Hovedmeny"><div class="wrap nav-in">
   <a href="/" class="nav-logo" aria-label="evers.no – hjem"><svg viewBox="24.3 -533.2 3940.9 551.8" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><g style="fill:var(--text)"><path d="M288.8 -524.6Q350.0 -524.6 393.4 -500.4Q436.8 -476.2 461.4 -430.2Q486.1 -384.2 490.9 -318.9H153.7V-356.4H419.4L348.6 -332.5Q345.1 -392.4 336.0 -427.2Q326.8 -461.9 311.2 -477.0Q295.6 -492.1 272.3 -492.1Q243.1 -492.1 222.4 -474.5Q201.8 -456.9 191.0 -417.4Q180.3 -377.9 180.3 -312.1Q180.3 -233.5 199.3 -185.2Q218.4 -137.0 255.5 -114.9Q292.6 -92.8 347.0 -92.8Q374.2 -92.8 398.4 -99.3Q422.6 -105.8 445.2 -120.0Q467.8 -134.2 489.0 -157.5L500.3 -148.2Q466.0 -88.1 431.5 -53.0Q397.0 -17.8 359.2 -2.6Q321.4 12.6 276.0 12.6Q203.5 12.6 148.1 -17.7Q92.6 -48.0 61.5 -105.9Q30.3 -163.8 30.3 -246.0Q30.3 -320.7 60.0 -384.1Q89.6 -447.5 147.4 -486.0Q205.1 -524.6 288.8 -524.6Z"/><path d="M1051.9 -481.5 858.0 6.3H771.3L546.3 -475.7L491.1 -496.3V-512.0H784.3V-495.5L722.0 -479.3L889.3 -89.5L861.7 -79.2L1010.9 -481.8L949.1 -495.5V-512.0H1105.2V-495.5Z"/><path d="M1359.8 -524.6Q1421.0 -524.6 1464.4 -500.4Q1507.8 -476.2 1532.4 -430.2Q1557.1 -384.2 1561.9 -318.9H1224.7V-356.4H1490.4L1419.6 -332.5Q1416.1 -392.4 1407.0 -427.2Q1397.8 -461.9 1382.2 -477.0Q1366.6 -492.1 1343.3 -492.1Q1314.1 -492.1 1293.4 -474.5Q1272.8 -456.9 1262.0 -417.4Q1251.3 -377.9 1251.3 -312.1Q1251.3 -233.5 1270.3 -185.2Q1289.4 -137.0 1326.5 -114.9Q1363.6 -92.8 1418.0 -92.8Q1445.2 -92.8 1469.4 -99.3Q1493.6 -105.8 1516.2 -120.0Q1538.8 -134.2 1560.0 -157.5L1571.3 -148.2Q1537.0 -88.1 1502.5 -53.0Q1468.0 -17.8 1430.2 -2.6Q1392.4 12.6 1347.0 12.6Q1274.5 12.6 1219.1 -17.7Q1163.6 -48.0 1132.5 -105.9Q1101.3 -163.8 1101.3 -246.0Q1101.3 -320.7 1131.0 -384.1Q1160.6 -447.5 1218.4 -486.0Q1276.1 -524.6 1359.8 -524.6Z"/><path d="M1999.8 -522.3Q2026.6 -522.3 2042.2 -505.9Q2057.8 -489.6 2057.8 -462.4Q2057.8 -428.5 2035.8 -405.1Q2013.7 -381.6 1981.8 -381.6Q1962.6 -381.6 1948.0 -385.1Q1933.4 -388.7 1919.2 -392.2Q1905.1 -395.7 1886.5 -395.7Q1871.7 -395.7 1859.6 -392.0Q1847.5 -388.3 1836.7 -380.9Q1825.9 -373.6 1814.4 -362.1L1814.2 -385.2Q1855.5 -431.3 1883.7 -458.7Q1911.9 -486.1 1931.8 -499.8Q1951.8 -513.5 1967.6 -517.9Q1983.4 -522.3 1999.8 -522.3ZM1829.4 -424.1V-31.3L1896.3 -15.0V0.0H1615.3V-15.0L1672.2 -31.3V-397.7Q1665.7 -404.0 1658.1 -410.8Q1650.5 -417.5 1638.8 -428.2Q1627.1 -438.9 1608.6 -456.8V-469.7L1821.5 -527.2H1829.4Z"/><path d="M2298.9 -524.6Q2339.3 -524.6 2370.1 -518.1Q2401.0 -511.6 2433.0 -498.6L2452.6 -359.6H2436.9L2358.5 -495.6L2402.7 -451.6Q2375.1 -477.0 2350.6 -487.5Q2326.0 -497.9 2296.9 -497.9Q2253.1 -497.9 2230.4 -481.3Q2207.7 -464.6 2207.7 -431.5Q2207.7 -413.1 2216.3 -397.9Q2225.0 -382.7 2251.4 -368.0Q2277.8 -353.3 2332.1 -335.6Q2372.4 -322.7 2399.8 -305.6Q2427.2 -288.5 2443.5 -267.3Q2459.8 -246.1 2466.9 -220.8Q2474.1 -195.5 2474.1 -165.7Q2474.1 -113.3 2445.4 -73.0Q2416.7 -32.8 2367.0 -10.1Q2317.4 12.6 2253.3 12.6Q2205.8 12.6 2171.2 5.1Q2136.6 -2.4 2110.4 -15.6L2082.9 -175.4H2101.2L2193.7 -14.2L2164.3 -42.5Q2178.1 -33.0 2193.5 -26.8Q2208.9 -20.5 2225.4 -17.4Q2241.9 -14.3 2258.2 -14.3Q2301.5 -14.3 2331.5 -36.3Q2361.5 -58.4 2361.5 -103.5Q2361.5 -121.0 2355.4 -135.3Q2349.3 -149.6 2335.0 -162.2Q2320.8 -174.8 2296.4 -186.5Q2272.0 -198.2 2235.0 -209.6Q2186.0 -225.1 2155.4 -246.2Q2124.8 -267.2 2110.7 -295.8Q2096.7 -324.3 2096.7 -361.4Q2096.7 -411.6 2123.2 -448.1Q2149.8 -484.6 2195.5 -504.6Q2241.3 -524.6 2298.9 -524.6Z"/></g><g style="fill:var(--accent)"><path d="M2633.4 -164.7Q2672.8 -164.7 2697.9 -139.4Q2723.1 -114.2 2723.1 -76.9Q2723.1 -40.0 2697.8 -14.6Q2672.6 10.8 2633.2 10.8Q2594.1 10.8 2568.8 -14.6Q2543.6 -40.0 2543.6 -76.9Q2543.6 -114.2 2568.9 -139.4Q2594.3 -164.7 2633.4 -164.7Z"/><path d="M3000.9 -411.3V-30.6L3054.9 -15.0V0.0H2786.8V-15.0L2843.7 -31.3V-397.7Q2835.4 -406.0 2820.2 -421.1Q2804.9 -436.1 2780.1 -456.8V-469.7L2993.0 -527.2H3000.9ZM3117.2 -15.0 3171.5 -30.6V-339.2Q3171.5 -367.8 3162.6 -385.6Q3153.7 -403.3 3135.6 -411.6Q3117.5 -419.9 3089.0 -419.9Q3061.3 -419.9 3034.8 -412.4Q3008.3 -404.8 2983.8 -393.1L2980.6 -402.6Q3019.3 -441.8 3047.2 -465.6Q3075.0 -489.4 3097.3 -501.5Q3119.5 -513.7 3141.1 -517.9Q3162.6 -522.0 3189.0 -522.0Q3259.1 -522.0 3293.9 -483.4Q3328.8 -444.8 3328.8 -368.8V-31.3L3385.4 -15.0V0.0H3117.2Z"/><path d="M3694.3 -18.4Q3729.4 -18.4 3751.5 -42.3Q3773.6 -66.2 3783.8 -116.5Q3794.0 -166.8 3794.0 -245.2Q3794.0 -327.5 3784.2 -382.5Q3774.4 -437.6 3752.4 -465.4Q3730.4 -493.3 3694.2 -493.3Q3659.1 -493.3 3637.1 -469.4Q3615.2 -445.5 3604.8 -395.4Q3594.5 -345.2 3594.5 -266.8Q3594.5 -184.7 3604.3 -129.4Q3614.1 -74.2 3636.1 -46.3Q3658.1 -18.4 3694.3 -18.4ZM3689.2 12.6Q3613.5 12.6 3554.9 -21.4Q3496.3 -55.4 3463.0 -115.7Q3429.6 -175.9 3429.6 -254.7Q3429.6 -334.5 3465.0 -395.3Q3500.4 -456.0 3561.5 -490.3Q3622.6 -524.6 3699.3 -524.6Q3776.5 -524.6 3835.0 -490.7Q3893.4 -456.8 3926.3 -396.6Q3959.2 -336.3 3959.2 -257.3Q3959.2 -177.5 3923.2 -116.6Q3887.1 -55.7 3826.0 -21.6Q3764.9 12.6 3689.2 12.6Z"/></g></svg><span class="nl-med">V.</span></a>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="/#om" data-i="nav1">Om meg</a></li>
-      <li><a href="/#erfaring" data-i="nav2">Erfaring</a></li>
-      <li><a href="/cv" class="active" data-i="nav3">CV</a></li>
-      <li><a href="/#sertifiseringer" data-i="nav4">Sertifiseringer</a></li>
-      <li><a href="/#forskning" data-i="nav5">Forskning</a></li>
       <li><a href="/prosjekter/" data-i="nav7">Prosjekter</a></li>
+      <li><a href="/#forskning" data-i="nav5">Forskning</a></li>
+      <li><a href="/cv" class="active" aria-current="page" data-i="nav3">CV</a></li>
       <li><a href="/#kontakt" data-i="nav6">Kontakt</a></li>
     </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
-    <div class="lang-switch">
-      <button class="lang-btn" id="langBtn" aria-label="Velg språk" aria-haspopup="true" aria-controls="langMenu" aria-expanded="false">NO</button>
-      <div class="lang-menu" id="langMenu">
+    <div class="nav-tools">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
+      <div class="lang-switch">
+        <button class="lang-btn" id="langBtn" aria-label="Velg språk" aria-haspopup="true" aria-controls="langMenu" aria-expanded="false">NO</button>
+        <div class="lang-menu" id="langMenu">
         <button class="lang-opt active" data-lang="no"><svg class="lang-flag" viewBox="0 0 22 16" aria-hidden="true"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="2" height="16" fill="#fff"/><rect y="7" width="22" height="2" fill="#fff"/><rect x="6.5" width="1" height="16" fill="#002868"/><rect y="7.5" width="22" height="1" fill="#002868"/></svg>Norsk</button>
         <button class="lang-opt" data-lang="en"><svg class="lang-flag" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>English</button>
         </div>
+      </div>
     </div>
   </div>
-</nav>
+</div></nav>
 
 <main>
 
-<!-- Header -->
-<header class="cv-header">
-  <img src="profile.jpg" alt="Valiant Evers" class="cv-photo">
-  <div>
-    <h1 class="cv-name">Valiant Evers</h1>
+<!-- Topp -->
+<header class="cv-head band">
+<div class="wrap">
+  <div class="cv-top">
+    <div class="cv-id">
+      <p class="lbl">Curriculum vitae</p>
+      <h1>Valiant Evers</h1>
+    </div>
+    <img src="profile.jpg" alt="Valiant Evers" class="cv-photo" width="576" height="720">
     <div class="cv-contact">
       <a id="cvEmailLink"><span id="cvEmailText"></span></a>
-      <span class="sep">·</span>
       <a id="cvPhoneLink"><span id="cvPhoneText"></span></a>
-      <span class="sep">·</span>
       <span>Oslo, <span data-i="norway">Norge</span></span>
-      <span class="sep">·</span>
       <a href="https://www.linkedin.com/in/valiant-evers/" target="_blank" rel="noopener">LinkedIn</a>
-      <span class="sep">·</span>
       <span data-i="born">f. 18. september 2000</span>
     </div>
-    <span class="citizenship-tag">
-      <span class="cit-flags" aria-hidden="true">
+    <div class="cv-meta">
+      <span class="cit lbl">
+        <span class="cit-flags" aria-hidden="true">
         <svg class="cit-flag" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="2" height="16" fill="#fff"/><rect y="7" width="22" height="2" fill="#fff"/><rect x="6.5" width="1" height="16" fill="#002868"/><rect y="7.5" width="22" height="1" fill="#002868"/></svg>
         <svg class="cit-flag" viewBox="0 0 15 13" xmlns="http://www.w3.org/2000/svg"><rect width="5" height="13" fill="#000"/><rect x="5" width="5" height="13" fill="#FDDA24"/><rect x="10" width="5" height="13" fill="#EF3340"/></svg>
+        </span>
+        <span data-i="citizenship">Dobbelt norsk-belgisk statsborgerskap</span>
       </span>
-      <span data-i="citizenship">Dobbelt norsk-belgisk statsborgerskap</span>
-    </span>
-    <a href="docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf" data-i-href="downloadCVHref" target="_blank" rel="noopener" class="cv-doc-link" download>📄 <span data-i="downloadCV">Last ned som PDF</span></a>
+      <a href="docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf" data-i-href="downloadCVHref" target="_blank" rel="noopener" class="link cv-pdf" download><span data-i="downloadCV">Last ned som PDF</span> ↓</a>
+    </div>
   </div>
+  <div class="stmt">
+    <p class="lbl" data-i="profileLabel">Profil</p>
+    <p class="big" data-i="summary">Norsk-belgisk med MSc i Finans fra Handelshøyskolen BI. Skrev masteroppgave om finansiell kunnskap, overkonfidens og porteføljevalg blant 750 norske privatinvestorer, med innsikt som ligger tett på rådgivningsarbeid. Masteroppgaven fikk karakter A. Bosatt i Oslo. Siden september 2026: Client Services Manager i Euronext Securities Oslo (verdipapirsentralen).</p>
+  </div>
+</div>
 </header>
 
-<!-- Profile -->
-<section class="cv-summary">
-  <span class="cv-summary-label" data-i="profileLabel">Profil</span>
-  <p data-i="summary">Norsk-belgisk med MSc i Finans fra Handelshøyskolen BI. Skrev masteroppgave om finansiell kunnskap, overkonfidens og porteføljevalg blant 750 norske privatinvestorer, med innsikt som ligger tett på rådgivningsarbeid. Masteroppgaven fikk karakter A. Bosatt i Oslo. Siden september 2026: Client Services Manager i Euronext Securities Oslo (verdipapirsentralen).</p>
+<!-- Erfaring -->
+<section class="cv-sec band" id="erfaring">
+<div class="wrap">
+  <h2 class="sec-title" data-i="expTitle">Erfaring</h2>
+  <ol class="rows">
+    <li>
+      <p class="per" data-i="enxDate">Sep. 2026 – nå</p>
+      <div class="txt">
+        <h3 data-i="enxTitle">Client Services Manager</h3>
+        <p class="org"><a href="https://www.euronext.com/en/post-trade/euronext-securities/oslo" target="_blank" rel="noopener">Euronext Securities Oslo</a> (Verdipapirsentralen ASA)</p>
+        <ul class="pts">
+          <li data-i="enx1">Client services i den norske verdipapirsentralen — registrering, oppgjør og investortjenester for det norske verdipapirmarkedet.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <p class="per">Juni 2025</p>
+      <div class="txt">
+        <h3 data-i="igfTitle">Eventmedarbeider, IGF 2025</h3>
+        <p class="org">Medvind Eventbyrå · <a href="https://www.intgovforum.org/" target="_blank" rel="noopener">UN Internet Governance Forum</a></p>
+        <ul class="pts">
+          <li data-i="igf1">Ansvarlig for utstillingshallen med 70+ utstillere fra internasjonale teknologiselskaper som Google, Meta, TikTok og GlobalConnect.</li>
+          <li data-i="igf2">Utførte logistikk, rigg og akkreditering i tråd med stram produksjonsplan og FNs høye sikkerhetskrav.</li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <p class="per" data-i="menyShiftDate">Nov 2019 – Sep 2025</p>
+      <div class="txt">
+        <h3 data-i="menyShiftTitle">Stengeansvarlig (fra jan. 2021)</h3>
+        <p class="org"><a href="https://meny.no/" target="_blank" rel="noopener">Meny Lambertseter</a>, Oslo</p>
+        <ul class="pts">
+          <li data-i="clerk1">Startet som butikkmedarbeider i 2019: kundeservice, varepåfylling og støtte i varemottak og lager.</li>
+          <li data-i="meny1">Ledet skift med opptil 20 ansatte; sørget for strukturert oppgavetildeling og smidig daglig drift.</li>
+          <li data-i="meny2">Bygget tillit og lagfølelse; bidro til et positivt arbeidsmiljø anerkjent av ledelsen.</li>
+          <li data-i="meny3">Fikk jevnlig ros for omstillingsevne og for å omsette tilbakemeldinger til praksis.</li>
+          <li data-i="meny4">Ansvar for verdisikring, kasseoppgjør, opplæring av nyansatte, konflikthåndtering, kostnadskontroll og sikkerhetsrutiner.</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+  <figure class="quote" id="anbefaling">
+    <p class="lbl" data-i="lblQuote">Anbefaling</p>
+    <blockquote data-i="qText">Valiant har utmerket seg som en pålitelig og ansvarsbevisst medarbeider. Han har hatt rollen som stengeansvarlig med ansvar for opptil 20 personer, og har løst denne rollen på en imponerende måte, takket være sin naturlige autoritet, tillitsskapende væremåte og evne til å skape trygghet og struktur i teamet.</blockquote>
+    <figcaption><b>Kristian Grande</b>, <span data-i="qRole">Kjøpmann, Meny Lambertseter</span></figcaption>
+  </figure>
+</div>
 </section>
 
-<!-- Education -->
-<section class="cv-section">
-  <h2 class="cv-section-title" data-i="eduTitle">Utdanning</h2>
-
-  <div class="cv-item">
-    <div class="cv-item-date">Aug 2024 – Jun 2026</div>
-    <div class="cv-item-body">
-      <h3 data-i="mscTitle">MSc in Finance</h3>
-      <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
-      <p data-i="mscDesc">Valgfag: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation og Financial Institutions and Crises.</p>
-      <details>
-        <summary data-i="showCourses">Vis relevante fag</summary>
-        <div class="details-content">
-          <ul class="course-list">
+<!-- Utdanning -->
+<section class="cv-sec band" id="utdanning">
+<div class="wrap">
+  <h2 class="sec-title" data-i="eduTitle">Utdanning</h2>
+  <ol class="rows">
+    <li>
+      <p class="per">Aug 2024 – Jun 2026</p>
+      <div class="txt">
+        <h3 data-i="mscTitle">MSc in Finance</h3>
+        <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
+        <p data-i="mscDesc">Valgfag: Asset Management, Financial Risk Management, Strategic Asset Allocation, International Finance, Applied Valuation og Financial Institutions and Crises.</p>
+        <details>
+          <summary data-i="showCourses">Vis relevante fag</summary>
+          <ul class="courses">
             <li>Asset Management <span class="grade">(A)</span></li>
             <li>Strategic Asset Allocation <span class="grade">(A)</span></li>
             <li>Financial Risk Management <span class="grade">(B)</span></li>
@@ -355,31 +410,27 @@ details .course-list li::before{content:''}
             <li>Sustainable Finance <span class="grade">(C)</span></li>
             <li>Financial Institutions and Crises <span class="grade">(C)</span></li>
           </ul>
-        </div>
-      </details>
-    </div>
-  </div>
-
-  <div class="cv-item">
-    <div class="cv-item-date" data-i="summer2025">Sommeren 2025 (sommerkurs)</div>
-    <div class="cv-item-body">
-      <h3>Python Fundamentals for Machine Learning</h3>
-      <p class="org"><a href="https://international.au.dk/" target="_blank" rel="noopener">Aarhus Universitet</a>, <span data-i="denmark">Danmark</span></p>
-      <p data-i="aarhusDesc">Intensivt sommerkurs i Python for dataanalyse og maskinlæring. Toppkarakter <span class="grade">(12/A)</span>.</p>
-      <a href="docs/Transcript%20from%20Aarhus%20Summer%20School.pdf" target="_blank" rel="noopener" class="cv-doc-link">📄 <span data-i="viewTranscript">Se vitnemål</span></a>
-    </div>
-  </div>
-
-  <div class="cv-item">
-    <div class="cv-item-date">Aug 2021 – <span data-i="june2024">Juni 2024</span></div>
-    <div class="cv-item-body">
-      <h3 data-i="bscTitle">BSc in Finance</h3>
-      <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
-      <p data-i="bscDesc">Valgfag: Prosjektledelse, Forretningsjus, Økonomistyring og investeringsanalyse, og Behavioral Finance.</p>
-      <details>
-        <summary data-i="showCourses">Vis relevante fag</summary>
-        <div class="details-content">
-          <ul class="course-list">
+        </details>
+      </div>
+    </li>
+    <li>
+      <p class="per" data-i="summer2025">Sommeren 2025 (sommerkurs)</p>
+      <div class="txt">
+        <h3>Python Fundamentals for Machine Learning</h3>
+        <p class="org"><a href="https://international.au.dk/" target="_blank" rel="noopener">Aarhus Universitet</a>, <span data-i="denmark">Danmark</span></p>
+        <p data-i="aarhusDesc">Intensivt sommerkurs i Python for dataanalyse og maskinlæring. Toppkarakter <span class="grade">(12/A)</span>.</p>
+        <a href="docs/Transcript%20from%20Aarhus%20Summer%20School.pdf" target="_blank" rel="noopener" class="link"><span data-i="viewTranscript">Se vitnemål</span> ↗</a>
+      </div>
+    </li>
+    <li>
+      <p class="per">Aug 2021 – <span data-i="june2024">Juni 2024</span></p>
+      <div class="txt">
+        <h3 data-i="bscTitle">BSc in Finance</h3>
+        <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
+        <p data-i="bscDesc">Valgfag: Prosjektledelse, Forretningsjus, Økonomistyring og investeringsanalyse, og Behavioral Finance.</p>
+        <details>
+          <summary data-i="showCourses">Vis relevante fag</summary>
+          <ul class="courses">
             <li>Behavioral Finance <span class="grade">(A)</span></li>
             <li data-i="firmCourse">Bedriften <span class="grade">(A)</span></li>
             <li data-i="digToolsCourse">Digitale verktøy og finansiell analyse <span class="grade">(A)</span></li>
@@ -391,178 +442,126 @@ details .course-list li::before{content:''}
             <li data-i="strategyCourse">Strategi <span class="grade">(B)</span></li>
             <li data-i="mathCourse">Matematikk for økonomer <span class="grade">(B)</span></li>
           </ul>
-        </div>
-      </details>
-    </div>
-  </div>
-
+        </details>
+      </div>
+    </li>
+  </ol>
+</div>
 </section>
 
-<!-- Research -->
-<section class="cv-section">
-  <h2 class="cv-section-title" data-i="researchTitle">Forskning</h2>
-
-  <div class="cv-item">
-    <div class="cv-item-date" data-i="thesisDate">Juni 2026</div>
-    <div class="cv-item-body">
-      <h3 data-i="thesisTitle">Masteroppgave (A)</h3>
-      <p class="org" data-i="thesisProgram">Handelshøyskolen BI · MSc Finance</p>
-      <p data-i="thesisDesc"><em>How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Basert på 750 norske privatinvestorer med mediationsanalyse i Python.</p>
-      <p class="meta" data-i="thesisMeta">Medforfatter: Henrik Bekkevold · Veileder: Ignacio Garcia de Olalla Lopez</p>
-      <a href="docs/Master%20Thesis.pdf" target="_blank" rel="noopener" class="cv-doc-link">📄 <span data-i="readThesis">Les oppgaven</span></a>
-    </div>
-  </div>
-
+<!-- Forskning -->
+<section class="cv-sec band" id="forskning">
+<div class="wrap">
+  <h2 class="sec-title" data-i="researchTitle">Forskning</h2>
+  <ol class="rows">
+    <li>
+      <p class="per" data-i="thesisDate">Juni 2026</p>
+      <div class="txt">
+        <h3 data-i="thesisTitle">Masteroppgave (A)</h3>
+        <p class="org" data-i="thesisProgram">Handelshøyskolen BI · MSc Finance</p>
+        <p data-i="thesisDesc"><em>How does financial literacy – or lack thereof – influence risk-taking behaviour, overconfidence and portfolio construction among Norwegian investors?</em> – Basert på 750 norske privatinvestorer med mediationsanalyse i Python.</p>
+        <p class="note" data-i="thesisMeta">Medforfatter: Henrik Bekkevold · Veileder: Ignacio Garcia de Olalla Lopez</p>
+        <a href="docs/Master%20Thesis.pdf" target="_blank" rel="noopener" class="link"><span data-i="readThesis">Les oppgaven</span> ↗</a>
+      </div>
+    </li>
+  </ol>
+</div>
 </section>
 
-<!-- Projects -->
-<section class="cv-section">
-  <h2 class="cv-section-title" data-i="projectsTitle">Prosjekter</h2>
-  <div class="working-list">
-
-    <div class="working-item">
-      <div class="working-head">
+<!-- Prosjekter -->
+<section class="cv-sec band" id="prosjekter">
+<div class="wrap">
+  <h2 class="sec-title" data-i="projectsTitle">Prosjekter</h2>
+  <ul class="rows light">
+    <li>
+      <p class="st" data-i="active">Aktiv</p>
+      <div class="txt">
         <h3><a href="https://www.evers.no/formuessamtalen/" target="_blank" rel="noopener">Formuessamtalen</a></h3>
-        <span class="status status-active"><span data-i="active">Aktiv</span></span>
+        <p data-i="formuesDesc">Interaktiv demo av rådgivningssamtalen i wealth management: egnethetskartlegging, åpen allokeringsmatrise, kontovalg mellom depot, ASK og eget AS, og en kalibreringstest bygget på masteroppgaven.</p>
       </div>
-      <p data-i="formuesDesc">Interaktiv demo av rådgivningssamtalen i wealth management: egnethetskartlegging, åpen allokeringsmatrise, kontovalg mellom depot, ASK og eget AS, og en kalibreringstest bygget på masteroppgaven.</p>
-    </div>
-
-    <div class="working-item">
-      <div class="working-head">
+    </li>
+    <li>
+      <p class="st" data-i="active">Aktiv</p>
+      <div class="txt">
         <h3><a href="https://www.evers.no/renteriket/" target="_blank" rel="noopener">Renteriket</a></h3>
-        <span class="status status-active"><span data-i="active">Aktiv</span></span>
+        <p data-i="renterikeDesc">Spill som lærer bort privatøkonomi fra null, med alle norske satser samlet i én kildeforankret blokk. 1004 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet; mattesjekkene regner fasiten med andre formler enn spillet bruker, og avdekket blant annet at ett oppdrag var matematisk uløselig.</p>
       </div>
-      <p data-i="renterikeDesc">Spill som lærer bort privatøkonomi fra null, med alle norske satser samlet i én kildeforankret blokk. 1004 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet; mattesjekkene regner fasiten med andre formler enn spillet bruker, og avdekket blant annet at ett oppdrag var matematisk uløselig.</p>
-    </div>
-
-    <div class="working-item">
-      <div class="working-head">
+    </li>
+    <li>
+      <p class="st" data-i="active">Aktiv</p>
+      <div class="txt">
         <h3><a href="https://www.evers.no/personligokonomi/" target="_blank" rel="noopener">Personlig Økonomi</a></h3>
-        <span class="status status-active"><span data-i="active">Aktiv</span></span>
+        <p data-i="personligDesc">Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.</p>
       </div>
-      <p data-i="personligDesc">Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.</p>
-    </div>
-
-    <div class="working-item">
-      <div class="working-head">
+    </li>
+    <li>
+      <p class="st" data-i="paused">Pauset</p>
+      <div class="txt">
         <h3>OSEBX Dashboard</h3>
-        <span class="status status-done"><span data-i="paused">Pauset</span></span>
+        <p data-i="osebxDesc">Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.</p>
       </div>
-      <p data-i="osebxDesc">Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.</p>
-    </div>
-
-    <div class="working-item">
-      <div class="working-head">
+    </li>
+    <li>
+      <p class="st" data-i="completed">Fullført</p>
+      <div class="txt">
         <h3><a href="https://www.evers.no/examprep/" target="_blank" rel="noopener">GRA6546 – Exam Prep</a></h3>
-        <span class="status status-done"><span data-i="completed">Fullført</span></span>
+        <p data-i="examprepDesc">Interaktivt eksamensforberedelsesverktøy for GRA6546 Financial Institutions and Crises på BI. Forelesningsnotater, temasider og flashcards organisert per pensumkapittel. Eksamen 13. mai 2026.</p>
       </div>
-      <p data-i="examprepDesc">Interaktivt eksamensforberedelsesverktøy for GRA6546 Financial Institutions and Crises på BI. Forelesningsnotater, temasider og flashcards organisert per pensumkapittel. Eksamen 13. mai 2026.</p>
-    </div>
-
-    <div class="working-item">
-      <div class="working-head">
+    </li>
+    <li>
+      <p class="st" data-i="wip">Under arbeid</p>
+      <div class="txt">
         <h3><a href="https://github.com/ValiantEvers/skatt-mcp" target="_blank" rel="noopener">skatt-mcp</a></h3>
-        <span class="status status-wip"><span data-i="wip">Under arbeid</span></span>
+        <p data-i="skattMcpDesc">Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall framfor generelle forklaringer. Tolv verktøy dekker aksjegevinst (FIFO), verdipapirfond, ASK, formue, bolig, krypto, Nordnet-import og et samlet skatteoppgjør. Kjører 100 % lokalt over stdio – ingen finansdata forlater maskinen. Bygget med TypeScript, MCP-protokollen og Zod. Åpen kildekode (MIT).</p>
       </div>
-      <p data-i="skattMcpDesc">Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall framfor generelle forklaringer. Tolv verktøy dekker aksjegevinst (FIFO), verdipapirfond, ASK, formue, bolig, krypto, Nordnet-import og et samlet skatteoppgjør. Kjører 100 % lokalt over stdio – ingen finansdata forlater maskinen. Bygget med TypeScript, MCP-protokollen og Zod. Åpen kildekode (MIT).</p>
-    </div>
-
-  </div>
+    </li>
+  </ul>
+  <p class="proj-all"><a class="link" href="/prosjekter/"><span data-i="allProj">Alle prosjekter</span> ↗</a></p>
+</div>
 </section>
 
-<!-- Experience -->
-<section class="cv-section">
-  <h2 class="cv-section-title" data-i="expTitle">Erfaring</h2>
-
-  <div class="cv-item">
-    <div class="cv-item-date" data-i="enxDate">Sep. 2026 – nå</div>
-    <div class="cv-item-body">
-      <h3 data-i="enxTitle">Client Services Manager</h3>
-      <p class="org"><a href="https://www.euronext.com/en/post-trade/euronext-securities/oslo" target="_blank" rel="noopener">Euronext Securities Oslo</a> (Verdipapirsentralen ASA)</p>
-      <ul>
-        <li data-i="enx1">Client services i den norske verdipapirsentralen — registrering, oppgjør og investortjenester for det norske verdipapirmarkedet.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="cv-item">
-    <div class="cv-item-date">Juni 2025</div>
-    <div class="cv-item-body">
-      <h3 data-i="igfTitle">Eventmedarbeider, IGF 2025</h3>
-      <p class="org">Medvind Eventbyrå · <a href="https://www.intgovforum.org/" target="_blank" rel="noopener">UN Internet Governance Forum</a></p>
-      <ul>
-        <li data-i="igf1">Ansvarlig for utstillingshallen med 70+ utstillere fra internasjonale teknologiselskaper som Google, Meta, TikTok og GlobalConnect.</li>
-        <li data-i="igf2">Utførte logistikk, rigg og akkreditering i tråd med stram produksjonsplan og FNs høye sikkerhetskrav.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="cv-item">
-    <div class="cv-item-date" data-i="menyShiftDate">Nov 2019 – Sep 2025</div>
-    <div class="cv-item-body">
-      <h3 data-i="menyShiftTitle">Stengeansvarlig (fra jan. 2021)</h3>
-      <p class="org"><a href="https://meny.no/" target="_blank" rel="noopener">Meny Lambertseter</a>, Oslo</p>
-      <ul>
-        <li data-i="clerk1">Startet som butikkmedarbeider i 2019: kundeservice, varepåfylling og støtte i varemottak og lager.</li>
-        <li data-i="meny1">Ledet skift med opptil 20 ansatte; sørget for strukturert oppgavetildeling og smidig daglig drift.</li>
-        <li data-i="meny2">Bygget tillit og lagfølelse; bidro til et positivt arbeidsmiljø anerkjent av ledelsen.</li>
-        <li data-i="meny3">Fikk jevnlig ros for omstillingsevne og for å omsette tilbakemeldinger til praksis.</li>
-        <li data-i="meny4">Ansvar for verdisikring, kasseoppgjør, opplæring av nyansatte, konflikthåndtering, kostnadskontroll og sikkerhetsrutiner.</li>
-      </ul>
-    </div>
-  </div>
-
-</section>
-
-<!-- Skills -->
-<section class="cv-section">
-  <h2 class="cv-section-title" data-i="skillsTitle">Nøkkelkvalifikasjoner</h2>
-  <dl class="skills-grid">
-    <dt data-i="skillRelations">Relasjoner og kommunikasjon</dt>
-    <dd data-i="skillRelationsDesc">Nesten seks år med direkte kundekontakt hos Meny – reklamasjoner, opplæring av nyansatte og faste kunderelasjoner. Trent på å holde roen under press og omsette tilbakemeldinger i praksis.</dd>
-    <dt data-i="skillLeadership">Ledelse og teamarbeid</dt>
-    <dd data-i="skillLeadershipDesc">Skiftansvar for team på opptil 20 personer over fire år. Ansvar for opplæring, daglig oppgavefordeling og konflikthåndtering.</dd>
-    <dt data-i="skillProblem">Problemhåndtering</dt>
-    <dd data-i="skillProblemDesc">Erfaren med å roe ned eskalerte kundesaker, avstemme kassedifferanser og håndtere uforutsette driftsproblemer under tidspress.</dd>
-    <dt data-i="skillLang">Språk</dt>
-    <dd data-i="skillLangDesc">Norsk (morsmål), engelsk (flytende), fransk (mellomnivå, samtaler og lesning).</dd>
-    <dt data-i="skillTech">Teknisk</dt>
-    <dd data-i="skillTechDesc">Python (Pandas, NumPy, statsmodels) brukt i mediationsanalyse av 750 investorer og i ukentlig Oslo Børs-pipeline. Excel (finansiell modellering, scenarier). Bloomberg Terminal. Grunnleggende økonometri.</dd>
-    <dt data-i="skillVerv">Verv</dt>
-    <dd data-i="skillVervDesc">Ambassadør for Bergensbaneløpet 2025/26 (BI mot NHH) – kåret til årets ambassadør, med ansvar for innhold og kommunikasjon.</dd>
+<!-- Nøkkelkvalifikasjoner -->
+<section class="cv-sec band" id="kvalifikasjoner">
+<div class="wrap">
+  <h2 class="sec-title" data-i="skillsTitle">Nøkkelkvalifikasjoner</h2>
+  <dl class="skills">
+    <div class="row"><dt data-i="skillRelations">Relasjoner og kommunikasjon</dt><dd data-i="skillRelationsDesc">Nesten seks år med direkte kundekontakt hos Meny – reklamasjoner, opplæring av nyansatte og faste kunderelasjoner. Trent på å holde roen under press og omsette tilbakemeldinger i praksis.</dd></div>
+    <div class="row"><dt data-i="skillLeadership">Ledelse og teamarbeid</dt><dd data-i="skillLeadershipDesc">Skiftansvar for team på opptil 20 personer over fire år. Ansvar for opplæring, daglig oppgavefordeling og konflikthåndtering.</dd></div>
+    <div class="row"><dt data-i="skillProblem">Problemhåndtering</dt><dd data-i="skillProblemDesc">Erfaren med å roe ned eskalerte kundesaker, avstemme kassedifferanser og håndtere uforutsette driftsproblemer under tidspress.</dd></div>
+    <div class="row"><dt data-i="skillLang">Språk</dt><dd data-i="skillLangDesc">Norsk (morsmål), engelsk (flytende), fransk (mellomnivå, samtaler og lesning).</dd></div>
+    <div class="row"><dt data-i="skillTech">Teknisk</dt><dd data-i="skillTechDesc">Python (Pandas, NumPy, statsmodels) brukt i mediationsanalyse av 750 investorer og i ukentlig Oslo Børs-pipeline. Excel (finansiell modellering, scenarier). Bloomberg Terminal. Grunnleggende økonometri.</dd></div>
+    <div class="row"><dt data-i="skillVerv">Verv</dt><dd data-i="skillVervDesc">Ambassadør for Bergensbaneløpet 2025/26 (BI mot NHH) – kåret til årets ambassadør, med ansvar for innhold og kommunikasjon.</dd></div>
   </dl>
+</div>
 </section>
 
-<!-- Certifications -->
-<section class="cv-section">
-  <h2 class="cv-section-title" data-i="certsTitle">Sertifiseringer</h2>
-  <div class="certs">
-    <a href="docs/BMC_certificate_of_completion.pdf" target="_blank" rel="noopener" class="cert">
-      <span class="cert-icon">📈</span>
-      <div class="cert-info"><h3>Bloomberg Market Concepts</h3><p>Bloomberg for Education</p></div>
-    </a>
-    <a href="docs/Bloomberg_BFF_Certificate.pdf" target="_blank" rel="noopener" class="cert">
-      <span class="cert-icon">💰</span>
-      <div class="cert-info"><h3 data-i="bffTitle">Finance Fundamentals</h3><p>Bloomberg for Education</p></div>
-    </a>
-    <a href="docs/ESG_certificate_of_completion.pdf" target="_blank" rel="noopener" class="cert">
-      <span class="cert-icon">🌱</span>
-      <div class="cert-info"><h3>ESG</h3><p>Bloomberg for Education</p></div>
-    </a>
-    <a href="https://www.coursera.org/verify/N34MYKCQ5UJZ" target="_blank" rel="noopener noreferrer" class="cert">
-      <span class="cert-icon">🧠</span>
-      <div class="cert-info"><h3>Intro to Psychology</h3><p>Yale / Coursera</p></div>
-    </a>
-  </div>
+<!-- Sertifiseringer -->
+<section class="cv-sec band" id="sertifiseringer">
+<div class="wrap">
+  <h2 class="sec-title" data-i="certsTitle">Sertifiseringer</h2>
+  <ul class="certs">
+    <li><span><span class="n">Bloomberg Market Concepts</span><span class="u">Bloomberg for Education</span></span><a class="link" href="docs/BMC_certificate_of_completion.pdf" target="_blank" rel="noopener"><span data-i="certOpen">Åpne</span> ↗<span class="vh">Bloomberg Market Concepts</span></a></li>
+    <li><span><span class="n" data-i="bffTitle">Finance Fundamentals</span><span class="u">Bloomberg for Education</span></span><a class="link" href="docs/Bloomberg_BFF_Certificate.pdf" target="_blank" rel="noopener"><span data-i="certOpen">Åpne</span> ↗<span class="vh">Finance Fundamentals</span></a></li>
+    <li><span><span class="n">ESG</span><span class="u">Bloomberg for Education</span></span><a class="link" href="docs/ESG_certificate_of_completion.pdf" target="_blank" rel="noopener"><span data-i="certOpen">Åpne</span> ↗<span class="vh">ESG</span></a></li>
+    <li><span><span class="n">Intro to Psychology</span><span class="u">Yale / Coursera</span></span><a class="link" href="https://www.coursera.org/verify/N34MYKCQ5UJZ" target="_blank" rel="noopener noreferrer"><span data-i="certOpen">Åpne</span> ↗<span class="vh">Intro to Psychology</span></a></li>
+  </ul>
+</div>
 </section>
-
-<footer class="cv-footer">
-  <span><span data-i="lastUpdated">Sist oppdatert</span>: <span id="cvUpdated" data-i="cvUpdatedVal">Oktober 2026</span></span>
-  <a href="/" data-i="backToSite">← evers.no</a>
-</footer>
 
 </main>
+
+<footer class="site-foot band">
+<div class="wrap">
+  <div class="grid">
+    <div><p class="fbrand">Valiant Evers</p><p class="fsub" data-i="footSub">Euronext Securities Oslo · MSc i finans, BI</p></div>
+    <nav aria-label="Bunnavigasjon"><ul><li><a href="/" data-i="footHome">Forsiden</a></li><li><a href="/#om" data-i="nav1">Om meg</a></li><li><a href="/prosjekter/" data-i="nav7">Prosjekter</a></li><li><a href="/#forskning" data-i="nav5">Forskning</a></li><li><a href="/#kontakt" data-i="nav6">Kontakt</a></li></ul></nav>
+  </div>
+  <div class="fbot">
+    <span class="copy">&copy; 2026 Valiant Evers, Oslo</span>
+    <span><span data-i="lastUpdated">Sist oppdatert</span>: <span id="cvUpdated" data-i="cvUpdatedVal">Oktober 2026</span></span>
+  </div>
+</div>
+</footer>
 
 <script>
 var T = {
@@ -643,6 +642,11 @@ var T = {
     downloadCV: "Last ned som PDF",
     downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(Norsk).pdf",
     lastUpdated: "Sist oppdatert", cvUpdatedVal: "Oktober 2026",
+    lblQuote: "Anbefaling",
+    qText: "Valiant har utmerket seg som en pålitelig og ansvarsbevisst medarbeider. Han har hatt rollen som stengeansvarlig med ansvar for opptil 20 personer, og har løst denne rollen på en imponerende måte, takket være sin naturlige autoritet, tillitsskapende væremåte og evne til å skape trygghet og struktur i teamet.",
+    qRole: "Kjøpmann, Meny Lambertseter",
+    allProj: "Alle prosjekter", certOpen: "Åpne",
+    footSub: "Euronext Securities Oslo · MSc i finans, BI", footHome: "Forsiden",
     backToSite: "← evers.no"
   },
   en: {
@@ -722,6 +726,11 @@ var T = {
     downloadCV: "Download as PDF",
     downloadCVHref: "docs/Valiant%20Evers%20-%20CV%20(English).pdf",
     lastUpdated: "Last updated", cvUpdatedVal: "October 2026",
+    lblQuote: "Recommendation",
+    qText: "Valiant has stood out as a reliable and responsible employee. As shift manager for up to 20 people, he fulfilled the role impressively, thanks to his natural authority, trust-building demeanour and ability to create safety and structure in the team.",
+    qRole: "Store Manager, Meny Lambertseter",
+    allProj: "All projects", certOpen: "Open",
+    footSub: "Euronext Securities Oslo · MSc in Finance, BI", footHome: "Home",
     backToSite: "← evers.no"
   },
   fr: {
@@ -1047,14 +1056,6 @@ document.addEventListener('keydown', function(e){
   });
 })();
 
-/* Nav scrolled state */
-(function(){
-  var nav = document.getElementById('mainNav');
-  function onScroll(){ if(window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-})();
-
 /* Custom cursor – desktop / fine-pointer only */
 (function(){
   var dot = document.getElementById('cursorDot');
@@ -1064,7 +1065,7 @@ document.addEventListener('keydown', function(e){
   document.addEventListener('mouseleave', function(){ dot.style.opacity='0'; });
   document.addEventListener('mouseenter', function(){ dot.style.opacity=''; });
   (function loop(){ dx+=(mx-dx)*.15; dy+=(my-dy)*.15; dot.style.left=dx+'px'; dot.style.top=dy+'px'; requestAnimationFrame(loop); })();
-  document.querySelectorAll('a,button,details summary,.cert,.cv-doc-link').forEach(function(el){
+  document.querySelectorAll('a,button,details summary').forEach(function(el){
     el.addEventListener('mouseenter', function(){ dot.classList.add('hover'); });
     el.addEventListener('mouseleave', function(){ dot.classList.remove('hover'); });
   });
@@ -1092,64 +1093,24 @@ window.addEventListener('load',function(){setTimeout(setContacts,500)});
 })();
 </script>
 
-<!-- Rough Notation: håndtegnede annoteringer på CV-nøkkelord (progressive enhancement, kun cv.html) -->
-<script src="/vendor/rough-notation.iife.js"></script>
 <script>
-/* ═══ ROUGH NOTATION – håndtegnede annoteringer på nøkkelord ═══ */
+/* Utskrift: lukkede <details> skrives ikke ut i Chromium, så fag-listene åpnes før print og lukkes etterpå. */
 (function(){
-  if(!window.RoughNotation || !RoughNotation.annotate) return; /* lib ikke lastet → ren tekst */
-  var annotate = RoughNotation.annotate;
-  var summary = document.querySelector('p[data-i="summary"]');
-  if(!summary) return;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  /* Begge ordene ('MSc', '750') står verbatim i alle språkvarianter → språk-uavhengig */
-  var targets = [
-    { text: 'MSc', type: 'underline', opts: { strokeWidth: 2, padding: 2 } },
-    { text: '750', type: 'circle', opts: { strokeWidth: 2, padding: [2, 5] } }
-  ];
-  var anns = [];
-  function accent(){ return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0070ed'; }
-  function escRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-  function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function clear(){ anns.forEach(function(a){ try{ a.remove(); }catch(e){} }); anns = []; }
-  function apply(animate){
-    clear();
-    var color = accent();
-    var html = escHtml(summary.textContent);
-    targets.forEach(function(t, idx){ html = html.replace(new RegExp(escRe(t.text)), '<span class="rn-'+idx+'">'+t.text+'</span>'); });
-    summary.innerHTML = html;
-    targets.forEach(function(t, idx){
-      var el = summary.querySelector('.rn-'+idx);
-      if(!el) return;
-      var o = Object.assign({ type: t.type, color: color, animate: !reduce && animate, animationDuration: 700, multiline: true }, t.opts);
-      var a = annotate(el, o); a.show(); anns.push(a);
-    });
-  }
-  function init(){ apply(true); }
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { window.addEventListener('load', init); }
-  /* re-tegn ved språkbytte (setLang skriver om summary.innerHTML) */
-  if(typeof window.setLang === 'function'){
-    var _setLang = window.setLang;
-    window.setLang = function(l){ _setLang(l); requestAnimationFrame(function(){ apply(true); }); };
-  }
-  /* re-tegn (uten animasjon) ved temaskifte + resize */
-  var tT; function redraw(){ apply(false); }
-  new MutationObserver(function(m){ for(var i=0;i<m.length;i++){ if(m[i].attributeName==='data-theme'){ clearTimeout(tT); tT=setTimeout(redraw,60); return; } } })
-    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  var rT; window.addEventListener('resize', function(){ clearTimeout(rT); rT=setTimeout(redraw,150); }, { passive: true });
+window.addEventListener('beforeprint',function(){document.querySelectorAll('details:not([open])').forEach(function(d){d.open=true;d.setAttribute('data-print-open','')})});
+window.addEventListener('afterprint',function(){document.querySelectorAll('details[data-print-open]').forEach(function(d){d.open=false;d.removeAttribute('data-print-open')})});
 })();
 </script>
 <script>
 /* Spell (designspells-runden 2026-08-13): adresselinjen paa mobil foelger temaet.
    Observerer data-theme og speiler bakgrunnen inn i meta[name=theme-color]:
-   lys beholder merkevarefargen, dark/medieval faar sine egne bakgrunner. */
+   lys foelger papirfargen (fra 2026-10-17, som forsiden), dark/medieval faar sine egne bakgrunner. */
 (function(){
 var meta=document.querySelector('meta[name="theme-color"]');
 if(!meta||!window.MutationObserver)return;
-var COLORS={dark:'#0a0a0a',medieval:'#2a1a0e'};
+var COLORS={dark:'#0e0f11',medieval:'#2a1a0e'};
 function sync(){
 var t=document.documentElement.getAttribute('data-theme')||(document.body&&document.body.getAttribute('data-theme'));
-meta.setAttribute('content',COLORS[t]||'#004eaa');
+meta.setAttribute('content',COLORS[t]||'#f7f6f4');
 }
 var obs=new MutationObserver(sync);
 obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
