@@ -120,14 +120,13 @@ nav.scrolled{background:rgba(250,246,239,.78);backdrop-filter:blur(22px) saturat
 
 /* HERO */
 .page-hero{max-width:1140px;margin:0 auto;padding:7.2rem 2rem .6rem;position:relative;z-index:1}
-.page-eyebrow{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.24em;font-weight:700;color:var(--accent-ink);margin-bottom:1rem}
+.page-eyebrow{display:inline-block;font-size:.85rem;font-weight:600;color:var(--accent-ink);margin-bottom:1rem}
 .page-h1{font-family:var(--font-display);font-weight:560;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:1.1rem;font-variation-settings:"opsz" 72}
 .page-lede{font-size:1.06rem;max-width:640px;color:var(--muted);line-height:1.75}
 .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.6rem 0 .4rem}
 .btn{font-family:inherit;font-size:.92rem;font-weight:700;border-radius:12px;padding:.85rem 1.5rem;cursor:pointer;transition:transform .15s var(--ease-out),box-shadow .2s,border-color .2s;border:1.5px solid transparent;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 20px rgba(255,84,54,.28)}
-.btn-primary:hover{box-shadow:0 8px 26px rgba(255,84,54,.36)}
+.btn-primary{background:var(--accent);color:#fff}
 [data-theme="medieval"] .btn-primary{color:#1e1208;box-shadow:none}
 .btn-ghost{background:transparent;color:var(--text);border-color:var(--border)}
 .btn-ghost:hover{border-color:var(--accent-ink);color:var(--accent-ink)}
@@ -146,7 +145,7 @@ nav.scrolled{background:rgba(250,246,239,.78);backdrop-filter:blur(22px) saturat
 
 /* STEG */
 .step{margin:0 0 2.6rem;scroll-margin-top:5.5rem}
-.step-kicker{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+.step-kicker{font-family:var(--font-mono);font-size:.78rem;color:var(--accent-ink);font-weight:600}
 .step-title{font-family:var(--font-display);font-weight:580;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.02em;margin:.25rem 0 .5rem;font-variation-settings:"opsz" 40}
 .step-ingress{color:var(--muted);max-width:600px;margin-bottom:1.2rem;font-size:.98rem}
 fieldset{border:0;margin:0 0 1.2rem;padding:0;min-width:0}
@@ -221,7 +220,7 @@ details.why[open] .why-reveal{grid-template-rows:1fr}
 /* RESULTAT */
 .result{max-width:1140px;margin:0 auto;padding:2.5rem 2rem 0;position:relative;z-index:1;scroll-margin-top:4.5rem}
 .res-sep{border:0;border-top:1px solid var(--border);margin:2.8rem auto 2.6rem;max-width:1076px}
-.res-kicker{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+.res-kicker{font-family:var(--font-mono);font-size:.78rem;color:var(--accent-ink);font-weight:600}
 .res-title{font-family:var(--font-display);font-weight:580;font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-.02em;margin:.25rem 0 .6rem;font-variation-settings:"opsz" 56}
 .res-title:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:4px;border-radius:4px}
 .res-ingress{color:var(--muted);max-width:640px;margin-bottom:1.6rem}
@@ -233,7 +232,7 @@ details.why[open] .why-reveal{grid-template-rows:1fr}
 .sub-note{font-size:.82rem;color:var(--muted);max-width:620px;margin-bottom:1rem}
 
 /* profilkort */
-.profile-card{background:linear-gradient(135deg,var(--accent-soft),transparent 60%),var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:16px;box-shadow:var(--card-shadow);padding:1.3rem 1.5rem;max-width:680px;font-size:1rem;line-height:1.7}
+.profile-card{background:var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:16px;box-shadow:var(--card-shadow);padding:1.3rem 1.5rem;max-width:680px;font-size:1rem;line-height:1.7}
 .gate-note{background:var(--card-bg);border:1px solid var(--border);border-left:4px solid var(--w-taxable);border-radius:14px;padding:1rem 1.25rem;margin-top:1rem;max-width:680px;font-size:.92rem}
 
 /* matrise */
@@ -243,7 +242,7 @@ table.matrix{border-collapse:collapse;font-size:.9rem;min-width:430px}
 .matrix thead th{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;background:var(--card-bg)}
 .matrix tbody th{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);font-weight:600;text-align:right;background:var(--card-bg)}
 .matrix td{font-family:var(--font-mono);background:var(--card-bg)}
-.matrix td.me{background:var(--accent);color:#fff;font-weight:700;position:relative;box-shadow:0 4px 14px rgba(255,84,54,.35)}
+.matrix td.me{background:var(--accent);color:#fff;font-weight:700;position:relative}
 [data-theme="medieval"] .matrix td.me{color:#1e1208}
 .matrix-foot{font-size:.8rem;color:var(--subtle);margin-top:.7rem;max-width:620px}
 
@@ -322,15 +321,10 @@ a.src:hover{color:var(--accent-ink);border-bottom-color:var(--accent-ink)}
 /* fokus */
 button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2.5px solid var(--accent-ink);outline-offset:2px}
 
-/* reveal-animasjon (.js-gated) */
-.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
-.js .rv.in{opacity:1;transform:none}
-
 /* reduced motion */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
   html{scroll-behavior:auto}
-  .js .rv{opacity:1 !important;transform:none !important}
 }
 
 /* PRINT: to tilstander. Uten referat: normal side minus pynt. Med referat
@@ -339,7 +333,6 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 @media print{
   body{background:#fff !important;color:#000 !important;font-size:11pt}
   body::after,.cursor-dot,nav,.skip-link,.hero-cta,.demo-note,.np-toggle,.theme-toggle,.errbox{display:none !important}
-  .rv{opacity:1 !important;transform:none !important}
   a{color:#000 !important}
   .referat-ready body>:not(main){display:none !important}
   .referat-ready main>:not(.result){display:none !important}
@@ -398,18 +391,18 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 <div class="layout">
 <div class="flow">
 
-  <div class="intro-strip rv">
+  <div class="intro-strip">
     <p>I regulert rådgivning heter dette en egnethetsvurdering. MiFID-reglene krever at
     rådgiveren kartlegger mål, økonomi, kunnskap og risikotoleranse før noe anbefales. De fleste
-    møter den som et skjema. Den fortjener bedre. Spørsmålene er nemlig gode, hvis noen
-    forklarer hvorfor de stilles.</p>
+    møter den som et skjema, men spørsmålene er gode når noen forklarer hvorfor de
+    stilles.</p>
   </div>
 
   <div class="errbox" id="errBox" role="alert">Kunne ikke laste scenariodataene. Last siden på
   nytt, så prøver vi igjen.</div>
 
   <!-- ── STEG 1 ── -->
-  <section class="step rv" id="steg1" aria-labelledby="h-steg1">
+  <section class="step" id="steg1" aria-labelledby="h-steg1">
     <span class="step-kicker">Steg 1 av 5</span>
     <h2 class="step-title" id="h-steg1">Grunnmuren</h2>
     <p class="step-ingress">Før pengene kan jobbe langsiktig, må hverdagen tåle en trøkk.
@@ -444,7 +437,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   </section>
 
   <!-- ── STEG 2 ── -->
-  <section class="step rv" id="steg2" aria-labelledby="h-steg2">
+  <section class="step" id="steg2" aria-labelledby="h-steg2">
     <span class="step-kicker">Steg 2 av 5</span>
     <h2 class="step-title" id="h-steg2">Målet</h2>
     <p class="step-ingress">Penger er ikke målet. Penger er verktøyet. Hva skal de gjøre for deg?</p>
@@ -483,7 +476,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   </section>
 
   <!-- ── STEG 3 ── -->
-  <section class="step rv" id="steg3" aria-labelledby="h-steg3">
+  <section class="step" id="steg3" aria-labelledby="h-steg3">
     <span class="step-kicker">Steg 3 av 5</span>
     <h2 class="step-title" id="h-steg3">Beløpet</h2>
     <p class="step-ingress">Beløpet endrer ikke logikken, men det endrer skatten. Formuesskatten
@@ -522,7 +515,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   </section>
 
   <!-- ── STEG 4 ── -->
-  <section class="step rv" id="steg4" aria-labelledby="h-steg4">
+  <section class="step" id="steg4" aria-labelledby="h-steg4">
     <span class="step-kicker">Steg 4 av 5</span>
     <h2 class="step-title" id="h-steg4">Stormen</h2>
     <p class="step-ingress">Alle tåler risiko i oppgang. Spørsmålet er hva du gjør i nedgang,
@@ -559,7 +552,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   </section>
 
   <!-- ── STEG 5 ── -->
-  <section class="step rv" id="steg5" aria-labelledby="h-steg5">
+  <section class="step" id="steg5" aria-labelledby="h-steg5">
     <span class="step-kicker">Steg 5 av 5</span>
     <h2 class="step-title" id="h-steg5">Kalibreringen</h2>
     <p class="step-ingress">Til slutt: ikke hva du eier, men hva du vet, og hvor godt du vet hva
@@ -677,8 +670,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 <section class="result" id="resultat" aria-labelledby="h-resultat">
   <span class="res-kicker">Resonnementet</span>
   <h2 class="res-title" id="h-resultat" tabindex="-1">Rådgiverens resonnement</h2>
-  <p class="res-ingress" id="resIngress">Her er hvordan svarene dine henger sammen. Ingenting
-  av dette er råd om hva du skal kjøpe. Det er noe bedre: logikken du kan ettergå.</p>
+  <p class="res-ingress" id="resIngress">Slik henger svarene dine sammen, steg for steg, så
+  du kan ettergå logikken selv. Ingenting av dette er råd om hva du skal kjøpe.</p>
 
   <div class="res-pending" id="resPending">Resonnementet bygges når samtalen er ferdig.
   Gjenstår: <span id="pendingList"></span>.</div>
@@ -693,9 +686,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
 
     <div class="res-block" id="blk-matrise">
       <h3 class="sub-title">Fra profil til aksjeandel</h3>
-      <p class="sub-note">Dette er en vanlig tommelfingermatrise, i klartekst. Poenget er ikke
-      at tallene er fasit. Poenget er at logikken er synlig, sånn at du kan være uenig med den
-      på riktig sted.</p>
+      <p class="sub-note">Dette er en vanlig tommelfingermatrise, i klartekst. Tallene er ikke
+      fasit, men logikken er synlig, så du kan være uenig med den på riktig sted.</p>
       <div class="matrix-wrap">
         <table class="matrix" id="matrixTable">
           <caption class="visually-hidden">Allokeringsmatrise: horisont mot risikoprofil, med
@@ -894,8 +886,7 @@ updateThemeIcon();
   });
 })();
 
-/* ═══ CURSOR-DOT + NAV + REVEAL ═══ */
-var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* ═══ CURSOR-DOT + NAV ═══ */
 (function(){
   var dot=document.querySelector('.cursor-dot');
   if(!dot||!window.matchMedia||!window.matchMedia('(pointer:fine)').matches)return;
@@ -914,17 +905,6 @@ var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)
   var nav=document.getElementById('nav');
   function onScroll(){if(window.scrollY>50){nav.classList.add('scrolled');}else{nav.classList.remove('scrolled');}}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-})();
-(function(){
-  var els=document.querySelectorAll('.rv');
-  if(reduce||!('IntersectionObserver' in window)){
-    for(var i=0;i<els.length;i++){els[i].classList.add('in');}
-    return;
-  }
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
-  },{threshold:0.12});
-  for(var j=0;j<els.length;j++){io.observe(els[j]);}
 })();
 
 /* ═══ FORMATERING (nb-NO: komma-desimal, hardspace-gruppering) ═══ */
@@ -971,7 +951,7 @@ function quizVerdictKey(){
   return g>12?'over':(g<-12?'under':'kal');
 }
 var VERDICT_TEXT={
-  over:'Troen løper foran kunnskapen. Det er ikke en fornærmelse, det er normalen: de fleste i studien lå her.',
+  over:'Troen løper foran kunnskapen. Slik var det for de fleste i studien.',
   kal:'Troen treffer kunnskapen. Det er sjeldnere enn det høres ut som.',
   under:'Du kan mer enn du tror. Det er en bedre feil enn den motsatte, men den har også en kostnad: for lite risiko over lang tid.'
 };
@@ -1067,7 +1047,6 @@ document.getElementById('ctGo').addEventListener('click',function(){
   for(var i=0;i<qs.length;i++){
     var cor=parseInt(qs[i].getAttribute('data-correct'),10);
     qs[i].classList.add('done');
-    var opts=qs[i].querySelectorAll('.opt');
     /* de fire første .opt er svaralternativer, de tre siste er confidence */
     var answerOpts=qs[i].querySelectorAll('input[name="q'+i+'"]');
     for(var k=0;k<answerOpts.length;k++){
@@ -1428,7 +1407,7 @@ var MIRROR={
   '1over':'Balansert portefølje, men troen ligger foran kunnskapen. Det vanligste utfallet i studien, og det minst dramatiske, helt til det blir dramatisk: overmot viser seg sjelden i planen, det viser seg i avvikene fra den. Ett konkret grep: ta vare på referatet under, og krev av deg selv at hvert fremtidige avvik begrunnes skriftlig mot det.',
   '1kal':'Profilen og selvinnsikten stemmer overens, og da er det lite en rådgiver skal flikke på. Jobben din fremover er kjedelig med vilje: hold planen, rebalanser når andelene driver, og la være å forveksle nyheter med informasjon.',
   '1under':'Planen er fornuftig, og du undervurderer deg selv. Det er ufarlig akkurat nå, men pass på hvem du lar fylle tomrommet: beskjedne investorer er overrepresentert blant dem som betaler dyrt for selvtillit de kunne bygget selv. Fortsett å lære; testen antyder at grunnlaget allerede er der.',
-  '2over':'Høy aksjeandel og et gap mellom tro og treff er den ene kombinasjonen her som fortjener et gult kort. Studien fant at selvtillit, ikke kunnskap, er det som faktisk bærer risikotaking. Hos deg bærer den mye nå. Test deg selv: hvis porteføljen hadde falt 25 prosent i forrige måned, hva i planen din hadde stoppet deg fra å improvisere? Har du ikke et godt svar, er svaret referatet under.',
+  '2over':'Høy aksjeandel og et gap mellom tro og treff er den ene kombinasjonen her som fortjener et gult kort. I studien hang risikotaking tettere sammen med selvtillit enn med kunnskap. Hos deg bærer selvtilliten mye nå. Test deg selv: hvis porteføljen hadde falt 25 prosent i forrige måned, hva i planen din hadde stoppet deg fra å improvisere? Har du ikke et godt svar, er svaret referatet under.',
   '2kal':'Offensiv med dekning for det: horisonten er lang, kunnskapen treffer selvbildet, og planen henger sammen. Da er rådet nesten provoserende enkelt: automatiser mest mulig, og beskytt planen mot fremtidige versjoner av deg selv med bedre historier.',
   '2under':'Du tar høy risiko og undervurderer samtidig egen kunnskap. Det er en uvanlig kombinasjon, og den er verdt å stoppe ved: hvis risikoen ikke hviler på trygghet du selv har bygget, hviler den på noe andre har sagt. Sjekk at du kan forklare hver del av porteføljen med egne ord. Det du ikke kan forklare, eier deg mer enn du eier det.'
 };

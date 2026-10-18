@@ -32,30 +32,32 @@ Watch osebx (live-data loading/error state) and the React SPAs (pre-hydration bl
 
 ## Budget
 
-Per file ≤ 25 KB, WebP, 800×500. **Current set: 19 files, 386 KB** (2026-10-17).
+Per file ≤ 25 KB, WebP, 800×500. **Current set: 19 files, 360 KB** (2026-10-17, after the
+plan C re-captures).
 
 The ≤ 250 KB total this file used to state was written when the gallery had 12 cards and
 no longer fits 16. Treat the per-file cap as the live constraint; the total needs a
 decision rather than a silently rewritten number.
 
-Five files are over the per-file cap:
+Four files are over the per-file cap:
 
 | File | Size | Dimensions |
 |---|---|---|
 | `aksjeskatt.webp` | 53 KB | 1280×900 |
-| `formuessamtalen.webp` | 41 KB | 1400×900 |
 | `masteroppgave.webp` | 27 KB | 800×500 |
 | `examprep.webp` | 25.2 KB | 800×500 |
 | `wc2026.webp` | 25.1 KB | 800×500 |
 
-`aksjeskatt` and `formuessamtalen` are most of the overage: both were captured by hand at
-non-standard sizes and are **not** in `TARGETS`, so `gen_project_screenshots.py` never
-regenerates them. Adding them to `TARGETS` would bring both to 800×500 and roughly halve
-their weight. The other three are marginal — content-dense captures at q74.
+`aksjeskatt` is most of the overage: it was captured by hand at a non-standard size and is
+**not** in `TARGETS`, so `gen_project_screenshots.py` never regenerates it. Adding it would
+bring it to 800×500 and roughly halve its weight (`formuessamtalen` went from 41 KB at
+1400×900 to 17 KB that way on 2026-10-17). The other three are marginal — content-dense
+captures at q74.
 
-Seven files have no `TARGETS` entry and so are frozen at whatever produced them:
-`aksjeskatt`, `formuessamtalen`, `forretningsenhet-dashboard`, `integrert-modellering`,
-`nb-watch`, `regnskapsoppstillinger`, `verdsettelse`.
+Five files have no `TARGETS` entry and so are frozen at whatever produced them:
+`aksjeskatt`, `integrert-modellering`, `nb-watch`, `regnskapsoppstillinger`, `verdsettelse`.
+All five belong to unlisted pages (`synlig:false`), so none shows in the gallery today.
+(`forretningsenhet-dashboard.webp` was deleted with its page on 2026-07-31.)
 
 Cards are `loading="lazy"`, so this is repo weight, not first-paint cost.
 

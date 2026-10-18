@@ -45,6 +45,7 @@ TARGETS = [
     {"slug": "examprep",                   "url": "https://www.evers.no/examprep/",                                         "scroll": 0,   "wait_ms": 3500, "q": 69},
     {"slug": "renteriket",                 "url": "https://www.evers.no/renteriket/",                                       "scroll": 0,   "wait_ms": 3000},
     {"slug": "efaktura-radar",             "url": "https://www.evers.no/prosjekter/efaktura-radar/",                        "scroll": 1180, "wait_ms": 2500},
+    {"slug": "formuessamtalen",            "url": "https://www.evers.no/formuessamtalen/",                                  "scroll": 0,   "wait_ms": 2500},
     {"slug": "fra-null-til-investor",      "url": "https://www.evers.no/fra-null-til-investor/",                            "scroll": 0,   "wait_ms": 3000},
     {"slug": "fra-null-til-investor2",     "url": "https://www.evers.no/fra-null-til-investor2/",                           "scroll": 0,   "wait_ms": 3000},
     {"slug": "fra-null-til-investor3",     "url": "https://www.evers.no/fra-null-til-investor3/",                           "scroll": 0,   "wait_ms": 3000},
