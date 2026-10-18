@@ -6,7 +6,8 @@ export default {
       colors: {
         bg: '#FAF6EF',
         ink: '#1A1A1A',
-        accent: '#FF5436',
+        accent: '#FF4E2F', // 3.05:1 on bg, enough for large figures; #FF5436 was 2.97 (2026-10-18)
+        'accent-ink': '#B03418', // accent as small text, 5.82:1 on bg (same as formuessamtalen)
         ghost: '#2D5BFF',
         sand: '#E8E0D0',
         sun: '#FFD93D',

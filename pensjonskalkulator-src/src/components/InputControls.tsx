@@ -54,7 +54,7 @@ export function NumberField({
       </div>
       {help && <p className="text-xs text-muted leading-snug">{help}</p>}
       {warning && (
-        <p className="text-xs text-accent font-medium leading-snug" role="alert">
+        <p className="text-xs text-accent-ink font-medium leading-snug" role="alert">
           {warning}
         </p>
       )}

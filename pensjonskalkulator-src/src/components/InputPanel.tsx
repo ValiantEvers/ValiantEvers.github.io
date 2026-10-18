@@ -167,7 +167,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
 
       {/* Avansert */}
       <details className="mt-6 border-t border-ink/10 pt-5 group">
-        <summary className="cursor-pointer text-sm font-semibold text-accent list-none flex items-center gap-2 select-none">
+        <summary className="cursor-pointer text-sm font-semibold text-accent-ink list-none flex items-center gap-2 select-none">
           <span
             aria-hidden
             className="inline-block transition-transform group-open:rotate-90"

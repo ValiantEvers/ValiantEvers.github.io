@@ -2,7 +2,7 @@
 
 export const SOURCE_COLORS = {
   folketrygd: '#1A1A1A', // ink
-  otp: '#FF5436', // accent (coral)
+  otp: '#FF4E2F', // accent (coral)
   ips: '#2D5BFF', // ghost (blue)
   ask: '#FFD93D', // sun (yellow)
   afp: '#7A7268', // muted
