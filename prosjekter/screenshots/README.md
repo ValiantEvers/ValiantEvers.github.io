@@ -44,7 +44,7 @@ Four files are over the per-file cap:
 | File | Size | Dimensions |
 |---|---|---|
 | `aksjeskatt.webp` | 53 KB | 1280×900 |
-| `masteroppgave.webp` | 27 KB | 800×500 |
+| `masteroppgave.webp` | 7 KB | 800×500 |
 | `examprep.webp` | 25.2 KB | 800×500 |
 | `wc2026.webp` | 25.1 KB | 800×500 |
 

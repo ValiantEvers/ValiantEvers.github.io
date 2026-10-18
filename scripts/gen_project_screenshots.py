@@ -39,7 +39,7 @@ TARGETS = [
     {"slug": "pensjonskalkulator",         "url": "https://www.evers.no/pensjonskalkulator/",                               "scroll": 0,   "wait_ms": 4000},
     {"slug": "personligokonomi",           "url": "https://www.evers.no/personligokonomi/",                                 "scroll": 820, "wait_ms": 4000},
     {"slug": "leie-eller-eie",             "url": "https://www.evers.no/leie-eller-eie/",                                   "scroll": 0,   "wait_ms": 3500},
-    {"slug": "masteroppgave",              "url": "https://www.evers.no/prosjekter/masteroppgave/",                         "scroll": 980, "wait_ms": 3500},
+    {"slug": "masteroppgave",              "url": "https://www.evers.no/prosjekter/masteroppgave/",                         "scroll": 0,   "wait_ms": 3500},
     {"slug": "wc2026",                     "url": "https://www.evers.no/wc2026/",                                           "scroll": 0,   "wait_ms": 4000},
     {"slug": "klima",                      "url": "https://www.evers.no/klima/",                                            "scroll": 0,   "wait_ms": 3500},
     {"slug": "examprep",                   "url": "https://www.evers.no/examprep/",                                         "scroll": 0,   "wait_ms": 3500, "q": 69},
