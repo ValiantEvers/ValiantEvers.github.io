@@ -56,22 +56,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 /* NAV */
 .topbar{
   display:flex;align-items:center;justify-content:space-between;
-  padding:16px 48px;border-bottom:1px solid var(--border);
+  padding:16px 48px;border-bottom:1px solid var(--border);gap:16px;
   position:sticky;top:0;background:var(--bg);z-index:100;
   backdrop-filter:blur(12px);
 }
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;color:var(--accent);}
-.nav-links{display:flex;gap:4px;}
+.nav-links{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
 .nav-link{
   font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;
+  color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;white-space:nowrap;flex-shrink:0;
   transition:color .2s,background .2s;cursor:pointer;border:none;background:none;
 }
 .nav-link:hover{color:var(--text);background:var(--surface2);}
 .theme-toggle{
   font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
   background:var(--surface2);border:1px solid var(--border2);color:var(--text2);
-  padding:6px 14px;border-radius:2px;cursor:pointer;transition:all .2s;
+  padding:6px 14px;border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap;
 }
 .theme-toggle:hover{background:var(--accent);color:#0a0a0c;border-color:var(--accent);}
 
@@ -108,16 +109,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* GRID LAYOUTS */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-bottom:1px solid var(--border);}
 .grid-2 .section{border-bottom:none;}
 .grid-2 .section:first-child{border-right:1px solid var(--border);}
-.grid-3{display:grid;grid-template-columns:2fr 1fr 1fr;border-bottom:1px solid var(--border);}
+.grid-3{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);border-bottom:1px solid var(--border);}
 .grid-3 .section{border-bottom:none;border-right:1px solid var(--border);}
 .grid-3 .section:last-child{border-right:none;}
 
 .chart-wrap{position:relative;width:100%;}
 
 /* HEATMAP */
+/* ~870 px wide (53 weeks): scrolls inside its own box below that, not the page */
+#heatmapContainer{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;}
+#heatmapContainer::-webkit-scrollbar{height:4px;}
+#heatmapContainer::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 .heatmap-grid{display:flex;flex-direction:column;gap:3px;}
 .heatmap-months{display:flex;gap:3px;margin-bottom:4px;}
 .heatmap-month-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
@@ -257,13 +262,13 @@ tr:last-child td{border-bottom:none;}
 /* FORM SECTIONS */
 .form-grid-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
   margin: 0 -40px;
 }
 .form-grid-4 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   margin: 0 -40px;
 }
@@ -700,11 +705,11 @@ tr:last-child td{border-bottom:none;}
   .stat-card:nth-child(2){border-right:none;}
   .pr-row{grid-template-columns:1fr 1fr;}
   .pr-card:nth-child(2n){border-right:none;}
-  .grid-2,.grid-3{grid-template-columns:1fr;}
+  .grid-2,.grid-3{grid-template-columns:minmax(0,1fr);}
   .grid-2 .section:first-child,.grid-3 .section{border-right:none;border-bottom:1px solid var(--border);}
   .grid-2 .section:last-child,.grid-3 .section:last-child{border-bottom:none;}
   /* Form grids stack to 2 cols then 1 */
-  .form-grid-4{grid-template-columns:1fr 1fr;margin:0 -20px;}
+  .form-grid-4{grid-template-columns:repeat(2,minmax(0,1fr));margin:0 -20px;}
   .form-cell-tight{padding:20px 20px;}
   .form-cell-tight:nth-child(1),.form-cell-tight:nth-child(2){border-bottom:1px solid var(--border);}
   .form-cell-tight:nth-child(2){border-right:none;}
@@ -767,6 +772,7 @@ tr:last-child td{border-bottom:none;}
   .risk-explanation{font-size:11.5px;}
 
   /* Year in review: stack and centered */
+  .yir-grid{margin:0 -16px -28px;}
   .yir-card{padding:28px 20px;}
   .yir-year{font-size:64px;}
   .yir-year::after{width:36px;height:2px;margin-top:10px;}
@@ -774,8 +780,8 @@ tr:last-child td{border-bottom:none;}
   .yir-stats{gap:14px;}
 
   /* Form grids: stack to 1 col on smallest */
-  .form-grid-2{grid-template-columns:1fr;margin:0;}
-  .form-grid-4{grid-template-columns:1fr;margin:0;}
+  .form-grid-2{grid-template-columns:minmax(0,1fr);margin:0;}
+  .form-grid-4{grid-template-columns:minmax(0,1fr);margin:0;}
   .form-cell{padding:16px 0;border-bottom:1px solid var(--border);border-right:none!important;}
   .form-cell:last-child{border-bottom:none;}
   .form-cell-tight{padding:16px 0;border-bottom:1px solid var(--border);border-right:none!important;}
@@ -798,11 +804,6 @@ tr:last-child td{border-bottom:none;}
   td{padding:7px 8px;}
   .pace-pill{font-size:9px;padding:1px 5px;}
   .hr-dot{width:6px;height:6px;}
-
-  /* Heatmap: scrollable horizontally */
-  #heatmapContainer{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;}
-  #heatmapContainer::-webkit-scrollbar{height:4px;}
-  #heatmapContainer::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 
   /* Map: full width and shorter */
   #runMap{height:300px;}
@@ -862,7 +863,7 @@ tr:last-child td{border-bottom:none;}
     <a class="nav-link" onclick="veNav('analyse')">Analyse</a>
     <a class="nav-link" onclick="veNav('logg')">Logg</a>
   </div>
-  <div style="display:flex;gap:8px;align-items:center;">
+  <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
     <button class="theme-toggle" id="pdfBtn" title="Eksporter som PDF">↓ PDF</button>
     <button class="theme-toggle" id="themeBtn">☀ LYS MODUS</button>
   </div>
@@ -1580,11 +1581,11 @@ makeScatterWithRolling('respChart', RUNS, 'avg_resp', '#4db8ff',
 
 /* ── 15. STRIDE LENGTH ──────────────────────────────────────── */
 makeScatterWithRolling('strideChart', RUNS, 'avg_stride', '#c8f55a',
-  v => `${v.toFixed(2)} m`, { min: 0.7, ticks: { color: '#444455', callback: v => v+'m' }});
+  v => `${v.toFixed(2)} m`, { min: 0.7, ticks: { color: '#444455', callback: v => +v.toFixed(2)+'m' }});
 
 /* ── 16. VERTICAL OSCILLATION ──────────────────────────────── */
 makeScatterWithRolling('vertOscChart', RUNS, 'avg_vert_osc', '#ffb347',
-  v => `${v.toFixed(1)} cm`, { ticks: { color: '#444455', callback: v => v+'cm' }});
+  v => `${v.toFixed(1)} cm`, { ticks: { color: '#444455', callback: v => +v.toFixed(2)+'cm' }});
 
 /* ── 17. GROUND CONTACT TIME ────────────────────────────────── */
 makeScatterWithRolling('gctChart', RUNS, 'avg_gct', '#cc88ff',
@@ -1592,7 +1593,7 @@ makeScatterWithRolling('gctChart', RUNS, 'avg_gct', '#cc88ff',
 
 /* ── 18. VERTICAL RATIO ─────────────────────────────────────── */
 makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
-  v => `${v.toFixed(1)}%`, { ticks: { color: '#444455', callback: v => v+'%' }});
+  v => `${v.toFixed(1)}%`, { ticks: { color: '#444455', callback: v => +v.toFixed(2)+'%' }});
 
 /* ── 8. HEATMAP CALENDAR ───────────────────────────────────── */
 (function(){
