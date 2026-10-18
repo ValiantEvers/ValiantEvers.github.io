@@ -12,12 +12,17 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v6
+      # Eget Python i stedet for runner-imagets system-pip (ubuntu-latest går over til 26.04 fra
+      # 2026-10-19); samme oppsett som de andre Python-workflowene her.
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
 
       - name: Fetch and parse Letterboxd RSS
         run: |
-          pip install feedparser --break-system-packages
+          python -m pip install feedparser
 
-          python3 << 'EOF'
+          python << 'EOF'
           import feedparser
           import json
           import re
