@@ -10,7 +10,7 @@ Half-Belgian, half-Norwegian, Client Services Manager at Euronext Securities Osl
 
 Three principles underpin the visual identity:
 
-1. **Calm blue authority.** A single functional blue (`#0070ed`) used sparingly — on the homepage as a line and as text, never as a surface. Most of the page is near-black ink on warm paper.
+1. **Calm blue authority.** A single functional blue (`#0067db`, was `#0070ed` until 2026-10-18) used sparingly — on the homepage as a line and as text, never as a surface. Most of the page is near-black ink on warm paper.
 2. **Refined motion.** Short durations, one strong easing curve, tactile press feedback. No decoration without purpose.
 3. **Personal warmth.** Small persistent details that reward visitors who linger — cursor dot, grain texture, the medieval easter-egg, the Glimt photo carousel that appears after a while. Refined ≠ sterile.
 
@@ -29,7 +29,7 @@ Chosen by Valiant on 2026-10-17 from the 2026-08-17 design lab (`projects/_desig
 | `--bg` / `--bg-raised` | `#f7f6f4` / `#fdfcfb` | Paper; raised = image frames, palette, menus |
 | `--text` / `--text-2` / `--muted` | `#231f20` / `#4c4a47` / `#5f5d5a` | Ink; secondary text (≥ 7:1); hints (≥ 4.5:1) |
 | `--rule` / `--rule-strong` | `#d3d1cd` / `#231f20` | Hairlines; full-ink table rows (timeline) |
-| `--accent` / `--accent4` | `#0070ed` / `#004eaa` | Line accent + section numbers / link text |
+| `--accent` / `--accent4` | `#0067db` / `#004eaa` | Line accent + section numbers / link text (≥ 4.5:1 on `--bg` and `--pale`) |
 | `--pale` | `#e7edf6` | The ONE pale field (Forskning) + palette selection |
 | `--ground` / `--on-ground` | `#162b4b` / `#f7f6f4` | Navy footer, primary button, carousel pill |
 | `--font-display` | `= --font-serif` | Headings (medieval swaps it to Unifraktur) |
@@ -81,7 +81,7 @@ Defined as CSS custom properties on `:root` and `[data-theme="dark"]`. Always re
 | `--bg` | `#fafaf9` | Page background |
 | `--text` | `#0a0a0a` | Body text |
 | `--muted` | `#737373` | Secondary text, captions |
-| `--accent` | `#0070ed` | Primary blue. Links, label-gradient start, CTA gradient start. |
+| `--accent` | `#0067db` | Primary blue. Links, label-gradient start, CTA gradient start. |
 | `--accent2` | `#3b82f6` | Label-gradient end |
 | `--accent3` | `#e7e5e4` | Subtle borders, tag backgrounds |
 | `--accent4` | `#004eaa` | Deep blue. Banner cards, CTA gradient end. |
@@ -354,7 +354,7 @@ When adding a new theme, define the full color token set under `[data-theme="new
 
 - `@media (prefers-reduced-motion: reduce)` collapses entrance transforms to `opacity: 1; transform: none`, and removes constant-motion animations. The site already does this; extend the selector list when you add new animated elements.
 - All hover transforms must be gated behind `@media (hover:hover) and (pointer:fine)` to prevent sticky states on touch devices.
-- Color contrast: light-mode primary button is white on `#0070ed` = excellent (WCAG AAA). Dark-mode primary button is white on `#5b9eff` = ~3:1 (borderline AA-large). Acceptable for large CTAs; watch this on smaller text.
+- Color contrast (measured 2026-10-18, WCAG 2 relative luminance): `--accent` used as small text (section numbers, active nav link, klima's source links) was `#0070ed` = 4.28:1 on paper `#f7f6f4` and 3.93:1 on `--pale`, i.e. below AA. Darkened to `#0067db` (HSL lightness 46.5 % → 42.9 %, same hue): 4.91:1 on paper, 4.50:1 on pale, and white on it 5.30:1 (was 4.62:1 — AA, never AAA as this line used to say). Dark and medieval themes are unchanged (dark `--accent` `#5b9eff` on `#0a0a0a` is 7.3:1). Dark-mode primary button is white on `#5b9eff` = 2.70:1, which fails even AA-large (3:1); not changed here.
 
 ---
 
