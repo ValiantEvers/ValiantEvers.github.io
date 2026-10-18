@@ -20,8 +20,10 @@ const VANILLA_PAGES = [
   "leie-eller-eie/index.html",
   "prosjekter/index.html",
   "prosjekter/finansielle-maler/index.html",
-  "prosjekter/forretningsenhet-dashboard/index.html",
   "prosjekter/masteroppgave/index.html",
+  "prosjekter/efaktura-radar/index.html",
+  "klima/index.html",
+  "formuessamtalen/index.html",
 ];
 
 export default [
