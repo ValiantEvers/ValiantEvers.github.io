@@ -51,15 +51,17 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 </style>
 <style>
 /* ── Tokens: cream-familien (personligokonomi/pensjonskalkulator-slekt) ─────────
-   Lys: varm kremhvit + blekk + korall. #FF5436 er DISPLAY-aksent (store flater,
-   markører); tekst/lenker bruker --accent-ink som holder AA på både --bg og
-   --card-bg. Mørk: varm mørk. Medieval: klima-verdiene uendret. */
+   Lys: varm kremhvit + blekk + korall. #FF4E2F er DISPLAY-aksent (store flater,
+   markører; 3,05:1 mot --bg, var #FF5436 = 2,97 til 2026-10-18); tekst/lenker bruker
+   --accent-ink som holder AA på både --bg og --card-bg. Tekst PÅ aksenten er
+   --on-accent (mørk i alle temaer: hvit på korall var 3,19 / 2,56). Mørk: varm mørk.
+   Medieval: klima-verdiene uendret. */
 :root{
   --font-display:"Fraunces","Noto Serif",Georgia,"Times New Roman",serif;
   --font-sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
   --bg:#FAF6EF; --text:#1A1A1A; --muted:#645E53;
-  --accent:#FF5436; --accent-ink:#B03418; --accent-soft:rgba(255,84,54,.08);
+  --accent:#FF4E2F; --accent-ink:#B03418; --accent-soft:rgba(255,78,47,.08); --on-accent:#1A1A1A;
   --good:#1E7A4F; --card-bg:#FFFFFF; --card-shadow:0 1px 2px rgba(26,22,15,.05),0 8px 28px rgba(26,22,15,.05);
   --border:rgba(26,26,26,.10); --hair:rgba(26,26,26,.07); --subtle:rgba(26,26,26,.61);
   --w-pretax:#9A917F; --w-taxable:#B0731F; --w-ask:#1E7A4F; --w-holding:#3E5FA3;
@@ -68,7 +70,7 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 }
 [data-theme="dark"]{
   --bg:#171310; --text:#F1EBE0; --muted:#A89F90;
-  --accent:#FF7A5E; --accent-ink:#FFA184; --accent-soft:rgba(255,122,94,.10);
+  --accent:#FF7A5E; --accent-ink:#FFA184; --accent-soft:rgba(255,122,94,.10); --on-accent:#171310;
   --good:#5FCF96; --card-bg:#211C17; --card-shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.3);
   --border:rgba(241,235,224,.12); --hair:rgba(241,235,224,.08); --subtle:rgba(241,235,224,.51);
   --w-pretax:#8D8676; --w-taxable:#D69A45; --w-ask:#5FCF96; --w-holding:#8FA9E8;
@@ -76,7 +78,7 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 [data-theme="dark"] nav.scrolled{background:rgba(23,19,16,.72);border-bottom-color:rgba(241,235,224,.06)}
 [data-theme="medieval"]{
   --bg:#2a1a0e; --text:#e8d5b5; --muted:rgba(232,213,181,.62);
-  --accent:#c4841d; --accent-ink:#d4a54a; --accent-soft:rgba(196,132,29,.12);
+  --accent:#c4841d; --accent-ink:#d4a54a; --accent-soft:rgba(196,132,29,.12); --on-accent:#1e1208;
   --good:#9ab86a; --card-bg:#1e1208; --card-shadow:0 4px 30px rgba(0,0,0,.4);
   --border:rgba(232,213,181,.12); --hair:rgba(232,213,181,.08); --subtle:rgba(232,213,181,.57);
   --w-pretax:#8a7a5e; --w-taxable:#c4841d; --w-ask:#9ab86a; --w-holding:#7d9bc4;
@@ -126,12 +128,12 @@ nav.scrolled{background:rgba(250,246,239,.78);backdrop-filter:blur(22px) saturat
 .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.6rem 0 .4rem}
 .btn{font-family:inherit;font-size:.92rem;font-weight:700;border-radius:12px;padding:.85rem 1.5rem;cursor:pointer;transition:transform .15s var(--ease-out),box-shadow .2s,border-color .2s;border:1.5px solid transparent;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:var(--accent);color:#fff}
-[data-theme="medieval"] .btn-primary{color:#1e1208;box-shadow:none}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+[data-theme="medieval"] .btn-primary{box-shadow:none}
 .btn-ghost{background:transparent;color:var(--text);border-color:var(--border)}
 .btn-ghost:hover{border-color:var(--accent-ink);color:var(--accent-ink)}
 .hero-fine{font-size:.8rem;color:var(--subtle);margin-top:.4rem}
-.demo-note{display:none;max-width:640px;margin-top:1rem;background:var(--accent-soft);border:1px solid rgba(255,84,54,.25);border-radius:12px;padding:.75rem 1rem;font-size:.88rem}
+.demo-note{display:none;max-width:640px;margin-top:1rem;background:var(--accent-soft);border:1px solid rgba(255,78,47,.25);border-radius:12px;padding:.75rem 1rem;font-size:.88rem}
 .demo-note.on{display:block}
 
 /* LAYOUT: samtale + notatblokk */
@@ -242,8 +244,7 @@ table.matrix{border-collapse:collapse;font-size:.9rem;min-width:430px}
 .matrix thead th{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;background:var(--card-bg)}
 .matrix tbody th{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);font-weight:600;text-align:right;background:var(--card-bg)}
 .matrix td{font-family:var(--font-mono);background:var(--card-bg)}
-.matrix td.me{background:var(--accent);color:#fff;font-weight:700;position:relative}
-[data-theme="medieval"] .matrix td.me{color:#1e1208}
+.matrix td.me{background:var(--accent);color:var(--on-accent);font-weight:700;position:relative}
 .matrix-foot{font-size:.8rem;color:var(--subtle);margin-top:.7rem;max-width:620px}
 
 /* kontovalg */
