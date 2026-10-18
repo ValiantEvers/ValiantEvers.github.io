@@ -125,6 +125,7 @@ Tastatur og nye funksjoner på forsiden (2026-10-17) som må leve side om side m
 | Arbeid på pensjonskalkulatoren (kildekode, deploy-workflow, mirror-synk) | `pensjonskalkulator-src/CLAUDE.md` — auto-lastes når du jobber i mappa |
 | Bygge ny side eller redesigne en eksisterende | `DESIGN.md` — følg sjekklisten nederst |
 
-Cream-familien: `personligokonomi/`, `pensjonskalkulator(-src)/`, `fra-null-til-investor{,2,3}/`
-og `formuessamtalen/` bruker Fraunces + Manrope på cream `#FAF6EF` — ikke Inter-kjernen.
-Detaljer: DESIGN.md § Typography (to familier er bevisst, ikke drift).
+Cream-familien: `personligokonomi/`, `pensjonskalkulator(-src)/` og `formuessamtalen/` bruker
+Fraunces + Manrope på cream `#FAF6EF` — ikke Inter-kjernen — med de rolige reglene fra 2026-10-17.
+`fra-null-til-investor{,2,3}/` har sin egen stil (Cormorant Garamond + Manrope) og står som de er
+(Valiant 2026-10-17). Detaljer: DESIGN.md § Typography (to familier er bevisst, ikke drift).
