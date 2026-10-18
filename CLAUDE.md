@@ -26,7 +26,8 @@ Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub
 - `garmin/` — løpedashbord (inline `RUNS` + `ANALYTICS`, Chart.js). Data bygges av `scripts/build_garmin.py` (Garmin Connect → RUNS, analysene rekonstruert og verifisert med `--check`). **Aldri lat/lon i RUNS** (fjernet 2026-10-03: startpunktene røpet bosted). «Skriftlig analyse»-prosaen har hardkodede tall og skrives om for hånd etter en refresh
 - `jobs/` — meta-refresh redirect stub to `/strategi.html` (noindex; kept so old links don't 404)
 - `travel/` — compressed travel photos used in Leaflet map
-- `glimt/` — 19 bilder til Glimt-karusellen på forsiden (WebP ≤1600 px). EXIF/GPS er strippet — gjør det samme for nye bilder (repoet er offentlig). Kilder (HEIC/JPG) ligger utenfor repoet i `projects/Bilder til evers.no/`
+- `glimt/` — 19 bilder til Glimt-karusellen på forsiden (WebP ≤1600 px). EXIF/GPS er strippet — gjør det samme for nye bilder (repoet er offentlig). Kilder (HEIC/JPG) ligger utenfor repoet i `projects/Bilder til evers.no/`.
+  Lysbilde 20 er skifilmen «Vinter 2023» (2026-10-18, Valiant): `vinter-2023.mp4` 1280×720 og `vinter-2023-staaende.mp4` 720×1280, H.264 CRF 28, metadata strippet, plakater i WebP. **Stum med vilje og uten lydspor:** montasjen ble klippet til en kommersiell låt (Axwell ft. Bonn) som ikke kan publiseres. Legg aldri inn lyd uten en lisens som tillater det. Kilde og oppskrift: `OneDrive/Documents/Div/GoPro/Nettside/glimt-prototype/`
 - `profile.jpg` — portrett 576×720 (4:5) siden 2026-10-17; brukes av forsidens hero, av middelalderegget (som legger det tilbake ved avslutning) og som 4:5-portrett øverst i `cv.html`
 - `.github/workflows/` — Letterboxd + makro m.fl. (Strava-integrasjonen fjernet 2026-10-03: Strava-API-et krever nå betalt abonnement)
 - `vendor/` — self-hostede tredjepartsbiblioteker (twemoji, Leaflet, Chart.js ×2,
@@ -98,7 +99,9 @@ Tastatur og nye funksjoner på forsiden (2026-10-17) som må leve side om side m
 - Paletten og Glimt-karusellen er `<dialog>` som kaller `stopPropagation()` på tastetrykk, så egg-lytterne på
   `document` aldri ser det som skrives i søkefeltet eller piltastene i karusellen. Nye dialoger må gjøre det samme.
 - Glimt (ikke et egg, telles ikke): etter 35 s synlig tid dukker en pille opp som åpner en karusell med `/glimt/*.webp`.
-  `?bilder=na` viser den med en gang (testkrok).
+  `?bilder=na` viser den med en gang (testkrok). Siste lysbilde er en stum video: kilden settes først ved åpning
+  (stående fil når skjermen er høyere enn bred), den spiller bare mens den er synlig, stopper autoblaingen og
+  starter ikke av seg selv med redusert bevegelse.
 
 ## Live integrations
 - Letterboxd via GitHub Actions. Strava FJERNET 2026-10-03 (API-et bak betalingsmur; kort, JS, CSS, workflow og strava.json ut)
