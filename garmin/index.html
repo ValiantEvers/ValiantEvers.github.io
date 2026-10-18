@@ -68,7 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:2px;white-space:nowrap;flex-shrink:0;
   transition:color .2s,background .2s;cursor:pointer;border:none;background:none;
 }
-.nav-link:hover{color:var(--text);background:var(--surface2);}
+.nav-link:hover,.nav-link:focus-visible{color:var(--text);background:var(--surface2);}
 .theme-toggle{
   font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
   background:var(--surface2);border:1px solid var(--border2);color:var(--text2);
@@ -852,16 +852,16 @@ tr:last-child td{border-bottom:none;}
 <nav class="topbar">
   <span class="nav-logo">LØPEDATA</span>
   <div class="nav-links">
-    <a class="nav-link" onclick="veNav('overview')">Oversikt</a>
-    <a class="nav-link" onclick="veNav('predict')">Prediksjon</a>
-    <a class="nav-link" onclick="veNav('trends')">Trender</a>
-    <a class="nav-link" onclick="veNav('zones')">Soner</a>
-    <a class="nav-link" onclick="veNav('risk')">Risiko</a>
-    <a class="nav-link" onclick="veNav('form')">Løpeform</a>
-    <a class="nav-link" onclick="veNav('kalender')">Kalender</a>
-    <a class="nav-link" onclick="veNav('yir')">Året</a>
-    <a class="nav-link" onclick="veNav('analyse')">Analyse</a>
-    <a class="nav-link" onclick="veNav('logg')">Logg</a>
+    <a class="nav-link" href="#overview" onclick="veNav('overview');return false">Oversikt</a>
+    <a class="nav-link" href="#predict" onclick="veNav('predict');return false">Prediksjon</a>
+    <a class="nav-link" href="#trends" onclick="veNav('trends');return false">Trender</a>
+    <a class="nav-link" href="#zones" onclick="veNav('zones');return false">Soner</a>
+    <a class="nav-link" href="#risk" onclick="veNav('risk');return false">Risiko</a>
+    <a class="nav-link" href="#form" onclick="veNav('form');return false">Løpeform</a>
+    <a class="nav-link" href="#kalender" onclick="veNav('kalender');return false">Kalender</a>
+    <a class="nav-link" href="#yir" onclick="veNav('yir');return false">Året</a>
+    <a class="nav-link" href="#analyse" onclick="veNav('analyse');return false">Analyse</a>
+    <a class="nav-link" href="#logg" onclick="veNav('logg');return false">Logg</a>
   </div>
   <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
     <button class="theme-toggle" id="pdfBtn" title="Eksporter som PDF">↓ PDF</button>
