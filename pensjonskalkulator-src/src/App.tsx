@@ -67,24 +67,18 @@ function App() {
 
   return (
     <div className="min-h-screen bg-bg text-ink grain">
-      {/* Decorative background blobs */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-        <div className="absolute -top-24 -right-16 w-72 h-72 rounded-full bg-accent/[0.05] blur-3xl" />
-        <div className="absolute -top-20 -right-24 w-64 h-64 rounded-full bg-ghost/[0.05] blur-3xl" />
-      </div>
-
       <main className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-10">
         {/* Header */}
         <header className="mb-10 sm:mb-14">
-          <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">
+          <p className="text-sm text-muted mb-3">
             Pensjonskalkulator
           </p>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.05] text-ink max-w-3xl">
-            Hva blir egentlig din pensjon?
+            Hva blir pensjonen din?
           </h1>
           <p className="text-base sm:text-lg text-ink/75 mt-5 max-w-2xl leading-relaxed">
             Norsk pensjon er stykket opp i fire bokser: folketrygd, tjenestepensjon, IPS og
-            egen sparing. Kalkulatoren legger dem sammen og viser et grovt estimat — nok til
+            egen sparing. Kalkulatoren legger dem sammen og viser et grovt estimat – nok til
             å se hvor du står, ikke nok til å erstatte en pensjonsrådgiver.
           </p>
         </header>

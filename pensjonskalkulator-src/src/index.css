@@ -73,7 +73,6 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 999px;
   background: #ff5436;
   border: 3px solid #faf6ef;
-  box-shadow: 0 4px 12px rgba(255, 84, 54, 0.4);
   margin-top: -12px;
   transition: transform 0.15s ease;
 }
@@ -86,7 +85,6 @@ input[type='range']::-moz-range-thumb {
   border-radius: 999px;
   background: #ff5436;
   border: 3px solid #faf6ef;
-  box-shadow: 0 4px 12px rgba(255, 84, 54, 0.4);
 }
 input[type='range']:focus-visible {
   outline: 2px solid #ff5436;

@@ -55,12 +55,12 @@ export function PensionChart({ result, displayMode }: Props) {
   const retirementAge = result.inputs.retirementAge
 
   return (
-    <div className="rounded-3xl bg-white shadow-card p-5 sm:p-7">
+    <div className="rounded-3xl bg-bg border border-ink/10 p-5 sm:p-7">
       <div className="flex items-baseline justify-between flex-wrap gap-2 mb-1">
         <h3 className="font-display text-xl sm:text-2xl text-ink">
           Akkumulert kapital over tid
         </h3>
-        <span className="text-xs uppercase tracking-[0.2em] text-muted">
+        <span className="text-sm text-muted">
           {displayMode === 'real' ? 'Dagens kroner' : 'Nominelle kroner'}
         </span>
       </div>
@@ -69,7 +69,7 @@ export function PensionChart({ result, displayMode }: Props) {
         reduseres balansen etter hvert som pengene utbetales.
       </p>
       <p className="text-xs text-muted/80 mb-5 mt-1">
-        Folketrygd og AFP utbetales livsvarig — kapitalen i grafen er kun en regnemodell og
+        Folketrygd og AFP utbetales livsvarig. Kapitalen i grafen er kun en regnemodell og
         kan gå mot null selv om utbetalingen fortsetter.
       </p>
 
@@ -170,7 +170,7 @@ function ChartTooltip({
   if (!active || !payload || payload.length === 0) return null
   const row = payload[0].payload
   return (
-    <div className="bg-white rounded-xl shadow-card border border-ink/10 px-4 py-3 text-sm">
+    <div className="bg-bg rounded-xl border border-ink/10 px-4 py-3 text-sm">
       <div className="font-display font-semibold text-ink mb-1.5">{label} år</div>
       <ul className="space-y-0.5">
         {STACK_ORDER.map((src) => (

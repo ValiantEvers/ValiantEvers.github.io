@@ -73,6 +73,9 @@ gangs deploy ble committet manuelt i workflow-commiten.
 Match `personligokonomi/` — Fraunces (display) + Manrope (body), cream
 `#FAF6EF`, ink `#1A1A1A`, accent `#FF5436`. Redaksjonelt, rolig, ikke
 fintech-startup. Ingen utropstegn, ingen "AI-tonet" språk.
+Rolige regler for krem-familien (2026-10-17): ingen glød-skyer, fargede skygger,
+sperrede versaler, inn-animasjoner eller lange tankestreker i synlig tekst. Se DESIGN.md
+§ Typography, «Calm rules for the cream family» (i site-repoet).
 
 ## Hva som IKKE er modellert
 - Skatt på kapitalinntekt utenom ASK (ASK håndteres separat)
