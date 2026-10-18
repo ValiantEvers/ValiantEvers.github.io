@@ -249,7 +249,7 @@ body::after,.cursor-dot,#mainNav,.site-foot nav,.cv-pdf,.proj-all,details > summ
 .stmt .big{font-size:11.5pt}
 .cv-sec{padding-top:14pt}
 .cv-sec:last-of-type{padding-bottom:0}
-.sec-title{font-size:15pt;margin-bottom:6pt}
+.sec-title{font-size:15pt;margin-bottom:6pt;break-after:avoid;page-break-after:avoid}
 h3{font-size:12pt}
 .rows,.rows > li,.skills,.skills .row,.certs,.certs li{border-color:#999 !important}
 .rows > li,.skills .row{grid-template-columns:105pt minmax(0,1fr);column-gap:14pt;padding:7pt 0;break-inside:avoid}
@@ -355,7 +355,7 @@ a{color:#000 !important;border-bottom:none !important}
       </div>
     </li>
     <li>
-      <p class="per">Juni 2025</p>
+      <p class="per" data-i="igfDate">Juni 2025</p>
       <div class="txt">
         <h3 data-i="igfTitle">Eventmedarbeider, IGF 2025</h3>
         <p class="org">Medvind Eventbyrå · <a href="https://www.intgovforum.org/" target="_blank" rel="noopener">UN Internet Governance Forum</a></p>
@@ -366,7 +366,7 @@ a{color:#000 !important;border-bottom:none !important}
       </div>
     </li>
     <li>
-      <p class="per" data-i="menyShiftDate">Nov 2019 – Sep 2025</p>
+      <p class="per" data-i="menyShiftDate">Nov. 2019 – sep. 2025</p>
       <div class="txt">
         <h3 data-i="menyShiftTitle">Stengeansvarlig (fra jan. 2021)</h3>
         <p class="org"><a href="https://meny.no/" target="_blank" rel="noopener">Meny Lambertseter</a>, Oslo</p>
@@ -394,7 +394,7 @@ a{color:#000 !important;border-bottom:none !important}
   <h2 class="sec-title" data-i="eduTitle">Utdanning</h2>
   <ol class="rows">
     <li>
-      <p class="per">Aug 2024 – Jun 2026</p>
+      <p class="per" data-i="mscDate">Aug. 2024 – jun. 2026</p>
       <div class="txt">
         <h3 data-i="mscTitle">MSc in Finance</h3>
         <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
@@ -423,7 +423,7 @@ a{color:#000 !important;border-bottom:none !important}
       </div>
     </li>
     <li>
-      <p class="per">Aug 2021 – <span data-i="june2024">Juni 2024</span></p>
+      <p class="per" data-i="bscDate">Aug. 2021 – jun. 2024</p>
       <div class="txt">
         <h3 data-i="bscTitle">BSc in Finance</h3>
         <p class="org"><a href="https://www.bi.no/" target="_blank" rel="noopener">Handelshøyskolen BI</a>, Oslo</p>
@@ -491,7 +491,7 @@ a{color:#000 !important;border-bottom:none !important}
       <p class="st" data-i="active">Aktiv</p>
       <div class="txt">
         <h3><a href="https://www.evers.no/personligokonomi/" target="_blank" rel="noopener">Personlig Økonomi</a></h3>
-        <p data-i="personligDesc">Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.</p>
+        <p data-i="personligDesc">Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Fem moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, inflasjonskalkulator med boligprisutvikling, nåverdi, og obligasjonspriser når markedsrenta endres. Bygget med React, Recharts og Framer Motion.</p>
       </div>
     </li>
     <li>
@@ -588,6 +588,8 @@ var T = {
     aarhusDesc: "Intensivt sommerkurs i Python for dataanalyse og maskinlæring. Toppkarakter <span class=\"grade\">(12/A)</span>.",
     viewTranscript: "Se vitnemål",
     june2024: "Juni 2024",
+    mscDate: "Aug. 2024 – jun. 2026",
+    bscDate: "Aug. 2021 – jun. 2024",
     bscTitle: "BSc i finans",
     bscDesc: "Valgfag: Prosjektledelse, Forretningsjus, Økonomistyring og investeringsanalyse, og Behavioral Finance.",
     firmCourse: "Bedriften <span class=\"grade\">(A)</span>",
@@ -597,12 +599,13 @@ var T = {
     mathCourse: "Matematikk for økonomer <span class=\"grade\">(B)</span>",
     expTitle: "Erfaring",
     enxDate: "Sep. 2026 – nå",
+    igfDate: "Juni 2025",
     enxTitle: "Client Services Manager",
     enx1: "Client services i den norske verdipapirsentralen — registrering, oppgjør og investortjenester for det norske verdipapirmarkedet.",
     igfTitle: "Eventmedarbeider, IGF 2025",
     igf1: "Ansvarlig for utstillingshallen med 70+ utstillere fra internasjonale teknologiselskaper som Google, Meta, TikTok og GlobalConnect.",
     igf2: "Utførte logistikk, rigg og akkreditering i tråd med stram produksjonsplan og FNs høye sikkerhetskrav.",
-    menyShiftDate: "Nov 2019 – Sep 2025",
+    menyShiftDate: "Nov. 2019 – sep. 2025",
     menyShiftTitle: "Stengeansvarlig (fra jan. 2021)",
     meny1: "Ledet skift med opptil 20 ansatte; sørget for strukturert oppgavetildeling og smidig daglig drift.",
     meny2: "Bygget tillit og lagfølelse; bidro til et positivt arbeidsmiljø anerkjent av ledelsen.",
@@ -632,7 +635,7 @@ var T = {
     paused: "Pauset",
     formuesDesc: "Interaktiv demo av rådgivningssamtalen i wealth management: egnethetskartlegging, åpen allokeringsmatrise, kontovalg mellom depot, ASK og eget AS, og en kalibreringstest bygget på masteroppgaven.",
     renterikeDesc: "Spill som lærer bort privatøkonomi fra null, med alle norske satser samlet i én kildeforankret blokk. 1014 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet; mattesjekkene regner fasiten med andre formler enn spillet bruker, og avdekket blant annet at ett oppdrag var matematisk uløselig.",
-    personligDesc: "Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Tre moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, og inflasjonskalkulator med boligprisutvikling. Bygget med React, Recharts og Framer Motion.",
+    personligDesc: "Interaktivt læringsverktøy for personlig økonomi rettet mot vanlige nordmenn. Fem moduler: renters rente-kalkulator med crossover-visualisering, opportunity cost-verktøy basert på streamingkostnader, inflasjonskalkulator med boligprisutvikling, nåverdi, og obligasjonspriser når markedsrenta endres. Bygget med React, Recharts og Framer Motion.",
     osebxDesc: "Autonomt markedsanalyseverktøy for Oslo Børs. Ukentlig pipeline som analyserer alle ASK-godkjente aksjer (~129) og genererer sektorrotasjon, breddemål og LLM-narrative brief. Bygget med Python og GitHub Actions.",
     examprepDesc: "Interaktivt eksamensforberedelsesverktøy for GRA6546 Financial Institutions and Crises på BI. Forelesningsnotater, temasider og flashcards organisert per pensumkapittel. Eksamen 13. mai 2026.",
     thesisTitle: "Masteroppgave (A)",
@@ -672,6 +675,8 @@ var T = {
     aarhusDesc: "Intensive summer course in Python for data analysis and machine learning. Top grade <span class=\"grade\">(12/A)</span>.",
     viewTranscript: "View transcript",
     june2024: "June 2024",
+    mscDate: "Aug 2024 – Jun 2026",
+    bscDate: "Aug 2021 – Jun 2024",
     bscTitle: "BSc in Finance",
     bscDesc: "Electives: Project Management, Business Law, Management Accounting and Investment Analysis, and Behavioral Finance.",
     firmCourse: "The Firm <span class=\"grade\">(A)</span>",
@@ -681,6 +686,7 @@ var T = {
     mathCourse: "Mathematics for Economists <span class=\"grade\">(B)</span>",
     expTitle: "Experience",
     enxDate: "Sep 2026 – present",
+    igfDate: "June 2025",
     enxTitle: "Client Services Manager",
     enx1: "Client services at the Norwegian central securities depository — registration, settlement and investor services for the Norwegian securities market.",
     igfTitle: "Event Staff, IGF 2025",
@@ -716,7 +722,7 @@ var T = {
     paused: "Paused",
     formuesDesc: "Interactive demo of the advisory conversation in wealth management: suitability profiling, an open allocation matrix, the choice between a taxable account, an ASK and a personal holding company, and a calibration test built on my master’s thesis.",
     renterikeDesc: "A personal-finance game that teaches from zero, with every Norwegian rate gathered into a single source-referenced block. 1014 automated checks cover the math, the missions, storage and accessibility; the math checks compute the expected answer using different formulas than the game itself – and revealed, among other things, that one mission was mathematically unsolvable.",
-    personligDesc: "Interactive learning tool for personal finance aimed at ordinary Norwegians. Three modules: compound interest calculator with crossover visualisation, opportunity cost tool based on streaming subscription costs, and inflation calculator with housing price evolution. Built with React, Recharts and Framer Motion.",
+    personligDesc: "Interactive learning tool for personal finance aimed at ordinary Norwegians. Five modules: compound interest calculator with crossover visualisation, opportunity cost tool based on streaming subscription costs, inflation calculator with housing price evolution, present value, and bond prices when market rates change. Built with React, Recharts and Framer Motion.",
     osebxDesc: "Autonomous market analysis tool for the Oslo Stock Exchange. Weekly pipeline analysing all ASK-eligible stocks (~129) to generate sector rotation, breadth metrics, and LLM-narrated briefs. Built with Python and GitHub Actions.",
     examprepDesc: "Interactive exam prep tool for GRA6546 Financial Institutions and Crises at BI. Lecture notes, topic pages and flashcards organised by syllabus chapter. Exam 13 May 2026.",
     thesisTitle: "Master's Thesis (A)",

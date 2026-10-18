@@ -25,7 +25,7 @@ export function HeroNumber({
       aria-labelledby="hero-heading"
       className="rounded-3xl bg-bg/0 px-1 py-2 sm:py-6"
     >
-      <div className="text-xs uppercase tracking-[0.25em] text-muted mb-3">
+      <div className="text-sm text-muted mb-3">
         Estimert månedlig pensjon
       </div>
       <div
@@ -40,7 +40,7 @@ export function HeroNumber({
       <p className="text-base sm:text-lg text-ink/70 mt-3">
         Estimert netto:{' '}
         <span className="font-semibold text-ink tabular">{formatKr(monthly.net)}</span>
-        <span className="text-muted text-sm ml-2">(etter skatt — forenklet estimat)</span>
+        <span className="text-muted text-sm ml-2">(etter skatt, forenklet estimat)</span>
       </p>
 
       <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 max-w-xl">
@@ -60,10 +60,10 @@ export function HeroNumber({
                 />
                 <span className="text-ink/75">{SOURCE_LABELS[src]}</span>
                 {src === 'folketrygd' && folketrygdAtGarantipensjonFloor && (
-                  <span className="text-xs text-muted ml-1">(garantipensjon-floor)</span>
+                  <span className="text-xs text-muted ml-1">(garantipensjon)</span>
                 )}
               </span>
-              <span className="font-semibold tabular text-ink">{formatKr(value)}</span>
+              <span className="font-semibold tabular text-ink whitespace-nowrap">{formatKr(value)}</span>
             </li>
           )
         })}

@@ -27,7 +27,6 @@ ned filen hit, pinn versjonen i filnavnet, og før den inn i tabellen under.
 | `leaflet-1.9.4/images/*.png` (5 stk.) | Leaflet 1.9.4 | `cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/images/` | — | BSD-2-Clause |
 | `chart.js-4.4.3.umd.min.js` | Chart.js 4.4.3 | `cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js` | `JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF` | MIT |
 | `chart.js-4.4.1.umd.min.js` | Chart.js 4.4.1 | `cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js` | `bs/nf9FbdNouRbMiFcrcZfLXYPKiPaGVGplVbv7dLGECccEXDW+S3zjqSKR5ZEaD` | MIT |
-| `three-0.160.0.module.min.js` | three.js r160 | `unpkg.com/three@0.160.0/build/three.module.min.js` | — (ingen SRI var deklarert) | MIT |
 | `web-vitals-4.2.4.js` | web-vitals 4.2.4 | `cdn.jsdelivr.net/npm/web-vitals@4.2.4/dist/web-vitals.js` | — | Apache-2.0 |
 | `react-18.3.1.production.min.js`, `react-dom-18.3.1.production.min.js` | React 18.3.1 | (self-hostet i audit 2026-07-06) | — | MIT |
 | `babel-standalone-7.29.0.min.js` | Babel 7.29.0 | (self-hostet i audit 2026-07-06) | — | MIT |

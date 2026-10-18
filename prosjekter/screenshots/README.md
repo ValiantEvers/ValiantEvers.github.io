@@ -2,8 +2,9 @@
 
 Self-hosted feature-card screenshots for `prosjekter/index.html`. Each `<slug>.webp`
 is a 16:10 retina (800×500) capture shown ~400×250 in a project card, loaded with
-`loading="lazy"` + intrinsic `width`/`height` (no CLS). Cards without a `bilde` field in
-`projects.json` keep their emoji icon (skatt-mcp, the three Fra-null-til-investor guides).
+`loading="lazy"` + intrinsic `width`/`height` (no CLS). Since 2026-10-17 only skatt-mcp has no
+`bilde` field in `projects.json`; its card shows a pale tile with the repo URL. The three
+Fra null til investor guides got captures that day.
 
 In `[data-theme="medieval"]` the screenshot is hidden and the card's emoji shows instead
 (the medieval theme has its own visual system — see `DESIGN.md`).
@@ -19,6 +20,10 @@ python3 -m venv /tmp/shotenv && /tmp/shotenv/bin/pip install playwright pillow
 ```
 
 Playwright drives the **system** Chrome (`channel="chrome"`) — no chromium download.
+Only some slugs: pass them as arguments (`... gen_project_screenshots.py klima renteriket`).
+Before a deploy: `SHOT_BASE=http://127.0.0.1:8765` captures the local repo instead of live
+evers.no (2026-10-17: personligokonomi was re-captured from its new local build this way).
+
 Tune `scroll` / `wait_ms` / `q` per target in the script if a capture frames the wrong
 region or lands on a loading/empty state (SPAs hydrate; osebx fetches live data).
 
@@ -27,30 +32,32 @@ Watch osebx (live-data loading/error state) and the React SPAs (pre-hydration bl
 
 ## Budget
 
-Per file ≤ 25 KB, WebP, 800×500. **Current set: 16 files, 378 KB.**
+Per file ≤ 25 KB, WebP, 800×500. **Current set: 19 files, 360 KB** (2026-10-17, after the
+plan C re-captures).
 
 The ≤ 250 KB total this file used to state was written when the gallery had 12 cards and
 no longer fits 16. Treat the per-file cap as the live constraint; the total needs a
 decision rather than a silently rewritten number.
 
-Five files are over the per-file cap:
+Four files are over the per-file cap:
 
 | File | Size | Dimensions |
 |---|---|---|
 | `aksjeskatt.webp` | 53 KB | 1280×900 |
-| `formuessamtalen.webp` | 41 KB | 1400×900 |
 | `masteroppgave.webp` | 27 KB | 800×500 |
 | `examprep.webp` | 25.2 KB | 800×500 |
 | `wc2026.webp` | 25.1 KB | 800×500 |
 
-`aksjeskatt` and `formuessamtalen` are most of the overage: both were captured by hand at
-non-standard sizes and are **not** in `TARGETS`, so `gen_project_screenshots.py` never
-regenerates them. Adding them to `TARGETS` would bring both to 800×500 and roughly halve
-their weight. The other three are marginal — content-dense captures at q74.
+`aksjeskatt` is most of the overage: it was captured by hand at a non-standard size and is
+**not** in `TARGETS`, so `gen_project_screenshots.py` never regenerates it. Adding it would
+bring it to 800×500 and roughly halve its weight (`formuessamtalen` went from 41 KB at
+1400×900 to 17 KB that way on 2026-10-17). The other three are marginal — content-dense
+captures at q74.
 
-Seven files have no `TARGETS` entry and so are frozen at whatever produced them:
-`aksjeskatt`, `formuessamtalen`, `forretningsenhet-dashboard`, `integrert-modellering`,
-`nb-watch`, `regnskapsoppstillinger`, `verdsettelse`.
+Five files have no `TARGETS` entry and so are frozen at whatever produced them:
+`aksjeskatt`, `integrert-modellering`, `nb-watch`, `regnskapsoppstillinger`, `verdsettelse`.
+All five belong to unlisted pages (`synlig:false`), so none shows in the gallery today.
+(`forretningsenhet-dashboard.webp` was deleted with its page on 2026-07-31.)
 
 Cards are `loading="lazy"`, so this is repo weight, not first-paint cost.
 

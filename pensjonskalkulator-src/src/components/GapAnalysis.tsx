@@ -12,10 +12,10 @@ export function GapAnalysis({ result }: Props) {
 
   if (gapAnalysis.onTrack) {
     return (
-      <div className="rounded-3xl bg-white shadow-card p-5 sm:p-7">
-        <div className="text-xs uppercase tracking-[0.25em] text-muted mb-2">Gap-analyse</div>
+      <div className="rounded-3xl bg-bg border border-ink/10 p-5 sm:p-7">
+        <div className="text-sm text-muted mb-2">Gap-analyse</div>
         <p className="font-display text-2xl sm:text-3xl text-ink leading-snug">
-          Du er på god vei — estimert dekningsgrad{' '}
+          Du er på god vei: estimert dekningsgrad{' '}
           <span className="text-accent">{formatPercent(replacementRatio, 0)}</span> av
           sluttlønn.
         </p>
@@ -35,8 +35,8 @@ export function GapAnalysis({ result }: Props) {
   }
 
   return (
-    <div className="rounded-3xl bg-ink text-bg shadow-pop p-5 sm:p-7">
-      <div className="text-xs uppercase tracking-[0.25em] text-bg/60 mb-2">Gap-analyse</div>
+    <div className="rounded-3xl bg-ink text-bg p-5 sm:p-7">
+      <div className="text-sm text-bg/60 mb-2">Gap-analyse</div>
       <p className="font-display text-2xl sm:text-3xl leading-snug">
         For å nå {formatPercent(targetPct, 0)} av sluttlønn må du spare ekstra{' '}
         <span className="text-accent">{formatKr(gapAnalysis.extraAskMonthlyToday)}</span>{' '}
@@ -44,7 +44,7 @@ export function GapAnalysis({ result }: Props) {
       </p>
       <p className="text-sm text-bg/70 mt-3 max-w-xl leading-relaxed">
         Estimert dekningsgrad i dag: {formatPercent(replacementRatio, 0)}. Tallet er regnet
-        i dagens kroner — beløpet justeres automatisk med inflasjon i utregningen.
+        i dagens kroner, og beløpet justeres automatisk med inflasjon i utregningen.
       </p>
       <p className="text-xs text-bg/60 mt-4 leading-relaxed max-w-xl">
         Dekningsgrad måles mot sluttlønn. Ved sen pensjonering vokser sluttlønnen raskere

@@ -24,7 +24,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
   const cap71G = G_CAP_LOW * gSnitt
 
   return (
-    <div className="rounded-3xl bg-white shadow-card p-5 sm:p-8">
+    <div className="rounded-3xl bg-bg border border-ink/10 p-5 sm:p-8">
       {/* Hovedseksjon */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         <NumberField
@@ -140,7 +140,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
           help={`Maks ${formatKr(IPS_ANNUAL_MAX)} per år.`}
           warning={
             ipsOver
-              ? `Vi bruker ${formatKr(IPS_ANNUAL_MAX)} i beregningen — det er lovlig maks. Sett verdien ned, eller la den stå (beregningen kapper uansett).`
+              ? `Vi bruker ${formatKr(IPS_ANNUAL_MAX)} i beregningen, som er lovlig maks. Sett verdien ned, eller la den stå (beregningen kapper uansett).`
               : undefined
           }
         />
@@ -167,7 +167,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
 
       {/* Avansert */}
       <details className="mt-6 border-t border-ink/10 pt-5 group">
-        <summary className="cursor-pointer text-sm font-semibold text-accent uppercase tracking-[0.2em] list-none flex items-center gap-2 select-none">
+        <summary className="cursor-pointer text-sm font-semibold text-accent list-none flex items-center gap-2 select-none">
           <span
             aria-hidden
             className="inline-block transition-transform group-open:rotate-90"

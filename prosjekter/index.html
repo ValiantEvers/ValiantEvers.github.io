@@ -6,7 +6,7 @@
 <title>Prosjekter – Valiant Evers</title>
 <meta name="description" content="Interaktive verktøy og guider innen finans og personlig økonomi.">
 <meta name="author" content="Valiant Evers">
-<meta name="theme-color" content="#004eaa">
+<meta name="theme-color" content="#f7f6f4">
 <meta name="robots" content="index, follow">
 <!-- Open Graph / LinkedIn -->
 <meta property="og:type" content="website">
@@ -50,324 +50,292 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:1ms}}
 </style>
 <style>
-:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--bg:#fafaf9;--text:#0a0a0a;--muted:#737373;--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--card-bg:#ffffff;--card-shadow:0 1px 2px rgba(0,0,0,0.04);--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--subtle:rgba(10,10,10,.35);--border:rgba(10,10,10,.08);--hair:rgba(10,10,10,.06)}
-[data-theme="dark"]{--bg:#0a0a0a;--text:#fafaf9;--muted:#a3a3a3;--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#7ab0ff;--card-bg:#171717;--card-shadow:0 1px 2px rgba(0,0,0,0.4);--subtle:rgba(250,250,249,.35);--border:rgba(250,250,249,.1);--hair:rgba(250,250,249,.07)}
-[data-theme="dark"] nav.scrolled{background:rgba(10,14,26,.72);border-bottom-color:rgba(255,255,255,.06)}
+/* TOKENS. Samme papir/blekk-system som forsiden (DESIGN.md «Homepage 2026-10»): blå aksent som linje og tekst, aldri flate. */
+:root{--font-serif:"Newsreader","Noto Sans JP",Georgia,"Times New Roman",serif;--font-sans:"Hanken Grotesk","Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--font-display:var(--font-serif);
+--bg:#f7f6f4;--bg-raised:#fdfcfb;--text:#231f20;--text-2:#4c4a47;--muted:#5f5d5a;--rule:#d3d1cd;--rule-strong:#231f20;
+--accent:#0070ed;--accent2:#3b82f6;--accent3:#e7e5e4;--accent4:#004eaa;--pale:#e7edf6;--ground:#162b4b;--on-ground:#f7f6f4;--on-ground-2:#c3cfe2;
+--cursor-size:18px;--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1);--ease:cubic-bezier(0.33,1,0.68,1);--dur:.2s;
+--edge:max(20px,calc((min(100vw,1980px) - 1248px) / 2 + 24px));--content:1200px;--measure:820px;--sec:clamp(56px,6.5vw,96px)}
+[data-theme="dark"]{--bg:#0e0f11;--bg-raised:#16171a;--text:#ecebe8;--text-2:#b3b1ad;--muted:#9c9a96;--rule:rgba(236,235,232,.14);--rule-strong:rgba(236,235,232,.5);--accent:#5b9eff;--accent2:#3b82f6;--accent3:#262626;--accent4:#8bb8ff;--pale:#131b27;--ground:#0b1626;--on-ground:#ecebe8;--on-ground-2:#9fb0c8}
+:root{color-scheme:light}[data-theme="dark"],[data-theme="medieval"]{color-scheme:dark}
 
-[data-theme="medieval"]{--bg:#2a1a0e;--text:#e8d5b5;--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#8b6914;--card-bg:#1e1208;--card-shadow:0 4px 30px rgba(0,0,0,.4);--muted:rgba(232,213,181,.55);--subtle:rgba(232,213,181,.35);--border:rgba(232,213,181,.12);--hair:rgba(232,213,181,.08);cursor:url('../medieval/cursor-sword.png') 2 30, auto;}
-[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"]{cursor:url('../medieval/cursor-sword.png') 2 30, pointer;}
-[data-theme="medieval"] body{font-family:'MedievalSharp',sans-serif}
-[data-theme="medieval"] .sub-title,[data-theme="medieval"] .nav-logo,[data-theme="medieval"] .cert-card h3,[data-theme="medieval"] .vp-title,[data-theme="medieval"] .page-h1{font-family:'UnifrakturMaguntia','MedievalSharp',cursive}
-[data-theme="medieval"] .nav-links a,[data-theme="medieval"] .mobile-menu a,[data-theme="medieval"] .section-label,[data-theme="medieval"] .cert-issuer,[data-theme="medieval"] .sub-count,[data-theme="medieval"] .back-link{font-family:'MedievalSharp',sans-serif}
-[data-theme="medieval"] nav.scrolled{background:rgba(42,26,14,.72);border-bottom-color:rgba(196,132,29,.1)}
-[data-theme="medieval"] .theme-toggle,[data-theme="medieval"] .lang-btn{border-color:rgba(232,213,181,.2)}
-[data-theme="medieval"] body::after{opacity:.04}
+/* MEDIEVAL THEME (prins-egget) — bare tokens og fonter; komponentene arver */
+[data-theme="medieval"]{--bg:#2a1a0e;--bg-raised:#1e1208;--text:#e8d5b5;--text-2:rgba(232,213,181,.75);--muted:rgba(232,213,181,.62);--rule:rgba(196,132,29,.28);--rule-strong:rgba(232,213,181,.5);--accent:#c4841d;--accent2:#d4a54a;--accent3:#3d2915;--accent4:#d4a54a;--pale:#22150a;--ground:#1a0f05;--on-ground:#e8d5b5;--on-ground-2:rgba(232,213,181,.7);--font-serif:'MedievalSharp',serif;--font-sans:'MedievalSharp',sans-serif;--font-display:'UnifrakturMaguntia','MedievalSharp',cursive;cursor:url('/medieval/cursor-sword.png') 2 30, auto;}
+[data-theme="medieval"] a,[data-theme="medieval"] button,[data-theme="medieval"] [role="button"],[data-theme="medieval"] summary{cursor:url('/medieval/cursor-sword.png') 2 30, pointer;}
+[data-theme="medieval"]::after{opacity:.06}
 
+/* BASIS */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
-body{font-family:var(--font-sans);background:var(--bg);color:var(--text);overflow-x:hidden;width:100%;position:relative;line-height:1.6;-webkit-text-size-adjust:100%}
-img,video,svg{max-width:100%}
-/* FT: serif-overskrifter (Newsreader); body-prefiks løfter spesifisiteten over basereglene; medieval-temaet er mer spesifikt og vinner fortsatt. */
-body .page-h1,body .sub-title,body .nav-logo,body .cert-card h3,body .vp-title{font-family:var(--font-serif);font-optical-sizing:auto}
-html[lang="ja"] body{font-family:var(--font-sans)}
+html{overflow-x:hidden;width:100%;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-serif);font-size:19px;line-height:1.55;font-variation-settings:"opsz" 14;background:var(--bg);color:var(--text);overflow-x:clip;width:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 320ms ease,color 320ms ease}
+img,svg{max-width:100%}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
 
-/* GRAIN TEXTURE (consistent with site) */
-body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px}
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 [data-theme="dark"] body::after{opacity:.04}
 
-/* CUSTOM CURSOR (site-wide, fine-pointer only) */
+/* CUSTOM CURSOR */
 .cursor-dot{position:fixed;width:var(--cursor-size);height:var(--cursor-size);border-radius:50%;background:var(--accent);opacity:.35;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;mix-blend-mode:difference}
 .cursor-dot.hover{width:44px;height:44px;opacity:.18}
 @media(max-width:768px){.cursor-dot{display:none}}
 @media(hover:none){.cursor-dot{display:none}}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,box-shadow .4s,padding .4s}
-nav.scrolled{background:rgba(225,231,255,.72);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);box-shadow:0 1px 0 rgba(0,18,51,.06),0 8px 32px rgba(0,18,51,.04);padding:.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.25)}
-.nav-logo{letter-spacing:-0.02em;font-weight:800;font-size:1.4rem;color:var(--accent);text-decoration:none}.nav-logo svg{display:block;height:1.02rem;width:auto}.nav-logo .nl-med{display:none}[data-theme="medieval"] .nav-logo svg{display:none}[data-theme="medieval"] .nav-logo .nl-med{display:inline}
-.nav-logo:hover{opacity:.8}
-.nav-right{display:flex;align-items:center;gap:2rem}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--text);font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:500;font-size:.9rem;position:relative;transition:color .3s}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
-.nav-links a:hover{color:var(--accent)}
-.nav-links a:hover::after{width:100%}
-.nav-links a.active{color:var(--accent)}
-.nav-links a.active::after{width:100%}
-[data-theme="medieval"] .nav-links a{color:var(--text)}
+/* LAYOUT */
+.band{padding-inline:var(--edge)}
+.wrap{max-width:var(--content);margin:0 auto}
 
-.theme-toggle{background:none;border:1.5px solid var(--border);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
-.theme-toggle:hover{border-color:var(--accent)}
+/* TYPOGRAFI */
+h1,h2,h3{font-family:var(--font-display);font-weight:400}
+.sec-title{font-variation-settings:"opsz" 36;font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:-.01em;margin-bottom:clamp(22px,2.6vw,32px)}
+h3{font-variation-settings:"opsz" 30;font-size:clamp(20px,1.9vw,23px);line-height:1.28}
+.lbl{font-family:var(--font-sans);font-size:13px;font-weight:450;line-height:1.4;color:var(--text-2)}
 
+/* LENKER — beveger seg i farge, ikke i rom */
+.link{display:inline-flex;align-items:baseline;gap:8px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--accent4);border-bottom:1px solid var(--rule);padding-bottom:3px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.link:active,.theme-toggle:active,.lang-btn:active,details summary:active{transform:scale(.98)}
+
+/* TOPPLINJE */
+#mainNav{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--rule);transition:background-color 320ms ease}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:16px}
+.nav-logo{display:inline-flex;align-items:center;color:var(--text)}
+.nav-logo svg{display:block;height:1.1rem;width:auto}.nav-logo .nl-med{display:none;font-family:var(--font-display);font-size:1.5rem}[data-theme="medieval"] .nav-logo svg{display:none}[data-theme="medieval"] .nav-logo .nl-med{display:inline}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-links{display:flex;gap:24px}
+.nav-links a{font-family:var(--font-sans);font-size:14px;font-weight:450;color:var(--text-2);text-transform:lowercase;transition:color var(--dur) var(--ease)}
+.nav-links a::after{content:'.'}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-tools{display:flex;align-items:center;gap:8px}
+.lang-btn{white-space:nowrap;display:inline-flex;align-items:center;height:32px;padding:0 10px;font-family:var(--font-sans);font-size:13px;font-weight:450;color:var(--text-2);background:none;border:1px solid var(--rule);border-radius:6px;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.lang-btn:hover{color:var(--accent);border-color:var(--accent)}
+.theme-toggle{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:0;color:var(--text-2);background:none;border:1px solid var(--rule);border-radius:6px;cursor:pointer;transition:border-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+/* Strek-ikoner som på forsiden: tema-JS skriver emoji i knappen, så teksten skjules og ikonet følger data-theme. */
+.theme-toggle::before{content:'';width:17px;height:17px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z'/%3E%3C/svg%3E") center/contain no-repeat}
+[data-theme="dark"] .theme-toggle::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Cpath d='M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.4 5.4l1.4 1.4M17.2 17.2l1.4 1.4M18.6 5.4l-1.4 1.4M6.8 17.2l-1.4 1.4'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4.2'/%3E%3Cpath d='M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.4 5.4l1.4 1.4M17.2 17.2l1.4 1.4M18.6 5.4l-1.4 1.4M6.8 17.2l-1.4 1.4'/%3E%3C/svg%3E")}
+[data-theme="medieval"] .theme-toggle{font-size:.95rem}
+[data-theme="medieval"] .theme-toggle::before{display:none}
 .lang-switch{position:relative}
-.lang-btn{background:none;border:1.5px solid var(--border);color:var(--text);font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:.35rem .7rem;border-radius:6px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease;font-family:inherit}
-.lang-btn:hover{border-color:var(--accent);color:var(--accent)}
-.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity 250ms ease,transform 250ms var(--ease-out),visibility 250ms ease;min-width:140px;z-index:300;box-shadow:0 12px 40px rgba(0,18,51,.12)}
-.lang-menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
-.lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-size:.8rem;font-weight:400;text-align:left;cursor:pointer;transition:background .2s;font-family:inherit}.lang-opt[data-lang="ja"]{font-family:'Hanken Grotesk',system-ui,sans-serif}
-.lang-opt:hover{background:rgba(0,112,237,.06)}
-.lang-opt.active{color:var(--accent);font-weight:700}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;background:var(--bg-raised);border:1px solid var(--rule);border-radius:8px;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity 200ms ease,transform 200ms var(--ease-out);min-width:150px;z-index:300;box-shadow:0 12px 40px rgba(22,43,75,.12)}
+.lang-menu.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lang-opt{display:block;width:100%;padding:.6rem 1rem;background:none;border:none;color:var(--text);font-family:var(--font-sans);font-size:14px;text-align:left;cursor:pointer;transition:background-color .2s}
+.lang-opt:hover{background:var(--pale)}.lang-opt.active{color:var(--accent);font-weight:600}
+/* SVG-flagg: Windows har ingen flagg-emoji, og CV-en laster ikke twemoji */
+.lang-flag{height:.85em;width:auto;display:inline-block;vertical-align:middle;margin-right:.5rem;box-shadow:0 0 0 1px var(--rule)}
 
-/* MOBILE MENU (hamburger + overlay) – mirrors main site, using prosjekter design tokens */
-.nav-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:36px;height:36px;padding:0;background:none;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color 200ms ease}
-.nav-toggle:hover{border-color:var(--accent)}
-.nav-toggle span{display:block;width:18px;height:2px;border-radius:2px;background:var(--text);transition:transform .3s var(--ease-out),opacity .2s ease}
-.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
-.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.3rem;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);transition:opacity .35s var(--ease-out),transform .35s var(--ease-out),visibility .35s var(--ease-out)}
-.mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
-.mobile-menu a{font-family:var(--font-sans);font-size:1.6rem;font-weight:600;letter-spacing:-.02em;color:var(--text);text-decoration:none;padding:.4rem 1rem;transition:color .2s ease}
-.mobile-menu a:hover,.mobile-menu a:active{color:var(--accent)}
-.mobile-menu a.active{color:var(--accent)}
-body.menu-open{overflow:hidden}
+/* TOPP */
+.pg-head{padding-top:clamp(48px,7vw,104px)}
+.pg-head h1{font-variation-settings:"opsz" 72;font-size:clamp(48px,7vw,92px);line-height:.98;letter-spacing:-.025em;margin:12px 0 26px}
+.lead{font-size:clamp(20px,2.1vw,24px);line-height:1.45;font-variation-settings:"opsz" 20;color:var(--text-2);max-width:720px}
 
-/* Press states */
-.theme-toggle:active,.lang-btn:active,.back-link:active{transform:scale(0.97)}
-.cert-card:active{transform:scale(0.98)}
+/* SØK, EMNER OG VISNING */
+.proj-controls{margin-top:clamp(40px,5vw,64px);padding-top:28px;border-top:1px solid var(--rule)}
+.proj-searchrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px}
+.proj-search{flex:1 1 280px;max-width:460px;font-family:var(--font-sans);font-size:16px;color:var(--text);background:transparent;border:0;border-bottom:1px solid var(--rule-strong);border-radius:0;padding:10px 0;outline:0;transition:border-color var(--dur) var(--ease)}
+.proj-search:focus{border-bottom-color:var(--accent)}
+.proj-search::placeholder{color:var(--muted)}
+.viewtoggle{display:inline-flex;gap:6px}
+.vt-btn,.proj-chip{display:inline-flex;align-items:center;height:32px;padding:0 12px;font-family:var(--font-sans);font-size:13px;font-weight:450;color:var(--text-2);background:none;border:1px solid var(--rule);border-radius:6px;cursor:pointer;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),background-color var(--dur) var(--ease)}
+.vt-btn:hover,.proj-chip:hover{color:var(--accent);border-color:var(--accent)}
+.vt-btn.active,.proj-chip.active{color:var(--on-ground);background:var(--ground);border-color:var(--ground)}
+[data-theme="dark"] .vt-btn.active,[data-theme="dark"] .proj-chip.active{background:#21406b;border-color:#21406b}
+.vt-btn:active,.proj-chip:active{transform:scale(.98)}
+.proj-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.proj-chip{height:30px;padding:0 10px}
 
-/* PAGE HERO */
-.page-hero{max-width:1100px;margin:0 auto;padding:8rem 2rem 2rem;text-align:center;position:relative;z-index:1}
-.section-label{display:inline-block;font-size:.75rem;text-transform:uppercase;letter-spacing:3px;font-weight:600;margin-bottom:.8rem;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.page-h1{font-family:var(--font-sans);font-weight:800;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;letter-spacing:-0.02em;color:var(--text);margin-bottom:1rem}
-.page-sub{font-size:1.05rem;max-width:580px;margin:0 auto;color:var(--muted);line-height:1.7}
+/* SEKSJONER OG KORT — skjermbilde, tittel, tekst; hårstrek rundt bildet, ingen kort-flate */
+.pg-sec{padding-top:clamp(48px,6vw,88px)}
+.view-hidden{display:none !important}
+.sub-header{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(22px,2.6vw,32px)}
+.sub-title{font-variation-settings:"opsz" 36;font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:-.01em}
+.sub-count{font-family:var(--font-sans);font-size:14px;color:var(--text-2);font-variant-numeric:tabular-nums}
+.certs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:40px;row-gap:56px}
+.cert-link{display:flex;flex-direction:column;color:var(--text)}
+.pg-shot{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:var(--bg-raised);border:1px solid var(--rule)}
+.pg-img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:opacity var(--dur) var(--ease)}
+.pg-tile{display:flex;align-items:flex-end;padding:16px;background:var(--pale)}
+.pg-tile-t{font-family:var(--font-sans);font-size:13px;color:var(--text-2)}
+.pg-emoji{display:none}
+.cert-link h3{margin:18px 0 8px;transition:color var(--dur) var(--ease)}
+.pg-desc{font-size:17px;color:var(--text-2);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.pg-go{align-self:flex-start;margin-top:14px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--accent4);border-bottom:1px solid var(--rule);padding-bottom:3px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.cert-link:hover .pg-img{opacity:.88}
+.cert-link:hover h3,.cert-link:hover .pg-go{color:var(--accent)}
+.cert-link:hover .pg-go{border-bottom-color:var(--accent)}
+/* Middelalderegget: ingen moderne skjermbilder, emojien vises i stedet */
+[data-theme="medieval"] .pg-img,[data-theme="medieval"] .pg-tile-t{display:none}
+[data-theme="medieval"] .pg-emoji{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;font-size:3rem}
 
-/* SECTIONS */
-section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:4rem 2rem 0}
-.sub-header{margin-bottom:2.2rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:.8rem}
-.sub-title{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:1.4rem;color:var(--text)}
-.sub-count{font-size:.7rem;font-weight:500;color:var(--muted);font-family:var(--font-mono);letter-spacing:0}
+/* TABELLVISNING */
+.archive-wrap{padding-top:clamp(40px,5vw,64px)}
+.archive{width:100%;border-collapse:collapse;border-bottom:1px solid var(--rule)}
+.archive th{text-align:left;font-family:var(--font-sans);font-size:13px;font-weight:450;color:var(--text-2);padding:0 16px 12px 0;border-bottom:1px solid var(--rule-strong)}
+.archive td{padding:16px 16px 16px 0;border-top:1px solid var(--rule);vertical-align:baseline}
+.arch-row{cursor:pointer;transition:background-color var(--dur) var(--ease)}
+.arch-title{font-size:19px;transition:color var(--dur) var(--ease)}
+.arch-kat{font-family:var(--font-sans);font-size:14px;color:var(--text-2);white-space:nowrap}
+.arch-tags{display:flex;flex-wrap:wrap;gap:4px 12px;font-family:var(--font-sans);font-size:13px;color:var(--text-2)}
+.arch-more{color:var(--muted)}
+.arch-go{font-family:var(--font-sans);color:var(--accent4);text-align:right;padding-right:0}
+@media(hover:hover) and (pointer:fine){.arch-row:hover{background:var(--pale)}.arch-row:hover .arch-title{color:var(--accent)}}
+.proj-noresults{display:none;font-family:var(--font-sans);font-size:15px;color:var(--text-2);padding-top:40px}
+main{padding-bottom:var(--sec)}
 
-/* CARDS */
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem}
-a.cert-link{text-decoration:none;color:inherit;display:block}
-.cert-card{background:var(--card-bg);border-radius:16px;padding:1.6rem;box-shadow:var(--card-shadow);text-align:center;position:relative;transition:transform 200ms var(--ease-out),box-shadow 160ms ease}
-.cert-card::before{content:'';position:absolute;inset:-1px;border-radius:17px;background:linear-gradient(135deg,rgba(0,112,237,.15),rgba(0,78,170,.15));z-index:-1;opacity:0;transition:opacity 200ms ease}
-[data-theme="dark"] .cert-card::before{background:linear-gradient(135deg,rgba(105,150,255,.15),rgba(64,128,255,.15))}
-[data-theme="medieval"] .cert-card::before{background:linear-gradient(135deg,rgba(196,132,29,.15),rgba(139,105,20,.15))}
-.cert-icon{font-size:2rem;margin-bottom:.7rem}
-.cert-icon.has-shot{font-size:0;margin-bottom:0}
-.cert-shot{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:10px;border:1px solid var(--border);margin-bottom:1rem;background:var(--card-bg)}
-.cert-emoji-fallback{display:none;font-size:2rem;margin-bottom:.7rem}
-[data-theme="medieval"] .cert-icon.has-shot .cert-shot{display:none}
-[data-theme="medieval"] .cert-icon.has-shot .cert-emoji-fallback{display:block}
-.cert-card h3{font-family:var(--font-sans);letter-spacing:-0.02em;font-weight:700;font-size:.95rem;margin-bottom:.4rem;line-height:1.3}
-.cert-card .cert-issuer{font-size:.78rem;color:var(--muted);line-height:1.5}
-.cert-card .open-hint{display:inline-block;margin-top:.6rem;font-size:.72rem;font-weight:600;color:var(--accent);opacity:0;transition:opacity .3s}
-@media(hover:hover) and (pointer:fine){
-  .cert-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 16px 40px rgba(0,18,51,.12)}
-  .cert-card:hover::before{opacity:1}
-  .cert-card:hover .open-hint{opacity:1}
+/* BUNN — marineblå grunn som på forsiden */
+.site-foot{background:var(--ground);color:var(--on-ground);padding-block:clamp(56px,6vw,88px) 32px;position:relative;z-index:1}
+.site-foot .grid{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;row-gap:32px;align-items:start}
+.fbrand{font-family:var(--font-display);font-size:28px;line-height:1.2;margin-bottom:10px}
+.fsub{font-family:var(--font-sans);font-size:14px;color:var(--on-ground-2)}
+.site-foot nav ul{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:flex-end}
+.site-foot nav a{font-family:var(--font-sans);font-size:14px;color:var(--on-ground);text-transform:lowercase;transition:color var(--dur) var(--ease)}
+.site-foot nav a::after{content:'.'}
+.site-foot nav a:hover{color:var(--on-ground-2)}
+.fbot{display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px;margin-top:56px;padding-top:22px;border-top:1px solid rgba(247,246,244,.18);font-family:var(--font-sans);font-size:13px;color:var(--on-ground-2)}
+.fbot .copy{margin-right:auto}
+.site-foot :focus-visible{outline-color:var(--on-ground)}
+
+/* RESPONS */
+@media(max-width:1020px){.certs-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}}
+@media(max-width:900px){.site-foot .grid{grid-template-columns:minmax(0,1fr)}.site-foot nav ul{justify-content:flex-start}}
+@media(max-width:820px){.nav-links{display:none}}
+@media(max-width:760px){
+body{font-size:17px}
+.nav-right{gap:10px}
+.nav-in{padding-block:12px}
+.pg-head h1{font-size:clamp(42px,12vw,60px);margin:8px 0 20px}
+.pg-desc{font-size:16.5px}
 }
-
-/* VALUE PROPS / ROLLE-KOLONNER (delt tre-kolonners komponent) */
-.valueprops{padding:2.6rem 2rem 0}
-.vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:1.1rem}
-.vp-col{border-top:2px solid var(--accent,#0066CC);padding-top:.9rem}
-.vp-title{font-family:var(--vp-display,var(--font-sans));font-weight:700;font-size:1.05rem;letter-spacing:-.01em;line-height:1.3;margin:0 0 .5rem;color:var(--text,#1a1a1a)}
-.vp-desc{font-size:.95rem;line-height:1.65;color:var(--muted,#444);margin:0}
-@media(max-width:720px){.vp-grid{grid-template-columns:1fr;gap:1.2rem}}
-
-/* PROJECT CONTROLS (search + tag filter) */
-.proj-controls{max-width:1100px;margin:0 auto;padding:2rem 2rem 0;display:flex;flex-direction:column;gap:1rem}
-.proj-search{width:100%;background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:.8rem 1.1rem;font-family:inherit;font-size:.95rem;color:var(--text);transition:border-color 200ms ease,box-shadow 200ms ease;-webkit-appearance:none;appearance:none}
-.proj-search::placeholder{color:var(--subtle)}
-.proj-search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,112,237,.12)}
-.proj-chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.proj-chip{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:inherit;font-size:.78rem;font-weight:500;letter-spacing:-.01em;padding:.35rem .8rem;border-radius:999px;cursor:pointer;transition:border-color 200ms ease,color 200ms ease,background 200ms ease}
-.proj-chip:hover{border-color:var(--accent);color:var(--accent)}
-.proj-chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.proj-chip:active{transform:scale(0.97)}
-.proj-noresults{max-width:1100px;margin:0 auto;padding:2rem;text-align:center;color:var(--muted);font-size:.95rem;display:none}
-
-/* BACK LINK */
-.back-row{max-width:1100px;margin:0 auto;padding:3rem 2rem 0;text-align:center}
-.back-link{display:inline-block;font-family:var(--font-sans);font-weight:600;font-size:.82rem;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .3s,transform .3s}
-.back-link:hover{border-bottom-color:var(--accent)}
-@media(hover:hover) and (pointer:fine){
-  .back-link:hover{transform:translateX(-4px)}
-}
-
-/* FOOTER */
-.footer{max-width:1100px;margin:0 auto;padding:5rem 2rem 2.5rem;text-align:center;font-size:.8rem;color:var(--subtle)}
-/* Visningsbytte (Kort/Tabell) + arkiv-tabell */
-.view-hidden{display:none!important}
-.proj-searchrow{display:flex;gap:.7rem;align-items:stretch}
-.proj-searchrow .proj-search{flex:1}
-.viewtoggle{display:inline-flex;flex:none;background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:3px}
-.viewtoggle .vt-btn{font-family:var(--font-mono);font-size:.8rem;font-weight:500;border:none;background:none;color:var(--muted);padding:.5rem .85rem;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;transition:color 160ms ease,background 160ms ease}
-.viewtoggle .vt-btn.active{background:var(--accent);color:#fff}
-.viewtoggle .vt-btn:active{transform:scale(.97)}
-.archive-wrap{max-width:1100px;margin:0 auto;padding:2rem 2rem 0;overflow-x:auto}
-.archive{width:100%;border-collapse:collapse;font-size:.95rem}
-.archive thead th{font-family:var(--font-mono);font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:0 .8rem .7rem;border-bottom:1.5px solid var(--border)}
-.archive tbody tr{border-bottom:1px solid var(--hair);cursor:pointer;transition:background 140ms ease}
-.archive tbody tr:active{background:color-mix(in oklab,var(--accent) 10%,transparent)}
-@media(hover:hover) and (pointer:fine){.archive tbody tr:hover{background:color-mix(in oklab,var(--accent) 6%,transparent)}}
-.archive td{padding:.75rem .8rem;vertical-align:middle}
-.arch-proj{display:flex;align-items:center;gap:.7rem}
-.arch-ico{font-size:1.15rem;width:1.6rem;text-align:center;flex:none}
-.arch-title{font-weight:600;letter-spacing:-.01em;color:inherit;text-decoration:none}
-.archive tbody tr:hover .arch-title{color:var(--accent)}
-.arch-kat{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);white-space:nowrap}
-.col-kat{width:1%}
-.arch-tags{display:flex;flex-wrap:wrap;gap:.3rem}
-.arch-tag{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);background:color-mix(in oklab,var(--muted) 12%,transparent);padding:.13rem .45rem;border-radius:5px;white-space:nowrap}
-.arch-more{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);opacity:.7;align-self:center}
-.arch-go{color:var(--muted);text-align:right;font-size:.95rem;width:1%}
-.archive tbody tr:hover .arch-go{color:var(--accent)}
 @media(max-width:640px){
-.archive thead{display:none}
-.archive tbody tr{display:grid;grid-template-columns:1fr auto;gap:.15rem .6rem;padding:.8rem .2rem}
-.archive td{padding:0;border:none}
-.arch-kat{grid-column:2;text-align:right;align-self:center}
-.arch-tags{grid-column:1/-1;margin-top:.25rem}
-.arch-go{display:none}
+.certs-grid{grid-template-columns:minmax(0,1fr);row-gap:44px}
+.archive .col-kat,.archive .arch-kat{display:none}
 }
 
-/* RESPONSIVE */
-@media (max-width:768px){
-  nav{padding:.9rem 1.2rem}
-  .nav-links{display:none}
-  .nav-toggle{display:flex}
-  .page-hero{padding:6.5rem 1.2rem 1rem}
-  .proj-controls{padding:1.5rem 1.2rem 0}
-  .valueprops{padding:2rem 1.2rem 0}
-  section{padding:3rem 1.2rem 0}
-  .certs-grid{gap:.9rem}
-  .cert-card{padding:1.3rem}
-  .back-row{padding:2rem 1.2rem 0}
-  .footer{padding:4rem 1.2rem 2rem}
+/* UTSKRIFT */
+@media print{
+body{background:#fff !important;color:#000 !important}
+body::after,.cursor-dot,#mainNav,.proj-controls,.site-foot nav{display:none !important}
+.site-foot{background:#fff !important;color:#000 !important}
 }
 
-/* Reduced motion */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
-}
+/* REDUSERT BEVEGELSE */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
 </style>
 </head>
 <body>
 <div class="cursor-dot" id="cursorDot"></div>
 
-<nav id="mainNav">
+<nav id="mainNav" class="band" aria-label="Hovedmeny"><div class="wrap nav-in">
 <a href="/" class="nav-logo" aria-label="evers.no – hjem"><svg viewBox="24.3 -533.2 3940.9 551.8" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><g style="fill:var(--text)"><path d="M288.8 -524.6Q350.0 -524.6 393.4 -500.4Q436.8 -476.2 461.4 -430.2Q486.1 -384.2 490.9 -318.9H153.7V-356.4H419.4L348.6 -332.5Q345.1 -392.4 336.0 -427.2Q326.8 -461.9 311.2 -477.0Q295.6 -492.1 272.3 -492.1Q243.1 -492.1 222.4 -474.5Q201.8 -456.9 191.0 -417.4Q180.3 -377.9 180.3 -312.1Q180.3 -233.5 199.3 -185.2Q218.4 -137.0 255.5 -114.9Q292.6 -92.8 347.0 -92.8Q374.2 -92.8 398.4 -99.3Q422.6 -105.8 445.2 -120.0Q467.8 -134.2 489.0 -157.5L500.3 -148.2Q466.0 -88.1 431.5 -53.0Q397.0 -17.8 359.2 -2.6Q321.4 12.6 276.0 12.6Q203.5 12.6 148.1 -17.7Q92.6 -48.0 61.5 -105.9Q30.3 -163.8 30.3 -246.0Q30.3 -320.7 60.0 -384.1Q89.6 -447.5 147.4 -486.0Q205.1 -524.6 288.8 -524.6Z"/><path d="M1051.9 -481.5 858.0 6.3H771.3L546.3 -475.7L491.1 -496.3V-512.0H784.3V-495.5L722.0 -479.3L889.3 -89.5L861.7 -79.2L1010.9 -481.8L949.1 -495.5V-512.0H1105.2V-495.5Z"/><path d="M1359.8 -524.6Q1421.0 -524.6 1464.4 -500.4Q1507.8 -476.2 1532.4 -430.2Q1557.1 -384.2 1561.9 -318.9H1224.7V-356.4H1490.4L1419.6 -332.5Q1416.1 -392.4 1407.0 -427.2Q1397.8 -461.9 1382.2 -477.0Q1366.6 -492.1 1343.3 -492.1Q1314.1 -492.1 1293.4 -474.5Q1272.8 -456.9 1262.0 -417.4Q1251.3 -377.9 1251.3 -312.1Q1251.3 -233.5 1270.3 -185.2Q1289.4 -137.0 1326.5 -114.9Q1363.6 -92.8 1418.0 -92.8Q1445.2 -92.8 1469.4 -99.3Q1493.6 -105.8 1516.2 -120.0Q1538.8 -134.2 1560.0 -157.5L1571.3 -148.2Q1537.0 -88.1 1502.5 -53.0Q1468.0 -17.8 1430.2 -2.6Q1392.4 12.6 1347.0 12.6Q1274.5 12.6 1219.1 -17.7Q1163.6 -48.0 1132.5 -105.9Q1101.3 -163.8 1101.3 -246.0Q1101.3 -320.7 1131.0 -384.1Q1160.6 -447.5 1218.4 -486.0Q1276.1 -524.6 1359.8 -524.6Z"/><path d="M1999.8 -522.3Q2026.6 -522.3 2042.2 -505.9Q2057.8 -489.6 2057.8 -462.4Q2057.8 -428.5 2035.8 -405.1Q2013.7 -381.6 1981.8 -381.6Q1962.6 -381.6 1948.0 -385.1Q1933.4 -388.7 1919.2 -392.2Q1905.1 -395.7 1886.5 -395.7Q1871.7 -395.7 1859.6 -392.0Q1847.5 -388.3 1836.7 -380.9Q1825.9 -373.6 1814.4 -362.1L1814.2 -385.2Q1855.5 -431.3 1883.7 -458.7Q1911.9 -486.1 1931.8 -499.8Q1951.8 -513.5 1967.6 -517.9Q1983.4 -522.3 1999.8 -522.3ZM1829.4 -424.1V-31.3L1896.3 -15.0V0.0H1615.3V-15.0L1672.2 -31.3V-397.7Q1665.7 -404.0 1658.1 -410.8Q1650.5 -417.5 1638.8 -428.2Q1627.1 -438.9 1608.6 -456.8V-469.7L1821.5 -527.2H1829.4Z"/><path d="M2298.9 -524.6Q2339.3 -524.6 2370.1 -518.1Q2401.0 -511.6 2433.0 -498.6L2452.6 -359.6H2436.9L2358.5 -495.6L2402.7 -451.6Q2375.1 -477.0 2350.6 -487.5Q2326.0 -497.9 2296.9 -497.9Q2253.1 -497.9 2230.4 -481.3Q2207.7 -464.6 2207.7 -431.5Q2207.7 -413.1 2216.3 -397.9Q2225.0 -382.7 2251.4 -368.0Q2277.8 -353.3 2332.1 -335.6Q2372.4 -322.7 2399.8 -305.6Q2427.2 -288.5 2443.5 -267.3Q2459.8 -246.1 2466.9 -220.8Q2474.1 -195.5 2474.1 -165.7Q2474.1 -113.3 2445.4 -73.0Q2416.7 -32.8 2367.0 -10.1Q2317.4 12.6 2253.3 12.6Q2205.8 12.6 2171.2 5.1Q2136.6 -2.4 2110.4 -15.6L2082.9 -175.4H2101.2L2193.7 -14.2L2164.3 -42.5Q2178.1 -33.0 2193.5 -26.8Q2208.9 -20.5 2225.4 -17.4Q2241.9 -14.3 2258.2 -14.3Q2301.5 -14.3 2331.5 -36.3Q2361.5 -58.4 2361.5 -103.5Q2361.5 -121.0 2355.4 -135.3Q2349.3 -149.6 2335.0 -162.2Q2320.8 -174.8 2296.4 -186.5Q2272.0 -198.2 2235.0 -209.6Q2186.0 -225.1 2155.4 -246.2Q2124.8 -267.2 2110.7 -295.8Q2096.7 -324.3 2096.7 -361.4Q2096.7 -411.6 2123.2 -448.1Q2149.8 -484.6 2195.5 -504.6Q2241.3 -524.6 2298.9 -524.6Z"/></g><g style="fill:var(--accent)"><path d="M2633.4 -164.7Q2672.8 -164.7 2697.9 -139.4Q2723.1 -114.2 2723.1 -76.9Q2723.1 -40.0 2697.8 -14.6Q2672.6 10.8 2633.2 10.8Q2594.1 10.8 2568.8 -14.6Q2543.6 -40.0 2543.6 -76.9Q2543.6 -114.2 2568.9 -139.4Q2594.3 -164.7 2633.4 -164.7Z"/><path d="M3000.9 -411.3V-30.6L3054.9 -15.0V0.0H2786.8V-15.0L2843.7 -31.3V-397.7Q2835.4 -406.0 2820.2 -421.1Q2804.9 -436.1 2780.1 -456.8V-469.7L2993.0 -527.2H3000.9ZM3117.2 -15.0 3171.5 -30.6V-339.2Q3171.5 -367.8 3162.6 -385.6Q3153.7 -403.3 3135.6 -411.6Q3117.5 -419.9 3089.0 -419.9Q3061.3 -419.9 3034.8 -412.4Q3008.3 -404.8 2983.8 -393.1L2980.6 -402.6Q3019.3 -441.8 3047.2 -465.6Q3075.0 -489.4 3097.3 -501.5Q3119.5 -513.7 3141.1 -517.9Q3162.6 -522.0 3189.0 -522.0Q3259.1 -522.0 3293.9 -483.4Q3328.8 -444.8 3328.8 -368.8V-31.3L3385.4 -15.0V0.0H3117.2Z"/><path d="M3694.3 -18.4Q3729.4 -18.4 3751.5 -42.3Q3773.6 -66.2 3783.8 -116.5Q3794.0 -166.8 3794.0 -245.2Q3794.0 -327.5 3784.2 -382.5Q3774.4 -437.6 3752.4 -465.4Q3730.4 -493.3 3694.2 -493.3Q3659.1 -493.3 3637.1 -469.4Q3615.2 -445.5 3604.8 -395.4Q3594.5 -345.2 3594.5 -266.8Q3594.5 -184.7 3604.3 -129.4Q3614.1 -74.2 3636.1 -46.3Q3658.1 -18.4 3694.3 -18.4ZM3689.2 12.6Q3613.5 12.6 3554.9 -21.4Q3496.3 -55.4 3463.0 -115.7Q3429.6 -175.9 3429.6 -254.7Q3429.6 -334.5 3465.0 -395.3Q3500.4 -456.0 3561.5 -490.3Q3622.6 -524.6 3699.3 -524.6Q3776.5 -524.6 3835.0 -490.7Q3893.4 -456.8 3926.3 -396.6Q3959.2 -336.3 3959.2 -257.3Q3959.2 -177.5 3923.2 -116.6Q3887.1 -55.7 3826.0 -21.6Q3764.9 12.6 3689.2 12.6Z"/></g></svg><span class="nl-med">V.</span></a>
 <div class="nav-right">
 <ul class="nav-links">
-<li><a href="/#om" data-i="nav1"></a></li>
-<li><a href="/#erfaring" data-i="nav2"></a></li>
-<li><a href="/#cv" data-i="nav3">CV</a></li>
-<li><a href="/#sertifiseringer" data-i="nav4"></a></li>
-<li><a href="/#forskning" data-i="nav5"></a></li>
-<li><a href="/prosjekter/" class="active" data-i="nav7"></a></li>
-<li><a href="/#kontakt" data-i="nav6"></a></li>
+<li><a href="/#om" data-i="nav1">Om meg</a></li>
+<li><a href="/prosjekter/" class="active" aria-current="page" data-i="nav7">Prosjekter</a></li>
+<li><a href="/#forskning" data-i="nav5">Forskning</a></li>
+<li><a href="/cv" data-i="nav3">CV</a></li>
+<li><a href="/#kontakt" data-i="nav6">Kontakt</a></li>
 </ul>
+<div class="nav-tools">
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
 <div class="lang-switch">
 <button class="lang-btn" id="langBtn" aria-label="Velg språk" aria-haspopup="true" aria-controls="langMenu" aria-expanded="false">NO</button>
 <div class="lang-menu" id="langMenu" role="menu">
-<button class="lang-opt active" data-lang="no" role="menuitem">🇳🇴 Norsk</button>
-<button class="lang-opt" data-lang="en" role="menuitem">🇬🇧 English</button>
+<button class="lang-opt active" data-lang="no" role="menuitem"><svg class="lang-flag" viewBox="0 0 22 16" aria-hidden="true"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="2" height="16" fill="#fff"/><rect y="7" width="22" height="2" fill="#fff"/><rect x="6.5" width="1" height="16" fill="#002868"/><rect y="7.5" width="22" height="1" fill="#002868"/></svg>Norsk</button>
+<button class="lang-opt" data-lang="en" role="menuitem"><svg class="lang-flag" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>English</button>
 </div>
 </div>
-<button class="nav-toggle" id="navToggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
 </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu"><a href="/#om" data-i="nav1">Om meg</a><a href="/#erfaring" data-i="nav2">Erfaring</a><a href="/#cv" data-i="nav3">CV</a><a href="/#sertifiseringer" data-i="nav4">Sertifiseringer</a><a href="/#forskning" data-i="nav5">Forskning</a><a href="/prosjekter/" class="active" data-i="nav7">Prosjekter</a><a href="/#kontakt" data-i="nav6">Kontakt</a></div>
+</div>
+</div></nav>
 
-<header class="page-hero">
-<span class="section-label" data-i="projLabel">Prosjekter</span>
-<h1 class="page-h1" data-i="projAllTitle">Alle prosjekter</h1>
-<p class="page-sub" data-i="projAllSub"></p>
-</header>
-
-<section class="valueprops">
-<h2 class="section-label" data-i="vpLabel">Hva prosjektene viser</h2>
-<div class="vp-grid">
-<div class="vp-col">
-<h3 class="vp-title" data-i="vp1Title">Finans gjort forståelig</h3>
-<p class="vp-desc" data-i="vp1Desc">Hvert verktøy tar et finansielt prinsipp – pensjon, leie mot eie, markedsregimer – og gjør det til noe man kan ta på og forstå. Det er det samme jeg vil gjøre i en samtale med en kunde.</p>
-</div>
-<div class="vp-col">
-<h3 class="vp-title" data-i="vp2Title">Bygd fra grunnen</h3>
-<p class="vp-desc" data-i="vp2Desc">Data, matematikk og design i samme hånd. Modellene er testbare hver for seg, forutsetningene står skrevet, og koden eies fullt ut – ingen rammeverk som skjuler hva som faktisk skjer.</p>
-</div>
-<div class="vp-col">
-<h3 class="vp-title" data-i="vp3Title">Forankret i norske regler</h3>
-<p class="vp-desc" data-i="vp3Desc">Folketrygd, grunnbeløp, skatteregler og tall fra SSB ligger til grunn. Ikke generiske kalkulatorer, men verktøy som tar de faktiske reglene på alvor – og vedlikeholdes når satsene endres.</p>
-</div>
-</div>
-</section>
+<main>
+<header class="pg-head band"><div class="wrap">
+<p class="lbl" data-i="projLabel">Prosjekter</p>
+<h1 data-i="projAllTitle">Alle prosjekter</h1>
+<p class="lead" data-i="projAllSub">Interaktive verktøy og guider – alle bygd fra grunnen for å gjøre finans tilgjengelig for vanlige folk.</p>
 
 <div class="proj-controls" id="projControls">
 <div class="proj-searchrow">
 <input type="search" class="proj-search" id="projSearch" data-i-placeholder="projSearch" placeholder="Søk i prosjekter…" autocomplete="off" aria-label="Søk i prosjekter">
 <div class="viewtoggle" id="viewToggle" role="group" aria-label="Bytt visning">
-<button type="button" class="vt-btn active" data-view="cards" aria-pressed="true" aria-label="Kortvisning">▦ <span data-i="viewCards">Kort</span></button>
-<button type="button" class="vt-btn" data-view="table" aria-pressed="false" aria-label="Tabellvisning">≣ <span data-i="viewTable">Tabell</span></button>
+<button type="button" class="vt-btn active" data-view="cards" aria-pressed="true"><span data-i="viewCards">Kort</span></button>
+<button type="button" class="vt-btn" data-view="table" aria-pressed="false"><span data-i="viewTable">Tabell</span></button>
 </div>
 </div>
 <div class="proj-chips" id="projChips"></div>
 </div>
+</div></header>
 
 <!-- Kortene genereres ved kjøretid fra projects.json (se script nederst). -->
-<section id="verktoy" data-kategori="Verktøy">
+<section id="verktoy" class="pg-sec band" data-kategori="Verktøy"><div class="wrap">
 <div class="sub-header">
 <h2 class="sub-title" data-i="subToolsTitle">Verktøy</h2>
 <span class="sub-count">10</span>
 </div>
 <div class="certs-grid">
 <!--STATIC-CARDS-->
-<a class="cert-link" href="/renteriket/" data-tags="personlig-økonomi investering skatt atferd pensjon bolig spill" data-search="renteriket et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill – budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år – pluss førti kunnskapskort gjemt i en by. alle norske satser ligger i én kildeforankret blokk med årstall, og 1004 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet – mattesjekkene regner fasiten på nytt med andre formler enn spillet bruker. testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til. personlig-økonomi investering skatt atferd pensjon bolig spill" data-weight="1"><div class="cert-card"><div class="cert-icon">🏙️</div><h3>Renteriket</h3><p class="cert-issuer">Et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill – budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år – pluss førti kunnskapskort gjemt i en by. Alle norske satser ligger i én kildeforankret blokk med årstall, og 1004 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet – mattesjekkene regner fasiten på nytt med andre formler enn spillet bruker. Testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til.</p></div></a>
-<a class="cert-link" href="/prosjekter/efaktura-radar/" data-tags="regelverk e-faktura peppol python åpen-kildekode" data-search="e-fakturaradar åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta ehf-faktura, mot peppol sml og smp – uten api-nøkkel. bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og elma er ikke hele peppol. regelverk e-faktura peppol python åpen-kildekode" data-weight="1"><div class="cert-card"><div class="cert-icon">🧾</div><h3>E-fakturaradar</h3><p class="cert-issuer">Åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta EHF-faktura, mot Peppol SML og SMP – uten API-nøkkel. Bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og ELMA er ikke hele Peppol.</p></div></a>
-<a class="cert-link" href="/formuessamtalen/" data-tags="wealth-management rådgivning skatt ASK atferd personlig-økonomi" data-search="formuessamtalen sett deg på kundesiden av bordet: en interaktiv demo av rådgivningssamtalen i wealth management. egnethetskartlegging, åpen allokeringsmatrise, kontovalg (depot, ask, eget as) beregnet av skatt-optimizer-motoren for din profil, kalibreringstest fra masteroppgaven, og et møtereferat du kan ta med i banken. wealth-management rådgivning skatt ask atferd personlig-økonomi" data-weight="1"><div class="cert-card"><div class="cert-icon">🪑</div><h3>Formuessamtalen</h3><p class="cert-issuer">Sett deg på kundesiden av bordet: en interaktiv demo av rådgivningssamtalen i wealth management. Egnethetskartlegging, åpen allokeringsmatrise, kontovalg (depot, ASK, eget AS) beregnet av skatt-optimizer-motoren for din profil, kalibreringstest fra masteroppgaven, og et møtereferat du kan ta med i banken.</p></div></a>
-<a class="cert-link" href="https://github.com/ValiantEvers/skatt-mcp" data-tags="skatt mcp claude typescript personvern" data-search="skatt-mcp lokal mcp-server som lar claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ask, formue, krypto og nordnet-import. alt kjører 100 % lokalt; ingen data forlater maskinen. typescript, mcp og zod. skatt mcp claude typescript personvern" data-weight="1"><div class="cert-card"><div class="cert-icon">🧮</div><h3>skatt-mcp</h3><p class="cert-issuer">Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod.</p></div></a>
-<a class="cert-link" href="/prosjekter/masteroppgave/" data-tags="forskning personlig-økonomi" data-search="masteroppgaven, forklart interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong. forskning personlig-økonomi" data-weight="1"><div class="cert-card"><div class="cert-icon">🎓</div><h3>Masteroppgaven, forklart</h3><p class="cert-issuer">Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong.</p></div></a>
-<a class="cert-link" href="/leie-eller-eie/" data-tags="bolig personlig-økonomi kalkulator" data-search="leie eller eie? interaktiv kalkulator: lønner det seg å leie eller eie bolig i norge? annuitetslån, skjermingsfradrag og investert differanse. bolig personlig-økonomi kalkulator" data-weight="1"><div class="cert-card"><div class="cert-icon">🏠</div><h3>Leie eller eie?</h3><p class="cert-issuer">Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.</p></div></a>
-<a class="cert-link" href="/personligokonomi/" data-tags="personlig-økonomi kalkulator" data-search="personlig økonomi interaktivt verktøy om renters rente, opportunity cost og inflasjon – for vanlige nordmenn. personlig-økonomi kalkulator" data-weight="1"><div class="cert-card"><div class="cert-icon">💰</div><h3>Personlig Økonomi</h3><p class="cert-issuer">Interaktivt verktøy om renters rente, opportunity cost og inflasjon – for vanlige nordmenn.</p></div></a>
-<a class="cert-link" href="/examprep/" data-tags="studier bank" data-search="gra6546 – exam prep interaktivt eksamensverktøy for financial institutions and crises. notater og flashcards. studier bank" data-weight="1"><div class="cert-card"><div class="cert-icon">🎓</div><h3>GRA6546 – Exam Prep</h3><p class="cert-issuer">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p></div></a>
-<a class="cert-link" href="/pensjonskalkulator/" data-tags="pensjon personlig-økonomi kalkulator" data-search="pensjonskalkulator hva blir månedlig pensjon? folketrygd, tjenestepensjon, ips, ask og afp samlet – brutto og estimert netto. pensjon personlig-økonomi kalkulator" data-weight="1"><div class="cert-card"><div class="cert-icon">🪙</div><h3>Pensjonskalkulator</h3><p class="cert-issuer">Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet – brutto og estimert netto.</p></div></a>
-<a class="cert-link" href="/wc2026/" data-tags="sport simulator" data-search="world cup 2026 simulator interaktiv vm 2026-simulator – alle 48 lag drevet av elo. spill én turnering med live avspilling og 2d mål-replay, eller kjør monte carlo for sannsynligheter. sport simulator" data-weight="1"><div class="cert-card"><div class="cert-icon">⚽</div><h3>World Cup 2026 Simulator</h3><p class="cert-issuer">Interaktiv VM 2026-simulator – alle 48 lag drevet av Elo. Spill én turnering med live avspilling og 2D mål-replay, eller kjør Monte Carlo for sannsynligheter.</p></div></a>
+<a class="cert-link" href="/renteriket/" data-tags="personlig-økonomi investering skatt atferd pensjon bolig spill" data-search="renteriket et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill – budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år – pluss førti kunnskapskort gjemt i en by. alle norske satser ligger i én kildeforankret blokk med årstall, og 1014 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet – mattesjekkene regner fasiten på nytt med andre formler enn spillet bruker. testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til. personlig-økonomi investering skatt atferd pensjon bolig spill" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/renteriket.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🏙️</span></span><h3>Renteriket</h3><p class="pg-desc">Et spill som lærer bort privatøkonomi fra null: fjorten oppdrag med hvert sitt minispill – budsjett som ryggsekkproblem, nedbetalingsrekkefølge på fire lån, kontovalg for fem sparere, boliglånets tre skranker og en panikkprøve over tretti år – pluss førti kunnskapskort gjemt i en by. Alle norske satser ligger i én kildeforankret blokk med årstall, og 1014 automatiserte sjekker dekker matte, oppdrag, lagring og tilgjengelighet – mattesjekkene regner fasiten på nytt med andre formler enn spillet bruker. Testene fant blant annet at ett oppdrag var matematisk uløselig, og at diversifiseringen var jukset til.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/prosjekter/efaktura-radar/" data-tags="regelverk e-faktura peppol python åpen-kildekode" data-search="e-fakturaradar åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta ehf-faktura, mot peppol sml og smp – uten api-nøkkel. bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og elma er ikke hele peppol. regelverk e-faktura peppol python åpen-kildekode" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/efaktura-radar.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🧾</span></span><h3>E-fakturaradar</h3><p class="pg-desc">Åpent verktøy som sjekker hvilke norske virksomheter som faktisk kan motta EHF-faktura, mot Peppol SML og SMP – uten API-nøkkel. Bygget i forkant av e-fakturaplikten i bokføringsloven, med to funn underveis: 82 % av selskapene i stikkprøven var allerede registrert, og ELMA er ikke hele Peppol.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/formuessamtalen/" data-tags="wealth-management rådgivning skatt ASK atferd personlig-økonomi" data-search="formuessamtalen sett deg på kundesiden av bordet: en interaktiv demo av rådgivningssamtalen i wealth management. egnethetskartlegging, åpen allokeringsmatrise, kontovalg (depot, ask, eget as) beregnet av skatt-optimizer-motoren for din profil, kalibreringstest fra masteroppgaven, og et møtereferat du kan ta med i banken. wealth-management rådgivning skatt ask atferd personlig-økonomi" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/formuessamtalen.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🪑</span></span><h3>Formuessamtalen</h3><p class="pg-desc">Sett deg på kundesiden av bordet: en interaktiv demo av rådgivningssamtalen i wealth management. Egnethetskartlegging, åpen allokeringsmatrise, kontovalg (depot, ASK, eget AS) beregnet av skatt-optimizer-motoren for din profil, kalibreringstest fra masteroppgaven, og et møtereferat du kan ta med i banken.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="https://github.com/ValiantEvers/skatt-mcp" target="_blank" rel="noopener" data-tags="skatt mcp claude typescript personvern" data-search="skatt-mcp lokal mcp-server som lar claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ask, formue, krypto og nordnet-import. alt kjører 100 % lokalt; ingen data forlater maskinen. typescript, mcp og zod. skatt mcp claude typescript personvern" data-weight="1"><span class="pg-shot pg-tile"><span class="pg-tile-t">github.com/ValiantEvers/skatt-mcp</span><span class="pg-emoji" aria-hidden="true">🧮</span></span><h3>skatt-mcp</h3><p class="pg-desc">Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/prosjekter/masteroppgave/" data-tags="forskning personlig-økonomi" data-search="masteroppgaven, forklart interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong. forskning personlig-økonomi" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/masteroppgave.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🎓</span></span><h3>Masteroppgaven, forklart</h3><p class="pg-desc">Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/leie-eller-eie/" data-tags="bolig personlig-økonomi kalkulator" data-search="leie eller eie? interaktiv kalkulator: lønner det seg å leie eller eie bolig i norge? annuitetslån, skjermingsfradrag og investert differanse. bolig personlig-økonomi kalkulator" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/leie-eller-eie.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🏠</span></span><h3>Leie eller eie?</h3><p class="pg-desc">Interaktiv kalkulator: lønner det seg å leie eller eie bolig i Norge? Annuitetslån, skjermingsfradrag og investert differanse.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/personligokonomi/" data-tags="personlig-økonomi kalkulator" data-search="personlig økonomi interaktivt verktøy om renters rente, opportunity cost og inflasjon – for vanlige nordmenn. personlig-økonomi kalkulator" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/personligokonomi.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">💰</span></span><h3>Personlig Økonomi</h3><p class="pg-desc">Interaktivt verktøy om renters rente, opportunity cost og inflasjon – for vanlige nordmenn.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/examprep/" data-tags="studier bank" data-search="gra6546 – exam prep interaktivt eksamensverktøy for financial institutions and crises. notater og flashcards. studier bank" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/examprep.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🎓</span></span><h3>GRA6546 – Exam Prep</h3><p class="pg-desc">Interaktivt eksamensverktøy for Financial Institutions and Crises. Notater og flashcards.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/pensjonskalkulator/" data-tags="pensjon personlig-økonomi kalkulator" data-search="pensjonskalkulator hva blir månedlig pensjon? folketrygd, tjenestepensjon, ips, ask og afp samlet – brutto og estimert netto. pensjon personlig-økonomi kalkulator" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/pensjonskalkulator.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🪙</span></span><h3>Pensjonskalkulator</h3><p class="pg-desc">Hva blir månedlig pensjon? Folketrygd, tjenestepensjon, IPS, ASK og AFP samlet – brutto og estimert netto.</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/wc2026/" data-tags="sport simulator" data-search="world cup 2026 simulator interaktiv vm 2026-simulator – alle 48 lag drevet av elo. spill én turnering med live avspilling og 2d mål-replay, eller kjør monte carlo for sannsynligheter. sport simulator" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/wc2026.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">⚽</span></span><h3>World Cup 2026 Simulator</h3><p class="pg-desc">Interaktiv VM 2026-simulator – alle 48 lag drevet av Elo. Spill én turnering med live avspilling og 2D mål-replay, eller kjør Monte Carlo for sannsynligheter.</p><span class="pg-go">Åpne ↗</span></a>
 <!--/STATIC-CARDS--></div>
-</section>
+</div></section>
 
-<section id="guider" data-kategori="Guider">
+<section id="guider" class="pg-sec band" data-kategori="Guider"><div class="wrap">
 <div class="sub-header">
 <h2 class="sub-title" data-i="subGuidesTitle">Guider</h2>
 <span class="sub-count">4</span>
 </div>
 <div class="certs-grid">
 <!--STATIC-CARDS-->
-<a class="cert-link" href="/fra-null-til-investor/" data-tags="guide personlig-økonomi investering" data-search="fra null til investor interaktiv guide til personlig økonomi og investering guide personlig-økonomi investering" data-weight="1"><div class="cert-card"><div class="cert-icon">🌱</div><h3>Fra null til investor</h3><p class="cert-issuer">Interaktiv guide til personlig økonomi og investering</p></div></a>
-<a class="cert-link" href="/fra-null-til-investor2/" data-tags="guide investering" data-search="fra nybegynner til trygg investor interaktiv guide til fondsvalg, risiko og porteføljebygging guide investering" data-weight="1"><div class="cert-card"><div class="cert-icon">🌿</div><h3>Fra nybegynner til trygg investor</h3><p class="cert-issuer">Interaktiv guide til fondsvalg, risiko og porteføljebygging</p></div></a>
-<a class="cert-link" href="/fra-null-til-investor3/" data-tags="guide investering" data-search="din første investering steg-for-steg til din første fondshandel guide investering" data-weight="1"><div class="cert-card"><div class="cert-icon">🌳</div><h3>Din første investering</h3><p class="cert-issuer">Steg-for-steg til din første fondshandel</p></div></a>
-<a class="cert-link" href="/klima/" data-tags="klima fakta norge finans" data-search="klima: fakta og kostnader faktabasert side om klimaendringer: hvor verden står, hva det koster norge, og hvordan klimarisiko påvirker verdien av selskaper. hvert tall verifisert mot primærkilder. klima fakta norge finans" data-weight="1"><div class="cert-card"><div class="cert-icon">🌍</div><h3>Klima: fakta og kostnader</h3><p class="cert-issuer">Faktabasert side om klimaendringer: hvor verden står, hva det koster Norge, og hvordan klimarisiko påvirker verdien av selskaper. Hvert tall verifisert mot primærkilder.</p></div></a>
+<a class="cert-link" href="/fra-null-til-investor/" data-tags="guide personlig-økonomi investering" data-search="fra null til investor interaktiv guide til personlig økonomi og investering guide personlig-økonomi investering" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/fra-null-til-investor.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🌱</span></span><h3>Fra null til investor</h3><p class="pg-desc">Interaktiv guide til personlig økonomi og investering</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/fra-null-til-investor2/" data-tags="guide investering" data-search="fra nybegynner til trygg investor interaktiv guide til fondsvalg, risiko og porteføljebygging guide investering" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/fra-null-til-investor2.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🌿</span></span><h3>Fra nybegynner til trygg investor</h3><p class="pg-desc">Interaktiv guide til fondsvalg, risiko og porteføljebygging</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/fra-null-til-investor3/" data-tags="guide investering" data-search="din første investering steg-for-steg til din første fondshandel guide investering" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/fra-null-til-investor3.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🌳</span></span><h3>Din første investering</h3><p class="pg-desc">Steg-for-steg til din første fondshandel</p><span class="pg-go">Åpne ↗</span></a>
+<a class="cert-link" href="/klima/" data-tags="klima fakta norge finans" data-search="klima: fakta og kostnader faktabasert side om klimaendringer: hvor verden står, hva det koster norge, og hvordan klimarisiko påvirker verdien av selskaper. hvert tall verifisert mot primærkilder. klima fakta norge finans" data-weight="1"><span class="pg-shot"><img class="pg-img" src="screenshots/klima.webp" alt="" loading="lazy" decoding="async" width="800" height="500"><span class="pg-emoji" aria-hidden="true">🌍</span></span><h3>Klima: fakta og kostnader</h3><p class="pg-desc">Faktabasert side om klimaendringer: hvor verden står, hva det koster Norge, og hvordan klimarisiko påvirker verdien av selskaper. Hvert tall verifisert mot primærkilder.</p><span class="pg-go">Åpne ↗</span></a>
 <!--/STATIC-CARDS--></div>
-</section>
+</div></section>
 
-<div class="archive-wrap" id="archiveWrap" hidden>
+<div class="archive-wrap band" id="archiveWrap" hidden><div class="wrap">
 <table class="archive">
 <thead><tr><th data-i="thProj">Prosjekt</th><th class="col-kat" data-i="thKat">Kategori</th><th data-i="thTags">Stikkord</th><th aria-hidden="true"></th></tr></thead>
 <tbody id="archiveBody"></tbody>
 </table>
+</div></div>
+
+<div class="band"><div class="wrap">
+<p class="proj-noresults" id="projNoResults" data-i="projNoResults">Ingen prosjekter matcher søket.</p>
+</div></div>
+</main>
+
+<footer class="site-foot band">
+<div class="wrap">
+<div class="grid">
+<div><p class="fbrand">Valiant Evers</p><p class="fsub" data-i="footSub">Euronext Securities Oslo · MSc i finans, BI</p></div>
+<nav aria-label="Bunnavigasjon"><ul><li><a href="/" data-i="footHome">Forsiden</a></li><li><a href="/#om" data-i="nav1">Om meg</a></li><li><a href="/#forskning" data-i="nav5">Forskning</a></li><li><a href="/cv" data-i="nav3">CV</a></li><li><a href="/#kontakt" data-i="nav6">Kontakt</a></li></ul></nav>
 </div>
-
-<div class="proj-noresults" id="projNoResults" data-i="projNoResults">Ingen prosjekter matcher søket.</div>
-
-<div class="back-row">
-<a href="/" class="back-link" data-i="backHome">← Tilbake til forsiden</a>
+<div class="fbot"><span class="copy">&copy; 2026 Valiant Evers, Oslo</span></div>
 </div>
+</footer>
 
-<div class="footer">&copy; 2026 Valiant Evers, Oslo</div>
 
 <script>
 (function(){
 var T={
-no:{thProj:"Prosjekt",thKat:"Kategori",thTags:"Stikkord",viewCards:"Kort",viewTable:"Tabell",klimaTitle:"Klima: fakta og kostnader",klimaDesc:"Faktabasert side om klimaendringer: hvor verden står, hva det koster Norge, og hvordan klimarisiko påvirker verdien av selskaper. Hvert tall verifisert mot primærkilder.",nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",projLabel:"Prosjekter",projAllTitle:"Alle prosjekter",projAllSub:"Interaktive verktøy og guider – alle bygd fra grunnen for å gjøre finans tilgjengelig for vanlige folk.",vpLabel:"Hva prosjektene viser",vp1Title:"Finans gjort forståelig",vp1Desc:"Hvert verktøy tar et finansielt prinsipp – pensjon, leie mot eie, markedsregimer – og gjør det til noe man kan ta på og forstå. Det er det samme jeg vil gjøre i en samtale med en kunde.",vp2Title:"Bygd fra grunnen",vp2Desc:"Data, matematikk og design i samme hånd. Modellene er testbare hver for seg, forutsetningene står skrevet, og koden eies fullt ut – ingen rammeverk som skjuler hva som faktisk skjer.",vp3Title:"Forankret i norske regler",vp3Desc:"Folketrygd, grunnbeløp, skatteregler og tall fra SSB ligger til grunn. Ikke generiske kalkulatorer, men verktøy som tar de faktiske reglene på alvor – og vedlikeholdes når satsene endres.",subToolsTitle:"Verktøy",subFinmTitle:"Finansielle maler",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Resultatregnskap, balanse og kontantstrøm – tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",finmIntTitle:"Integrert modellering",finmIntDesc:"3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.",finmValTitle:"Verdsettelse",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.",subGuidesTitle:"Guider",proj1Title:"Fra null til investor",proj1Desc:"Interaktiv guide til personlig økonomi og investering",proj2Title:"Fra nybegynner til trygg investor",proj2Desc:"Interaktiv guide til fondsvalg, risiko og porteføljebygging",proj3Title:"Din første investering",proj3Desc:"Steg-for-steg til din første fondshandel",mastTitle:"Masteroppgaven, forklart",mastDesc:"Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong.",projOpen:"Åpne ↗",shotWord:"skjermbilde",projSearch:"Søk i prosjekter…",projNoResults:"Ingen prosjekter matcher søket.",backHome:"← Tilbake til forsiden",skattTitle:"skatt-mcp",skattDesc:"Under arbeid. Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod."},
-en:{thProj:"Project",thKat:"Category",thTags:"Tags",viewCards:"Cards",viewTable:"Table",klimaTitle:"Climate: facts and costs",klimaDesc:"Fact-based page on climate change: where the world stands, what it costs Norway, and how climate risk affects company values. Every figure verified against primary sources (Norwegian).",nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",projLabel:"Projects",projAllTitle:"All projects",projAllSub:"Interactive tools and guides – all built from scratch to make finance accessible for everyday people.",vpLabel:"What the projects show",vp1Title:"Finance made clear",vp1Desc:"Each tool takes a financial principle – pensions, renting versus owning, market regimes – and turns it into something you can grasp. The same thing I want to do in a conversation with a client.",vp2Title:"Built from the ground up",vp2Desc:"Data, math and design in the same hand. The models are testable in isolation, the assumptions are written down, and the code is fully owned – no framework hiding what actually happens.",vp3Title:"Grounded in Norwegian rules",vp3Desc:"National insurance, the base amount (G), tax rules and figures from Statistics Norway form the foundation. Not generic calculators, but tools that take the actual rules seriously – and are kept up to date when the rates change.",subToolsTitle:"Tools",subFinmTitle:"Financial templates",finmStatTitle:"Financial statements",finmStatDesc:"Income statement, balance sheet and cash flow – three standalone templates with IFRS-style breakdown, bilingual labels and sample data.",finmIntTitle:"Integrated modeling",finmIntDesc:"Three-statement model, working capital and debt schedule. Linked IS/BS/CFS with circular interest and three scenarios.",finmValTitle:"Valuation",finmValDesc:"DCF, WACC, trading and transaction comps, football field and LBO model. Sell-side formatting with two-way sensitivity.",subGuidesTitle:"Guides",proj1Title:"From zero to investor",proj1Desc:"Interactive guide to personal finance and investing (Norwegian)",proj2Title:"From beginner to confident investor",proj2Desc:"Interactive guide to fund selection, risk and portfolio building (Norwegian)",proj3Title:"Your first investment",proj3Desc:"Step by step to your first fund trade (Norwegian)",mastTitle:"The thesis, explained",mastDesc:"An interactive, step-by-step walkthrough of the master's thesis on Norwegian investors, knowledge and confidence – jargon-free.",projOpen:"Open ↗",shotWord:"screenshot",projSearch:"Search projects…",projNoResults:"No projects match your search.",backHome:"← Back to home",skattTitle:"skatt-mcp",skattDesc:"Work in progress. Local MCP server that lets Claude compute Norwegian tax with actual figures – capital gains, funds, ASK accounts, wealth, crypto and Nordnet import. Runs 100% locally; no data leaves your machine. TypeScript, MCP and Zod."},
+no:{footSub:"Euronext Securities Oslo · MSc i finans, BI",footHome:"Forsiden",thProj:"Prosjekt",thKat:"Kategori",thTags:"Stikkord",viewCards:"Kort",viewTable:"Tabell",klimaTitle:"Klima: fakta og kostnader",klimaDesc:"Faktabasert side om klimaendringer: hvor verden står, hva det koster Norge, og hvordan klimarisiko påvirker verdien av selskaper. Hvert tall verifisert mot primærkilder.",nav1:"Om meg",nav2:"Erfaring",nav3:"CV",nav4:"Sertifiseringer",nav5:"Forskning",nav6:"Kontakt",nav7:"Prosjekter",projLabel:"Prosjekter",projAllTitle:"Alle prosjekter",projAllSub:"Interaktive verktøy og guider – alle bygd fra grunnen for å gjøre finans tilgjengelig for vanlige folk.",vpLabel:"Hva prosjektene viser",vp1Title:"Finans gjort forståelig",vp1Desc:"Hvert verktøy tar et finansielt prinsipp – pensjon, leie mot eie, markedsregimer – og gjør det til noe man kan ta på og forstå. Det er det samme jeg vil gjøre i en samtale med en kunde.",vp2Title:"Bygd fra grunnen",vp2Desc:"Data, matematikk og design i samme hånd. Modellene er testbare hver for seg, forutsetningene står skrevet, og koden eies fullt ut – ingen rammeverk som skjuler hva som faktisk skjer.",vp3Title:"Forankret i norske regler",vp3Desc:"Folketrygd, grunnbeløp, skatteregler og tall fra SSB ligger til grunn. Ikke generiske kalkulatorer, men verktøy som tar de faktiske reglene på alvor – og vedlikeholdes når satsene endres.",subToolsTitle:"Verktøy",subFinmTitle:"Finansielle maler",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Resultatregnskap, balanse og kontantstrøm – tre frittstående maler med IFRS-aktig oppdeling, bilinguale etiketter og sample-data.",finmIntTitle:"Integrert modellering",finmIntDesc:"3-rapport-modell, arbeidskapital- og gjeldsskjema. Sammenkoblet IS/BS/CFS med sirkulær rente og tre scenarioer.",finmValTitle:"Verdsettelse",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, football field og LBO-modell. Sell-side-formatering med toveis sensitivitet.",subGuidesTitle:"Guider",proj1Title:"Fra null til investor",proj1Desc:"Interaktiv guide til personlig økonomi og investering",proj2Title:"Fra nybegynner til trygg investor",proj2Desc:"Interaktiv guide til fondsvalg, risiko og porteføljebygging",proj3Title:"Din første investering",proj3Desc:"Steg-for-steg til din første fondshandel",mastTitle:"Masteroppgaven, forklart",mastDesc:"Interaktiv, stegvis forklaring av masteroppgaven om norske investorer, kunnskap og selvtillit – uten fagsjargong.",projOpen:"Åpne ↗",shotWord:"skjermbilde",projSearch:"Søk i prosjekter…",projNoResults:"Ingen prosjekter matcher søket.",backHome:"← Tilbake til forsiden",skattTitle:"skatt-mcp",skattDesc:"Lokal MCP-server som lar Claude beregne norsk skatt med faktiske tall – aksjegevinst, fond, ASK, formue, krypto og Nordnet-import. Alt kjører 100 % lokalt; ingen data forlater maskinen. TypeScript, MCP og Zod."},
+en:{footSub:"Euronext Securities Oslo · MSc in Finance, BI",footHome:"Home",thProj:"Project",thKat:"Category",thTags:"Tags",viewCards:"Cards",viewTable:"Table",klimaTitle:"Climate: facts and costs",klimaDesc:"Fact-based page on climate change: where the world stands, what it costs Norway, and how climate risk affects company values. Every figure verified against primary sources (Norwegian).",nav1:"About",nav2:"Experience",nav3:"CV",nav4:"Certifications",nav5:"Research",nav6:"Contact",nav7:"Projects",projLabel:"Projects",projAllTitle:"All projects",projAllSub:"Interactive tools and guides – all built from scratch to make finance accessible for everyday people.",vpLabel:"What the projects show",vp1Title:"Finance made clear",vp1Desc:"Each tool takes a financial principle – pensions, renting versus owning, market regimes – and turns it into something you can grasp. The same thing I want to do in a conversation with a client.",vp2Title:"Built from the ground up",vp2Desc:"Data, math and design in the same hand. The models are testable in isolation, the assumptions are written down, and the code is fully owned – no framework hiding what actually happens.",vp3Title:"Grounded in Norwegian rules",vp3Desc:"National insurance, the base amount (G), tax rules and figures from Statistics Norway form the foundation. Not generic calculators, but tools that take the actual rules seriously – and are kept up to date when the rates change.",subToolsTitle:"Tools",subFinmTitle:"Financial templates",finmStatTitle:"Financial statements",finmStatDesc:"Income statement, balance sheet and cash flow – three standalone templates with IFRS-style breakdown, bilingual labels and sample data.",finmIntTitle:"Integrated modeling",finmIntDesc:"Three-statement model, working capital and debt schedule. Linked IS/BS/CFS with circular interest and three scenarios.",finmValTitle:"Valuation",finmValDesc:"DCF, WACC, trading and transaction comps, football field and LBO model. Sell-side formatting with two-way sensitivity.",subGuidesTitle:"Guides",proj1Title:"From zero to investor",proj1Desc:"Interactive guide to personal finance and investing (Norwegian)",proj2Title:"From beginner to confident investor",proj2Desc:"Interactive guide to fund selection, risk and portfolio building (Norwegian)",proj3Title:"Your first investment",proj3Desc:"Step by step to your first fund trade (Norwegian)",mastTitle:"The thesis, explained",mastDesc:"An interactive, step-by-step walkthrough of the master's thesis on Norwegian investors, knowledge and confidence – jargon-free.",projOpen:"Open ↗",shotWord:"screenshot",projSearch:"Search projects…",projNoResults:"No projects match your search.",backHome:"← Back to home",skattTitle:"skatt-mcp",skattDesc:"Local MCP server that lets Claude compute Norwegian tax with actual figures – capital gains, funds, ASK accounts, wealth, crypto and Nordnet import. Runs 100% locally; no data leaves your machine. TypeScript, MCP and Zod."},
 fr:{thProj:"Projet",thKat:"Catégorie",thTags:"Mots-clés",viewCards:"Cartes",viewTable:"Tableau",klimaTitle:"Climat : faits et coûts",klimaDesc:"Page factuelle sur le changement climatique : l'état du monde, le coût pour la Norvège, et l'effet du risque climatique sur la valeur des entreprises. Chaque chiffre vérifié aux sources primaires (en norvégien).",nav1:"À propos",nav2:"Parcours",nav3:"CV",nav4:"Certifications",nav5:"Recherche",nav6:"Contact",nav7:"Projets",projLabel:"Projets",projAllTitle:"Tous les projets",projAllSub:"Outils interactifs et guides – tous construits à partir de zéro pour rendre la finance accessible.",vpLabel:"Ce que montrent les projets",vp1Title:"La finance rendue claire",vp1Desc:"Chaque outil prend un principe financier – retraite, location ou achat, régimes de marché – et le rend tangible et compréhensible. C'est ce que je veux faire dans une conversation avec un client.",vp2Title:"Construit de zéro",vp2Desc:"Données, mathématiques et design d'une même main. Les modèles se testent isolément, les hypothèses sont écrites, et le code est entièrement maîtrisé – aucun framework ne masque ce qui se passe vraiment.",vp3Title:"Ancré dans les règles norvégiennes",vp3Desc:"Sécurité sociale, montant de base (G), règles fiscales et données de Statistics Norway servent de fondement. Pas des calculateurs génériques, mais des outils qui prennent au sérieux les règles réelles – et sont mis à jour quand les taux changent.",subToolsTitle:"Outils",subFinmTitle:"Modèles financiers",finmStatTitle:"États financiers",finmStatDesc:"Compte de résultat, bilan et tableau de flux – trois modèles autonomes avec ventilation IFRS, étiquettes bilingues et données d'exemple.",finmIntTitle:"Modélisation intégrée",finmIntDesc:"Modèle à trois états, BFR et schéma de dette. Compte de résultat/bilan/flux liés avec intérêts circulaires et trois scénarios.",finmValTitle:"Valorisation",finmValDesc:"DCF, WACC, comparables boursiers et transactionnels, football field et modèle LBO. Mise en forme sell-side avec sensibilité bilatérale.",subGuidesTitle:"Guides",proj1Title:"De zéro à investisseur",proj1Desc:"Guide interactif de finances personnelles (en norvégien)",proj2Title:"Du débutant à l'investisseur confiant",proj2Desc:"Guide interactif sur les fonds, le risque et la construction de portefeuille (en norvégien)",proj3Title:"Votre premier investissement",proj3Desc:"Pas à pas vers votre premier achat de fonds (en norvégien)",mastTitle:"Le mémoire, expliqué",mastDesc:"Une présentation interactive, étape par étape, du mémoire de master sur les investisseurs norvégiens, le savoir et la confiance – sans jargon.",projOpen:"Ouvrir ↗",shotWord:"capture d'écran",projSearch:"Rechercher des projets…",projNoResults:"Aucun projet ne correspond à votre recherche.",backHome:"← Retour à l'accueil",skattTitle:"skatt-mcp",skattDesc:"En cours de développement. Serveur MCP local qui permet à Claude de calculer l'impôt norvégien avec des chiffres réels – plus-values, fonds, comptes ASK, fortune, crypto et import Nordnet. Tout s'exécute en local ; aucune donnée ne quitte la machine. TypeScript, MCP et Zod."},
 de:{thProj:"Projekt",thKat:"Kategorie",thTags:"Schlagwörter",viewCards:"Karten",viewTable:"Tabelle",klimaTitle:"Klima: Fakten und Kosten",klimaDesc:"Faktenbasierte Seite zum Klimawandel: wo die Welt steht, was er Norwegen kostet und wie Klimarisiken den Unternehmenswert beeinflussen. Jede Zahl anhand von Primärquellen verifiziert (auf Norwegisch).",nav1:"Über mich",nav2:"Werdegang",nav3:"CV",nav4:"Zertifikate",nav5:"Forschung",nav6:"Kontakt",nav7:"Projekte",projLabel:"Projekte",projAllTitle:"Alle Projekte",projAllSub:"Interaktive Werkzeuge und Leitfäden – alle von Grund auf gebaut, um Finanzen verständlich zu machen.",vpLabel:"Was die Projekte zeigen",vp1Title:"Finanzen verständlich gemacht",vp1Desc:"Jedes Werkzeug nimmt ein Finanzprinzip – Rente, Mieten oder Kaufen, Marktregime – und macht es greifbar und verständlich. Genau das möchte ich im Gespräch mit einem Kunden tun.",vp2Title:"Von Grund auf gebaut",vp2Desc:"Daten, Mathematik und Design aus einer Hand. Die Modelle sind einzeln testbar, die Annahmen sind dokumentiert, und der Code gehört vollständig mir – kein Framework verbirgt, was wirklich geschieht.",vp3Title:"In norwegischen Regeln verankert",vp3Desc:"Sozialversicherung, Grundbetrag (G), Steuerregeln und Zahlen von Statistik Norwegen bilden die Grundlage. Keine generischen Rechner, sondern Werkzeuge, die die tatsächlichen Regeln ernst nehmen – und aktualisiert werden, wenn sich die Sätze ändern.",subToolsTitle:"Werkzeuge",subFinmTitle:"Finanzvorlagen",finmStatTitle:"Abschlüsse",finmStatDesc:"GuV, Bilanz und Kapitalflussrechnung – drei eigenständige Vorlagen mit IFRS-Aufgliederung, zweisprachigen Beschriftungen und Beispieldaten.",finmIntTitle:"Integrierte Modellierung",finmIntDesc:"Drei-Abschlüsse-Modell, Working-Capital- und Schuldenplan. Verknüpfte GuV/Bilanz/Kapitalflussrechnung mit zirkulärem Zinsaufwand und drei Szenarien.",finmValTitle:"Bewertung",finmValDesc:"DCF, WACC, Trading- und Transaction Comps, Football Field und LBO-Modell. Sell-Side-Formatierung mit bilateraler Sensitivität.",subGuidesTitle:"Leitfäden",proj1Title:"Von Null zum Investor",proj1Desc:"Interaktiver Leitfaden zu Privatfinanzen (auf Norwegisch)",proj2Title:"Vom Anfänger zum sicheren Investor",proj2Desc:"Interaktiver Leitfaden zu Fondswahl, Risiko und Portfolioaufbau (auf Norwegisch)",proj3Title:"Ihre erste Investition",proj3Desc:"Schritt für Schritt zum ersten Fondskauf (auf Norwegisch)",mastTitle:"Die Masterarbeit, erklärt",mastDesc:"Eine interaktive Schritt-für-Schritt-Erklärung der Masterarbeit über norwegische Anleger, Wissen und Selbstvertrauen – ohne Fachjargon.",projOpen:"Öffnen ↗",shotWord:"Screenshot",projSearch:"Projekte durchsuchen…",projNoResults:"Keine Projekte entsprechen Ihrer Suche.",backHome:"← Zurück zur Startseite",skattTitle:"skatt-mcp",skattDesc:"In Arbeit. Lokaler MCP-Server, mit dem Claude die norwegische Steuer mit echten Zahlen berechnet – Kursgewinne, Fonds, ASK-Konten, Vermögen, Krypto und Nordnet-Import. Läuft vollständig lokal; keine Daten verlassen den Rechner. TypeScript, MCP und Zod."},
 ja:{thProj:"プロジェクト",thKat:"区分",thTags:"タグ",viewCards:"カード",viewTable:"表",klimaTitle:"気候：事実とコスト",klimaDesc:"気候変動のファクトベース解説：世界の現状、ノルウェーが払うコスト、気候リスクが企業価値に与える影響。すべての数値は一次資料で検証済み（ノルウェー語）。",nav1:"自己紹介",nav2:"経歴",nav3:"CV",nav4:"資格",nav5:"研究",nav6:"連絡先",nav7:"プロジェクト",projLabel:"プロジェクト",projAllTitle:"すべてのプロジェクト",projAllSub:"インタラクティブなツールとガイド – すべてゼロから構築し、ファイナンスを身近なものにすることを目指しました。",vpLabel:"プロジェクトが示すもの",vp1Title:"わかりやすくした金融",vp1Desc:"それぞれのツールは、年金、賃貸か購入か、相場の局面といった金融の原理を、手に取って理解できるものに変えます。顧客との対話で私がしたいことと同じです。",vp2Title:"ゼロから構築",vp2Desc:"データ、数学、デザインをひとつの手で。モデルは個別に検証でき、前提は明記され、コードは完全に自分のものです。実際に何が起きているかを隠すフレームワークはありません。",vp3Title:"ノルウェーの制度に根ざす",vp3Desc:"国民保険、基礎額（G）、税制、ノルウェー統計局の数値が土台にあります。汎用的な計算機ではなく、実際の制度を真剣に扱い、料率が変われば更新される道具です。",subToolsTitle:"ツール",subFinmTitle:"財務テンプレート",finmStatTitle:"財務諸表",finmStatDesc:"損益計算書、貸借対照表、キャッシュフロー計算書 – IFRS区分、バイリンガルラベル、サンプルデータを備えた3つの独立テンプレート。",finmIntTitle:"統合モデリング",finmIntDesc:"3表モデル、運転資本表、債務スケジュール。循環参照の利息、3シナリオで連結されたIS/BS/CFS。",finmValTitle:"バリュエーション",finmValDesc:"DCF、WACC、トレーディング・トランザクションコンプ、フットボールフィールド、LBOモデル。セルサイド書式、二次元感応度。",subGuidesTitle:"ガイド",proj1Title:"ゼロから投資家へ",proj1Desc:"個人金融と投資のインタラクティブガイド（ノルウェー語）",proj2Title:"初心者から自信ある投資家へ",proj2Desc:"ファンド選択、リスク、ポートフォリオ構築のインタラクティブガイド（ノルウェー語）",proj3Title:"はじめての投資",proj3Desc:"初めてのファンド購入へのステップガイド（ノルウェー語）",mastTitle:"修士論文をやさしく解説",mastDesc:"ノルウェーの投資家・知識・自信をめぐる修士論文を、専門用語なしで一歩ずつ解説するインタラクティブな読み物。",projOpen:"開く ↗",shotWord:"スクリーンショット",projSearch:"プロジェクトを検索…",projNoResults:"条件に一致するプロジェクトはありません。",backHome:"← トップに戻る",skattTitle:"skatt-mcp",skattDesc:"開発中。Claudeがノルウェーの税金を実際の数値で計算できるローカルMCPサーバー – 株式譲渡益、ファンド、ASK、資産、暗号資産、Nordnetインポート対応。すべてローカルで動作し、データが端末から出ることはありません。TypeScript、MCP、Zod。"},
-medieval:{thProj:"Verk",thKat:"Art",thTags:"Merker",viewCards:"Kort",viewTable:"Tavle",klimaTitle:"Om vejrlagets vrede og rikets gull",klimaDesc:"En sannferdig krønike om himmelens luner, hva de koster kongeriket, og hvordan de tærer på kjøpmenns verdier.",nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",projLabel:"Verk & Bedrifter",projAllTitle:"Alle den edles verk",projAllSub:"Innretninger og lærepergamenter – alle smidd fra bar grunn av den edle selv, for å gjøre gullets kunst tilgjengelig for folk av alle stender.",vpLabel:"Hva verkene vitner om",vp1Title:"Gullets kunst gjort klar",vp1Desc:"Hvert verk tar et prinsipp i gullets kunst – alderdomsrente, å leie mot å eie, markedets skiftende vær – og gjør det til noe folk av alle stender kan ta på og fatte. Det samme jeg vil gjøre i samtale med en velynder.",vp2Title:"Smidd fra bar grunn",vp2Desc:"Tall, regnekunst og utforming av samme hånd. Modellene kan prøves hver for seg, forutsetningene står skrevet med klar skrift, og verket eies til fulle – ingen fremmed innretning som skjuler hva som i sannhet hender.",vp3Title:"Tuftet på rikets lover",vp3Desc:"Kronens alderdomstrygd, grunnbeløpet, skattelover og tall fra rikets tellere ligger til grunn. Ingen alminnelige regnebrett, men verk som tar rikets egne lover på alvor – og holdes ved like når satsene skifter.",subToolsTitle:"Smedens redskaper",subFinmTitle:"Gullets pergamenter",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Inntekt, eiendeler og kontant – tre frittstående pergamenter med IFRS-lignende inndeling, tospråklige innskrifter og prøvedata.",finmIntTitle:"Sammenbundet modellering",finmIntDesc:"Tre-pergament-modell, arbeidskapital og gjeldsplan. IS/BS/CFS bundet sammen med sirkulær rentens forløp og tre skjebnespor.",finmValTitle:"Verdsettelsens kunst",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, fotballbane og LBO. Mestermenneskenes formatering med toveis følsomhet.",subGuidesTitle:"Lærepergamenter",proj1Title:"Fra fattiglem til kremmer",proj1Desc:"Lærdom i gullets kunst for folk av alle stender",proj2Title:"Fra novise til trygg gullforvalter",proj2Desc:"En veiviser i fondskunst, farer og forvaltning av rikdommer",proj3Title:"Eders første gullhandel",proj3Desc:"En veiledning i å erverve ens første andel av kronens fond",mastTitle:"Lærd avhandling, kunngjort",mastDesc:"En levende, trinnvis utlegning av den lærde avhandling om norske gullforvaltere, kunnskap og selvtillit – i klart mål for folk av alle stender.",projOpen:"Besku ↗",shotWord:"avbildning",projSearch:"Saumfar verkene…",projNoResults:"Ingen verk samsvarer med eders søken.",backHome:"← Vend tilbake til hovedhallen",skattTitle:"Skattkammerets regneorakel",skattDesc:"Ennå under smiing. Et lokalt regneorakel som lar Claude utmåle kronens skatt med sanne tall – gevinst på andeler, fond, sparekiste (ASK), formue, myntkunst og innførsel fra Nordnet. Alt regnes i eget kammer; intet tall forlater huset."}
+medieval:{footSub:"Ridder ved verdipapirenes kongsgård i Christiania",footHome:"Borgporten",thProj:"Verk",thKat:"Art",thTags:"Merker",viewCards:"Kort",viewTable:"Tavle",klimaTitle:"Om vejrlagets vrede og rikets gull",klimaDesc:"En sannferdig krønike om himmelens luner, hva de koster kongeriket, og hvordan de tærer på kjøpmenns verdier.",nav1:"Om den edle",nav2:"Den edles ferd",nav3:"Krønike",nav4:"Segl & Eder",nav5:"Skriftlærdom",nav6:"Send Bud",nav7:"Verk & Bedrifter",projLabel:"Verk & Bedrifter",projAllTitle:"Alle den edles verk",projAllSub:"Innretninger og lærepergamenter – alle smidd fra bar grunn av den edle selv, for å gjøre gullets kunst tilgjengelig for folk av alle stender.",vpLabel:"Hva verkene vitner om",vp1Title:"Gullets kunst gjort klar",vp1Desc:"Hvert verk tar et prinsipp i gullets kunst – alderdomsrente, å leie mot å eie, markedets skiftende vær – og gjør det til noe folk av alle stender kan ta på og fatte. Det samme jeg vil gjøre i samtale med en velynder.",vp2Title:"Smidd fra bar grunn",vp2Desc:"Tall, regnekunst og utforming av samme hånd. Modellene kan prøves hver for seg, forutsetningene står skrevet med klar skrift, og verket eies til fulle – ingen fremmed innretning som skjuler hva som i sannhet hender.",vp3Title:"Tuftet på rikets lover",vp3Desc:"Kronens alderdomstrygd, grunnbeløpet, skattelover og tall fra rikets tellere ligger til grunn. Ingen alminnelige regnebrett, men verk som tar rikets egne lover på alvor – og holdes ved like når satsene skifter.",subToolsTitle:"Smedens redskaper",subFinmTitle:"Gullets pergamenter",finmStatTitle:"Regnskapsoppstillinger",finmStatDesc:"Inntekt, eiendeler og kontant – tre frittstående pergamenter med IFRS-lignende inndeling, tospråklige innskrifter og prøvedata.",finmIntTitle:"Sammenbundet modellering",finmIntDesc:"Tre-pergament-modell, arbeidskapital og gjeldsplan. IS/BS/CFS bundet sammen med sirkulær rentens forløp og tre skjebnespor.",finmValTitle:"Verdsettelsens kunst",finmValDesc:"DCF, WACC, trading- og transaksjonsmultipler, fotballbane og LBO. Mestermenneskenes formatering med toveis følsomhet.",subGuidesTitle:"Lærepergamenter",proj1Title:"Fra fattiglem til kremmer",proj1Desc:"Lærdom i gullets kunst for folk av alle stender",proj2Title:"Fra novise til trygg gullforvalter",proj2Desc:"En veiviser i fondskunst, farer og forvaltning av rikdommer",proj3Title:"Eders første gullhandel",proj3Desc:"En veiledning i å erverve ens første andel av kronens fond",mastTitle:"Lærd avhandling, kunngjort",mastDesc:"En levende, trinnvis utlegning av den lærde avhandling om norske gullforvaltere, kunnskap og selvtillit – i klart mål for folk av alle stender.",projOpen:"Besku ↗",shotWord:"avbildning",projSearch:"Saumfar verkene…",projNoResults:"Ingen verk samsvarer med eders søken.",backHome:"← Vend tilbake til hovedhallen",skattTitle:"Skattkammerets regneorakel",skattDesc:"Et lokalt regneorakel som lar Claude utmåle kronens skatt med sanne tall – gevinst på andeler, fond, sparekiste (ASK), formue, myntkunst og innførsel fra Nordnet. Alt regnes i eget kammer; intet tall forlater huset."}
 };
 
 var currentLang='no';
@@ -382,11 +350,6 @@ function setLang(l){
   document.querySelectorAll('[data-i-placeholder]').forEach(function(el){
     var k=el.getAttribute('data-i-placeholder');
     if(d[k]!==undefined)el.placeholder=d[k];
-  });
-  document.querySelectorAll('img.cert-shot').forEach(function(im){
-    var tk=im.getAttribute('data-alt-title');
-    var title=(tk&&d[tk]!==undefined)?d[tk]:(im.getAttribute('data-alt-fallback')||'');
-    im.alt=title+' – '+(d.shotWord||'skjermbilde');
   });
   var btn=document.getElementById('langBtn');
   if(btn)btn.textContent=(l==='medieval'?'NO':l).toUpperCase();
@@ -445,27 +408,6 @@ document.querySelectorAll('.lang-opt').forEach(function(o){
   o.addEventListener('click',function(){setLang(o.getAttribute('data-lang'));});
 });
 
-// Mobile menu toggle (mirrors main site's nav-toggle pattern)
-(function(){
-  var toggle=document.getElementById('navToggle'),menu=document.getElementById('mobileMenu');
-  if(!toggle||!menu)return;
-  function setOpen(open){
-    toggle.setAttribute('aria-expanded',open?'true':'false');
-    toggle.setAttribute('aria-label',open?'Lukk meny':'Åpne meny');
-    menu.classList.toggle('open',open);
-    document.body.classList.toggle('menu-open',open);
-  }
-  toggle.addEventListener('click',function(e){e.stopPropagation();setOpen(toggle.getAttribute('aria-expanded')!=='true');});
-  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true')setOpen(false);});
-})();
-
-// Nav scroll style
-window.addEventListener('scroll',function(){
-  var nav=document.getElementById('mainNav');
-  if(window.scrollY>50)nav.classList.add('scrolled');else nav.classList.remove('scrolled');
-});
-
 // Easter egg: typing "prins" → medieval mode (matches main site)
 var typed='';
 document.addEventListener('keydown',function(e){
@@ -496,7 +438,7 @@ if(cursorDot){
   document.addEventListener('mouseenter',function(){cursorDot.style.opacity='';});
   (function loop(){dx+=(mx-dx)*.15;dy+=(my-dy)*.15;cursorDot.style.left=dx+'px';cursorDot.style.top=dy+'px';requestAnimationFrame(loop);})();
 }
-bindCursorHover(document.querySelectorAll('a,button,.back-link'));
+bindCursorHover(document.querySelectorAll('a,button'));
 
 // PROJECTS – render cards at runtime from projects.json + client-side search / tag filter
 (function(){
@@ -514,38 +456,35 @@ bindCursorHover(document.querySelectorAll('a,button,.back-link'));
     return (T.no&&T.no[key]!==undefined)?T.no[key]:'';
   }
 
+  // Same markup as the static cards baked by scripts/build_projects_static.py.
   function makeCard(p){
     var a=document.createElement('a');
     a.href=p.url||'#';if(/^https?:\/\//.test(p.url||'')){a.target='_blank';a.rel='noopener';}a.className='cert-link';
     a.setAttribute('data-tags',(p.tags||[]).join(' '));
     a.setAttribute('data-weight',(p.maler&&p.maler.length)?p.maler.length:1);
     a.setAttribute('data-search',((p.tittel||'')+' '+(p.beskrivelse||'')+' '+(p.tags||[]).join(' ')).toLowerCase());
-    var card=document.createElement('div');card.className='cert-card';
-    var icon=document.createElement('div');icon.className='cert-icon';
+    var shot=document.createElement('span');shot.className='pg-shot';
     if(p.bilde){
-      icon.className='cert-icon has-shot';
-      var img=document.createElement('img');img.className='cert-shot';
-      img.src=p.bilde;img.loading='lazy';img.decoding='async';img.width=800;img.height=500;
-      img.alt=(p.tittel||'')+' – skjermbilde';
-      if(p.i18n&&p.i18n.title)img.setAttribute('data-alt-title',p.i18n.title);
-      img.setAttribute('data-alt-fallback',p.tittel||'');
-      var em=document.createElement('span');em.className='cert-emoji-fallback';em.textContent=p.ikon||'';
-      img.onerror=function(){img.style.display='none';em.style.display='block';};
-      icon.appendChild(img);icon.appendChild(em);
+      var img=document.createElement('img');img.className='pg-img';
+      img.src=p.bilde;img.alt='';img.loading='lazy';img.decoding='async';img.width=800;img.height=500;
+      shot.appendChild(img);
     }else{
-      icon.textContent=p.ikon||'';
+      shot.className='pg-shot pg-tile';
+      var t=document.createElement('span');t.className='pg-tile-t';t.textContent=(p.url||'').replace(/^https?:\/\//,'');
+      shot.appendChild(t);
     }
+    var em=document.createElement('span');em.className='pg-emoji';em.setAttribute('aria-hidden','true');em.textContent=p.ikon||'';
+    shot.appendChild(em);
     var h3=document.createElement('h3');
-    var desc=document.createElement('p');desc.className='cert-issuer';
+    var desc=document.createElement('p');desc.className='pg-desc';
     // i18n cards reference dict keys via data-i so setLang re-translates them live;
     // non-i18n cards keep the Norwegian text straight from projects.json.
     if(p.i18n&&p.i18n.title){h3.setAttribute('data-i',p.i18n.title);h3.textContent=tr(p.i18n.title)||p.tittel||'';}
     else{h3.textContent=p.tittel||'';}
     if(p.i18n&&p.i18n.desc){desc.setAttribute('data-i',p.i18n.desc);desc.textContent=tr(p.i18n.desc)||p.beskrivelse||'';}
     else{desc.textContent=p.beskrivelse||'';}
-    var hint=document.createElement('span');hint.className='open-hint';hint.setAttribute('data-i','projOpen');hint.textContent='Åpne ↗';
-    card.appendChild(icon);card.appendChild(h3);card.appendChild(desc);card.appendChild(hint);
-    a.appendChild(card);
+    var go=document.createElement('span');go.className='pg-go';go.setAttribute('data-i','projOpen');go.textContent=tr('projOpen')||'Åpne ↗';
+    a.appendChild(shot);a.appendChild(h3);a.appendChild(desc);a.appendChild(go);
     return a;
   }
 
@@ -558,10 +497,9 @@ bindCursorHover(document.querySelectorAll('a,button,.back-link'));
     var ext=/^https?:\/\//.test(p.url||'');
     var td1=document.createElement('td');
     var pr=document.createElement('div');pr.className='arch-proj';
-    var ico=document.createElement('span');ico.className='arch-ico';ico.textContent=p.ikon||'';
     var a=document.createElement('a');a.className='arch-title';a.href=p.url||'#';if(ext){a.target='_blank';a.rel='noopener';}
     if(p.i18n&&p.i18n.title){a.setAttribute('data-i',p.i18n.title);a.textContent=tr(p.i18n.title)||p.tittel||'';}else{a.textContent=p.tittel||'';}
-    pr.appendChild(ico);pr.appendChild(a);td1.appendChild(pr);
+    pr.appendChild(a);td1.appendChild(pr);
     var td2=document.createElement('td');td2.className='arch-kat';
     var ck=catKey(p.kategori);if(ck){td2.setAttribute('data-i',ck);td2.textContent=tr(ck)||p.kategori||'';}else{td2.textContent=p.kategori||'';}
     var td3=document.createElement('td');
@@ -585,13 +523,14 @@ bindCursorHover(document.querySelectorAll('a,button,.back-link'));
       });
     });
     var _ab=document.getElementById('archiveBody');if(_ab){_ab.innerHTML='';ALL.forEach(function(p){_ab.appendChild(makeRow(p));});}
-    bindCursorHover(document.querySelectorAll('.cert-link,.cert-card,.arch-row,.arch-title'));
+    bindCursorHover(document.querySelectorAll('.cert-link,.arch-row,.arch-title'));
   }
 
   function buildChips(){
-    var set={};
-    ALL.forEach(function(p){(p.tags||[]).forEach(function(t){set[t]=true;});});
-    var tags=Object.keys(set).sort(function(a,b){return a.localeCompare(b,'nb');});
+    // Bare emner som deles av minst to prosjekter: et emne med ett treff er bare et søk (30 knapper ble 8).
+    var n={};
+    ALL.forEach(function(p){(p.tags||[]).forEach(function(t){n[t]=(n[t]||0)+1;});});
+    var tags=Object.keys(n).filter(function(t){return n[t]>=2;}).sort(function(a,b){return a.localeCompare(b,'nb');});
     chipsEl.innerHTML='';
     tags.forEach(function(t){
       var b=document.createElement('button');
@@ -655,14 +594,14 @@ bindCursorHover(document.querySelectorAll('a,button,.back-link'));
 <script>
 /* Spell (designspells-runden 2026-08-13): adresselinjen paa mobil foelger temaet.
    Observerer data-theme og speiler bakgrunnen inn i meta[name=theme-color]:
-   lys beholder merkevarefargen, dark/medieval faar sine egne bakgrunner. */
+   lys foelger papirfargen (fra 2026-10-17, som forsiden), dark/medieval faar sine egne bakgrunner. */
 (function(){
 var meta=document.querySelector('meta[name="theme-color"]');
 if(!meta||!window.MutationObserver)return;
-var COLORS={dark:'#0a0a0a',medieval:'#2a1a0e'};
+var COLORS={dark:'#0e0f11',medieval:'#2a1a0e'};
 function sync(){
 var t=document.documentElement.getAttribute('data-theme')||(document.body&&document.body.getAttribute('data-theme'));
-meta.setAttribute('content',COLORS[t]||'#004eaa');
+meta.setAttribute('content',COLORS[t]||'#f7f6f4');
 }
 var obs=new MutationObserver(sync);
 obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
