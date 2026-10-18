@@ -9,7 +9,7 @@ export function Footer() {
           tjenestepensjon, ASK) beskattes ulikt ved uttak. Uføretrygd og offentlig sektor
           AFP er ikke modellert. Privat AFP er sterkt forenklet. Ikke finansiell rådgivning.
         </p>
-        <p className="text-xs text-muted/70 mt-5">
+        <p className="text-xs text-muted mt-5">
           <a
             href="/"
             className="underline underline-offset-4 hover:text-ink transition-colors"

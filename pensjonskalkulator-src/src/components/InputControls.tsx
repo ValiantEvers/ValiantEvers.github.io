@@ -52,7 +52,7 @@ export function NumberField({
         />
         {unit && <span className="text-xs text-muted pr-3 whitespace-nowrap">{unit}</span>}
       </div>
-      {help && <p className="text-xs text-muted/80 leading-snug">{help}</p>}
+      {help && <p className="text-xs text-muted leading-snug">{help}</p>}
       {warning && (
         <p className="text-xs text-accent font-medium leading-snug" role="alert">
           {warning}
@@ -109,7 +109,7 @@ export function SliderField({
         aria-valuemax={max}
         className="mt-2"
       />
-      {help && <p className="text-xs text-muted/80 leading-snug mt-1">{help}</p>}
+      {help && <p className="text-xs text-muted leading-snug mt-1">{help}</p>}
     </div>
   )
 }
@@ -130,7 +130,7 @@ export function ToggleField({ id, label, description, value, onChange }: ToggleF
           {label}
         </label>
         {description && (
-          <p className="text-xs text-muted/80 leading-snug mt-0.5">{description}</p>
+          <p className="text-xs text-muted leading-snug mt-0.5">{description}</p>
         )}
       </div>
       <button

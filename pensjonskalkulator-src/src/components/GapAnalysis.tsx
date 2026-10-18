@@ -25,7 +25,7 @@ export function GapAnalysis({ result }: Props) {
           {monthlyAtRetirementReal.ask > 0 ? ' og annen sparing' : ''}. Sluttlønn i dagens
           kroner: {formatKr(finalSalaryReal)}.
         </p>
-        <p className="text-xs text-muted/80 mt-4 leading-relaxed max-w-xl">
+        <p className="text-xs text-muted mt-4 leading-relaxed max-w-xl">
           Dekningsgrad måles mot sluttlønn. Ved sen pensjonering vokser sluttlønnen raskere
           enn pensjonen klarer å holde tritt med, så dekningsgraden kan paradoksalt nok
           falle selv om månedlig pensjon stiger i kroner.

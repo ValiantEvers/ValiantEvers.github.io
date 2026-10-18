@@ -68,7 +68,7 @@ export function PensionChart({ result, displayMode }: Props) {
         Stablet balanse for hver pensjonskilde. Toppen er ved pensjonsalder, deretter
         reduseres balansen etter hvert som pengene utbetales.
       </p>
-      <p className="text-xs text-muted/80 mb-5 mt-1">
+      <p className="text-xs text-muted mb-5 mt-1">
         Folketrygd og AFP utbetales livsvarig. Kapitalen i grafen er kun en regnemodell og
         kan gå mot null selv om utbetalingen fortsetter.
       </p>

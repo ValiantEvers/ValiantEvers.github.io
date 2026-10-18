@@ -10,7 +10,7 @@ export default {
         ghost: '#2D5BFF',
         sand: '#E8E0D0',
         sun: '#FFD93D',
-        muted: '#7A7268',
+        muted: '#766F65', // 4.61:1 on bg, AA for small text; #7A7268 was 4.40 (2026-10-18)
       },
       fontFamily: {
         display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],

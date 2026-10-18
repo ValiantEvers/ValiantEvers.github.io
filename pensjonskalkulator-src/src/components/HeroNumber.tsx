@@ -69,7 +69,7 @@ export function HeroNumber({
         })}
       </ul>
 
-      <p className="text-xs text-muted/80 mt-4 max-w-xl leading-relaxed">
+      <p className="text-xs text-muted mt-4 max-w-xl leading-relaxed">
         Brutto = før skatt. Netto er et grovt estimat basert på 2026-satser og forutsetter
         at hele pensjonen tas ut samme år.
       </p>
