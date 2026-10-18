@@ -45,11 +45,9 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 h1,h2,h3{line-height:1.06;letter-spacing:-.02em;text-wrap:balance}
 
-/* ---- backdrop + particle canvas ---- */
+/* ---- backdrop ---- */
 .backdrop{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(125% 85% at 50% -8%,#06223b 0%,#00101e 52%,#00060f 100%)}
-.bgfield{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
-.bgfield.on{opacity:.82}
 body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 
@@ -203,7 +201,7 @@ main{position:relative;z-index:2;overflow-x:clip}
 </style>
 </head>
 <body>
-<div class="backdrop"></div><canvas class="bgfield" id="bgfield" aria-hidden="true"></canvas>
+<div class="backdrop"></div>
 <div class="progress"><span id="progressBar"></span></div>
 <div class="topbar"><div class="lang" role="group" aria-label="Language"><button id="langNo" class="active">NO</button><button id="langEn">EN</button></div></div>
 <div class="rail" aria-hidden="true"><div class="rail__track"><div class="rail__fill" id="railFill"></div><div class="rail__marks" id="railMarks"></div></div></div>
@@ -701,107 +699,6 @@ main{position:relative;z-index:2;overflow-x:clip}
   <div class="foot"><span data-i18n="foot"></span> · <a href="../">← <span data-i18n="outro_back"></span></a></div>
 </main>
 
-<!-- ===== particle field: VERTICAL curtain, mouse-reactive (cursor parts the field + bulges it toward you; parallax) ===== -->
-<script type="module">
-(async function(){
-  "use strict";
-  var canvas=document.getElementById('bgfield'); if(!canvas) return;
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var THREE; try{ THREE=await import('/vendor/three-0.160.0.module.min.js'); }catch(e){ return; }
-  try{
-    var renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
-    var scene=new THREE.Scene();
-    var camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,200);
-    var BASE_Z=7;
-    camera.position.set(0,0,BASE_Z); camera.lookAt(0,0,0);
-
-    // VERTICAL curtain on the XY-plane, facing the viewer (fills the screen, fades at the edges)
-    var small=innerWidth<760;
-    var COLS=small?86:132, ROWS=small?78:112, GAP=0.13, n=COLS*ROWS;
-    var bx=new Float32Array(n), by=new Float32Array(n);          // base grid (with slight jitter)
-    var pos=new Float32Array(n*3), col=new Float32Array(n*3);
-    var cNear=new THREE.Color(0x7ad7f1), cFar=new THREE.Color(0x18414f);
-    var halfW=(COLS*GAP)/2, halfH=(ROWS*GAP)/2, maxR=Math.hypot(halfW,halfH), k=0;
-    for(var yy=0;yy<ROWS;yy++)for(var xx=0;xx<COLS;xx++){
-      var jx=Math.sin(k*12.9898)*0.5, jy=Math.cos(k*78.233)*0.5;  // deterministic jitter so it isn't a rigid grid
-      var X=(xx-COLS/2)*GAP+jx*GAP*0.7, Y=(yy-ROWS/2)*GAP+jy*GAP*0.7;
-      bx[k]=X; by[k]=Y;
-      pos[k*3]=X; pos[k*3+1]=Y; pos[k*3+2]=0;
-      var rr=Math.hypot(X,Y)/maxR;
-      var c=cNear.clone().lerp(cFar,Math.pow(rr,0.92));
-      col[k*3]=c.r; col[k*3+1]=c.g; col[k*3+2]=c.b; k++;
-    }
-    var geo=new THREE.BufferGeometry();
-    geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-    geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-    var field=new THREE.Points(geo,new THREE.PointsMaterial({size:small?0.05:0.04,vertexColors:true,transparent:true,opacity:0.95,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true}));
-    scene.add(field);
-    var arr=geo.attributes.position.array;
-
-    // selectable mouse reaction: ?fx=parting|attract|ripple|swirl|risk (default parting)
-    var FXMAP={parting:0,attract:1,ripple:2,swirl:3,risk:4};
-    var FXI=FXMAP[(new URLSearchParams(location.search).get('fx')||'swirl')]; if(FXI==null)FXI=3;
-    var heat=new Float32Array(n);       // for the 'risk' heat-bloom
-    var baseCol=col.slice(0);           // pristine colours to tint from
-
-    var sy=0; addEventListener('scroll',function(){sy=scrollY||pageYOffset||0;},{passive:true});
-    var nx=0, ny=0, hasPtr=false;
-    addEventListener('pointermove',function(e){ nx=(e.clientX/innerWidth)*2-1; ny=-(e.clientY/innerHeight)*2+1; hasPtr=true; },{passive:true});
-    addEventListener('pointerleave',function(){ hasPtr=false; },{passive:true});
-    var ndc=new THREE.Vector2(), ray=new THREE.Raycaster(), plane=new THREE.Plane(new THREE.Vector3(0,0,1),0), hit=new THREE.Vector3();
-    var cur=new THREE.Vector3(0,0,0), tgt=new THREE.Vector3(0,0,0), cInf=0, cInfT=0;
-    var camX=0, camY=0;
-
-    function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
-    addEventListener('resize',resize,{passive:true}); resize();
-
-    var R=2.2, R2=R*R, PUSH=1.0, FWD=1.7, PULL=0.72, RR=4.6, RR2=RR*RR, raf=0, run=false;
-    function frame(now){
-      var t=now*0.001;
-      if(hasPtr){ ndc.set(nx,ny); ray.setFromCamera(ndc,camera); if(ray.ray.intersectPlane(plane,hit)) tgt.copy(hit); cInfT=1; }
-      else cInfT=0;
-      cur.lerp(tgt,0.16); cInf += (cInfT-cInf)*0.07;             // fade interaction in/out
-      var cx=cur.x, cy=cur.y, act=cInf>0.01, hot=(FXI===4);
-      for(var i=0;i<n;i++){
-        var i3=i*3, X=bx[i], Y=by[i];
-        var zw=Math.sin(X*1.35+t*0.55)*0.3+Math.cos(Y*1.1-t*0.45)*0.3;   // gentle depth shimmer
-        var x=X, y=Y, z=zw;
-        var dx=X-cx, dy=Y-cy, d2=dx*dx+dy*dy;
-        if(act){
-          if(FXI===0){            // DELING: part the curtain + bulge toward viewer
-            if(d2<R2){ var d=Math.sqrt(d2),inf=(1-d/R);inf*=inf;inf*=cInf;var inv=d>1e-4?1/d:0; x=X+dx*inv*PUSH*inf; y=Y+dy*inv*PUSH*inf; z=zw+FWD*inf; }
-          } else if(FXI===1){     // TILTREKNING: gather toward cursor + bulge (glowing core)
-            if(d2<R2){ var d1=Math.sqrt(d2),i1=(1-d1/R);i1*=i1;i1*=cInf; x=X-dx*PULL*i1; y=Y-dy*PULL*i1; z=zw+FWD*i1; }
-          } else if(FXI===2){     // SJOKKBØLGE: concentric z-rings radiating from cursor
-            if(d2<RR2){ var d2s=Math.sqrt(d2),fo=(1-d2s/RR);fo*=fo; z=zw+1.6*Math.sin(d2s*3.0 - t*5.0)*fo*cInf; }
-          } else if(FXI===3){     // VIRVEL: rotate points around the cursor
-            if(d2<R2){ var d3=Math.sqrt(d2),i3f=(1-d3/R);i3f*=i3f;i3f*=cInf;var a=i3f*1.7,ca=Math.cos(a),sa=Math.sin(a); x=cx+dx*ca-dy*sa; y=cy+dx*sa+dy*ca; z=zw+0.5*i3f; }
-          } else {                // RISIKO: heat bloom, warm + turbulent near cursor, cools back
-            var inr=0; if(d2<R2){ var d4=Math.sqrt(d2);inr=(1-d4/R);inr*=inr;inr*=cInf; }
-            heat[i]=Math.max(heat[i]*0.95, inr); var h=heat[i];
-            if(h>0.002){ var jt=h*0.55; x=X+Math.sin(X*9.1+t*7.0+i)*jt; y=Y+Math.cos(Y*8.7-t*6.3+i)*jt; z=zw*(1+h*1.6)+h*0.7; }
-          }
-        } else if(hot){ heat[i]*=0.95; }
-        arr[i3]=x; arr[i3+1]=y; arr[i3+2]=z;
-        if(hot){ var hh=heat[i]>1?1:heat[i]; col[i3]=baseCol[i3]+(1.0-baseCol[i3])*hh; col[i3+1]=baseCol[i3+1]+(0.62-baseCol[i3+1])*hh; col[i3+2]=baseCol[i3+2]+(0.48-baseCol[i3+2])*hh; }
-      }
-      geo.attributes.position.needsUpdate=true;
-      if(hot) geo.attributes.color.needsUpdate=true;
-      camX += ((hasPtr?nx:0)*0.7 - camX)*0.045;                 // pointer parallax
-      camY += ((hasPtr?ny:0)*0.5 - camY)*0.045;
-      camera.position.set(camX, camY - Math.min(sy,6000)*0.00009, BASE_Z);
-      camera.lookAt(camX*0.5, camY*0.5, 0);
-      renderer.render(scene,camera);
-      raf=requestAnimationFrame(frame);
-    }
-    function start(){if(run)return;run=true;raf=requestAnimationFrame(frame);} function stop(){run=false;if(raf)cancelAnimationFrame(raf);raf=0;}
-    document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
-    canvas.addEventListener('webglcontextlost',function(e){e.preventDefault();stop();canvas.classList.remove('on');});
-    canvas.classList.add('on'); start();
-  }catch(err){}
-})();
-</script>
 <script>
 window.smooth=function(e0,e1,x){var t=(x-e0)/(e1-e0); t=t<0?0:t>1?1:t; return t*t*(3-2*t);};
 window.clamp=function(v,a,b){return v<a?a:v>b?b:v;};
