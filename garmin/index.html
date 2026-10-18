@@ -37,17 +37,19 @@ h1,h2,h3{text-wrap:balance}p,li,figcaption{text-wrap:pretty}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation-duration:1ms}}
 </style>
 <style>
+/* --muted holder 4,6:1 mot alle flatene i sitt tema (målt 2026-10-18; var #555566 / #888899 = 2,26 / 2,63).
+   Grafenes aksetall leser samme token via TICK(), så de følger temabryteren. */
 :root {
   --bg:#0a0a0c; --surface:#111116; --surface2:#18181f; --surface3:#1e1e28;
   --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.1);
   --accent:#c8f55a; --accent2:#ff6b35; --accent3:#4db8ff; --accent4:#ffb347;
-  --text:#f0f0f0; --text2:#aaaabc; --muted:#555566;
+  --text:#f0f0f0; --text2:#aaaabc; --muted:#86869a;
 }
 [data-theme="light"] {
   --bg:#f4f4f0; --surface:#ffffff; --surface2:#ebebeb; --surface3:#e0e0da;
   --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.14);
   --accent:#5a8a00; --accent2:#cc4400; --accent3:#006699; --accent4:#9a5b00;
-  --text:#111116; --text2:#444455; --muted:#888899;
+  --text:#111116; --text2:#444455; --muted:#606071;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:auto;}
@@ -1344,7 +1346,9 @@ const hrColor = hr => {
 };
 /* ── CHART DEFAULTS ──────────────────────────────────────────── */
 const IS_MOBILE = window.innerWidth <= 640;
-Chart.defaults.color='#666678';
+let tickC=getComputedStyle(document.documentElement).getPropertyValue('--muted').trim()||'#86869a';
+const TICK=()=>tickC;
+Chart.defaults.color=tickC;
 Chart.defaults.borderColor='rgba(255,255,255,0.05)';
 Chart.defaults.font.family="'DM Mono',monospace";
 Chart.defaults.font.size = IS_MOBILE ? 9 : 10;
@@ -1361,8 +1365,8 @@ const chartOpts={
     }
   },
   scales:{
-    x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#444455'}},
-    y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#444455'}}
+    x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:TICK}},
+    y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:TICK}}
   }
 };
 
@@ -1383,7 +1387,7 @@ const chartOpts={
     }]},
     options:{...chartOpts,plugins:{...chartOpts.plugins,tooltip:{...chartOpts.plugins.tooltip,
       callbacks:{title:ctx=>labels[ctx[0].dataIndex],label:ctx=>`${ctx.parsed.y.toFixed(1)} km`}
-    }},scales:{...chartOpts.scales,y:{...chartOpts.scales.y,ticks:{color:'#444455',callback:v=>v+' km'}}}}
+    }},scales:{...chartOpts.scales,y:{...chartOpts.scales.y,ticks:{color:TICK,callback:v=>v+' km'}}}}
   });
 })();
 
@@ -1398,8 +1402,8 @@ const chartOpts={
     options:{...chartOpts,plugins:{...chartOpts.plugins,tooltip:{...chartOpts.plugins.tooltip,
       callbacks:{title:ctx=>fmtDate(ctx[0].raw.x),label:ctx=>`VO₂ maks: ${ctx.raw.y} ml/kg/min`}
     }},scales:{
-      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#444455',maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
-      y:{...chartOpts.scales.y,min:35,ticks:{color:'#444455',callback:v=>v+''}}
+      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:TICK,maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
+      y:{...chartOpts.scales.y,min:35,ticks:{color:TICK,callback:v=>v+''}}
     }}
   });
 })();
@@ -1413,8 +1417,8 @@ const chartOpts={
     options:{...chartOpts,plugins:{...chartOpts.plugins,tooltip:{...chartOpts.plugins.tooltip,
       callbacks:{title:ctx=>fmtDate(ctx[0].raw.x),label:ctx=>[`Tempo: ${fmtPace(ctx.raw.y)}/km`,`Distanse: ${ctx.raw.dist?.toFixed(1)} km`]}
     }},scales:{
-      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#444455',maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
-      y:{...chartOpts.scales.y,reverse:true,min:3.5,max:12,ticks:{color:'#444455',callback:v=>fmtPace(v)}}
+      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:TICK,maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
+      y:{...chartOpts.scales.y,reverse:true,min:3.5,max:12,ticks:{color:TICK,callback:v=>fmtPace(v)}}
     }}
   });
 })();
@@ -1431,8 +1435,8 @@ const chartOpts={
     options:{...chartOpts,plugins:{...chartOpts.plugins,tooltip:{...chartOpts.plugins.tooltip,
       callbacks:{title:ctx=>fmtDate(ctx[0].raw.x),label:ctx=>`Puls: ${ctx.raw.y} bpm`}
     }},scales:{
-      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#444455',maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
-      y:{...chartOpts.scales.y,ticks:{color:'#444455',callback:v=>v+' bpm'}}
+      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:TICK,maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
+      y:{...chartOpts.scales.y,ticks:{color:TICK,callback:v=>v+' bpm'}}
     }}
   });
 })();
@@ -1454,8 +1458,8 @@ const chartOpts={
     options:{...chartOpts,plugins:{...chartOpts.plugins,tooltip:{...chartOpts.plugins.tooltip,
       callbacks:{title:ctx=>fmtDate(ctx[0].raw.x),label:ctx=>`Kadense: ${ctx.raw.y} spm`+(ctx.raw.pace?` · Tempo: ${fmtPace(ctx.raw.pace)}/km`:'')}
     }},scales:{
-      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#444455',maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
-      y:{...chartOpts.scales.y,min:130,ticks:{color:'#444455',callback:v=>v+' spm'}}
+      x:{type:'category',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:TICK,maxTicksLimit:IS_MOBILE?4:8,callback(v,i){return d[i]?.x?.slice(0,7)||'';}}},
+      y:{...chartOpts.scales.y,min:130,ticks:{color:TICK,callback:v=>v+' spm'}}
     }}
   });
 })();
@@ -1496,7 +1500,7 @@ const chartOpts={
         ]
       }},
       tooltip:{...chartOpts.plugins.tooltip,callbacks:{title:ctx=>ctx[0].label,label:ctx=>`Last: ${ctx.parsed.y}`}}
-    },scales:{x:{display:false},y:{...chartOpts.scales.y,ticks:{color:'#444455'}}}}
+    },scales:{x:{display:false},y:{...chartOpts.scales.y,ticks:{color:TICK}}}}
   });
 })();
 
@@ -1534,7 +1538,7 @@ function renderYearChart(metric){
     options:{...chartOpts,plugins:{
       legend:{display:true,labels:{color:'#666678',font:{family:"'DM Mono',monospace",size:10},boxWidth:10,padding:16}},
       tooltip:{...chartOpts.plugins.tooltip,callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y} ${labelMap[metric]}`}}
-    },scales:{...chartOpts.scales,x:{...chartOpts.scales.x,ticks:{color:'#555566'}},y:{...chartOpts.scales.y,ticks:{color:'#444455',callback:v=>v+' '+labelMap[metric]}}}}
+    },scales:{...chartOpts.scales,x:{...chartOpts.scales.x,ticks:{color:TICK}},y:{...chartOpts.scales.y,ticks:{color:TICK,callback:v=>v+' '+labelMap[metric]}}}}
   });
 }
 renderYearChart('dist');
@@ -1564,7 +1568,7 @@ function makeScatterWithRolling(canvasId, runs, field, color, labelFn, yOpts={})
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, tooltip: { ...chartOpts.plugins.tooltip,
       callbacks: { title: ctx => fmtDate(ctx[0].raw.x), label: ctx => labelFn(ctx.raw.y) }
     }}, scales: {
-      x: { type: 'category', grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#444455', maxTicksLimit: IS_MOBILE ? 4 : 8,
+      x: { type: 'category', grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: TICK, maxTicksLimit: IS_MOBILE ? 4 : 8,
         callback(v, i) { return d[i]?.x?.slice(0,7) || ''; }
       }},
       y: { ...chartOpts.scales.y, ...yOpts }
@@ -1574,27 +1578,27 @@ function makeScatterWithRolling(canvasId, runs, field, color, labelFn, yOpts={})
 
 /* ── 13. POWER ──────────────────────────────────────────────── */
 makeScatterWithRolling('powerChart', RUNS, 'avg_power', '#ff6b35',
-  v => `${Math.round(v)} W`, { ticks: { color: '#444455', callback: v => v+'W' }});
+  v => `${Math.round(v)} W`, { ticks: { color: TICK, callback: v => v+'W' }});
 
 /* ── 14. RESPIRATION ────────────────────────────────────────── */
 makeScatterWithRolling('respChart', RUNS, 'avg_resp', '#4db8ff',
-  v => `${v.toFixed(1)} ånd/min`, { ticks: { color: '#444455', callback: v => v+'' }});
+  v => `${v.toFixed(1)} ånd/min`, { ticks: { color: TICK, callback: v => v+'' }});
 
 /* ── 15. STRIDE LENGTH ──────────────────────────────────────── */
 makeScatterWithRolling('strideChart', RUNS, 'avg_stride', '#c8f55a',
-  v => `${v.toFixed(2)} m`, { min: 0.7, ticks: { color: '#444455', callback: v => +v.toFixed(2)+'m' }});
+  v => `${v.toFixed(2)} m`, { min: 0.7, ticks: { color: TICK, callback: v => +v.toFixed(2)+'m' }});
 
 /* ── 16. VERTICAL OSCILLATION ──────────────────────────────── */
 makeScatterWithRolling('vertOscChart', RUNS, 'avg_vert_osc', '#ffb347',
-  v => `${v.toFixed(1)} cm`, { ticks: { color: '#444455', callback: v => +v.toFixed(2)+'cm' }});
+  v => `${v.toFixed(1)} cm`, { ticks: { color: TICK, callback: v => +v.toFixed(2)+'cm' }});
 
 /* ── 17. GROUND CONTACT TIME ────────────────────────────────── */
 makeScatterWithRolling('gctChart', RUNS, 'avg_gct', '#cc88ff',
-  v => `${Math.round(v)} ms`, { ticks: { color: '#444455', callback: v => v+'ms' }});
+  v => `${Math.round(v)} ms`, { ticks: { color: TICK, callback: v => v+'ms' }});
 
 /* ── 18. VERTICAL RATIO ─────────────────────────────────────── */
 makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
-  v => `${v.toFixed(1)}%`, { ticks: { color: '#444455', callback: v => +v.toFixed(2)+'%' }});
+  v => `${v.toFixed(1)}%`, { ticks: { color: TICK, callback: v => +v.toFixed(2)+'%' }});
 
 /* ── 8. HEATMAP CALENDAR ───────────────────────────────────── */
 (function(){
@@ -1771,8 +1775,8 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
       callbacks: { title: ctx => ctx[0].raw.x, label: ctx => `Effektivitet: ${ctx.raw.y} m/min/bpm` + (ctx.raw.n ? ` · ${ctx.raw.n} løp` : '') }
     }}, scales: {
       x: { type: 'category', grid: { color: 'rgba(255,255,255,0.04)' },
-           ticks: { color: '#444455', maxTicksLimit: IS_MOBILE ? 4 : 8 }},
-      y: { ...chartOpts.scales.y, ticks: { color: '#444455', callback: v => v.toFixed(2) }}
+           ticks: { color: TICK, maxTicksLimit: IS_MOBILE ? 4 : 8 }},
+      y: { ...chartOpts.scales.y, ticks: { color: TICK, callback: v => v.toFixed(2) }}
     }}
   });
 })();
@@ -1924,7 +1928,7 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
     }}, scales: {
       x: { display: false },
       y: { ...chartOpts.scales.y, min: 0, max: 2.5,
-           ticks: { color: '#444455', stepSize: 0.5, callback: v => v.toFixed(1) }}
+           ticks: { color: TICK, stepSize: 0.5, callback: v => v.toFixed(1) }}
     }},
     plugins: [sweetBand]
   });
@@ -2108,7 +2112,9 @@ themeBtn.addEventListener('click',()=>{
   const isDark=html.getAttribute('data-theme')==='dark';
   html.setAttribute('data-theme',isDark?'light':'dark');
   themeBtn.textContent=isDark?'☾ MØRK MODUS':'☀ LYS MODUS';
-  Chart.defaults.color=isDark?'#888899':'#888899';
+  tickC=getComputedStyle(html).getPropertyValue('--muted').trim();
+  Chart.defaults.color=tickC;
+  Object.values(Chart.instances).forEach(c=>c.update('none'));
 });
 
 /* ── NAV SCROLL ─────────────────────────────────────────────── */
