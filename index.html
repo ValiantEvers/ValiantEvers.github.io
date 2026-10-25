@@ -643,7 +643,7 @@ a{color:#000 !important;text-decoration:underline}
 <figure><img src="/glimt/glimt-17.webp" alt="Skåler i dress" loading="lazy" width="621" height="1104"></figure>
 <figure><img src="/glimt/glimt-18.webp" alt="I skjorte foran en port" loading="lazy" width="1080" height="1440"></figure>
 <figure><img src="/glimt/glimt-19.webp" alt="Analogt bilde med venner, en i belgisk landslagsdrakt" loading="lazy" width="1600" height="1074"></figure>
-<figure class="glimt-film"><video id="glimtVid" muted playsinline controls preload="none" width="1280" height="720" aria-label="Skifilm fra vinteren 2023: Hafjell, Kongsberg, Tryvann og Trysil (uten lyd)"></video><a class="glimt-yt" id="glimtYt" href="https://youtu.be/rVhxjLB_U_I" target="_blank" rel="noopener"><span data-i="glimtYt">Se med lyd på YouTube</span> <span aria-hidden="true">↗</span></a></figure>
+<figure class="glimt-film"><video id="glimtVid" muted playsinline controls preload="none" width="1280" height="720" aria-label="Film fra 2018 til 2024: ski i blant annet Trysil, Chamonix og Hafjell, og noen sommerdager (uten lyd)"></video><a class="glimt-yt" id="glimtYt" href="https://youtu.be/QbbA7nDUiXs" target="_blank" rel="noopener"><span data-i="glimtYt">Se med lyd på YouTube</span> <span aria-hidden="true">↗</span></a></figure>
 </div>
 <div class="glimt-nav"><button type="button" class="glimt-b" id="glimtPrev" aria-label="Forrige bilde">←</button><button type="button" class="glimt-b" id="glimtNext" aria-label="Neste bilde">→</button></div>
 </dialog>
@@ -1496,7 +1496,7 @@ if(!pill||!dlg||!tr||typeof dlg.showModal!=='function')return;
 var figs=tr.querySelectorAll('figure'),tot=figs.length,auto=null,sek=0,pad=function(x){return(x<10?'0':'')+x};
 var calm=function(){return window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches};
 var vid=d.getElementById('glimtVid'),yt=d.getElementById('glimtYt');if(yt&&vid)yt.addEventListener('click',function(){vid.pause()});
-function vidKlar(){if(!vid||vid.getAttribute('src'))return;var st=window.matchMedia&&matchMedia('(max-aspect-ratio: 1/1)').matches,f='/glimt/vinter-2023'+(st?'-staaende':'');if(st){vid.width=720;vid.height=1280}vid.poster=f+'.webp';vid.src=f+'.mp4'}
+function vidKlar(){if(!vid||vid.getAttribute('src'))return;var f='/glimt/film-2018-2024';vid.poster=f+'.webp';vid.src=f+'.mp4'}
 function vidSjekk(){if(!vid)return;if(dlg.open&&figs[idx()]===vid.parentNode){stopp();if(!calm()&&vid.paused){var p=vid.play();if(p&&p.catch)p.catch(function(){})}}else if(!vid.paused)vid.pause()}
 window.veGlimt={unlocked:false,open:apne};
 function las(){if(window.veGlimt.unlocked)return;window.veGlimt.unlocked=true;pill.hidden=false;requestAnimationFrame(function(){requestAnimationFrame(function(){pill.classList.add('vis')})})}
