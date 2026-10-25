@@ -4,6 +4,8 @@ name: Fetch macro data
 # macro.json til repo-rot — samme mønster som Strava/Letterboxd. Klientene (pensjonskalkulator,
 # personligøkonomi) leser kun denne fila; hardkodede defaults er fallback. scripts/fetch_macro.py
 # bruker kun stdlib (urllib) — ingen pip install. Committer kun ved faktisk endrede verdier.
+# Alderssperren kjører som eget steg ETTER commit: ferske tall committes uansett, men en
+# foreldet kilde (f.eks. en avsluttet SSB-tabell) gjør kjøringen rød i stedet for stille grønn.
 
 on:
   schedule:
@@ -40,3 +42,5 @@ jobs:
           done
           echo "Push failed after 3 attempts"
           exit 1
+      - name: Check source freshness
+        run: python scripts/fetch_macro.py --check-age

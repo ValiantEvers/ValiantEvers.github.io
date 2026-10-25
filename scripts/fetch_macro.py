@@ -2,7 +2,8 @@
 """Henter norske makro-nøkkeltall og skriver macro.json til repo-rot.
 
 Kilder (nøkkelfrie, autoritative):
-  - Inflasjon:    SSB JSON-stat tabell 03013 — 12-mnd endring (Tolvmanedersendring) + indeksnivå (KpiIndMnd, 2015=100)
+  - Inflasjon:    SSB JSON-stat tabell 14700 — 12-mnd endring (Tolvmanedersendring) + indeksnivå (KpiIndMnd, 2025=100,
+                  kjedet til 2015=100). Erstatter 03013, som ble avsluttet med 2025M12.
   - Lønnsvekst:   SSB JSON-stat tabell 11418 — gj.snittlig månedslønn, alle yrker/sektorer; YoY beregnet
   - Styringsrente: Norges Bank IR/B.KPRA.SD.R (CSV)
 
@@ -12,6 +13,10 @@ hardkodede default-verdiene er fallback hvis fila mangler/er ugyldig.
 
 Defensivt: hver henting i try/except — en feilet kilde beholder forrige verdi.
 Idempotent: skriver kun ved faktisk endrede verdier (ingen unødige commits).
+
+Alderssperre: `fetch_macro.py --check-age` henter ingenting, men leser macro.json og gir exit 1
+hvis en kilde er eldre enn MAX_AGE_*. Workflowen kjører den som eget steg etter commit, så en
+avsluttet eller forsinket serie gir rød kjøring i stedet for grønne kjøringer med gamle tall.
 """
 from __future__ import annotations
 
@@ -20,13 +25,23 @@ import io
 import json
 import sys
 import urllib.request as u
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / "macro.json"  # repo-rot
 SSB = "https://data.ssb.no/api/v0/no/table"
 NB = "https://data.norges-bank.no/api/data"
 TIMEOUT = 30
+
+# Kjedefaktor 2025=100 → 2015=100: snittet av 03013 KpiIndMnd 2025M01–M12 (135,1 … 139,1).
+# 03013 er avsluttet, så tallet endres ikke. Kontroll 2026-10-25: 14700 × faktor / 100 gjenskaper
+# alle 312 overlappende måneder i 03013 (2000M01–2025M12) med maks avvik 0,11 (avrunding).
+CPI_2025_AVG_2015BASE = 1652.6 / 12  # = 137,7167
+
+# Alderssperre. SSB publiserer KPI rundt den 10. og cron går den 1., så inflasjonen tåler 2 mnd.
+# Lønn (11418, årstall) regnes fra desember i året og kommer årlig i februar.
+MAX_AGE_MONTHS = {"inflation": 2, "wageGrowth": 14}
+MAX_AGE_DAYS_POLICY_RATE = 45
 
 
 def _period_key(p: str) -> tuple[int, int]:
@@ -66,24 +81,26 @@ def _period_iso(p: str) -> str:
 
 
 def fetch_inflation() -> dict:
-    # Totalindeks (headline), IKKE JAE (JAE = tabell 05327). yoy = 12-mnd endring, siste måned;
-    # index = nivå (2015=100), siste måned. Egne asOf-felt — yoy og indeks blandes ikke.
-    yoy = _ssb_series("03013", [
-        {"code": "Konsumgrp", "selection": {"filter": "item", "values": ["TOTAL"]}},
+    # Totalindeks (headline, VareTjenesteGrp 00), IKKE JAE (JAE = tabell 05327). yoy = 12-mnd endring,
+    # siste måned; index = nivå, siste måned. Egne asOf-felt — yoy og indeks blandes ikke.
+    # indexLevel MÅ stå på 2015=100-skalaen: personligøkonomi ankrer en 2015-basert KPI-serie på den.
+    yoy = _ssb_series("14700", [
+        {"code": "VareTjenesteGrp", "selection": {"filter": "item", "values": ["00"]}},
         {"code": "ContentsCode", "selection": {"filter": "item", "values": ["Tolvmanedersendring"]}},
     ])
-    lvl = _ssb_series("03013", [
-        {"code": "Konsumgrp", "selection": {"filter": "item", "values": ["TOTAL"]}},
+    lvl = _ssb_series("14700", [
+        {"code": "VareTjenesteGrp", "selection": {"filter": "item", "values": ["00"]}},
         {"code": "ContentsCode", "selection": {"filter": "item", "values": ["KpiIndMnd"]}},
     ])
     yk, yv = yoy[-1]   # nyeste publiserte måned for inflasjonsraten
-    lk, lv = lvl[-1]   # nyeste publiserte måned for indeksnivået
+    lk, lv = lvl[-1]   # nyeste publiserte måned for indeksnivået (2025=100)
     return {
         "yoyPct": round(float(yv), 2),
         "asOf": _period_iso(yk),
-        "indexLevel": round(float(lv), 1),
+        "indexLevel": round(float(lv) * CPI_2025_AVG_2015BASE / 100, 1),
         "indexAsOf": _period_iso(lk),
-        "source": "SSB tabell 03013 (totalindeks)",
+        "source": "SSB tabell 14700 (totalindeks)",
+        "indexSource": "SSB tabell 14700 (2025=100), kjedet til 2015=100 med snittet av 03013 for 2025",
     }
 
 
@@ -109,7 +126,60 @@ def fetch_policy_rate() -> dict:
     return {"pct": round(float(last["OBS_VALUE"]), 2), "asOf": last["TIME_PERIOD"], "source": "Norges Bank"}
 
 
+def _months_old(as_of: str, today: date) -> int:
+    """Hele måneder fra periodens siste måned til i dag: '2026-09'→sep., '2026-Q2'→jun., '2025'→des."""
+    if "-Q" in as_of:
+        y, q = as_of.split("-Q")
+        year, month = int(y), int(q) * 3
+    elif "-" in as_of:
+        y, m = as_of.split("-")[:2]
+        year, month = int(y), int(m)
+    else:
+        year, month = int(as_of), 12
+    return (today.year * 12 + today.month) - (year * 12 + month)
+
+
+def stale_sources(data: dict, today: date) -> list[str]:
+    """Kilder i macro.json som er eldre enn MAX_AGE_* (eller mangler/har uleselig asOf). Tom = ferskt."""
+    problems = []
+    for key, limit in MAX_AGE_MONTHS.items():
+        series = data.get(key) or {}
+        try:
+            age = _months_old(series["asOf"], today)
+        except (KeyError, ValueError):
+            problems.append(f"{key}: mangler eller har uleselig asOf ({series.get('asOf')!r})")
+            continue
+        if age > limit:
+            problems.append(f"{key}: asOf {series['asOf']} er {age} mnd gammel (grense {limit}), kilde: {series.get('source')}")
+    rate = data.get("policyRate") or {}
+    try:
+        days = (today - date.fromisoformat(rate["asOf"])).days
+    except (KeyError, ValueError):
+        problems.append(f"policyRate: mangler eller har uleselig asOf ({rate.get('asOf')!r})")
+    else:
+        if days > MAX_AGE_DAYS_POLICY_RATE:
+            problems.append(f"policyRate: asOf {rate['asOf']} er {days} dager gammel (grense {MAX_AGE_DAYS_POLICY_RATE}), kilde: {rate.get('source')}")
+    return problems
+
+
+def check_age() -> int:
+    """Alderssperren: exit-kode 1 hvis en kilde i den skrevne macro.json er foreldet."""
+    data = json.loads(OUT.read_text(encoding="utf-8"))
+    today = datetime.now(timezone.utc).date()
+    problems = stale_sources(data, today)
+    if problems:
+        print(f"FORELDET KILDE i macro.json per {today}. Sjekk om SSB/Norges Bank har avsluttet eller flyttet serien:", file=sys.stderr)
+        for p in problems:
+            print(f"  - {p}", file=sys.stderr)
+        return 1
+    print(f"Alle kilder i macro.json er innenfor aldersgrensene per {today}.")
+    return 0
+
+
 def main() -> None:
+    if "--check-age" in sys.argv[1:]:
+        sys.exit(check_age())
+
     prev: dict = {}
     if OUT.exists():
         try:

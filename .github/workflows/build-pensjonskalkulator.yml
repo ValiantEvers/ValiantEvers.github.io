@@ -30,6 +30,15 @@ jobs:
         working-directory: pensjonskalkulator-src
         run: npm ci
 
+      # Samme sperrer som speilets ci.yml. Vite typesjekker ikke, og det er denne kopien som går til prod.
+      - name: Typesjekk
+        working-directory: pensjonskalkulator-src
+        run: npm run typecheck
+
+      - name: Sanity-test
+        working-directory: pensjonskalkulator-src
+        run: node src/sanity-test.mjs
+
       - name: Bygg
         working-directory: pensjonskalkulator-src
         run: npm run build

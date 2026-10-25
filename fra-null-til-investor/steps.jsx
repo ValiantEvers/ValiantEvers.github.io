@@ -229,7 +229,7 @@ function Step4() {
       name: 'IPS',
       full: 'Individuell pensjonssparing',
       tag: 'For pensjon',
-      desc: 'Du får skattefradrag på innskudd (inntil 15 000 kr/år). Pengene er låst til du er 62 år. Skattefordelaktig, men uten fleksibilitet.',
+      desc: 'Du får skattefradrag på innskudd (inntil 25 000 kr/år i 2026). Pengene er låst til du er 62 år. Skattefordelaktig, men uten fleksibilitet.',
       tip: 'Egnet hvis du vil spare skatteoptimalt til pensjon og ikke trenger pengene før.',
     },
     {
@@ -285,7 +285,7 @@ function Step4() {
       </div>
 
       <SectionTitle>Skatt på investeringer</SectionTitle>
-      <Concept label="Skattesats 2024">
+      <Concept label="Skattesats 2026">
         Gevinst på aksjer og fond beskattes med ca. <strong>37,84 %</strong> (inkl. oppjustering). Men med ASK utsetter du skatten til du tar penger ut – og lar rentes rente jobbe for deg.
       </Concept>
       <ExampleBox title="Skatteeksempel">
