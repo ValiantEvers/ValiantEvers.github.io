@@ -1,0 +1,47 @@
+name: Bake static front-page text
+
+# Forsiden fyller 41 data-i-elementer fra T.no med JS ved load, så uten JS var
+# de tomme: crawlere, AI-screenere og lenkeforhåndsvisninger så 1263 tegn.
+# Dette bygget baker T.no inn som statisk tekst ved hver endring av index.html
+# (samme kilde, null drift; setLang overskriver ved load). Committer kun ved
+# faktisk diff. Push med GITHUB_TOKEN trigger ikke nye kjøringer, så egen
+# commit looper ikke. Kun stdlib + node (forhåndsinstallert på runneren).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'scripts/build_index_static.py'
+  workflow_dispatch:
+
+jobs:
+  bake:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Bake T.no into the static markup
+        run: python scripts/build_index_static.py
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Bak statisk forsidetekst fra T.no"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push; then exit 0; fi
+            echo "Push attempt $attempt rejected — retrying..."
+            sleep 2
+          done
+          echo "Push failed after 3 attempts"
+          exit 1

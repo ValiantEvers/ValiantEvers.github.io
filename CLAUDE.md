@@ -4,7 +4,7 @@
 Single-file vanilla HTML personal website for Valiant Evers. Deployed via GitHub Pages, custom domain `evers.no`. No build step, no frameworks, no bundler.
 
 ## Structure
-- `index.html` — main page with everything (CSS in `<style>`, JS at bottom)
+- `index.html` — main page with everything (CSS in `<style>`, JS at bottom). Den statiske teksten i `data-i`-elementene bakes fra `T.no` av `scripts/build_index_static.py` (workflow: `update-index-static.yml`, 2026-10-25) så forsiden er lesbar uten JS — rediger `T.no`, aldri den statiske teksten for hånd; `--check` melder drift
 - `profile.jpg`, `og-image.png`, `favicon.svg` — assets in root
 - `CNAME` — points to evers.no (do not delete or modify)
 - `cv.html` — CV page (single file at root, not a directory)
