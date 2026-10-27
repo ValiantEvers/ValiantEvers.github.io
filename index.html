@@ -1003,6 +1003,16 @@ setTimeout(function(){em.remove()},6000);
 }
 }
 
+/* ═══ INGRID (privat, telles ikke): «Fire dager i København» ═══
+   Lastes først når noen skriver «ingrid» eller åpner evers.no/#ingrid. Selve filmen ligger i /ingrid-egg.js. */
+function visIngrid(){
+if(window.ingridEgg){window.ingridEgg({fontsBase:'/fonts/'});return;}
+var s=document.createElement('script');s.src='/ingrid-egg.js?v=2';
+s.onload=function(){if(window.ingridEgg)window.ingridEgg({fontsBase:'/fonts/'});};
+document.head.appendChild(s);
+}
+if(location.hash==='#ingrid')window.addEventListener('load',visIngrid);
+
 /* ═══ ALL EASTER EGG TRIGGERS – SINGLE LISTENER ═══ */
 (function(){
 if('ontouchstart' in window||navigator.maxTouchPoints>0)return;
@@ -1051,6 +1061,12 @@ emojiRain(['⚔️','🇳🇴','🛡️','🐉','⛵','🇳🇴','⚔️','🏔�
 if(!triggered&&buf.includes('jobb')){
 triggered=true;
 window.open('/strategi.html','_blank');
+}
+
+/* INGRID */
+if(!triggered&&buf.includes('ingrid')){
+triggered=true;
+visIngrid();
 }
 
 buf='';

@@ -72,6 +72,7 @@ Desktop keyboard triggers (ALL gated behind a touch-device check — deliberatel
 - Type "penger" → money-emoji rain
 - Type "tangen" → opens ft.com (Nicolai Tangen nod)
 - Type "jobb" → opens /strategi.html — PRIVATE tracker (noindex). Deliberately UNHINTED; never advertise or add a clue for this one.
+- Type "ingrid" (or open `/#ingrid`, which also works on phones) → `visIngrid()` lazy-loads `/ingrid-egg.js` and plays «Fire dager i København»: a ~55 s canvas film (Tue–Fri of the Copenhagen trip, iris vignettes, particles spell the name) with an original WebAudio score composed in code — no assets, no licensed audio. Esc/✕ closes, M toggles sound, reduced motion shows the final frame silent. PRIVATE like "jobb": unhinted, never in `EGGS`/`WORDS` or the console greeting.
 - FJERNET 2026-10-17 (Valiant): «mjød»/«mjod» og Konami-koden. Konami var i praksis ødelagt — spinnet roterte hele `body` rundt midten av en ~9000 px høy side, så skjermen ble hvit og konfettien fulgte med ut. Ikke gjeninnfør uten å spørre. `.mjod-emoji` i CSS er emojiRain-klassen for alle eggene, ikke mjød-egget.
 Click trigger (works on mobile too):
 - Triple-click profile photo (#heroImg) → same medieval mode
