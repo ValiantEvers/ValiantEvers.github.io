@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T17:33:22Z",
+  "updated": "2026-11-01T12:53:33Z",
   "inflation": {
     "yoyPct": 3.4,
     "asOf": "2026-09",
@@ -15,7 +15,7 @@
   },
   "policyRate": {
     "pct": 4.5,
-    "asOf": "2026-10-22",
+    "asOf": "2026-10-29",
     "source": "Norges Bank"
   }
 }
