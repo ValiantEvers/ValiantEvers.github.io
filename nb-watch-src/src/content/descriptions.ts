@@ -5,7 +5,7 @@
 export const COPY = {
   header: {
     title: 'Norges Bank Watch',
-    tagline: 'Pengepolitikkens nøkkeltall, oppdatert daglig.',
+    tagline: 'Arkivert prosjekt. Tallene er fra 9. juli 2026 og oppdateres ikke.',
     built_by: 'Bygget av Valiant Evers. Alle data fra Norges Bank og SSB.',
     last_updated_prefix: 'Sist oppdatert',
   },
