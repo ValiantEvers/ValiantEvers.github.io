@@ -238,6 +238,9 @@ body.menu-open{overflow:hidden}
 .shot{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--bg-raised);border:1px solid var(--rule)}
 .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:opacity var(--dur) var(--ease)}
 .proj li:hover .shot img{opacity:.88}
+/* Mørk modus: portrettet og skjermbildene har hvit eller kremhvit bakgrunn og ble de klart lyseste
+   flatene på siden. Dempes litt, så blikket går til teksten først. */
+[data-theme="dark"] .portrait img,[data-theme="dark"] .shot img,[data-theme="dark"] .bk-cover,[data-theme="dark"] .vid-thumb img{filter:brightness(.88)}
 .proj-all{margin-top:40px}
 
 /* 03 FORSKNING — sidens ene blekke felt */
