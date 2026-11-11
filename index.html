@@ -377,6 +377,10 @@ body.menu-open{overflow:hidden}
 .glimt-pill{position:fixed;left:1.4rem;bottom:1.4rem;z-index:25;display:inline-flex;align-items:center;gap:8px;padding:11px 16px;font-family:var(--font-sans);font-size:14px;font-weight:500;color:var(--on-ground);background:var(--ground);border:1px solid rgba(255,255,255,.18);border-radius:999px;cursor:pointer;box-shadow:0 10px 30px rgba(22,43,75,.22);opacity:0;transform:translateY(8px);transition:opacity .4s var(--ease),transform .4s var(--ease),background-color var(--dur) var(--ease)}
 .glimt-pill.vis{opacity:1;transform:none}
 .glimt-pill:hover{background:var(--accent4)}
+/* `hidden` må vinne over display-reglene: pillen (usynlig, men klikkbar og i Tab-rekkefølgen fra første
+   sekund) og egg-telleren i bunnlinjen (skal ikke vises før første egg er funnet) hadde begge
+   display:inline-flex, som overstyrer attributtet. JS-en fjerner `hidden` når de skal fram. */
+.glimt-pill[hidden],.fbot .egg-badge[hidden]{display:none}
 .glimt{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#0f1a2c;color:#f7f6f4;font-family:var(--font-sans);display:none;flex-direction:column}
 .glimt[open]{display:flex}
 .glimt::backdrop{background:#0f1a2c}
@@ -436,7 +440,11 @@ body{font-size:17px}
 .nav-right{gap:10px}
 .nav-in{padding-block:12px}
 }
-@media(max-width:560px){.pers{grid-template-columns:minmax(0,1fr);row-gap:48px}.pimg{aspect-ratio:4/3}}
+@media(max-width:560px){.pers{grid-template-columns:minmax(0,1fr);row-gap:48px}.pimg{aspect-ratio:4/3}
+/* Bunnlinjen: ©-linjen får sin egen rad, så de fire ikonene står samlet (bilen falt alene ned på neste linje). */
+.fbot .copy{flex-basis:100%;margin-right:0}
+/* CV-lenken brytes over to linjer her; som flex sto pilen igjen alene helt til høyre. */
+.cv-mer .link{display:inline}}
 
 /* PRINT */
 @media print{
@@ -1202,8 +1210,15 @@ if(history.pushState)history.pushState(null,'',href);
 },false);
 if(btn)btn.addEventListener('click',function(){veScrollTo(0)});
 if(logo)logo.addEventListener('click',function(e){e.preventDefault();veScrollTo(0)});
+/* Smale skjermer (til 900 px): teksten går helt ut til kanten, så knappen lå oppå den på hver
+   skjermhøyde. Der vises den bare mens man ruller oppover, og helt nederst på siden. Bredere
+   skjermer har marg til knappen og oppfører seg som før. */
+var trang=window.matchMedia('(max-width:900px)'),sisteY=window.scrollY,opp=false;
 function updateVisibility(){
-if(window.scrollY>600){btn.classList.add('visible')}else{btn.classList.remove('visible')}
+var y=window.scrollY;
+if(y<sisteY-6)opp=true;else if(y>sisteY+6)opp=false;
+sisteY=y;
+if(y>600&&(!trang.matches||opp||y>=maxY()-240)){btn.classList.add('visible')}else{btn.classList.remove('visible')}
 }
 window.addEventListener('scroll',updateVisibility,{passive:true});
 updateVisibility();
