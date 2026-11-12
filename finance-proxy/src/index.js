@@ -94,6 +94,8 @@ async function vitals(request, env) {
   } catch (e) {
     return new Response(null, { status: 400, headers: vcors(o) });
   }
+  // «null» er gyldig JSON, men ikke et objekt: d.n / d.p kastet da en ukontrollert feil.
+  if (!d || typeof d !== 'object') return new Response(null, { status: 400, headers: vcors(o) });
   const name = String(d.n || '');
   const value = Number(d.v);
   if (!VNAMES.has(name) || !isFinite(value) || value < 0 || value > 3600000) {
@@ -138,6 +140,8 @@ async function hit(request, env) {
   } catch (e) {
     return new Response(null, { status: 400, headers: vcors(o) });
   }
+  // «null» er gyldig JSON, men ikke et objekt: d.n / d.p kastet da en ukontrollert feil.
+  if (!d || typeof d !== 'object') return new Response(null, { status: 400, headers: vcors(o) });
   let path = String(d.p || '');
   if (!/^(404:)?\/[^\s?#<>"]{0,160}$/.test(path)) return new Response(null, { status: 400, headers: vcors(o) });
   path = path.replace(/\/index\.html$/, '/').slice(0, 128);
@@ -172,12 +176,14 @@ async function stats(request, env) {
   }
   const days = Math.min(90, Math.max(1, parseInt(url.searchParams.get('d'), 10) || 30));
   const W = `timestamp > NOW() - INTERVAL '${days}' DAY`;
+  // Dagsseriene hentes for minst 14 dager: «forrige 7 d» trenger dem også når d=7.
+  const WD = `timestamp > NOW() - INTERVAL '${Math.max(days, 14)}' DAY`;
   const DAY = `toStartOfInterval(timestamp, INTERVAL '1' DAY)`;
   const top = (blob, extra, lim) =>
     `SELECT ${blob} AS k, SUM(_sample_interval) AS n FROM evers_hits WHERE ${W}${extra} GROUP BY k ORDER BY n DESC LIMIT ${lim}`;
   const Q = {
-    views: `SELECT ${DAY} AS d, SUM(_sample_interval) AS n FROM evers_hits WHERE ${W} GROUP BY d ORDER BY d`,
-    visits: `SELECT ${DAY} AS d, SUM(_sample_interval) AS n FROM evers_hits WHERE ${W} AND blob6 = '1' GROUP BY d ORDER BY d`,
+    views: `SELECT ${DAY} AS d, SUM(_sample_interval) AS n FROM evers_hits WHERE ${WD} GROUP BY d ORDER BY d`,
+    visits: `SELECT ${DAY} AS d, SUM(_sample_interval) AS n FROM evers_hits WHERE ${WD} AND blob6 = '1' GROUP BY d ORDER BY d`,
     pages: top('blob1', '', 25),
     refs: top('blob2', ` AND blob6 = '1'`, 15),
     srcs: top('blob3', ` AND blob3 != ''`, 10),
@@ -254,17 +260,25 @@ function renderVitals(now, prev, days) {
 function renderStats(R, days, k) {
   const err = (x) => (x && x.error ? `<p class="err">${esc(x.error)}</p>` : '');
   const list = (x) => (Array.isArray(x) ? x : []);
-  const sum = (x) => list(x).reduce((a, r) => a + r.n, 0);
   // dagsserie: visninger + besøk slått sammen på dato, tomme dager fylt inn
   const byDay = {};
   list(R.views).forEach((r) => { (byDay[dkey(r.d)] ||= { v: 0, b: 0 }).v = r.n; });
   list(R.visits).forEach((r) => { (byDay[dkey(r.d)] ||= { v: 0, b: 0 }).b = r.n; });
   const today = new Date();
-  const dates = [];
-  for (let i = days - 1; i >= 0; i--) dates.push(new Date(today.getTime() - i * 86400000).toISOString().slice(0, 10));
+  const lastDays = (n) => {
+    const a = [];
+    for (let i = n - 1; i >= 0; i--) a.push(new Date(today.getTime() - i * 86400000).toISOString().slice(0, 10));
+    return a;
+  };
+  // Telleregel: alle tall øverst summerer hele UTC-døgn. «Besøk» og «Sidevisninger» er summen av
+  // radene i dagstabellen under (de `days` siste døgnene, i dag medregnet). Spørringen er et
+  // rullerende vindu og tar også med slutten av døgnet før; det døgnet vises ikke og telles ikke.
+  const tot = (ds, f) => ds.reduce((a, d) => a + ((byDay[d] || {})[f] || 0), 0);
+  const dates = lastDays(days);
+  const d14 = lastDays(14);
   const maxV = Math.max(1, ...dates.map((d) => (byDay[d] || {}).v || 0));
-  const last7 = dates.slice(-7).reduce((a, d) => a + ((byDay[d] || {}).b || 0), 0);
-  const prev7 = dates.slice(-14, -7).reduce((a, d) => a + ((byDay[d] || {}).b || 0), 0);
+  const last7 = tot(d14.slice(-7), 'b');
+  const prev7 = tot(d14.slice(0, 7), 'b');
   const rows = dates.slice().reverse().map((d) => {
     const x = byDay[d] || { v: 0, b: 0 };
     return `<tr><td class="d">${d}</td><td class="n">${x.b}</td><td class="n">${x.v}</td><td class="bar"><span style="width:${(100 * x.v) / maxV}%"></span><i style="width:${(100 * x.b) / maxV}%"></i></td></tr>`;
@@ -296,7 +310,7 @@ td.bar{width:40%;position:relative}td.bar span,td.bar i{display:block;height:8px
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media (max-width:640px){.cols{grid-template-columns:1fr}td.bar{width:30%}}
 </style></head><body><main>
 <h1>evers.no · besøk</h1><p class="muted">Siste ${days} dager · dager i UTC · egen trafikk utelatt der ?nostats er satt · ${[7, 30, 90].map((n) => (n === days ? `<b>${n}</b>` : `<a href="?k=${encodeURIComponent(k)}&amp;d=${n}">${n}</a>`)).join(' / ')} dager</p>
-<div class="kpis"><div class="kpi"><span class="muted">Besøk</span><b>${sum(R.visits)}</b></div><div class="kpi"><span class="muted">Sidevisninger</span><b>${sum(R.views)}</b></div><div class="kpi"><span class="muted">Besøk siste 7 d</span><b>${last7}</b><span class="muted">forrige 7 d: ${prev7}</span></div></div>
+<div class="kpis"><div class="kpi"><span class="muted">Besøk</span><b>${tot(dates, 'b')}</b></div><div class="kpi"><span class="muted">Sidevisninger</span><b>${tot(dates, 'v')}</b></div><div class="kpi"><span class="muted">Besøk siste 7 d</span><b>${last7}</b><span class="muted">forrige 7 d: ${prev7}</span></div></div>
 ${err(R.views)}${err(R.visits)}
 <h2>Per dag</h2><p class="note">Mørk strek = besøk (innganger), lys = sidevisninger.</p><table><tr><td class="d muted">Dato</td><td class="n muted">Besøk</td><td class="n muted">Visn.</td><td></td></tr>${rows}</table>
 <div class="cols"><div><h2>Sider</h2>${table(R.pages, '?', 'Ingen data ennå.')}</div><div><h2>Kom fra</h2><p class="note">Kun innganger. «(direkte)» = ingen referrer — podkastapper, lenker i meldinger og bokmerker havner her.</p>${table(R.refs, '(direkte)', 'Ingen data ennå.')}</div></div>
