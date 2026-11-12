@@ -948,7 +948,10 @@ buildWorld();
 var api={close:close,render:function(t){tVis=t;render(t);},score:EV,
   renderAudio:function(sr){sr=sr||44100;var OAC=window.OfflineAudioContext||window.webkitOfflineAudioContext;var oac=new OAC(2,Math.ceil((END+5)*sr),sr),o=makeOut(oac,oac.destination);
     EV.forEach(function(e){try{INS[e.f](o,e.t+.05,e.n,e.d,e.v,e.p,e.x);}catch(er){}});return oac.startRendering();}};
-function start(){layout();
+// Lukket før fontene var ferdige (✕ ligger klikkbar over siden mens filmen ennå er usynlig)?
+// Da skal ingenting starte: uten denne sjekken låste start() rullingen og slukte alle tastetrykk
+// på en side der filmen alt var fjernet, og Esc hjalp ikke, siden close() bare virker én gang.
+function start(){if(closed)return;layout();
   if(MANUAL){wrap.style.opacity=1;wrap.style.transition='none';sBtn.style.display='none';xBtn.style.display='none';return;}
   document.documentElement.style.overflow='hidden';
   document.addEventListener('keydown',onKey,true);window.addEventListener('resize',onRes);document.addEventListener('visibilitychange',onVis);
