@@ -16,7 +16,7 @@ jobs:
       # 2026-10-19); samme oppsett som de andre Python-workflowene her.
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.15'
 
       - name: Fetch and parse Letterboxd RSS
         run: |
