@@ -41,7 +41,7 @@ TARGETS = [
     {"slug": "leie-eller-eie",             "url": "https://www.evers.no/leie-eller-eie/",                                   "scroll": 0,   "wait_ms": 3500},
     {"slug": "masteroppgave",              "url": "https://www.evers.no/prosjekter/masteroppgave/",                         "scroll": 0,   "wait_ms": 3500},
     {"slug": "wc2026",                     "url": "https://www.evers.no/wc2026/",                                           "scroll": 0,   "wait_ms": 4000},
-    {"slug": "klima",                      "url": "https://www.evers.no/klima/",                                            "scroll": 0,   "wait_ms": 3500},
+    {"slug": "klima",                      "url": "https://www.evers.no/klima/",                                            "scroll": 100, "wait_ms": 3500},
     {"slug": "examprep",                   "url": "https://www.evers.no/examprep/",                                         "scroll": 0,   "wait_ms": 3500, "q": 69},
     {"slug": "renteriket",                 "url": "https://www.evers.no/renteriket/",                                       "scroll": 0,   "wait_ms": 3000},
     {"slug": "efaktura-radar",             "url": "https://www.evers.no/prosjekter/efaktura-radar/",                        "scroll": 2045, "wait_ms": 2500},
