@@ -230,11 +230,12 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 @media(max-width:1180px){.sec-rail{display:none}}
 @media(hover:none){.sec-rail{display:none}}
 
-/* Reveal + wipe (IntersectionObserver-drevet, degraderer til synlig) */
+/* Reveal (IntersectionObserver-drevet, degraderer til synlig) */
 .js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
 .js .rv.in{opacity:1;transform:none}
-.js .wp{clip-path:inset(0 100% 0 0);transition:clip-path .8s var(--ease-out)}
-.js .wp.in{clip-path:inset(0 0 0 0)}
+/* Viskeeffekten på seksjonstitlene (.wp, clip-path) er fjernet 2026-11-13. En helt avklippet tittel
+   har synlig areal null, IntersectionObserver meldte den aldri som synlig, og alle ti titlene sto
+   usynlige (målt på live i Chrome 157, Edge 157 og Chromium 148). Klassen wp står igjen i markupen. */
 .stagger>*{transition-delay:calc(var(--i,0)*70ms)}
 
 /* Count-up: stabile siffer */
@@ -303,7 +304,6 @@ a.src:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
 @media(prefers-reduced-motion:reduce){
   .js .rv{opacity:1 !important;transform:none !important}
-  .js .wp{clip-path:none !important}
   .drawline{stroke-dashoffset:0 !important}
 }
 </style>
