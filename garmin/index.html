@@ -1036,7 +1036,7 @@ tr:last-child td{border-bottom:none;}
   <h2 class="section-title">Skadefare-indikator · ACWR</h2>
   <div class="risk-status" id="riskStatus">
     <div>
-      <div class="risk-current-label">Nåværende ACWR</div>
+      <div class="risk-current-label" id="riskLabel">Siste ACWR</div>
       <div class="risk-current" id="riskValue">–</div>
     </div>
     <div>
@@ -1466,21 +1466,29 @@ const chartOpts={
 
 /* ── 6. WEEKLY LOAD ─────────────────────────────────────────── */
 (function(){
+  /* ISO weeks (ISO week-year, so 29.-31.12 can be week 1), and weeks without runs count
+     as 0: the 4-week average then spans four calendar weeks, like the ACWR below. */
+  const isoWeek=ds=>{
+    const d=new Date(ds+'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate()+4-(d.getUTCDay()||7));
+    const y=d.getUTCFullYear();
+    return `${y}-W${String(Math.ceil(((d-Date.UTC(y,0,1))/86400000+1)/7)).padStart(2,'0')}`;
+  };
   const weekMap={};
   RUNS.forEach(r=>{
     if(!r.training_load) return;
-    const d=new Date(r.date);
-    const jan4=new Date(d.getFullYear(),0,4);
-    const dayOfWeek=jan4.getDay()||7;
-    const weekStart=new Date(jan4);
-    weekStart.setDate(jan4.getDate()-dayOfWeek+1);
-    const diff=Math.round((d-weekStart)/86400000);
-    const week=Math.floor(diff/7)+1;
-    const key=`${d.getFullYear()}-W${String(week).padStart(2,'0')}`;
+    const key=isoWeek(r.date);
     weekMap[key]=(weekMap[key]||0)+r.training_load;
   });
-  const weeks=Object.keys(weekMap).sort();
-  const vals=weeks.map(w=>+weekMap[w].toFixed(1));
+  const loadDates=RUNS.filter(r=>r.training_load).map(r=>r.date).sort();
+  const weeks=[];
+  if(loadDates.length){
+    const lastWeek=isoWeek(loadDates[loadDates.length-1]);
+    for(let t=Date.parse(loadDates[0]+'T00:00:00Z');weeks[weeks.length-1]!==lastWeek;t+=7*86400000){
+      weeks.push(isoWeek(new Date(t).toISOString().slice(0,10)));
+    }
+  }
+  const vals=weeks.map(w=>+(weekMap[w]||0).toFixed(1));
   // 4-week rolling avg
   const rolling=vals.map((v,i)=>{
     const sl=vals.slice(Math.max(0,i-3),i+1);
@@ -1612,10 +1620,17 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
 
   const container=document.getElementById('heatmapContainer');
 
-  // Group by year
-  [2024,2025,2026].forEach(year=>{
-    const yearStart=new Date(`${year}-01-01`);
-    const yearEnd=year<2026 ? new Date(`${year}-12-31`) : new Date('2026-04-26');
+  // Group by year. Years and the end date come from the data (the end was fixed at
+  // 26.04.2026), and all date arithmetic is UTC: the cell keys come from toISOString,
+  // and local dates moved every summer-time cell one weekday down.
+  const lastDate=RUNS.reduce((m,r)=>r.date>m?r.date:m,'');
+  const firstYear=+RUNS.reduce((m,r)=>r.date<m?r.date:m,lastDate).slice(0,4);
+  const lastYear=+lastDate.slice(0,4);
+  const heatYears=[];
+  for(let y=firstYear;y<=lastYear;y++) heatYears.push(y);
+  heatYears.forEach(year=>{
+    const yearStart=new Date(Date.UTC(year,0,1));
+    const yearEnd=year<lastYear ? new Date(Date.UTC(year,11,31)) : new Date(lastDate+'T00:00:00Z');
 
     const yearDiv=document.createElement('div');
     yearDiv.style.cssText='margin-bottom:28px;';
@@ -1628,8 +1643,8 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
     // Build week columns
     // Find first Monday on or before Jan 1
     const d=new Date(yearStart);
-    const dow=d.getDay();
-    d.setDate(d.getDate()-(dow===0?6:dow-1));
+    const dow=d.getUTCDay();
+    d.setUTCDate(d.getUTCDate()-(dow===0?6:dow-1));
 
     const weeks=[];
     while(d<=yearEnd){
@@ -1642,7 +1657,7 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
         } else {
           week.push(null);
         }
-        d.setDate(d.getDate()+1);
+        d.setUTCDate(d.getUTCDate()+1);
       }
       weeks.push(week);
     }
@@ -1845,12 +1860,14 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
   const a = ANALYTICS.acwr;
   if (!a || !a.length) return;
   const cur = ANALYTICS.acwr_summary.current;
+  const curTxt = String(cur).replace('.', ',');
+  document.getElementById('riskLabel').textContent = 'ACWR per ' + fmtDate(a[a.length-1].date);
 
   let color, text, expl;
   if (cur > 1.5) {
     color = '#ff6b35';
     text = 'FORHØYET SKADEFARE';
-    expl = `ACWR på ${cur} betyr at de siste 7 dagene har du belastet kroppen vesentlig mer enn snittet av siste 4 uker. Det er den klassiske "for raskt opp"-indikasjonen. Anbefaling: én lett uke på 60–70% av nåværende volum før du øker igjen.`;
+    expl = `ACWR på ${curTxt} betyr at de siste 7 dagene har du belastet kroppen vesentlig mer enn snittet av siste 4 uker. Det er den klassiske "for raskt opp"-indikasjonen. Anbefaling: én lett uke på 60–70% av nåværende volum før du øker igjen.`;
   } else if (cur >= 0.8 && cur <= 1.3) {
     color = '#c8f55a';
     text = 'TRYGT OG PRODUKTIVT';
@@ -1858,7 +1875,7 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
   } else if (cur > 1.3 && cur <= 1.5) {
     color = '#ffb347';
     text = 'NÆRMER SEG GRENSEN';
-    expl = `ACWR på ${cur} er over sweet spot, men ikke kritisk. Ta en lett dag eller to før neste hardøkt for å holde deg i det produktive området.`;
+    expl = `ACWR på ${curTxt} er over sweet spot, men ikke kritisk. Ta en lett dag eller to før neste hardøkt for å holde deg i det produktive området.`;
   } else {
     color = '#4db8ff';
     text = 'DETRAINING-SONE';
@@ -1867,7 +1884,7 @@ makeScatterWithRolling('vertRatChart', RUNS, 'avg_vert_ratio', '#ff6b9a',
 
   const status = document.getElementById('riskStatus');
   status.style.setProperty('--risk-color', color);
-  document.getElementById('riskValue').textContent = cur;
+  document.getElementById('riskValue').textContent = curTxt;
   document.getElementById('riskValue').style.color = color;
   document.getElementById('riskText').textContent = text;
   document.getElementById('riskExpl').textContent = expl;
