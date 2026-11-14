@@ -697,8 +697,8 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
           <tbody></tbody>
         </table>
       </div>
-      <p class="matrix-foot">Under fem år anbefales ikke aksjer i det hele tatt for forsiktige
-      og balanserte profiler. Ikke fordi aksjer er farlige, men fordi tre dårlige år på rad
+      <p class="matrix-foot">Under fem år anbefales ikke aksjer i det hele tatt, og på fem år
+      heller ikke for en forsiktig profil. Ikke fordi aksjer er farlige, men fordi tre dårlige år på rad
       ikke er uvanlig, og planen din skal tåle det vanlige.</p>
     </div>
 
@@ -791,8 +791,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   <hr class="res-sep" aria-hidden="true">
   <h2 class="sub-title" id="h-kilder">Kilder og metode</h2>
   <p class="sub-note" style="max-width:680px">Alle etter-skatt-tall beregnes på forhånd av
-  <b>skatt-optimizer</b>, en deterministisk Python-motor som også driver
-  <a href="/aksjeskatt/">aksjeskatt-siden</a> her. Skattereglene er implementert eksakt med
+  <b>skatt-optimizer</b>, en deterministisk Python-motor. Skattereglene er implementert eksakt med
   paragrafhenvisning; avkastningsbanen er én stilisert forutsetning, valgt for å vise de
   relative forskjellene mellom kontotyper. Nettleseren regner aldri skatt selv, den viser
   ferdigberegnede scenarier. Én kjent forenkling er dokumentert i motoren: ubenyttet skjerming
@@ -918,7 +917,8 @@ function fmtKrCompact(v){
   return fmtKr(v);
 }
 function fmtCapital(n){
-  if(n>=1e6)return nb(n/1e6,0)+' mill. kr';
+  /* up to two decimals: 3,5 mill. must not round to 4 (the referat sums the parts) */
+  if(n>=1e6)return new Intl.NumberFormat('nb-NO',{maximumFractionDigits:2}).format(n/1e6)+' mill. kr';
   return nb(n)+' kr';
 }
 function fmtPct(frac,d){return nb(frac*100,(d==null)?1:d)+' %';}
@@ -934,6 +934,7 @@ var HORIZON_ROWS=[3,5,10,15,20,30];
 var KLASSE=['forsiktig','balansert','offensiv'];
 var WRAP_LABEL={pretax:'Før skatt',taxable:'Vanlig depot',ASK:'Aksjesparekonto',holding_AS:'Eget AS'};
 var WRAP_ORDER=['taxable','ASK','holding_AS'];
+var WRAP_I={taxable:'i vanlig depot',ASK:'på aksjesparekontoen',holding_AS:'i eget AS'};
 
 function riskClass(){
   if(S.r1==null||S.r2==null)return null;
@@ -1363,13 +1364,37 @@ function renderWhy(cell,hd){
     ' %</span> av innskuddet skjermes fra skatt hvert år, og ubrukt skjerming rulles videre.');
   var bunn=(S.status==='ektefeller')?parseFloat(R.bunnfradrag_ektefeller):parseFloat(R.bunnfradrag_enslig);
   if(hd.formuesskatt_paid){
+    /* The crossing year is read off the pre-tax curve, and the amount follows each pot,
+       so the three accounts pay different wealth tax (the table shows it). Say so. */
     var cy=cell.formue_crossing_year;
-    var fBel=parseFloat(hd.wrappers[hd.best_wrapper].tax_paid.formue||'0');
-    ps.push('Husholdningen din ligger over bunnfradraget på <span class="num">'+fmtKr(bunn)+
-      '</span> '+(cy===0?'fra start':'fra rundt år '+cy)+', så formuesskatten løper uansett '+
-      'konto. Den utgjør <span class="num">'+fmtKr(fBel)+'</span> over løpet i dette '+
-      'scenariet. Kontovalget endrer den ikke; aksjer verdsettes til <span class="num">'+
-      nb(parseFloat(R.verdsetting_aksjer)*100,0)+' %</span> uansett innpakning.');
+    var best=hd.best_wrapper;
+    var fo={},lo=Infinity,hi=-Infinity,ingen=[];
+    for(var wi=0;wi<WRAP_ORDER.length;wi++){
+      var wk=WRAP_ORDER[wi];
+      fo[wk]=parseFloat(hd.wrappers[wk].tax_paid.formue||'0');
+      lo=Math.min(lo,fo[wk]);hi=Math.max(hi,fo[wk]);
+      if(fo[wk]<1)ingen.push(WRAP_I[wk]);
+    }
+    var vPct='<span class="num">'+nb(parseFloat(R.verdsetting_aksjer)*100,0)+' %</span>';
+    var fTxt='Før skatt kommer husholdningen din over bunnfradraget på <span class="num">'+
+      fmtKr(bunn)+'</span> '+(cy===0?'fra start':'fra rundt år '+cy)+'. ';
+    if(hi-lo<1){
+      fTxt+='Formuesskatten løper da uansett konto og utgjør <span class="num">'+fmtKr(fo[best])+
+        '</span> over løpet i dette scenariet. Kontovalget endrer den ikke; aksjer verdsettes '+
+        'til '+vPct+' uansett innpakning.';
+    }else{
+      var bi=WRAP_I[best];
+      fTxt+=bi.charAt(0).toUpperCase()+bi.slice(1)+' utgjør formuesskatten <span class="num">'+
+        fmtKr(fo[best])+'</span> over løpet i dette scenariet. Reglene er de samme uansett '+
+        'innpakning (aksjer verdsettes til '+vPct+'), men skatten følger størrelsen på potten '+
+        'underveis, og den er ulik i de tre kontoene. Tabellen over viser hva hver betalte.';
+      if(ingen.length){
+        var ii=ingen.join(' og ');
+        fTxt+=' '+ii.charAt(0).toUpperCase()+ii.slice(1)+' holder formuen seg under '+
+          'bunnfradraget hele veien, så der betales ingen formuesskatt.';
+      }
+    }
+    ps.push(fTxt);
   }else{
     ps.push('Formuesskatten når deg ikke i dette scenariet: husholdningen holder seg under '+
       'bunnfradraget på <span class="num">'+fmtKr(bunn)+'</span> hele veien. Da står valget '+
