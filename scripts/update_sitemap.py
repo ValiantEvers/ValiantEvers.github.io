@@ -31,6 +31,7 @@ URLMAP = {
     "/renteriket/": None,
     "/renteriket/laerer.html": None,
     "/renteriket/julekalender.html": None,
+    "/renteriket/budrunden.html": None,
     "/wc2026/": None,
     "/fra-null-til-investor/": ["fra-null-til-investor"],
     "/fra-null-til-investor2/": ["fra-null-til-investor2"],
