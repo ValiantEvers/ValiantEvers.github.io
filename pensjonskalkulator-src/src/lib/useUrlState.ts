@@ -86,6 +86,8 @@ export function writeInputsToUrl(inputs: PensionInputs, baseline: PensionInputs 
   // Språkvalget (?lang=en) er ikke en inndata, men skal overleve at lenken skrives på nytt.
   const lang = new URLSearchParams(window.location.search).get('lang')
   if (lang === 'en' || lang === 'no') params.set('lang', lang)
+  // Det samme gjelder innbyggingen (?embed=1).
+  if (new URLSearchParams(window.location.search).get('embed') === '1') params.set('embed', '1')
   for (const key of Object.keys(URL_KEY_MAP) as Array<keyof PensionInputs>) {
     const short = URL_KEY_MAP[key]
     const v = inputs[key]

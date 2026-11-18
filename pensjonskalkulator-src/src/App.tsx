@@ -9,6 +9,7 @@ import { GapAnalysis } from './components/GapAnalysis'
 import { DisplayToggle } from './components/DisplayToggle'
 import { Footer } from './components/Footer'
 import { brukSpraak, finnSpraak, SpraakTilbyder, STR, type Lang } from './lib/i18n'
+import { erInnebygd, FULL_URL, meldHoyde } from './lib/embed'
 
 function App() {
   const [lang, setLang] = useState<Lang>(() => {
@@ -17,6 +18,8 @@ function App() {
     return l
   })
   const t = STR[lang]
+  const innebygd = useMemo(() => erInnebygd(), [])
+  useEffect(() => (innebygd ? meldHoyde() : undefined), [innebygd])
   const velgSpraak = (l: Lang) => {
     brukSpraak(l, true)
     // Lenken skal vise språket, så den kan deles som den er.
@@ -84,8 +87,26 @@ function App() {
   return (
     <SpraakTilbyder lang={lang}>
     <div className="min-h-screen bg-bg text-ink grain">
-      <main className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-10">
-        {/* Header */}
+      <main
+        className={`relative z-10 max-w-5xl mx-auto px-5 sm:px-8 ${
+          innebygd ? 'pt-5 pb-4' : 'pt-16 sm:pt-24 pb-10'
+        }`}
+      >
+        {/* Header. Innebygd (?embed=1): bare en linje med lenken til fullversjonen. */}
+        {innebygd ? (
+          <header className="mb-6 flex items-baseline justify-between gap-4">
+            <h1 className="sr-only">{t.tittel}</h1>
+            <p className="text-sm text-muted">{t.overtittel}</p>
+            <a
+              href={FULL_URL + (lang === 'en' ? '?lang=en' : '')}
+              target="_blank"
+              rel="noopener"
+              className="text-sm text-accent-ink underline underline-offset-4 hover:text-ink"
+            >
+              {t.innebygdLenke}
+            </a>
+          </header>
+        ) : (
         <header className="mb-10 sm:mb-14">
           <div className="flex items-baseline justify-between gap-4 mb-3">
             <p className="text-sm text-muted">{t.overtittel}</p>
@@ -115,6 +136,7 @@ function App() {
             {t.ingress}
           </p>
         </header>
+        )}
 
         {/* Hero with toggle */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 mb-10">
@@ -164,7 +186,7 @@ function App() {
           <GapAnalysis result={result} />
         </section>
 
-        <Footer />
+        <Footer innebygd={innebygd} />
       </main>
     </div>
     </SpraakTilbyder>

@@ -38,7 +38,10 @@ gangs deploy ble committet manuelt i workflow-commiten.
   tekst skal inn i begge**; TypeScript feller en nøkkel som mangler i `en`. Velges med `?lang=en`
   eller `ve-lang` i localStorage (samme nøkkel som evers.no; alt annet enn `en` gir norsk, også
   de fryste fr/de/ja).
-- `useUrlState` beholder `lang` når lenken skrives på nytt. Fjern ikke det.
+- `useUrlState` beholder `lang` og `embed` når lenken skrives på nytt. Fjern ikke det.
+- **Innbygging (`?embed=1`, `src/lib/embed.ts`):** andre nettsteder kan ha kalkulatoren i en iframe.
+  Meldingstypen `evers-pensjonskalkulator-hoyde` og URL-en står i kodesnutter på andres sider:
+  **endres de, slutter rammene der å vokse.** Ansvarsteksten skal alltid stå i den innebygde utgaven.
 - Speilet (`ValiantEvers/pensjonskalkulator`) har samme seksjon; hold dem like.
 
 ## Modell — ikke-åpenbare valg

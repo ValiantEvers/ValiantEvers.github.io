@@ -161,6 +161,12 @@ const no = {
   ansvar:
     'Forenklet estimat for illustrasjonsformål. Bruker faste antakelser om avkastning, inflasjon, delingstall og folketrygdregler, så faktisk pensjon kan avvike vesentlig. Tall vises brutto, før skatt; ulike pensjonskilder (folketrygd, IPS, tjenestepensjon, ASK) beskattes ulikt ved uttak. Uføretrygd og offentlig sektor AFP er ikke modellert. Privat AFP er sterkt forenklet. Ikke finansiell rådgivning.',
   tilbake: '← Tilbake til evers.no',
+  innebygdLenke: 'Åpne hele kalkulatoren på evers.no ↗',
+  byggInn: 'Bygg inn kalkulatoren på din side',
+  byggInnForklaring:
+    'Lim inn koden under der kalkulatoren skal stå. Den regner i nettleseren til den som bruker den, og tallene som skrives inn, blir der. Skriptet lar rammen vokse med innholdet, og lenken under rammen peker tilbake hit.',
+  kopier: 'Kopier koden',
+  kopiert: 'Kopiert ✓',
 }
 
 export type Tekster = typeof no
@@ -287,6 +293,12 @@ const en: Tekster = {
   ansvar:
     'A simplified estimate for illustration. It uses fixed assumptions about returns, inflation, the divisor (delingstall) and National Insurance rules, so your actual pension may differ substantially. Amounts are shown gross, before tax; the sources (National Insurance, IPS, workplace pension, ASK) are taxed differently when paid out. Disability benefit and public-sector AFP are not modelled. Private-sector AFP is heavily simplified. Not financial advice.',
   tilbake: '← Back to evers.no',
+  innebygdLenke: 'Open the full calculator on evers.no ↗',
+  byggInn: 'Embed the calculator on your site',
+  byggInnForklaring:
+    'Paste the code below where the calculator should appear. It runs in the visitor’s browser, and the numbers they enter stay there. The script lets the frame grow with its content, and the link below the frame points back here.',
+  kopier: 'Copy the code',
+  kopiert: 'Copied ✓',
 }
 
 export const STR: Record<Lang, Tekster> = { no, en }
