@@ -8,6 +8,7 @@ import { PensionChart } from './components/PensionChart'
 import { GapAnalysis } from './components/GapAnalysis'
 import { DisplayToggle } from './components/DisplayToggle'
 import { Footer } from './components/Footer'
+import { DelLenke } from './components/DelLenke'
 import { brukSpraak, finnSpraak, SpraakTilbyder, STR, type Lang } from './lib/i18n'
 import { erInnebygd, FULL_URL, meldHoyde } from './lib/embed'
 
@@ -147,6 +148,7 @@ function App() {
               includeAfp={inputs.includeAfp}
               folketrygdAtGarantipensjonFloor={result.folketrygdAtGarantipensjonFloor}
             />
+            <DelLenke inputs={inputs} baseline={baseline} />
           </div>
           <div className="lg:col-span-2 order-1 lg:order-2 flex lg:justify-end items-start">
             <DisplayToggle value={displayMode} onChange={setDisplayMode} />

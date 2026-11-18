@@ -157,6 +157,14 @@ const no = {
   otpHoyUnder: (belop: string) => `Maks lovlig sats er 18,1 %. Gjelder kun hvis lønnen er over 7,1 G ≈ ${belop}.`,
   maaldekning: 'Måldekningsgrad (av sluttlønn)',
 
+  // Del utregningen
+  delKnapp: 'Kopier lenke til utregningen',
+  delKopiert: 'Lenken er kopiert ✓',
+  delForklaring:
+    'Lenken har tallene du har lagt inn, så den som åpner den, ser samme utregning. Ingenting lagres; alt ligger i lenken. Inflasjon og lønnsvekst du ikke har endret, følger de nyeste tallene når lenken åpnes.',
+  delManuelt: 'Nettleseren ga ikke tilgang til utklippstavlen. Kopier lenken her:',
+  delLenkeFelt: 'Lenke til utregningen',
+
   // Footer
   ansvar:
     'Forenklet estimat for illustrasjonsformål. Bruker faste antakelser om avkastning, inflasjon, delingstall og folketrygdregler, så faktisk pensjon kan avvike vesentlig. Tall vises brutto, før skatt; ulike pensjonskilder (folketrygd, IPS, tjenestepensjon, ASK) beskattes ulikt ved uttak. Uføretrygd og offentlig sektor AFP er ikke modellert. Privat AFP er sterkt forenklet. Ikke finansiell rådgivning.',
@@ -289,6 +297,13 @@ const en: Tekster = {
   otpHoyOver: (belop: string) => `The legal maximum is 18.1 %. The part of your salary above 7.1 G ≈ ${belop} falls in this band.`,
   otpHoyUnder: (belop: string) => `The legal maximum is 18.1 %. Applies only if your salary is above 7.1 G ≈ ${belop}.`,
   maaldekning: 'Target replacement rate (of final salary)',
+
+  delKnapp: 'Copy a link to this calculation',
+  delKopiert: 'Link copied ✓',
+  delForklaring:
+    'The link holds the numbers you entered, so whoever opens it sees the same calculation. Nothing is stored; it is all in the link. Inflation and wage growth you have not changed follow the latest figures when the link is opened.',
+  delManuelt: 'Your browser did not allow access to the clipboard. Copy the link here:',
+  delLenkeFelt: 'Link to this calculation',
 
   ansvar:
     'A simplified estimate for illustration. It uses fixed assumptions about returns, inflation, the divisor (delingstall) and National Insurance rules, so your actual pension may differ substantially. Amounts are shown gross, before tax; the sources (National Insurance, IPS, workplace pension, ASK) are taxed differently when paid out. Disability benefit and public-sector AFP are not modelled. Private-sector AFP is heavily simplified. Not financial advice.',

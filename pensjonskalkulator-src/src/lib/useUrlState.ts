@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { PensionInputs } from '../pension-engine'
 import { DEFAULT_INPUTS } from '../pension-engine'
+import { erInnebygd, FULL_URL } from './embed'
 
 // Korte nøkler for URL — for kortere lenker
 const URL_KEY_MAP: Record<keyof PensionInputs, string> = {
@@ -80,8 +81,11 @@ export function readInputsFromUrl(): Partial<PensionInputs> {
   return result
 }
 
-export function writeInputsToUrl(inputs: PensionInputs, baseline: PensionInputs = DEFAULT_INPUTS) {
-  if (typeof window === 'undefined') return
+/** Query-parametrene for et sett inndata: bare felt som avviker fra baseline, pluss lang/embed. */
+export function inputsTilParams(
+  inputs: PensionInputs,
+  baseline: PensionInputs = DEFAULT_INPUTS,
+): URLSearchParams {
   const params = new URLSearchParams()
   // Språkvalget (?lang=en) er ikke en inndata, men skal overleve at lenken skrives på nytt.
   const lang = new URLSearchParams(window.location.search).get('lang')
@@ -101,9 +105,35 @@ export function writeInputsToUrl(inputs: PensionInputs, baseline: PensionInputs 
       params.set(short, String(v))
     }
   }
+  return params
+}
+
+export function writeInputsToUrl(inputs: PensionInputs, baseline: PensionInputs = DEFAULT_INPUTS) {
+  if (typeof window === 'undefined') return
+  const params = inputsTilParams(inputs, baseline)
   const newUrl =
     window.location.pathname + (params.toString() ? '?' + params.toString() : '')
   window.history.replaceState({}, '', newUrl)
+}
+
+/**
+ * Lenken «Kopier lenke» gir: bygget fra inndataene, ikke fra adresselinja (den skrives med
+ * 200 ms forsinkelse, så et klikk rett etter en endring ville kopiert forrige utregning).
+ * Språket som vises, følger med. Innebygd (?embed=1) peker lenken på fullversjonen på
+ * evers.no, uten embed.
+ */
+export function delbarLenke(
+  inputs: PensionInputs,
+  baseline: PensionInputs,
+  lang: 'no' | 'en',
+): string {
+  const params = inputsTilParams(inputs, baseline)
+  params.delete('embed')
+  if (lang === 'en') params.set('lang', 'en')
+  else params.delete('lang')
+  const q = params.toString()
+  const base = erInnebygd() ? FULL_URL : window.location.origin + window.location.pathname
+  return base + (q ? '?' + q : '')
 }
 
 export function useUrlSync(inputs: PensionInputs, baseline: PensionInputs = DEFAULT_INPUTS) {
