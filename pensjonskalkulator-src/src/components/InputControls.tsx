@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { aktivtSpraak } from '../lib/i18n'
 import { formatKr, formatNumber } from '../lib/format'
 
 interface NumberFieldProps {
@@ -158,9 +159,9 @@ export function ToggleField({ id, label, description, value, onChange }: ToggleF
 
 // Convenience: formatters bundled here so InputPanel doesn't repeat them
 export const sliderFormatters = {
-  age: (v: number) => `${v} år`,
+  age: (v: number) => (aktivtSpraak() === 'en' ? `${v} years` : `${v} år`),
   percent: (v: number) => `${formatNumber(v, 1)} %`,
   kr: (v: number) => formatKr(v),
-  years: (v: number) => `${formatNumber(v, 0)} år`,
+  years: (v: number) => `${formatNumber(v, 0)} ${aktivtSpraak() === 'en' ? 'years' : 'år'}`,
   delingstall: (v: number) => formatNumber(v, 1),
 }

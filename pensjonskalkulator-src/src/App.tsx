@@ -8,8 +8,24 @@ import { PensionChart } from './components/PensionChart'
 import { GapAnalysis } from './components/GapAnalysis'
 import { DisplayToggle } from './components/DisplayToggle'
 import { Footer } from './components/Footer'
+import { brukSpraak, finnSpraak, SpraakTilbyder, STR, type Lang } from './lib/i18n'
 
 function App() {
+  const [lang, setLang] = useState<Lang>(() => {
+    const l = finnSpraak()
+    brukSpraak(l, false)
+    return l
+  })
+  const t = STR[lang]
+  const velgSpraak = (l: Lang) => {
+    brukSpraak(l, true)
+    // Lenken skal vise språket, så den kan deles som den er.
+    const url = new URL(window.location.href)
+    if (l === 'en') url.searchParams.set('lang', 'en')
+    else url.searchParams.delete('lang')
+    window.history.replaceState({}, '', url.pathname + url.search)
+    setLang(l)
+  }
   // URL-parametre = eksplisitt brukerintensjon (delt lenke); fanges én gang.
   const urlInputs = useRef<Partial<PensionInputs>>(readInputsFromUrl())
   const [inputs, setInputs] = useState<PensionInputs>(() => ({
@@ -66,20 +82,37 @@ function App() {
     displayMode === 'real' ? result.monthlyAtRetirementReal : result.monthlyAtRetirementNominal
 
   return (
+    <SpraakTilbyder lang={lang}>
     <div className="min-h-screen bg-bg text-ink grain">
       <main className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-10">
         {/* Header */}
         <header className="mb-10 sm:mb-14">
-          <p className="text-sm text-muted mb-3">
-            Pensjonskalkulator
-          </p>
+          <div className="flex items-baseline justify-between gap-4 mb-3">
+            <p className="text-sm text-muted">{t.overtittel}</p>
+            <div role="group" aria-label={t.sprakvalg} className="text-sm">
+              {(['no', 'en'] as const).map((l, i) => (
+                <span key={l}>
+                  {i > 0 && <span aria-hidden className="text-muted px-1.5">·</span>}
+                  <button
+                    type="button"
+                    lang={l === 'en' ? 'en' : 'nb'}
+                    aria-pressed={lang === l}
+                    onClick={() => velgSpraak(l)}
+                    className={`underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded ${
+                      lang === l ? 'font-semibold text-ink' : 'text-muted underline hover:text-ink'
+                    }`}
+                  >
+                    {l === 'en' ? 'English' : 'Norsk'}
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.05] text-ink max-w-3xl">
-            Hva blir pensjonen din?
+            {t.tittel}
           </h1>
           <p className="text-base sm:text-lg text-ink/75 mt-5 max-w-2xl leading-relaxed">
-            Norsk pensjon er stykket opp i fire bokser: folketrygd, tjenestepensjon, IPS og
-            egen sparing. Kalkulatoren legger dem sammen og viser et grovt estimat – nok til
-            å se hvor du står, ikke nok til å erstatte en pensjonsrådgiver.
+            {t.ingress}
           </p>
         </header>
 
@@ -104,7 +137,7 @@ function App() {
             id="inputs-heading"
             className="font-display text-2xl sm:text-3xl text-ink mb-5 sm:mb-6"
           >
-            Inntekt og sparing
+            {t.innTittel}
           </h2>
           <InputPanel inputs={inputs} update={update} macro={macro} />
         </section>
@@ -115,7 +148,7 @@ function App() {
             id="chart-heading"
             className="font-display text-2xl sm:text-3xl text-ink mb-5 sm:mb-6"
           >
-            Kapital over tid
+            {t.grafSeksjon}
           </h2>
           <PensionChart result={result} displayMode={displayMode} />
         </section>
@@ -126,7 +159,7 @@ function App() {
             id="gap-heading"
             className="font-display text-2xl sm:text-3xl text-ink mb-5 sm:mb-6"
           >
-            Hvor mye mangler det?
+            {t.gapSeksjon}
           </h2>
           <GapAnalysis result={result} />
         </section>
@@ -134,6 +167,7 @@ function App() {
         <Footer />
       </main>
     </div>
+    </SpraakTilbyder>
   )
 }
 

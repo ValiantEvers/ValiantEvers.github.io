@@ -1,5 +1,6 @@
 import type { MonthlyBreakdown } from '../pension-engine'
-import { SOURCE_COLORS, SOURCE_LABELS, type SourceKey } from '../lib/colors'
+import { SOURCE_COLORS, type SourceKey } from '../lib/colors'
+import { useSpraak } from '../lib/i18n'
 import { formatKr } from '../lib/format'
 
 interface Props {
@@ -18,7 +19,8 @@ export function HeroNumber({
   const visible: SourceKey[] = ['folketrygd', 'otp', 'ips', 'ask']
   if (includeAfp) visible.push('afp')
 
-  const labelSuffix = displayMode === 'real' ? 'i dagens kroner' : 'i nominelle kroner'
+  const { t } = useSpraak()
+  const labelSuffix = displayMode === 'real' ? t.iDagensKroner : t.iNominelleKroner
 
   return (
     <section
@@ -26,7 +28,7 @@ export function HeroNumber({
       className="rounded-3xl bg-bg/0 px-1 py-2 sm:py-6"
     >
       <div className="text-sm text-muted mb-3">
-        Estimert månedlig pensjon
+        {t.estimertMnd}
       </div>
       <div
         id="hero-heading"
@@ -38,9 +40,9 @@ export function HeroNumber({
       <div className="text-sm text-muted mt-1">{labelSuffix}</div>
 
       <p className="text-base sm:text-lg text-ink/70 mt-3">
-        Estimert netto:{' '}
+        {t.estimertNetto}{' '}
         <span className="font-semibold text-ink tabular">{formatKr(monthly.net)}</span>
-        <span className="text-muted text-sm ml-2">(etter skatt, forenklet estimat)</span>
+        <span className="text-muted text-sm ml-2">{t.etterSkatt}</span>
       </p>
 
       <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 max-w-xl">
@@ -58,9 +60,9 @@ export function HeroNumber({
                   className="inline-block h-2.5 w-2.5 rounded-full"
                   style={{ backgroundColor: SOURCE_COLORS[src] }}
                 />
-                <span className="text-ink/75">{SOURCE_LABELS[src]}</span>
+                <span className="text-ink/75">{t.kilde[src]}</span>
                 {src === 'folketrygd' && folketrygdAtGarantipensjonFloor && (
-                  <span className="text-xs text-muted ml-1">(garantipensjon)</span>
+                  <span className="text-xs text-muted ml-1">{t.garantipensjon}</span>
                 )}
               </span>
               <span className="font-semibold tabular text-ink whitespace-nowrap">{formatKr(value)}</span>
@@ -70,8 +72,7 @@ export function HeroNumber({
       </ul>
 
       <p className="text-xs text-muted mt-4 max-w-xl leading-relaxed">
-        Brutto = før skatt. Netto er et grovt estimat basert på 2026-satser og forutsetter
-        at hele pensjonen tas ut samme år.
+        {t.bruttoForklaring}
       </p>
     </section>
   )

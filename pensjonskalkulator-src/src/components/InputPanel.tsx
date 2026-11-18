@@ -3,6 +3,7 @@ import { G_CAP_LOW, G_CAP_HIGH, IPS_ANNUAL_MAX, G_DEFAULT_AS_OF, G_SNITT_FAKTOR 
 import { NumberField, SliderField, ToggleField, sliderFormatters } from './InputControls'
 import { formatKr } from '../lib/format'
 import { fmtAsOf, type MacroData, type MacroSeries } from '../lib/macro'
+import { useSpraak } from '../lib/i18n'
 
 interface Props {
   inputs: PensionInputs
@@ -11,9 +12,10 @@ interface Props {
 }
 
 export function InputPanel({ inputs, update, macro }: Props) {
+  const { t } = useSpraak()
   // Live makro-verdi → kildehenvisning + sist oppdatert; ellers en dokumentert antagelse.
   const srcNote = (s?: MacroSeries) =>
-    s?.source ? `Kilde: ${s.source} · oppdatert ${fmtAsOf(s.asOf)}` : undefined
+    s?.source ? t.kildeOppdatert(s.source, fmtAsOf(s.asOf)) : undefined
   const ipsOver = inputs.ipsAnnualContribution > IPS_ANNUAL_MAX
   // Takene regnes av gjennomsnittlig G, samme grunnlag som motoren bruker.
   // Brukte panelet mai-verdien, ville varselet slått inn på et annet beløp
@@ -29,8 +31,8 @@ export function InputPanel({ inputs, update, macro }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         <NumberField
           id="currentAge"
-          label="Nåværende alder"
-          unit="år"
+          label={t.naavaerendeAlder}
+          unit={t.enhetAar}
           value={inputs.currentAge}
           onChange={(v) => update('currentAge', v)}
           min={18}
@@ -39,7 +41,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
         />
         <SliderField
           id="retirementAge"
-          label="Ønsket pensjonsalder"
+          label={t.onsketPensjonsalder}
           value={inputs.retirementAge}
           onChange={(v) => update('retirementAge', v)}
           min={Math.max(62, inputs.currentAge + 1)}
@@ -49,59 +51,59 @@ export function InputPanel({ inputs, update, macro }: Props) {
         />
         <NumberField
           id="salaryGross"
-          label="Bruttolønn"
-          unit="kr/år"
+          label={t.bruttolonn}
+          unit={t.enhetKrAar}
           value={inputs.salaryGross}
           onChange={(v) => update('salaryGross', v)}
           min={0}
           step={10_000}
           warning={
             salaryAbove12G
-              ? `Lønn over 12 G (${formatKr(G_CAP_HIGH * gSnitt)}) gir ikke mer pensjonsopptjening.`
+              ? t.over12G(formatKr(G_CAP_HIGH * gSnitt))
               : undefined
           }
         />
         <NumberField
           id="wageGrowth"
-          label="Forventet lønnsvekst (nominell)"
+          label={t.lonnsvekst}
           unit="%"
           value={Math.round(inputs.wageGrowthNominal * 1000) / 10}
           onChange={(v) => update('wageGrowthNominal', v / 100)}
           min={0}
           max={20}
           step={0.1}
-          help={srcNote(macro?.wageGrowth) ?? 'Antagelse: forventet årlig lønnsvekst.'}
+          help={srcNote(macro?.wageGrowth) ?? t.lonnsvekstAntagelse}
         />
         <details className="md:col-span-2 rounded-2xl border border-ink/10 p-4 group">
           <summary className="cursor-pointer text-sm font-semibold text-ink/80 select-none">
-            Har du allerede pensjonssparing?{' '}
-            <span className="text-muted font-normal">(valgfritt)</span>
+            {t.harDuSparing}{' '}
+            <span className="text-muted font-normal">{t.valgfritt}</span>
           </summary>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
             <NumberField
               id="existingFolketrygdBalance"
-              label="Folketrygd-beholdning hos NAV"
-              unit="kr"
+              label={t.folketrygdBeholdning}
+              unit={t.enhetKr}
               value={inputs.existingFolketrygdBalance}
               onChange={(v) => update('existingFolketrygdBalance', v)}
               min={0}
               step={10_000}
-              help="Logg inn på nav.no for å se beholdningen din."
+              help={t.folketrygdBeholdningHjelp}
             />
             <NumberField
               id="existingOtpBalance"
-              label="Tjenestepensjon-saldo"
-              unit="kr"
+              label={t.otpSaldo}
+              unit={t.enhetKr}
               value={inputs.existingOtpBalance}
               onChange={(v) => update('existingOtpBalance', v)}
               min={0}
               step={10_000}
-              help="Summer alle innskuddspensjon-saldoer fra tidligere og nåværende arbeidsgivere."
+              help={t.otpSaldoHjelp}
             />
             <NumberField
               id="existingIpsBalance"
-              label="IPS-saldo"
-              unit="kr"
+              label={t.ipsSaldo}
+              unit={t.enhetKr}
               value={inputs.existingIpsBalance}
               onChange={(v) => update('existingIpsBalance', v)}
               min={0}
@@ -109,8 +111,8 @@ export function InputPanel({ inputs, update, macro }: Props) {
             />
             <NumberField
               id="existingAskBalance"
-              label="ASK / fondskonto-saldo"
-              unit="kr"
+              label={t.askSaldo}
+              unit={t.enhetKr}
               value={inputs.existingAskBalance}
               onChange={(v) => update('existingAskBalance', v)}
               min={0}
@@ -120,34 +122,34 @@ export function InputPanel({ inputs, update, macro }: Props) {
         </details>
         <SliderField
           id="otpRateLow"
-          label="Tjenestepensjon (opp til 7,1 G)"
+          label={t.otpLav}
           value={Math.round(inputs.otpRateLow * 1000) / 10}
           onChange={(v) => update('otpRateLow', v / 100)}
           min={2}
           max={7}
           step={0.1}
           formatValue={sliderFormatters.percent}
-          help={`Minst 2 % er lovpålagt. Lønn opp til 7,1 G = ${formatKr(cap71G)}.`}
+          help={t.otpLavHjelp(formatKr(cap71G))}
         />
         <NumberField
           id="ipsAnnual"
-          label="IPS-bidrag per år"
-          unit="kr"
+          label={t.ipsPerAar}
+          unit={t.enhetKr}
           value={inputs.ipsAnnualContribution}
           onChange={(v) => update('ipsAnnualContribution', v)}
           min={0}
           step={500}
-          help={`Maks ${formatKr(IPS_ANNUAL_MAX)} per år.`}
+          help={t.ipsMaks(formatKr(IPS_ANNUAL_MAX))}
           warning={
             ipsOver
-              ? `Vi bruker ${formatKr(IPS_ANNUAL_MAX)} i beregningen, som er lovlig maks. Sett verdien ned, eller la den stå (beregningen kapper uansett).`
+              ? t.ipsOver(formatKr(IPS_ANNUAL_MAX))
               : undefined
           }
         />
         <NumberField
           id="askMonthly"
-          label="Annen sparing (ASK/fond)"
-          unit="kr/mnd"
+          label={t.annenSparing}
+          unit={t.enhetKrMnd}
           value={inputs.askMonthlyContribution}
           onChange={(v) => update('askMonthlyContribution', v)}
           min={0}
@@ -158,8 +160,8 @@ export function InputPanel({ inputs, update, macro }: Props) {
       <div className="mt-6">
         <ToggleField
           id="includeAfp"
-          label="Inkluder privat AFP"
-          description="Forenklet estimat (0,8 × G livsvarig, ≈ 8 700 kr/mnd). For en typisk lønnsmottaker med rundt 35 års opptjeningsår treffer dette omtrent riktig. For deltidsarbeidere eller kortere yrkeskarrierer er det en overestimat. AFP gjelder kun privat sektor og krever oppfylte kvalifiseringskriterier (jobbet 7 av siste 9 år i AFP-bedrift)."
+          label={t.afp}
+          description={t.afpBeskrivelse}
           value={inputs.includeAfp}
           onChange={(v) => update('includeAfp', v)}
         />
@@ -174,79 +176,79 @@ export function InputPanel({ inputs, update, macro }: Props) {
           >
             ›
           </span>
-          Avanserte innstillinger
+          {t.avansert}
         </summary>
 
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           <NumberField
             id="G"
-            label="G-verdi (grunnbeløp)"
-            unit="kr"
+            label={t.gVerdi}
+            unit={t.enhetKr}
             value={inputs.G}
             onChange={(v) => update('G', v)}
             min={1}
             step={100}
-            help={`Standard: ${formatKr(inputs.G)} per ${G_DEFAULT_AS_OF}. Sjekk nav.no/grunnbelopet for siste verdi.`}
+            help={t.gHjelp(formatKr(inputs.G), G_DEFAULT_AS_OF)}
           />
           <NumberField
             id="inflation"
-            label="Inflasjon (nominell)"
+            label={t.inflasjon}
             unit="%"
             value={Math.round(inputs.inflationNominal * 1000) / 10}
             onChange={(v) => update('inflationNominal', v / 100)}
             min={0}
             max={15}
             step={0.1}
-            help={srcNote(macro?.inflation) ?? 'Antagelse: forventet prisvekst.'}
+            help={srcNote(macro?.inflation) ?? t.inflasjonAntagelse}
           />
           <NumberField
             id="realReturn"
-            label="Forventet realavkastning"
+            label={t.realavkastning}
             unit="%"
             value={Math.round(inputs.realReturn * 1000) / 10}
             onChange={(v) => update('realReturn', v / 100)}
             min={-5}
             max={15}
             step={0.1}
-            help="Antagelse: langsiktig forventet realavkastning (etter inflasjon). Nominell regnes ut automatisk."
+            help={t.realavkastningHjelp}
           />
           <NumberField
             id="payoutRealReturn"
-            label="Realavkastning i utbetalingsfasen"
+            label={t.utbetalingsavkastning}
             unit="%"
             value={Math.round(inputs.payoutRealReturn * 1000) / 10}
             onChange={(v) => update('payoutRealReturn', v / 100)}
             min={-5}
             max={15}
             step={0.1}
-            help="Antagelse: lavere enn opptjeningsavkastning fordi pensjonister typisk de-risker porteføljen. Folketrygd bruker NAVs delingstall og påvirkes ikke av dette."
+            help={t.utbetalingsavkastningHjelp}
           />
           <NumberField
             id="delingstall"
-            label="Delingstall ved pensjonsalder"
+            label={t.delingstall}
             unit=""
             value={inputs.delingstall}
             onChange={(v) => update('delingstall', v)}
             min={10}
             max={30}
             step={0.1}
-            help="Typisk 16–20, høyere for yngre årskull. NAV publiserer forventede tall per kohort."
+            help={t.delingstallHjelp}
           />
           <NumberField
             id="otpPayoutYears"
-            label="Tjenestepensjon utbetalingstid"
-            unit="år"
+            label={t.otpUtbetaling}
+            unit={t.enhetAar}
             value={inputs.otpPayoutYears}
             onChange={(v) => update('otpPayoutYears', v)}
             min={10}
             max={30}
             step={1}
-            help="Innskuddspensjon utbetales lovpålagt over minimum 10 år eller til 77 år."
+            help={t.otpUtbetalingHjelp}
           />
           <NumberField
             id="ipsPayoutYears"
-            label="IPS utbetalingstid"
-            unit="år"
+            label={t.ipsUtbetaling}
+            unit={t.enhetAar}
             value={inputs.ipsPayoutYears}
             onChange={(v) => update('ipsPayoutYears', v)}
             min={10}
@@ -255,8 +257,8 @@ export function InputPanel({ inputs, update, macro }: Props) {
           />
           <NumberField
             id="askPayoutYears"
-            label="ASK utbetalingstid"
-            unit="år"
+            label={t.askUtbetaling}
+            unit={t.enhetAar}
             value={inputs.askPayoutYears}
             onChange={(v) => update('askPayoutYears', v)}
             min={5}
@@ -265,7 +267,7 @@ export function InputPanel({ inputs, update, macro }: Props) {
           />
           <SliderField
             id="otpRateHigh"
-            label="Tjenestepensjon (7,1G – 12G)"
+            label={t.otpHoy}
             value={Math.round(inputs.otpRateHigh * 1000) / 10}
             onChange={(v) => update('otpRateHigh', v / 100)}
             min={0}
@@ -274,15 +276,13 @@ export function InputPanel({ inputs, update, macro }: Props) {
             formatValue={sliderFormatters.percent}
             help={
               salaryAbove71G
-                ? `Maks lovlig sats er 18,1 %. Lønn over 7,1 G ≈ ${formatKr(
-                    Math.max(0, inputs.salaryGross - cap71G),
-                  )} faller i båndet.`
-                : `Maks lovlig sats er 18,1 %. Gjelder kun hvis lønnen er over 7,1 G ≈ ${formatKr(cap71G)}.`
+                ? t.otpHoyOver(formatKr(Math.max(0, inputs.salaryGross - cap71G)))
+                : t.otpHoyUnder(formatKr(cap71G))
             }
           />
           <SliderField
             id="targetReplacementRatio"
-            label="Måldekningsgrad (av sluttlønn)"
+            label={t.maaldekning}
             value={Math.round(inputs.targetReplacementRatio * 100)}
             onChange={(v) => update('targetReplacementRatio', v / 100)}
             min={50}

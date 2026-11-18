@@ -9,7 +9,8 @@ import {
   YAxis,
 } from 'recharts'
 import type { PensionResult } from '../pension-engine'
-import { SOURCE_COLORS, SOURCE_LABELS } from '../lib/colors'
+import { SOURCE_COLORS } from '../lib/colors'
+import { useSpraak } from '../lib/i18n'
 
 type StackKey = 'folketrygd' | 'otp' | 'ips' | 'ask'
 import { formatKr, formatKrCompact } from '../lib/format'
@@ -53,30 +54,29 @@ export function PensionChart({ result, displayMode }: Props) {
   }, [result, displayMode])
 
   const retirementAge = result.inputs.retirementAge
+  const { t } = useSpraak()
 
   return (
     <div className="rounded-3xl bg-bg border border-ink/10 p-5 sm:p-7">
       <div className="flex items-baseline justify-between flex-wrap gap-2 mb-1">
         <h3 className="font-display text-xl sm:text-2xl text-ink">
-          Akkumulert kapital over tid
+          {t.grafTittel}
         </h3>
         <span className="text-sm text-muted">
-          {displayMode === 'real' ? 'Dagens kroner' : 'Nominelle kroner'}
+          {displayMode === 'real' ? t.dagensKroner : t.nominelleKroner}
         </span>
       </div>
       <p className="text-sm text-muted">
-        Stablet balanse for hver pensjonskilde. Toppen er ved pensjonsalder, deretter
-        reduseres balansen etter hvert som pengene utbetales.
+        {t.grafIngress}
       </p>
       <p className="text-xs text-muted mb-5 mt-1">
-        Folketrygd og AFP utbetales livsvarig. Kapitalen i grafen er kun en regnemodell og
-        kan gå mot null selv om utbetalingen fortsetter.
+        {t.grafLivsvarig}
       </p>
 
       <div
         className="h-72 sm:h-[340px] w-full"
         role="img"
-        aria-label={`Stablet arealgraf som viser nominell kapital i folketrygd, tjenestepensjon, IPS og ASK fra alder ${data[0]?.age ?? '?'} til ${data[data.length - 1]?.age ?? '?'}. Toppen er ved pensjonsalder ${retirementAge}. Verdier vises i ${displayMode === 'real' ? 'dagens' : 'nominelle'} kroner.`}
+        aria-label={t.grafAria(data[0]?.age ?? '?', data[data.length - 1]?.age ?? '?', retirementAge, displayMode === 'real')}
       >
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
@@ -87,7 +87,7 @@ export function PensionChart({ result, displayMode }: Props) {
               tickLine={false}
               axisLine={{ stroke: '#1A1A1A', strokeOpacity: 0.2 }}
               label={{
-                value: 'Alder',
+                value: t.alder,
                 position: 'insideBottom',
                 offset: -2,
                 style: { fill: '#7A7268', fontSize: 11 },
@@ -114,7 +114,7 @@ export function PensionChart({ result, displayMode }: Props) {
                 strokeWidth={1}
                 isAnimationActive={!reducedMotion}
                 animationDuration={500}
-                name={SOURCE_LABELS[src]}
+                name={t.kilde[src]}
               />
             ))}
           </AreaChart>
@@ -129,7 +129,7 @@ export function PensionChart({ result, displayMode }: Props) {
               className="inline-block h-2.5 w-2.5 rounded-sm"
               style={{ backgroundColor: SOURCE_COLORS[src] }}
             />
-            {SOURCE_LABELS[src]}
+            {t.kilde[src]}
           </span>
         ))}
       </div>
@@ -167,11 +167,12 @@ function ChartTooltip({
   payload?: TooltipPayload[]
   label?: number
 }) {
+  const { t } = useSpraak()
   if (!active || !payload || payload.length === 0) return null
   const row = payload[0].payload
   return (
     <div className="bg-bg rounded-xl border border-ink/10 px-4 py-3 text-sm">
-      <div className="font-display font-semibold text-ink mb-1.5">{label} år</div>
+      <div className="font-display font-semibold text-ink mb-1.5">{label !== undefined ? t.aar(label) : null}</div>
       <ul className="space-y-0.5">
         {STACK_ORDER.map((src) => (
           <li key={src} className="flex items-center justify-between gap-4 text-xs">
@@ -181,13 +182,13 @@ function ChartTooltip({
                 className="inline-block h-2 w-2 rounded-sm"
                 style={{ backgroundColor: SOURCE_COLORS[src] }}
               />
-              {SOURCE_LABELS[src]}
+              {t.kilde[src]}
             </span>
             <span className="font-semibold tabular text-ink">{formatKr(row[src])}</span>
           </li>
         ))}
         <li className="flex items-center justify-between gap-4 text-xs pt-1.5 mt-1 border-t border-ink/10">
-          <span className="text-ink/75 font-semibold">Sum</span>
+          <span className="text-ink/75 font-semibold">{t.sum}</span>
           <span className="font-display font-semibold tabular text-ink">
             {formatKr(row.total)}
           </span>

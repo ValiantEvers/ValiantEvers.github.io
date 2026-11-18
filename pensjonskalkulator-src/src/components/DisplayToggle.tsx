@@ -1,13 +1,16 @@
+import { useSpraak } from '../lib/i18n'
+
 interface Props {
   value: 'real' | 'nominal'
   onChange: (v: 'real' | 'nominal') => void
 }
 
 export function DisplayToggle({ value, onChange }: Props) {
+  const { t } = useSpraak()
   return (
     <div
       role="radiogroup"
-      aria-label="Visningsmodus for kroner"
+      aria-label={t.visningsmodus}
       className="inline-flex bg-bg border border-ink/15 rounded-full p-1 text-sm"
     >
       <button
@@ -19,7 +22,7 @@ export function DisplayToggle({ value, onChange }: Props) {
           value === 'real' ? 'bg-ink text-bg' : 'text-ink/70 hover:text-ink'
         }`}
       >
-        Dagens kroner
+        {t.dagensKroner}
       </button>
       <button
         type="button"
@@ -30,7 +33,7 @@ export function DisplayToggle({ value, onChange }: Props) {
           value === 'nominal' ? 'bg-ink text-bg' : 'text-ink/70 hover:text-ink'
         }`}
       >
-        Nominelle kroner
+        {t.nominelleKroner}
       </button>
     </div>
   )

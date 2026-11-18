@@ -33,6 +33,14 @@ Workflow's auto-commit har `[skip ci]` så den ikke trigger seg selv. Krever
 Workflow trigger IKKE på sin egen opprettelses-commit (GitHub-quirk) — første
 gangs deploy ble committet manuelt i workflow-commiten.
 
+## Språk (fra 2026-11-18)
+- All synlig tekst ligger i `src/lib/i18n.tsx`, norsk (`no`) og engelsk (`en`). **Ny eller endret
+  tekst skal inn i begge**; TypeScript feller en nøkkel som mangler i `en`. Velges med `?lang=en`
+  eller `ve-lang` i localStorage (samme nøkkel som evers.no; alt annet enn `en` gir norsk, også
+  de fryste fr/de/ja).
+- `useUrlState` beholder `lang` når lenken skrives på nytt. Fjern ikke det.
+- Speilet (`ValiantEvers/pensjonskalkulator`) har samme seksjon; hold dem like.
+
 ## Modell — ikke-åpenbare valg
 - **Real/nominell-konvensjon**: All compounding internt skjer i nominelle
   kroner. Deflatering til realkroner kun for visning og for skatteberegning.

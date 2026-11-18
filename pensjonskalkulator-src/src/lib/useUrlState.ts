@@ -83,6 +83,9 @@ export function readInputsFromUrl(): Partial<PensionInputs> {
 export function writeInputsToUrl(inputs: PensionInputs, baseline: PensionInputs = DEFAULT_INPUTS) {
   if (typeof window === 'undefined') return
   const params = new URLSearchParams()
+  // Språkvalget (?lang=en) er ikke en inndata, men skal overleve at lenken skrives på nytt.
+  const lang = new URLSearchParams(window.location.search).get('lang')
+  if (lang === 'en' || lang === 'no') params.set('lang', lang)
   for (const key of Object.keys(URL_KEY_MAP) as Array<keyof PensionInputs>) {
     const short = URL_KEY_MAP[key]
     const v = inputs[key]
